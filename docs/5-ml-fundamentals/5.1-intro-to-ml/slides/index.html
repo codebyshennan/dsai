@@ -9,99 +9,63 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <style>
         body {
-            background: #ffffff;
-            font-size: 12px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         .reveal {
-            --primary-blue: #1877F2;
-            --dark-blue: #0e305a;
-            --light-blue: #e7f0fd;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-size: 1.5em;
         }
 
         .reveal h1,
         .reveal h2,
         .reveal h3 {
-            color: var(--dark-blue);
             text-transform: none;
+            margin-bottom: 0.5em;
             text-align: center;
-            margin-top: 0.5em;
-            font-weight: 600;
         }
 
         .reveal h1 {
-            font-size: 1.8em;
+            font-size: 2em;
         }
 
         .reveal h2 {
-            font-size: 1.4em;
+            font-size: 1.6em;
         }
 
         .reveal h3 {
-            font-size: 1.2em;
+            font-size: 1.3em;
         }
 
-        .reveal .slides {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-            height: 100vh;
+        .reveal p {
+            margin-bottom: 1em;
+            line-height: 1.4;
+            text-align: center;
         }
 
         .reveal ul {
-            margin-left: 1em;
+            margin: 0 auto;
             text-align: left;
-            display: inline-block;
+            max-width: 80%;
         }
 
         .reveal li {
-            margin-bottom: 0.8em;
-            text-align: left;
-            line-height: 1.5;
+            margin-bottom: 0.5em;
         }
 
-        .reveal .highlight {
-            color: var(--primary-blue);
-            font-weight: 600;
+        .reveal code {
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
         }
 
-        .reveal .box {
-            background: var(--light-blue);
-            padding: 0.6em 1em;
+        .reveal pre {
+            padding: 1em;
             border-radius: 8px;
-            margin: 0.8em auto;
-            border-left: 4px solid var(--primary-blue);
-            max-width: 800px;
-            width: 100%;
-            box-sizing: border-box;
-            display: block;
-            font-size: 0.9em;
-            line-height: 1.4;
-        }
-
-        .reveal .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            width: 100%;
-            max-width: 1000px;
+            max-width: 80%;
             margin: 0 auto;
         }
 
-        .reveal .three-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
+        .reveal .slides {
+            text-align: center;
         }
 
         .reveal .center {
@@ -112,99 +76,58 @@
             text-align: right;
         }
 
-        .slide-header {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 1;
-            opacity: 0.1;
-            pointer-events: none;
+        .reveal .box {
+            padding: 1em;
+            border-radius: 8px;
+            margin: 1em auto;
+            max-width: 80%;
         }
 
-        .slide-header img {
-            height: 100vh;
-            width: auto;
-            object-fit: cover;
+        .reveal .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2em;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        .reveal .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2em;
+            max-width: 80%;
+            margin: 0 auto;
         }
 
         .slide-footer {
-            position: absolute;
-            bottom: 0.8em;
-            left: 1.5em;
-            color: var(--dark-blue);
-            font-size: 0.75em;
-            opacity: 0.85;
-            font-weight: 500;
-        }
-
-        .slide-number {
-            position: absolute;
-            bottom: 0.8em;
-            right: 1.5em;
-            color: var(--primary-blue);
-            font-size: 0.75em;
-            opacity: 0.85;
-            font-weight: 500;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.8em;
+            color: #666;
+            z-index: 1000;
+            background: white;
+            padding: 0.5em 1em;
+            border-top: 1px solid #eee;
+            text-align: left;
         }
 
         section {
+            padding: 2em;
+            padding-bottom: 4em;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-            height: 100vh;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 6em 2.5em;
-            text-align: center;
+            min-height: 100vh;
             box-sizing: border-box;
         }
 
-        .reveal section>* {
-            max-width: 900px;
+        .list-container {
             width: 100%;
-            margin: 0.8em auto;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .reveal p {
-            line-height: 1.6;
-            margin-bottom: 1em;
-        }
-
-        .reveal img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .reveal code {
-            background: var(--light-blue);
-            padding: 0.2em 0.4em;
-            border-radius: 4px;
-            font-size: 0.8em;
-        }
-
-        .reveal pre {
-            background: var(--light-blue);
-            padding: 0.6em;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            font-size: 0.8em;
-        }
-
-        .reveal .list-container {
-            display: inline-block;
-            text-align: left;
+            max-width: 80%;
             margin: 0 auto;
-        }
-
-        .reveal ul {
-            margin-left: 1em;
-            text-align: left;
         }
     </style>
 </head>
@@ -214,55 +137,55 @@
         <div class="slides">
             
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h1>Introduction to Machine Learning</h1>
-                    <h3></h3>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="content-wrapper">
+                        <h1>Introduction to Machine Learning</h1>
+                        
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Bias Variance</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Bias Variance</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>**High Bias (Underfitting)**</li>
-<li>**Low Bias**</li>
-<li>**High Variance (Overfitting)**</li>
-<li>**Low Variance**</li>
+                            <li><strong>High Bias (Underfitting)</strong></li>
+<li><strong>Low Bias</strong></li>
+<li><strong>High Variance (Overfitting)</strong></li>
+<li><strong>Low Variance</strong></li>
 <li>If you only show them one type of cat (high bias), they might miss other cat breeds</li>
 <li>If you show them every possible variation (high variance), they might start calling dogs cats too!</li>
-<li>**Training Score**: How well the model performs on the data it's seen (like a student's performance on practice tests)</li>
-<li>**Cross-validation Score**: How well the model performs on new data (like a student's performance on the actual exam)</li>
+<li><strong>Training Score</strong>: How well the model performs on the data it's seen (like a student's performance on practice tests)</li>
+<li><strong>Cross-validation Score</strong>: How well the model performs on new data (like a student's performance on the actual exam)</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Feature Engineering New</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Feature Engineering New</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>**Continuous Values**: Like temperature or weight - they can take any value within a range</li>
-<li>**Discrete Values**: Like counting items - they can only take specific values</li>
-<li>**Nominal Categories**: Groups with no particular order</li>
-<li>**Ordinal Categories**: Groups with a meaningful order</li>
-<li>**Timestamps**: Specific points in time</li>
-<li>**Time Series Data**: Measurements taken over time</li>
-<li>**Documents**: Full text content</li>
-<li>**Social Media Posts**: Short-form text</li>
+                            <li><strong>Continuous Values</strong>: Like temperature or weight - they can take any value within a range</li>
+<li><strong>Discrete Values</strong>: Like counting items - they can only take specific values</li>
+<li><strong>Nominal Categories</strong>: Groups with no particular order</li>
+<li><strong>Ordinal Categories</strong>: Groups with a meaningful order</li>
+<li><strong>Timestamps</strong>: Specific points in time</li>
+<li><strong>Time Series Data</strong>: Measurements taken over time</li>
+<li><strong>Documents</strong>: Full text content</li>
+<li><strong>Social Media Posts</strong>: Short-form text</li>
 <li>$x$ is your original value (like a temperature in Celsius)</li>
 <li>$\mu$ is the average of all values (mean)</li>
 <li>$\sigma$ is how spread out the values are (standard deviation)</li>
@@ -272,28 +195,28 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Feature Engineering</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Feature Engineering</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>**Continuous Values**: Like temperature or weight - they can take any value within a range</li>
-<li>**Discrete Values**: Like counting items - they can only take specific values</li>
-<li>**Nominal Categories**: Groups with no particular order</li>
-<li>**Ordinal Categories**: Groups with a meaningful order</li>
-<li>**Timestamps**: Specific points in time</li>
-<li>**Time Series Data**: Measurements taken over time</li>
-<li>**Documents**: Full text content</li>
-<li>**Social Media Posts**: Short-form text</li>
+                            <li><strong>Continuous Values</strong>: Like temperature or weight - they can take any value within a range</li>
+<li><strong>Discrete Values</strong>: Like counting items - they can only take specific values</li>
+<li><strong>Nominal Categories</strong>: Groups with no particular order</li>
+<li><strong>Ordinal Categories</strong>: Groups with a meaningful order</li>
+<li><strong>Timestamps</strong>: Specific points in time</li>
+<li><strong>Time Series Data</strong>: Measurements taken over time</li>
+<li><strong>Documents</strong>: Full text content</li>
+<li><strong>Social Media Posts</strong>: Short-form text</li>
 <li>$x$ is your original value (like a temperature in Celsius)</li>
 <li>$\mu$ is the average of all values (mean)</li>
 <li>$\sigma$ is how spread out the values are (standard deviation)</li>
@@ -303,18 +226,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Ml Workflow</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Ml Workflow</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>What problem are we trying to solve?</li>
@@ -336,22 +259,22 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>What Is Ml</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>What Is Ml</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>**Traditional Programming**: We write specific rules (program) to convert input into output</li>
-<li>**Machine Learning**: We provide examples of inputs and outputs, and the computer learns the rules</li>
+                            <li><strong>Traditional Programming</strong>: We write specific rules (program) to convert input into output</li>
+<li><strong>Machine Learning</strong>: We provide examples of inputs and outputs, and the computer learns the rules</li>
 <li>Predicting house prices based on features (size, location, etc.)</li>
 <li>Classifying emails as spam or not spam</li>
 <li>Identifying objects in images</li>
@@ -361,17 +284,17 @@
 <li>Game playing AI</li>
 <li>Robot navigation</li>
 <li>Resource management</li>
-<li>**Underfitting (High Bias)**: Model is too simple and misses important patterns</li>
-<li>**Good Fit**: Model captures the underlying patterns well</li>
-<li>**Overfitting (High Variance)**: Model is too complex and captures noise in the data</li>
-<li>**Training Score**: How well the model performs on training data</li>
-<li>**Cross-validation Score**: How well the model performs on new, unseen data</li>
+<li><strong>Underfitting (High Bias)</strong>: Model is too simple and misses important patterns</li>
+<li><strong>Good Fit</strong>: Model captures the underlying patterns well</li>
+<li><strong>Overfitting (High Variance)</strong>: Model is too complex and captures noise in the data</li>
+<li><strong>Training Score</strong>: How well the model performs on training data</li>
+<li><strong>Cross-validation Score</strong>: How well the model performs on new, unseen data</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
         </div>
@@ -383,18 +306,9 @@
             hash: true,
             center: false,
             transition: 'slide',
+            slideNumber: true,
             plugins: []
         });
-        Reveal.on('slidechanged', function (event) {
-            document.querySelectorAll('.slide-number').forEach((el, idx) => {
-                el.textContent = `Slide ${idx + 1} / ${document.querySelectorAll('.slides section').length}`;
-            });
-        });
-        setTimeout(() => {
-            document.querySelectorAll('.slide-number').forEach((el, idx) => {
-                el.textContent = `Slide ${idx + 1} / ${document.querySelectorAll('.slides section').length}`;
-            });
-        }, 500);
     </script>
 </body>
 
