@@ -1,5 +1,13 @@
 # Module 1: Data Fundamentals - Answer Key
 
+## Overview
+
+**Audience:** Instructors and TAs. Pair this file with the student-facing [Module 1 assignment](./module-assignment.md).
+
+**Primary use:** Verify correct options, reuse explanations in feedback, and spot questions that need revision.
+
+> **Contributors:** Style and structure follow `docs/meta/DOCUMENTATION_GUIDELINES.md` (`meta/` is excluded from the Jekyll build).
+
 ## Part 1: Introduction to Data Analytics (20 points)
 
 1. What is the primary purpose of data collection?

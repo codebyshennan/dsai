@@ -1,6 +1,17 @@
 # Module 1: Data Fundamentals Assignment
 
-This comprehensive assignment tests your understanding of data analytics, Python programming, statistics, NumPy operations, and Pandas data analysis. Answer all multiple-choice questions.
+## Overview
+
+**Primary outcome:** You check that you can recall core ideas from Module 1—analytics, Python, statistics, NumPy, and pandas—before you move on to data wrangling.
+
+This assignment is multiple choice (100 points total). Use your notes and the module lessons; it is normal to look up syntax you do not memorize yet.
+
+## Prerequisites
+
+- You have worked through (or are finishing) the lessons in [Module 1: Data fundamentals](../README.md).
+- You can read Python and pandas snippets at a basic level.
+
+> **Time needed:** About 60–90 minutes for a careful first pass; less if you are reviewing.
 
 ## Part 1: Introduction to Data Analytics (20 points)
 
@@ -623,3 +634,13 @@ Each part is worth 20 points:
 1. Submit your answers in a clear format, indicating the question number and your chosen answer (a, b, c, or d).
 2. Double-check your answers before submission.
 3. Make sure to answer all questions - unanswered questions will be marked as incorrect.
+
+## Common pitfalls
+
+- **Rushing on wording** — Read each stem carefully; two options often sound similar.
+- **Partial study** — Questions span all five areas; skim every submodule once before the quiz.
+- **Leaving blanks** — There is no penalty for guessing on most setups; mark something if unsure.
+
+## Next steps
+
+After you submit, review any misses with the [answer key](./module-assignment-key.md) (instructor-controlled), then continue to [SQL fundamentals](../../2-data-wrangling/2.1-sql/README.md) in Module 2, or return to the [course index](../../README.md).
