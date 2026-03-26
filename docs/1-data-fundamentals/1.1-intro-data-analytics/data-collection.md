@@ -2,7 +2,18 @@
 
 ## Overview
 
+**Primary outcome:** You can name common data sources and collection methods, and you understand how those choices affect later analysis.
+
 Data collection is the process of gathering and assembling data from various sources. It is a crucial step in the data analytics process, as it provides the raw material for analysis.
+
+## Why this matters
+
+Poor collection (biased samples, wrong timestamps, missing consent) limits every downstream step. Thinking about collection early saves rework in cleaning and modeling.
+
+## Prerequisites
+
+- [Introduction to Data Analytics](./README.md) (or equivalent context on the analytics lifecycle)
+- No code required for this page; later examples use Python only as illustration
 
 ## Types of Data Sources
 
@@ -83,8 +94,8 @@ Data collection is the process of gathering and assembling data from various sou
 
 ### 3. Observational Data Collection
 
-{% stepper %}
-{% step %}
+---
+
 ### In-Store Observation
 **Example: Retail Store Layout Study**
 What to Track:
@@ -126,9 +137,9 @@ class StoreAnalytics:
 - IoT sensor networks
 - RFID tracking
 - WiFi positioning
-{% endstep %}
 
-{% step %}
+---
+
 ### User Experience Testing
 **Example: Website Usability Study**
 Observations:
@@ -181,13 +192,11 @@ class UserSession {
 - Eye tracking hardware
 - Emotion recognition AI
 - Session replay tools
-{% endstep %}
-{% endstepper %}
 
 ## Common Data Collection Challenges and Solutions
 
-{% stepper %}
-{% step %}
+---
+
 ### 1. Data Quality Issues
 **Challenge:** Incomplete or incorrect data
 **Solution:** 
@@ -220,9 +229,9 @@ class DataValidator:
         return [record for record in dataset 
                 if self.validate_record(record)[0]]
 ```
-{% endstep %}
 
-{% step %}
+---
+
 ### 2. Privacy Concerns
 **Challenge:** Collecting sensitive information
 **Solution:**
@@ -258,9 +267,9 @@ class DataAnonymizer:
             if start <= age <= end:
                 return f"{start}-{end if end != float('inf') else '+'}"
 ```
-{% endstep %}
 
-{% step %}
+---
+
 ### 3. Sample Size and Representation
 **Challenge:** Getting enough responses and ensuring representation
 **Solution:**
@@ -298,9 +307,9 @@ def calculate_sample_size(population_size, confidence_level, margin_error):
     
     return math.ceil(sample_size)
 ```
-{% endstep %}
 
-{% step %}
+---
+
 ### 4. Bias Management
 **Challenge:** Skewed data collection
 **Solution:**
@@ -338,8 +347,6 @@ class BiasDetector:
         
         return bias_metrics
 ```
-{% endstep %}
-{% endstepper %}
 
 ## Best Practices for Data Collection
 
@@ -465,28 +472,18 @@ class WebScraper:
         return data
 ```
 
-## Next Steps
+## Common pitfalls
 
-After mastering these data collection methods:
+- **Convenience sampling** — Data that is easy to reach (only active users, only one region) rarely represents the whole population.
+- **Ignoring time and seasonality** — Snapshots taken at a weird time can miss cycles and mislead trends.
+- **Unclear consent or purpose** — Collecting without a clear use case creates privacy and compliance headaches later.
 
-1. **Data Processing**
-   - Learn data cleaning techniques
-   - Master ETL processes
-   - Understand data warehousing
+## Next steps
 
-2. **Analysis Techniques**
-   - Statistical analysis
-   - Machine learning basics
-   - Visualization methods
+In this submodule, continue with:
 
-3. **Advanced Topics**
-   - Real-time data collection
-   - Distributed systems
-   - Edge computing
-   - Stream processing
+1. [Data privacy](./data-privacy.md) — legal and ethical constraints on what you collect
+2. [Data security](./data-security.md) — protecting data after collection
+3. [Workflow concepts](./workflow-concepts.md) — how collection fits into broader pipelines
 
-4. **Professional Skills**
-   - Data governance
-   - Ethics and compliance
-   - Project management
-   - Team collaboration
+Later in the course you will apply collection ideas in SQL, APIs, and engineering modules.

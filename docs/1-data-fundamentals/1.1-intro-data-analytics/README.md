@@ -1,6 +1,12 @@
 # Introduction to Data Analytics and Data Science
 
-In today’s data-driven world, understanding data analytics and data science is crucial for making informed decisions. This lesson will provide a comprehensive introduction to both fields, their methodologies, and their applications.
+## Overview
+
+**Primary outcome:** You can explain how data analytics and data science differ, describe the main stages of the analytics lifecycle, and recognize why privacy and security matter in real projects.
+
+In today’s data-driven world, understanding data analytics and data science is crucial for making informed decisions. This lesson introduces both fields, their methodologies, and typical applications. We define terms as they appear.
+
+> **Contributors:** Authoring standards: `docs/meta/DOCUMENTATION_GUIDELINES.md` (`meta/` is excluded from the Jekyll build).
 
 ## What is Data Analytics?
 
@@ -25,8 +31,7 @@ Data analytics is like being a detective with numbers. It's the process of exami
 
 > **Important:** Don't worry if you don't understand the code examples yet! These are meant to give you a preview of what to expect in the course and show you how things are done in the industry. We'll teach you everything step by step as we go.
 
-{% stepper %}
-{% step %}
+---
 
 ### 1. Business Understanding
 
@@ -70,9 +75,7 @@ retail_kpis = {
 
 We can see a very structured method of organising information; firstly, the retail stores wants to track metrics across the `sales`, `inventory` and `customer` category, and we have simple attributes that we would like to configure in this setup.
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 2. Data Collection & Preparation
 
@@ -118,9 +121,7 @@ def prepare_sales_data(df):
     return daily_sales
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 3. Analysis
 
@@ -160,9 +161,7 @@ def analyze_peak_hours(sales_data):
     return hourly_sales
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 4. Insights Generation
 
@@ -217,9 +216,7 @@ def plot_sales_drivers(df):
 
 From this, we can easily see that traffic and promotions affect sales more than the weather. We know this sounds very simplistic (purely for illustrative purposes), but if we have more than the current feature set, you can see how powerful this tool could be to plan out and inform a retail strategy.
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 5. Communication
 
@@ -263,10 +260,6 @@ def create_sales_dashboard(data):
     return dashboard
 ```
 
-
-{% endstep %}
-{% endstepper %}
-
 ## Key Analytics Concepts
 
 ### 1. Descriptive Analytics
@@ -305,7 +298,6 @@ def create_sales_dashboard(data):
 
 ### Data Analysis Tools
 
-
 | Tool   | Use Case                           | Skill Level  |
 | -------- | ------------------------------------ | -------------- |
 | Excel  | Basic data analysis, pivot tables  | Beginner     |
@@ -315,7 +307,6 @@ def create_sales_dashboard(data):
 
 ### Visualization Tools
 
-
 | Tool       | Best For               | Key Features            |
 | ------------ | ------------------------ | ------------------------- |
 | Tableau    | Interactive dashboards | Drag-and-drop interface |
@@ -324,7 +315,6 @@ def create_sales_dashboard(data):
 | D3.js      | Web visualizations     | Interactive graphics    |
 
 ### Statistical Tools
-
 
 | Tool    | Application          | Common Uses            |
 | --------- | ---------------------- | ------------------------ |
@@ -385,8 +375,7 @@ Data science is like being both a detective and an inventor. While data analytic
 
 ### The Data Science Process
 
-{% stepper %}
-{% step %}
+---
 
 ### 1. Data Collection
 
@@ -416,9 +405,7 @@ viewing_data = {
 }
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 2. Data Cleaning
 
@@ -454,9 +441,7 @@ def clean_viewing_data(df):
     return df
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 3. Data Exploration
 
@@ -488,9 +473,7 @@ completion_rate = watched_duration / content_duration
 engagement_score = completion_rate * rating
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 4. Modeling
 
@@ -520,9 +503,7 @@ def train_recommendation_model(user_data, content_data):
     return model
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 5. Deployment
 
@@ -548,15 +529,11 @@ def get_recommendations(user_id):
     return jsonify(recommendations)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Differences Between Data Analytics and Data Science
 
 Let's understand the differences through real-world examples from various industries:
 
 ### Streaming Service (Netflix)
-
 
 | Aspect     | Data Analytics                                         | Data Science                                                    |
 | ------------ | -------------------------------------------------------- | ----------------------------------------------------------------- |
@@ -567,7 +544,6 @@ Let's understand the differences through real-world examples from various indust
 
 ### E-commerce (Amazon)
 
-
 | Aspect     | Data Analytics                           | Data Science                                |
 | ------------ | ------------------------------------------ | --------------------------------------------- |
 | Focus      | "Best-selling products in each category" | "Predictive model for inventory management" |
@@ -576,7 +552,6 @@ Let's understand the differences through real-world examples from various indust
 | Tools      | PowerBI, SQL, Excel                      | Python, scikit-learn, AWS SageMaker         |
 
 ### Healthcare
-
 
 | Aspect     | Data Analytics                            | Data Science                                     |
 | ------------ | ------------------------------------------- | -------------------------------------------------- |

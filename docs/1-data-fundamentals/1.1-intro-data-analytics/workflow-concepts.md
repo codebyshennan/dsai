@@ -63,3 +63,13 @@ graph TD;
 8. **Deployment**: Implement the trained model in a production environment for real-world use.
 9. **Monitoring**: Continuously track the model's performance and behavior in production.
 10. **Feedback Loop**: Gather feedback on the outcomes and refine the process for future projects.
+
+## Common pitfalls
+
+- **Skipping business understanding** — Jumping to models before the question is clear wastes time and misleads stakeholders.
+- **Handoffs without documentation** — The next person (or future you) needs data dictionaries, assumptions, and where code lives.
+- **Treating deployment as an afterthought** — Monitoring and rollback plans belong in the lifecycle from the start.
+
+## Next steps
+
+You have reached the end of submodule 1.1. Continue to [Introduction to Python](../1.2-intro-python/README.md), or return to the [module 1 overview](../README.md).

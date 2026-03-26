@@ -87,7 +87,8 @@ Individuals have specific rights regarding their personal data, including:
 3. **Regular Training and Awareness**: Educate employees on data privacy policies and practices.
 4. **Use Anonymization Techniques**: Remove PII from datasets to protect individual identities during analysis.
 
-{% step %}
+---
+
 ### 3. Financial Data
 **Example: Payment Processing System**
 ```python
@@ -119,9 +120,9 @@ class SecurePaymentProcessor:
 ```
 
 **Why it matters:** Financial fraud and identity theft prevention
-{% endstep %}
 
-{% step %}
+---
+
 ### 4. Sensitive Personal Data
 **Example: Healthcare Data Management**
 ```python
@@ -149,8 +150,6 @@ class SensitiveDataManager:
 ```
 
 **Why it matters:** Special category data requires extra protection
-{% endstep %}
-{% endstepper %}
 
 ## Privacy Laws Made Simple
 
@@ -226,8 +225,9 @@ class CCPACompliance:
 ## Practical Privacy Protection Tips
 
 ### For Personal Use
-{% stepper %}
-{% step %}
+
+---
+
 ### 1. Password Security
 **Implementation Example:**
 ```python
@@ -262,9 +262,9 @@ class PasswordManager:
 - Enable two-factor authentication
 - Regular password updates
 - Unique passwords for each service
-{% endstep %}
 
-{% step %}
+---
+
 ### 2. Data Encryption
 **Implementation Example:**
 ```python
@@ -296,12 +296,11 @@ class PersonalDataEncryption:
 - Secure backups
 - Encrypted communications
 - Secure deletion methods
-{% endstep %}
-{% endstepper %}
 
 ### For Business Use
-{% stepper %}
-{% step %}
+
+---
+
 ### 1. Data Governance
 **Implementation Example:**
 ```python
@@ -329,9 +328,9 @@ class DataGovernance:
 - Access controls
 - Regular audits
 - Employee training
-{% endstep %}
 
-{% step %}
+---
+
 ### 2. Privacy Impact Assessment
 **Implementation Example:**
 ```python
@@ -362,10 +361,20 @@ class PrivacyImpactAssessment:
 - Security measures
 - Data sharing
 - User rights
-{% endstep %}
-{% endstepper %}
+
+## Common pitfalls
+
+- **Collecting data “just in case”** — Extra fields increase risk and compliance scope; align collection to documented purposes.
+- **Mixing purposes** — Using data for a new goal without notice or consent breaks trust and can break law.
+- **Assuming anonymization is automatic** — Removing names is not always enough; combinations of fields can still identify people.
 
 ## Next Steps
+
+### In this submodule
+
+Continue to [Data security](./data-security.md), then [Workflow concepts](./workflow-concepts.md). After submodule 1.1, start [Introduction to Python](../1.2-intro-python/README.md).
+
+### Going deeper on your own
 
 After understanding these privacy concepts:
 

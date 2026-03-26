@@ -40,7 +40,8 @@ Data security is crucial in today's data-driven world. It encompasses the practi
 
 ### 1. Encryption Implementation
 
-{% step %}
+---
+
 ### Types of Encryption
 **Implementation Example**:
 ```python
@@ -85,12 +86,11 @@ class EncryptionService:
 - Symmetric: Large data sets, local encryption
 - Asymmetric: Key exchange, digital signatures
 - Hybrid: Secure communication channels
-{% endstep %}
-{% endstepper %}
 
 ### 2. Access Control Implementation
-{% stepper %}
-{% step %}
+
+---
+
 ### Role-Based Access Control (RBAC)
 **Implementation Example**:
 ```python
@@ -157,9 +157,9 @@ PERMISSION_LEVELS = {
     }
 }
 ```
-{% endstep %}
 
-{% step %}
+---
+
 ### Attribute-Based Access Control (ABAC)
 **Implementation Example**:
 ```python
@@ -195,8 +195,6 @@ class ABACSystem:
         
         return policy_decision
 ```
-{% endstep %}
-{% endstepper %}
 
 ## Security Monitoring and Incident Response
 
@@ -326,7 +324,19 @@ class SecurityAssessment:
         return self.generate_assessment_report(results)
 ```
 
+## Common pitfalls
+
+- **Shared passwords or API keys in notebooks** — Treat secrets like production; use environment variables and rotation.
+- **Over-relying on perimeter security** — Insider risk and misconfigured buckets matter; layer controls and audit access.
+- **Ignoring updates** — Unpatched dependencies are a common breach path.
+
 ## Next Steps
+
+### In this submodule
+
+Continue to [Workflow concepts](./workflow-concepts.md). Then start [Introduction to Python](../1.2-intro-python/README.md).
+
+### Going deeper on your own
 
 After implementing these security measures:
 
