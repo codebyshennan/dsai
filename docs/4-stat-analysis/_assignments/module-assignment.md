@@ -3,6 +3,10 @@
 ## Overview
 This comprehensive assignment covers key concepts from statistical analysis, including inferential statistics, hypothesis testing, relationships in data, and statistical modeling. Complete all questions to demonstrate your understanding of these fundamental concepts.
 
+## Prerequisites
+
+- Course material through [Module 4](../README.md) (lessons 4.1–4.4) or equivalent.
+
 ## Questions
 
 ### Part 1: Inferential Statistics

@@ -1,5 +1,11 @@
 # Module 4: Statistical Analysis Assignments
 
+## Prerequisites
+
+- Work through [Module 4: Statistical analysis](./README.md) units 4.1–4.4 (or your instructor’s equivalent).
+
+> **Note:** The assignment assumes you can explain inference, tests, regression ideas, and basic modelling choices in your own words.
+
 This module contains a comprehensive assignment covering all aspects of statistical analysis, including:
 - Inferential Statistics
 - Hypothesis Testing
