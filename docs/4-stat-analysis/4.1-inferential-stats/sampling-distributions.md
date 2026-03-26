@@ -1,5 +1,17 @@
 # Sampling Distributions: The Heart of Statistical Inference
 
+## Why this matters
+
+- **Sampling distributions** explain why means and proportions vary from sample to sample.
+- The **Central Limit Theorem** and **standard error** underpin confidence intervals and tests.
+
+## Prerequisites
+
+- [Confidence intervals](./confidence-intervals.md) for interval intuition.
+- [Population vs sample](./population-sample.md) if you need a refresher on repeated sampling.
+
+> **Note:** Simulation plots in this lesson are optional; the written CLT summary is the core outcome.
+
 ## Introduction: Why Sampling Distributions Matter
 
 Imagine you're a chef trying to perfect a recipe. You taste-test small portions (samples) to understand how the entire dish (population) tastes. But how reliable are these taste tests? That's where sampling distributions come in - they help us understand how sample statistics vary and how well they represent the true population!
@@ -350,6 +362,10 @@ sampling_game()
 5. Visualizing sampling distributions aids understanding
 6. Real-world applications include quality control and polling
 7. Common misconceptions can lead to incorrect interpretations
+
+## Next steps
+
+- Start [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md) with [Experimental design](../4.2-hypotheses-testing/experimental-design.md).
 
 ## Additional Resources
 

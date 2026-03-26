@@ -1,5 +1,7 @@
 # Introduction to Inferential Statistics
 
+See the [Module 4 overview](../README.md) for how this unit fits with hypothesis testing, regression, and modelling.
+
 Welcome to the fascinating world of inferential statistics! Imagine you're a detective trying to understand an entire city by studying just a few neighborhoods. That's essentially what inferential statistics allows us to do - make educated guesses about large populations by carefully studying smaller samples.
 
 ## Learning Objectives

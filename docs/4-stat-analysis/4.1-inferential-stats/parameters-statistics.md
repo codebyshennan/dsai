@@ -1,5 +1,17 @@
 # Parameters and Statistics: The Bridge to Understanding Populations
 
+## Why this matters
+
+- You will separate **population parameters** (unknown, fixed) from **sample statistics** (computed from data) in every inference task.
+- You will read notation (e.g. Greek vs Latin letters) the way textbooks and software reports use it.
+
+## Prerequisites
+
+- [Population vs sample](./population-sample.md).
+- Optional: [Module 1.3 statistics](../../1-data-fundamentals/1.3-intro-statistics/README.md) for notation refresh.
+
+> **Note:** This lesson builds directly on sampling definitions from the previous file.
+
 ## Introduction
 
 Imagine you're a detective trying to understand the average height of all trees in the Amazon rainforest. It's impossible to measure every tree, but you can measure some trees and use that information to make educated guesses about all trees. This is where parameters and statistics come into play!
@@ -274,13 +286,17 @@ def ab_testing_example():
 5. Confidence intervals provide a range of plausible values for population parameters
 6. Real-world applications include quality control, A/B testing, and market research
 
-## Additional Resources 📚
+## Additional Resources
 
 - [Interactive Sampling Distribution Simulator](https://seeing-theory.brown.edu/sampling-distributions/index.html)
 - [Confidence Interval Calculator](https://www.mathsisfun.com/data/confidence-interval-calculator.html)
 - [Statistical Estimation Tutorial](https://www.khanacademy.org/math/statistics-probability/sampling-distributions-library)
 
-Remember: The journey from sample to population is like building a bridge - the better your construction (sampling and estimation), the more reliable your crossing (inference)! 🌉
+Remember: The journey from sample to population is like building a bridge. The better your sampling and estimation, the more reliable your inference.
+
+## Next steps
+
+- Continue to [Understanding p-values](./p-values.md).
 
 ## Common Questions and Answers
 

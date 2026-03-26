@@ -1,10 +1,17 @@
 # Population vs Sample: The Foundation of Statistical Inference
 
-## Before You Begin
+## Why this matters
 
-- Basic understanding of descriptive statistics (mean, median, standard deviation)
-- Familiarity with basic probability concepts
-- Basic Python programming knowledge (for examples)
+- You need precise **population** and **sample** language before confidence intervals, tests, or models.
+- Sampling choices affect whether conclusions generalize beyond the rows in your spreadsheet.
+
+## Prerequisites
+
+- Descriptive statistics (mean, median, spread).
+- Basic probability (random variables, variation). Optional: [Intro statistics (module 1.3)](../../1-data-fundamentals/1.3-intro-statistics/README.md).
+- Short Python examples are optional to read; focus on the ideas first.
+
+> **Note:** This is the first lesson in [4.1 Inferential statistics](./README.md).
 
 ## Key Terms
 
@@ -376,6 +383,10 @@ print(f"\nRequired sample size: {n}")
 5. Visualizing sampling processes aids understanding
 6. Real-world applications require careful sampling design
 7. Common sampling errors can be avoided with proper planning
+
+## Next steps
+
+- Continue to [Parameters and statistics](./parameters-statistics.md).
 
 ## Additional Resources
 

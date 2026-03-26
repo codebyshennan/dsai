@@ -1,5 +1,17 @@
 # Confidence Intervals: Quantifying Uncertainty in Statistics
 
+## Why this matters
+
+- You will report **ranges** for unknown parameters, not only point estimates.
+- You will interpret intervals in plain language without overstating what “95% confidence” means.
+
+## Prerequisites
+
+- [Understanding p-values](./p-values.md) for hypothesis-testing vocabulary.
+- Comfort with the sample mean and a measure of spread (standard deviation or standard error in words).
+
+> **Tip:** Read the clinical-trial style example even if you skip plotting code on first pass. The next lesson, [sampling distributions](./sampling-distributions.md), deepens why intervals shrink as **n** grows.
+
 ## Introduction: Why Do We Need Confidence Intervals?
 
 Imagine you're a weather forecaster trying to predict tomorrow's temperature. Instead of saying "it will be exactly 75°F," it's more realistic to say "it will be between 73°F and 77°F." That's the essence of confidence intervals - they help us express uncertainty in our estimates!
@@ -402,6 +414,10 @@ print(f"95% CI: ({ci[0]:.1f}, {ci[1]:.1f})")
 5. Always consider both statistical and practical significance
 6. Visualize your data to better understand the results
 7. Report complete information about your intervals
+
+## Next steps
+
+- Continue to [Sampling distributions](./sampling-distributions.md), then [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md).
 
 ## Additional Resources
 

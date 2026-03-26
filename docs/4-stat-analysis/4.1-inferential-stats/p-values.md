@@ -1,5 +1,17 @@
 # Understanding P-values: Your Statistical Detective Tool
 
+## Why this matters
+
+- You will read **p-values** in papers, A/B tools, and software output; this lesson aligns words with what the number does (and does not) mean.
+- You will avoid the common mistake of confusing **statistical significance** with **practical importance**.
+
+## Prerequisites
+
+- [Parameters and statistics](./parameters-statistics.md) for notation and estimators.
+- Basic idea of a **null hypothesis** (formal tests come in module 4.2).
+
+> **Note:** P-values do not measure the probability that either hypothesis is true.
+
 ## Introduction: The Story of P-values
 
 Imagine you're a detective trying to solve a mystery. You have a default theory (null hypothesis), but you've found some evidence that might suggest otherwise. How strong does this evidence need to be to convince you to reject your default theory? That's where p-values come in!
@@ -338,6 +350,10 @@ print(f"Corrected significant results: {sum(corrected_p < 0.05)}")
 5. Correct for multiple testing
 6. Always consider both statistical and practical importance
 7. Visualize your data to better understand the results
+
+## Next steps
+
+- Continue to [Confidence intervals](./confidence-intervals.md) to report uncertainty, not only a single p-value.
 
 ## Additional Resources
 
