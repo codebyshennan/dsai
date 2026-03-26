@@ -1,3 +1,5 @@
+"""Generate extra storytelling visuals (structures, checklists) for 3.4 assets."""
+
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns

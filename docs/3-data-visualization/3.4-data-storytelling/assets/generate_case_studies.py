@@ -1,3 +1,5 @@
+"""Generate illustrative figures for 3.4 case-study markdown (placeholder dashboards, etc.)."""
+
 from pathlib import Path
 
 import matplotlib.pyplot as plt

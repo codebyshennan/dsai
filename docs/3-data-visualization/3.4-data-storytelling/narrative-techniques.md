@@ -1,5 +1,7 @@
 # Data Storytelling Narrative Techniques: A Beginner's Guide
 
+> **Note:** This is a **concept-first** companion to [Visual storytelling](visual-storytelling.md). Worked examples may reference charts you build in Python or BI tools.
+
 ## Table of Contents
 
 1. [Introduction: The Power of Narrative in Data](#introduction-the-power-of-narrative-in-data)
@@ -48,8 +50,7 @@ Think of data like ingredients and narrative like a recipe:
 
 ## Story Structure Frameworks
 
-![Story Structure](assets/story_structure.png)
-
+> **Figure (add screenshot or diagram):** Story Structure
 The diagram above shows two powerful approaches to structuring your data story:
 
 ### Classic Narrative Arc
@@ -116,8 +117,7 @@ A simpler alternative for business presentations:
 
 ### 1. The Hook: Grabbing Attention
 
-![Visual Hierarchy](assets/visual_hierarchy.png)
-
+> **Figure (add screenshot or diagram):** Visual Hierarchy
 The visual hierarchy above shows how to structure your hook and initial message:
 
 - Primary Message: Your main insight or key finding
@@ -168,8 +168,7 @@ Think of this like setting up a mystery novel - provide enough context without g
 
 ### Choosing the Right Visualization
 
-![Visualization Decision Tree](assets/visualization_decision_tree.png)
-
+> **Figure (add screenshot or diagram):** Visualization Decision Tree
 Use this decision tree to select the most appropriate visualization for your data:
 
 - For comparisons between categories  Bar charts
@@ -179,8 +178,7 @@ Use this decision tree to select the most appropriate visualization for your dat
 
 ### Color Usage Guidelines
 
-![Color Palette Guide](assets/color_palette_guide.png)
-
+> **Figure (add screenshot or diagram):** Color Palette Guide
 Choose your colors based on your data type and purpose:
 
 - Sequential: For ordered data (e.g., low to high values)
@@ -190,8 +188,7 @@ Choose your colors based on your data type and purpose:
 
 ## Story Creation Process
 
-![Story Creation Process](assets/story_creation_process.png)
-
+> **Figure (add screenshot or diagram):** Story Creation Process
 Follow this systematic approach to create compelling data stories:
 
 1. Data Collection: Gather relevant data
@@ -207,8 +204,7 @@ Follow this systematic approach to create compelling data stories:
 
 ## Quality Assurance
 
-![Quality Checklist](assets/quality_checklist.png)
-
+> **Figure (add screenshot or diagram):** Quality Checklist
 Before finalizing your data story, verify these essential elements:
 
 - Clear main message: Is your key point immediately apparent?

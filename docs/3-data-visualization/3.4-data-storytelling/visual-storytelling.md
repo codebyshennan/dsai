@@ -1,5 +1,7 @@
 # Visual Storytelling: A Beginner's Guide to Data Visualization
 
+> **Note:** This lesson focuses on **structure and communication** (titles, flow, emphasis). You can practice with any charting tool you already use from earlier in Module 3.
+
 ## Introduction: The Power of Visual Communication
 
 Imagine trying to explain a complex journey using only words versus showing a map. The map makes it instantly clear where you are, where you're going, and the best path to get there. That's the power of visual storytelling with data.
@@ -22,8 +24,7 @@ Think of charts like different types of sentences:
 - **Line Chart** = Story over time (showing trends)
 - **Pie Chart** = Parts of a whole (showing proportions)
 
-![Chart Selection Guide](assets/chart_selection.png)
-
+> **Figure (add screenshot or diagram):** Chart Selection Guide
 The chart selection guide above helps you choose the right visualization based on your goal:
 
 1. **Comparison**: Use bar charts or column charts
@@ -136,8 +137,7 @@ Think of color like traffic signals:
 - **Yellow**: Caution and consider (supporting data)
 - **Green**: Go ahead and explore (background info)
 
-![Color Schemes](assets/color_schemes.png)
-
+> **Figure (add screenshot or diagram):** Color Schemes
 The color schemes above demonstrate three key approaches:
 
 1. **Sequential**: For showing progression or intensity
@@ -213,8 +213,7 @@ Think of layout like arranging furniture in a room:
 - **Flow**: How people move through the space (story progression)
 - **Balance**: Everything in its right place (visual harmony)
 
-![Layout Examples](assets/layout_examples.png)
-
+> **Figure (add screenshot or diagram):** Layout Examples
 The layout examples above show three common structures:
 
 1. **Dashboard Layout**: For interactive data exploration

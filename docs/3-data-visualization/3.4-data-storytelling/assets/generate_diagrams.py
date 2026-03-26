@@ -1,3 +1,5 @@
+"""Generate storytelling diagrams (narrative arc, frameworks) for 3.4 assets."""
+
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns

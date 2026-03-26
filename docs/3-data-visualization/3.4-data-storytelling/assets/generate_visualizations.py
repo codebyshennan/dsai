@@ -1,3 +1,5 @@
+"""Generate generic visualization PNGs for 3.4 storytelling lessons."""
+
 from pathlib import Path
 
 import matplotlib.pyplot as plt

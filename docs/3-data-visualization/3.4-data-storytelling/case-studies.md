@@ -1,5 +1,7 @@
 # Data Storytelling Case Studies: Learning from Real-World Examples
 
+> **Note:** Scenarios are illustrative. Replace figure placeholders with your own screenshots when you recreate similar views in your tool of choice.
+
 ## Introduction: Why Case Studies Matter
 
 Think of case studies like watching game film in sports - they show you what works, what doesn't, and how to improve. These real-world examples will help you understand how to apply data storytelling principles in practice.
@@ -12,8 +14,7 @@ Walmart needed to communicate monthly sales performance to store managers across
 
 ### The Bad Version
 
-![Bad Dashboard Example](assets/bad_dashboard.png)
-
+> **Figure (add screenshot or diagram):** Bad Dashboard Example
 **Problems Explained:**
 
 - **Too many metrics at once**: Managers were overwhelmed with 50+ KPIs, making it impossible to focus on what mattered most
@@ -25,27 +26,26 @@ Walmart needed to communicate monthly sales performance to store managers across
 #### Detailed Breakdown of Bad Practices
 
 1. **Cluttered Metrics**
-   ![Too Many Metrics](assets/bad_dashboard_metrics.png)
-   - Too many metrics shown at once
+   > **Figure (add screenshot or diagram):** Too Many Metrics
+- Too many metrics shown at once
    - No clear prioritization
    - Difficult to scan and understand
 
 2. **Inconsistent Colors**
-   ![Inconsistent Colors](assets/bad_dashboard_colors.png)
-   - Random color choices
+   > **Figure (add screenshot or diagram):** Inconsistent Colors
+- Random color choices
    - No consistent meaning
    - Hard to interpret quickly
 
 3. **Poor Hierarchy**
-   ![Poor Hierarchy](assets/bad_dashboard_hierarchy.png)
-   - All elements given equal importance
+   > **Figure (add screenshot or diagram):** Poor Hierarchy
+- All elements given equal importance
    - No visual cues for prioritization
    - Confusing information architecture
 
 ### The Good Version
 
-![Good Dashboard Example](assets/good_dashboard.png)
-
+> **Figure (add screenshot or diagram):** Good Dashboard Example
 **Improvements Explained:**
 
 - **Focused on key metrics**: Reduced to 5-7 critical KPIs that directly impact store performance
@@ -57,20 +57,20 @@ Walmart needed to communicate monthly sales performance to store managers across
 #### Detailed Breakdown of Good Practices
 
 1. **Focused Metrics**
-   ![Focused Metrics](assets/good_dashboard_metrics.png)
-   - Clear key performance indicators
+   > **Figure (add screenshot or diagram):** Focused Metrics
+- Clear key performance indicators
    - Easy to scan and understand
    - Prioritized information
 
 2. **Consistent Colors**
-   ![Consistent Colors](assets/good_dashboard_colors.png)
-   - Meaningful color scheme
+   > **Figure (add screenshot or diagram):** Consistent Colors
+- Meaningful color scheme
    - Consistent visual language
    - Clear data interpretation
 
 3. **Clear Hierarchy**
-   ![Clear Hierarchy](assets/good_dashboard_hierarchy.png)
-   - Visual importance levels
+   > **Figure (add screenshot or diagram):** Clear Hierarchy
+- Visual importance levels
    - Clear information structure
    - Guided attention flow
 
@@ -99,8 +99,7 @@ Spotify needed to understand why users were dropping off during the onboarding p
 
 ### The Bad Version
 
-![Bad Journey Map](assets/bad_journey.png)
-
+> **Figure (add screenshot or diagram):** Bad Journey Map
 **Problems Explained:**
 
 - **Text-heavy explanation**: Long paragraphs of text made it difficult to understand the flow
@@ -112,27 +111,26 @@ Spotify needed to understand why users were dropping off during the onboarding p
 #### Detailed Breakdown of Bad Practices
 
 1. **Text-Heavy Explanation**
-   ![Text-Heavy](assets/bad_journey_text.png)
-   - Too much text
+   > **Figure (add screenshot or diagram):** Text-Heavy
+- Too much text
    - Hard to scan
    - Missing visual elements
 
 2. **Missing Metrics**
-   ![Missing Metrics](assets/bad_journey_metrics.png)
-   - No clear data points
+   > **Figure (add screenshot or diagram):** Missing Metrics
+- No clear data points
    - Missing key indicators
    - Hard to measure success
 
 3. **No Flow**
-   ![No Flow](assets/bad_journey_flow.png)
-   - Disconnected steps
+   > **Figure (add screenshot or diagram):** No Flow
+- Disconnected steps
    - No clear progression
    - Hard to follow journey
 
 ### The Good Version
 
-![Good Journey Map](assets/good_journey.png)
-
+> **Figure (add screenshot or diagram):** Good Journey Map
 **Improvements Explained:**
 
 - **Visual flow diagram**: Created a clear path showing each step of the onboarding process
@@ -144,20 +142,20 @@ Spotify needed to understand why users were dropping off during the onboarding p
 #### Detailed Breakdown of Good Practices
 
 1. **Visual Flow**
-   ![Visual Flow](assets/good_journey_flow.png)
-   - Clear progression
+   > **Figure (add screenshot or diagram):** Visual Flow
+- Clear progression
    - Visual connections
    - Easy to follow
 
 2. **Clear Metrics**
-   ![Clear Metrics](assets/good_journey_metrics.png)
-   - Key data points
+   > **Figure (add screenshot or diagram):** Clear Metrics
+- Key data points
    - Drop-off rates
    - Success metrics
 
 3. **Actionable Insights**
-   ![Actionable Insights](assets/good_journey_insights.png)
-   - Critical points
+   > **Figure (add screenshot or diagram):** Actionable Insights
+- Critical points
    - Improvement areas
    - Clear recommendations
 
@@ -186,8 +184,7 @@ Airbnb needed to report on the performance of their latest marketing campaign ac
 
 ### The Bad Version
 
-![Bad Campaign Report](assets/bad_campaign.png)
-
+> **Figure (add screenshot or diagram):** Bad Campaign Report
 **Problems Explained:**
 
 - **Raw data dump**: Presented all metrics without filtering or prioritization
@@ -199,27 +196,26 @@ Airbnb needed to report on the performance of their latest marketing campaign ac
 #### Detailed Breakdown of Bad Practices
 
 1. **Raw Data Dump**
-   ![Raw Data](assets/bad_campaign_data.png)
-   - Unprocessed data
+   > **Figure (add screenshot or diagram):** Raw Data
+- Unprocessed data
    - No filtering
    - Hard to interpret
 
 2. **No Story**
-   ![No Story](assets/bad_campaign_story.png)
-   - Missing narrative
+   > **Figure (add screenshot or diagram):** No Story
+- Missing narrative
    - No clear message
    - Hard to understand
 
 3. **Missing Context**
-   ![Missing Context](assets/bad_campaign_context.png)
-   - No comparisons
+   > **Figure (add screenshot or diagram):** Missing Context
+- No comparisons
    - No benchmarks
    - Hard to evaluate
 
 ### The Good Version
 
-![Good Campaign Report](assets/good_campaign.png)
-
+> **Figure (add screenshot or diagram):** Good Campaign Report
 **Improvements Explained:**
 
 - **Clear narrative structure**: Started with objectives, showed results, ended with recommendations
@@ -231,20 +227,20 @@ Airbnb needed to report on the performance of their latest marketing campaign ac
 #### Detailed Breakdown of Good Practices
 
 1. **Clear Narrative**
-   ![Clear Narrative](assets/good_campaign_narrative.png)
-   - Story structure
+   > **Figure (add screenshot or diagram):** Clear Narrative
+- Story structure
    - Clear progression
    - Logical flow
 
 2. **Channel Comparisons**
-   ![Channel Comparisons](assets/good_campaign_comparisons.png)
-   - Consistent metrics
+   > **Figure (add screenshot or diagram):** Channel Comparisons
+- Consistent metrics
    - Easy comparison
    - Clear differences
 
 3. **ROI Focus**
-   ![ROI Focus](assets/good_campaign_roi.png)
-   - Key metrics
+   > **Figure (add screenshot or diagram):** ROI Focus
+- Key metrics
    - Performance indicators
    - Clear outcomes
 
@@ -273,8 +269,7 @@ Tesla's finance team needed to present quarterly results to the board of directo
 
 ### The Bad Version
 
-![Bad Financial Report](assets/bad_financial.png)
-
+> **Figure (add screenshot or diagram):** Bad Financial Report
 **Problems Explained:**
 
 - **Too many numbers**: Overwhelmed audience with raw financial data
@@ -286,27 +281,26 @@ Tesla's finance team needed to present quarterly results to the board of directo
 #### Detailed Breakdown of Bad Practices
 
 1. **Too Many Numbers**
-   ![Too Many Numbers](assets/bad_financial_numbers.png)
-   - Data overload
+   > **Figure (add screenshot or diagram):** Too Many Numbers
+- Data overload
    - No filtering
    - Hard to process
 
 2. **No Visual Aids**
-   ![No Visual Aids](assets/bad_financial_visuals.png)
-   - Missing charts
+   > **Figure (add screenshot or diagram):** No Visual Aids
+- Missing charts
    - Text-heavy
    - Hard to visualize
 
 3. **Missing Context**
-   ![Missing Context](assets/bad_financial_context.png)
-   - No comparisons
+   > **Figure (add screenshot or diagram):** Missing Context
+- No comparisons
    - No benchmarks
    - Hard to evaluate
 
 ### The Good Version
 
-![Good Financial Report](assets/good_financial.png)
-
+> **Figure (add screenshot or diagram):** Good Financial Report
 **Improvements Explained:**
 
 - **Key metrics highlighted**: Focused on revenue growth, profit margins, and cash flow
@@ -318,20 +312,20 @@ Tesla's finance team needed to present quarterly results to the board of directo
 #### Detailed Breakdown of Good Practices
 
 1. **Key Metrics**
-   ![Key Metrics](assets/good_financial_metrics.png)
-   - Focused indicators
+   > **Figure (add screenshot or diagram):** Key Metrics
+- Focused indicators
    - Clear trends
    - Important data
 
 2. **Visual Trends**
-   ![Visual Trends](assets/good_financial_trends.png)
-   - Clear patterns
+   > **Figure (add screenshot or diagram):** Visual Trends
+- Clear patterns
    - Easy to follow
    - Time-based view
 
 3. **Year-over-Year**
-   ![Year-over-Year](assets/good_financial_comparison.png)
-   - Historical context
+   > **Figure (add screenshot or diagram):** Year-over-Year
+- Historical context
    - Clear comparisons
    - Progress tracking
 
@@ -360,8 +354,7 @@ Netflix needed to understand how users were interacting with their platform to o
 
 ### The Bad Version
 
-![Bad Usage Analytics](assets/bad_usage.png)
-
+> **Figure (add screenshot or diagram):** Bad Usage Analytics
 **Problems Explained:**
 
 - **Raw data tables**: Presented unprocessed usage statistics
@@ -373,27 +366,26 @@ Netflix needed to understand how users were interacting with their platform to o
 #### Detailed Breakdown of Bad Practices
 
 1. **Raw Data Tables**
-   ![Raw Data](assets/bad_usage_data.png)
-   - Unprocessed data
+   > **Figure (add screenshot or diagram):** Raw Data
+- Unprocessed data
    - No filtering
    - Hard to interpret
 
 2. **No Visualizations**
-   ![No Visualizations](assets/bad_usage_visuals.png)
-   - Missing charts
+   > **Figure (add screenshot or diagram):** No Visualizations
+- Missing charts
    - Text-heavy
    - Hard to visualize
 
 3. **Missing Patterns**
-   ![Missing Patterns](assets/bad_usage_patterns.png)
-   - No trends
+   > **Figure (add screenshot or diagram):** Missing Patterns
+- No trends
    - No connections
    - Hard to analyze
 
 ### The Good Version
 
-![Good Usage Analytics](assets/good_usage.png)
-
+> **Figure (add screenshot or diagram):** Good Usage Analytics
 **Improvements Explained:**
 
 - **User flow diagrams**: Showed how users navigated through the platform
@@ -405,20 +397,20 @@ Netflix needed to understand how users were interacting with their platform to o
 #### Detailed Breakdown of Good Practices
 
 1. **User Flow**
-   ![User Flow](assets/good_usage_flow.png)
-   - Clear paths
+   > **Figure (add screenshot or diagram):** User Flow
+- Clear paths
    - User journeys
    - Navigation patterns
 
 2. **Feature Usage**
-   ![Feature Usage](assets/good_usage_features.png)
-   - Popular features
+   > **Figure (add screenshot or diagram):** Feature Usage
+- Popular features
    - Usage patterns
    - Engagement levels
 
 3. **Time Patterns**
-   ![Time Patterns](assets/good_usage_patterns.png)
-   - Usage trends
+   > **Figure (add screenshot or diagram):** Time Patterns
+- Usage trends
    - Time-based analysis
    - Behavioral patterns
 

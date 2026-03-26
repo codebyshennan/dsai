@@ -1,4 +1,6 @@
-# Mastering Data Storytelling: A Beginner's Guide 📊
+# Mastering Data Storytelling: A Beginner's Guide
+
+> **Note:** This submodule blends **principles** (how to structure a message) with **examples** you can build in any tool (Python charts or BI dashboards). It is not only code-first.
 
 ## Introduction: What is Data Storytelling?
 
@@ -21,8 +23,7 @@ Think of this like building a house:
 - **Walls** (Conflict): The challenges and insights
 - **Roof** (Resolution): The solutions and next steps
 
-![Story Arc Visualization](assets/story_arc.png)
-
+> **Figure (add screenshot or diagram):** Story Arc Visualization
 #### Why This Matters
 
 Understanding story architecture helps you:
@@ -40,8 +41,7 @@ Think of this like a traffic light system:
 - **Yellow** (Supporting Elements): Important context to consider
 - **Green** (Background Elements): Additional information for reference
 
-![Visual Hierarchy](assets/visual_hierarchy.png)
-
+> **Figure (add screenshot or diagram):** Visual Hierarchy
 #### Why This Matters
 
 Good visual grammar helps you:
@@ -91,8 +91,7 @@ Think of this like choosing the right tool for a job:
 - **Line Chart**: Like a path - perfect for showing journeys
 - **Pie Chart**: Like a pizza - best for showing parts of a whole
 
-![Chart Selection Guide](assets/chart_selection.png)
-
+> **Figure (add screenshot or diagram):** Chart Selection Guide
 #### Common Mistakes to Avoid
 
 1. **Overcomplicating**: Don't use complex charts when simple ones will do
@@ -150,18 +149,18 @@ Think of this like a song:
 
 ### 1. Data Overload
 
-❌ Don't: Show every data point you have
-✅ Do: Focus on the most important insights
+- **Don't:** Show every data point you have
+- **Do:** Focus on the most important insights
 
 ### 2. Missing Context
 
-❌ Don't: Jump straight to conclusions
-✅ Do: Build understanding gradually
+- **Don't:** Jump straight to conclusions
+- **Do:** Build understanding gradually
 
 ### 3. Weak Structure
 
-❌ Don't: Ramble through your data
-✅ Do: Follow a clear narrative arc
+- **Don't:** Ramble through your data
+- **Do:** Follow a clear narrative arc
 
 ## Additional Resources
 
@@ -218,14 +217,17 @@ Story Elements:
 3. Add clear labels
 4. Test for clarity
 
-## Next Steps
+## Prerequisites
 
-1. Start with simple stories
-2. Practice regularly
-3. Get feedback
-4. Iterate and improve
+- [3.1 Intro to data visualization](../3.1-intro-data-viz/README.md) and at least one of: Matplotlib/Seaborn practice or a BI tool from [3.3](../3.3-bi-with-tableau/README.md).
 
-Remember: The best data stories are those that make complex information simple and actionable. Start small, practice often, and watch your storytelling skills grow!
+## Next steps
+
+1. Read [Narrative techniques](narrative-techniques.md) and [Visual storytelling](visual-storytelling.md).
+2. Work through [Case studies](case-studies.md) with a critical eye on clarity and audience.
+3. Try the [module assignment](../_assignments/module-assignment.md) when your instructor assigns it.
+
+Remember: The best data stories make complex information simple and actionable. Start small, practice often, and iterate from feedback.
 
 ```yaml
 Impact Metrics:
