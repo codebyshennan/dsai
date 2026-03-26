@@ -1,5 +1,13 @@
 # Understanding Data Relationships: A Comprehensive Guide
 
+## Overview
+
+**Primary outcome:** You can choose sensible analyses for numeric–numeric, categorical–categorical, and mixed pairs, interpret correlation and effect size with caution, and avoid claiming causation from association alone.
+
+**Prerequisites:** [Distributions](distributions.md) and [two-variable statistics](../../1-data-fundamentals/1.3-intro-statistics/two-variable-statistics.md). [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) for plotting.
+
+> **Time needed:** About 60–90 minutes.
+
 Understanding relationships between variables is crucial for:
 
 - Making better predictions
@@ -9,7 +17,7 @@ Understanding relationships between variables is crucial for:
 
 ## Why Study Relationships?
 
-![Correlation Heatmap](assets/correlation_heatmap.png)
+> **Figure (add screenshot or diagram):** Correlation heatmap for numeric columns—see **assets/correlation_heatmap.png** when available.
 
 Relationship analysis helps you:
 
@@ -257,14 +265,11 @@ class RelationshipAnalyzer:
         }
 ```
 
-**Example Output - Scatter Plot with Regression:**
-![Scatter with Regression](assets/scatter_regression.png)
+> **Figure (add screenshot or diagram):** Scatter with regression line—see **assets/scatter_regression.png** when available.
 
-**Example Output - Pair Plot for Multivariate Relationships:**
-![Pair Plot](assets/pairplot.png)
+> **Figure (add screenshot or diagram):** Pair plot or scatter matrix—see **assets/pairplot.png** when available.
 
-**Example Output - Grouped Bar Chart:**
-![Grouped Bar Chart](assets/grouped_bar.png)
+> **Figure (add screenshot or diagram):** Grouped bar chart for category comparisons—see **assets/grouped_bar.png** when available.
 
 ## Real-World Case Study: Customer Analysis
 
@@ -450,3 +455,10 @@ Avoid these common mistakes in relationship analysis:
    ```
 
 Remember: "Correlation is not causation, but it's a good place to start looking!"
+
+## Next steps
+
+- [Time series analysis](time-series.md) — temporal relationships
+- [EDA project](project.md)
+- [Data engineering (Module 2.4)](../2.4-data-engineering/README.md) — pipelines after exploration
+- [Module README](README.md)

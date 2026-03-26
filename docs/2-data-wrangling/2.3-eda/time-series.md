@@ -1,5 +1,13 @@
 # Time Series Analysis: Understanding Temporal Patterns
 
+## Overview
+
+**Primary outcome:** You can parse datetime indexes, decompose a series into **trend**, **seasonal**, and **residual** parts at a conceptual level, and spot obvious anomalies or non-stationarity before modeling.
+
+**Prerequisites:** [Distributions](distributions.md) and [Pandas datetime](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) basics.
+
+> **Time needed:** About 60–90 minutes.
+
 Time series analysis is crucial for:
 
 - Forecasting future trends
@@ -10,7 +18,7 @@ Time series analysis is crucial for:
 
 ## Why Analyze Time Series?
 
-![Time Series Trend](assets/timeseries_trend.png)
+> **Figure (add screenshot or diagram):** Line chart of a series with trend—see **assets/timeseries_trend.png** when available.
 
 Time series analysis helps you:
 
@@ -256,14 +264,11 @@ class TimeSeriesAnalyzer:
         return anomalies.dropna()
 ```
 
-**Example Output - Seasonal Decomposition:**
-![Seasonal Decomposition](assets/seasonal_decomposition.png)
+> **Figure (add screenshot or diagram):** Seasonal decomposition panels—see **assets/seasonal_decomposition.png** when available.
 
-**Example Output - Monthly Pattern Analysis:**
-![Monthly Pattern](assets/monthly_pattern.png)
+> **Figure (add screenshot or diagram):** Monthly or seasonal pattern chart—see **assets/monthly_pattern.png** when available.
 
-**Example Output - Autocorrelation Analysis:**
-![Autocorrelation](assets/autocorrelation.png)
+> **Figure (add screenshot or diagram):** Autocorrelation (ACF) plot—see **assets/autocorrelation.png** when available.
 
 ## Real-World Case Study: Sales Forecasting
 
@@ -482,3 +487,10 @@ Avoid these common mistakes in time series analysis:
    ```
 
 Remember: "Time series analysis requires careful consideration of temporal dependencies and patterns!"
+
+## Next steps
+
+- [Statistical analysis (Module 4)](../../4-stat-analysis/README.md) — formal forecasting and inference (when added to your path)
+- [EDA project](project.md)
+- [Data engineering (Module 2.4)](../2.4-data-engineering/README.md) — scheduling pipelines for time-based data
+- [Module README](README.md)

@@ -1,6 +1,14 @@
 # Exploratory Data Analysis: From Data to Insights
 
-![EDA Dashboard](assets/eda_dashboard.png)
+## Overview
+
+**Primary outcome:** After this submodule you can profile a dataset, plot distributions and relationships, and document findings before modeling—using a repeatable **EDA workflow** (see the mermaid diagram below).
+
+**Prerequisites:** [Data wrangling (Module 2.2)](../2.2-data-wrangling/README.md) and [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md). [Visualization basics](../../3-data-visualization/3.1-intro-data-viz/README.md) complement this unit.
+
+> **Time needed:** Several hours across readings, the tutorial notebook, and practice.
+
+> **Figure (add screenshot or diagram):** Example EDA dashboard or notebook summary—replace **assets/eda_dashboard.png** when assets are generated.
 
 Exploratory Data Analysis (EDA) is the crucial first step in any data analysis project. It's like being a detective - you investigate your data to uncover patterns, spot anomalies, test hypotheses, and check assumptions. Through EDA, you transform raw data into actionable insights.
 
@@ -442,8 +450,9 @@ Pro Tips:
 - Be prepared to iterate as you discover new patterns
 - Share your insights in a way that non-technical stakeholders can understand
 
-Next, dive into specific aspects of EDA:
+## Next steps (lesson path)
 
 - [Understanding Distributions](distributions.md)
 - [Analyzing Relationships](relationships.md)
 - [Time Series Analysis](time-series.md)
+- [EDA project](project.md)

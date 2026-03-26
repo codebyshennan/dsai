@@ -2,6 +2,12 @@
 
 ## Overview
 
+**Primary outcome:** You produce a short EDA report (notebook or slides) with distributions, key relationships, and clear limitations—grounded in the [EDA README](README.md) workflow.
+
+**Prerequisites:** [Distributions](distributions.md), [relationships](relationships.md), and [time series](time-series.md) readings (or parallel skimming). [Wrangling (Module 2.2)](../2.2-data-wrangling/README.md) should be done or in progress.
+
+> **Time needed:** Often 6–10 hours including polish.
+
 In this assignment, you'll perform a comprehensive exploratory data analysis on a real-world e-commerce dataset. You'll apply various EDA techniques to uncover patterns, relationships, and trends in the data.
 
 ## Dataset Description

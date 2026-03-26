@@ -9,99 +9,63 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <style>
         body {
-            background: #ffffff;
-            font-size: 12px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         .reveal {
-            --primary-blue: #1877F2;
-            --dark-blue: #0e305a;
-            --light-blue: #e7f0fd;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-size: 1.5em;
         }
 
         .reveal h1,
         .reveal h2,
         .reveal h3 {
-            color: var(--dark-blue);
             text-transform: none;
+            margin-bottom: 0.5em;
             text-align: center;
-            margin-top: 0.5em;
-            font-weight: 600;
         }
 
         .reveal h1 {
-            font-size: 1.8em;
+            font-size: 2em;
         }
 
         .reveal h2 {
-            font-size: 1.4em;
+            font-size: 1.6em;
         }
 
         .reveal h3 {
-            font-size: 1.2em;
+            font-size: 1.3em;
         }
 
-        .reveal .slides {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-            height: 100vh;
+        .reveal p {
+            margin-bottom: 1em;
+            line-height: 1.4;
+            text-align: center;
         }
 
         .reveal ul {
-            margin-left: 1em;
+            margin: 0 auto;
             text-align: left;
-            display: inline-block;
+            max-width: 80%;
         }
 
         .reveal li {
-            margin-bottom: 0.8em;
-            text-align: left;
-            line-height: 1.5;
+            margin-bottom: 0.5em;
         }
 
-        .reveal .highlight {
-            color: var(--primary-blue);
-            font-weight: 600;
+        .reveal code {
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
         }
 
-        .reveal .box {
-            background: var(--light-blue);
-            padding: 0.6em 1em;
+        .reveal pre {
+            padding: 1em;
             border-radius: 8px;
-            margin: 0.8em auto;
-            border-left: 4px solid var(--primary-blue);
-            max-width: 800px;
-            width: 100%;
-            box-sizing: border-box;
-            display: block;
-            font-size: 0.9em;
-            line-height: 1.4;
-        }
-
-        .reveal .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            width: 100%;
-            max-width: 1000px;
+            max-width: 80%;
             margin: 0 auto;
         }
 
-        .reveal .three-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
+        .reveal .slides {
+            text-align: center;
         }
 
         .reveal .center {
@@ -112,99 +76,58 @@
             text-align: right;
         }
 
-        .slide-header {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 1;
-            opacity: 0.1;
-            pointer-events: none;
+        .reveal .box {
+            padding: 1em;
+            border-radius: 8px;
+            margin: 1em auto;
+            max-width: 80%;
         }
 
-        .slide-header img {
-            height: 100vh;
-            width: auto;
-            object-fit: cover;
+        .reveal .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2em;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        .reveal .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2em;
+            max-width: 80%;
+            margin: 0 auto;
         }
 
         .slide-footer {
-            position: absolute;
-            bottom: 0.8em;
-            left: 1.5em;
-            color: var(--dark-blue);
-            font-size: 0.75em;
-            opacity: 0.85;
-            font-weight: 500;
-        }
-
-        .slide-number {
-            position: absolute;
-            bottom: 0.8em;
-            right: 1.5em;
-            color: var(--primary-blue);
-            font-size: 0.75em;
-            opacity: 0.85;
-            font-weight: 500;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.8em;
+            color: #666;
+            z-index: 1000;
+            background: white;
+            padding: 0.5em 1em;
+            border-top: 1px solid #eee;
+            text-align: left;
         }
 
         section {
+            padding: 2em;
+            padding-bottom: 4em;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-            height: 100vh;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 6em 2.5em;
-            text-align: center;
+            min-height: 100vh;
             box-sizing: border-box;
         }
 
-        .reveal section>* {
-            max-width: 900px;
+        .list-container {
             width: 100%;
-            margin: 0.8em auto;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .reveal p {
-            line-height: 1.6;
-            margin-bottom: 1em;
-        }
-
-        .reveal img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .reveal code {
-            background: var(--light-blue);
-            padding: 0.2em 0.4em;
-            border-radius: 4px;
-            font-size: 0.8em;
-        }
-
-        .reveal pre {
-            background: var(--light-blue);
-            padding: 0.6em;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            font-size: 0.8em;
-        }
-
-        .reveal .list-container {
-            display: inline-block;
-            text-align: left;
+            max-width: 80%;
             margin: 0 auto;
-        }
-
-        .reveal ul {
-            margin-left: 1em;
-            text-align: left;
         }
     </style>
 </head>
@@ -214,45 +137,45 @@
         <div class="slides">
             
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h1>Exploratory Data Analysis: From Data to Insights</h1>
-                    <h3></h3>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="content-wrapper">
+                        <h1>Exploratory Data Analysis: From Data to Insights</h1>
+                        
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Distributions</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Distributions</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>**Mean**: $\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i$</li>
-<li>**Median**: Middle value when sorted</li>
-<li>**Mode**: Most frequent value</li>
-<li>**Variance**: $\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2$</li>
-<li>**Standard Deviation**: $\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2}$</li>
-<li>**IQR**: $IQR = Q_3 - Q_1$</li>
-<li>**Skewness**: $\gamma_1 = \frac{m_3}{m_2^{3/2}}$ where $m_k = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^k$</li>
-<li>**Kurtosis**: $\gamma_2 = \frac{m_4}{m_2^2} - 3$</li>
+                            <li><strong>Mean</strong>: $\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i$</li>
+<li><strong>Median</strong>: Middle value when sorted</li>
+<li><strong>Mode</strong>: Most frequent value</li>
+<li><strong>Variance</strong>: $\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2$</li>
+<li><strong>Standard Deviation</strong>: $\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2}$</li>
+<li><strong>IQR</strong>: $IQR = Q_3 - Q_1$</li>
+<li><strong>Skewness</strong>: $\gamma_1 = \frac{m_3}{m_2^{3/2}}$ where $m_k = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^k$</li>
+<li><strong>Kurtosis</strong>: $\gamma_2 = \frac{m_4}{m_2^2} - 3$</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Project</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Project</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Customer transactions</li>
@@ -308,45 +231,45 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Relationships</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Relationships</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Making better predictions</li>
 <li>Identifying key drivers</li>
 <li>Discovering hidden patterns</li>
 <li>Making informed business decisions</li>
-<li>**Pearson Correlation**: $r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}\sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}}$</li>
-<li>**Spearman Rank Correlation**: $\rho = 1 - \frac{6\sum d_i^2}{n(n^2-1)}$ where $d_i$ is rank difference</li>
-<li>**Kendall's Tau**: $\tau = \frac{2(P - Q)}{n(n-1)}$ where P and Q are concordant and discordant pairs</li>
-<li>**Chi-square Test**: $\chi^2 = \sum \frac{(O - E)^2}{E}$</li>
-<li>**Cramer's V**: $V = \sqrt{\frac{\chi^2}{n \min(r-1, c-1)}}$</li>
-<li>**Mutual Information**: $I(X;Y) = \sum_{y \in Y} \sum_{x \in X} p(x,y) \log(\frac{p(x,y)}{p(x)p(y)})$</li>
+<li><strong>Pearson Correlation</strong>: $r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}\sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}}$</li>
+<li><strong>Spearman Rank Correlation</strong>: $\rho = 1 - \frac{6\sum d_i^2}{n(n^2-1)}$ where $d_i$ is rank difference</li>
+<li><strong>Kendall's Tau</strong>: $\tau = \frac{2(P - Q)}{n(n-1)}$ where P and Q are concordant and discordant pairs</li>
+<li><strong>Chi-square Test</strong>: $\chi^2 = \sum \frac{(O - E)^2}{E}$</li>
+<li><strong>Cramer's V</strong>: $V = \sqrt{\frac{\chi^2}{n \min(r-1, c-1)}}$</li>
+<li><strong>Mutual Information</strong>: $I(X;Y) = \sum_{y \in Y} \sum_{x \in X} p(x,y) \log(\frac{p(x,y)}{p(x)p(y)})$</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Time Series</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Time Series</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Forecasting future trends</li>
@@ -354,19 +277,19 @@
 <li>Detecting anomalies</li>
 <li>Making data-driven decisions</li>
 <li>Optimizing business operations</li>
-<li>**Trend** ($T_t$): Long-term direction</li>
-<li>**Seasonality** ($S_t$): Regular patterns</li>
-<li>**Residuals** ($R_t$): Random variations</li>
-<li>**Additive Model**: $Y_t = T_t + S_t + R_t$</li>
-<li>**Multiplicative Model**: $Y_t = T_t \times S_t \times R_t$</li>
-<li>**Simple Moving Average**: $MA_t = \frac{1}{n}\sum_{i=0}^{n-1} Y_{t-i}$</li>
-<li>**Exponential Moving Average**: $EMA_t = \alpha Y_t + (1-\alpha)EMA_{t-1}$</li>
+<li><strong>Trend</strong> ($T_t$): Long-term direction</li>
+<li><strong>Seasonality</strong> ($S_t$): Regular patterns</li>
+<li><strong>Residuals</strong> ($R_t$): Random variations</li>
+<li><strong>Additive Model</strong>: $Y_t = T_t + S_t + R_t$</li>
+<li><strong>Multiplicative Model</strong>: $Y_t = T_t \times S_t \times R_t$</li>
+<li><strong>Simple Moving Average</strong>: $MA_t = \frac{1}{n}\sum_{i=0}^{n-1} Y_{t-i}$</li>
+<li><strong>Exponential Moving Average</strong>: $EMA_t = \alpha Y_t + (1-\alpha)EMA_{t-1}$</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
         </div>
@@ -378,18 +301,9 @@
             hash: true,
             center: false,
             transition: 'slide',
+            slideNumber: true,
             plugins: []
         });
-        Reveal.on('slidechanged', function (event) {
-            document.querySelectorAll('.slide-number').forEach((el, idx) => {
-                el.textContent = `Slide ${idx + 1} / ${document.querySelectorAll('.slides section').length}`;
-            });
-        });
-        setTimeout(() => {
-            document.querySelectorAll('.slide-number').forEach((el, idx) => {
-                el.textContent = `Slide ${idx + 1} / ${document.querySelectorAll('.slides section').length}`;
-            });
-        }, 500);
     </script>
 </body>
 

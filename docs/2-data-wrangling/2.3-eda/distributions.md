@@ -1,10 +1,18 @@
 # Understanding Data Distributions: A Comprehensive Guide
 
+## Overview
+
+**Primary outcome:** You can summarize a numeric column with appropriate center and spread, recognize skew and heavy tails from plots, and connect distribution shape to next steps (transform, robust stats, or modeling).
+
+**Prerequisites:** [Module 2.3 README](README.md) and [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md). [Two-variable statistics](../../1-data-fundamentals/1.3-intro-statistics/two-variable-statistics.md) supports correlation context.
+
+> **Time needed:** About 60–90 minutes.
+
 Data distributions are fundamental to understanding your dataset's characteristics and making informed analytical decisions. This guide will help you master the art and science of distribution analysis.
 
 ## Why Study Distributions?
 
-![Distribution Types](assets/distribution_types.png)
+> **Figure (add screenshot or diagram):** Typical distribution shapes (normal, skewed, bimodal) in a teaching slide or notebook—replace **assets/distribution_types.png** when assets are generated.
 
 Understanding distributions helps you:
 
@@ -243,14 +251,11 @@ class DistributionAnalyzer:
         fig2.show()
 ```
 
-**Example Output - Histogram with Statistics:**
-![Histogram with Statistics](assets/histogram_with_stats.png)
+> **Figure (add screenshot or diagram):** Histogram with overlaid mean or median—see **assets/histogram_with_stats.png** when available.
 
-**Example Output - QQ Plots for Normality Assessment:**
-![QQ Plots](assets/qq_plots.png)
+> **Figure (add screenshot or diagram):** Q–Q plots for normality checks—see **assets/qq_plots.png** when available.
 
-**Example Output - Outlier Detection:**
-![Outlier Detection](assets/outlier_detection.png)
+> **Figure (add screenshot or diagram):** Outlier markers on a box plot or residual view—see **assets/outlier_detection.png** when available.
 
 ## Real-World Case Study: Sales Data Analysis
 
@@ -497,3 +502,10 @@ Avoid these common mistakes in distribution analysis:
    ```
 
 Remember: "The choice of distribution analysis method should be guided by your data's characteristics and your analysis goals!"
+
+## Next steps
+
+- [Analyzing relationships](relationships.md) — correlations and group comparisons
+- [Time series analysis](time-series.md) — trends and seasonality
+- [EDA project](project.md)
+- [Module README](README.md)
