@@ -1,6 +1,6 @@
 # Data Visualization Quick Start Guide
 
-## What You'll Learn
+## What you'll learn
 
 In this quick start guide, you'll learn how to:
 
@@ -8,7 +8,14 @@ In this quick start guide, you'll learn how to:
 2. Choose the right chart type
 3. Make your visualizations look professional
 
-## Your First Visualization in 5 Minutes
+## Prerequisites
+
+- Python with **matplotlib** and **numpy** installed (see [0-prep](../0-prep/README.md) if you need an environment refresher).
+- A notebook or `.py` file where you can run the snippets.
+
+> **Time needed:** About **15–30 minutes** for a first pass, longer if you experiment with variants.
+
+## Your first visualization in about five minutes
 
 ### Step 1: Set Up Your Environment
 
@@ -114,14 +121,13 @@ Before sharing your visualization, check:
 - [ ] Are the colors appropriate?
 - [ ] Is the message clear?
 
-## Next Steps
+## Next steps
 
-Once you're comfortable with basic charts:
+Once you are comfortable with basic charts:
 
-1. Try different chart types
-2. Experiment with colors and styles
-3. Add interactivity
-4. Learn about advanced features
+1. Read [Visualization principles](3.1-intro-data-viz/visualization-principles.md) and [Matplotlib basics](3.1-intro-data-viz/matplotlib-basics.md).
+2. Try [Choosing the right visualization](choosing-the-right-visualization.md).
+3. Continue to [3.2 Advanced data visualization](3.2-adv-data-viz/README.md) for Seaborn and Plotly.
 
 ## Common Problems and Solutions
 

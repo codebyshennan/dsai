@@ -1,5 +1,10 @@
 # Data Visualization: A Beginner's Guide
 
+## Prerequisites
+
+- You can run short Python snippets or read charts in a slide deck; no advanced statistics required.
+- Optional: [Quick start](quick-start.md) if you want a hands-on Matplotlib warm-up first.
+
 ## What is Data Visualization?
 
 Think of data visualization like turning numbers into pictures. Just like how a photograph can tell a story better than a description, a good visualization helps us understand data better than looking at rows of numbers.
@@ -180,7 +185,7 @@ plt.figtext(0.99, 0.01, 'Data source: My Budget App',
    - Make improvements based on feedback
    - Like testing a recipe before serving
 
-## Next Steps
+## Next steps
 
 1. **Practice With Real Data**
    - Use your own expenses
@@ -238,3 +243,5 @@ plt.figtext(0.99, 0.01, 'Data source: My Budget App',
    - Move to more advanced tools as you grow
 
 Remember: The best visualization is one that helps your audience understand the data quickly and clearly. Start simple, practice often, and don't be afraid to experiment!
+
+- Structured follow-on: [3.1 Intro to data visualization](3.1-intro-data-viz/README.md) and [Choosing the right visualization](choosing-the-right-visualization.md).

@@ -1,3 +1,9 @@
+"""Generate sample PNGs for Module 3 examples (e.g. common-mistakes assets).
+
+Run from this directory: python generate_examples.py
+Outputs are written under ./assets/
+"""
+
 import os
 
 import matplotlib.pyplot as plt

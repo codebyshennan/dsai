@@ -1,5 +1,7 @@
 # Frequently Asked Questions (FAQ)
 
+Quick answers about libraries, chart choice, Jupyter quirks, and performance. For structured lessons, start with the [module README](README.md) and [3.1 Intro to data visualization](3.1-intro-data-viz/README.md).
+
 ## General Questions
 
 ### Q: Which visualization library should I use?

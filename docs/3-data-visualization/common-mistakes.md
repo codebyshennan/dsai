@@ -1,5 +1,9 @@
 # Common Data Visualization Mistakes and How to Fix Them
 
+## Overview
+
+Use this page as a **checklist**: each section names a mistake, gives a fix, and includes a figure placeholder you can replace with your own before/after screenshot.
+
 ## 1. Choosing the Wrong Chart Type
 
 ### The Mistake
@@ -21,7 +25,7 @@ Match your chart type to your data and goal:
 
 ### Example
 
-![Before and After Transformation](assets/before_after.png)
+> **Figure (add screenshot or diagram):** Before and After Transformation
 *Left: Raw scattered data points. Right: Same data with a trend line that helps tell the story.*
 
 ## 2. Overwhelming Your Audience
@@ -42,7 +46,7 @@ Match your chart type to your data and goal:
 
 ### Example
 
-![Daily Steps](assets/daily_steps.png)
+> **Figure (add screenshot or diagram):** Daily Steps
 *A clean, focused visualization showing just what's needed: the trend of steps over time.*
 
 ## 3. Poor Color Choices
@@ -63,7 +67,7 @@ Match your chart type to your data and goal:
 
 ### Example
 
-![Ice Cream Preferences](assets/ice_cream_preferences.png)
+> **Figure (add screenshot or diagram):** Ice Cream Preferences
 *Using distinct but harmonious colors to differentiate categories.*
 
 ## 4. Missing Context
@@ -84,7 +88,7 @@ Match your chart type to your data and goal:
 
 ### Example
 
-![Daily Activities](assets/daily_activities.png)
+> **Figure (add screenshot or diagram):** Daily Activities
 *Clear title, labeled segments with percentages, and a straightforward presentation.*
 
 ## 5. Misleading Scales
@@ -105,7 +109,7 @@ Match your chart type to your data and goal:
 
 ### Example
 
-![Study vs Grades](assets/study_grades.png)
+> **Figure (add screenshot or diagram):** Study vs Grades
 *Using appropriate scales and clearly labeled axes.*
 
 ## 6. Poor Data-to-Ink Ratio
@@ -183,3 +187,8 @@ Match your chart type to your data and goal:
    - Verify accuracy
 
 Remember: The goal of data visualization is to communicate information clearly and effectively. When in doubt, simpler is usually better!
+
+## Next steps
+
+- Cross-check with [Best practices](best-practices-guide.md) and [Choosing the right visualization](choosing-the-right-visualization.md).
+- Return to the [module README](README.md) for the next lesson in your path.

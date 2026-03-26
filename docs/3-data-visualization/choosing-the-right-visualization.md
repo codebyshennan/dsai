@@ -1,5 +1,16 @@
 # Choosing the Right Visualization: A Beginner's Guide
 
+## Overview
+
+After this guide, you should be able to match **data types** and **analysis goals** to common chart families and avoid obvious mismatches (for example, pie charts for trends).
+
+> **Note:** This is a **reference-style** lesson: use it beside [Visualization principles](3.1-intro-data-viz/visualization-principles.md) and your Python or BI tool of choice.
+
+## Prerequisites
+
+- Basic idea of **numeric** vs **categorical** data and, when relevant, **time series** (from EDA or statistics modules).
+- Optional: skim [Common mistakes](common-mistakes.md) for paired “do/don’t” examples.
+
 ## Understanding Your Data Type
 
 Before choosing a visualization, identify what type of data you're working with:
@@ -252,3 +263,8 @@ plt.ylabel('Frequency')
    - Include units
 
 Remember: The best visualization is one that effectively communicates your message to your audience. When in doubt, choose clarity over complexity!
+
+## Next steps
+
+- Implement choices in [Matplotlib basics](3.1-intro-data-viz/matplotlib-basics.md) or your BI lesson in [3.3](3.3-bi-with-tableau/README.md).
+- See the [module overview](README.md) for the full learning path.

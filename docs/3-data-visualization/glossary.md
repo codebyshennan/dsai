@@ -1,6 +1,6 @@
 # Data Visualization Glossary
 
-A simple guide to common terms you'll encounter in data visualization.
+A simple guide to common terms you'll encounter in data visualization. Use it when a lesson uses a word you have not seen yet; definitions stay short on purpose.
 
 ## Basic Terms
 

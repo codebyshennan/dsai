@@ -1,5 +1,11 @@
 # Data Visualization Best Practices Guide
 
+## Overview
+
+These practices apply whether you plot in Python or in a BI tool: one clear message per view, audience-appropriate complexity, honest scales, and accessible color and type.
+
+> **Note:** See [Visualization principles](3.1-intro-data-viz/visualization-principles.md) for perception science and [Common mistakes](common-mistakes.md) for before/after patterns.
+
 ## Core Principles
 
 ### 1. Clarity First
@@ -307,3 +313,8 @@ except Exception as e:
 3. Performance tested
 4. Accessibility confirmed
 5. Documentation complete
+
+## Next steps
+
+- Deepen design intuition in [Visualization principles](3.1-intro-data-viz/visualization-principles.md).
+- Compare your habits against [Common mistakes](common-mistakes.md) before publishing or presenting.
