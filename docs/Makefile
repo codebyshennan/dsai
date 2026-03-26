@@ -1,7 +1,16 @@
-.PHONY: clean build prep all data-fundamentals python stats linear-algebra pandas
+.PHONY: clean build build-all-slides prep all data-fundamentals python stats linear-algebra pandas regenerate clean-module
 
-# Build all slides
+# Build slides for 0-prep + module 1 (data fundamentals) only
 build: prep data-fundamentals
+
+# Rebuild every submodule that has slides/data.json
+build-all-slides:
+	@echo "Building all slide decks..."
+	@for f in $$(find . -path '*/slides/data.json' -type f); do \
+		moddir=$$(dirname $$(dirname "$$f")); \
+		echo " -> $$moddir"; \
+		node slides/build.js "$$moddir" || exit 1; \
+	done
 
 # Build preparation slides
 prep:
@@ -32,10 +41,10 @@ pandas:
 	@echo "Building pandas slides..."
 	@node slides/build.js 1-data-fundamentals/1.5-data-analysis-pandas
 
-# Clean generated files
+# Clean generated slide HTML only (not other index.html files)
 clean:
-	@echo "Cleaning generated files..."
-	@find . -type f -name "index.html" -delete
+	@echo "Cleaning generated slide index.html files..."
+	@find . -path '*/slides/index.html' -type f -delete
 
 # Clean specific module
 clean-module:
@@ -46,15 +55,15 @@ clean-module:
 	fi
 	@find . -path "*/$(MODULE)/*" -type f -name "index.html" -delete
 
-# Regenerate specific module
+# Regenerate specific module (MODULE = path under docs/, e.g. 2-data-wrangling/2.1-sql)
 regenerate:
 	@echo "Regenerating specific module..."
 	@if [ -z "$(MODULE)" ]; then \
-		echo "Error: MODULE variable not set. Usage: make regenerate MODULE=module-name"; \
+		echo "Error: MODULE variable not set. Example: make regenerate MODULE=2-data-wrangling/2.1-sql"; \
 		exit 1; \
 	fi
-	@make clean-module MODULE=$(MODULE)
-	@node slides/build.js 1-data-fundamentals/$(MODULE)
+	@$(MAKE) clean-module MODULE=$(MODULE)
+	@node slides/build.js $(MODULE)
 
 # Default target
 all: build 

@@ -5,91 +5,127 @@ import path from 'node:path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-function generateSlideHtml(slide) {
-    // Common elements for all slides
-    const footerHtml = `<div class="slide-footer">Data Science & Analytics | Skills Union</div>`;
-    const slideNumberHtml = `<div class="slide-number"></div>`;
+/** Escape text for safe HTML insertion (trusted author content; still avoids breakage from & < >). */
+function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+/** After escaping, turn `**segment**` into <strong> (same convention as course markdown notes). */
+function formatInline(s) {
+    return escapeHtml(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+}
+
+function generateSlideHtml(slide, index) {
+    const footerHtml = `<div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>`;
     switch (slide.type) {
         case 'title': {
+            const title = formatInline(slide.title ?? '');
+            const subtitle = formatInline(slide.subtitle ?? '');
+            const subtitleBlock = subtitle
+                ? `<h3>${subtitle}</h3>`
+                : '';
             return `
                 <section>
                     <div class="content-wrapper">
-                        <h1>${slide.title}</h1>
-                        <h3>${slide.subtitle}</h3>
+                        <h1>${title}</h1>
+                        ${subtitleBlock}
                     </div>
                     ${footerHtml}
-                    ${slideNumberHtml}
                 </section>
             `;
         }
         case 'content': {
             const content = slide.content;
+            if (!content || typeof content !== 'object') {
+                console.warn(`Slide ${index}: content slide missing "content" object, skipping`);
+                return '';
+            }
             let itemsHtml = '';
 
-            if (content.items) {
+            if (Array.isArray(content.items)) {
                 const listType = content.ordered ? 'ol' : 'ul';
+                const lis = content.items.map((item) => `<li>${formatInline(item)}</li>`).join('\n');
                 itemsHtml = `
                     <div class="list-container">
                         <${listType}>
-                            ${content.items.map(item => `<li>${item}</li>`).join('\n')}
+                            ${lis}
                         </${listType}>
                     </div>
                 `;
             }
 
+            const boxTitle = content.title ? `<h3>${formatInline(content.title)}</h3>` : '';
+            const slideTitle = formatInline(slide.title ?? '');
+
             return `
                 <section>
                     <div class="content-wrapper">
-                        <h2>${slide.title}</h2>
+                        <h2>${slideTitle}</h2>
                         <div class="box">
-                            ${content.title ? `<h3>${content.title}</h3>` : ''}
+                            ${boxTitle}
                             ${itemsHtml}
                         </div>
                     </div>
                     ${footerHtml}
-                    ${slideNumberHtml}
                 </section>
             `;
         }
         default:
+            console.warn(`Slide ${index}: unknown type "${slide.type}", skipping`);
             return '';
     }
 }
 
 function buildSlides(moduleDir) {
-    // Construct paths
     const templatePath = path.join(__dirname, 'template.html');
     const dataPath = path.join(moduleDir, 'slides', 'data.json');
     const outputPath = path.join(moduleDir, 'slides', 'index.html');
 
-    // Ensure the slides directory exists
     const slidesDir = path.dirname(outputPath);
     if (!fs.existsSync(slidesDir)) {
         fs.mkdirSync(slidesDir, { recursive: true });
     }
 
-    // Read the template and data files
-    const template = fs.readFileSync(templatePath, 'utf8');
-    const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+    if (!fs.existsSync(dataPath)) {
+        console.error(`No slides data: ${dataPath}`);
+        process.exit(1);
+    }
 
-    // Generate HTML for all slides
-    const slidesHtml = data.slides.map(generateSlideHtml).join('\n');
+    let template;
+    let data;
+    try {
+        template = fs.readFileSync(templatePath, 'utf8');
+        data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+    } catch (err) {
+        console.error(err instanceof Error ? err.message : err);
+        process.exit(1);
+    }
 
-    // Replace placeholders
+    if (!data.title || !Array.isArray(data.slides)) {
+        console.error('data.json must include "title" (string) and "slides" (array)');
+        process.exit(1);
+    }
+
+    const slidesHtml = data.slides.map((s, i) => generateSlideHtml(s, i)).join('\n');
+
     const output = template
-        .replace('{{title}}', data.title)
+        .replace('{{title}}', escapeHtml(data.title))
         .replace('{{content}}', slidesHtml);
 
-    // Write the output file
     fs.writeFileSync(outputPath, output);
     console.log(`Slides built successfully: ${outputPath}`);
 }
 
-// Get the module directory from command line argument
 const moduleDir = process.argv[2];
 if (!moduleDir) {
-    console.error('Please provide the module directory as an argument');
+    console.error('Usage: node slides/build.js <module-directory-relative-to-cwd>');
+    console.error('Example: node slides/build.js 1-data-fundamentals/1.2-intro-python');
     process.exit(1);
 }
 
-buildSlides(path.resolve(process.cwd(), moduleDir)); 
+buildSlides(path.resolve(process.cwd(), moduleDir));
