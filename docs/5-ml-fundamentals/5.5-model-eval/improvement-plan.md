@@ -93,9 +93,9 @@ Based on a comprehensive review of the model evaluation learning materials, this
 #### Phase 2.2: Create Progressive Exercise Structure - **COMPLETED** ✅
 **Achievements**:
 - ✅ Design beginner exercises focusing on single concepts
-- ✅ Create quick assessment for skill level determination (`exercises/quick_assessment.ipynb`)
-- ✅ Develop Level 1 (Beginner) cross-validation exercise (`exercises/level1_basic_cross_validation.ipynb`)
-- ✅ Create comprehensive exercise structure with clear navigation (`exercises/README.md`)
+- ✅ Create quick assessment for skill level determination (<code>exercises/quick_assessment.ipynb</code>)
+- ✅ Develop Level 1 (Beginner) cross-validation exercise (<code>exercises/level1_basic_cross_validation.ipynb</code>)
+- ✅ Create comprehensive exercise structure with clear navigation (<code>exercises/README.md</code>)
 - ✅ Add interactive checkpoint questions with detailed solutions
 - ✅ Include progressive difficulty from basic concepts to model comparison
 - ✅ Provide real-world analogies and practical examples throughout

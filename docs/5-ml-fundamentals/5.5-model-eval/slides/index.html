@@ -9,99 +9,63 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <style>
         body {
-            background: #ffffff;
-            font-size: 12px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         .reveal {
-            --primary-blue: #1877F2;
-            --dark-blue: #0e305a;
-            --light-blue: #e7f0fd;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-size: 1.5em;
         }
 
         .reveal h1,
         .reveal h2,
         .reveal h3 {
-            color: var(--dark-blue);
             text-transform: none;
+            margin-bottom: 0.5em;
             text-align: center;
-            margin-top: 0.5em;
-            font-weight: 600;
         }
 
         .reveal h1 {
-            font-size: 1.8em;
+            font-size: 2em;
         }
 
         .reveal h2 {
-            font-size: 1.4em;
+            font-size: 1.6em;
         }
 
         .reveal h3 {
-            font-size: 1.2em;
+            font-size: 1.3em;
         }
 
-        .reveal .slides {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-            height: 100vh;
+        .reveal p {
+            margin-bottom: 1em;
+            line-height: 1.4;
+            text-align: center;
         }
 
         .reveal ul {
-            margin-left: 1em;
+            margin: 0 auto;
             text-align: left;
-            display: inline-block;
+            max-width: 80%;
         }
 
         .reveal li {
-            margin-bottom: 0.8em;
-            text-align: left;
-            line-height: 1.5;
+            margin-bottom: 0.5em;
         }
 
-        .reveal .highlight {
-            color: var(--primary-blue);
-            font-weight: 600;
+        .reveal code {
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
         }
 
-        .reveal .box {
-            background: var(--light-blue);
-            padding: 0.6em 1em;
+        .reveal pre {
+            padding: 1em;
             border-radius: 8px;
-            margin: 0.8em auto;
-            border-left: 4px solid var(--primary-blue);
-            max-width: 800px;
-            width: 100%;
-            box-sizing: border-box;
-            display: block;
-            font-size: 0.9em;
-            line-height: 1.4;
-        }
-
-        .reveal .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            width: 100%;
-            max-width: 1000px;
+            max-width: 80%;
             margin: 0 auto;
         }
 
-        .reveal .three-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
+        .reveal .slides {
+            text-align: center;
         }
 
         .reveal .center {
@@ -112,99 +76,58 @@
             text-align: right;
         }
 
-        .slide-header {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 1;
-            opacity: 0.1;
-            pointer-events: none;
+        .reveal .box {
+            padding: 1em;
+            border-radius: 8px;
+            margin: 1em auto;
+            max-width: 80%;
         }
 
-        .slide-header img {
-            height: 100vh;
-            width: auto;
-            object-fit: cover;
+        .reveal .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2em;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        .reveal .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2em;
+            max-width: 80%;
+            margin: 0 auto;
         }
 
         .slide-footer {
-            position: absolute;
-            bottom: 0.8em;
-            left: 1.5em;
-            color: var(--dark-blue);
-            font-size: 0.75em;
-            opacity: 0.85;
-            font-weight: 500;
-        }
-
-        .slide-number {
-            position: absolute;
-            bottom: 0.8em;
-            right: 1.5em;
-            color: var(--primary-blue);
-            font-size: 0.75em;
-            opacity: 0.85;
-            font-weight: 500;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.8em;
+            color: #666;
+            z-index: 1000;
+            background: white;
+            padding: 0.5em 1em;
+            border-top: 1px solid #eee;
+            text-align: left;
         }
 
         section {
+            padding: 2em;
+            padding-bottom: 4em;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-            height: 100vh;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 6em 2.5em;
-            text-align: center;
+            min-height: 100vh;
             box-sizing: border-box;
         }
 
-        .reveal section>* {
-            max-width: 900px;
+        .list-container {
             width: 100%;
-            margin: 0.8em auto;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .reveal p {
-            line-height: 1.6;
-            margin-bottom: 1em;
-        }
-
-        .reveal img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .reveal code {
-            background: var(--light-blue);
-            padding: 0.2em 0.4em;
-            border-radius: 4px;
-            font-size: 0.8em;
-        }
-
-        .reveal pre {
-            background: var(--light-blue);
-            padding: 0.6em;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            font-size: 0.8em;
-        }
-
-        .reveal .list-container {
-            display: inline-block;
-            text-align: left;
+            max-width: 80%;
             margin: 0 auto;
-        }
-
-        .reveal ul {
-            margin-left: 1em;
-            text-align: left;
         }
     </style>
 </head>
@@ -214,20 +137,20 @@
         <div class="slides">
             
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h1>Model Evaluation and Hyperparameter Tuning</h1>
-                    <h3></h3>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="content-wrapper">
+                        <h1>Model Evaluation and Hyperparameter Tuning</h1>
+                        
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Accuracy</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Accuracy</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Perfect accuracy: 1.0</li>
@@ -242,18 +165,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Confusion Matrix</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Confusion Matrix</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>True Positives (TP): Correctly predicted positive cases</li>
@@ -275,18 +198,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Cross Validation</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Cross Validation</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Test different dishes with various groups of customers</li>
@@ -303,18 +226,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Early Stopping</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Early Stopping</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Training: Studying the material</li>
@@ -326,18 +249,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Hyperparameter Tuning</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Hyperparameter Tuning</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Controls step size in gradient descent</li>
@@ -350,18 +273,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Learning Curves</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Learning Curves</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Training curve: How well the student performs on practice problems</li>
@@ -382,18 +305,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Metrics</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Metrics</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Accuracy is like the win-loss record</li>
@@ -410,18 +333,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Model Selection</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Model Selection</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>How many people are traveling?</li>
@@ -445,18 +368,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Overfitting Underfitting</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Overfitting Underfitting</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Overfitting: Memorizing specific questions and answers</li>
@@ -468,18 +391,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Precision Recall</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Precision Recall</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Definition: Ratio of true positives to all predicted positives</li>
@@ -493,8 +416,8 @@
 <li>Area Under Curve (AUC): Overall model performance</li>
 <li>Perfect classifier: AUC = 1.0</li>
 <li>Random classifier: AUC = 0.5</li>
-<li>Good classifier: AUC > 0.8</li>
-<li>Poor classifier: AUC < 0.6</li>
+<li>Good classifier: AUC &gt; 0.8</li>
+<li>Poor classifier: AUC &lt; 0.6</li>
 <li>One curve per class</li>
 <li>Micro-average: Overall performance</li>
 <li>Macro-average: Class-wise average</li>
@@ -508,18 +431,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Regularization</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Regularization</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>L1: Strict rules about what you can eat</li>
@@ -531,18 +454,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Roc And Auc</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Roc And Auc</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Correctly identify all patients with the disease (high sensitivity)</li>
@@ -562,29 +485,29 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Roc Auc</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Roc Auc</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>AUC = 1.0: Perfect classification</li>
 <li>AUC = 0.5: Random guessing</li>
-<li>AUC < 0.5: Worse than random</li>
+<li>AUC &lt; 0.5: Worse than random</li>
 <li>Upper left corner: Ideal point</li>
 <li>Diagonal line: Random guessing</li>
 <li>Curve shape: Model performance</li>
-<li>AUC > 0.9: Excellent</li>
-<li>0.7 < AUC < 0.9: Good</li>
-<li>0.5 < AUC < 0.7: Fair</li>
+<li>AUC &gt; 0.9: Excellent</li>
+<li>0.7 &lt; AUC &lt; 0.9: Good</li>
+<li>0.5 &lt; AUC &lt; 0.7: Fair</li>
 <li>AUC = 0.5: Random</li>
 <li>Operating point: Business requirements</li>
 <li>Cost-benefit analysis</li>
@@ -592,18 +515,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Roc Curve</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Roc Curve</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Area Under Curve (AUC): Overall model performance</li>
@@ -623,18 +546,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Sklearn Pipelines</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Sklearn Pipelines</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>[Scikit-learn Pipeline Documentation](https://scikit-learn.org/stable/modules/pipeline.html)</li>
@@ -643,18 +566,18 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Validation Curves</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Validation Curves</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
                             <li>Training score increases</li>
@@ -672,9 +595,9 @@
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
         </div>
@@ -686,18 +609,9 @@
             hash: true,
             center: false,
             transition: 'slide',
+            slideNumber: true,
             plugins: []
         });
-        Reveal.on('slidechanged', function (event) {
-            document.querySelectorAll('.slide-number').forEach((el, idx) => {
-                el.textContent = `Slide ${idx + 1} / ${document.querySelectorAll('.slides section').length}`;
-            });
-        });
-        setTimeout(() => {
-            document.querySelectorAll('.slide-number').forEach((el, idx) => {
-                el.textContent = `Slide ${idx + 1} / ${document.querySelectorAll('.slides section').length}`;
-            });
-        }, 500);
     </script>
 </body>
 

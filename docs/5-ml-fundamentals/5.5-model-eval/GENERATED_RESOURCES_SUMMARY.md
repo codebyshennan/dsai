@@ -5,31 +5,31 @@ This document summarizes all the visualizations and code outputs that have been 
 ## 📊 Generated Visualizations (assets/ directory)
 
 ### ROC Curve Visualizations
-- `roc_curve_basic_example.png` - Basic ROC curve for binary classification
-- `roc_multiple_models_comparison.png` - ROC curves comparing multiple models
-- `roc_multiclass_iris.png` - Multi-class ROC curves using Iris dataset
+- <code>roc_curve_basic_example.png</code> - Basic ROC curve for binary classification
+- <code>roc_multiple_models_comparison.png</code> - ROC curves comparing multiple models
+- <code>roc_multiclass_iris.png</code> - Multi-class ROC curves using Iris dataset
 
 ### Threshold Analysis
-- `threshold_analysis_detailed.png` - Comprehensive threshold analysis showing precision, recall, F1-score, TPR, and FPR vs threshold
+- <code>threshold_analysis_detailed.png</code> - Comprehensive threshold analysis showing precision, recall, F1-score, TPR, and FPR vs threshold
 
 ### Credit Risk Analysis
-- `credit_risk_comprehensive_analysis.png` - Complete credit risk model analysis with ROC curve, threshold analysis, probability distributions, and feature importance
+- <code>credit_risk_comprehensive_analysis.png</code> - Complete credit risk model analysis with ROC curve, threshold analysis, probability distributions, and feature importance
 
 ### Bootstrap Analysis
-- `bootstrap_auc_distribution.png` - Bootstrap distribution of AUC scores with confidence intervals
+- <code>bootstrap_auc_distribution.png</code> - Bootstrap distribution of AUC scores with confidence intervals
 
 ### Precision-Recall Analysis
-- `precision_recall_tradeoff_detailed.png` - Detailed precision-recall trade-off demonstration for different model types
+- <code>precision_recall_tradeoff_detailed.png</code> - Detailed precision-recall trade-off demonstration for different model types
 
 ### Classification Examples
-- `confusion_matrix_example.png` - Confusion matrix visualization example
-- `metrics_comparison_heatmap.png` - Heatmap comparing different metrics across various scenarios
+- <code>confusion_matrix_example.png</code> - Confusion matrix visualization example
+- <code>metrics_comparison_heatmap.png</code> - Heatmap comparing different metrics across various scenarios
 
 ### Regression Examples
-- `regression_examples.png` - Regression predictions vs true values and residual plots
+- <code>regression_examples.png</code> - Regression predictions vs true values and residual plots
 
 ### Cross-Validation
-- `cross_validation_example.png` - Cross-validation AUC scores visualization
+- <code>cross_validation_example.png</code> - Cross-validation AUC scores visualization
 
 ## 📄 Generated Code Outputs (outputs/ directory)
 

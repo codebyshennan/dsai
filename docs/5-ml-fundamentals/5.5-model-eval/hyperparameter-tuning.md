@@ -427,7 +427,7 @@ with open('best_params.txt', 'w') as f:
 **Solution**:
 - Use random search or Bayesian optimization for large spaces
 - Implement early stopping for iterative algorithms
-- Use parallel processing (`n_jobs=-1`)
+- Use parallel processing (<code>n_jobs=-1</code>)
 - Consider approximate methods for initial screening
 
 ### 4. Ignoring Model Assumptions
@@ -499,9 +499,9 @@ with open('best_params.txt', 'w') as f:
 ## Tools and Libraries
 
 ### Scikit-learn Built-in
-- `GridSearchCV`: Exhaustive grid search
-- `RandomizedSearchCV`: Random search
-- `HalvingGridSearchCV`: Successive halving for efficiency
+- <code>GridSearchCV</code>: Exhaustive grid search
+- <code>RandomizedSearchCV</code>: Random search
+- <code>HalvingGridSearchCV</code>: Successive halving for efficiency
 
 ### Specialized Libraries
 - **Optuna**: Modern hyperparameter optimization framework
