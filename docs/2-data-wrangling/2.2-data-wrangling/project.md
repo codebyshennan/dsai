@@ -1,5 +1,13 @@
 # E-commerce Data Wrangling Project: From Raw Data to Actionable Insights
 
+## Overview
+
+**Primary outcome:** You deliver a cleaned, documented dataset (or notebook) that shows how you assessed quality, handled **missing values** and **outliers**, and validated results—aligned with the [wrangling lessons](README.md).
+
+**Prerequisites:** Complete [data quality](data-quality.md), [missing values](missing-values.md), and [transformations](transformations.md) (or equivalent experience). Same Python stack as the [module README](README.md).
+
+> **Time needed:** Often 6–12 hours including documentation.
+
 ## Business Context
 
 As a data scientist at "GlobalMart", you face a critical challenge: the company's raw data needs significant cleaning and preparation before it can be used for advanced analytics. This project will guide you through the complete data wrangling process, from initial assessment to final validation.

@@ -1,5 +1,15 @@
 # Missing Values: Strategies for Incomplete Data
 
+## Overview
+
+**Primary outcome:** You can tell **MCAR**, **MAR**, and **MNAR** apart in plain language, explore missingness patterns in **pandas**, and pick a defensible strategy (drop, impute, or model) for a simple dataset.
+
+**Prerequisites:** [Data quality assessment](data-quality.md) and [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) basics (**isna**, indexing). Optional: probability ideas from [Intro Statistics](../../1-data-fundamentals/1.3-intro-statistics/README.md).
+
+> **Time needed:** 60–90 minutes; the code examples are dense—run them in a notebook.
+
+> **Note:** **MCAR** (Missing Completely at Random), **MAR** (Missing at Random), and **MNAR** (Missing Not at Random) describe *why* data might be missing—see the diagram below.
+
 Missing data is one of the most common and challenging issues in data analysis. Understanding the nature of missing values and choosing appropriate handling strategies is crucial for maintaining data integrity and ensuring reliable analysis results.
 
 ## Understanding Missing Data Mechanisms
@@ -421,3 +431,10 @@ imputation_report = {
 ```
 
 Remember: "The quality of your imputation directly impacts the reliability of your analysis!"
+
+## Next steps
+
+- [Outliers](outliers.md) — extreme values that interact with missingness
+- [Transformations](transformations.md) — scaling and encoding after cleaning
+- [Exploratory Data Analysis (Module 2.3)](../2.3-eda/README.md) — validate patterns after imputation
+- [Module README](README.md) — assignments and notebook

@@ -1,5 +1,13 @@
 # Data Transformations: Shaping Data for Analysis
 
+## Overview
+
+**Primary outcome:** You can scale numeric features (**standard**, **min-max**), encode categoricals (**one-hot**, **label**), and apply common fixes (log, datetime features) with a clear reason for each choice.
+
+**Prerequisites:** [Missing values](missing-values.md) and [Outliers](outliers.md) (or equivalent cleaning). Familiarity with **scikit-learn**’s preprocessing module is useful; we cite it in examples.
+
+> **Time needed:** About 60 minutes.
+
 Data transformation is a crucial step in the data preparation process that involves converting data from one format or structure into another. This comprehensive guide covers various transformation techniques and when to use them effectively.
 
 ## Understanding Data Transformations: A Strategic Framework
@@ -416,3 +424,9 @@ for i, col in enumerate(numeric_features):
 ```
 
 Remember: "Choose transformations that enhance the signal in your data while preserving meaningful relationships!"
+
+## Next steps
+
+- [Exploratory Data Analysis (Module 2.3)](../2.3-eda/README.md) — explore distributions after transforming
+- [Data engineering (Module 2.4)](../2.4-data-engineering/README.md) — where transforms often run in pipelines
+- [Module README](README.md)

@@ -1,5 +1,13 @@
 # Outliers: Detection and Treatment Strategies
 
+## Overview
+
+**Primary outcome:** You can detect point outliers with **z-scores** and **IQR** rules, interpret **contextual** and **collective** outliers at a high level, and choose treatment (keep, cap, remove) based on the analysis goal.
+
+**Prerequisites:** [Data quality](data-quality.md) and basic descriptive statistics from [Intro Statistics](../../1-data-fundamentals/1.3-intro-statistics/README.md). [NumPy](../../1-data-fundamentals/1.4-data-foundation-linear-algebra/README.md) arrays and [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) Series are assumed.
+
+> **Time needed:** About 60 minutes.
+
 Outliers are observations that deviate significantly from the general pattern of a dataset. While they can sometimes represent errors, they may also contain valuable insights about unusual but important phenomena. This comprehensive guide will help you master the art of outlier detection and treatment.
 
 ## Understanding Outliers: A Comprehensive Framework
@@ -486,3 +494,9 @@ report = {
 ```
 
 Remember: "Not all outliers are errors, and not all errors are outliers. Context is key!"
+
+## Next steps
+
+- [Transformations](transformations.md) — when trimming or scaling after outlier work
+- [Distributions (EDA)](../2.3-eda/distributions.md) — see skew and tails on clean plots
+- [Module README](README.md)

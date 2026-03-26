@@ -1,5 +1,13 @@
 # Data Wrangling: From Raw Data to Reliable Insights
 
+## Overview
+
+**Primary outcome:** You can assess quality, handle **missing values** and **outliers**, and **transform** columns so downstream analysis (EDA or modeling) is trustworthy.
+
+**Prerequisites:** [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) and [NumPy](../../1-data-fundamentals/1.4-data-foundation-linear-algebra/README.md) basics. [SQL (Module 2.1)](../2.1-sql/README.md) is useful when your raw data comes from databases.
+
+> **Time needed:** Several hours across lessons and the tutorial notebook.
+
 Data wrangling, also known as data munging or data preprocessing, is the art and science of transforming raw data into a clean, reliable format suitable for analysis. Think of it as preparing ingredients before cooking - just as a chef needs clean, properly cut ingredients, a data scientist needs clean, properly formatted data.
 
 ## The Data Wrangling Journey

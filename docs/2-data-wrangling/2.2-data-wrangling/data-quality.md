@@ -1,5 +1,13 @@
 # Data Quality Assessment: Building Trust in Your Data
 
+## Overview
+
+**Primary outcome:** You can evaluate data along dimensions like **accuracy**, **completeness**, **consistency**, and **timeliness**, and document issues before modeling or reporting.
+
+**Prerequisites:** [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) (**describe**, **info**, **value_counts**). [SQL (Module 2.1)](../2.1-sql/README.md) helps if your source data lives in a database.
+
+> **Time needed:** About 45–60 minutes for concepts; more if you build the full dashboard examples.
+
 Data quality is the foundation of reliable analytics and machine learning. Poor data quality can lead to incorrect insights, biased models, and costly business decisions. This comprehensive guide will help you master the art and science of data quality assessment.
 
 ## Understanding Data Quality Dimensions
@@ -499,3 +507,10 @@ report = assess_ecommerce_data('sales_data.csv')
 ```
 
 Remember: "Data quality is not a destination, but a continuous journey of improvement!"
+
+## Next steps
+
+- [Missing values](missing-values.md) — patterns and imputation
+- [Outliers](outliers.md) — detection and treatment
+- [Transformations](transformations.md) — encode and scale for analysis
+- [Module README](README.md)
