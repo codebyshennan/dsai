@@ -28,9 +28,8 @@ body {
     line-height: 1.6;
 }
 
-/* Code block styling */
+/* Code block styling — `position` repeated below with higher specificity for Rouge + Primer */
 .markdown-body pre {
-    position: relative;
     max-width: 100%;
     overflow-x: auto;
     background-color: #f6f8fa;
@@ -42,34 +41,63 @@ body {
     margin: 1em 0;
 }
 
-/* Copy button styling */
-.copy-button {
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
-    padding: 0.25em 0.5em;
-    background-color: #f1f8ff;
-    border: 1px solid #c8e1ff;
-    border-radius: 3px;
-    font-size: 12px;
-    color: #0366d6;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+/* Anchor positioning for copy control (theme overrides can strip `position` from `pre`) */
+.markdown-body pre.highlight,
+.markdown-body div.highlight pre {
+    position: relative !important;
 }
 
-.markdown-body pre:hover .copy-button {
+/* Copy button: reset UA / Primer `button` (otherwise thick border, gray box, wrong placement) */
+.markdown-body .copy-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    margin: 0;
+    padding: 4px 10px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: #24292f;
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    box-shadow: 0 1px 0 rgba(27, 31, 36, 0.04);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.markdown-body pre:hover .copy-button,
+.markdown-body pre:focus-within .copy-button {
     opacity: 1;
 }
 
-.copy-button:hover {
-    background-color: #dbedff;
+.markdown-body .copy-button:hover {
+    background-color: #f3f4f6;
+    border-color: #c7c7c7;
 }
 
-.copy-button.copied {
-    background-color: #28a745;
-    border-color: #28a745;
-    color: white;
+.markdown-body .copy-button:focus-visible {
+    outline: 2px solid #0969da;
+    outline-offset: 2px;
+}
+
+.markdown-body .copy-button.copied {
+    background-color: #1a7f37;
+    border-color: #1a7f37;
+    color: #fff;
+    opacity: 1;
+}
+
+/* Touch / no-hover: keep control usable */
+@media (hover: none) {
+    .markdown-body .copy-button {
+        opacity: 0.92;
+    }
 }
 
 /* Rouge syntax highlighting */
@@ -160,6 +188,20 @@ body {
 .markdown-body ol {
     padding-left: 2em;
     margin: 1em 0;
+}
+
+/* GFM task lists: checkboxes only — hide duplicate bullets (kramdown uses ul.task-list) */
+.markdown-body ul.task-list {
+    list-style: none;
+}
+
+.markdown-body li.task-list-item {
+    list-style-type: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+    margin-right: 0.35em;
+    vertical-align: -0.12em;
 }
 
 /* Add some breathing room for blockquotes */
