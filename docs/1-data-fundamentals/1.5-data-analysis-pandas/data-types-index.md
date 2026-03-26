@@ -2,8 +2,7 @@
 
 ## Data Types (dtypes)
 
-{% stepper %}
-{% step %}
+---
 
 ### What are Data Types?
 
@@ -80,9 +79,7 @@ print("\nUnique Products:", sales_df['Product'].unique())
 print("Total Sales:", (sales_df['Price'] * sales_df['Quantity']).sum())
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Checking and Converting Data Types
 
@@ -115,9 +112,7 @@ dates = pd.Series(['2023-01-01', '2023-01-02'])
 dates = pd.to_datetime(dates)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Selecting Columns by Data Type
 
@@ -143,13 +138,9 @@ print("\nText columns:")
 print(text_cols)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Understanding Index
 
-{% stepper %}
-{% step %}
+---
 
 ### What is an Index?
 
@@ -170,9 +161,7 @@ print(sales)
 print("\nFebruary sales:", sales['Feb'])
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Working with Index
 
@@ -193,9 +182,7 @@ print("\nIndex values:", df.index.tolist())
 print("Is index unique?", df.index.is_unique)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Setting and Resetting Index
 
@@ -219,13 +206,9 @@ print("\nAfter resetting index:")
 print(df_reset)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Best Practices for Data Types and Index
 
-{% stepper %}
-{% step %}
+---
 
 ### Data Type Best Practices
 
@@ -242,9 +225,8 @@ print(df_reset)
 3. **Type Consistency**:
    - Keep data types consistent within columns
    - Convert mixed-type columns to appropriate types
-{% endstep %}
 
-{% step %}
+---
 
 ### Index Best Practices
 
@@ -270,9 +252,6 @@ sales_data = pd.DataFrame({
 print("Well-structured DataFrame with date index:")
 print(sales_data)
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Common Pitfalls and Solutions
 
@@ -304,3 +283,7 @@ print(sales_data)
    ```
 
 Remember: Understanding data types and index is crucial for efficient data analysis. Take time to set up your data structure correctly at the beginning of your analysis!
+
+## Next steps
+
+Continue to [Reindexing and dropping](./reindexing-dropping.md), then [Function mapping](./function-mapping.md) and the remaining lessons in [Data analysis with pandas](./README.md).

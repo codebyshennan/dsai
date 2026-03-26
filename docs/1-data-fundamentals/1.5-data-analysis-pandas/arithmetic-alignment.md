@@ -2,8 +2,7 @@
 
 ## Understanding Data Alignment
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Data Alignment?
 
@@ -27,9 +26,8 @@ Real-world applications:
 - Sales data comparison across regions
 - Stock portfolio analysis
 - Company performance metrics
-{% endstep %}
 
-{% step %}
+---
 
 ### Basic Alignment Example
 
@@ -85,13 +83,10 @@ Notice how:
 
 - Labels that exist in both Series ('b' and 'c') get added together
 - Labels that exist in only one Series ('a' and 'd') get NaN values
-{% endstep %}
-{% endstepper %}
 
 ## DataFrame Arithmetic
 
-{% stepper %}
-{% step %}
+---
 
 ### Basic DataFrame Operations
 
@@ -126,9 +121,8 @@ Notice how:
 - Column 'A' only exists in df1
 - Column 'C' only exists in df2
 - Row 'row4' only exists in df2
-{% endstep %}
 
-{% step %}
+---
 
 ### Filling Missing Values
 
@@ -142,22 +136,19 @@ print(result)
 ```
 
 This is like saying "if a value is missing in one DataFrame, treat it as 0 for the calculation"
-{% endstep %}
-{% endstepper %}
 
 ## Arithmetic Methods
 
-{% stepper %}
-{% step %}
+---
 
 ### Available Methods
 
 Pandas provides several arithmetic methods:
 
-- `add()` or `+`: Addition
-- `sub()` or `-`: Subtraction
-- `mul()` or `*`: Multiplication
-- `div()` or `/`: Division
+- **add()** or **+**: Addition
+- **sub()** or **-**: Subtraction
+- **mul()** or **\***: Multiplication
+- **div()** or **/**: Division
 
 ```python
 # Create sample DataFrames
@@ -176,9 +167,7 @@ print("\nQuantities:")
 print(quantity)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Using Arithmetic Methods
 
@@ -196,13 +185,10 @@ print(total)
 ```
 
 The `fill_value` parameter helps handle missing data more gracefully than the default NaN values.
-{% endstep %}
-{% endstepper %}
 
 ## Combining Overlapping Data
 
-{% stepper %}
-{% step %}
+---
 
 ### Using combine_first()
 
@@ -234,9 +220,7 @@ print("\nCombined data:")
 print(combined)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Real-World Example
 
@@ -264,9 +248,6 @@ combined_sales = store1_sales.combine_first(store2_sales)
 print("\nCombined Sales Data:")
 print(combined_sales)
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Best Practices and Tips
 
@@ -307,3 +288,13 @@ print(combined_sales)
    ```
 
 Remember: Data alignment is automatic in Pandas, but understanding how it works helps you handle missing or mismatched data effectively!
+
+## Common pitfalls
+
+- **Accidental outer joins** — Adding two Series with different indexes creates union alignment; check lengths and **NaN** counts after the op.
+- **fill_value surprises** — **fill_value** in **add**/**mul** changes what “missing” means; document what you chose.
+- **Modifying views** — **SettingWithCopy** warnings often mean you chained indexing; assign with **.loc** on the intended object.
+
+## Next steps
+
+You have completed the core pandas lessons in Module 1. Continue to [SQL fundamentals](../../2-data-wrangling/2.1-sql/README.md) in Module 2, or use the [course index](../../README.md) for the full path.

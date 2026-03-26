@@ -19,8 +19,7 @@ Real-world applications:
 
 ![dataframe](./assets/dataframe.png)
 
-{% stepper %}
-{% step %}
+---
 
 ### Creating Your First DataFrame
 
@@ -62,9 +61,8 @@ print(df_array)
 ```
 
 Notice how Pandas automatically adds numbered row labels (0, 1, 2) called the index!
-{% endstep %}
 
-{% step %}
+---
 
 ### Understanding DataFrame Structure
 
@@ -87,13 +85,9 @@ print("Index:", df.index.tolist())
 print("Shape:", df.shape)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Basic DataFrame Operations
 
-{% stepper %}
-{% step %}
+---
 
 ### Viewing Your Data
 
@@ -113,9 +107,7 @@ print("\nNumerical Statistics:")
 print(df.describe())
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Accessing Columns
 
@@ -137,9 +129,7 @@ print("\nMultiple columns:")
 print(df[['Name', 'Grade']])
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Adding and Modifying Data
 
@@ -157,13 +147,9 @@ print("\nAfter increasing everyone's age:")
 print(df)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Working with Rows
 
-{% stepper %}
-{% step %}
+---
 
 ### Accessing Rows
 
@@ -179,9 +165,7 @@ print("\nRow with index 1:")
 print(df.loc[1])
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Filtering Rows
 
@@ -199,13 +183,9 @@ print("\nYoung students with good grades:")
 print(good_grades_young)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Handling Missing Data
 
-{% stepper %}
-{% step %}
+---
 
 ### Understanding Missing Values
 
@@ -221,9 +201,7 @@ student_data = pd.DataFrame({
 print(student_data)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Dealing with Missing Values
 
@@ -242,9 +220,6 @@ print(student_data.dropna())
 print("\nFill missing values with 0:")
 print(student_data.fillna(0))
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Best Practices and Tips
 
@@ -268,3 +243,7 @@ print(student_data.fillna(0))
 4. **Data Types**: Make sure columns have the correct data types for your analysis
 
 Remember: DataFrames are powerful tools for data analysis. Take time to experiment with these examples and you'll be a Pandas pro in no time!
+
+## Next steps
+
+Continue to [Data types and index](./data-types-index.md) to control dtypes and labels, then follow the submodule lessons in [Data analysis with pandas](./README.md).

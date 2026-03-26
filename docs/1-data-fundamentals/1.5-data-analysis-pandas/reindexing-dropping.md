@@ -2,8 +2,7 @@
 
 ## Understanding Reindexing
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Reindexing?
 
@@ -23,9 +22,8 @@ Real-world applications:
 - Matching customer records across systems
 
 Let's explore with examples:
-{% endstep %}
 
-{% step %}
+---
 
 ### Basic Reindexing
 
@@ -63,9 +61,8 @@ print(complete_sales)
 ```
 
 Notice how 'David' was added with a NaN (Not a Number) value since we didn't have data for them.
-{% endstep %}
 
-{% step %}
+---
 
 ### Filling Missing Values
 
@@ -92,13 +89,9 @@ print("\nFilled backward:")
 print(temps_bfill)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Working with DataFrames
 
-{% stepper %}
-{% step %}
+---
 
 ### Reindexing DataFrame Rows
 
@@ -121,9 +114,7 @@ print("\nAfter reindexing rows:")
 print(df_reindexed)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Reindexing DataFrame Columns
 
@@ -142,13 +133,9 @@ print("\nAfter rearranging columns:")
 print(df_rearranged)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Dropping Data
 
-{% stepper %}
-{% step %}
+---
 
 ### Understanding Drop Operations
 
@@ -159,9 +146,8 @@ Dropping is like removing items from your dataset. You can drop:
 - Missing values
 
 The dropped data is removed from the result but your original data remains unchanged unless you use `inplace=True`.
-{% endstep %}
 
-{% step %}
+---
 
 ### Dropping Rows
 
@@ -188,9 +174,7 @@ print("\nAfter dropping rows with missing values:")
 print(df_clean)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Dropping Columns
 
@@ -208,13 +192,9 @@ print("\nAfter dropping multiple columns:")
 print(df_names_only)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Best Practices and Tips
 
-{% stepper %}
-{% step %}
+---
 
 ### When to Use Reindex
 
@@ -238,9 +218,7 @@ print("Aligned DataFrame:")
 print(df2_aligned)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### When to Use Drop
 
@@ -263,9 +241,6 @@ df_unique = df.drop_duplicates()
 # Drop rows based on a condition
 df_filtered = df.drop(df[df['grade'] < 60].index)
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Common Pitfalls and Solutions
 
@@ -306,3 +281,7 @@ df_filtered = df.drop(df[df['grade'] < 60].index)
    ```
 
 Remember: Always make a copy of your data before dropping or reindexing if you want to preserve the original data structure!
+
+## Next steps
+
+Continue to [Function mapping](./function-mapping.md), then [Sorting and ranking](./sorting-ranking.md) and [Arithmetic and alignment](./arithmetic-alignment.md).

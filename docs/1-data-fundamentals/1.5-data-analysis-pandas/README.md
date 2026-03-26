@@ -2,6 +2,14 @@
 
 > **Time needed:** 5-6 hours to complete this module
 
+## Overview
+
+**Primary outcome:** You can load tabular data into pandas, explore it with **Series** and **DataFrame** operations, and prepare it for analysis and visualization.
+
+**Prerequisites:** [Introduction to Python](../1.2-intro-python/README.md) and [Data foundation with NumPy](../1.4-data-foundation-linear-algebra/README.md).
+
+> **Contributors:** Authoring standards: `docs/meta/DOCUMENTATION_GUIDELINES.md` (`meta/` is excluded from the Jekyll build).
+
 ## What is Pandas?
 
 Pandas is your best friend when it comes to working with data in Python! Think of it as Excel on steroids - it's a powerful library that makes data manipulation and analysis much easier.
@@ -30,15 +38,13 @@ Before starting this module, you should have:
 
 > **Tip:** If you've used Excel before, you'll find many Pandas operations familiar! Pandas DataFrames work a lot like Excel spreadsheets, but with the power of Python programming.
 
-{% stepper %}
-{% step %}
+---
 
 ### Understanding the Name
 
 The name "Pandas" comes from "Panel Data", referring to datasets that contain observations over multiple time periods. However, don't let that confuse you - Pandas is great for working with any kind of structured data!
-{% endstep %}
 
-{% step %}
+---
 
 ### Key Features Explained
 
@@ -49,9 +55,8 @@ Let's break down what Pandas can do for you:
 - **Data Cleaning**: Fix messy data quickly
 - **Data Transformation**: Reshape and modify data
 - **Data Analysis**: Calculate statistics and find patterns
-{% endstep %}
 
-{% step %}
+---
 
 ### Why Use Pandas?
 
@@ -59,15 +64,12 @@ Let's break down what Pandas can do for you:
 2. **Powerful**: Handles millions of rows efficiently
 3. **Flexible**: Works with many data formats (CSV, Excel, SQL, etc.)
 4. **Popular**: Used by data scientists worldwide
-{% endstep %}
-{% endstepper %}
 
 ## Core Data Structures
 
 Pandas has two main data structures that you'll use all the time:
 
-{% stepper %}
-{% step %}
+---
 
 ### Series: The 1D Wonder
 
@@ -91,9 +93,7 @@ Output:
 dtype: int64
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### DataFrame: The 2D Powerhouse
 
@@ -118,15 +118,11 @@ Output:
 2  Charlie   21     88
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Common Operations Overview
 
 Here's a quick look at some everyday operations you'll perform with Pandas:
 
-{% stepper %}
-{% step %}
+---
 
 ### Reading Data
 
@@ -138,9 +134,7 @@ df = pd.read_csv('data.csv')
 df = pd.read_excel('data.xlsx')
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Viewing Data
 
@@ -155,9 +149,7 @@ df.info()
 df.describe()
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Basic Analysis
 
@@ -171,9 +163,6 @@ df['Category'].value_counts()
 # Filter data
 young_students = df[df['Age'] < 25]
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## What's Next?
 

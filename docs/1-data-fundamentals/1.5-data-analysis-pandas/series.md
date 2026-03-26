@@ -1,5 +1,11 @@
 # Understanding Pandas Series
 
+## Overview
+
+**Primary outcome:** You can create a **Series**, interpret its index and **dtype**, and perform basic math and summary stats—thinking of it as one labeled column.
+
+**Prerequisites:** [Introduction to Python](../1.2-intro-python/README.md) and [Introduction to NumPy](../1.4-data-foundation-linear-algebra/intro-numpy.md) (arrays) at a basic level.
+
 ## What is a Series?
 
 A Pandas Series is like a column in a spreadsheet or a single list of data with labels. Think of it as a smart, one-dimensional array that knows the name of each item! It's perfect for:
@@ -16,8 +22,7 @@ Real-world applications:
 - Survey responses
 - Sales performance tracking
 
-{% stepper %}
-{% step %}
+---
 
 ### Creating Your First Series
 
@@ -56,9 +61,8 @@ print("Highest temperature:", temperatures.max())
 ```
 
 Notice how Pandas automatically creates numbered labels (0, 1, 2, 3) for each value!
-{% endstep %}
 
-{% step %}
+---
 
 ### Custom Labels
 
@@ -82,9 +86,8 @@ dtype: int64
 ```
 
 Now you can access values using these friendly names!
-{% endstep %}
 
-{% step %}
+---
 
 ### Working with Series
 
@@ -103,13 +106,9 @@ print("\nStudents with A grades:")
 print(passing_grades)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Series from Dictionary
 
-{% stepper %}
-{% step %}
+---
 
 ### Creating from Dictionary
 
@@ -139,9 +138,7 @@ Paris        2.2
 dtype: float64
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Converting Back to Dictionary
 
@@ -159,13 +156,9 @@ Output:
 {'New York': 8.4, 'London': 9.0, 'Tokyo': 37.4, 'Paris': 2.2}
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Working with Missing Data
 
-{% stepper %}
-{% step %}
+---
 
 ### Understanding Missing Data
 
@@ -187,9 +180,7 @@ History    88.0
 dtype: float64
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Handling Missing Data
 
@@ -209,13 +200,9 @@ print("\nScores with filled values (0):")
 print(scores.fillna(0))
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Series Operations
 
-{% stepper %}
-{% step %}
+---
 
 ### Basic Math Operations
 
@@ -235,9 +222,7 @@ print("Grades after curve:")
 print(curved_grades)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Statistical Operations
 
@@ -250,9 +235,6 @@ print(f"Lowest grade: {grades.min()}")
 print(f"Grade summary:\n{grades.describe()}")
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Best Practices and Tips
 
 1. **Always Label Your Data**: Using meaningful index labels makes your data more readable and easier to work with.
@@ -260,4 +242,14 @@ print(f"Grade summary:\n{grades.describe()}")
 3. **Handle Missing Values**: Always check for and handle missing values appropriately.
 4. **Use Method Chaining**: You can combine operations like `grades.dropna().mean()`.
 
-Remember: A Series is just the beginning! Once you're comfortable with Series, you'll be ready to tackle DataFrames, which are like multiple Series working together.
+Remember: A Series is just the beginning. Once you're comfortable with Series, you'll be ready to tackle DataFrames, which are like multiple Series working together.
+
+## Common pitfalls
+
+- Forgetting that **Series** alignment is by **index** — operations pair labels, not just positions.
+- Mixing up **loc** (label-based) and **iloc** (position-based) when you slice (covered in more detail in later lessons).
+- Ignoring **NaN** values before calling **.mean()** or similar — check **.isna()** first when data is messy.
+
+## Next steps
+
+Continue to [Understanding DataFrames](./dataframe.md) to combine multiple columns and work with full tables.

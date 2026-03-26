@@ -2,8 +2,7 @@
 
 ## Understanding Function Application
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Function Application?
 
@@ -29,9 +28,8 @@ Real-world applications:
 - Feature engineering (ML preparation)
 - Date/time processing
 - Text analysis and cleaning
-{% endstep %}
 
-{% step %}
+---
 
 ### Basic Function Application
 
@@ -90,13 +88,9 @@ print("\nCleaned sales data:")
 print(sales_data)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Different Ways to Apply Functions
 
-{% stepper %}
-{% step %}
+---
 
 ### Using apply()
 
@@ -120,13 +114,12 @@ print("Sales with revenue:")
 print(sales_df)
 ```
 
-The `axis` parameter determines whether the function is applied to:
+The **axis** parameter determines whether the function is applied to:
 
-- rows (`axis=1`)
-- columns (`axis=0` or default)
-{% endstep %}
+- rows (**axis=1**)
+- columns (**axis=0** or default)
 
-{% step %}
+---
 
 ### Using applymap()
 
@@ -148,9 +141,7 @@ print("\nFormatted numbers:")
 print(formatted_df)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Using map() with Series
 
@@ -176,13 +167,9 @@ print("\nProduct names:")
 print(product_labels)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Real-World Examples
 
-{% stepper %}
-{% step %}
+---
 
 ### Data Cleaning Example
 
@@ -215,9 +202,7 @@ print("Cleaned customer data:")
 print(customers)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Data Analysis Example
 
@@ -251,13 +236,9 @@ print("\nGrade analysis:")
 print(analysis)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Best Practices and Tips
 
-{% stepper %}
-{% step %}
+---
 
 ### Performance Considerations
 
@@ -282,9 +263,7 @@ print(analysis)
    df['Sum'] = df['A'] + df['B']
    ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Function Design Tips
 
@@ -314,9 +293,6 @@ print(analysis)
    
    df['Result'] = df['Value'].apply(safe_division)
    ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Common Pitfalls and Solutions
 
@@ -359,3 +335,7 @@ print(analysis)
    ```
 
 Remember: Choose the right function application method based on your needs, and always consider performance implications when working with large datasets!
+
+## Next steps
+
+Continue to [Sorting and ranking](./sorting-ranking.md), then [Arithmetic and alignment](./arithmetic-alignment.md).

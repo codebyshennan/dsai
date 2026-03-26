@@ -2,8 +2,7 @@
 
 ## Understanding Sorting
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Sorting?
 
@@ -30,9 +29,8 @@ Real-world applications:
 - Sales performance reports
 - Event scheduling and planning
 - Customer segmentation
-{% endstep %}
 
-{% step %}
+---
 
 ### Basic Sorting Example
 
@@ -77,13 +75,9 @@ print("\nSales Data (sorted by total sales):")
 print(sales_data.sort_values('Total', ascending=False))
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Sorting DataFrames
 
-{% stepper %}
-{% step %}
+---
 
 ### Sorting by a Single Column
 
@@ -110,9 +104,7 @@ print("\nSorted by Math scores (highest to lowest):")
 print(grades.sort_values('Math', ascending=False))
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Sorting by Multiple Columns
 
@@ -129,13 +121,9 @@ print(grades.sort_values(['Science', 'Math'],
                         ascending=[False, True]))
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Understanding Ranking
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Ranking?
 
@@ -146,9 +134,8 @@ Ranking assigns positions to your data based on their values. Think of it like:
 - Determining the position of teams in a league
 
 The difference from sorting is that ranking keeps your data in its original order but adds rank numbers.
-{% endstep %}
 
-{% step %}
+---
 
 ### Basic Ranking Example
 
@@ -176,13 +163,10 @@ print(scores.rank(method='max'))
 ```
 
 Notice how different methods handle the tied scores (85 appears twice).
-{% endstep %}
-{% endstepper %}
 
 ## Real-World Examples
 
-{% stepper %}
-{% step %}
+---
 
 ### Sales Performance Analysis
 
@@ -207,9 +191,7 @@ print("\nSales with regional rankings:")
 print(sales)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Student Performance Analysis
 
@@ -236,13 +218,9 @@ print("Student rankings:")
 print(students.sort_values('OverallRank'))
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Best Practices and Tips
 
-{% stepper %}
-{% step %}
+---
 
 ### Sorting Best Practices
 
@@ -270,9 +248,7 @@ print(students.sort_values('OverallRank'))
    df.sort_values(['A', 'B'], kind='stable')
    ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Ranking Best Practices
 
@@ -295,9 +271,6 @@ print(students.sort_values('OverallRank'))
    # Calculate percentile ranks
    df['Percentile'] = df['Score'].rank(pct=True)
    ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Common Pitfalls and Solutions
 
@@ -328,3 +301,7 @@ print(students.sort_values('OverallRank'))
    ```
 
 Remember: Choose sorting and ranking methods based on your specific needs. Consider how you want to handle ties and missing values before applying these operations!
+
+## Next steps
+
+Continue to [Arithmetic and alignment](./arithmetic-alignment.md) to finish core pandas patterns in this submodule.
