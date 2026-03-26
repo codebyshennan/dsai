@@ -1,5 +1,17 @@
 # Understanding Relationships in Data: Connecting the Dots
 
+## Why this matters
+
+- You will tell **association** from **causation** and choose the right follow-up tool (correlation, regression, or tests).
+- You will read plots before trusting a single summary number.
+
+## Prerequisites
+
+- [Hypothesis testing and results (module 4.2)](../4.2-hypotheses-testing/README.md), especially [results analysis](../4.2-hypotheses-testing/results-analysis.md), for significance vs importance.
+- NumPy or pandas comfort for examples in later files.
+
+> **Note:** This is the first lesson in [Relationships in data (4.3)](./README.md).
+
 Welcome to your journey of discovering how things connect in the world of data! Think of this guide as your friendly map to help you see how different pieces of information might be linked to each other.
 
 ### Video Tutorial: Understanding Relationships in Data
@@ -262,9 +274,11 @@ Ready to put your new knowledge into action? Here's a simple activity:
 5. Be careful of common mistakes like confusing correlation with causation
 6. Real-world relationships are often complex and can change over time
 
-## What's Next on Your Learning Journey?
+## Next steps
 
-Now that you understand the basics of how things can be related, you're ready to:
+- Continue to [Correlation analysis](./correlation-analysis.md).
+
+Now that you understand the basics of how things can be related, you're also ready to:
 
 1. Learn about correlation – a specific way to measure how strongly things are related
 2. Explore regression – a tool to predict one thing based on another

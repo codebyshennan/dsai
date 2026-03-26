@@ -1,5 +1,16 @@
 # Multiple Linear Regression: Prediction with Multiple Factors
 
+## Why this matters
+
+- Real outcomes usually depend on **more than one** predictor; MLR separates overlapping effects where the design allows.
+- You will read coefficients **given** the other variables in the model (not the same as raw correlations).
+
+## Prerequisites
+
+- [Simple linear regression](./simple-linear-regression.md).
+
+> **Note:** Watch for multicollinearity and omitted-variable bias when adding predictors.
+
 Welcome to the next level of prediction! We've explored how one factor can predict an outcome using simple linear regression. Now we're taking a big step forward by learning how to use **multiple factors at once** to make even better predictions.
 
 ### Video Tutorial: Introduction to Multiple Regression
@@ -425,6 +436,10 @@ data = pd.DataFrame({
 4. Always check model assumptions using diagnostic plots
 5. Watch out for common issues: overfitting, multicollinearity, missing variables, and extrapolation
 6. The best models combine statistical methods with subject-matter knowledge
+
+## Next steps
+
+- Continue to [Model diagnostics](./model-diagnostics.md).
 
 ## Where to Go From Here
 

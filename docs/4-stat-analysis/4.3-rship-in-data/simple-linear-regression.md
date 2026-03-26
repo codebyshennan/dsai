@@ -1,5 +1,17 @@
 # Simple Linear Regression: Your First Step into Prediction
 
+## Why this matters
+
+- You will fit and interpret a **line of best fit** for prediction and for quantifying association.
+- You will check fit with **R²** and residuals before trusting slopes.
+
+## Prerequisites
+
+- [Correlation analysis](./correlation-analysis.md).
+- Optional: [tutorial notebook](./tutorial.ipynb).
+
+> **Note:** Assumptions (linearity, independence, homoscedasticity, normal errors) appear again in [model diagnostics](./model-diagnostics.md).
+
 Welcome to the exciting world of prediction! In this guide, we'll explore simple linear regression - a powerful tool that helps us not just understand relationships between things, but actually predict one thing based on another.
 
 ### Video Tutorial: Introduction to Linear Regression
@@ -406,9 +418,11 @@ The model would likely show:
 4. Always check if your model's assumptions are met using diagnostic plots
 5. Be careful about common pitfalls: extrapolation, outliers, non-linear relationships, and causation assumptions
 
-## Next Steps on Your Learning Journey
+## Next steps
 
-Now that you understand simple linear regression, you can explore:
+- Continue to [Multiple linear regression](./multiple-linear-regression.md).
+
+Now that you understand simple linear regression, you can also explore:
 
 1. **Multiple Linear Regression**: Using several variables to make predictions
 2. **Polynomial Regression**: Fitting curves instead of straight lines

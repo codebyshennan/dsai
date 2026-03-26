@@ -1,5 +1,16 @@
 # Model Check-Ups: Making Sure Your Predictions Are Trustworthy
 
+## Why this matters
+
+- **Residuals** and diagnostic plots turn “the model ran” into “the model fits the problem.”
+- You will fix violations (transformations, robust methods, or different models) before forecasting.
+
+## Prerequisites
+
+- [Multiple linear regression](./multiple-linear-regression.md).
+
+> **Important:** Diagnostics apply to many models beyond ordinary least squares.
+
 Welcome to the world of model diagnostics! Think of this guide as a "health check" for your regression models. Just like doctors run tests to make sure you're healthy, we need to run tests on our models to make sure they're giving us reliable predictions.
 
 ### Video Tutorial: Model Diagnostics and Residual Analysis
@@ -414,7 +425,9 @@ Try running a model check-up on a dataset you're working with. Here are the step
 4. Be ready to transform variables or try alternative models if needed
 5. Remember that no model is perfect - the goal is to make it useful for your specific question
 
-## Next Steps on Your Learning Journey
+## Next steps
+
+- Start [Statistical modelling (module 4.4)](../4.4-stat-modelling/README.md) with [Logistic regression](../4.4-stat-modelling/logistic-regression.md).
 
 Now that you understand how to check if your model is reliable, you can:
 

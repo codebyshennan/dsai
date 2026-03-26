@@ -1,5 +1,16 @@
 # Correlation Analysis: Measuring How Things Move Together
 
+## Why this matters
+
+- **Correlation** summarizes direction and strength of association for two numeric variables.
+- You will pick Pearson, Spearman, or Kendall based on data shape and outliers.
+
+## Prerequisites
+
+- [Understanding relationships](./understanding-relationships.md).
+
+> **Warning:** Correlation alone never proves causation.
+
 Welcome to the world of correlation analysis! In this guide, we'll learn how to put a number on the relationships between things we observe. If you've ever wondered "How can I tell exactly how connected these two things are?" - you're about to find out!
 
 ### Video Tutorial: Introduction to Correlation Analysis
@@ -334,9 +345,11 @@ Ready to try correlation analysis yourself? Here's a simple activity:
 5. Always visualize your data before calculating correlation
 6. Consider the context and practical significance when interpreting correlation values
 
-## Next Steps on Your Learning Journey
+## Next steps
 
-Now that you understand correlation, you're ready to:
+- Continue to [Simple linear regression](./simple-linear-regression.md).
+
+Now that you understand correlation, you're also ready to:
 
 1. Learn about regression analysis - which helps predict one variable based on another
 2. Explore partial correlation - which controls for the effects of other variables

@@ -1,5 +1,7 @@
 # Relationships in Data: Correlation and Regression
 
+See the [Module 4 overview](../README.md) for prerequisites and how this unit connects to inference and modelling.
+
 Welcome to this comprehensive guide on understanding relationships in data! This module is designed to take you from basic concepts to practical implementation, with plenty of examples and visualizations along the way.
 
 ## Learning Objectives
