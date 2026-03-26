@@ -1,6 +1,6 @@
 # Documentation Optimization Guidelines
 
-This document provides comprehensive guidelines for creating, maintaining, and optimizing technical documentation, especially for educational content targeting beginners.
+This document provides comprehensive guidelines for creating, maintaining, and optimizing technical documentation for the Tamkeen course: **general writing style**, **setup/tutorial patterns**, and **beginner-level lesson generation** (including a per-submodule anchor map for authors and tooling).
 
 ## Core Principles
 
@@ -21,6 +21,14 @@ This document provides comprehensive guidelines for creating, maintaining, and o
 - **Time estimates** - Tell readers how long tasks will take
 - **Prerequisites** - Clearly state what's needed before starting
 - **Expected outcomes** - Describe what success looks like
+
+### Jekyll / GFM (lists and inline code)
+
+The site uses **`markdown: GFM`** (GitHub Flavored Markdown). **Inline backticks** (`` `like this` ``) inside **list items** can still be parsed oddly in some edge cases (Rouge, broken sentences). Inside bullets or numbered lists, use **bold** for short tokens (commands, paths) or raw HTML `<code>...</code>` when you need monospace. Outside lists, ordinary backticks are usually fine.
+
+**Figures:** Prefer a blockquote callout instead of an empty `![alt]()` image:
+
+`> **Figure (add screenshot or diagram):** Short description of what to capture.`
 
 ## Content Structure
 
@@ -192,6 +200,123 @@ print(df.head())  # Should show first 5 rows
 6. **Summary** - Key takeaways
 7. **Further Reading** - Additional resources
 
+## Tamkeen beginner lessons
+
+Use this section when **writing or revising lesson markdown** under `docs/`. **Audience:** learners who meet the module `README` prerequisites but benefit from plain language, motivation, and worked examples before advanced depth.
+
+### Submodule anchor sample map
+
+Each row is one **reference file** sampled for structure, tone, and recurring elements. Use it when onboarding authors or when an LLM needs a concrete anchor per unit (paths are relative to `docs/`).
+
+| Module | Submodule | Sample file |
+|--------|-----------|-------------|
+| 0 | Prep | `0-prep/pedagogy.md` |
+| 1.1 | Intro data analytics | `1-data-fundamentals/1.1-intro-data-analytics/data-collection.md` |
+| 1.2 | Intro Python | `1-data-fundamentals/1.2-intro-python/basic-syntax-data-types.md` |
+| 1.3 | Intro statistics | `1-data-fundamentals/1.3-intro-statistics/probability-fundamentals.md` |
+| 1.4 | Linear algebra / NumPy | `1-data-fundamentals/1.4-data-foundation-linear-algebra/intro-numpy.md` |
+| 1.5 | Pandas | `1-data-fundamentals/1.5-data-analysis-pandas/series.md` |
+| 2.1 | SQL | `2-data-wrangling/2.1-sql/intro-databases.md` |
+| 2.2 | Data wrangling | `2-data-wrangling/2.2-data-wrangling/missing-values.md` |
+| 2.3 | EDA | `2-data-wrangling/2.3-eda/distributions.md` |
+| 2.4 | Data engineering | `2-data-wrangling/2.4-data-engineering/etl-fundamentals.md` |
+| 3.1 | Intro data viz | `3-data-visualization/3.1-intro-data-viz/visualization-principles.md` |
+| 3.2 | Advanced data viz | `3-data-visualization/3.2-adv-data-viz/seaborn-guide.md` |
+| 3.3 | BI / Tableau | `3-data-visualization/3.3-bi-with-tableau/tableau-basics.md` |
+| 3.4 | Data storytelling | `3-data-visualization/3.4-data-storytelling/visual-storytelling.md` |
+| 4.1 | Inferential stats | `4-stat-analysis/4.1-inferential-stats/confidence-intervals.md` |
+| 4.2 | Hypothesis testing | `4-stat-analysis/4.2-hypotheses-testing/hypothesis-formulation.md` |
+| 4.3 | Relationships in data | `4-stat-analysis/4.3-rship-in-data/simple-linear-regression.md` |
+| 4.4 | Statistical modelling | `4-stat-analysis/4.4-stat-modelling/logistic-regression.md` |
+| 5.1 | Intro ML | `5-ml-fundamentals/5.1-intro-to-ml/what-is-ml.md` |
+| 5.2 | Supervised learning 1 | `5-ml-fundamentals/5.2-supervised-learning-1/knn/1-introduction.md` |
+| 5.3 | Supervised learning 2 | `5-ml-fundamentals/5.3-supervised-learning-2/neural-networks/1-introduction.md` |
+| 5.4 | Unsupervised learning | `5-ml-fundamentals/5.4-unsupervised-learning/clustering.md` |
+| 5.5 | Model evaluation | `5-ml-fundamentals/5.5-model-eval/metrics.md` |
+| 6 | Capstone | `6-capstone/README.md` |
+
+**Nested ML topics (5.2, 5.3):** algorithm folders often use numbered files (`1-introduction.md`, `2-math-foundation.md`, etc.). Beginner lessons should align with `1-introduction.md` before pointing readers to deeper files.
+
+### Patterns observed in course lessons
+
+- **Module 0:** Explain how the course runs (e.g. flipped classroom, office hours) in short lists; reassure readers new to the format.
+- **Openings:** Topic-focused H1; early hooks such as “Why this matters,” “Overview,” or “What is X?” before dense detail; one analogy or real-world scenario where it helps.
+- **Structure:** H2/H3 path: concept → definition → example → code → pitfalls → next steps. Horizontal rules (`---`) often separate major sections in Python/Pandas-style pages. Long lessons end with “Next steps” or “Further reading”; capstone material uses phased timelines and deliverables.
+- **Pedagogy:** Progressive disclosure (idea in words, then formula, then code); optional links to notebooks, Python Tutor, or AI prompts are enhancements, not prerequisites.
+- **Code defaults:** Python unless the topic is SQL, BI, or another stack. Prefer `numpy`, `pandas`, `matplotlib`, `seaborn`, `scipy`, `sklearn` with imports at the top and comments.
+- **Math (GFM + MathJax in layout):** `$$...$$` or `\[...\]` for display; inline `$...$` as needed. Preview the built site—GFM does not apply kramdown’s old math preprocessor.
+- **Diagrams:** `mermaid` for workflows (EDA, ETL, missing-data mechanisms); keep diagrams readable on GitHub Pages.
+- **SQL:** Fenced blocks with `sql` and short comments.
+- **BI / tools:** Numbered or YAML-style steps plus screenshot placeholders under `./assets/` as appropriate.
+- **Media:** Optional `<iframe>` embeds (e.g. YouTube) with a one-line caption; images use descriptive alt text (what the figure teaches, not only the filename).
+
+### Reusable section patterns
+
+| Pattern | When to use |
+|---------|-------------|
+| Prerequisites | Setup-heavy or tool-specific lessons |
+| “What is X?” / definition | Every new term |
+| Analogy block | Abstract concepts |
+| Minimal code first | APIs, sklearn |
+| “Good vs bad” or checklist | Hypotheses, metrics |
+| “When to use / not use” | Algorithms |
+| “Common mistakes” | Algorithms and evaluation |
+| Comparison tables | Metrics, chart types |
+| Project briefs | Capstone |
+
+### Default outline for a new lesson
+
+Remove sections that do not apply.
+
+```markdown
+# [Lesson title]
+
+## [Why this matters / Overview]
+
+- 2–4 sentences and/or bullets: what the learner can do after the lesson.
+
+## Prerequisites
+
+- What they should already know (link to module README or prior lessons).
+
+## Core concepts
+
+### [Concept 1]
+
+- Plain definition; short analogy or example.
+
+## Worked example
+
+- Minimal code or SQL with comments; expected output or what to look for.
+
+## Interpretation (optional)
+
+- How to read numbers, charts, or model output.
+
+## Common pitfalls
+
+- 2–5 bullets: typical mistakes and fixes.
+
+## Practice (optional)
+
+- Small exercises or “try changing this” prompts.
+
+## Next steps
+
+- Links to the next lesson(s) in the submodule.
+```
+
+### Module-specific notes
+
+- **1.1 (data analytics):** Balance definitions with one runnable or skimmable example; avoid many production-style class stubs in one file unless the README marks it advanced.
+- **1.2 (Python):** Encourage running code and reading errors; one main concept per section before stacking libraries.
+- **1.3–1.4 and 4.x (stats):** Intuition and simulation/plots before heavy algebra; one main idea per lesson file; cross-link instead of merging topics (e.g. CIs vs tests).
+- **1.5 (Pandas):** Show Series/DataFrame output in fenced blocks; spreadsheet mental model (column, row, label).
+- **2.x (wrangling / EDA / engineering):** EDA: mermaid workflow plus one Python pipeline; engineering: ETL stages and diagrams before or beside Airflow/DAG snippets.
+- **3.x (visualization):** Principles: perception (e.g. pre-attentive vs attentive) before tool syntax; state early if the lesson is code-first or UI-first.
+- **5.x (ML):** Lead with problem type and data needs; intros: analogies, “when not to use,” small sklearn examples; metrics: tables plus when each metric misleads (e.g. imbalanced classes).
+- **6 (capstone):** Deliverables, timeline, ethics, repo structure; link prior modules instead of re-teaching basics.
+
 ## Beginner-Friendly Techniques
 
 ### 1. Analogies and Comparisons
@@ -237,6 +362,15 @@ Before publishing, ensure:
 - [ ] **Platform Coverage**: Windows, macOS, and Linux are covered where relevant
 - [ ] **Troubleshooting**: Common issues are addressed
 - [ ] **Updates**: Version numbers and dates are current
+
+**Lesson pages (Tamkeen markdown under `docs/`):**
+
+- [ ] **One primary outcome** stated in the first two sections
+- [ ] **Jargon defined** on first use or linked to an earlier lesson
+- [ ] **At least one worked example** (code, SQL, or UI steps) with a clear success criterion
+- [ ] **Math** appears after intuition where used; notation matches the submodule
+- [ ] **Assets/links** exist or are clearly marked as placeholders
+- [ ] **Next steps** point to the next file in the learning path where applicable
 
 ## Maintenance Guidelines
 

@@ -1,5 +1,7 @@
 # 📋 Index & Navigation Updates Summary
 
+> **Note:** Internal docs like this file live under `docs/meta/` (see [meta/README.md](README.md)).
+
 ## Changes Made to Ensure New Python Materials Are Visible
 
 ### 1. ✅ Updated Main Homepage (`index.md`)

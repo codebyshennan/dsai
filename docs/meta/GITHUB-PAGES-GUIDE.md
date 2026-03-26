@@ -36,13 +36,9 @@ repository: codebyshennan/tamkeen-data  # ← GitHub repo
 remote_theme: pages-themes/primer@v0.6.0  # ← Uses GitHub's Primer theme
 
 # Markdown Processing
-markdown: kramdown
-highlighter: rouge
-kramdown:
-  math_engine: mathjax           # ← Math formulas support
-  syntax_highlighter: rouge      # ← Code highlighting
-  syntax_highlighter_opts:
-    default_lang: python         # ← Python is default language
+markdown: GFM                   # ← GitHub Flavored Markdown (jekyll-commonmark-ghpages)
+highlighter: rouge               # ← Fenced code blocks; use ```python etc.
+# Math: MathJax script in _layouts/default.html (not kramdown math_engine)
 ```
 
 ### 2. **Content Structure**
@@ -366,11 +362,7 @@ open https://codebyshennan.github.io/tamkeen-data/1-data-fundamentals/1.2-intro-
 
 ### Issue: Math formulas not rendering
 
-**Fix:** Ensure MathJax is configured in `_config.yml`:
-```yaml
-kramdown:
-  math_engine: mathjax
-```
+**Fix:** The site uses **`markdown: GFM`** (no kramdown `math_engine`). Math relies on the **MathJax script** in `_layouts/default.html`. Use `$$...$$` or `\[...\]` in Markdown and confirm in the built HTML that MathJax runs (check the browser console if needed).
 
 ### Issue: Code not highlighted
 
