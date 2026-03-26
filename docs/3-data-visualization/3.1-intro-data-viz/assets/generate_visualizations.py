@@ -1,3 +1,8 @@
+"""Generate PNG figures for 3.1 intro data viz lessons (chart guides, etc.).
+
+Run from this directory: python generate_visualizations.py
+"""
+
 from pathlib import Path
 
 import matplotlib.pyplot as plt

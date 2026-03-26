@@ -1,5 +1,7 @@
 # Data Visualization Principles
 
+> **Note:** This lesson is **concept-first**: it explains *how people see* charts (pre-attentive vs attentive processing, Gestalt cues) before you lean on tool syntax. Use it with [Matplotlib basics](matplotlib-basics.md) when you implement ideas in code.
+
 ## Understanding Visual Perception
 
 Think of visual perception like reading a book. Just as your eyes quickly scan words and your brain processes them, your brain processes visual information in specific ways that we can use to create better visualizations.
@@ -294,12 +296,9 @@ Think of this as organizing your layout:
 - Verify accuracy
 - Get feedback
 
-## Next Steps
+## Next steps
 
-1. Practice with different chart types
-2. Experiment with color schemes
-3. Create your own visualizations
-4. Share and get feedback
-5. Learn from others' work
+1. Apply these ideas in [Matplotlib basics](matplotlib-basics.md) and [Choosing the right visualization](../choosing-the-right-visualization.md).
+2. Continue the module path in [3.1 README](README.md) and [3.2 Advanced data visualization](../3.2-adv-data-viz/README.md).
 
 Remember: The best visualizations are clear, informative, and tell a story. Focus on your message and let your data guide your design decisions.

@@ -1,5 +1,7 @@
 # Getting Started with Matplotlib
 
+> **Note:** This lesson is **code-first**. You will type Python to control figures, axes, and styles. Skim [Visualization principles](visualization-principles.md) first if you are unsure *why* certain choices make charts easier to read.
+
 ## What is Matplotlib?
 
 Matplotlib is like a digital artist's canvas for data. It's Python's most popular plotting library, allowing you to create beautiful, publication-quality visualizations. Think of it as your paintbrush for turning numbers into pictures.
@@ -309,12 +311,9 @@ def save_plot(fig, filename, dpi=300):
 - Poor color choices
 - Missing labels or context
 
-## Next Steps
+## Next steps
 
-1. Practice with different plot types
-2. Experiment with customization
-3. Try creating dashboards
-4. Explore advanced features
-5. Share your visualizations
+1. Continue to [3.2 Advanced data visualization](../3.2-adv-data-viz/README.md) (Seaborn and Plotly).
+2. Reinforce chart choice with [Choosing the right visualization](../choosing-the-right-visualization.md) and [Common mistakes](../common-mistakes.md).
 
 Remember: The best visualizations are clear, informative, and tell a story. Start simple, focus on your message, and let your data guide your design decisions.

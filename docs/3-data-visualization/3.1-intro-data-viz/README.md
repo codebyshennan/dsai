@@ -1,5 +1,7 @@
 # Introduction to Data Visualization
 
+> **Note:** This submodule starts with **why** charts work (perception, color, hierarchy), then moves to **Matplotlib** in code. Read [Visualization principles](visualization-principles.md) before [Matplotlib basics](matplotlib-basics.md) if you are new to design terms.
+
 ## What is Data Visualization?
 
 Data visualization is like translating a complex story into a picture book. Just as a picture is worth a thousand words, a well-crafted visualization can communicate complex data patterns and insights in an instant. Think of it as the bridge between raw numbers and human understanding.
@@ -42,8 +44,7 @@ Think of chart selection like choosing the right tool for a job:
 - **Scatter Plots**: Like plotting stars in the night sky
 - **Pie Charts**: Like slicing a pizza into portions
 
-![Chart Selection Guide](assets/chart_selection_guide.png)
-
+> **Figure (add screenshot or diagram):** Chart Selection Guide
 ### 2. Visual Hierarchy
 
 Imagine a newspaper:
@@ -52,8 +53,7 @@ Imagine a newspaper:
 - **Subheadings**: Supporting information
 - **Body Text**: Detailed context
 
-![Visual Hierarchy Example](assets/visual_hierarchy.png)
-
+> **Figure (add screenshot or diagram):** Visual Hierarchy Example
 ### 3. Color Strategy
 
 Think of colors like a language:
@@ -62,8 +62,7 @@ Think of colors like a language:
 - **Diverging**: Like a weather map (hot to cold)
 - **Qualitative**: Like different types of fruit (distinct colors)
 
-![Color Schemes](assets/color_schemes.png)
-
+> **Figure (add screenshot or diagram):** Color Schemes
 ## Getting Started with Matplotlib
 
 ### Your First Plot
@@ -92,8 +91,7 @@ plt.show()
 
 See how a basic plot can be enhanced with proper styling and annotations:
 
-![Before and After Example](assets/before_after.png)
-
+> **Figure (add screenshot or diagram):** Before and After Example
 ## Learning Path
 
 ### Week 1: Foundations
@@ -161,12 +159,10 @@ See how a basic plot can be enhanced with proper styling and annotations:
 - Plotly: Interactive visualizations
 - Tableau: Business intelligence and analytics
 
-## Next Steps
+## Next steps
 
-1. Start with simple plots and gradually add complexity
-2. Practice with real-world datasets
-3. Share your visualizations and get feedback
-4. Explore different visualization libraries
-5. Join data visualization communities
+1. Work through [Visualization principles](visualization-principles.md) and [Matplotlib basics](matplotlib-basics.md); use [Troubleshooting guide](troubleshooting-guide.md) when plots misbehave.
+2. Continue to [3.2 Advanced data visualization](../3.2-adv-data-viz/README.md) for Seaborn and Plotly.
+3. Use the [module assignment](../_assignments/module-assignment.md) when assigned.
 
 Remember: The best visualizations tell a story. Focus on clarity and purpose, and let your data speak for itself.

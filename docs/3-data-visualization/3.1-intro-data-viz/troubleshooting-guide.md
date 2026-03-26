@@ -1,5 +1,9 @@
 # Matplotlib Troubleshooting Guide
 
+Use this page when code runs but plots look wrong, fail to display, or raise backend errors. Pair it with [Matplotlib basics](matplotlib-basics.md) for API context.
+
+> **Tip:** Most “nothing shows” issues in notebooks are fixed with **inline mode** and **plt.show()** (see below).
+
 ## Common Issues and Solutions
 
 ### 1. Display Problems
