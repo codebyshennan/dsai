@@ -16,8 +16,7 @@ Real-world examples:
 - 3D: Image data (height × width × color channels)
 - 🎥 4D: Video data (frames × height × width × channels)
 
-{% stepper %}
-{% step %}
+---
 
 ### Basic Example
 
@@ -41,9 +40,7 @@ print(matrix)
 print("Shape:", matrix.shape)  # (2, 3) means 2 rows, 3 columns
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Why It's Cool
 
@@ -53,13 +50,10 @@ print("Shape:", matrix.shape)  # (2, 3) means 2 rows, 3 columns
 - Perfect for data science (integrates with pandas, scipy, etc.)
 - Support for complex math (linear algebra, statistics)
 - Broadcasting capabilities (work with arrays of different sizes)
-{% endstep %}
-{% endstepper %}
 
 ## Understanding Arrays
 
-{% stepper %}
-{% step %}
+---
 
 ### Array Anatomy
 
@@ -75,9 +69,8 @@ Key features:
 
 - Fixed size (can't grow/shrink)
 - All elements same type (like all integers or all floats)
-{% endstep %}
 
-{% step %}
+---
 
 ### Important Properties
 
@@ -89,15 +82,11 @@ print(data.shape)    # (3,) means 1D array with 3 elements
 print(data.dtype)    # float64 means decimal numbers
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ![ndarray](./assets/numpy_ndarray.png)
 
 ## Creating Arrays
 
-{% stepper %}
-{% step %}
+---
 
 ### 1D Arrays (Like a List)
 
@@ -108,9 +97,7 @@ array_1d = np.array(simple_list)
 print(array_1d)  # [6.  7.5  8.  0.  1. ]
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 2D Arrays (Like a Table)
 
@@ -133,9 +120,7 @@ Looks like:
 └───────────────┘
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Checking Array Info
 
@@ -145,13 +130,9 @@ print(array_2d.dtype)   # int64 means whole numbers
 print(array_2d.ndim)    # 2 means two-dimensional
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Quick Array Creation
 
-{% stepper %}
-{% step %}
+---
 
 ### Special Arrays
 
@@ -165,9 +146,7 @@ zeros_2d = np.zeros((3, 6))  # 3 rows, 6 columns
 print(zeros_2d)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Controlling Data Types
 
@@ -181,14 +160,11 @@ ints = np.array([1, 2, 3], dtype=np.int32)
 print(ints)    # [1 2 3]
 ```
 
-{% endstep %}
-{% endstepper %}
+**Pro Tips**:
 
- **Pro Tips**:
-
-- Use `dtype` when you need specific number types
+- Use **dtype** when you need specific number types
 - 2D arrays are perfect for tables of data
-- Check `shape` when you're unsure about array size
+- Check **shape** when you're unsure about array size
 
 ## Data types
 
@@ -241,3 +217,13 @@ numeric_strings.astype(float)
 ```
 
 If you write `float` instead of `np.float64`, Numpy will guess the data type for you.
+
+## Common pitfalls
+
+- **Silent overflow** — Integer dtypes wrap instead of raising errors; use **float64** or check ranges for big numbers.
+- **astype truncates** — Casting floats to integers drops the fractional part; it does not round unless you do so explicitly.
+- **Object dtype** — Arrays of Python objects lose NumPy speed; only use when you truly need heterogeneous data.
+
+## Next steps
+
+Continue to [ndarray basics: creation and operations](./ndarray-basic.md), then [Boolean indexing](./boolean-indexing.md) in this submodule.

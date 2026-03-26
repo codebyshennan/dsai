@@ -1,5 +1,11 @@
 # Introduction to NumPy
 
+## Overview
+
+**Primary outcome:** You understand why NumPy exists, how **ndarray** differs from Python lists, and you can run small vectorized examples on your machine.
+
+**Prerequisites:** Basic Python (lists, loops, functions) from this module’s Python unit.
+
 ## What is NumPy?
 
 NumPy (Numerical Python) is like a supercharged calculator for Python! Imagine you need to do math on thousands or millions of numbers - NumPy makes it lightning fast and super easy. It's the foundation of scientific computing in Python and is used extensively in:
@@ -11,8 +17,7 @@ NumPy (Numerical Python) is like a supercharged calculator for Python! Imagine y
 - Game Development: Handling physics calculations
 - Image Processing: Manipulating pixels in images
 
-{% stepper %}
-{% step %}
+---
 
 ### The Problem NumPy Solves
 
@@ -50,9 +55,8 @@ Key advantages of NumPy:
 2. Contiguous Memory: Data stored efficiently
 3. Low-level Optimization: Written in C for speed
 4. Rich Functionality: Many mathematical operations built-in
-{% endstep %}
 
-{% step %}
+---
 
 ### Cool Things NumPy Can Do
 
@@ -61,13 +65,10 @@ Key advantages of NumPy:
 3. Complex math made simple
 4. Efficient memory usage
 5. Works with other data science tools
-{% endstep %}
-{% endstepper %}
 
 ## Why is NumPy So Fast?
 
-{% stepper %}
-{% step %}
+---
 
 ### Memory Magic
 
@@ -81,9 +82,8 @@ NumPy Array:
 
 - Like having all your tools on one table
 - Everything is organized and easy to find
-{% endstep %}
 
-{% step %}
+---
 
 ### Vectorization Power
 
@@ -102,15 +102,11 @@ NumPy way:
 result = numbers * 2  # All at once! 
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ![numpy_vs_list](./assets/numpy_vs_python_list.png)
 
 ## Getting Started with NumPy
 
-{% stepper %}
-{% step %}
+---
 
 ### Installation
 
@@ -124,9 +120,7 @@ pip install numpy
 conda install numpy
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Your First NumPy Program
 
@@ -142,15 +136,11 @@ doubled = numbers * 2
 squared = numbers ** 2
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Speed Comparison
 
 Let's race Python lists against NumPy arrays!
 
-{% stepper %}
-{% step %}
+---
 
 ### The Setup
 
@@ -160,9 +150,7 @@ python_list = list(range(1_000_000))
 numpy_array = np.arange(1_000_000)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### The Race
 
@@ -177,11 +165,19 @@ numpy_array = np.arange(1_000_000)
 ```
 
 That's 100 times faster!
-{% endstep %}
-{% endstepper %}
 
- **Pro Tips**:
+**Pro Tips**:
 
-- Always use `np` as the alias when importing NumPy
+- Always use **np** as the alias when importing NumPy
 - Use NumPy when working with large amounts of numerical data
 - Think in terms of operations on entire arrays, not individual elements
+
+## Common pitfalls
+
+- **Python lists vs arrays** — Mixing them loses vectorized speed; convert with **np.array** when you need numeric ops on the whole structure.
+- **Unexpected dtype** — Integer division and string inputs can surprise you; set **dtype=** explicitly when it matters.
+- **Copy vs view** — Some slices share memory; if you mutate, you may change the original unless you **.copy()**.
+
+## Next steps
+
+Continue with [ndarray basics](./ndarray.md), then [array creation and basics](./ndarray-basic.md) in this submodule to work with shapes, dtypes, and indexing.

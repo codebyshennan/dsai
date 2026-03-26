@@ -2,8 +2,7 @@
 
 ## Reshaping Arrays: The Transformer
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Reshaping?
 
@@ -50,9 +49,7 @@ flattened = image_data.reshape(-1)  # -1 means "figure out this dimension"
 print("Flattened shape:", flattened.shape)  # (48,)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Visual Guide to Reshaping
 
@@ -76,13 +73,9 @@ Common shapes:
 - (h,w,c)  → Image with height h, width w, c channels
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Transposing: The Flip Master
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Transposing?
 
@@ -103,9 +96,7 @@ print(arr.T)  # or arr.transpose()
 #  [3 6]]
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Visual Guide to Transposing
 
@@ -118,13 +109,9 @@ Before:        After:
                └─────┘
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Universal Functions: Math Wizardry! ✨
 
-{% stepper %}
-{% step %}
+---
 
 ### What are Universal Functions?
 
@@ -142,9 +129,7 @@ print("Square roots:", np.sqrt(arr))
 print("Exponentials:", np.exp(arr))
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### One Array vs Two Arrays
 
@@ -159,9 +144,7 @@ b = np.array([11, 2, 4, 6, 8])
 print("Maximum values:", np.maximum(a, b))
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Visual Guide to Universal Functions
 
@@ -178,13 +161,9 @@ Array2: [11 2  4 ]
 Output: [11 7  15]
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Smart Choices with where()! 🤔
 
-{% stepper %}
-{% step %}
+---
 
 ### What is where()?
 
@@ -202,9 +181,7 @@ print("Result:", result)
 # [1.1 2.2 1.3 1.4 2.5]
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Visual Guide to where()
 
@@ -217,13 +194,9 @@ Result:    [1.1   2.2   1.3   1.4   2.5 ]
            (X)    (Y)    (X)    (X)    (Y)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Array Statistics: Number Crunching
 
-{% stepper %}
-{% step %}
+---
 
 ### Basic Statistics
 
@@ -239,9 +212,7 @@ print("Min:", arr.min())
 print("Max:", arr.max())
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Computing Along Axes
 
@@ -265,13 +236,9 @@ axis=0 (down columns)    axis=1 (across rows)
 └───────────┘           └───────────┘
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Boolean Operations: Truth Seekers
 
-{% stepper %}
-{% step %}
+---
 
 ### Testing Arrays
 
@@ -286,9 +253,7 @@ print("Any True?", bools.any())  # True
 print("All True?", bools.all())  # False
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Sorting Arrays
 
@@ -302,13 +267,20 @@ arr.sort()
 print("After:", arr)
 ```
 
-{% endstep %}
-{% endstepper %}
+**Pro Tips**:
 
- **Pro Tips**:
-
-- Use `reshape` when you need to change array dimensions
-- Remember: rows → columns with `transpose` or `.T`
-- Universal functions are super fast - use them!
-- `where` is great for conditional operations
+- Use **reshape** when you need to change array dimensions
+- Remember: rows → columns with **transpose** or **.T**
+- Universal functions are super fast — use them
+- **where** is great for conditional operations
 - Think about which axis you want when using statistics
+
+## Common pitfalls
+
+- **NaN propagation** — Many reductions return **nan** if any element is **nan**; use **nanmean** and friends when appropriate.
+- **keepdims** — Forgetting **keepdims=True** can break broadcasting in the next step.
+- **In-place vs return** — Some methods modify the array; others return a new one—check the docs for the function you use.
+
+## Next steps
+
+Continue to [Linear algebra](./linear-algebra.md), then [Data analysis with pandas](../1.5-data-analysis-pandas/README.md) starting with [Series](../1.5-data-analysis-pandas/series.md).

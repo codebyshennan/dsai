@@ -9,99 +9,63 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <style>
         body {
-            background: #ffffff;
-            font-size: 12px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         .reveal {
-            --primary-blue: #1877F2;
-            --dark-blue: #0e305a;
-            --light-blue: #e7f0fd;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-size: 1.5em;
         }
 
         .reveal h1,
         .reveal h2,
         .reveal h3 {
-            color: var(--dark-blue);
             text-transform: none;
+            margin-bottom: 0.5em;
             text-align: center;
-            margin-top: 0.5em;
-            font-weight: 600;
         }
 
         .reveal h1 {
-            font-size: 1.8em;
+            font-size: 2em;
         }
 
         .reveal h2 {
-            font-size: 1.4em;
+            font-size: 1.6em;
         }
 
         .reveal h3 {
-            font-size: 1.2em;
+            font-size: 1.3em;
         }
 
-        .reveal .slides {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-            height: 100vh;
+        .reveal p {
+            margin-bottom: 1em;
+            line-height: 1.4;
+            text-align: center;
         }
 
         .reveal ul {
-            margin-left: 1em;
+            margin: 0 auto;
             text-align: left;
-            display: inline-block;
+            max-width: 80%;
         }
 
         .reveal li {
-            margin-bottom: 0.8em;
-            text-align: left;
-            line-height: 1.5;
+            margin-bottom: 0.5em;
         }
 
-        .reveal .highlight {
-            color: var(--primary-blue);
-            font-weight: 600;
+        .reveal code {
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
         }
 
-        .reveal .box {
-            background: var(--light-blue);
-            padding: 0.6em 1em;
+        .reveal pre {
+            padding: 1em;
             border-radius: 8px;
-            margin: 0.8em auto;
-            border-left: 4px solid var(--primary-blue);
-            max-width: 800px;
-            width: 100%;
-            box-sizing: border-box;
-            display: block;
-            font-size: 0.9em;
-            line-height: 1.4;
-        }
-
-        .reveal .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            width: 100%;
-            max-width: 1000px;
+            max-width: 80%;
             margin: 0 auto;
         }
 
-        .reveal .three-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
+        .reveal .slides {
+            text-align: center;
         }
 
         .reveal .center {
@@ -112,99 +76,58 @@
             text-align: right;
         }
 
-        .slide-header {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 1;
-            opacity: 0.1;
-            pointer-events: none;
+        .reveal .box {
+            padding: 1em;
+            border-radius: 8px;
+            margin: 1em auto;
+            max-width: 80%;
         }
 
-        .slide-header img {
-            height: 100vh;
-            width: auto;
-            object-fit: cover;
+        .reveal .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2em;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        .reveal .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2em;
+            max-width: 80%;
+            margin: 0 auto;
         }
 
         .slide-footer {
-            position: absolute;
-            bottom: 0.8em;
-            left: 1.5em;
-            color: var(--dark-blue);
-            font-size: 0.75em;
-            opacity: 0.85;
-            font-weight: 500;
-        }
-
-        .slide-number {
-            position: absolute;
-            bottom: 0.8em;
-            right: 1.5em;
-            color: var(--primary-blue);
-            font-size: 0.75em;
-            opacity: 0.85;
-            font-weight: 500;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.8em;
+            color: #666;
+            z-index: 1000;
+            background: white;
+            padding: 0.5em 1em;
+            border-top: 1px solid #eee;
+            text-align: left;
         }
 
         section {
+            padding: 2em;
+            padding-bottom: 4em;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-            height: 100vh;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 6em 2.5em;
-            text-align: center;
+            min-height: 100vh;
             box-sizing: border-box;
         }
 
-        .reveal section>* {
-            max-width: 900px;
+        .list-container {
             width: 100%;
-            margin: 0.8em auto;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .reveal p {
-            line-height: 1.6;
-            margin-bottom: 1em;
-        }
-
-        .reveal img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .reveal code {
-            background: var(--light-blue);
-            padding: 0.2em 0.4em;
-            border-radius: 4px;
-            font-size: 0.8em;
-        }
-
-        .reveal pre {
-            background: var(--light-blue);
-            padding: 0.6em;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            font-size: 0.8em;
-        }
-
-        .reveal .list-container {
-            display: inline-block;
-            text-align: left;
+            max-width: 80%;
             margin: 0 auto;
-        }
-
-        .reveal ul {
-            margin-left: 1em;
-            text-align: left;
         }
     </style>
 </head>
@@ -214,191 +137,171 @@
         <div class="slides">
             
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h1>Data Foundation with NumPy</h1>
-                    <h3></h3>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="content-wrapper">
+                        <h1>Data Foundation with NumPy</h1>
+                        
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Boolean Indexing</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Introduction to NumPy</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Filter data based on conditions</li>
-<li>Clean data by removing unwanted values</li>
-<li>Analyze specific subsets of your data</li>
-<li>Replace values that meet certain criteria</li>
-<li>Finding stocks above a certain price</li>
-<li>Identifying temperatures above freezing</li>
-<li>Filtering out invalid measurements</li>
-<li>Finding transactions over a certain amount</li>
-<li>Use `==` for exact matches</li>
-<li>Use `~` to invert a condition</li>
-<li>Use `|` for OR, `&` for AND</li>
-<li>Conditions can be combined with parentheses</li>
-<li>Think of masks as "keeping" (`True`) or "filtering out" (`False`)</li>
+                            <li><strong>NumPy Basics</strong>:</li>
+<li>- Array creation and manipulation</li>
+<li>- Array attributes and methods</li>
+<li>- Broadcasting and vectorization</li>
+<li>- Universal functions (ufuncs)</li>
+<li><strong>Applications</strong>:</li>
+<li>- Numerical computations</li>
+<li>- Data analysis</li>
+<li>- Scientific computing</li>
+<li>- Machine learning</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Use vectorized operations</li>
+<li>- Avoid loops when possible</li>
+<li>- Choose appropriate data types</li>
+<li>- Document array operations</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Intro Numpy</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Ndarray Basics</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Data Analysis: Processing large datasets efficiently</li>
-<li>Machine Learning: Building and training models</li>
-<li>Financial Analysis: Computing complex financial metrics</li>
-<li>Scientific Research: Processing experimental data</li>
-<li>Game Development: Handling physics calculations</li>
-<li>Image Processing: Manipulating pixels in images</li>
-<li>Like having all your tools on one table</li>
-<li>Everything is organized and easy to find</li>
-<li>Always use `np` as the alias when importing NumPy</li>
-<li>Use NumPy when working with large amounts of numerical data</li>
-<li>Think in terms of operations on entire arrays, not individual elements</li>
+                            <li><strong>Array Creation</strong>:</li>
+<li>- From lists and tuples</li>
+<li>- Using built-in functions</li>
+<li>- Special arrays (zeros, ones, etc.)</li>
+<li>- Random arrays</li>
+<li><strong>Array Operations</strong>:</li>
+<li>- Indexing and slicing</li>
+<li>- Reshaping and transposing</li>
+<li>- Concatenation and splitting</li>
+<li>- Broadcasting</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Understand array shapes</li>
+<li>- Use appropriate indexing</li>
+<li>- Consider memory usage</li>
+<li>- Document array operations</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Linear Algebra</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Ndarray Methods</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Data cleaning (removing duplicates)</li>
-<li>Feature engineering (unique categories)</li>
-<li>Finding distinct values</li>
-<li>Comparing datasets</li>
-<li>Finding unique customer IDs</li>
-<li>Extracting unique product categories</li>
-<li>Identifying unique transaction types</li>
-<li>Finding unique locations in data</li>
-<li>Use `@` for matrix multiplication - it's cleaner!</li>
-<li>Check matrix shapes before multiplying</li>
-<li>Remember: not all matrices have inverses</li>
-<li>Use `np.linalg` for advanced operations</li>
-<li>Think about what operation makes sense for your data</li>
+                            <li><strong>Array Methods</strong>:</li>
+<li>- Mathematical operations</li>
+<li>- Statistical functions</li>
+<li>- Sorting and searching</li>
+<li>- Set operations</li>
+<li><strong>Advanced Operations</strong>:</li>
+<li>- Masking and filtering</li>
+<li>- Aggregation functions</li>
+<li>- Reduction operations</li>
+<li>- Broadcasting rules</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Use appropriate methods</li>
+<li>- Consider performance</li>
+<li>- Handle edge cases</li>
+<li>- Document method usage</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Ndarray Basic</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Boolean Indexing</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Calculating sales tax on thousands of prices</li>
-<li>Converting temperatures from Celsius to Fahrenheit</li>
-<li>Computing compound interest on multiple investments</li>
-<li>Scaling measurements from inches to centimeters</li>
-<li>Use `:` to select everything in that dimension</li>
-<li>Remember: `[row, column]` order</li>
-<li>Slices create views (changes affect original)</li>
-<li>Think of 2D arrays like spreadsheets!</li>
+                            <li><strong>Boolean Operations</strong>:</li>
+<li>- Comparison operators</li>
+<li>- Logical operators</li>
+<li>- Boolean masks</li>
+<li>- Fancy indexing</li>
+<li><strong>Applications</strong>:</li>
+<li>- Data filtering</li>
+<li>- Conditional operations</li>
+<li>- Data cleaning</li>
+<li>- Feature selection</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Use vectorized operations</li>
+<li>- Consider memory usage</li>
+<li>- Handle edge cases</li>
+<li>- Document filtering logic</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Ndarray Methods</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Linear Algebra</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Convert 1D data into a 2D table format</li>
-<li>Restructure data to match another array's shape</li>
-<li>Transform image data (e.g., flattening for ML models)</li>
-<li>Prepare data for plotting or analysis</li>
-<li>(n,)     → 1D array with n elements</li>
-<li>(n,1)    → Column vector</li>
-<li>(1,n)    → Row vector</li>
-<li>(m,n)    → m×n matrix</li>
-<li>(h,w,c)  → Image with height h, width w, c channels</li>
-<li>Use `reshape` when you need to change array dimensions</li>
-<li>Remember: rows → columns with `transpose` or `.T`</li>
-<li>Universal functions are super fast - use them!</li>
-<li>`where` is great for conditional operations</li>
-<li>Think about which axis you want when using statistics</li>
+                            <li><strong>Matrix Operations</strong>:</li>
+<li>- Matrix multiplication</li>
+<li>- Matrix decomposition</li>
+<li>- Eigenvalues and eigenvectors</li>
+<li>- Matrix inversion</li>
+<li><strong>Applications</strong>:</li>
+<li>- Data transformation</li>
+<li>- Feature engineering</li>
+<li>- Dimensionality reduction</li>
+<li>- Machine learning</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Check matrix dimensions</li>
+<li>- Handle singular matrices</li>
+<li>- Consider numerical stability</li>
+<li>- Document matrix operations</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
-                </section>
-            
-
-                <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Ndarray</h2>
-                    <div class="box">
-                        
-                        
-                    <div class="list-container">
-                        <ul>
-                            <li>1D arrays: Like a line of numbers (vector)</li>
-<li>2D arrays: Like a table (matrix)</li>
-<li>3D arrays: Like a cube of numbers</li>
-<li>And beyond! (4D, 5D, etc.)</li>
-<li>1D: Time series data (stock prices over time)</li>
-<li>2D: Spreadsheet data (rows and columns)</li>
-<li>3D: Image data (height × width × color channels)</li>
-<li>🎥 4D: Video data (frames × height × width × channels)</li>
-<li>Super fast calculations (100x faster than Python lists)</li>
-<li>Efficient memory use (contiguous memory blocks)</li>
-<li>Easy math operations (vectorized operations)</li>
-<li>Perfect for data science (integrates with pandas, scipy, etc.)</li>
-<li>Support for complex math (linear algebra, statistics)</li>
-<li>Broadcasting capabilities (work with arrays of different sizes)</li>
-<li>Fixed size (can't grow/shrink)</li>
-<li>All elements same type (like all integers or all floats)</li>
-<li>Use `dtype` when you need specific number types</li>
-<li>2D arrays are perfect for tables of data</li>
-<li>Check `shape` when you're unsure about array size</li>
-                        </ul>
-                    </div>
-                
-                    </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
         </div>
@@ -410,18 +313,9 @@
             hash: true,
             center: false,
             transition: 'slide',
+            slideNumber: true,
             plugins: []
         });
-        Reveal.on('slidechanged', function (event) {
-            document.querySelectorAll('.slide-number').forEach((el, idx) => {
-                el.textContent = `Slide ${idx + 1} / ${document.querySelectorAll('.slides section').length}`;
-            });
-        });
-        setTimeout(() => {
-            document.querySelectorAll('.slide-number').forEach((el, idx) => {
-                el.textContent = `Slide ${idx + 1} / ${document.querySelectorAll('.slides section').length}`;
-            });
-        }, 500);
     </script>
 </body>
 

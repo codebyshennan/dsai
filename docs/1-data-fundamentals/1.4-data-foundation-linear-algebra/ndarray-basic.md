@@ -11,8 +11,7 @@ Ever wished you could do math on entire lists at once? With NumPy arrays, you ca
 
 Instead of writing loops, NumPy lets you perform these operations in one go!
 
-{% stepper %}
-{% step %}
+---
 
 ### Basic Math Operations
 
@@ -62,9 +61,7 @@ print("Celsius:", celsius)
 print("Fahrenheit:", fahrenheit)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### How It Works
 
@@ -76,15 +73,11 @@ Original Array:     Operation:      Result:
 └─────────────┘                   └─────────────┘
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ![vectorization](./assets/vectorization.png)
 
 ## Broadcasting: The Shape-Shifter
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Broadcasting?
 
@@ -104,9 +97,7 @@ print(arr + np.array([1, 1, 1]))
 #  [5. 6. 7.]]
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Magic with Numbers
 
@@ -123,9 +114,7 @@ print(arr1 ** 2)  # [1, 4, 9, 16]
 print(1 / arr1)  # [1.0, 0.5, 0.33, 0.25]
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### How Broadcasting Works
 
@@ -137,13 +126,9 @@ Array:     Number:     Result:
 NumPy automatically turns 4 into [4 4 4]!
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Comparing Arrays
 
-{% stepper %}
-{% step %}
+---
 
 ### Array Comparisons
 
@@ -158,9 +143,7 @@ print(arr2 > arr)
 #  [ True False  True]]
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Understanding the Result
 
@@ -172,13 +155,9 @@ Array 1:     Compare:    Array 2:     Result:
 └─────────┘            └─────────┘  └─────────┘
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Indexing and Slicing: Array Surgery
 
-{% stepper %}
-{% step %}
+---
 
 ### Basic Indexing (1D Arrays)
 
@@ -193,9 +172,7 @@ print(arr[5])      # 5
 print(arr[5:8])    # [5 6 7]
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Changing Values
 
@@ -210,9 +187,7 @@ arr_slice[1] = 10
 print(arr)  # [0 1 2 3 4 12 10 12 8 9]
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Understanding Slices
 
@@ -224,13 +199,9 @@ Array: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
        arr[5:8] gets elements 5,6,7
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## 2D Array Access: Matrix Magic! 🎯
 
-{% stepper %}
-{% step %}
+---
 
 ### Creating a 2D Array
 
@@ -242,9 +213,7 @@ arr2d = np.array([
 ])
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Getting Elements
 
@@ -257,9 +226,7 @@ print(arr2d[1, 2])  # 6 (row 1, column 2)
 print(arr2d[1][2])  # Same thing!
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Slicing 2D Arrays
 
@@ -275,9 +242,7 @@ print(arr2d[:2, 1:])
 #  [5 6]]
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Visual Guide
 
@@ -291,14 +256,21 @@ Rows  ┌───────────┐
       └───────────┘
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ![2d_array_indexing](./assets/ndarray_axis_index.png)
 
  **Pro Tips**:
 
-- Use `:` to select everything in that dimension
-- Remember: `[row, column]` order
+- Use **:** to select everything in that dimension
+- Remember: **[row, column]** order
 - Slices create views (changes affect original)
 - Think of 2D arrays like spreadsheets!
+
+## Common pitfalls
+
+- **View side effects** — Assigning through a slice can change the parent array; use **.copy()** when you want an independent array.
+- **Axis mix-ups** — **axis=0** aggregates down rows in many functions; say the shape out loud before you pick an axis.
+- **Reshape without matching size** — Total elements must match; use **-1** in one dimension only when NumPy can infer it.
+
+## Next steps
+
+Continue to [Boolean indexing](./boolean-indexing.md), then [ndarray methods](./ndarray-methods.md).

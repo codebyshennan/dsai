@@ -16,8 +16,7 @@ Real-world applications:
 - Filtering out invalid measurements
 - Finding transactions over a certain amount
 
-{% stepper %}
-{% step %}
+---
 
 ### Setup: Student Scores Example
 
@@ -58,9 +57,7 @@ print("Names:", names[high_scores])
 print("Their scores:\n", scores[high_scores])
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Finding Students
 
@@ -85,13 +82,9 @@ best_subject = subjects[bob_scores.mean(axis=0).argmax()]
 print(f"Bob's best subject: {best_subject}")
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Cool Filtering Tricks
 
-{% stepper %}
-{% step %}
+---
 
 ### Not Bob (Using ~)
 
@@ -105,9 +98,7 @@ also_not_bob = (names != "Bob")
 print(scores[also_not_bob])
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Multiple Conditions
 
@@ -122,9 +113,7 @@ print("High scores mask:")
 print(high_scores)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Changing Values with Masks
 
@@ -137,13 +126,9 @@ scores[scores < 80] = 70
 # 77 → 70     All others unchanged
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Visual Guide to Boolean Indexing
 
-{% stepper %}
-{% step %}
+---
 
 ### How Masks Work
 
@@ -154,9 +139,7 @@ Mask:   [True, False, False, True]
 Result: [Bob's data,      Bob's data]
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Combining Conditions
 
@@ -168,13 +151,20 @@ Condition 2:  [True,  True,  False, False]
     Result:   [True,  False, False, False]
 ```
 
-{% endstep %}
-{% endstepper %}
+**Pro Tips**:
 
- **Pro Tips**:
-
-- Use `==` for exact matches
-- Use `~` to invert a condition
-- Use `|` for OR, `&` for AND
+- Use **==** for exact matches
+- Use **~** to invert a condition
+- Use **|** for OR, **&** for AND
 - Conditions can be combined with parentheses
-- Think of masks as "keeping" (`True`) or "filtering out" (`False`)
+- Think of masks as "keeping" (**True**) or "filtering out" (**False**)
+
+## Common pitfalls
+
+- **Chaining comparisons** — Write **(a < x) & (x < b)**; Python’s chained comparisons do not broadcast over arrays the way you might expect in all cases.
+- **Precedence** — **&** binds tighter than you expect; wrap each condition in parentheses.
+- **Non-boolean dtypes** — Masks must be boolean; compare with **==**, **<**, etc., not raw floats meant as probabilities unless you threshold.
+
+## Next steps
+
+Continue to [ndarray methods](./ndarray-methods.md), then [Linear algebra](./linear-algebra.md).

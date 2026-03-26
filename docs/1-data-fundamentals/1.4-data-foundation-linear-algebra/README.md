@@ -8,6 +8,8 @@ Ever wondered how data scientists handle millions of numbers efficiently? Or how
 
 > **Note:** NumPy (short for "Numerical Python") is the foundation that powers almost all data science tools in Python. Once you master NumPy, learning Pandas and other libraries becomes much easier!
 
+> **Contributors:** Authoring standards: `docs/meta/DOCUMENTATION_GUIDELINES.md` (`meta/` is excluded from the Jekyll build).
+
 ## Prerequisites
 
 Before starting this module, you should have:
@@ -20,8 +22,7 @@ Before starting this module, you should have:
 
 > **Tip:** Think of NumPy arrays like super-powered lists. If you understand Python lists, you're already halfway there!
 
-{% stepper %}
-{% step %}
+---
 
 ### The Power of NumPy
 
@@ -31,9 +32,8 @@ Think of NumPy as a turbocharger for Python:
 - Efficient memory usage
 - Powerful mathematical operations
 - Perfect for data science and AI
-{% endstep %}
 
-{% step %}
+---
 
 ### Real-World Applications
 
@@ -43,8 +43,6 @@ NumPy is everywhere:
 - Machine Learning
 - Image Processing
 - Financial Analysis
-{% endstep %}
-{% endstepper %}
 
 ## Understanding Data Types
 
@@ -52,8 +50,7 @@ Let's break down data types in a way that's easy to understand!
 
 ### 1. Nominal Data (Names/Categories)
 
-{% stepper %}
-{% step %}
+---
 
 ### What is it?
 
@@ -62,66 +59,56 @@ Like putting labels on things:
 - Colors (Red, Blue, Green)
 - Cuisines (Italian, Chinese, Mexican)
 - T-shirt sizes (S, M, L, XL)
-{% endstep %}
 
-{% step %}
+---
 
 ### Key Features
 
 - No order (Blue isn't "more than" Red)
 - Just categories
 - Each item fits one category
-{% endstep %}
 
-{% step %}
+---
 
 ### What You Can Do
 
- Count how many in each category
- Find most common (mode)
- Can't calculate average
- Can't find median
-{% endstep %}
-{% endstepper %}
+- Count how many in each category
+- Find most common (mode)
+- Can't calculate average
+- Can't find median
 
 ### 2. Ordinal Data (Ordered Categories)
 
-{% stepper %}
-{% step %}
+---
 
 ### What is it?
 
 Categories with a clear order:
 
-- ️ Spice levels (Mild → Medium → Hot)
+- Spice levels (Mild → Medium → Hot)
 - Ratings (1 star → 5 stars)
 - Education (High School → Bachelor's → Master's)
-{% endstep %}
 
-{% step %}
+---
 
 ### Key Features
 
 - Has order (Hot is more than Mild)
 - Spacing might not be equal
 - Still categories, but ranked
-{% endstep %}
 
-{% step %}
+---
 
 ### What You Can Do
 
- Everything from Nominal
- Compare (greater/less than)
- Find median
- Can't calculate average
-{% endstep %}
-{% endstepper %}
+- Everything from Nominal
+- Compare (greater/less than)
+- Find median
+- Can't calculate average
 
 ### 3. Interval Data (Equal Steps)
 
-{% stepper %}
-{% step %}
+---
 
 ### What is it?
 
@@ -130,32 +117,27 @@ Numbers with equal steps between values:
 - Temperature (Celsius/Fahrenheit)
 - Calendar years
 - IQ scores
-{% endstep %}
 
-{% step %}
+---
 
 ### Key Features
 
 - Equal spacing between values
 - No true zero point
 - Can add and subtract
-{% endstep %}
 
-{% step %}
+---
 
 ### What You Can Do
 
- Everything from Ordinal
- Calculate average
- Find differences
- Can't say "twice as much"
-{% endstep %}
-{% endstepper %}
+- Everything from Ordinal
+- Calculate average
+- Find differences
+- Can't say "twice as much"
 
 ### 4. Ratio Data (True Zero)
 
-{% stepper %}
-{% step %}
+---
 
 ### What is it?
 
@@ -165,32 +147,27 @@ Numbers with a meaningful zero:
 - Weight
 - Money
 - Time
-{% endstep %}
 
-{% step %}
+---
 
 ### Key Features
 
 - Has true zero (0 height means no height)
 - Can compare ratios
 - Most flexible type
-{% endstep %}
 
-{% step %}
+---
 
 ### What You Can Do
 
- Everything from Interval
- Multiply and divide
- Say "twice as much"
- All math operations
-{% endstep %}
-{% endstepper %}
+- Everything from Interval
+- Multiply and divide
+- Say "twice as much"
+- All math operations
 
 ## Quick Reference Guide
 
-{% stepper %}
-{% step %}
+---
 
 ### Data Type Summary
 
@@ -202,9 +179,7 @@ Interval                                Temperature
 Ratio                                   Height
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Categorical vs. Continuous
 
@@ -217,8 +192,6 @@ Ratio                                   Height
    - Any value in a range
    - Like a ruler
    - Example: Height in cm
-{% endstep %}
-{% endstepper %}
 
 ## What We'll Learn
 

@@ -2,8 +2,7 @@
 
 ## Set Operations: Finding Unique Values
 
-{% stepper %}
-{% step %}
+---
 
 ### Finding Unique Values
 
@@ -51,9 +50,7 @@ unique_categories = np.unique(sales_data[:, 0])  # Get unique product categories
 print("\nUnique product categories:", unique_categories)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Testing Membership
 
@@ -81,13 +78,9 @@ print("Can fulfill:", orders[can_fulfill])
 print("Out of stock:", orders[~can_fulfill])
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Matrix Multiplication: The Dance of Numbers
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Matrix Multiplication?
 
@@ -112,9 +105,7 @@ result = x @ y  # or np.dot(x, y)
 print(result)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Visual Guide to Matrix Multiplication
 
@@ -129,9 +120,7 @@ Matrix 1:      Matrix 2:      Result:
 First element (28) = 1×6 + 2×(-1) + 3×8
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Three Ways to Multiply
 
@@ -148,13 +137,9 @@ result3 = np.matmul(x, y)
 # All give the same result!
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Linear Algebra Operations: The Toolbox
 
-{% stepper %}
-{% step %}
+---
 
 ### Common Operations
 
@@ -177,9 +162,7 @@ x = np.linalg.solve(a, b)
 print("Solution:", x)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Visual Guide to Operations
 
@@ -196,13 +179,9 @@ Solving equations:
 Solution: x = 1, y = 2
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Matrix Properties: Getting to Know Your Data
 
-{% stepper %}
-{% step %}
+---
 
 ### Finding Matrix Properties
 
@@ -222,9 +201,7 @@ square_matrix = np.array([[1, 2],
 print("Trace:", np.trace(square_matrix))
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Eigenvalues and Eigenvectors
 
@@ -239,13 +216,20 @@ print("Eigenvalues:", eigenvals)
 print("Eigenvectors:\n", eigenvecs)
 ```
 
-{% endstep %}
-{% endstepper %}
+**Pro Tips**:
 
- **Pro Tips**:
-
-- Use `@` for matrix multiplication - it's cleaner!
+- Use **@** for matrix multiplication — it is cleaner
 - Check matrix shapes before multiplying
 - Remember: not all matrices have inverses
-- Use `np.linalg` for advanced operations
+- Use **np.linalg** for advanced operations
 - Think about what operation makes sense for your data
+
+## Common pitfalls
+
+- **Shape mismatch** — Inner dimensions must align for matrix multiply; use **.shape** when an error mentions **(m,k)** vs **(k,n)**.
+- **Singular matrix** — **inv** fails when the matrix is singular; prefer **lstsq** or **pinv** when appropriate.
+- **Confusing elementwise * and @** — **\*** multiplies element by element; **@** is matrix multiplication.
+
+## Next steps
+
+Continue to [Data analysis with pandas](../1.5-data-analysis-pandas/README.md), starting with [Series](../1.5-data-analysis-pandas/series.md).
