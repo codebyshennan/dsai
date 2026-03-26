@@ -1,5 +1,17 @@
 # Statistical Tests: Your Data Analysis Toolkit
 
+## Why this matters
+
+- Choosing the **wrong test** wastes time and can mislead stakeholders.
+- You will map data types and study design to common tests and know when to seek non-parametric alternatives.
+
+## Prerequisites
+
+- [A/B testing](./ab-testing.md) for experiment context.
+- [Hypothesis formulation](./hypothesis-formulation.md) for null and alternative statements.
+
+> **Important:** Pick the test before you analyze; note if you adjust after seeing the data.
+
 ## Introduction
 
 Statistical tests are essential tools for analyzing data. They help you determine whether observed patterns, differences, or relationships in your data are likely to be real or just due to random chance. By using the right statistical test, you can make informed, evidence-based decisions rather than relying on intuition alone.
@@ -300,6 +312,10 @@ print(result['explanation'])
 - Include test statistics, p-values, effect sizes, and confidence intervals.
 - Use visualizations to support your findings.
 - Discuss limitations and practical significance.
+
+## Next steps
+
+- Continue to [Results analysis](./results-analysis.md).
 
 ## Additional Resources
 

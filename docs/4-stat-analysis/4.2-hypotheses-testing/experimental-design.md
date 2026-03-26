@@ -1,5 +1,16 @@
 # Experimental Design: Building a Strong Foundation
 
+## Why this matters
+
+- Strong **design** determines whether statistics can answer the question you care about.
+- You will control bias, confounding, and power before you run a test or open a report.
+
+## Prerequisites
+
+- [Inferential statistics (module 4.1)](../4.1-inferential-stats/README.md), especially [sampling distributions](../4.1-inferential-stats/sampling-distributions.md) and [confidence intervals](../4.1-inferential-stats/confidence-intervals.md).
+
+> **Note:** This is the first lesson in [Hypothesis testing (4.2)](./README.md).
+
 ## Introduction
 
 **What is Experimental Design?**
@@ -353,6 +364,10 @@ where:
 4. Share raw data when possible
 
 ---
+
+## Next steps
+
+- Continue to [Formulating hypotheses](./hypothesis-formulation.md).
 
 ## Additional Resources
 

@@ -1,5 +1,7 @@
 # Testing Hypotheses: From Questions to Answers
 
+See the [Module 4 overview](../README.md) for prerequisites and how this unit connects to inference and regression.
+
 ## Introduction: The Scientific Method in Action
 
 Welcome to the world of hypothesis testing! This guide is designed to help you understand how to turn questions into answers through systematic experimentation. Whether you're optimizing a website, developing a new drug, or researching customer behavior, hypothesis testing provides the framework for making data-driven decisions with confidence.

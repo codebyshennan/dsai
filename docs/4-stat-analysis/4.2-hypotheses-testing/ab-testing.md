@@ -1,5 +1,17 @@
 # A/B Testing: Making Data-Driven Decisions
 
+## Why this matters
+
+- You will run **controlled comparisons** of two variants and interpret results without fooling yourself.
+- You will link randomization, metrics, and stopping rules to business or product decisions.
+
+## Prerequisites
+
+- [Formulating hypotheses](./hypothesis-formulation.md).
+- [Experimental design](./experimental-design.md) for control and randomization.
+
+> **Note:** Pair this lesson with the [tutorial notebook](./tutorial.ipynb) if your cohort uses it.
+
 ## Introduction: Why A/B Testing?
 
 Imagine you're a chef trying to improve a recipe. Instead of guessing what changes might work better, you could serve two versions and see which one customers prefer. That's A/B testing in a nutshell - a scientific way to compare options and make data-driven decisions!
@@ -391,6 +403,10 @@ def check_sample_ratio(control_size, treatment_size, expected_ratio=0.5):
         'recommendation': 'valid split' if p_value > 0.05 else 'investigate split'
     }
 ```
+
+## Next steps
+
+- Continue to [Statistical tests](./statistical-tests.md).
 
 ## Additional Resources
 

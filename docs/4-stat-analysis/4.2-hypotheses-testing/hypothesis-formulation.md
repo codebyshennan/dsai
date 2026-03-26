@@ -1,5 +1,17 @@
 # Hypothesis Formulation: Asking the Right Scientific Questions
 
+## Why this matters
+
+- Clear **null** and **alternative** hypotheses keep your analysis aligned with the decision you need to make.
+- You will avoid vague claims that cannot be tested with data.
+
+## Prerequisites
+
+- [Experimental design](./experimental-design.md).
+- [Understanding p-values](../4.1-inferential-stats/p-values.md) for null/alternative language.
+
+> **Warning:** Do not choose your hypotheses after peeking at the data.
+
 ## 1. Introduction
 
 A hypothesis is your scientific roadmap—it guides your investigation and helps you reach meaningful conclusions. Whether you're testing a new drug, optimizing a website, or studying customer behavior, well-formulated hypotheses are essential for discovery and sound decision-making.
@@ -219,6 +231,10 @@ print(result)
 - Document any changes
 - Report all tests conducted
 - Share data and code
+
+## Next steps
+
+- Continue to [A/B testing](./ab-testing.md).
 
 ## 8. Additional Resources
 

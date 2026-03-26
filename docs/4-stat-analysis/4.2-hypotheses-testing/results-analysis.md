@@ -1,5 +1,17 @@
 # Results Analysis: From Numbers to Insights
 
+## Why this matters
+
+- You will move from **p-values** to decisions using effect sizes, intervals, and plain-language stakes.
+- You will communicate what results **do** and **do not** imply for action.
+
+## Prerequisites
+
+- [Statistical tests](./statistical-tests.md).
+- [Confidence intervals](../4.1-inferential-stats/confidence-intervals.md) and [p-values](../4.1-inferential-stats/p-values.md) for vocabulary.
+
+> **Note:** This lesson closes the 4.2 chain; use it before presenting to non-specialists.
+
 ## Introduction: Why Results Analysis Matters
 
 Think of results analysis as being a detective with data - it's not just about finding clues (statistical significance) but understanding what they mean for the case (practical significance). Whether you're analyzing A/B tests, research studies, or business experiments, proper results analysis helps you turn raw numbers into actionable insights!
@@ -286,6 +298,10 @@ To enhance understanding of results analysis, we recommend adding the following 
    - Include visualizations
    - Acknowledge limitations
    - Make actionable recommendations
+
+## Next steps
+
+- Start [Relationships in data (module 4.3)](../4.3-rship-in-data/README.md) with [Understanding relationships](../4.3-rship-in-data/understanding-relationships.md).
 
 ## Additional Resources
 
