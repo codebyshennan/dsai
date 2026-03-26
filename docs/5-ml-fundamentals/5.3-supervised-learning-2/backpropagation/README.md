@@ -6,26 +6,26 @@ This module covers the fundamental algorithm of neural network training: backpro
 
 ## Module Structure
 
-1. **Introduction** (`1-introduction.md`)
+1. **Introduction** (<code>1-introduction.md</code>)
    - What is backpropagation?
    - Why is it important?
    - Learning objectives
    - Prerequisites
 
-2. **Mathematical Foundations** (`2-math-foundation.md`)
+2. **Mathematical Foundations** (<code>2-math-foundation.md</code>)
    - Chain rule
    - Forward pass
    - Backward pass
    - Activation function derivatives
    - Loss function derivatives
 
-3. **Implementation** (`3-implementation.md`)
+3. **Implementation** (<code>3-implementation.md</code>)
    - Basic backpropagation
    - Complete neural network implementation
    - Code examples
    - Best practices
 
-4. **Challenges and Solutions** (`4-challenges.md`)
+4. **Challenges and Solutions** (<code>4-challenges.md</code>)
    - Vanishing gradients
    - Exploding gradients
    - Local minima

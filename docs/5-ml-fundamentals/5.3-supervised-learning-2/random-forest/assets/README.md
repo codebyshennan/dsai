@@ -4,27 +4,27 @@ This directory contains visualizations that help explain key concepts of Random 
 
 ## Visualizations
 
-1. **Decision Tree Boundary** (`decision_tree_boundary.png`)
+1. **Decision Tree Boundary** (<code>decision_tree_boundary.png</code>)
    - Shows how a single decision tree makes decisions
    - Demonstrates the piecewise linear nature of decision boundaries
    - Helps understand the basic building block of Random Forests
 
-2. **Random Forest Boundary** (`random_forest_boundary.png`)
+2. **Random Forest Boundary** (<code>random_forest_boundary.png</code>)
    - Shows how multiple trees work together to create a more complex decision boundary
    - Demonstrates the ensemble effect of Random Forests
    - Illustrates how the model can capture non-linear patterns
 
-3. **Feature Importance** (`feature_importance.png`)
+3. **Feature Importance** (<code>feature_importance.png</code>)
    - Shows the relative importance of different features in the model
    - Helps understand which features contribute most to predictions
    - Useful for feature selection and model interpretation
 
-4. **Bias-Variance Tradeoff** (`bias_variance.png`)
+4. **Bias-Variance Tradeoff** (<code>bias_variance.png</code>)
    - Shows how model complexity affects predictions
    - Demonstrates the tradeoff between bias and variance
    - Helps understand the impact of tree depth on model performance
 
-5. **Ensemble Prediction** (`ensemble_prediction.png`)
+5. **Ensemble Prediction** (<code>ensemble_prediction.png</code>)
    - Shows how individual tree predictions combine to form the final prediction
    - Demonstrates the averaging effect of the ensemble
    - Illustrates how Random Forests reduce variance
