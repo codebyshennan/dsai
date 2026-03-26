@@ -8,48 +8,61 @@ Apache Airflow is a tool that helps you automate and schedule data tasks. Think 
 
 > **Note for beginners:** You don't need to master Airflow right away. Start with the basics and learn as you go. This guide will walk you through everything step by step.
 
-![Airflow Dashboard Placeholder - Shows the Airflow web interface with DAGs list]
+> **Figure (add screenshot or diagram):** Airflow web UI — DAG list / home dashboard.
 
 ## System Requirements
 
-- Python 3.10+ installed
+- **Python 3.10, 3.11, 3.12, or 3.13** (Airflow 3.1.x does not support Python 3.9 or earlier, and 3.14+ is not supported yet—see the [supported versions](https://airflow.apache.org/docs/apache-airflow/stable/installation/supported-versions.html) page for your install date)
 - 4GB RAM minimum (8GB+ recommended)
 - 10GB free disk space
 - POSIX-compliant operating system (Linux/macOS preferred, Windows via WSL2)
 
+Airflow is pinned to **tested dependency sets** via official **constraints** files. A plain `pip install apache-airflow` or `uv pip install apache-airflow` without constraints often fails or yields a broken install—use the commands below.
+
 ## Installation Options
 
 > **Which option should I choose?**
-> - **Option 1 (uv)**: Best for learning and development. Easier to set up and manage.
-> - **Option 2 (Docker)**: Better for production environments or if you're already familiar with Docker.
+> - **Option 1 (uv + constraints)**: Matches the [official Quick Start](https://airflow.apache.org/docs/apache-airflow/stable/start.html). Best for learning on your laptop.
+> - **Option 2 (Docker)**: Closer to how teams run Airflow in production; use if you already use Docker.
 
-### Option 1: Using uv (Recommended for Beginners)
+### Option 1: Using uv (recommended)
 
 ```bash
-# Step 1: Create a new directory for airflow
-mkdir airflow
-cd airflow
+# Step 1: Create a new directory for Airflow (keep it separate from your course "dsai" env)
+mkdir airflow-local
+cd airflow-local
 
-# Step 2: Create and activate virtual environment
-# (This keeps Airflow separate from other Python projects)
+# Step 2: Create and activate a virtual environment
 uv venv
 source .venv/bin/activate  # macOS/Linux
 .venv\Scripts\activate     # Windows
 
-# Step 3: Set the AIRFLOW_HOME environment variable
-# (This tells Airflow where to store its files)
-export AIRFLOW_HOME=$(pwd)
+# Step 3: Set AIRFLOW_HOME (where config, logs, and the DB live)
+export AIRFLOW_HOME="$(pwd)/airflow_home"   # macOS/Linux
+# set AIRFLOW_HOME=%CD%\airflow_home        # Windows CMD (example)
 
-# Step 4: Install airflow with minimal dependencies
-# (This may take a few minutes - grab a coffee!)
-uv pip install apache-airflow
+# Step 4: Install a pinned Airflow release using the official constraints file for your Python version
+AIRFLOW_VERSION=3.1.8
+PYTHON_VERSION="$(python -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')"
+CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+uv pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+```
 
-# Step 5: Initialize the database
-# (Airflow needs a database to track your workflows)
-airflow db init
+**Easiest way to run everything (database, admin user, scheduler, UI):**
 
-# Step 6: Create an admin user
-# (Replace the email and password with your own)
+```bash
+airflow standalone
+```
+
+Open **http://localhost:8080**, sign in with the **admin** credentials printed in the terminal, and enable an example DAG from the home page if you like.
+
+> **What just happened?** `standalone` initializes the metadata database, creates an admin user, and starts the processes needed for local development. When you outgrow it, run components separately (see below).
+
+**If you prefer to start services yourself** (no `standalone`):
+
+```bash
+airflow db migrate
+
 airflow users create \
     --username admin \
     --firstname Admin \
@@ -57,11 +70,22 @@ airflow users create \
     --role Admin \
     --email admin@example.com \
     --password admin
+
+# Airflow 3.x serves the web UI via the API server (not "airflow webserver")
+airflow api-server --port 8080
 ```
 
-> **What just happened?** You've created a virtual environment (like a separate workspace), installed Airflow, set up its database, and created a user account to access the web interface.
+In **additional terminals** (same `AIRFLOW_HOME` and venv), run:
 
-### Option 2: Using Docker (Recommended for Production)
+```bash
+airflow scheduler
+airflow dag-processor
+airflow triggerer
+```
+
+The `users create` flow requires the [FAB auth manager](https://airflow.apache.org/docs/apache-airflow-providers-fab/stable/auth-manager/index.html) as in a default install; if your org uses a different auth setup, follow your administrator’s docs.
+
+### Option 2: Using Docker
 
 1. Create a new directory:
 ```bash
@@ -79,21 +103,25 @@ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/stable/docker-compose.
 mkdir -p ./dags ./logs ./plugins ./config
 ```
 
-4. Initialize environment:
+4. Initialize environment (Compose v2 plugin syntax):
 ```bash
-docker-compose up airflow-init
+docker compose up airflow-init
 ```
 
 5. Start services:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
+
+If your machine still has the old `docker-compose` binary, that works too; new Docker installs use **`docker compose`** (with a space).
 
 ## Initial Configuration
 
+Settings below are typical for **local learning** installs. **Airflow 3.x** uses an **API server** for the web UI and may rename or relocate some options—confirm names in [Configuration reference](https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html) for your exact version.
+
 ### Core Settings
 
-1. Edit `airflow.cfg` in your AIRFLOW_HOME directory:
+1. Edit **airflow.cfg** in your **AIRFLOW_HOME** directory (created after the first `airflow` command):
 ```ini
 [core]
 # Don't load example DAGs
@@ -114,19 +142,7 @@ sql_alchemy_conn = sqlite:///airflow.db
 
 ### Security Settings
 
-1. Set secure configurations:
-```ini
-[webserver]
-# Enable authentication
-authenticate = True
-
-# Use secure connection
-web_server_ssl_cert = /path/to/cert
-web_server_ssl_key = /path/to/key
-
-# Set session lifetime
-session_lifetime_days = 1
-```
+For production or shared networks, follow [Production deployment](https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/production-deployment.html) and TLS guidance for the **API server / web UI** in your Airflow version’s docs. Local `standalone` installs use defaults suitable for **localhost only**.
 
 ## Starting Airflow Services
 
@@ -134,31 +150,39 @@ session_lifetime_days = 1
 
 ### Local Development
 
-**Step 1: Start the Web Server** (Open Terminal Window 1)
-```bash
-# Make sure you're in your airflow directory and virtual environment is activated
-cd airflow
-source .venv/bin/activate  # macOS/Linux
-# or .venv\Scripts\activate for Windows
+**Option A — one command (simplest):**
 
-# Start the web server
-airflow webserver --port 8080
+```bash
+cd airflow-local   # or your project folder
+source .venv/bin/activate
+export AIRFLOW_HOME=...   # same as when you installed
+airflow standalone
 ```
 
-You should see output like: `Running the Gunicorn Server with: Workers: 4 threads...`
+**Option B — separate processes** (typical when you have already run `airflow db migrate` and created a user):
 
-**Step 2: Start the Scheduler** (Open Terminal Window 2)
+**Terminal 1 — API server (web UI):**
+
 ```bash
-# Navigate to your airflow directory again
-cd airflow
-source .venv/bin/activate  # macOS/Linux
-# or .venv\Scripts\activate for Windows
+cd airflow-local
+source .venv/bin/activate
+airflow api-server --port 8080
+```
 
-# Start the scheduler (this is what actually runs your tasks)
+**Terminal 2 — scheduler:**
+
+```bash
+cd airflow-local
+source .venv/bin/activate
 airflow scheduler
 ```
 
-You should see output showing the scheduler is running and checking for DAGs.
+**Terminal 3 — DAG processor and triggerer** (required in multi-process setups; often started for you by `standalone`):
+
+```bash
+airflow dag-processor
+airflow triggerer
+```
 
 **Step 3: Access the Web Interface**
 
@@ -166,10 +190,10 @@ You should see output showing the scheduler is running and checking for DAGs.
 2. Go to: http://localhost:8080
 3. Log in with the username and password you created earlier
 
-![Airflow Login Screen Placeholder - Shows the login page]
+> **Figure (add screenshot or diagram):** Airflow login page (**http://localhost:8080**).
 
 > **Troubleshooting:** If you can't access the web interface, make sure:
-> - The webserver is still running in Terminal 1
+> - **`airflow standalone`** is still running, or the **API server** (`airflow api-server`) is still running in its terminal
 > - You're using the correct URL (http://localhost:8080)
 > - No other program is using port 8080
 
@@ -177,7 +201,7 @@ You should see output showing the scheduler is running and checking for DAGs.
 
 Monitor services:
 ```bash
-docker-compose ps
+docker compose ps
 ```
 
 ## Common Issues & Troubleshooting
@@ -191,20 +215,20 @@ uv venv airflow_env
 source airflow_env/bin/activate  # Linux/macOS
 airflow_env\Scripts\activate     # Windows
 
-# Install with uv (handles constraints automatically)
-uv pip install apache-airflow
-
-# Or install specific version if needed
-uv pip install "apache-airflow>=2.8.0"
+# Install with uv using official constraints (replace AIRFLOW_VERSION and use your Python minor version)
+AIRFLOW_VERSION=3.1.8
+PYTHON_VERSION="$(python -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')"
+CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+uv pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
 ```
 
 2. **Database Issues**:
 ```bash
-# Reset the database
-airflow db reset
+# Apply migrations (preferred over legacy init)
+airflow db migrate
 
-# Upgrade the database
-airflow db upgrade
+# Reset the database (destructive)
+airflow db reset
 ```
 
 ### Runtime Issues
@@ -235,38 +259,34 @@ tail -f logs/scheduler/latest
 
 **What is a DAG?** DAG stands for "Directed Acyclic Graph" - but don't worry about the technical name! Think of it as a workflow diagram that shows which tasks need to run and in what order.
 
-**Basic DAG Structure:**
+**Basic DAG structure (illustrative):** Airflow 3.x continues to use DAGs and operators, but defaults and imports evolve by version. Use the [current tutorial](https://airflow.apache.org/docs/apache-airflow/stable/tutorial/index.html) as the source of truth.
 
 ```python
-# Import necessary libraries
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 
-# Define default settings for all tasks in this DAG
 default_args = {
-    'owner': 'airflow',                    # Who owns this workflow
-    'depends_on_past': False,              # Don't wait for previous run to finish
-    'start_date': datetime(2025, 1, 1),   # When this DAG should start running
-    'email_on_failure': False,             # Don't send emails on failure (for now)
-    'retries': 1,                          # Retry once if task fails
-    'retry_delay': timedelta(minutes=5),   # Wait 5 minutes before retrying
+    "owner": "airflow",
+    "depends_on_past": False,
+    "start_date": datetime(2025, 1, 1),
+    "email_on_failure": False,
+    "retries": 1,
+    "retry_delay": timedelta(minutes=5),
 }
 
-# Create the DAG
-with DAG('example_dag',                    # Name of your workflow
-         default_args=default_args,        # Use the settings above
-         schedule='@daily') as dag:        # Run once per day
-    
-    # Define your tasks here
-    # (We'll add tasks in the next step)
-    pass
+with DAG(
+    "example_dag",
+    default_args=default_args,
+    schedule="@daily",
+) as dag:
+    pass  # add tasks here
 ```
 
-![DAG Example Placeholder - Shows a simple DAG with 3 tasks connected]
+> **Figure (add screenshot or diagram):** Graph view of a simple DAG (2–3 tasks) in the UI.
 
 2. **Testing**:
-- Use `airflow tasks test` for individual task testing
+- Use **`airflow tasks test`** for individual task testing (see the CLI help for your installed version)
 - Implement unit tests for custom operators
 - Test DAGs in development environment first
 

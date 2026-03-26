@@ -13,7 +13,7 @@ Databricks is a cloud-based platform that lets you work with data and build mach
 - ✅ Can handle much larger datasets than your local computer
 - ✅ Great for learning Spark and distributed computing
 
-![Databricks Workspace Placeholder - Shows the Databricks interface with notebooks]
+> **Figure (add screenshot or diagram):** Databricks workspace with notebooks.
 
 ## System Requirements
 
@@ -38,7 +38,7 @@ Databricks is a cloud-based platform that lets you work with data and build mach
 1. Go to [Databricks Community Edition](https://community.cloud.databricks.com/login.html)
 2. Click the **"Get Started With Community Edition"** button
 
-![Databricks Sign Up Page Placeholder - Shows the registration page]
+> **Figure (add screenshot or diagram):** Community Edition sign-up / login.
 
 **Step 2: Choose Your Sign-Up Method**
 - **Option A: GitHub** (Recommended - faster and easier)
@@ -53,7 +53,7 @@ Databricks is a cloud-based platform that lets you work with data and build mach
 1. Fill out the registration form with your information
 2. Verify your email address (check your inbox!)
 3. Accept the terms of service
-4. You're ready to go! 🎉
+4. You're ready to go.
 
 > **Tip:** If you don't have a GitHub account, you can create one for free at github.com - it's useful for many data science tools!
 
@@ -71,7 +71,7 @@ A notebook is where you'll write and run your code - similar to Jupyter Notebook
 4. Give your notebook a descriptive name (e.g., "My First Data Analysis")
 5. Click **"Create"**
 
-![Create Notebook Dialog Placeholder - Shows the notebook creation interface]
+> **Figure (add screenshot or diagram):** Creating a new notebook.
 
 **Step 2: Create a Cluster**
 
@@ -84,7 +84,7 @@ A cluster is like a remote computer that runs your code. You need one to execute
 5. Click **"Create Cluster"**
 6. Wait 2-3 minutes for the cluster to start (you'll see a spinning icon)
 
-![Cluster Creation Page Placeholder - Shows cluster settings and creation button]
+> **Figure (add screenshot or diagram):** Cluster / compute creation (size, runtime).
 
 > **Important:** Your cluster will automatically stop after 2 hours of inactivity to save resources. Just click "Start" when you need it again!
 
@@ -106,7 +106,7 @@ from pyspark.ml import Pipeline
 ### Workspace Organization
 
 1. **Project Structure**:
-   ```
+   ```text
    Workspace/
    ├── Shared/
    │   ├── Projects/
@@ -183,7 +183,7 @@ from pyspark.ml import Pipeline
 
 1. **Documentation**:
    - [Databricks Documentation](https://docs.databricks.com/)
-   - [Community Edition Guide](https://community.cloud.databricks.com/docs/latest/index.html)
+   - [Databricks documentation](https://docs.databricks.com/) (search for *Community Edition* topics)
    - [Spark Documentation](https://spark.apache.org/docs/latest/)
 
 2. **Learning Materials**:

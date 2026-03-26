@@ -17,7 +17,7 @@ Snowflake is a cloud-based data warehouse - think of it as a super-powered datab
 - ✅ **Fast queries** - Optimized for speed
 - ✅ **Easy to use** - Uses standard SQL (the language you'll learn in this course!)
 
-![Snowflake Interface Placeholder - Shows the Snowsight web interface]
+> **Figure (add screenshot or diagram):** Snowsight / Worksheets main UI.
 
 ## System Requirements
 
@@ -42,7 +42,7 @@ Snowflake is a cloud-based data warehouse - think of it as a super-powered datab
 1. Visit [Snowflake Trial Sign Up](https://signup.snowflake.com/)
 2. Click **"Start for Free"** or **"Try Snowflake Free"**
 
-![Snowflake Sign Up Page Placeholder - Shows the registration form]
+> **Figure (add screenshot or diagram):** Trial sign-up form.
 
 **Step 2: Fill Out Registration Form**
 - **Email:** Use your business or school email (personal emails work too!)
@@ -69,7 +69,7 @@ Snowflake is a cloud-based data warehouse - think of it as a super-powered datab
 **Step 5: Complete Initial Login**
 1. Log in with your email and password
 2. You'll see the Snowflake web interface (called "Snowsight")
-3. Congratulations - you're all set! 🎉
+3. Congratulations—you're all set.
 
 > **Tip:** Don't worry if you're not sure which cloud provider to choose - AWS is a safe default and you can always create another trial account later!
 
@@ -88,7 +88,7 @@ When you first log in, you'll see different "roles" you can use:
 
 For now, just use **ACCOUNTADMIN** - it gives you access to everything.
 
-![Snowflake Role Selection Placeholder - Shows role dropdown]
+> **Figure (add screenshot or diagram):** Role / warehouse context selector.
 
 **Step 2: Create a Warehouse**
 
@@ -98,7 +98,7 @@ A "warehouse" in Snowflake is like a computer that runs your SQL queries. You ne
 2. Click **"Warehouses"** (or look for the warehouse icon)
 3. Click the **"Create"** button (usually a "+" or "Create Warehouse" button)
 
-![Warehouse Creation Page Placeholder - Shows warehouse settings]
+> **Figure (add screenshot or diagram):** Warehouse size / auto-suspend settings.
 
 4. Fill in the details:
    - **Name:** Something like "LEARNING_WH" or "MY_WAREHOUSE"

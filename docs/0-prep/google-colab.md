@@ -14,7 +14,7 @@ Google Colab (short for Colaboratory) is a **free** online platform that lets yo
 - ✅ **Easy sharing** - Share notebooks with others instantly
 - ✅ **Saves to Google Drive** - Your work is automatically backed up
 
-![Google Colab Interface Placeholder - Shows the Colab notebook interface]
+> **Figure (add screenshot or diagram):** Colab notebook with code cell and output.
 
 ## System Requirements
 
@@ -43,13 +43,13 @@ Google Colab (short for Colaboratory) is a **free** online platform that lets yo
 3. Use your Google account (Gmail account works perfectly!)
 4. Accept the terms of service if prompted
 
-![Google Colab Welcome Page Placeholder - Shows the sign-in interface]
+> **Figure (add screenshot or diagram):** Colab welcome / sign-in page.
 
 **Step 2: Create Your First Notebook**
 - Click **"File"** → **"New notebook"**, OR
 - Click the **"+ New Notebook"** button on the welcome page
 
-That's it! You're ready to start coding! 🎉
+That's it! You're ready to start coding.
 
 > **Tip:** If you see example notebooks on the welcome page, feel free to explore them - they're great learning resources!
 
@@ -60,7 +60,7 @@ That's it! You're ready to start coding! 🎉
 **Method 1:** Click **"File"** → **"New notebook"** in the menu bar
 **Method 2:** Click the **"+ New Notebook"** button on the welcome page
 
-![New Notebook Button Placeholder - Shows where to click to create a notebook]
+> **Figure (add screenshot or diagram):** Welcome screen with **New notebook** or **File → New notebook**.
 
 ### Basic Setup
 
@@ -80,7 +80,7 @@ The runtime is the "computer" that runs your code. You can choose to use a GPU f
    - **Runtime shape:** Leave as default
 4. Click **"Save"**
 
-![Runtime Settings Placeholder - Shows the runtime configuration dialog]
+> **Figure (add screenshot or diagram):** **Runtime → Change runtime type** dialog (GPU/TPU options).
 
 > **Note:** GPU access is free but limited. If you get a message saying GPUs aren't available, you can still use Colab - just select "None" for the hardware accelerator.
 
@@ -98,24 +98,24 @@ drive.mount('/content/drive')
 1. A popup will ask for permission - click **"Allow"**
 2. Copy the authorization code that appears
 3. Paste it into the input box in Colab
-4. Your Google Drive is now accessible at `/content/drive/MyDrive/`
+4. Your Google Drive is now accessible at **/content/drive/MyDrive/**
 
-![Google Drive Mount Placeholder - Shows the authorization process]
+> **Figure (add screenshot or diagram):** Google Drive mount authorization step.
 
-> **Tip:** After mounting, you can access files like: `pd.read_csv('/content/drive/MyDrive/my_data.csv')`
+> **Tip:** After mounting, you can load files with Pandas, for example paths under **/content/drive/MyDrive/**.
 
 ## Best Practices
 
 ### Resource Management
 
 1. **Runtime Management**:
-   - Use `Runtime → Disconnect and delete runtime` when done
-   - Be aware of idle timeouts (90 minutes)
+   - Use **Runtime → Disconnect and delete runtime** when done
+   - Be aware of **idle disconnects** (free tier limits change over time; see the [Colab FAQ](https://research.google.com/colaboratory/faq.html))
    - Save work frequently
 
 2. **Storage**:
    - Keep notebooks in Google Drive
-   - Use `/content` for temporary files
+   - Use `/content` for temporary files (this storage is cleared when the runtime is recycled)
    - Download important results
 
 ### Code Organization
@@ -128,12 +128,9 @@ drive.mount('/content/drive')
 2. **Package Management**:
    ```python
    # Install additional packages
-   !pip install package_name
-   
-   # Restart runtime after installation
-   import sys
-   sys.restart()
+   %pip install package_name
    ```
+   After installing packages that affect imports, use **Runtime → Restart runtime** so notebooks pick up the new libraries.
 
 ## Common Issues & Troubleshooting
 
@@ -168,12 +165,12 @@ drive.mount('/content/drive')
 ## Tips for Success
 
 1. **Keyboard Shortcuts**:
-   - `Ctrl+Enter`: Run cell
-   - `Shift+Enter`: Run cell and select below
-   - `Alt+Enter`: Run cell and insert below
-   - `Ctrl+M B`: Insert cell below
-   - `Ctrl+M A`: Insert cell above
-   - `Ctrl+M D`: Delete cell
+   - **Ctrl+Enter**: Run cell
+   - **Shift+Enter**: Run cell and select below
+   - **Alt+Enter**: Run cell and insert below
+   - **Ctrl+M B**: Insert cell below
+   - **Ctrl+M A**: Insert cell above
+   - **Ctrl+M D**: Delete cell
 
 2. **File Management**:
    ```python

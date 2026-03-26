@@ -16,7 +16,7 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
 
 **Important Note:** Tableau Public workbooks are saved to the cloud and are **publicly visible**. Don't use sensitive or private data!
 
-![Tableau Interface Placeholder - Shows the Tableau workspace with data and charts]
+> **Figure (add screenshot or diagram):** Tableau workspace — shelves, marks, data pane.
 
 ## System Requirements
 
@@ -52,7 +52,7 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
 4. Check your email and click the verification link
 5. Sign in to your new account
 
-![Tableau Sign Up Page Placeholder - Shows the registration form]
+> **Figure (add screenshot or diagram):** Tableau Public sign-up.
 
 > **Tip:** Your username will be part of your public profile URL, so choose something professional!
 
@@ -65,14 +65,14 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
 3. Click **"Download the App"** button
 4. The download will start automatically
 
-![Tableau Download Page Placeholder - Shows the download form and button]
+> **Figure (add screenshot or diagram):** Download page and installer button.
 
 **Installation:**
 
 <details>
 <summary><b>For Windows</b></summary>
 
-1. Find the downloaded `.exe` file (usually in Downloads folder)
+1. Find the downloaded **.exe** file (usually in Downloads folder)
 2. Double-click to run the installer
 3. Follow the installation wizard (just click "Next" through the steps)
 4. Click "Install" and wait for it to finish
@@ -83,15 +83,15 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
 <details>
 <summary><b>For macOS</b></summary>
 
-1. Find the downloaded `.dmg` file (usually in Downloads folder)
+1. Find the downloaded **.dmg** file (usually in Downloads folder)
 2. Double-click to open it
 3. Drag the **Tableau Public** icon to the **Applications** folder
 4. Open Applications and double-click Tableau Public to launch
-5. If macOS asks about security, go to System Preferences → Security & Privacy and click "Open Anyway"
+5. If macOS asks about security, open **System Settings → Privacy & Security** (or **System Preferences → Security & Privacy** on older macOS) and choose **Open Anyway** for Tableau Public
 
 </details>
 
-![Tableau Installation Placeholder - Shows installation progress]
+> **Figure (add screenshot or diagram):** Installer progress.
 
 ### Step 3: First Launch Setup
 
@@ -105,17 +105,17 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
    - Enter the email and password you used to create your account
    - Click **"Sign In"**
 
-![Tableau Login Screen Placeholder - Shows the sign-in interface]
+> **Figure (add screenshot or diagram):** Sign-in to Tableau Public / account.
 
 3. **Welcome Screen:**
    - You might see a welcome tutorial - feel free to skip it for now (you can always access it later)
    - Click **"Get Started"** or close the welcome window
 
-4. **You're Ready!** 🎉
+4. **You're ready**
    - You should now see the Tableau workspace
    - The main area is where you'll build your visualizations
 
-![Tableau Workspace Placeholder - Shows the main Tableau interface]
+> **Figure (add screenshot or diagram):** Blank workbook or saved workbook view.
 
 > **Note:** Tableau will automatically save your workbooks to the cloud. You can access them from any computer by logging into your account!
 
@@ -134,11 +134,11 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
 **Step 1: Start a New Connection**
 1. When you open Tableau, you'll see a "Connect" panel on the left
 2. Under "To a File," you'll see options like:
-   - **Microsoft Excel** - For `.xlsx` or `.xls` files
-   - **Text File** - For `.csv` or `.txt` files
+   - **Microsoft Excel** — For **.xlsx** or **.xls** files
+   - **Text File** — For **.csv** or **.txt** files
    - **More...** - For other file types
 
-![Tableau Connect Panel Placeholder - Shows the data connection options]
+> **Figure (add screenshot or diagram):** Connect to data — file / server options.
 
 **Step 2: Choose Your Data File**
 1. Click on the file type you want (e.g., "Microsoft Excel" or "Text File")
@@ -154,7 +154,7 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
    - **Split columns** - Right-click a column for options
    - **Remove columns** - Uncheck columns you don't need
 
-![Tableau Data Preview Placeholder - Shows the data preview with field options]
+> **Figure (add screenshot or diagram):** Data source preview — fields and types.
 
 **Step 4: Load Your Data**
 1. Once you're happy with your data, click **"Sheet 1"** at the bottom

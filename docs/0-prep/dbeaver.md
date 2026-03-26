@@ -18,15 +18,15 @@ DBeaver is a **free** database tool that lets you connect to and work with datab
 - ✅ **Great for beginners** - Easy to learn and use
 - ✅ **Powerful** - Has everything you need for SQL work
 
-![DBeaver Interface Placeholder - Shows the main DBeaver window with database connections]
+> **Figure (add screenshot or diagram):** DBeaver main window and Database Navigator.
 
 > **Note:** DBeaver Community is recommended for this course, but you can use any SQL client you prefer. DBeaver is just the easiest to get started with!
 
 ## System Requirements
 
-* Windows 10/11, macOS 10.15+, or Linux
+* Windows 10/11, macOS 11 (Big Sur) or newer (current DBeaver builds target recent macOS), or Linux
 * 4GB RAM minimum (8GB recommended)
-* Java Runtime Environment (JRE) 17+ (bundled with installer)
+* A **Java 17+** runtime (bundled with the official Community installers—no separate JDK install needed for most users)
 * 500MB free disk space
 
 ## Key Features
@@ -47,18 +47,18 @@ DBeaver is a **free** database tool that lets you connect to and work with datab
 1. Visit the [DBeaver Community download page](https://dbeaver.io/download/)
 2. You'll see different versions - choose **"Community Edition"** (it's free!)
 3. Click the download button for your operating system:
-   * **Windows:** Download the `.exe` installer
-   * **macOS:** Download the `.dmg` file
-   * **Linux:** Download the appropriate package (`.deb` for Ubuntu/Debian, `.rpm` for RHEL/Fedora)
+   * **Windows:** Download the **.exe** installer
+   * **macOS:** Download the **.dmg** file
+   * **Linux:** Download the appropriate package (**.deb** for Ubuntu/Debian, **.rpm** for RHEL/Fedora)
 
-![DBeaver Download Page Placeholder - Shows the download options]
+> **Figure (add screenshot or diagram):** download page with OS / installer choices.
 
 ### Step 2: Install DBeaver
 
 <details>
 <summary><b>Windows Installation</b></summary>
 
-1. Find the downloaded `.exe` file (usually in your Downloads folder)
+1. Find the downloaded **.exe** file (usually in your Downloads folder)
 2. Double-click to run the installer
 3. If Windows asks for permission, click **"Yes"**
 4. Follow the installation wizard:
@@ -68,14 +68,14 @@ DBeaver is a **free** database tool that lets you connect to and work with datab
 5. Click **"Finish"** when done
 6. DBeaver should launch automatically!
 
-![Windows Installation Wizard Placeholder - Shows the installation steps]
+> **Figure (add screenshot or diagram):** Windows installer steps.
 
 </details>
 
 <details>
 <summary><b>macOS Installation</b></summary>
 
-1. Find the downloaded `.dmg` file (usually in your Downloads folder)
+1. Find the downloaded **.dmg** file (usually in your Downloads folder)
 2. Double-click to open it
 3. You'll see a window with the DBeaver icon
 4. Drag the **DBeaver** icon to the **Applications** folder
@@ -83,7 +83,7 @@ DBeaver is a **free** database tool that lets you connect to and work with datab
 6. Open **Applications** folder and double-click **DBeaver** to launch
 7. If macOS asks about security, go to **System Preferences → Security & Privacy** and click **"Open Anyway"**
 
-![macOS DMG Window Placeholder - Shows dragging DBeaver to Applications]
+> **Figure (add screenshot or diagram):** macOS DMG — drag DBeaver to Applications.
 
 </details>
 
@@ -104,7 +104,7 @@ When you first open DBeaver, you might see a few popups:
    - **Just click "OK"** - the default location is perfect!
    - This is where DBeaver saves your database connections and settings
 
-![Workspace Selection Dialog Placeholder - Shows the workspace directory prompt]
+> **Figure (add screenshot or diagram):** Workspace folder selection on first launch.
 
 2. **Install Additional Drivers:**
    - DBeaver might ask to download database drivers
@@ -128,7 +128,7 @@ When you first open DBeaver, you might see a few popups:
    - OR click **"Database"** in the menu bar → **"New Database Connection"**
 2. A window will pop up showing different database types
 
-![New Connection Dialog Placeholder - Shows the database selection screen]
+> **Figure (add screenshot or diagram):** New connection — choose database type.
 
 <details>
 <summary><b>SQLite (Recommended for Beginners)</b></summary>
@@ -143,7 +143,7 @@ When you first open DBeaver, you might see a few popups:
 4. Click **"Test Connection"** - you should see "Connected" in green
 5. Click **"Finish"**
 
-![SQLite Connection Setup Placeholder - Shows SQLite connection configuration]
+> **Figure (add screenshot or diagram):** SQLite file path / connection settings.
 
 > **Tip:** SQLite databases are just files on your computer - you can easily copy, backup, or delete them!
 
@@ -157,15 +157,15 @@ When you first open DBeaver, you might see a few popups:
 1. In the connection window, find and click **"PostgreSQL"**
 2. Click **"Next"**
 3. Fill in the connection details:
-   - **Host:** Usually `localhost` (if on your computer) or an IP address
-   - **Port:** Usually `5432` (the default)
+   - **Host:** Usually **localhost** (if on your computer) or an IP address
+   - **Port:** Usually **5432** (the default)
    - **Database:** The name of the database you want to connect to
    - **Username:** Your database username
    - **Password:** Your database password
 4. Click **"Test Connection"** - if successful, you'll see "Connected"
 5. Click **"Finish"**
 
-![PostgreSQL Connection Setup Placeholder - Shows PostgreSQL connection form]
+> **Figure (add screenshot or diagram):** PostgreSQL host, port, database, user.
 
 > **Note:** If you don't have a PostgreSQL server set up, start with SQLite instead!
 
@@ -180,7 +180,7 @@ When you first open DBeaver, you might see a few popups:
    * macOS: DBeaver → Preferences
 2.  Configure these settings:
 
-    ```
+    ```text
     Editors:
     - Set auto-save interval
     - Enable error highlighting
@@ -218,7 +218,7 @@ When you first open DBeaver, you might see a few popups:
    * Check firewall settings
 2.  **Driver Issues**:
 
-    ```
+    ```text
     Solutions:
     - Update database driver
     - Download driver manually

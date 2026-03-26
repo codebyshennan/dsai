@@ -4,14 +4,16 @@ Welcome to the Data Science & AI bootcamp! This folder contains all the setup gu
 
 ## Quick Start Checklist
 
-Before you begin the course, make sure you have:
+Before you begin the course, work through these in order:
 
-- [ ] **Python Environment** - Choose one:
-  - [ ] [Anaconda Setup](./anaconda.md) (Recommended for beginners)
-  - [ ] Or use `uv` (see Anaconda guide for `uv` instructions)
-- [ ] **Python Libraries** - [Python Data Science Stack](./python-ds-stack.md)
-- [ ] **Code Editor** - [VS Code Setup](./vscode.md) (Recommended)
-- [ ] **Notebook Tool** - [Jupyter Notebook Introduction](./jupyter-notebook.md)
+1. **Python environment** (pick one):
+   - [Anaconda Setup](./anaconda.md) (recommended if you are new to Python)
+   - Or install **uv** using the steps in the [Anaconda guide](./anaconda.md)
+2. **Python libraries** — [Python Data Science Stack](./python-ds-stack.md)
+3. **Code editor** — [VS Code Setup](./vscode.md) (recommended)
+4. **Notebook tool** — [Jupyter Notebook Introduction](./jupyter-notebook.md)
+
+> **Note:** The site build does not turn `- [ ]` GitHub task-list syntax into interactive checkboxes, so this page uses a numbered checklist instead. Track progress in your own notes or in the repo if you use one.
 
 ## Essential Tools
 
@@ -74,7 +76,7 @@ Before you begin the course, make sure you have:
 ## Setup Order (Recommended)
 
 **Week 1 - Essential Setup:**
-1. Install Anaconda (or set up `uv`)
+1. Install Anaconda (or set up **uv**)
 2. Install Python data science libraries
 3. Test Jupyter Notebook
 4. Install VS Code (optional but recommended)
@@ -99,7 +101,7 @@ Before you begin the course, make sure you have:
 
 - **"Command not found"** - Usually means the tool isn't in your PATH. Try restarting your terminal.
 - **Installation takes forever** - This is normal! Some packages are large. Be patient.
-- **Permission errors** - On macOS/Linux, you might need to use `sudo` (but be careful!)
+- **Permission errors** - On macOS/Linux, you might need to use **sudo** (but be careful!)
 - **Can't find Python** - Make sure you installed Anaconda or Python first
 
 ## Understanding the Course Structure
@@ -107,19 +109,21 @@ Before you begin the course, make sure you have:
 This bootcamp uses a **flipped classroom** approach. Learn more in the [Pedagogy Guide](./pedagogy.md).
 
 **What this means:**
-- 📖 Review materials before class
-- 💻 Practice during class time
-- 🎯 Get help during office hours
-- ⏰ Learn at your own pace
+
+- Review materials before class
+- Practice during class time
+- Get help during office hours
+- Learn at your own pace
 
 ## Additional Resources
 
 Each setup guide includes:
-- ✅ Step-by-step instructions
-- ✅ Platform-specific notes (Windows/macOS/Linux)
-- ✅ Troubleshooting sections
-- ✅ Links to official documentation
-- ✅ Time estimates for each task
+
+- Step-by-step instructions
+- Platform-specific notes (Windows, macOS, Linux)
+- Troubleshooting sections
+- Links to official documentation
+- Time estimates for each task
 
 ## Tips for Success
 
@@ -132,7 +136,7 @@ Each setup guide includes:
 ## Need More Help?
 
 - Check the troubleshooting section in each guide
-- Review the [Documentation Guidelines](../DOCUMENTATION_GUIDELINES.md) for writing style
+- Contributors: see [Documentation Guidelines](https://github.com/codebyshennan/tamkeen-data/blob/main/docs/meta/DOCUMENTATION_GUIDELINES.md). The **docs/meta** folder is not published on the course site.
 - Contact your instructor during office hours
 - Check the official documentation links in each guide
 

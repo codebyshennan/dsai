@@ -17,16 +17,16 @@ The "Python Data Science Stack" refers to a collection of essential libraries (p
 - ✅ **Well-documented** - Great learning resources available
 - ✅ **Active community** - Lots of help available online
 
-![Python Data Science Stack Placeholder - Shows the main libraries and their purposes]
+> **Figure (add screenshot or diagram):** Overview of the core libraries (NumPy, Pandas, visualization, sklearn, etc.).
 
 ## Prerequisites
 
 Before you begin, make sure you have:
 
-* **Python 3.10 or newer** installed
-* **A package manager** - Either Anaconda or `uv` (see the Anaconda setup guide)
+* **Python 3.10 or newer** installed (for new environments, **3.12** is a practical default; **3.11** and **3.13** are fine if your team or instructor standardizes on them)
+* **A package manager** — Either Anaconda or **uv** (see the Anaconda setup guide)
 
-> **Don't have Python yet?** If you install Anaconda, Python comes with it! If you're using `uv`, you'll need Python installed separately.
+> **Don't have Python yet?** If you install Anaconda, Python comes with it! If you're using **uv**, you'll need Python installed separately.
 
 ## Option 1: Using Anaconda (Recommended for Beginners)
 
@@ -37,9 +37,9 @@ Before you begin, make sure you have:
 **What is an environment?** It's like a separate workspace that keeps your packages organized. This prevents conflicts between different projects.
 
 ```bash
-# Create a new environment named "dsai" with Python 3.10
+# Create a new environment named "dsai" with Python 3.12
 # Replace "dsai" with any name you prefer (e.g., "data-science", "my-project")
-conda create -n dsai python=3.10
+conda create -n dsai python=3.12
 ```
 
 When prompted, type `y` and press Enter. This will take a minute or two.
@@ -92,43 +92,44 @@ conda install jupyter notebook
 
 > **Note:** Each `conda install` command will ask for confirmation. Type `y` and press Enter each time. The installation may take 5-10 minutes total.
 
-![Package Installation Progress Placeholder - Shows packages being installed]
+> **Figure (add screenshot or diagram):** Terminal showing **conda install** progress.
 
 ### Step 4: Verify Installation
 
 **How to check if everything installed correctly:**
 
-1. Make sure your environment is activated (you should see `(dsai)` in your terminal)
-2. Start Python by typing: `python` and pressing Enter
+1. Make sure your environment is activated (you should see **(dsai)** in your terminal)
+2. Start Python by typing **python** and pressing Enter
 3. Copy and paste this code:
 
 ```python
 # Test if all libraries can be imported
 import numpy as np
 import pandas as pd
+import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import sklearn
 import statsmodels.api as sm
 
 # Print version numbers
-print("✅ All libraries installed successfully!")
+print("All libraries installed successfully.")
 print(f"NumPy version: {np.__version__}")
 print(f"Pandas version: {pd.__version__}")
-print(f"Matplotlib version: {plt.__version__}")
+print(f"Matplotlib version: {matplotlib.__version__}")
 print(f"Seaborn version: {sns.__version__}")
 print(f"Scikit-learn version: {sklearn.__version__}")
 print(f"Statsmodels version: {sm.__version__}")
 ```
 
 4. You should see version numbers for each library
-5. Type `exit()` to leave Python
+5. Type **exit()** to leave Python
 
 > **Troubleshooting:** If you see an error like "ModuleNotFoundError", that library didn't install correctly. Try installing it again with `conda install library_name`.
 
-![Python Verification Output Placeholder - Shows successful library imports]
+> **Figure (add screenshot or diagram):** Python REPL printing library versions after successful imports.
 
-## Option 2: Using `uv`
+## Option 2: Using uv
 
 > **Time needed:** About 5-10 minutes (much faster than Anaconda!)
 
@@ -150,7 +151,7 @@ You should see `(.venv)` appear in your terminal prompt - that means it's active
 
 ### Step 2: Install All Libraries
 
-**One command installs everything!** `uv` is much faster than conda:
+**One command installs everything!** **uv** is much faster than conda:
 
 ```bash
 # Install all essential data science libraries at once
@@ -160,7 +161,7 @@ uv pip install numpy pandas matplotlib seaborn scikit-learn statsmodels jupyter 
 
 > **Tip:** `uv` handles dependency conflicts automatically, so you don't need to worry about package versions!
 
-![uv Fast Installation Placeholder - Shows quick package installation]
+> **Figure (add screenshot or diagram):** **uv pip install** finishing quickly in the terminal.
 
 ## Common Issues & Troubleshooting
 
@@ -183,7 +184,7 @@ uv pip install numpy pandas matplotlib seaborn scikit-learn statsmodels jupyter 
    * Use smaller environment configurations
 3. **Import Errors**:
    * Verify environment activation
-   * Check package installation with `conda list` or `pip list`
+   * Check package installation with **conda list** or **pip list**
    * Reinstall problematic package
    * For great\_expectations: ensure compatible Python version
 4. **SQLAlchemy Connection Issues**:
@@ -196,7 +197,7 @@ uv pip install numpy pandas matplotlib seaborn scikit-learn statsmodels jupyter 
 
 1.  **Matplotlib Backend Problems**:
 
-    ```python
+    ```jupyter
     # Add to your notebook or script
     import matplotlib
     matplotlib.use('Agg')  # for no-GUI backend
@@ -205,11 +206,11 @@ uv pip install numpy pandas matplotlib seaborn scikit-learn statsmodels jupyter 
     ```
 2. **Numpy Performance Issues**:
    * Check if using optimized BLAS/LAPACK
-   * Install `numpy` with MKL support via `conda`
+   * Install **numpy** with MKL support via **conda**
 3. **Pandas Memory Errors**:
    * Use appropriate data types (e.g., categories for strings)
    * Read large files in chunks
-   * Use memory-efficient methods like `read_csv(..., usecols=[...])`
+   * Use memory-efficient methods like **read_csv(..., usecols=[...])** (see Pandas docs)
 
 ## Best Practices
 
@@ -217,7 +218,7 @@ uv pip install numpy pandas matplotlib seaborn scikit-learn statsmodels jupyter 
 
 1.  **Project Organization**:
 
-    ```
+    ```text
     project/
     ├── .gitignore
     ├── README.md
@@ -271,4 +272,4 @@ uv pip install numpy pandas matplotlib seaborn scikit-learn statsmodels jupyter 
 3. **Community Support**:
    * Stack Overflow tags: \[numpy], \[pandas], \[matplotlib], \[scikit-learn]
    * GitHub Issues for respective libraries
-   * Reddit: [`r/datascience`](https://www.reddit.com/search/?q=datascience), [`r/learnpython`](https://www.reddit.com/search/?q=learnpython)
+   * Reddit: [r/datascience](https://www.reddit.com/search/?q=datascience), [r/learnpython](https://www.reddit.com/search/?q=learnpython)

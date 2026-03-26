@@ -16,9 +16,9 @@ An **IDE** (Integrated Development Environment) is a code editor with extra feat
 - ✅ **Popular** - Used by millions of developers
 - ✅ **Cross-platform** - Works on Windows, macOS, and Linux
 
-![VS Code Interface Placeholder - Shows the VS Code workspace]
+> **Figure (add screenshot or diagram):** VS Code main window — editor, sidebar, and terminal.
 
-> **Note:** This guide assumes you have Anaconda or `uv` installed. If not, please refer to the `Getting Started with Anaconda` or `Python for Data Science` guides first.
+> **Note:** This guide assumes you have Anaconda or **uv** installed. If not, start with the [Anaconda guide](./anaconda.md) or your course’s Python setup materials.
 
 ## Setting Up Python in VS Code
 
@@ -33,22 +33,22 @@ If you don't have VS Code yet:
 3. Run the installer and follow the prompts
 4. Launch VS Code
 
-![VS Code Download Page Placeholder - Shows download options]
+> **Figure (add screenshot or diagram):** VS Code download or first-run screen for your OS.
 
 ### Step 2: Install the Python Extension
 
 **Extensions add features to VS Code.** The Python extension is essential for Python development.
 
 1. Open VS Code
-2. Click the **Extensions icon** in the left sidebar (looks like four squares, or press `Ctrl+Shift+X` / `Cmd+Shift+X`)
+2. Click the **Extensions icon** in the left sidebar (looks like four squares, or press **Ctrl+Shift+X** on Windows/Linux or **Cmd+Shift+X** on macOS)
 3. In the search box, type: **"Python"**
 4. Find **"Python"** by Microsoft (it should be the first result)
 5. Click the **"Install"** button
 6. Wait for installation to complete
 
-![Python Extension Installation Placeholder - Shows the extension marketplace]
+> **Figure (add screenshot or diagram):** Extensions view with the Microsoft Python extension selected.
 
-> **Tip:** VS Code will suggest installing the Python extension automatically when you open a `.py` file!
+> **Tip:** VS Code will suggest installing the Python extension automatically when you open a **.py** file!
 
 ### Step 3: Configure Your Python Environment
 
@@ -56,19 +56,19 @@ If you don't have VS Code yet:
 
 **Automatic Detection:**
 - If you have Anaconda: VS Code usually detects it automatically
-- If you're using `uv`: VS Code will find your `.venv` folder
+- If you're using **uv**: VS Code will find your **.venv** folder
 
 **Manual Selection (if needed):**
 
-1. Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS)
+1. Press **Ctrl+Shift+P** (Windows/Linux) or **Cmd+Shift+P** (macOS)
 2. Type: **"Python: Select Interpreter"**
 3. Press Enter
-4. You'll see a list of Python environments:
-   - Anaconda environments show as: `Python 3.10.x ('base': conda)`
-   - `uv` environments show as: `Python 3.10.x ('.venv': venv)`
+4. You'll see a list of Python environments (examples):
+   - Anaconda: **Python 3.12.x ('base': conda)** or **('dsai': conda)** (versions vary)
+   - **uv**: **Python 3.12.x ('.venv': venv)** (versions vary)
 5. Click on the one you want to use
 
-![Python Interpreter Selection Placeholder - Shows the interpreter selection menu]
+> **Figure (add screenshot or diagram):** Command Palette open to **Python: Select Interpreter** with a list of environments.
 
 > **Tip:** You can see which interpreter is active in the bottom-right corner of VS Code!
 
@@ -76,12 +76,12 @@ If you don't have VS Code yet:
 
 To check if VS Code is using your Python environment:
 
-1. Open an existing Python file (`.py` extension) or create a new file, write `print("Hello, VS Code!")`, and save it as `hello.py`
-2. Look at the bottom status bar - you should see your Python version and environment
-3. Open a new terminal in VS Code (`Terminal > New Terminal`)
+1. Open or create a Python file named **hello.py**, add a simple **print** statement, and save
+2. Look at the bottom status bar — you should see your Python version and environment
+3. Open a new terminal: **Terminal → New Terminal**
 4. You should see your environment name at the beginning of your terminal prompt:
-   * Anaconda: `(base)` or `(dsai)`
-   * uv: `(.venv)` or your virtual environment name
+   * Anaconda: **(base)** or **(dsai)** (or your conda env name)
+   * **uv**: **(.venv)** or your virtual environment name
 
 ## Useful VS Code Features for Python
 
@@ -94,18 +94,18 @@ To check if VS Code is using your Python environment:
 
 #### Extensions
 
-*   Jupyter Notebooks: Direct support for `.ipynb` files
+* Jupyter Notebooks: Direct support for **.ipynb** files
 
     > However, we will be using Jupyter Notebook in the Anaconda Navigator in this course
-* [`autoDocstring`](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring) - quickly generate docstrings for python functions.
-* [`Error Lens`](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) - turbo-charges language diagnostic features by making diagnostics stand out more prominently, highlighting the entire line wherever a diagnostic is generated by the language and also prints the message inline.
-* [`Even Better TOML`](https://open-vsx.org/extension/tamasfe/even-better-toml) -&#x20;
-* `Jupyter` - because data science
-* `pylens` - because I'd like to know what dependencies have updated
-* `Python Indent` - because I value my sanity
-* [`Ruff`](https://github.com/astral-sh/ruff) - nice performant linter + `isort` functionality
-* [`View Image for Python Debugging`](https://marketplace.visualstudio.com/items?itemName=elazarcoh.simply-view-image-for-python-debugging) - if your data science work sometimes strays away from Jupyter notebooks, you'll understand why
+* [**autoDocstring**](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring) — quickly generate docstrings for Python functions
+* [**Error Lens**](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) — surface diagnostics inline on the line
+* [**Even Better TOML**](https://open-vsx.org/extension/tamasfe/even-better-toml) — TOML editing for **pyproject.toml** and similar files
+* [**Jupyter**](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) — open and run **.ipynb** notebooks in VS Code
+* [**Pylance**](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) — Python language server (types, imports, IntelliSense); often installed automatically with the Python extension
+* [**Python Indent**](https://marketplace.visualstudio.com/items?itemName=KevinRose.vsc-python-indent) — indentation helpers for Python blocks
+* [**Ruff**](https://github.com/astral-sh/ruff) — fast linter and **isort**-style import sorting
+* [**View Image for Python Debugging**](https://marketplace.visualstudio.com/items?itemName=elazarcoh.simply-view-image-for-python-debugging) — useful when debugging outside notebooks
 
 ## PyCharm (by JetBrains)
 
-<figure><img src="../.gitbook/assets/PyCharm ML Completion.gif" alt=""><figcaption></figcaption></figure>
+> **Figure (add screenshot or diagram):** PyCharm (optional) — ML-aware completion or project view.
