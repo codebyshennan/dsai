@@ -1,5 +1,15 @@
 # ETL Fundamentals
 
+## Overview
+
+**Primary outcome:** You can explain **ETL** (**Extract**, **Transform**, **Load**) as an ordered pipeline—pull data from sources, clean and reshape it, then load it into a target—and connect that idea to orchestration sketches (for example **DAG**-based schedulers).
+
+**Prerequisites:** [SQL](../2.1-sql/README.md), [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md), and [data wrangling](../2.2-data-wrangling/README.md). Skim the **Extract → Transform → Load** diagrams in the next sections before the Airflow-style figures.
+
+> **Time needed:** 90+ minutes; treat long code blocks as reference material.
+
+> **Note:** A **DAG** (Directed Acyclic Graph) is a workflow graph without cycles—common in orchestration tools such as Apache Airflow.
+
 ## Introduction to ETL
 
 ETL (Extract, Transform, Load) is a fundamental process in data engineering that forms the backbone of data integration and warehousing solutions.
@@ -937,3 +947,10 @@ if __name__ == "__main__":
 ```
 
 Remember: A well-designed ETL pipeline is crucial for reliable data processing!
+
+## Next steps
+
+- [Data storage](data-storage.md) — warehouses, lakes, and databases
+- [Data integration](data-integration.md) — batch, stream, and APIs
+- [Data engineering project](project.md)
+- [Module README](README.md)

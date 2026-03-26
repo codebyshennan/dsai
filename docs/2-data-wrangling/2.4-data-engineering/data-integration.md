@@ -1,5 +1,13 @@
 # Data Integration
 
+## Overview
+
+**Primary outcome:** You can compare **batch** and **near–real-time** integration patterns, list common failure modes (schema drift, duplicates, partial loads), and see how monitoring fits the pipeline.
+
+**Prerequisites:** [ETL fundamentals](etl-fundamentals.md) and [data storage](data-storage.md). REST and file-based patterns make more sense after [SQL](../2.1-sql/README.md).
+
+> **Time needed:** About 60 minutes.
+
 ## Introduction to Data Integration
 
 ### Integration Patterns Diagram
@@ -628,3 +636,10 @@ except Exception as e:
 ```
 
 Remember: Effective data integration requires careful planning and robust error handling!
+
+## Next steps
+
+- [Data engineering project](project.md)
+- [ETL fundamentals](etl-fundamentals.md) — orchestration and quality
+- [Exploratory Data Analysis (Module 2.3)](../2.3-eda/README.md) — profile integrated outputs
+- [Module README](README.md)

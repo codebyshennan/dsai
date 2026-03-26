@@ -1,5 +1,13 @@
 # Data Engineering Essentials
 
+## Overview
+
+**Primary outcome:** You can describe how **ETL** and **ELT** pipelines move data from sources to storage, why orchestration and quality checks matter, and how warehouses differ from lakes.
+
+**Prerequisites:** [SQL (Module 2.1)](../2.1-sql/README.md), [wrangling (Module 2.2)](../2.2-data-wrangling/README.md), and [EDA (Module 2.3)](../2.3-eda/README.md) at a practical level. Python 3 and **pandas** for examples.
+
+> **Time needed:** Several hours across the three topic pages and the project.
+
 Data engineering is the backbone of modern data-driven organizations, focusing on designing, building, and maintaining the infrastructure and systems needed to collect, store, and analyze data at scale. This module will equip you with the essential skills and knowledge needed to become proficient in data engineering practices.
 
 ## Learning Objectives

@@ -2,6 +2,12 @@
 
 ## Overview
 
+**Primary outcome:** You design or prototype an **ETL**-style pipeline (code or diagram plus narrative) with extract, transform, and load steps, basic quality checks, and a plausible failure-handling story.
+
+**Prerequisites:** [ETL fundamentals](etl-fundamentals.md), [data storage](data-storage.md), and [data integration](data-integration.md). Comfortable Python; optional [Airflow](../../0-prep/airflow.md) if you orchestrate with it.
+
+> **Time needed:** Often 8–15 hours for a solid submission.
+
 In this comprehensive assignment, you'll build a production-ready data engineering pipeline that demonstrates your ability to handle real-world data processing challenges. You'll apply advanced ETL concepts, implement robust error handling, and ensure scalable performance.
 
 ### Learning Objectives

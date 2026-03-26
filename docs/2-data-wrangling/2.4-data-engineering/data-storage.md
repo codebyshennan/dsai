@@ -1,5 +1,15 @@
 # Data Storage Solutions
 
+## Overview
+
+**Primary outcome:** You can contrast **OLTP** databases, **data warehouses**, and **data lakes** for typical analytics workloads, and name one sensible use case for each.
+
+**Prerequisites:** [ETL fundamentals](etl-fundamentals.md) and [Intro to databases](../2.1-sql/intro-databases.md). Optional: skim [Snowflake](../../0-prep/snowflake.md) if your org uses it.
+
+> **Time needed:** About 45–60 minutes.
+
+> **Note:** **OLTP** (online transaction processing) systems optimize row-level transactions; warehouses optimize analytical queries across large history.
+
 ## Introduction to Data Storage
 
 Data storage is a fundamental aspect of data engineering that requires careful consideration of various factors to ensure efficient, reliable, and scalable data management.
@@ -772,3 +782,9 @@ storage.store_data(
 ```
 
 Remember: Choose your data storage solution based on your specific requirements and use cases!
+
+## Next steps
+
+- [Data integration](data-integration.md) — moving data between systems
+- [ETL fundamentals](etl-fundamentals.md) — revisit load patterns
+- [Module README](README.md)
