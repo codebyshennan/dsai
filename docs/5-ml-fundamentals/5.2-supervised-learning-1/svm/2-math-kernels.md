@@ -36,9 +36,9 @@ Let's break down the math step by step:
    ```
 
    Where:
-   - `w` is like the direction of the dividing line
-   - `x` is your data point
-   - `b` is how far the line is from the center
+   - <code>w</code> is like the direction of the dividing line
+   - <code>x</code> is your data point
+   - <code>b</code> is how far the line is from the center
 
 2. **Classification Rules**
 
@@ -55,7 +55,7 @@ Let's break down the math step by step:
    Margin = 2/||w||
    ```
 
-   - `||w||` is the length of w
+   - <code>||w||</code> is the length of w
    - We want to maximize this margin
    - Like making the safety buffer as wide as possible
 

@@ -66,11 +66,11 @@ plt.show()
 
 Pre-pruning is a preventative approach where we set limits before training the tree. This prevents the tree from growing too complex in the first place. The parameters used above control different aspects of tree complexity:
 
-- `max_depth`: Limits how deep the tree can grow
-- `min_samples_split`: Requires a minimum number of samples to split a node
-- `min_samples_leaf`: Ensures each leaf node has enough samples
-- `max_features`: Limits how many features to consider at each split
-- `min_impurity_decrease`: Only allows splits that improve purity by a certain amount
+- <code>max_depth</code>: Limits how deep the tree can grow
+- <code>min_samples_split</code>: Requires a minimum number of samples to split a node
+- <code>min_samples_leaf</code>: Ensures each leaf node has enough samples
+- <code>max_features</code>: Limits how many features to consider at each split
+- <code>min_impurity_decrease</code>: Only allows splits that improve purity by a certain amount
 
 #### 2. Post-pruning (Cost-Complexity Pruning)
 
@@ -206,8 +206,8 @@ for criterion in ['gini', 'entropy']:
 
 While scikit-learn doesn't allow us to directly use custom impurity functions in its implementation, we can understand how different impurity measures affect tree performance. The built-in options are:
 
-- `gini`: Measures how "mixed" the classes are (based on squared probabilities)
-- `entropy`: Measures how "uncertain" the classes are (based on logarithms)
+- <code>gini</code>: Measures how "mixed" the classes are (based on squared probabilities)
+- <code>entropy</code>: Measures how "uncertain" the classes are (based on logarithms)
 
 Different impurity measures can lead to different tree structures and decisions.
 
@@ -515,8 +515,8 @@ print(classification_report(y_test, y_pred_weighted))
 ```
 
 When dealing with imbalanced data (where some classes are much more common than others), we can:
-1. Use `class_weight='balanced'` to automatically adjust weights inversely proportional to class frequencies
-2. Manually specify weights for each class using a dictionary, e.g., `class_weight={0: 1, 1: 9}`
+1. Use <code>class_weight='balanced'</code> to automatically adjust weights inversely proportional to class frequencies
+2. Manually specify weights for each class using a dictionary, e.g., <code>class_weight={0: 1, 1: 9}</code>
 3. Evaluate models using metrics beyond accuracy, such as precision, recall, and F1-score
 
 These techniques help ensure the model pays attention to minority classes instead of just predicting the majority class.

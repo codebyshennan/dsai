@@ -120,7 +120,7 @@ if result['uncertain']:
 - This example demonstrates a complete spam detection system using SVM
 - We use TF-IDF vectorization to convert email text into numerical features
 - The linear kernel works well for text classification as it performs well in high-dimensional, sparse spaces
-- The `class_weight='balanced'` parameter helps handle the common imbalance in spam datasets
+- The <code>class_weight='balanced'</code> parameter helps handle the common imbalance in spam datasets
 - We include a confidence score to identify uncertain classifications that might need manual review
 - The example includes both training on a small dataset and a practical function for classifying new emails
 
@@ -400,7 +400,7 @@ print(f"Recommendation: {diagnosis_result['recommendation']}")
   - Sensitivity: Proportion of actual positives correctly identified (critical for not missing disease cases)
   - Specificity: Proportion of actual negatives correctly identified (important for avoiding unnecessary treatments)
 - Cross-validation is essential in medical applications to ensure the model is robust
-- The `class_weight='balanced'` parameter helps handle class imbalance (usually fewer sick than healthy patients)
+- The <code>class_weight='balanced'</code> parameter helps handle class imbalance (usually fewer sick than healthy patients)
 - The diagnosis function provides not just a binary outcome but also:
   - Risk assessment on a scale
   - Confidence measurement
@@ -533,7 +533,7 @@ if risk_assessment['manual_review_required']:
 - This example demonstrates using SVM for credit risk assessment
 - We use synthetic data with features like income, credit score, employment history, and debt ratio
 - The model uses an RBF kernel which can capture complex, non-linear relationships in financial data
-- `class_weight='balanced'` helps handle the typical imbalance in credit risk data (fewer defaults than good loans)
+- <code>class_weight='balanced'</code> helps handle the typical imbalance in credit risk data (fewer defaults than good loans)
 - The risk assessment function provides:
   - A risk level categorization
   - A specific lending recommendation
@@ -751,7 +751,7 @@ print(classification_report(y_test, y_pred_smote))
 - Imbalanced classes are common in real-world problems (e.g., fraud detection, rare disease diagnosis)
 - Without handling the imbalance, SVM tends to be biased toward the majority class
 - Three common approaches to handle imbalance:
-  1. Class weights: Using `class_weight='balanced'` in SVM to give more importance to minority class
+  1. Class weights: Using <code>class_weight='balanced'</code> in SVM to give more importance to minority class
   2. Oversampling: Creating synthetic samples of minority class using SMOTE
   3. Undersampling: Reducing samples from majority class (not shown in example)
 - Each method has trade-offs:

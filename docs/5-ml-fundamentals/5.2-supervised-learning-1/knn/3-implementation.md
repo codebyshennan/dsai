@@ -57,9 +57,9 @@ class SimpleKNN:
 
 **What's happening here:**
 
-- We create a class called `SimpleKNN`
-- The `__init__` method sets up how many neighbors (k) we want to consider
-- The `fit` method just stores our training data (unlike other algorithms, KNN doesn't need training!)
+- We create a class called <code>SimpleKNN</code>
+- The <code>__init__</code> method sets up how many neighbors (k) we want to consider
+- The <code>fit</code> method just stores our training data (unlike other algorithms, KNN doesn't need training!)
 
 ### Step 2: Add Prediction Logic
 
@@ -85,8 +85,8 @@ class SimpleKNN:
 
 **Breaking it down:**
 
-1. `predict` handles multiple points at once
-2. `_predict_single` works on one point at a time:
+1. <code>predict</code> handles multiple points at once
+2. <code>_predict_single</code> works on one point at a time:
    - Calculates distances to all training points
    - Finds the k closest points
    - Returns the most common class among them
@@ -366,11 +366,11 @@ model, scaler = classify_iris_flowers()
 
 2. **Hyperparameter Optimization: A Systematic Approach**
    - **Key Parameters to Tune**:
-     - `n_neighbors`: Number of neighbors (k)
-     - `weights`: How to weight the neighbors
+     - <code>n_neighbors</code>: Number of neighbors (k)
+     - <code>weights</code>: How to weight the neighbors
        - 'uniform': All neighbors have equal weight
        - 'distance': Weight by inverse of distance
-     - `metric`: Distance metric to use
+     - <code>metric</code>: Distance metric to use
        - 'euclidean': Standard straight-line distance
        - 'manhattan': City-block distance
        - 'minkowski': Generalization of both

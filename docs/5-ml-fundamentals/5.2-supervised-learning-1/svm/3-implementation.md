@@ -26,11 +26,11 @@ import matplotlib.pyplot as plt
 
 ### Why These Libraries?
 
-- `sklearn.svm`: Provides SVM implementations (SVC for classification, SVR for regression)
-- `sklearn.preprocessing`: For data scaling (essential for SVM)
-- `sklearn.model_selection`: For data splitting and validation
-- `numpy`: For numerical operations and array handling
-- `matplotlib`: For visualization of data and decision boundaries
+- <code>sklearn.svm</code>: Provides SVM implementations (SVC for classification, SVR for regression)
+- <code>sklearn.preprocessing</code>: For data scaling (essential for SVM)
+- <code>sklearn.model_selection</code>: For data splitting and validation
+- <code>numpy</code>: For numerical operations and array handling
+- <code>matplotlib</code>: For visualization of data and decision boundaries
 
 ## Basic Classification Example
 
