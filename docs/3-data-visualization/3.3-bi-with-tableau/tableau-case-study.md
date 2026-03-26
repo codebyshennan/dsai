@@ -1,5 +1,7 @@
 # Learning Tableau Through a Real Example: SuperStore Analysis
 
+> **Note:** This tutorial is **UI-first** (Tableau Desktop). Install Tableau or use your course lab; paths to sample data may differ slightly by version and OS.
+
 ## Getting Started
 
 ### 1. Opening Tableau and Connecting to Data
@@ -10,7 +12,7 @@
    - Path: `Documents/My Tableau Repository/Datasources/`
 3. Click "Connect" to load the dataset
 
-![Tableau Start Page](assets/tableau_start_page.png)
+> **Figure (add screenshot or diagram):** Tableau Start Page
 *Caption: The Tableau start page showing the Sample Superstore connection option.*
 
 ### 2. Understanding the Tableau Workspace
@@ -33,7 +35,7 @@ The Tableau interface consists of several key areas:
    - **Canvas**: Main area where charts appear
    - **Show Me**: Panel for chart suggestions
 
-![Tableau Workspace](assets/tableau_workspace.png)
+> **Figure (add screenshot or diagram):** Tableau Workspace
 *Caption: The Tableau workspace showing key areas and their functions.*
 
 ## Project Overview
@@ -45,7 +47,7 @@ In this comprehensive case study, we'll analyze retail data to drive business de
 - A product profitability analysis
 - Interactive filters and drill-downs
 
-![Final Dashboard Preview](assets/tableau_final_dashboard.png)
+> **Figure (add screenshot or diagram):** Final Dashboard Preview
 *Caption: The complete dashboard we'll build, showing sales trends, geographical distribution, and product performance.*
 
 ## Dataset Introduction
@@ -57,7 +59,7 @@ We'll utilize the "Sample - Superstore" dataset included with Tableau. This data
 - It's readily available in Tableau
 - It covers multiple analysis dimensions
 
-![Sample Superstore Data](assets/tableau_data_source.png)
+> **Figure (add screenshot or diagram):** Sample Superstore Data
 *Caption: The Sample Superstore dataset in Tableau, showing the tables and their relationships.*
 
 ### Data Structure Overview
@@ -117,7 +119,7 @@ Data Structure:
    - Tracking Period: Full dataset
 ```
 
-![Data Source Page](assets/tableau_data_source.png)
+> **Figure (add screenshot or diagram):** Data Source Page
 *Caption: The Data Source page showing table relationships and field properties.*
 
 ## Step-by-Step Visualization Guide
@@ -134,7 +136,7 @@ Data Structure:
    - Edit the sheet title (double-click the title above the chart)
    - Add labels by dragging "Sales" to the Label mark
 
-![First Chart Creation](assets/tableau_first_chart.png)
+> **Figure (add screenshot or diagram):** First Chart Creation
 *Caption: Creating a basic bar chart showing sales by category.*
 
 ### 2. Time Series Analysis
@@ -153,7 +155,7 @@ Data Structure:
    - Configure dual axis synchronization
    - Add reference lines for averages
 
-![Line Chart Setup](assets/tableau_line_chart.png)
+> **Figure (add screenshot or diagram):** Line Chart Setup
 *Caption: Setting up a line chart with dual axes for sales and profit.*
 
 ### 3. Geographic Analysis
@@ -171,7 +173,7 @@ Data Structure:
    - Configure tooltips
    - Add reference lines
 
-![Map Creation](assets/tableau_map.png)
+> **Figure (add screenshot or diagram):** Map Creation
 *Caption: Creating a filled map showing sales by state.*
 
 ### 4. Building a Dashboard
@@ -187,7 +189,7 @@ Data Structure:
    - Configure actions
    - Set up parameters
 
-![Dashboard Building](assets/looker_dashboard.png)
+> **Figure (add screenshot or diagram):** Dashboard Building
 *Caption: Building a dashboard with multiple visualizations and interactive elements.*
 
 ## Advanced Features
@@ -201,7 +203,7 @@ Data Structure:
    - Enter formula: `SUM([Profit])/SUM([Sales])`
    - Click OK
 
-![Calculated Field Creation](assets/tableau_calculated_field.png)
+> **Figure (add screenshot or diagram):** Calculated Field Creation
 *Caption: Creating a calculated field for profit ratio.*
 
 ### 2. Parameters
@@ -215,7 +217,7 @@ Data Structure:
    - Add parameter control to dashboard
    - Use in calculations or filters
 
-![Parameter Creation](assets/tableau_parameter.png)
+> **Figure (add screenshot or diagram):** Parameter Creation
 *Caption: Setting up a parameter for dynamic filtering.*
 
 ## Tips and Best Practices
@@ -247,7 +249,7 @@ Data Structure:
    - Export as PDF/image
    - Share on Tableau Server
 
-![Save and Share Options](assets/tableau_collaboration.png)
+> **Figure (add screenshot or diagram):** Save and Share Options
 *Caption: Various options for saving and sharing your Tableau workbook.*
 
 ## Tableau Prep Builder
@@ -267,7 +269,7 @@ Data Structure:
    - Handle null values
    - Pivot/unpivot data
 
-![Tableau Prep Interface](assets/tableau_prep.png)
+> **Figure (add screenshot or diagram):** Tableau Prep Interface
 *Caption: The Tableau Prep interface showing data preparation options.*
 
 ### 2. Flow Management
@@ -284,7 +286,7 @@ Data Structure:
    - Handle errors
    - Create reusable flows
 
-![Flow Management](assets/tableau_flow.png)
+> **Figure (add screenshot or diagram):** Flow Management
 *Caption: Managing data flows in Tableau Prep.*
 
 ## Advanced Calculations
@@ -335,7 +337,7 @@ RANK(SUM([Sales]), 'desc')
    - Bullet graphs
    - Radar charts
 
-![Custom Visualizations](assets/tableau_custom_viz.png)
+> **Figure (add screenshot or diagram):** Custom Visualizations
 *Caption: Creating and using custom visualizations in Tableau.*
 
 ### 2. Advanced Mapping
@@ -352,7 +354,7 @@ RANK(SUM([Sales]), 'desc')
    - Perform spatial joins
    - Create density maps
 
-![Advanced Mapping](assets/tableau_advanced_map.png)
+> **Figure (add screenshot or diagram):** Advanced Mapping
 *Caption: Advanced mapping features in Tableau.*
 
 ## Tableau Server Features
@@ -371,7 +373,7 @@ RANK(SUM([Sales]), 'desc')
    - Configure permissions
    - Manage subscriptions
 
-![Content Management](assets/tableau_content_mgmt.png)
+> **Figure (add screenshot or diagram):** Content Management
 *Caption: Managing content on Tableau Server.*
 
 ### 2. Collaboration Features
@@ -388,7 +390,7 @@ RANK(SUM([Sales]), 'desc')
    - Compare versions
    - Manage conflicts
 
-![Collaboration Features](assets/tableau_collaboration.png)
+> **Figure (add screenshot or diagram):** Collaboration Features
 *Caption: Collaboration features in Tableau Server.*
 
 ## Performance Optimization
@@ -407,7 +409,7 @@ RANK(SUM([Sales]), 'desc')
    - Use appropriate data types
    - Monitor performance
 
-![Extract Configuration](assets/tableau_extract.png)
+> **Figure (add screenshot or diagram):** Extract Configuration
 *Caption: Configuring and optimizing extracts in Tableau.*
 
 ### 2. Dashboard Optimization
@@ -424,7 +426,7 @@ RANK(SUM([Sales]), 'desc')
    - Monitor resource usage
    - Analyze bottlenecks
 
-![Performance Tools](assets/tableau_performance.png)
+> **Figure (add screenshot or diagram):** Performance Tools
 *Caption: Using Tableau's performance monitoring tools.*
 
 ## Security and Governance
@@ -443,7 +445,7 @@ RANK(SUM([Sales]), 'desc')
    - Time-based restrictions
    - Custom security rules
 
-![Security Configuration](assets/tableau_security.png)
+> **Figure (add screenshot or diagram):** Security Configuration
 *Caption: Setting up row-level security in Tableau.*
 
 ### 2. Data Governance
@@ -460,7 +462,7 @@ RANK(SUM([Sales]), 'desc')
    - Security logs
    - Compliance tracking
 
-![Governance Tools](assets/tableau_governance.png)
+> **Figure (add screenshot or diagram):** Governance Tools
 *Caption: Tableau's governance and compliance features.*
 
 ## Tableau Mobile
@@ -479,7 +481,7 @@ RANK(SUM([Sales]), 'desc')
    - Mobile-specific filters
    - Touch interactions
 
-![Mobile Features](assets/tableau_mobile.png)
+> **Figure (add screenshot or diagram):** Mobile Features
 *Caption: Optimizing dashboards for mobile devices.*
 
 ### 2. Mobile App Features
@@ -496,7 +498,7 @@ RANK(SUM([Sales]), 'desc')
    - Simplify interactions
    - Test thoroughly
 
-![Mobile App](assets/tableau_mobile_app.png)
+> **Figure (add screenshot or diagram):** Mobile App
 *Caption: Using Tableau Mobile app features.*
 
 ## Next Steps

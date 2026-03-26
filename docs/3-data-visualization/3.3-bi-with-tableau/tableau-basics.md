@@ -1,5 +1,7 @@
 # Tableau Basics: Sample Superstore Guide
 
+> **Note:** This submodule is **UI-first**. You will follow clicks and shelves in Tableau Desktop rather than writing Python for the main workflow.
+
 ## Introduction to Tableau with Sample Superstore
 
 Tableau is a powerful data visualization tool that enables interactive analytics and visualizations. The Sample Superstore dataset is a built-in dataset that simulates a retail business, making it ideal for learning Tableau's features and capabilities. This guide covers:
@@ -26,201 +28,164 @@ Tableau is a powerful data visualization tool that enables interactive analytics
 
 #### 1. Connecting to Sample Superstore
 
-```yaml
-Steps:
-1. Launch Tableau Desktop
-   ![Tableau Start Page](assets/tableau_start_page.png)
-   - Look for the Connect pane on the left
-   - Under Saved Data Sources, click "Sample - Superstore"
+1. Launch Tableau Desktop.
 
-2. Data Source Preview
-   ![Data Source Tab](assets/tableau_data_source.png)
-   - Review the data structure
-   - Note the dimensions (blue) and measures (green)
-   - Check the first 1,000 rows of data
+> **Figure (add screenshot or diagram):** Tableau Start Page
 
-3. Create New Worksheet
-   ![Blank Worksheet](assets/tableau_blank_worksheet.png)
-   - Click the "New Worksheet" button
-   - Familiarize yourself with the workspace layout
-```
+- In the Connect pane on the left, under **Saved Data Sources**, click **Sample - Superstore**.
+
+2. Preview the data source.
+
+> **Figure (add screenshot or diagram):** Data Source Tab
+
+- Review the data structure. Dimensions (blue) and measures (green) appear in the pane.
+- Scan the first 1,000 rows to confirm fields look reasonable.
+
+3. Open a new worksheet.
+
+> **Figure (add screenshot or diagram):** Blank Worksheet
+
+- Click **New Worksheet** and familiarize yourself with shelves, marks, and the Data pane.
 
 #### 2. Creating Your First Visualization
 
-```yaml
-Example: Sales by Category Bar Chart
-Steps:
-1. Basic Chart Creation
-   ![Drag and Drop Fields](assets/tableau_drag_drop.png)
-   - Drag "Category" to Rows shelf
-   - Drag "Sales" to Columns shelf
-   - Tableau creates a horizontal bar chart
+Example: **Sales by Category** bar chart.
 
-2. Chart Customization
-   ![Chart Formatting](assets/tableau_chart_formatting.png)
-   - Click "Show Me" panel
-   - Select "Bar Chart" if not already selected
-   - Sort bars by descending sales
-   - Add color by category
-   - Add data labels
+1. Build the chart.
 
-3. Formatting
-   ![Format Pane](assets/tableau_format_pane.png)
-   - Adjust axis labels
-   - Modify colors
-   - Add title
-   - Format numbers
-```
+> **Figure (add screenshot or diagram):** Drag and Drop Fields
+
+- Drag **Category** to **Rows**.
+- Drag **Sales** to **Columns**. Tableau should show a horizontal bar chart.
+
+2. Customize and refine.
+
+> **Figure (add screenshot or diagram):** Chart Formatting
+
+- Use **Show Me** if needed.
+- Sort bars by sales (descending), add color by category, and add data labels.
+
+3. Format the view.
+
+> **Figure (add screenshot or diagram):** Format Pane
+
+- Adjust axis labels, colors, title, and number formats.
 
 #### 3. Adding Filters and Interactivity
 
-```yaml
-Steps:
-1. Adding Filters
-   ![Filter Shelf](assets/tableau_filter_shelf.png)
-   - Drag "Region" to Filters shelf
-   - Select regions to include
-   - Apply filter to view
+1. Add filters.
 
-2. Creating Parameters
-   ![Parameter Creation](assets/tableau_parameter.png)
-   - Right-click in Data pane
-   - Select "Create Parameter"
-   - Configure parameter properties
-   - Add parameter control to view
+> **Figure (add screenshot or diagram):** Filter Shelf
 
-3. Dashboard Actions
-   ![Dashboard Actions](assets/tableau_dashboard_actions.png)
-   - Create new dashboard
-   - Add multiple views
-   - Set up filter actions
-   - Configure highlight actions
-```
+- Drag **Region** to **Filters**, choose regions, and apply.
+
+2. Create parameters (optional).
+
+> **Figure (add screenshot or diagram):** Parameter Creation
+
+- Right-click in the Data pane, choose **Create Parameter**, configure it, and add the control to the view.
+
+3. Use dashboard actions.
+
+> **Figure (add screenshot or diagram):** Dashboard Actions
+
+- On a dashboard, add multiple sheets and configure filter or highlight actions.
 
 #### 4. Building a Complete Dashboard
 
-```yaml
-Steps:
-1. Dashboard Layout
-   ![Dashboard Workspace](assets/tableau_dashboard_workspace.png)
-   - Create new dashboard
-   - Add multiple worksheets
-   - Arrange views in layout
-   - Add title and text boxes
+1. Layout.
 
-2. Adding Interactivity
-   ![Dashboard Interactivity](assets/tableau_dashboard_interactivity.png)
-   - Add filter controls
-   - Set up dashboard actions
-   - Configure parameter controls
-   - Add navigation buttons
+> **Figure (add screenshot or diagram):** Dashboard Workspace
 
-3. Final Touches
-   ![Final Dashboard](assets/tableau_final_dashboard.png)
-   - Add legends
-   - Format colors
-   - Adjust spacing
-   - Add tooltips
-```
+- Create a **New Dashboard**, add worksheets, and arrange tiles.
+
+2. Interactivity.
+
+> **Figure (add screenshot or diagram):** Dashboard Interactivity
+
+- Add filters, actions, parameter controls, and navigation as needed.
+
+3. Final polish.
+
+> **Figure (add screenshot or diagram):** Final Dashboard
+
+- Add legends, align colors, adjust spacing, and tune tooltips.
 
 ### Common Visualization Examples
 
 #### 1. Sales Analysis Dashboard
 
-```yaml
-Components:
-1. Sales Trend
-   ![Line Chart](assets/tableau_line_chart.png)
-   - Order Date (Month) on Columns
-   - Sales on Rows
-   - Add trend line
-   - Format date display
+1. Sales trend.
 
-2. Geographic Analysis
-   ![Map View](assets/tableau_map.png)
-   - State on Map
-   - Sales on Color
-   - Add state labels
-   - Configure tooltips
+> **Figure (add screenshot or diagram):** Line Chart
 
-3. Category Breakdown
-   ![Bar Chart](assets/tableau_bar_chart.png)
-   - Category on Rows
-   - Sales on Columns
-   - Sort by sales
-   - Add percentage labels
-```
+- **Order Date** (Month) on **Columns**, **Sales** on **Rows**. Add a trend line and format dates.
+
+2. Geographic map.
+
+> **Figure (add screenshot or diagram):** Map View
+
+- **State** on the map, **Sales** on **Color**, labels and tooltips as needed.
+
+3. Category breakdown.
+
+> **Figure (add screenshot or diagram):** Bar Chart
+
+- **Category** on **Rows**, **Sales** on **Columns**, sort and add percentage labels if useful.
 
 #### 2. Profit Analysis Dashboard
 
-```yaml
-Components:
-1. Profit by Sub-Category
-   ![Heat Map](assets/tableau_heatmap.png)
-   - Sub-Category on Columns
-   - Category on Rows
-   - Profit on Color
-   - Add profit values
+1. Profit by sub-category.
 
-2. Discount Impact
-   ![Scatter Plot](assets/tableau_scatter.png)
-   - Discount on X-axis
-   - Profit Ratio on Y-axis
-   - Add trend line
-   - Create bins
+> **Figure (add screenshot or diagram):** Heat Map
 
-3. Regional Performance
-   ![Map with Indicators](assets/tableau_advanced_map.png)
-   - Region on Map
-   - Profit on Color
-   - Add reference lines
-   - Configure tooltips
-```
+- **Sub-Category** on **Columns**, **Category** on **Rows**, **Profit** on **Color**.
+
+2. Discount impact.
+
+> **Figure (add screenshot or diagram):** Scatter Plot
+
+- **Discount** on one axis, **Profit Ratio** on the other; add a trend line or bins.
+
+3. Regional performance.
+
+> **Figure (add screenshot or diagram):** Map with Indicators
+
+- **Region** on the map, **Profit** on **Color**, reference lines and tooltips as needed.
 
 ### Advanced Features
 
 #### 1. Calculated Fields
 
-```yaml
-Examples:
-1. Profit Ratio
-   ![Calculation Editor](assets/tableau_calculated_field.png)
-   Formula: SUM([Profit])/SUM([Sales])
-   Steps:
-   - Right-click in Data pane
-   - Select "Create Calculated Field"
-   - Enter formula
-   - Name the calculation
+1. Profit ratio.
 
-2. Year-over-Year Growth
-   ![Table Calculation](assets/tableau_table_calc.png)
-   Formula: (SUM([Sales]) - LOOKUP(SUM([Sales]), -1))/ABS(LOOKUP(SUM([Sales]), -1))
-   Steps:
-   - Create calculation
-   - Set up table calculation
-   - Format as percentage
-```
+> **Figure (add screenshot or diagram):** Calculation Editor
+
+- Formula: `SUM([Profit])/SUM([Sales])`
+- Right-click in the Data pane, **Create Calculated Field**, enter the formula, and name the field.
+
+2. Year-over-year growth.
+
+> **Figure (add screenshot or diagram):** Table Calculation
+
+- Example: `(SUM([Sales]) - LOOKUP(SUM([Sales]), -1))/ABS(LOOKUP(SUM([Sales]), -1))`
+- Set up as a table calculation and format as a percentage.
 
 #### 2. Level of Detail Expressions
 
-```yaml
-Examples:
-1. Fixed LOD
-   ![LOD Editor](assets/tableau_lod.png)
-   Formula: {FIXED [Category] : SUM([Sales])}
-   Steps:
-   - Create calculated field
-   - Enter LOD expression
-   - Apply to visualization
+1. Fixed LOD.
 
-2. Include LOD
-   ![LOD in View](assets/tableau_lod.png)
-   Formula: {INCLUDE [Region] : AVG([Profit])}
-   Steps:
-   - Create calculation
-   - Add to view
-   - Format results
-```
+> **Figure (add screenshot or diagram):** LOD Editor
+
+- Example: `{FIXED [Category] : SUM([Sales])}`
+- Create a calculated field, enter the LOD expression, apply to the view.
+
+2. Include LOD.
+
+> **Figure (add screenshot or diagram):** LOD in View
+
+- Example: `{INCLUDE [Region] : AVG([Profit])}`
+- Add to the view and format as needed.
 
 ### Best Practices for High-Performance Visualizations
 
@@ -292,6 +257,11 @@ Visualization Guidelines:
    - Create parameter controls
    - Enable drill-down capabilities
 ```
+
+## Next steps
+
+- Continue with [Tableau case study](tableau-case-study.md) or [advanced analytics](advanced-analytics.md).
+- See the submodule overview in [README](README.md) and the [module assignment](../_assignments/module-assignment.md) when you are ready for a graded exercise.
 
 ### Additional Resources
 

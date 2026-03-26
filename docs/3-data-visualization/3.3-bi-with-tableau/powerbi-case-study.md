@@ -1,5 +1,7 @@
 # Learning Power BI Through a Real Example: SuperStore Analysis
 
+> **Note:** This tutorial is **UI-first** (Power BI Desktop on Windows or Mac, per Microsoft support). Sample file paths assume default sample installs.
+
 ## Getting Started
 
 ### 1. Opening Power BI and Connecting to Data
@@ -12,7 +14,7 @@
    - Select "Sample - Superstore.xlsx"
 5. Click "Load" to import the dataset
 
-![Power BI Start Page](assets/powerbi_start_page.png)
+> **Figure (add screenshot or diagram):** Power BI Start Page
 *Caption: The Power BI start page showing the Get Data option.*
 
 ### 2. Understanding the Power BI Workspace
@@ -40,7 +42,7 @@ The Power BI interface consists of several key areas:
    - **Filters**: Filtering options
    - **Format**: Visual formatting controls
 
-![Power BI Workspace](assets/powerbi_workspace.png)
+> **Figure (add screenshot or diagram):** Power BI Workspace
 *Caption: The Power BI workspace showing key areas and their functions.*
 
 ## Project Overview
@@ -52,7 +54,7 @@ In this comprehensive case study, we'll analyze retail data to drive business de
 - A product profitability analysis
 - Interactive filters and drill-downs
 
-![Final Dashboard Preview](assets/tableau_final_dashboard.png)
+> **Figure (add screenshot or diagram):** Final Dashboard Preview
 *Caption: The complete dashboard we'll build, showing sales trends, geographical distribution, and product performance.*
 
 ## Dataset Introduction
@@ -64,7 +66,7 @@ We'll utilize the "Sample - Superstore" dataset included with Power BI. This dat
 - It's readily available in Power BI
 - It covers multiple analysis dimensions
 
-![Sample Superstore Data](assets/tableau_data_source.png)
+> **Figure (add screenshot or diagram):** Sample Superstore Data
 *Caption: The Sample Superstore dataset in Power BI, showing the tables and their relationships.*
 
 ### Data Structure Overview
@@ -124,7 +126,7 @@ Data Structure:
    - Tracking Period: Full dataset
 ```
 
-![Data Model View](assets/powerbi_data_model.png)
+> **Figure (add screenshot or diagram):** Data Model View
 *Caption: The Data Model view showing table relationships and field properties.*
 
 ## Step-by-Step Visualization Guide
@@ -141,7 +143,7 @@ Data Structure:
    - Add data labels from the Format pane
    - Customize colors and title
 
-![First Chart Creation](assets/tableau_first_chart.png)
+> **Figure (add screenshot or diagram):** First Chart Creation
 *Caption: Creating a basic column chart showing sales by category.*
 
 ### 2. Time Series Analysis
@@ -160,7 +162,7 @@ Data Structure:
    - Configure dual axis in the Format pane
    - Add reference lines from Analytics pane
 
-![Line Chart Setup](assets/tableau_line_chart.png)
+> **Figure (add screenshot or diagram):** Line Chart Setup
 *Caption: Setting up a line chart with multiple measures for sales and profit.*
 
 ### 3. Geographic Analysis
@@ -179,7 +181,7 @@ Data Structure:
    - Configure tooltips
    - Add reference lines
 
-![Map Creation](assets/tableau_map.png)
+> **Figure (add screenshot or diagram):** Map Creation
 *Caption: Creating a map visualization showing sales by state.*
 
 ### 4. Building a Dashboard
@@ -192,7 +194,7 @@ Data Structure:
    - Configure drill-through options
    - Set up bookmarks for different views
 
-![Dashboard Building](assets/looker_dashboard.png)
+> **Figure (add screenshot or diagram):** Dashboard Building
 *Caption: Building a dashboard with multiple visualizations and interactive elements.*
 
 ## Advanced Features
@@ -204,7 +206,7 @@ Data Structure:
    - Enter formula: `Profit Ratio = DIVIDE(SUM([Profit]), SUM([Sales]))`
    - Click the checkmark to save
 
-![DAX Measure Creation](assets/powerbi_dax.png)
+> **Figure (add screenshot or diagram):** DAX Measure Creation
 *Caption: Creating a DAX measure for profit ratio.*
 
 ### 2. Parameters
@@ -218,7 +220,7 @@ Data Structure:
    - Add parameter control to report
    - Use in measures or filters
 
-![Parameter Creation](assets/tableau_parameter.png)
+> **Figure (add screenshot or diagram):** Parameter Creation
 *Caption: Setting up a parameter for dynamic filtering.*
 
 ## Tips and Best Practices
@@ -252,7 +254,7 @@ Data Structure:
    - Share via Power BI Service
    - Create Power BI Apps
 
-![Save and Publish Options](assets/powerbi_publish.png)
+> **Figure (add screenshot or diagram):** Save and Publish Options
 *Caption: Various options for saving and publishing your Power BI report.*
 
 ## Next Steps
@@ -281,7 +283,7 @@ Remember: Practice makes perfect! Try recreating these visualizations and experi
    - Merge queries
    - Pivot/unpivot data
 
-![Power Query Editor](assets/powerbi_query.png)
+> **Figure (add screenshot or diagram):** Power Query Editor
 *Caption: The Power Query Editor interface showing transformation options.*
 
 ### 2. Advanced Data Modeling
@@ -296,7 +298,7 @@ Remember: Practice makes perfect! Try recreating these visualizations and experi
    - Drag fields between tables to create relationships
    - Configure relationship properties (cardinality, cross-filter direction)
 
-![Data Modeling](assets/powerbi_modeling.png)
+> **Figure (add screenshot or diagram):** Data Modeling
 *Caption: Setting up hierarchies and relationships in the data model.*
 
 ## Advanced Visualizations
@@ -314,7 +316,7 @@ Remember: Practice makes perfect! Try recreating these visualizations and experi
    - Smart Filter PRO
    - Zebra BI Tables
 
-![Custom Visuals](assets/powerbi_custom_visuals.png)
+> **Figure (add screenshot or diagram):** Custom Visuals
 *Caption: Adding and using custom visuals from AppSource.*
 
 ### 2. Advanced Chart Types
@@ -331,7 +333,7 @@ Remember: Practice makes perfect! Try recreating these visualizations and experi
    - Add potential influencers
    - Configure analysis settings
 
-![Advanced Charts](assets/powerbi_advanced_charts.png)
+> **Figure (add screenshot or diagram):** Advanced Charts
 *Caption: Using advanced chart types like Decomposition Tree and Key Influencers.*
 
 ## Advanced DAX Patterns
@@ -409,7 +411,7 @@ SWITCH(
    - Set up data lineage
    - Manage permissions
 
-![Workspace Management](assets/powerbi_workspace_mgmt.png)
+> **Figure (add screenshot or diagram):** Workspace Management
 *Caption: Managing workspaces and content in Power BI Service.*
 
 ### 2. Collaboration Features
@@ -426,7 +428,7 @@ SWITCH(
    - Optimize for mobile viewing
    - Enable offline access
 
-![Collaboration Features](assets/tableau_collaboration.png)
+> **Figure (add screenshot or diagram):** Collaboration Features
 *Caption: Sharing and collaboration options in Power BI Service.*
 
 ## Performance Optimization
@@ -445,7 +447,7 @@ SWITCH(
    - Monitor refresh performance
    - Analyze storage usage
 
-![Performance Tools](assets/tableau_performance.png)
+> **Figure (add screenshot or diagram):** Performance Tools
 *Caption: Using Power BI's performance monitoring tools.*
 
 ### 2. Data Refresh Strategies
@@ -462,7 +464,7 @@ SWITCH(
    - Configure archive settings
    - Monitor refresh performance
 
-![Refresh Configuration](assets/powerbi_refresh.png)
+> **Figure (add screenshot or diagram):** Refresh Configuration
 *Caption: Setting up and monitoring data refresh in Power BI.*
 
 ## Security and Governance
@@ -481,7 +483,7 @@ SWITCH(
    - Time-based filters
    - Custom security rules
 
-![Security Configuration](assets/tableau_security.png)
+> **Figure (add screenshot or diagram):** Security Configuration
 *Caption: Setting up row-level security in Power BI.*
 
 ### 2. Data Governance
@@ -498,5 +500,5 @@ SWITCH(
    - Security monitoring
    - Compliance reporting
 
-![Governance Tools](assets/tableau_governance.png)
+> **Figure (add screenshot or diagram):** Governance Tools
 *Caption: Power BI's governance and compliance features.*

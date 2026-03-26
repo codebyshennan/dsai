@@ -1,6 +1,6 @@
-# BI Tool Screenshots
+# BI tool screenshots
 
-This folder contains placeholder images for Business Intelligence tool screenshots.
+Lesson markdown uses **blockquote figure prompts** (see `meta/DOCUMENTATION_GUIDELINES.md`) until real PNGs live here. This folder is where you add exported screenshots when you have them.
 
 ## Status
 

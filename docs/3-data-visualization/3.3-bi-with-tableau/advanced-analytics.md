@@ -1,5 +1,7 @@
 # Taking Your Tableau Skills to the Next Level
 
+> **Note:** This lesson is **UI-first** (Tableau Desktop or comparable). You should already know worksheets, filters, and simple calculations from [Tableau basics](tableau-basics.md).
+
 ## Introduction: Beyond the Basics
 
 Now that you're comfortable with basic charts and dashboards, let's explore some powerful features that will make your visualizations even better! Think of this as upgrading from a basic calculator to a scientific calculator - more buttons, but so much more you can do!

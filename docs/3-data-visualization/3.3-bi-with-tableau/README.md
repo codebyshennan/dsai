@@ -1,8 +1,12 @@
 # 3.3 Business Intelligence with Tableau
 
-## 🎯 Overview
+## Overview
 
-Welcome to Business Intelligence with Tableau! This module transforms you into a data storyteller using one of the industry's most powerful visualization platforms. Think of Tableau as your visual analytics studio - where complex data becomes compelling insights without writing code.
+This submodule is **UI-first**: you will connect data and build views in **Tableau** (and related lessons may reference **Looker Studio** or **Power BI**) with drag-and-drop analytics instead of Python scripts.
+
+> **Note:** Perception and chart-choice principles still apply; see [3.1 visualization principles](../3.1-intro-data-viz/visualization-principles.md) when you are unsure which visual to use.
+
+> **Time needed:** Plan several hours across the case studies and practice labs if you have access to the tools.
 
 ```yaml
 Module Structure:
@@ -15,7 +19,12 @@ Module Structure:
 └─────────────────────────┘
 ```
 
-## 🌟 Why Tableau?
+## Prerequisites
+
+- [3.1 Intro to data visualization](../3.1-intro-data-viz/README.md) and basic comfort with spreadsheets or SQL-style fields (dimensions vs measures).
+- Tableau Desktop or a comparable lab environment (your instructor may specify Tableau Public or server access).
+
+## Why Tableau?
 
 ### 1. Intuitive Design
 
@@ -57,7 +66,7 @@ Capabilities:
     - Cloud integration
 ```
 
-## 📊 Core Concepts
+## Core concepts
 
 ### 1. Data Architecture
 
@@ -229,7 +238,7 @@ Parameters:
   - Boolean
 ```
 
-## 🎯 Learning Path
+## Learning path
 
 ### Week 1: Foundation
 
@@ -295,11 +304,11 @@ Day 5:
   - Next steps
 ```
 
-## 📝 Assignment
+## Assignment
 
-Ready to practice your Tableau skills? Head over to the [Business Intelligence with Tableau Assignment](../_assignments/3.3-assignment.md) to apply what you've learned!
+Use the [module assignment](../_assignments/module-assignment.md) when you are ready for the graded work.
 
-## 📚 Resources
+## Resources
 
 ### Documentation
 
