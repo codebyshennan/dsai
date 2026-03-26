@@ -1,6 +1,8 @@
-# Mastering Statistical Visualization with Seaborn 📊
+# Mastering Statistical Visualization with Seaborn
 
-## 🎯 Introduction
+> **Note:** This lesson is **code-first**. You should understand [Matplotlib basics](../3.1-intro-data-viz/matplotlib-basics.md) and [visualization principles](../3.1-intro-data-viz/visualization-principles.md) first so you can interpret what Seaborn is doing.
+
+## Introduction
 
 Seaborn is your statistical visualization powerhouse - think of it as Matplotlib with a PhD in Statistics. It's designed to make complex statistical visualizations both beautiful and informative, while requiring minimal code.
 
@@ -21,7 +23,7 @@ Key Advantages:
 └─────────────────────────┘
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Professional Setup
 ```python
@@ -75,7 +77,7 @@ def load_and_inspect_data(dataset_name="tips"):
 tips, tips_summary = load_and_inspect_data("tips")
 ```
 
-## 📊 Distribution Analysis
+## Distribution Analysis
 
 ### 1. Single Variable Distributions
 ```python
@@ -134,8 +136,7 @@ dist_fig = plot_distribution_suite(tips, "total_bill")
 ```
 
 **Output:**
-![Distribution Suite](assets/seaborn_distribution_suite.png)
-
+> **Figure (add screenshot or diagram):** Distribution Suite
 ### 2. Categorical Distributions
 ```python
 def plot_categorical_analysis(data, cat_var, num_var):
@@ -194,8 +195,7 @@ cat_fig = plot_categorical_analysis(tips, "day", "total_bill")
 ```
 
 **Output:**
-![Categorical Analysis](assets/seaborn_categorical_analysis.png)
-
+> **Figure (add screenshot or diagram):** Categorical Analysis
 ## 📈 Relationship Analysis
 
 ### 1. Scatter Plot Suite
@@ -260,8 +260,7 @@ scatter_fig = create_scatter_analysis(tips, "total_bill", "tip", "time")
 ```
 
 **Output:**
-![Scatter Analysis](assets/seaborn_scatter_analysis.png)
-
+> **Figure (add screenshot or diagram):** Scatter Analysis
 ### 2. Complex Relationships
 ```python
 def analyze_complex_relationships(data, x_var, y_var, cat_vars):
@@ -301,12 +300,10 @@ pair_g, facet_g = analyze_complex_relationships(
 ```
 
 **Output - Pair Grid:**
-![Pair Plot](assets/seaborn_pairplot.png)
-
+> **Figure (add screenshot or diagram):** Pair Plot
 **Output - Facet Grid:**
-![Facet Grid](assets/seaborn_facetgrid.png)
-
-## 🎨 Matrix Visualizations
+> **Figure (add screenshot or diagram):** Facet Grid
+## Matrix Visualizations
 
 ### 1. Correlation Analysis
 ```python
@@ -346,29 +343,22 @@ corr_fig = create_correlation_analysis(tips)
 ```
 
 **Output - Heatmap:**
-![Correlation Heatmap](assets/seaborn_correlation_heatmap.png)
-
+> **Figure (add screenshot or diagram):** Correlation Heatmap
 **Output - Clustermap:**
-![Clustermap](assets/seaborn_clustermap.png)
-
+> **Figure (add screenshot or diagram):** Clustermap
 ### Additional Visualization Examples
 
 **Bar Plot with Error Bars:**
-![Bar Plot](assets/seaborn_barplot.png)
-
+> **Figure (add screenshot or diagram):** Bar Plot
 **Count Plot:**
-![Count Plot](assets/seaborn_countplot.png)
-
+> **Figure (add screenshot or diagram):** Count Plot
 **Joint Plot:**
-![Joint Plot](assets/seaborn_jointplot.png)
-
+> **Figure (add screenshot or diagram):** Joint Plot
 **Time Series Heatmap:**
-![Flights Heatmap](assets/seaborn_flights_heatmap.png)
-
+> **Figure (add screenshot or diagram):** Flights Heatmap
 **Line Plot:**
-![Line Plot](assets/seaborn_lineplot.png)
-
-## 🎯 Best Practices
+> **Figure (add screenshot or diagram):** Line Plot
+## Best Practices
 
 ### 1. Style Management
 ```python
@@ -422,9 +412,15 @@ save_publication_quality(scatter_fig, 'scatter_analysis')
 ```
 
 Remember:
+
 - Start with data exploration
 - Choose appropriate visualizations
 - Keep it simple but informative
 - Consider your audience
 - Use consistent styling
 - Save high-quality outputs
+
+## Next steps
+
+- Continue with [Interactive visualization with Plotly](plotly-guide.md).
+- Review the [3.2 Advanced data visualization](README.md) overview and the [module assignment](../_assignments/module-assignment.md) when assigned.

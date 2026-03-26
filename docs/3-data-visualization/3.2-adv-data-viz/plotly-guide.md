@@ -1,6 +1,8 @@
-# Interactive Visualization with Plotly 🎨
+# Interactive Visualization with Plotly
 
-## 🎯 Introduction
+> **Note:** This lesson is **code-first**. Comfortable **pandas** plots or [Seaborn](seaborn-guide.md) help, but you can follow along if you know Matplotlib basics.
+
+## Introduction
 
 Plotly transforms static visualizations into dynamic, interactive web experiences. Think of it as giving your audience a visualization they can explore, not just view.
 
@@ -21,7 +23,7 @@ Key Features:
 └─────────────────────────┘
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Professional Setup
 ```python
@@ -72,7 +74,7 @@ def load_and_prepare_data(dataset_name="gapminder"):
 df = load_and_prepare_data()
 ```
 
-## 📊 Basic Interactive Plots
+## Basic Interactive Plots
 
 ### 1. Enhanced Scatter Plots
 ```python
@@ -142,8 +144,7 @@ scatter_fig = create_interactive_scatter(
 ```
 
 **Output (Animation Frames):**
-![Animated Scatter Frames](assets/plotly_animated_scatter_frames.png)
-
+> **Figure (add screenshot or diagram):** Animated Scatter Frames
 ### 2. Time Series Visualization
 ```python
 def create_time_series_plot(data, x_col, y_col, 
@@ -204,8 +205,7 @@ time_fig = create_time_series_plot(
 ```
 
 **Output (with Range Slider):**
-![Time Series with Range Slider](assets/plotly_timeseries_rangeslider.png)
-
+> **Figure (add screenshot or diagram):** Time Series with Range Slider
 ## 📈 Statistical Visualizations
 
 ### 1. Distribution Analysis
@@ -291,26 +291,20 @@ dist_fig = create_distribution_dashboard(
 ```
 
 **Output:**
-![Distribution Dashboard](assets/plotly_distribution_dashboard.png)
-
+> **Figure (add screenshot or diagram):** Distribution Dashboard
 ### Additional Interactive Features
 
 **3D Scatter Plot:**
-![3D Scatter](assets/plotly_3d_scatter.png)
-
+> **Figure (add screenshot or diagram):** 3D Scatter
 **Dashboard Layout:**
-![Dashboard Layout](assets/plotly_dashboard_layout.png)
-
+> **Figure (add screenshot or diagram):** Dashboard Layout
 **Interactive Hover Information:**
-![Hover Example](assets/plotly_hover_example.png)
-
+> **Figure (add screenshot or diagram):** Hover Example
 **Hierarchical Visualization (Sunburst-style):**
-![Sunburst Style](assets/plotly_sunburst_style.png)
-
+> **Figure (add screenshot or diagram):** Sunburst Style
 **Theme Comparison:**
-![Theme Comparison](assets/plotly_theme_comparison.png)
-
-## 🎨 Advanced Features
+> **Figure (add screenshot or diagram):** Theme Comparison
+## Advanced Features
 
 ### 1. Custom Themes
 ```python
@@ -405,7 +399,7 @@ def add_interactive_features(fig):
     return fig
 ```
 
-## 🎯 Best Practices
+## Best Practices
 
 ### 1. Performance Optimization
 ```python
@@ -456,8 +450,14 @@ def export_figure(fig, filename, formats=None):
 ```
 
 Remember:
+
 - Start with Plotly Express for quick results
 - Use Graph Objects for fine-grained control
 - Consider performance with large datasets
 - Test interactivity across browsers
 - Include clear documentation for users
+
+## Next steps
+
+- Pair this with [Seaborn](seaborn-guide.md) when you need strong statistical defaults in Python.
+- Move to [3.3 BI with Tableau](../3.3-bi-with-tableau/README.md) for drag-and-drop dashboards, or [3.4 Data storytelling](../3.4-data-storytelling/README.md) for narrative structure.

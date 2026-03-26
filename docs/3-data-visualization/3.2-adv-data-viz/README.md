@@ -1,8 +1,10 @@
-# Advanced Data Visualization 📊
+# Advanced Data Visualization
 
-## 🎯 Overview
+## Overview
 
-Welcome to Advanced Data Visualization! This module transforms your visualization capabilities by mastering Seaborn and Plotly. Think of it as upgrading from a basic digital camera to a professional studio - you'll learn to create sophisticated, interactive, and statistically rich visualizations that bring your data stories to life.
+This submodule is **code-first**: you will write Python with **Seaborn** (statistical plots on top of Matplotlib) and **Plotly** (interactive charts and small dashboards). Think of it as moving from simple static plots to richer, exploratory, and interactive visuals.
+
+> **Time needed:** Plan several hours to work through both guides and run the examples in a notebook.
 
 ```yaml
 Module Structure:
@@ -15,7 +17,12 @@ Module Structure:
 └─────────────────────────┘
 ```
 
-## 🌟 Why Advanced Visualization?
+## Prerequisites
+
+- [3.1 Intro to data visualization](../3.1-intro-data-viz/README.md): Matplotlib comfort and chart-choice basics.
+- Python environment with **matplotlib**, **pandas**, and (after install) **seaborn** and **plotly**.
+
+## Why advanced visualization?
 
 ### Data Communication Impact
 ```python
@@ -129,7 +136,7 @@ def create_statistical_plot(data):
     return fig
 ```
 
-## 📊 Module Content
+## Module content
 
 ### 1. Statistical Visualization with Seaborn
 ```yaml
@@ -174,7 +181,7 @@ Features:
     - Dynamic filtering
 ```
 
-## 🎯 Learning Path
+## Learning path
 
 ### Week 1: Foundation
 ```python
@@ -249,7 +256,7 @@ def create_dashboard(data):
     )
 ```
 
-## 🛠️ Best Practices
+## Best practices
 
 ### 1. Performance Optimization
 ```python
@@ -283,11 +290,11 @@ Principles:
     - Performance
 ```
 
-## 📝 Assignment
+## Assignment
 
-Ready to practice your advanced visualization skills? Head over to the [Advanced Data Visualization Assignment](../_assignments/3.2-assignment.md) to apply what you've learned!
+When you are ready, use the [module assignment](../_assignments/module-assignment.md) (covers the full Module 3 scope).
 
-## 📚 Resources
+## Resources
 
 ### Documentation
 - [Seaborn Documentation](https://seaborn.pydata.org/)
