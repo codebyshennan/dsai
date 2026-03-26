@@ -4,3 +4,6 @@
 .venv
 node_modules
 vendor
+
+# Jekyll site output (built from docs/)
+docs/_site/
