@@ -1,5 +1,13 @@
 # Data Querying with SQL: Your Gateway to Data Mastery
 
+## Overview
+
+**Primary outcome:** You can read and write portable SQL against relational data—from **SELECT** and filters through **JOIN**s, aggregations, and introductory analytics patterns.
+
+**Prerequisites:** Comfortable with tables, rows, and columns (spreadsheet or [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md)). Install a client such as [DBeaver](../../0-prep/dbeaver.md) and a practice database as listed under **Tools Required** below.
+
+> **Time needed:** Plan several hours across readings, the tutorial notebook, and practice.
+
 Welcome to the fascinating world of SQL! Imagine having a conversation with your data - that's exactly what SQL allows you to do. Whether you're analyzing customer behavior, tracking business metrics, or uncovering hidden patterns, SQL is your trusted companion in the data journey.
 
 Think of SQL as a universal language for data - just like how English helps people from different countries communicate, SQL helps different systems and people work with data in a standardized way. It's like having a Swiss Army knife for data manipulation: one tool that can slice, dice, filter, combine, and analyze data in countless ways.

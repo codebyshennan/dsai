@@ -1,5 +1,13 @@
 # Mastering Basic SQL Operations: Your Data Query Journey
 
+## Overview
+
+**Primary outcome:** You can **CREATE** tables, **INSERT** rows, **SELECT** and filter data with **WHERE**, **UPDATE** and **DELETE** safely, and read simple query plans.
+
+**Prerequisites:** [Introduction to Databases](intro-databases.md) (tables, keys, types). Have a SQL client and a practice database as described in the [module README](README.md).
+
+> **Time needed:** About 60–90 minutes with hands-on practice.
+
 ## Introduction to SQL Basics
 
 SQL (Structured Query Language) is the standard language for managing and manipulating relational databases. Understanding basic SQL operations is crucial for:
@@ -575,3 +583,9 @@ FROM products;
    - Regular optimization
 
 Remember: "Clean, efficient queries lead to better performance and maintainability!"
+
+## Next steps
+
+- [Aggregations](aggregations.md) — **GROUP BY**, aggregate functions, **HAVING**
+- [Joins](joins.md) — combine rows from multiple tables
+- [Advanced SQL Concepts](advanced-concepts.md) — window functions, CTEs, and optimization

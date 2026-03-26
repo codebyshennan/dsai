@@ -1,5 +1,15 @@
 # Advanced SQL Concepts: Beyond the Basics
 
+## Overview
+
+**Primary outcome:** You can use **CTEs** (Common Table Expressions) to structure complex queries, apply **window functions** for rankings and running metrics, and read **EXPLAIN** output to spot expensive scans.
+
+**Prerequisites:** Solid comfort with [Joins](joins.md) and [Aggregations](aggregations.md). This lesson goes deeper than day-one analyst SQL—take breaks and run examples in your own database.
+
+> **Time needed:** 90+ minutes; split across sessions if needed.
+
+> **Warning:** Dialects differ (PostgreSQL vs SQL Server vs BigQuery). Treat advanced snippets as patterns and check your engine’s docs for exact syntax.
+
 ## Introduction to Advanced SQL
 
 SQL mastery goes beyond basic CRUD operations. Advanced SQL concepts enable you to:
@@ -705,3 +715,9 @@ Remember: "Performance optimization is an iterative process - measure, analyze, 
    - [pg_stat_statements](https://www.postgresql.org/docs/current/pgstatstatements.html) for query analysis
 
 Remember: "Complex queries should be like well-written essays - clear, structured, and purposeful!"
+
+## Next steps
+
+- [SQL project](project.md) — consolidate skills in one scenario
+- [Exploratory Data Analysis (Module 2.3)](../2.3-eda/README.md) — after you extract data, explore it in Python
+- [Module README](README.md) — resources and assignment

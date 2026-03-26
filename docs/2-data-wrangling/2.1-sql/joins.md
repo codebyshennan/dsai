@@ -1,5 +1,13 @@
 # Mastering SQL Joins: Connecting Your Data Universe
 
+## Overview
+
+**Primary outcome:** You can choose the right join type (**INNER**, **LEFT**, **RIGHT**, **FULL**) for a question, write multi-table queries with clear aliases, and avoid accidental Cartesian products.
+
+**Prerequisites:** [Basic SQL Operations](basic-operations.md) and [Aggregations](aggregations.md). You should recognize foreign keys from [Introduction to Databases](intro-databases.md).
+
+> **Time needed:** About 60–90 minutes with practice queries.
+
 ## Introduction to SQL Joins
 
 SQL joins combine rows from two or more tables based on related columns. They are essential for:
@@ -549,3 +557,9 @@ ORDER BY avg_total_spent DESC;
 ```
 
 Remember: "Efficient joins are the key to unlocking insights from your data!"
+
+## Next steps
+
+- [Advanced SQL Concepts](advanced-concepts.md) — subqueries, CTEs, and window functions
+- [SQL project](project.md) — apply joins in a structured brief
+- [Data Wrangling (Module 2.2)](../2.2-data-wrangling/README.md) — cleaning and shaping data before or after SQL extracts

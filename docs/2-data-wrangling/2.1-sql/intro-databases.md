@@ -1,5 +1,15 @@
 # Introduction to Databases: From Data to Knowledge
 
+## Overview
+
+**Primary outcome:** You can describe how relational databases organize data in tables, how keys link tables, and why **normalization** (splitting data to reduce redundancy) supports reliable queries.
+
+**Prerequisites:** [Data Querying with SQL (module README)](README.md) lists tools and sample data. Thinking in rows and columns—like a spreadsheet—matches what you practiced in [Pandas Series and DataFrame](../../1-data-fundamentals/1.5-data-analysis-pandas/dataframe.md).
+
+> **Time needed:** About 45–60 minutes for a first read; longer if you run every SQL snippet.
+
+> **Note:** **SQL** (Structured Query Language) is the standard language for querying relational databases; you will use it starting in [Basic SQL Operations](basic-operations.md).
+
 ## Understanding Databases
 
 A database is an organized collection of structured information stored electronically. Key concepts include:
@@ -521,3 +531,10 @@ ORDER BY revenue DESC;
 ```
 
 Remember: "A well-designed database is the foundation of any successful application!"
+
+## Next steps
+
+- [Basic SQL Operations](basic-operations.md) — **SELECT**, filters, and sorting
+- [Aggregations](aggregations.md) — **GROUP BY** and summary statistics
+- [Joins](joins.md) — combine tables with **JOIN**
+- [Module 2.1 README](README.md) — full path and assignment

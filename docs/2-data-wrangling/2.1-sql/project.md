@@ -1,5 +1,13 @@
 # E-commerce Data Analysis Project: GlobalMart Analytics Platform
 
+## Overview
+
+**Primary outcome:** You produce a small set of documented SQL answers (segments, product performance, trends) that mirror real analyst work—using **JOIN**s, **CTEs**, and aggregates.
+
+**Prerequisites:** Work through [Joins](joins.md) and [Aggregations](aggregations.md) first. Use the same database tooling as in the [module README](README.md).
+
+> **Time needed:** Often 4–8 hours including exploration and write-up.
+
 ## Project Overview
 
 This project implements a comprehensive analytics platform for GlobalMart, an e-commerce business. The platform provides insights into customer behavior, product performance, and business operations through SQL-based analysis.

@@ -1,5 +1,13 @@
 # SQL Aggregations: Transforming Data into Insights
 
+## Overview
+
+**Primary outcome:** You can group rows with **GROUP BY**, apply aggregate functions (**COUNT**, **SUM**, **AVG**, etc.), filter groups with **HAVING**, and use basic window functions for running totals and ranks.
+
+**Prerequisites:** [Basic SQL Operations](basic-operations.md) (**SELECT**, **WHERE**, **ORDER BY**). Comfortable with grouping ideas from descriptive stats in [Intro Statistics](../../1-data-fundamentals/1.3-intro-statistics/README.md) is helpful but not required.
+
+> **Time needed:** About 60 minutes, plus time for exercises.
+
 ## Understanding Aggregations
 
 Aggregations in SQL transform detailed data into meaningful summaries. Think of it like:
@@ -571,10 +579,9 @@ ORDER BY sale_date DESC;
 
 Remember: "Good aggregations tell a story about your data!"
 
-## Next Steps
+## Next steps
 
-1. Practice with real datasets
-2. Experiment with different window functions
-3. Optimize query performance
-4. Build comprehensive dashboards
-5. Share insights with stakeholders
+- [Joins](joins.md) — combine tables before or after aggregating
+- [Advanced SQL Concepts](advanced-concepts.md) — deeper window analytics and CTEs
+- [SQL project](project.md) — end-to-end practice brief
+- [Module README](README.md) — assignments and slides
