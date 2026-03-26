@@ -1,5 +1,7 @@
 # Statistical Modeling with Python
 
+See the [Module 4 overview](../README.md) for prerequisites and the full learning path.
+
 Welcome to the Statistical Modeling module! This comprehensive guide will walk you through advanced statistical modeling techniques using Python, with a focus on making complex concepts accessible to beginners.
 
 ## Introduction to Statistical Modeling

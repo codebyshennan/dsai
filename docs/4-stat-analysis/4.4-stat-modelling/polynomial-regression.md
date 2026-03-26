@@ -1,5 +1,17 @@
 # Polynomial Regression
 
+## Why this matters
+
+- Some relationships bend; **polynomial terms** extend linear methods to smooth curves without jumping straight to black-box models.
+- You will balance **flexibility** with **overfitting** (cross-validation and regularization tie to later lessons).
+
+## Prerequisites
+
+- [Logistic regression](./logistic-regression.md) for supervised modelling workflow in Python.
+- [Multiple linear regression](../4.3-rship-in-data/multiple-linear-regression.md) for linear algebra and notation.
+
+> **Warning:** High-degree polynomials can fit noise; always compare out-of-sample or cross-validated error.
+
 ## Introduction
 
 Polynomial regression is a powerful extension of linear regression that allows us to model non-linear relationships between variables. While linear regression assumes a straight-line relationship, polynomial regression can capture more complex patterns in the data by using polynomial terms (squares, cubes, etc.) of the input variables.
@@ -763,3 +775,7 @@ This shows how regularization helps control the model's complexity, even with a 
 1. **No regularization**: The model captures noise, creating an erratic fit
 2. **Ridge (L2)**: Smooths the curve by constraining coefficient sizes
 3. **Lasso (L1)**: Creates an even simpler model by setting some coefficients to zero
+
+## Next steps
+
+- Continue to [Model selection](./model-selection.md).

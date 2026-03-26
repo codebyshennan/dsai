@@ -1,5 +1,17 @@
 # Regularization Techniques
 
+## Why this matters
+
+- **Ridge** and **Lasso** shrink coefficients to reduce variance and, in Lasso’s case, perform feature selection.
+- You will tune penalty strength without guessing from a single train/test split.
+
+## Prerequisites
+
+- [Model selection](./model-selection.md).
+- [Multiple linear regression](../4.3-rship-in-data/multiple-linear-regression.md) for coefficient interpretation.
+
+> **Note:** Scale features before Ridge/Lasso; penalties are not invariant to units.
+
 ## Introduction
 
 Regularization is a crucial technique in statistical modeling that helps prevent overfitting by adding a penalty term to the model's loss function. Think of it as a way to keep your model from becoming too complex and memorizing the training data instead of learning general patterns.
@@ -996,6 +1008,10 @@ X_train, X_test, y_train, y_test = train_test_split(
 # 4. Apply Elastic Net
 # 5. Compare results and determine which features are most important
 ```
+
+## Next steps
+
+- Continue to [Model interpretation](./model-interpretation.md).
 
 ## Additional Resources
 

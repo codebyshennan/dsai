@@ -1,5 +1,16 @@
 # Logistic Regression Fundamentals
 
+## Why this matters
+
+- You will model **probabilities** for binary outcomes (yes/no) with an interpretable linear structure in feature space.
+- You will read **odds ratios** and confusion-based metrics that appear in research and industry.
+
+## Prerequisites
+
+- [Regression basics and diagnostics (module 4.3)](../4.3-rship-in-data/README.md), especially [simple linear regression](../4.3-rship-in-data/simple-linear-regression.md).
+
+> **Note:** The name says “regression,” but the target is usually a class label, not a continuous number.
+
 ## Introduction
 
 Logistic regression is one of the most fundamental and widely used classification algorithms in statistics and machine learning. Despite its name containing "regression," it's primarily used for classification tasks - specifically, for predicting categorical outcomes like yes/no, true/false, or 0/1.
@@ -957,6 +968,10 @@ coefficients = coefficients.sort_values('Odds_Ratio', ascending=False)
 print("\nFeature Importance:")
 print(coefficients)
 ```
+
+## Next steps
+
+- Continue to [Polynomial regression](./polynomial-regression.md).
 
 ## Additional Resources
 

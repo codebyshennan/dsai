@@ -1,5 +1,17 @@
 # Model Selection
 
+## Why this matters
+
+- You will compare models with **cross-validation** and information criteria instead of trusting training error alone.
+- You will reduce **overfitting** by choosing complexity that generalizes.
+
+## Prerequisites
+
+- [Polynomial regression](./polynomial-regression.md).
+- Comfort with train/test or k-fold ideas (this lesson makes them concrete).
+
+> **Important:** The same data cannot be used to fit and to select without a proper validation design.
+
 ## Introduction
 
 Model selection is the process of choosing the best statistical model from a set of candidate models. It's a crucial step in the data analysis pipeline that helps us find the right balance between model complexity and predictive performance. In other words, model selection helps us answer the question: "Which model will give us the most accurate predictions without being unnecessarily complex?"
@@ -1098,6 +1110,10 @@ plt.tight_layout()
 plt.savefig('student_feature_importance.png')
 plt.show()
 ```
+
+## Next steps
+
+- Continue to [Regularization](./regularization.md).
 
 ## Additional Resources
 

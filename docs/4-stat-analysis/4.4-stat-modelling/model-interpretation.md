@@ -1,5 +1,17 @@
 # Model Interpretation
 
+## Why this matters
+
+- Stakeholders need **why** a model behaves as it does, not only accuracy.
+- You will connect coefficients, partial dependence, and SHAP-style explanations to decisions.
+
+## Prerequisites
+
+- [Regularization](./regularization.md) and prior regression lessons for coefficient meaning.
+- [Logistic regression](./logistic-regression.md) if you interpret classification models.
+
+> **Note:** Interpretation tools assume the model and data are adequate; diagnostics from module 4.3 still apply.
+
 ## Introduction
 
 Model interpretation is the process of understanding and explaining how your statistical model makes predictions. It's a crucial skill for data scientists and analysts because even the most accurate model is of limited value if you can't explain how it works or why it makes certain predictions.
@@ -1427,6 +1439,10 @@ Try applying these model interpretation techniques to your own dataset:
 3. Build a more complex model like a random forest
 4. Use feature importance, partial dependence plots, and SHAP values
 5. Compare the insights you gain from different models and techniques
+
+## Next steps
+
+- Try the [module 4 assignments](../_assignments.md) to consolidate inference, testing, relationships, and modelling.
 
 ## Additional Resources
 
