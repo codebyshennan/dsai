@@ -9,14 +9,20 @@ github:
   repository_url: https://github.com/codebyshennan/tamkeen-data
 
 # Build settings
-markdown: kramdown
-remote_theme: pages-themes/primer@v0.6.0
+# GFM = GitHub Flavored Markdown via jekyll-commonmark-ghpages (same engine GitHub Pages uses)
+markdown: GFM
+# Theme via gem (see `theme:` below); do not use `remote_theme` here — it downloads from
+# GitHub at build time and can fail on flaky networks or SSL issues. Gem matches Pages.
+# Keep in sync with GitHub Pages defaults (see Gemfile / https://pages.github.com/versions/)
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-github-metadata
-  - jekyll-remote-theme
+  # Shipped with github-pages gem; listed here so plain `jekyll build` matches Pages:
+  - jekyll-relative-links      # [text](other.md) -> .html in output
+  - jekyll-optional-front-matter  # process lesson .md without --- YAML blocks
+  - jekyll-default-layout      # apply default layout to those pages
 
 # Error handling
 liquid:
@@ -66,11 +72,12 @@ exclude:
   - .sass-cache/
   - .jekyll-cache/
   - .jekyll-metadata
-  # Exclude internal documentation
+  # Exclude internal documentation (see meta/README.md)
+  - meta/
   - "**/ENHANCEMENTS-SUMMARY.md"
   - "**/REVIEW-ENHANCEMENTS.md"
-  - "**/GITHUB-PAGES-GUIDE.md"
   - CLAUDE.md
+  - slides/README.md
 
 # GitHub Pages settings
 lsi: false
@@ -79,12 +86,5 @@ incremental: false
 highlighter: rouge
 gist:
   noscript: false
-kramdown:
-  math_engine: mathjax
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    default_lang: python
-    line_numbers: true
-    start_line: 1
-    tab_size: 4
-    wrap: true
+# Code highlighting: global Rouge (GFM fenced blocks use ` ```python ` etc. for language).
+# Math: layout loads MathJax; use $$...$$ / \\[...\\] in Markdown and verify in browser.

@@ -47,8 +47,13 @@
 
     codeBlocks.forEach(function (codeBlock) {
       const pre = codeBlock.parentNode;
+      /* Primer / GitHub markdown CSS can reset `pre` positioning; without `relative`,
+         the absolute copy button drops into normal flow (e.g. bottom-left). */
+      pre.style.position = 'relative';
       const copyButton = document.createElement('button');
+      copyButton.type = 'button';
       copyButton.className = 'copy-button';
+      copyButton.setAttribute('aria-label', 'Copy code to clipboard');
       copyButton.textContent = 'Copy';
 
       copyButton.addEventListener('click', function () {
