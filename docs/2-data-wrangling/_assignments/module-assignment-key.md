@@ -1,5 +1,13 @@
 # Data Wrangling Module Assessment - Answer Key
 
+## Overview
+
+**Purpose:** Instructor-facing answers and short rationales for [the student-facing quiz](module-assignment-student.md). Do not post this file where learners can access it before the assessment.
+
+**Alignment:** Questions map to Module 2 lessons—[SQL](../2.1-sql/README.md), [wrangling](../2.2-data-wrangling/README.md), [EDA](../2.3-eda/README.md), [data engineering](../2.4-data-engineering/README.md).
+
+> **Note:** Explanations are concise; expand in class if a distractor tripped many students.
+
 ## SQL (25 points)
 
 1. Which SQL command is used to retrieve data from a database?
@@ -214,3 +222,8 @@
     - Support complex analytics
     - Maintain historical records
     - Enable business intelligence
+
+## Next steps (maintainers)
+
+- Keep [module-assignment-student.md](module-assignment-student.md) in sync when you add or reorder questions.
+- Cross-check wording against lesson updates in Module 2 READMEs and concept pages so distractors stay fair.

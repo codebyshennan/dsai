@@ -1,5 +1,15 @@
 # Data Wrangling Module Assessment
 
+## Overview
+
+**Primary outcome:** You check your recall of core ideas across **SQL**, **wrangling**, **EDA**, and **data engineering**—each block maps to one submodule in Module 2.
+
+**Prerequisites:** Work through (or skim) [SQL](../2.1-sql/README.md), [Data wrangling](../2.2-data-wrangling/README.md), [EDA](../2.3-eda/README.md), and [Data engineering](../2.4-data-engineering/README.md). This quiz assumes that exposure, not perfection.
+
+> **Time needed:** About 30–45 minutes for all 20 items.
+
+> **Note:** Each section is worth **25 points** (100 total). Choose the best single answer (a–d) per question.
+
 This comprehensive assessment covers key concepts from SQL, Data Wrangling, Exploratory Data Analysis (EDA), and Data Engineering.
 
 ## SQL (25 points)
@@ -129,3 +139,8 @@ This comprehensive assessment covers key concepts from SQL, Data Wrangling, Expl
     b. To collect new data
     c. To clean data
     d. To visualize data
+
+## Next steps
+
+- Return to the [Module 2.1 SQL README](../2.1-sql/README.md), [2.2 Wrangling](../2.2-data-wrangling/README.md), [2.3 EDA](../2.3-eda/README.md), or [2.4 Data engineering](../2.4-data-engineering/README.md) pages to dig deeper on any missed topics.
+- Complete the submodule **projects** when your instructor assigns them: [SQL project](../2.1-sql/project.md), [wrangling project](../2.2-data-wrangling/project.md), [EDA project](../2.3-eda/project.md), [data engineering project](../2.4-data-engineering/project.md).
