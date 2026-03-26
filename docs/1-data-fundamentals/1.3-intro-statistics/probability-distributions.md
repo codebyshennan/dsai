@@ -2,8 +2,7 @@
 
 ## Understanding Random Variables Through Code
 
-{% stepper %}
-{% step %}
+---
 
 ### Implementing Random Variables
 
@@ -152,9 +151,7 @@ print("\nHeight Distribution:")
 explorer.plot_distribution(heights, kind='continuous')
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Expected Value and Variance
 
@@ -284,13 +281,9 @@ uniform_data = np.random.uniform(low=-3, high=3, size=1000)
 analyzer.analyze_distribution(uniform_data, "Uniform")
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Common Probability Distributions
 
-{% stepper %}
-{% step %}
+---
 
 ### Implementing Distribution Functions
 
@@ -432,9 +425,7 @@ distributions = {
 pd_explorer.plot_distributions(distributions)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Distribution Shape Analysis
 
@@ -552,9 +543,6 @@ shape_analyzer.plot_shape_analysis(
 )
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Practice Exercises
 
 Try these distribution analysis exercises:
@@ -595,5 +583,15 @@ Remember:
 - Consider sample size effects
 - Create clear visualizations
 - Document your analysis
+
+## Common pitfalls
+
+- **Wrong support** — Binomial counts cannot be negative; Normal models are continuous—check that your data fits the story.
+- **Confusing PDF and probability** — For continuous variables, probability comes from areas under the curve, not the height at a point.
+- **Small-sample behavior** — Histograms and fitted curves look smoother as **n** grows; don’t overfit a distribution from a tiny sample.
+
+## Next steps
+
+Continue to [Probability distribution families](./probability-distribution-families.md), then [Two-variable statistics](./two-variable-statistics.md).
 
 Happy analyzing!

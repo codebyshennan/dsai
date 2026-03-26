@@ -2,8 +2,7 @@
 
 ## Understanding One-Variable Statistics
 
-{% stepper %}
-{% step %}
+---
 
 ### What is One-Variable Statistics?
 
@@ -37,9 +36,8 @@ This gives us a quick overview of:
 - Central tendency (mean, median)
 - Spread (std, quartiles)
 - Distribution shape
-{% endstep %}
 
-{% step %}
+---
 
 ### Real-World Applications
 
@@ -91,13 +89,9 @@ def analyze_distribution(data: pd.Series) -> None:
 analyze_distribution(house_prices)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Measures of Central Tendency
 
-{% stepper %}
-{% step %}
+---
 
 ### Mean, Median, and Mode in Python
 
@@ -164,9 +158,8 @@ ct.compare_measures()
 ```
 
  **Pro Tip**: Use `trimmed_mean` when your data has outliers but you still want to use a mean-like measure!
-{% endstep %}
 
-{% step %}
+---
 
 ### When to Use Each Measure
 
@@ -211,13 +204,9 @@ for name, data in datasets.items():
     print(recommend_central_measure(data))
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Measures of Variability
 
-{% stepper %}
-{% step %}
+---
 
 ### Calculating Spread Measures
 
@@ -318,9 +307,7 @@ spread.print_summary()
 spread.plot_spread()
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Understanding Variability in Context
 
@@ -396,13 +383,9 @@ datasets = {
 compare_variability(datasets)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Frequency Distributions and Visualization
 
-{% stepper %}
-{% step %}
+---
 
 ### Creating Frequency Distributions
 
@@ -503,9 +486,7 @@ freq_analyzer.print_summary()
 freq_analyzer.plot_distributions()
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Advanced Visualization Techniques
 
@@ -588,9 +569,6 @@ create_analysis_dashboard(
 )
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Practice Exercises
 
 Try these data analysis exercises:
@@ -632,5 +610,15 @@ Remember:
 - Handle outliers appropriately
 - Document your analysis
 - Consider the context of your data
+
+## Common pitfalls
+
+- **Mean with outliers** — A few extreme values can pull the mean; pair it with the median or a plot.
+- **Mixing population and sample notation** — Be clear whether you report a population parameter or a sample statistic.
+- **Reporting spread without scale** — A standard deviation is easier to interpret next to the mean and **n**.
+
+## Next steps
+
+Continue to [Probability fundamentals](./probability-fundamentals.md), then follow the submodule order in [Introduction to Statistics](./README.md).
 
 Happy analyzing!

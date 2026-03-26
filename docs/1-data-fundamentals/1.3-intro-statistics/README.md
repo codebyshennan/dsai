@@ -2,9 +2,15 @@
 
 > **Time needed:** 5-6 hours to complete this module
 
-Have you ever wondered how Netflix predicts what shows you might like? Or how weather forecasts are made? Welcome to the world of statistics - your key to understanding data and making informed decisions!
+## Overview
+
+**Primary outcome:** You can describe uncertainty with probability, summarize data with common statistics, and connect those ideas to plots and simple Python examples.
+
+Have you ever wondered how Netflix predicts what shows you might like? Or how weather forecasts are made? Welcome to the world of statistics — your key to understanding data and making informed decisions.
 
 > **Note:** Statistics might sound intimidating, but it's really just about making sense of numbers. We'll start with simple concepts and build up gradually. You don't need to be a math whiz to succeed here!
+
+> **Contributors:** Authoring standards: `docs/meta/DOCUMENTATION_GUIDELINES.md` (`meta/` is excluded from the Jekyll build).
 
 ## Prerequisites
 
@@ -29,26 +35,23 @@ That's statistics in action!
 
 ## Why Learn Statistics?
 
-{% stepper %}
-{% step %}
+---
 
 ### Make Better Decisions
 
 Statistics helps you make smarter choices by understanding data. For example, when deciding which product to launch, companies use statistics to predict what customers will love!
-{% endstep %}
-{% step %}
+
+---
 
 ### Understand the World
 
 From weather forecasts to election predictions, statistics helps us understand complex patterns in the world around us.
-{% endstep %}
-{% step %}
+
+---
 
 ### Excel in Data Science
 
 Statistics is the foundation of data science, machine learning, and AI. It's like learning the alphabet before writing stories!
-{% endstep %}
-{% endstepper %}
 
 ## Real-World Applications
 

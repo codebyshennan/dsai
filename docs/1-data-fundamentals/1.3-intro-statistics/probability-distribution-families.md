@@ -2,8 +2,7 @@
 
 ## Understanding Distribution Families
 
-{% stepper %}
-{% step %}
+---
 
 ### Distribution Families in Python
 
@@ -119,9 +118,7 @@ poisson_params = [
 explorer.plot_distribution_family('poisson', poisson_params)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Distribution Fitting and Testing
 
@@ -252,13 +249,9 @@ best_fit = fitter.find_best_fit(data)
 fitter.plot_fit_comparison(data, best_fit)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Common Distribution Families
 
-{% stepper %}
-{% step %}
+---
 
 ### Binomial Distribution
 
@@ -351,9 +344,7 @@ prob_5 = analyzer.calculate_probability(5)
 print(f"\nProbability of exactly 5 successes: {prob_5:.4f}")
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Poisson Distribution
 
@@ -447,9 +438,7 @@ prob_5 = analyzer.calculate_probability(5)
 print(f"\nProbability of exactly 5 events: {prob_5:.4f}")
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Normal Distribution and Central Limit Theorem
 
@@ -584,9 +573,6 @@ demonstrator.plot_clt_demonstration(
 )
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Practice Exercises
 
 Try these distribution analysis exercises:
@@ -625,5 +611,15 @@ Remember:
 - Consider sample size effects
 - Use visualization for insights
 - Document your analysis
+
+## Common pitfalls
+
+- **Using a famous name without checking fit** — “It’s Normal because we always use Normal” is wrong; use plots and domain knowledge.
+- **Ignoring parameter constraints** — Rate parameters must be positive; probabilities must stay in **[0, 1]**.
+- **Mixing discrete and continuous** — PMF vs PDF: different rules for summing vs integrating.
+
+## Next steps
+
+Continue to [Two-variable statistics](./two-variable-statistics.md), then [Data foundation with NumPy](../1.4-data-foundation-linear-algebra/README.md) starting with [Introduction to NumPy](../1.4-data-foundation-linear-algebra/intro-numpy.md).
 
 Happy analyzing!

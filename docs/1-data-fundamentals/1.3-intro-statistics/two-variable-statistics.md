@@ -12,8 +12,7 @@ Let's learn how to understand relationships between different variables!
 
 ## Correlation vs. Causation
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Correlation?
 
@@ -35,9 +34,7 @@ When two things tend to move together:
   Price: ↓   Sales: ↑
   ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### What is Causation?
 
@@ -46,9 +43,8 @@ When one thing CAUSES the other:
 - Rain causes wet ground
 - Studying causes better grades
 - Exercise causes fitness improvement
-{% endstep %}
 
-{% step %}
+---
 
 ### The Big Mistake
 
@@ -61,8 +57,6 @@ Ice cream sales ↑  Sunburns ↑
 ```
 
 Real cause? Summer weather!
-{% endstep %}
-{% endstepper %}
 
 ### Remember
 
@@ -76,8 +70,7 @@ Causation → Correlation
 
 ## Proving Causation: Experiments
 
-{% stepper %}
-{% step %}
+---
 
 ### Setting Up an Experiment
 
@@ -88,9 +81,8 @@ Like a detective solving a mystery!
    - Treatment: Gets vitamin
    - Control: No vitamin
 3. **Measure**: Plant height after 2 weeks
-{% endstep %}
 
-{% step %}
+---
 
 ### Key Components
 
@@ -98,22 +90,18 @@ Like a detective solving a mystery!
 - **Dependent Variable**: What we measure (height)
 - **Control Group**: No changes (no vitamin)
 - **Treatment Group**: Gets the change (vitamin)
-{% endstep %}
 
-{% step %}
+---
 
 ### Making it Scientific
 
 - **Blind Test**: Plants don't know if they got vitamin
 - **Double-Blind**: Even researcher doesn't know which is which
 - **Random Assignment**: Fair selection for groups
-{% endstep %}
-{% endstepper %}
 
 ### Watch Out For
 
-{% stepper %}
-{% step %}
+---
 
 ### Confounding Variables
 
@@ -127,9 +115,7 @@ But what about:
 - Teaching quality 
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### The Placebo Effect
 
@@ -140,15 +126,11 @@ Sugar pill  Feel better
 Why? The mind is powerful! 
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Different Ways to Study Relationships
 
 ### Types of Studies
 
-{% stepper %}
-{% step %}
+---
 
 ### 1. Observational Studies
 
@@ -161,9 +143,7 @@ Example: Do coffee drinkers live longer?
 - Don't change anything
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 2. Retrospective Studies
 
@@ -176,9 +156,7 @@ Example: What caused the success?
 - Learn from history
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 3. Prospective Studies
 
@@ -191,15 +169,11 @@ Example: Will this habit help?
 - See what happens
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Visualizing Relationships
 
 ### Scatter Plots: A Picture of Relationship
 
-{% stepper %}
-{% step %}
+---
 
 ### What They Show
 
@@ -214,9 +188,7 @@ Each dot = One pair of measurements
    +------------→ x
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Types of Patterns
 
@@ -247,13 +219,11 @@ Each dot = One pair of measurements
      •    •
 
    ```
-{% endstep %}
-{% endstepper %}
 
 ### Measuring Correlation 
 
-{% stepper %}
-{% step %}
+---
+
 ### Correlation Coefficient (r)
 - Goes from -1 to +1
 - Perfect patterns = ±1
@@ -266,9 +236,9 @@ Each dot = One pair of measurements
   Negative  Pattern  Positive
 
 ```
-{% endstep %}
 
-{% step %}
+---
+
 ### Examples
 ```
 
@@ -278,13 +248,17 @@ r = 0.2  → Weak positive
 r = 0    → No correlation
 
 ```
-{% endstep %}
-{% endstepper %}
 
 ![correlation](./assets/correlation.png)
 
-💡 **Pro Tips**:
-- Always plot your data first!
-- Look for unusual patterns
-- Remember: correlation ≠ causation
-- Use scatter plots to tell the story
+> **Tip:** Always plot your data first. Look for unusual patterns. Remember: correlation is not causation. Use scatter plots to tell the story.
+
+## Common pitfalls
+
+- **Treating correlation as causation** — Confounders and reverse causality can produce misleading **r** values.
+- **Linear correlation for nonlinear relationships** — Pearson **r** can miss curved patterns; inspect the scatter plot.
+- **Outliers driving correlation** — One extreme point can inflate or flip the sign of a correlation.
+
+## Next steps
+
+Continue to [Data foundation with NumPy](../1.4-data-foundation-linear-algebra/README.md), starting with [Introduction to NumPy](../1.4-data-foundation-linear-algebra/intro-numpy.md).

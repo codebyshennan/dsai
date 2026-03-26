@@ -1,9 +1,15 @@
-# Probability Fundamentals with Python 🎲
+# Probability fundamentals with Python
 
-## Understanding Probability Through Code
+## Overview
 
-{% stepper %}
-{% step %}
+**Primary outcome:** You connect probability ideas (events, simulation, long-run frequency) to short Python examples you can run and plot.
+
+**Prerequisites:** Basic Python and comfort reading imports; statistics module [Introduction to Statistics](./README.md) context helps.
+
+## Understanding probability through code
+
+---
+
 ### Implementing Basic Probability
 Let's explore probability concepts using Python:
 
@@ -12,7 +18,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from typing import List, Dict, Tuple
+from typing import Dict, List, Optional, Tuple, Union
 
 class ProbabilityExperiment:
     """Simulate and analyze probability experiments"""
@@ -98,9 +104,9 @@ experiment.plot_results(
     "Dice Roll Probabilities (1000 rolls)"
 )
 ```
-{% endstep %}
 
-{% step %}
+---
+
 ### Monte Carlo Simulation
 Let's use simulation to understand probability:
 
@@ -216,13 +222,11 @@ prob_stay = mc.monty_hall(switch=False)
 print(f"Probability when switching: {prob_switch:.3f}")
 print(f"Probability when staying: {prob_stay:.3f}")
 ```
-{% endstep %}
-{% endstepper %}
 
 ## Probability Rules and Calculations
 
-{% stepper %}
-{% step %}
+---
+
 ### Implementing Probability Rules
 Let's create tools for probability calculations:
 
@@ -292,9 +296,9 @@ print("\nMedical Test Example:")
 print(f"Probability of disease given positive test: "
       f"{p_disease_given_positive:.3f}")
 ```
-{% endstep %}
 
-{% step %}
+---
+
 ### Visualizing Probability Concepts
 Create visual representations of probability:
 
@@ -389,13 +393,11 @@ weather_outcomes = {
 }
 viz.plot_probability_tree(weather_probs, weather_outcomes)
 ```
-{% endstep %}
-{% endstepper %}
 
 ## Advanced Probability Concepts
 
-{% stepper %}
-{% step %}
+---
+
 ### Implementing Advanced Probability
 Let's create tools for advanced probability analysis:
 
@@ -485,9 +487,9 @@ print(f"\nProbability of hitting ±{threshold}: {hit_prob:.3f}")
 # Plot results
 ap.plot_random_walks(paths[:100], threshold)  # Plot first 100 paths
 ```
-{% endstep %}
 
-{% step %}
+---
+
 ### Probability in Machine Learning
 Example of using probability in ML contexts:
 
@@ -584,8 +586,6 @@ results = pc.fit_and_evaluate(X, y)
 # Plot results
 pc.plot_results(results)
 ```
-{% endstep %}
-{% endstepper %}
 
 ## Practice Exercises 🎯
 
@@ -616,10 +616,19 @@ Try these probability programming exercises:
    ```
 
 Remember:
+
 - Use NumPy for efficient calculations
 - Implement proper error handling
 - Validate probability assumptions
 - Create clear visualizations
 - Document your code
 
-Happy coding! 🚀
+## Common pitfalls
+
+- **Confusing P(A|B) and P(B|A)** — Write down which event is “given” before you plug into formulas.
+- **Assuming independence** — Multiplication rules for probabilities only apply when events are independent (or you use the correct conditional form).
+- **Law of large numbers vs one trial** — A fair coin can show many heads in a row; probability describes long-run frequency, not a guarantee on the next flip.
+
+## Next steps
+
+Continue to [Probability distributions](./probability-distributions.md), then [Probability distribution families](./probability-distribution-families.md), then [Two-variable statistics](./two-variable-statistics.md). If you have not yet summarized single variables with means and spreads, work through [One-variable statistics](./one-variable-statistics.md) first so notation feels familiar.
