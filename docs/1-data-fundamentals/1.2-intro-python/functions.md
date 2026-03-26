@@ -1,15 +1,14 @@
 # Functions in Data Analysis
 
-> **🔥 Must Watch:** Functions are WHERE Python Tutor shines! Visualize every function call!
+> **Must Watch:** Functions are WHERE Python Tutor shines! Visualize every function call!
 
-> **🤖 AI Prompt:** "Explain Python functions using cooking recipes as an analogy"
+> **AI Prompt:** "Explain Python functions using cooking recipes as an analogy"
 
-> **📓 Interactive:** [Open Functions Notebook in Colab](./notebooks/03-functions.ipynb)
+> **Interactive:** [Open Functions Notebook in Colab](./notebooks/03-functions.ipynb)
 
 ## Understanding Functions in Data Science
 
-{% stepper %}
-{% step %}
+---
 
 ### Functions in Data Analysis
 
@@ -24,22 +23,22 @@ import pandas as pd
 import numpy as np
 
 def analyze_numeric_column(data: pd.Series) -> dict:
-    """
-    Analyze a numeric column and return basic statistics.
-    
-    Args:
-        data: Pandas Series containing numeric data
-        
-    Returns:
-        Dictionary of statistics
-    """
-    return {
-        'mean': data.mean(),
-        'median': data.median(),
-        'std': data.std(),
-        'skew': data.skew(),
-        'missing': data.isna().sum()
-    }
+   """
+   Analyze a numeric column and return basic statistics.
+   
+   Args:
+       data: Pandas Series containing numeric data
+       
+   Returns:
+       Dictionary of statistics
+   """
+   return {
+       'mean': data.mean(),
+       'median': data.median(),
+       'std': data.std(),
+       'skew': data.skew(),
+       'missing': data.isna().sum()
+   }
 
 # Using the function
 df = pd.DataFrame({'values': [1, 2, 3, np.nan, 5]})
@@ -47,14 +46,14 @@ stats = analyze_numeric_column(df['values'])
 print(stats)
 ```
 
-> **🎨 Visualize Function Calls:**
+> **Visualize Function Calls:**
 > Paste this simpler version into Python Tutor to see how functions work:
 > ```python
 > def calculate_average(numbers):
->     total = sum(numbers)
->     count = len(numbers)
->     average = total / count
->     return average
+>   total = sum(numbers)
+>   count = len(numbers)
+>   average = total / count
+>   return average
 > 
 > data = [10, 20, 30, 40, 50]
 > result = calculate_average(data)
@@ -67,13 +66,11 @@ print(stats)
 > - Variables inside function scope
 > - Return value flowing back
 
-> **🤖 AI Learning:**
+> **AI Learning:**
 > Ask: "Explain the difference between defining a function and calling a function"
 > Ask: "What is 'scope' in Python functions?"
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Why Functions in Data Science?
 
@@ -103,27 +100,27 @@ Example with functions:
 
 ```python
 def preprocess_dataset(df: pd.DataFrame) -> pd.DataFrame:
-    """Standardized preprocessing pipeline"""
-    # Check missing values
-    nulls = df.isnull().sum()
-    print(f"Missing values:\n{nulls}")
-    
-    # Clean and scale
-    df_cleaned = df.dropna()
-    df_scaled = (df_cleaned - df_cleaned.mean()) / df_cleaned.std()
-    
-    return df_scaled
+   """Standardized preprocessing pipeline"""
+   # Check missing values
+   nulls = df.isnull().sum()
+   print(f"Missing values:\n{nulls}")
+   
+   # Clean and scale
+   df_cleaned = df.dropna()
+   df_scaled = (df_cleaned - df_cleaned.mean()) / df_cleaned.std()
+   
+   return df_scaled
 
 # Now we can process any dataset consistently
 df1_processed = preprocess_dataset(df1)
 df2_processed = preprocess_dataset(df2)
 ```
 
-> **🔍 See It Work:**
+> **See It Work:**
 > Python Tutor can show you the BEFORE and AFTER:
 > ```python
 > def add_ten(number):
->     return number + 10
+>   return number + 10
 > 
 > x = 5
 > y = add_ten(x)
@@ -131,16 +128,12 @@ df2_processed = preprocess_dataset(df2)
 > ```
 > **Notice:** `x` doesn't change! Functions don't modify originals (unless using lists/dicts)
 
-> **🤖 Deep Dive:**
+> **Deep Dive:**
 > Ask: "Explain pass-by-value vs pass-by-reference in Python with examples"
-
-{% endstep %}
-{% endstepper %}
 
 ## Creating Data Analysis Functions
 
-{% stepper %}
-{% step %}
+---
 
 ### Basic Function Structure
 
@@ -152,53 +145,51 @@ import pandas as pd
 import numpy as np
 
 def process_timeseries(
-    data: Union[pd.Series, np.ndarray],
-    window: int = 3,
-    method: str = 'mean'
+   data: Union[pd.Series, np.ndarray],
+   window: int = 3,
+   method: str = 'mean'
 ) -> Dict[str, Union[pd.Series, float]]:
-    """
-    Process time series data with rolling statistics.
-    
-    Args:
-        data: Time series data
-        window: Rolling window size
-        method: Aggregation method ('mean' or 'median')
-    
-    Returns:
-        Dictionary containing processed data and statistics
-    
-    Raises:
-        ValueError: If method is not supported
-    """
-    # Convert to pandas Series if numpy array
-    if isinstance(data, np.ndarray):
-        data = pd.Series(data)
-    
-    # Validate method
-    if method not in ['mean', 'median']:
-        raise ValueError(f"Method {method} not supported")
-    
-    # Calculate rolling statistics
-    if method == 'mean':
-        rolling = data.rolling(window).mean()
-    else:
-        rolling = data.rolling(window).median()
-    
-    return {
-        'original': data,
-        'rolling': rolling,
-        'volatility': data.std(),
-        'trend': rolling.iloc[-1] - rolling.iloc[0]
-    }
+   """
+   Process time series data with rolling statistics.
+   
+   Args:
+       data: Time series data
+       window: Rolling window size
+       method: Aggregation method ('mean' or 'median')
+   
+   Returns:
+       Dictionary containing processed data and statistics
+   
+   Raises:
+       ValueError: If method is not supported
+   """
+   # Convert to pandas Series if numpy array
+   if isinstance(data, np.ndarray):
+       data = pd.Series(data)
+   
+   # Validate method
+   if method not in ['mean', 'median']:
+       raise ValueError(f"Method {method} not supported")
+   
+   # Calculate rolling statistics
+   if method == 'mean':
+       rolling = data.rolling(window).mean()
+   else:
+       rolling = data.rolling(window).median()
+   
+   return {
+       'original': data,
+       'rolling': rolling,
+       'volatility': data.std(),
+       'trend': rolling.iloc[-1] - rolling.iloc[0]
+   }
 
 # Using the function
 data = pd.Series([1, 2, 3, 2, 3, 4, 3, 4, 5])
 results = process_timeseries(data, window=3, method='mean')
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Parameters for Data Processing
 
@@ -212,57 +203,57 @@ import numpy as np
 
 @dataclass
 class ProcessingConfig:
-    """Configuration for data processing"""
-    remove_outliers: bool = True
-    fill_method: str = 'mean'
-    scaling: bool = True
-    outlier_threshold: float = 3.0
+   """Configuration for data processing"""
+   remove_outliers: bool = True
+   fill_method: str = 'mean'
+   scaling: bool = True
+   outlier_threshold: float = 3.0
 
 def process_dataset(
-    df: pd.DataFrame,
-    numeric_columns: List[str],
-    config: Optional[ProcessingConfig] = None
+   df: pd.DataFrame,
+   numeric_columns: List[str],
+   config: Optional[ProcessingConfig] = None
 ) -> pd.DataFrame:
-    """
-    Process dataset with configurable options.
-    
-    Args:
-        df: Input DataFrame
-        numeric_columns: Columns to process
-        config: Processing configuration
-    
-    Returns:
-        Processed DataFrame
-    """
-    # Use default config if none provided
-    if config is None:
-        config = ProcessingConfig()
-    
-    # Work on copy
-    df = df.copy()
-    
-    for col in numeric_columns:
-        # Remove outliers
-        if config.remove_outliers:
-            z_scores = np.abs((df[col] - df[col].mean()) / df[col].std())
-            df.loc[z_scores > config.outlier_threshold, col] = np.nan
-        
-        # Fill missing values
-        if config.fill_method == 'mean':
-            df[col] = df[col].fillna(df[col].mean())
-        elif config.fill_method == 'median':
-            df[col] = df[col].fillna(df[col].median())
-        
-        # Scale data
-        if config.scaling:
-            df[col] = (df[col] - df[col].mean()) / df[col].std()
-    
-    return df
+   """
+   Process dataset with configurable options.
+   
+   Args:
+       df: Input DataFrame
+       numeric_columns: Columns to process
+       config: Processing configuration
+   
+   Returns:
+       Processed DataFrame
+   """
+   # Use default config if none provided
+   if config is None:
+       config = ProcessingConfig()
+   
+   # Work on copy
+   df = df.copy()
+   
+   for col in numeric_columns:
+       # Remove outliers
+       if config.remove_outliers:
+           z_scores = np.abs((df[col] - df[col].mean()) / df[col].std())
+           df.loc[z_scores > config.outlier_threshold, col] = np.nan
+       
+       # Fill missing values
+       if config.fill_method == 'mean':
+           df[col] = df[col].fillna(df[col].mean())
+       elif config.fill_method == 'median':
+           df[col] = df[col].fillna(df[col].median())
+       
+       # Scale data
+       if config.scaling:
+           df[col] = (df[col] - df[col].mean()) / df[col].std()
+   
+   return df
 
 # Using the function
 df = pd.DataFrame({
-    'A': [1, 2, 100, 4, 5],  # Contains outlier
-    'B': [1, 2, np.nan, 4, 5]  # Contains missing value
+   'A': [1, 2, 100, 4, 5],  # Contains outlier
+   'B': [1, 2, np.nan, 4, 5]  # Contains missing value
 })
 
 # Default processing
@@ -270,20 +261,18 @@ result_default = process_dataset(df, numeric_columns=['A', 'B'])
 
 # Custom processing
 custom_config = ProcessingConfig(
-    remove_outliers=True,
-    fill_method='median',
-    scaling=False
+   remove_outliers=True,
+   fill_method='median',
+   scaling=False
 )
 result_custom = process_dataset(
-    df, 
-    numeric_columns=['A', 'B'],
-    config=custom_config
+   df, 
+   numeric_columns=['A', 'B'],
+   config=custom_config
 )
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Return Values in Data Analysis
 
@@ -296,56 +285,56 @@ import numpy as np
 from scipy import stats
 
 def analyze_distribution(
-    data: Union[pd.Series, np.ndarray]
+   data: Union[pd.Series, np.ndarray]
 ) -> Dict[str, Any]:
-    """
-    Analyze distribution of data.
-    
-    Args:
-        data: Numeric data to analyze
-        
-    Returns:
-        Dictionary containing:
-        - Basic statistics
-        - Normality test results
-        - Distribution parameters
-    """
-    # Convert to numpy array
-    if isinstance(data, pd.Series):
-        data = data.dropna().values
-    
-    # Basic statistics
-    basic_stats = {
-        'mean': np.mean(data),
-        'median': np.median(data),
-        'std': np.std(data),
-        'skew': stats.skew(data),
-        'kurtosis': stats.kurtosis(data)
-    }
-    
-    # Normality test
-    shapiro_stat, shapiro_p = stats.shapiro(data)
-    normality_test = {
-        'statistic': shapiro_stat,
-        'p_value': shapiro_p,
-        'is_normal': shapiro_p > 0.05
-    }
-    
-    # Fit distribution
-    dist_params = stats.norm.fit(data)
-    distribution = {
-        'type': 'normal',
-        'parameters': {
-            'loc': dist_params[0],
-            'scale': dist_params[1]
-        }
-    }
-    
-    return {
-        'statistics': basic_stats,
-        'normality_test': normality_test,
-        'distribution': distribution
-    }
+   """
+   Analyze distribution of data.
+   
+   Args:
+       data: Numeric data to analyze
+       
+   Returns:
+       Dictionary containing:
+       - Basic statistics
+       - Normality test results
+       - Distribution parameters
+   """
+   # Convert to numpy array
+   if isinstance(data, pd.Series):
+       data = data.dropna().values
+   
+   # Basic statistics
+   basic_stats = {
+       'mean': np.mean(data),
+       'median': np.median(data),
+       'std': np.std(data),
+       'skew': stats.skew(data),
+       'kurtosis': stats.kurtosis(data)
+   }
+   
+   # Normality test
+   shapiro_stat, shapiro_p = stats.shapiro(data)
+   normality_test = {
+       'statistic': shapiro_stat,
+       'p_value': shapiro_p,
+       'is_normal': shapiro_p > 0.05
+   }
+   
+   # Fit distribution
+   dist_params = stats.norm.fit(data)
+   distribution = {
+       'type': 'normal',
+       'parameters': {
+           'loc': dist_params[0],
+           'scale': dist_params[1]
+       }
+   }
+   
+   return {
+       'statistics': basic_stats,
+       'normality_test': normality_test,
+       'distribution': distribution
+   }
 
 # Using the function
 np.random.seed(42)
@@ -354,19 +343,15 @@ analysis = analyze_distribution(normal_data)
 
 # Print results
 for key, value in analysis.items():
-    print(f"\n{key.title()}:")
-    if isinstance(value, dict):
-        for k, v in value.items():
-            print(f"  {k}: {v}")
+   print(f"\n{key.title()}:")
+   if isinstance(value, dict):
+       for k, v in value.items():
+           print(f"  {k}: {v}")
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Advanced Data Analysis Functions
 
-{% stepper %}
-{% step %}
+---
 
 ### Function Decorators for Data Validation
 
@@ -378,72 +363,70 @@ import pandas as pd
 import numpy as np
 
 def validate_dataframe(required_columns=None, numeric_only=False):
-    """
-    Decorator to validate DataFrame inputs.
-    
-    Args:
-        required_columns: List of required column names
-        numeric_only: Whether to check for numeric columns
-    """
-    def decorator(func):
-        @wraps(func)
-        def wrapper(df, *args, **kwargs):
-            # Check DataFrame type
-            if not isinstance(df, pd.DataFrame):
-                raise TypeError("Input must be a pandas DataFrame")
-            
-            # Check required columns
-            if required_columns:
-                missing_cols = set(required_columns) - set(df.columns)
-                if missing_cols:
-                    raise ValueError(
-                        f"Missing required columns: {missing_cols}"
-                    )
-            
-            # Check numeric columns
-            if numeric_only:
-                non_numeric = df[required_columns].select_dtypes(
-                    exclude=[np.number]
-                ).columns
-                if len(non_numeric) > 0:
-                    raise ValueError(
-                        f"Non-numeric columns found: {non_numeric}"
-                    )
-            
-            return func(df, *args, **kwargs)
-        return wrapper
-    return decorator
+   """
+   Decorator to validate DataFrame inputs.
+   
+   Args:
+       required_columns: List of required column names
+       numeric_only: Whether to check for numeric columns
+   """
+   def decorator(func):
+       @wraps(func)
+       def wrapper(df, *args, **kwargs):
+           # Check DataFrame type
+           if not isinstance(df, pd.DataFrame):
+               raise TypeError("Input must be a pandas DataFrame")
+           
+           # Check required columns
+           if required_columns:
+               missing_cols = set(required_columns) - set(df.columns)
+               if missing_cols:
+                   raise ValueError(
+                       f"Missing required columns: {missing_cols}"
+                   )
+           
+           # Check numeric columns
+           if numeric_only:
+               non_numeric = df[required_columns].select_dtypes(
+                   exclude=[np.number]
+               ).columns
+               if len(non_numeric) > 0:
+                   raise ValueError(
+                       f"Non-numeric columns found: {non_numeric}"
+                   )
+           
+           return func(df, *args, **kwargs)
+       return wrapper
+   return decorator
 
 # Using the decorator
 @validate_dataframe(
-    required_columns=['A', 'B'],
-    numeric_only=True
+   required_columns=['A', 'B'],
+   numeric_only=True
 )
 def calculate_correlation(df):
-    """Calculate correlation between columns A and B"""
-    return df['A'].corr(df['B'])
+   """Calculate correlation between columns A and B"""
+   return df['A'].corr(df['B'])
 
 # Test the function
 df_good = pd.DataFrame({
-    'A': [1, 2, 3],
-    'B': [4, 5, 6]
+   'A': [1, 2, 3],
+   'B': [4, 5, 6]
 })
 print(calculate_correlation(df_good))
 
 # This will raise an error
 df_bad = pd.DataFrame({
-    'A': [1, 2, 3],
-    'B': ['a', 'b', 'c']  # Non-numeric
+   'A': [1, 2, 3],
+   'B': ['a', 'b', 'c']  # Non-numeric
 })
 try:
-    calculate_correlation(df_bad)
+   calculate_correlation(df_bad)
 except ValueError as e:
-    print(f"Error: {e}")
+   print(f"Error: {e}")
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Performance Optimization
 
@@ -456,67 +439,67 @@ from typing import List, Dict
 from functools import lru_cache
 
 class DataProcessor:
-    def __init__(self, chunk_size: int = 10000):
-        self.chunk_size = chunk_size
-    
-    @lru_cache(maxsize=128)
-    def calculate_statistics(self, values: tuple) -> Dict:
-        """
-        Calculate statistics with caching for repeated calculations.
-        
-        Args:
-            values: Tuple of values (must be tuple for caching)
-            
-        Returns:
-            Dictionary of statistics
-        """
-        return {
-            'mean': np.mean(values),
-            'std': np.std(values),
-            'median': np.median(values)
-        }
-    
-    def process_large_dataset(
-        self,
-        df: pd.DataFrame,
-        columns: List[str]
-    ) -> Dict[str, Dict]:
-        """
-        Process large dataset in chunks.
-        
-        Args:
-            df: Input DataFrame
-            columns: Columns to process
-            
-        Returns:
-            Dictionary of results per column
-        """
-        results = {col: [] for col in columns}
-        
-        # Process in chunks
-        for start in range(0, len(df), self.chunk_size):
-            end = start + self.chunk_size
-            chunk = df.iloc[start:end]
-            
-            # Process each column
-            for col in columns:
-                # Convert to tuple for caching
-                values = tuple(chunk[col].dropna())
-                if values:
-                    stats = self.calculate_statistics(values)
-                    results[col].append(stats)
-        
-        # Combine chunk results
-        final_results = {}
-        for col in columns:
-            if results[col]:
-                final_results[col] = {
-                    'mean': np.mean([r['mean'] for r in results[col]]),
-                    'std': np.mean([r['std'] for r in results[col]]),
-                    'median': np.median([r['median'] for r in results[col]])
-                }
-        
-        return final_results
+   def __init__(self, chunk_size: int = 10000):
+       self.chunk_size = chunk_size
+   
+   @lru_cache(maxsize=128)
+   def calculate_statistics(self, values: tuple) -> Dict:
+       """
+       Calculate statistics with caching for repeated calculations.
+       
+       Args:
+           values: Tuple of values (must be tuple for caching)
+           
+       Returns:
+           Dictionary of statistics
+       """
+       return {
+           'mean': np.mean(values),
+           'std': np.std(values),
+           'median': np.median(values)
+       }
+   
+   def process_large_dataset(
+       self,
+       df: pd.DataFrame,
+       columns: List[str]
+   ) -> Dict[str, Dict]:
+       """
+       Process large dataset in chunks.
+       
+       Args:
+           df: Input DataFrame
+           columns: Columns to process
+           
+       Returns:
+           Dictionary of results per column
+       """
+       results = {col: [] for col in columns}
+       
+       # Process in chunks
+       for start in range(0, len(df), self.chunk_size):
+           end = start + self.chunk_size
+           chunk = df.iloc[start:end]
+           
+           # Process each column
+           for col in columns:
+               # Convert to tuple for caching
+               values = tuple(chunk[col].dropna())
+               if values:
+                   stats = self.calculate_statistics(values)
+                   results[col].append(stats)
+       
+       # Combine chunk results
+       final_results = {}
+       for col in columns:
+           if results[col]:
+               final_results[col] = {
+                   'mean': np.mean([r['mean'] for r in results[col]]),
+                   'std': np.mean([r['std'] for r in results[col]]),
+                   'median': np.median([r['median'] for r in results[col]])
+               }
+       
+       return final_results
 
 # Using the optimized processor
 processor = DataProcessor(chunk_size=5000)
@@ -524,30 +507,26 @@ processor = DataProcessor(chunk_size=5000)
 # Generate large dataset
 np.random.seed(42)
 large_df = pd.DataFrame({
-    'A': np.random.normal(0, 1, 10000),
-    'B': np.random.normal(5, 2, 10000)
+   'A': np.random.normal(0, 1, 10000),
+   'B': np.random.normal(5, 2, 10000)
 })
 
 # Process dataset
 results = processor.process_large_dataset(
-    large_df,
-    columns=['A', 'B']
+   large_df,
+   columns=['A', 'B']
 )
 
 # Print results
 for col, stats in results.items():
-    print(f"\nColumn {col}:")
-    for stat, value in stats.items():
-        print(f"  {stat}: {value:.2f}")
+   print(f"\nColumn {col}:")
+   for stat, value in stats.items():
+       print(f"  {stat}: {value:.2f}")
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Best Practices for Data Analysis Functions
 
-{% stepper %}
-{% step %}
+---
 
 ### Writing Maintainable Functions
 
@@ -561,121 +540,119 @@ import pandas as pd
 import numpy as np
 
 def preprocess_features(
-    df: pd.DataFrame,
-    numeric_features: List[str],
-    categorical_features: Optional[List[str]] = None,
-    scaling: bool = True
+   df: pd.DataFrame,
+   numeric_features: List[str],
+   categorical_features: Optional[List[str]] = None,
+   scaling: bool = True
 ) -> Tuple[pd.DataFrame, Dict[str, Any]]:
-    """
-    Preprocess features for machine learning.
-    
-    Args:
-        df: Input DataFrame
-        numeric_features: List of numeric feature names
-        categorical_features: List of categorical feature names
-        scaling: Whether to apply standard scaling
-    
-    Returns:
-        Tuple containing:
-        - Processed DataFrame
-        - Dictionary of transformation parameters
-    
-    Example:
-        >>> df = pd.DataFrame({
-        ...     'age': [25, 30, 35],
-        ...     'income': [50000, 60000, 70000],
-        ...     'category': ['A', 'B', 'A']
-        ... })
-        >>> processed_df, params = preprocess_features(
-        ...     df,
-        ...     numeric_features=['age', 'income'],
-        ...     categorical_features=['category']
-        ... )
-    """
-    # Function implementation...
+   """
+   Preprocess features for machine learning.
+   
+   Args:
+       df: Input DataFrame
+       numeric_features: List of numeric feature names
+       categorical_features: List of categorical feature names
+       scaling: Whether to apply standard scaling
+   
+   Returns:
+       Tuple containing:
+       - Processed DataFrame
+       - Dictionary of transformation parameters
+   
+   Example:
+       >>> df = pd.DataFrame({
+       ...     'age': [25, 30, 35],
+       ...     'income': [50000, 60000, 70000],
+       ...     'category': ['A', 'B', 'A']
+       ... })
+       >>> processed_df, params = preprocess_features(
+       ...     df,
+       ...     numeric_features=['age', 'income'],
+       ...     categorical_features=['category']
+       ... )
+   """
+   # Function implementation...
 ```
 
 2. **Error Handling and Validation**:
 
 ```python
 def analyze_timeseries(
-    data: pd.Series,
-    window_size: int = 3
+   data: pd.Series,
+   window_size: int = 3
 ) -> Dict[str, Union[float, pd.Series]]:
-    """Analyze time series data"""
-    # Input validation
-    if not isinstance(data, pd.Series):
-        raise TypeError("Input must be pandas Series")
-    
-    if not pd.api.types.is_numeric_dtype(data):
-        raise ValueError("Series must contain numeric data")
-    
-    if window_size < 1:
-        raise ValueError("Window size must be positive")
-    
-    if window_size >= len(data):
-        raise ValueError("Window size too large for data")
-    
-    try:
-        # Calculate statistics
-        results = {
-            'mean': data.mean(),
-            'rolling_mean': data.rolling(window_size).mean(),
-            'volatility': data.std()
-        }
-        return results
-    except Exception as e:
-        raise RuntimeError(f"Error analyzing time series: {str(e)}")
+   """Analyze time series data"""
+   # Input validation
+   if not isinstance(data, pd.Series):
+       raise TypeError("Input must be pandas Series")
+   
+   if not pd.api.types.is_numeric_dtype(data):
+       raise ValueError("Series must contain numeric data")
+   
+   if window_size < 1:
+       raise ValueError("Window size must be positive")
+   
+   if window_size >= len(data):
+       raise ValueError("Window size too large for data")
+   
+   try:
+       # Calculate statistics
+       results = {
+           'mean': data.mean(),
+           'rolling_mean': data.rolling(window_size).mean(),
+           'volatility': data.std()
+       }
+       return results
+   except Exception as e:
+       raise RuntimeError(f"Error analyzing time series: {str(e)}")
 ```
 
 3. **Modular Design**:
 
 ```python
 class DataAnalyzer:
-    """Modular data analysis pipeline"""
-    
-    def __init__(self, df: pd.DataFrame):
-        self.df = df.copy()
-        self.results = {}
-    
-    def clean_data(self) -> 'DataAnalyzer':
-        """Clean the dataset"""
-        self.df = self.df.dropna()
-        return self
-    
-    def calculate_statistics(self) -> 'DataAnalyzer':
-        """Calculate basic statistics"""
-        self.results['statistics'] = {
-            col: {
-                'mean': self.df[col].mean(),
-                'std': self.df[col].std()
-            }
-            for col in self.df.select_dtypes(include=[np.number])
-        }
-        return self
-    
-    def analyze_correlations(self) -> 'DataAnalyzer':
-        """Analyze feature correlations"""
-        numeric_cols = self.df.select_dtypes(include=[np.number])
-        self.results['correlations'] = numeric_cols.corr()
-        return self
-    
-    def get_results(self) -> Dict[str, Any]:
-        """Get analysis results"""
-        return self.results
+   """Modular data analysis pipeline"""
+   
+   def __init__(self, df: pd.DataFrame):
+       self.df = df.copy()
+       self.results = {}
+   
+   def clean_data(self) -> 'DataAnalyzer':
+       """Clean the dataset"""
+       self.df = self.df.dropna()
+       return self
+   
+   def calculate_statistics(self) -> 'DataAnalyzer':
+       """Calculate basic statistics"""
+       self.results['statistics'] = {
+           col: {
+               'mean': self.df[col].mean(),
+               'std': self.df[col].std()
+           }
+           for col in self.df.select_dtypes(include=[np.number])
+       }
+       return self
+   
+   def analyze_correlations(self) -> 'DataAnalyzer':
+       """Analyze feature correlations"""
+       numeric_cols = self.df.select_dtypes(include=[np.number])
+       self.results['correlations'] = numeric_cols.corr()
+       return self
+   
+   def get_results(self) -> Dict[str, Any]:
+       """Get analysis results"""
+       return self.results
 
 # Using the modular analyzer
 analyzer = DataAnalyzer(df)
 results = (analyzer
-    .clean_data()
-    .calculate_statistics()
-    .analyze_correlations()
-    .get_results())
+   .clean_data()
+   .calculate_statistics()
+   .analyze_correlations()
+   .get_results())
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Performance Optimization Patterns
 
@@ -684,39 +661,39 @@ results = (analyzer
 ```python
 # Slow: Using loops
 def calculate_zscore_slow(df: pd.DataFrame) -> pd.DataFrame:
-    results = df.copy()
-    for column in df.columns:
-        mean = df[column].mean()
-        std = df[column].std()
-        for idx in range(len(df)):
-            results.loc[idx, column] = (
-                (df.loc[idx, column] - mean) / std
-            )
-    return results
+   results = df.copy()
+   for column in df.columns:
+       mean = df[column].mean()
+       std = df[column].std()
+       for idx in range(len(df)):
+           results.loc[idx, column] = (
+               (df.loc[idx, column] - mean) / std
+           )
+   return results
 
 # Fast: Using vectorization
 def calculate_zscore_fast(df: pd.DataFrame) -> pd.DataFrame:
-    return (df - df.mean()) / df.std()
+   return (df - df.mean()) / df.std()
 ```
 
 2. **Efficient Memory Usage**:
 
 ```python
 def process_large_file(
-    filepath: str,
-    chunksize: int = 10000
+   filepath: str,
+   chunksize: int = 10000
 ) -> pd.DataFrame:
-    """Process large CSV file in chunks"""
-    results = []
-    
-    # Process file in chunks
-    for chunk in pd.read_csv(filepath, chunksize=chunksize):
-        # Process chunk
-        processed = chunk.groupby('category')['value'].mean()
-        results.append(processed)
-    
-    # Combine results
-    return pd.concat(results).groupby(level=0).mean()
+   """Process large CSV file in chunks"""
+   results = []
+   
+   # Process file in chunks
+   for chunk in pd.read_csv(filepath, chunksize=chunksize):
+       # Process chunk
+       processed = chunk.groupby('category')['value'].mean()
+       results.append(processed)
+   
+   # Combine results
+   return pd.concat(results).groupby(level=0).mean()
 ```
 
 3. **Caching Expensive Computations**:
@@ -725,44 +702,41 @@ def process_large_file(
 from functools import lru_cache
 
 class FeatureEngine:
-    @lru_cache(maxsize=128)
-    def calculate_feature(self, values: tuple) -> float:
-        """Calculate expensive feature with caching"""
-        # Expensive computation here
-        return some_expensive_calculation(values)
-    
-    def process_dataset(self, df: pd.DataFrame) -> pd.DataFrame:
-        results = []
-        for group in df.groupby('category'):
-            # Convert to tuple for caching
-            values = tuple(group['values'])
-            feature = self.calculate_feature(values)
-            results.append(feature)
-        return pd.Series(results)
+   @lru_cache(maxsize=128)
+   def calculate_feature(self, values: tuple) -> float:
+       """Calculate expensive feature with caching"""
+       # Expensive computation here
+       return some_expensive_calculation(values)
+   
+   def process_dataset(self, df: pd.DataFrame) -> pd.DataFrame:
+       results = []
+       for group in df.groupby('category'):
+           # Convert to tuple for caching
+           values = tuple(group['values'])
+           feature = self.calculate_feature(values)
+           results.append(feature)
+       return pd.Series(results)
 ```
 
-{% endstep %}
-{% endstepper %}
+## Practice Exercises for Data Analysis
 
-## 🎯 Practice Exercises for Data Analysis
-
-> **🎓 Learning Path:** Write code → Visualize in Python Tutor → Refine with AI feedback
+> **Learning Path:** Write code → Visualize in Python Tutor → Refine with AI feedback
 
 ### Exercise 1: Simple Statistics Function
 ```python
 def calculate_statistics(numbers):
-    """
-    Calculate basic statistics for a list of numbers.
-    
-    Your function should return a dictionary with:
-    - mean
-    - median
-    - min
-    - max
-    - range
-    """
-    # Your code here...
-    pass
+   """
+   Calculate basic statistics for a list of numbers.
+   
+   Your function should return a dictionary with:
+   - mean
+   - median
+   - min
+   - max
+   - range
+   """
+   # Your code here...
+   pass
 
 # Test it:
 data = [10, 15, 20, 25, 30, 35, 40]
@@ -770,44 +744,44 @@ stats = calculate_statistics(data)
 print(stats)
 ```
 
-> **🎨 Visualize:** Paste into Python Tutor to see how your function processes the list
-> **🤖 Get Help:** "Show me how to calculate median in Python"
+> **Visualize:** Paste into Python Tutor to see how your function processes the list
+> **Get Help:** "Show me how to calculate median in Python"
 
 ### Exercise 2: Data Cleaning Function
 ```python
 def clean_data(data_list):
-    """
-    Clean a list by:
-    1. Removing None values
-    2. Converting strings to numbers where possible
-    3. Removing negative numbers
-    4. Returning cleaned list
-    """
-    # Your code here...
-    pass
+   """
+   Clean a list by:
+   1. Removing None values
+   2. Converting strings to numbers where possible
+   3. Removing negative numbers
+   4. Returning cleaned list
+   """
+   # Your code here...
+   pass
 
 # Test it:
 messy_data = [10, None, "20", -5, "30", 40, None, "-10", 50]
 clean = clean_data(messy_data)
-print(clean)  # Should output: [10, 20, 30, 40, 50]
+print(clean) # Should output: [10, 20, 30, 40, 50]
 ```
 
-> **🔬 Debug Visually:** If something breaks, paste into Python Tutor to see where
-> **🤖 Prompt:** "Help me handle edge cases in this data cleaning function"
+> **Debug Visually:** If something breaks, paste into Python Tutor to see where
+> **Prompt:** "Help me handle edge cases in this data cleaning function"
 
 ### Exercise 3: Function with Multiple Return Values
 ```python
 def analyze_sales(sales_list):
-    """
-    Analyze sales data and return:
-    - total_sales
-    - average_sale
-    - highest_sale
-    - lowest_sale
-    - number_of_sales
-    """
-    # Your code here...
-    pass
+   """
+   Analyze sales data and return:
+   - total_sales
+   - average_sale
+   - highest_sale
+   - lowest_sale
+   - number_of_sales
+   """
+   # Your code here...
+   pass
 
 # Test it:
 sales = [100, 150, 200, 175, 225, 190, 210]
@@ -815,53 +789,53 @@ total, avg, high, low, count = analyze_sales(sales)
 print(f"Total: ${total}, Average: ${avg:.2f}")
 ```
 
-> **🎯 Observe:** Python Tutor shows how functions return multiple values as a tuple!
-> **🤖 Learn:** "Explain tuple unpacking in Python with examples"
+> **Observe:** Python Tutor shows how functions return multiple values as a tuple!
+> **Learn:** "Explain tuple unpacking in Python with examples"
 
 ### Exercise 4: Nested Functions
 ```python
 def process_dataset(data):
-    """
-    Main function that uses helper functions.
-    
-    Create helper functions inside:
-    - validate_data(data)
-    - remove_outliers(data)
-    - normalize_data(data)
-    """
-    
-    def validate_data(d):
-        # Your code...
-        pass
-    
-    def remove_outliers(d):
-        # Your code...
-        pass
-    
-    def normalize_data(d):
-        # Your code...
-        pass
-    
-    # Use helper functions
-    # Your code here...
-    pass
+   """
+   Main function that uses helper functions.
+   
+   Create helper functions inside:
+   - validate_data(data)
+   - remove_outliers(data)
+   - normalize_data(data)
+   """
+   
+   def validate_data(d):
+       # Your code...
+       pass
+   
+   def remove_outliers(d):
+       # Your code...
+       pass
+   
+   def normalize_data(d):
+       # Your code...
+       pass
+   
+   # Use helper functions
+   # Your code here...
+   pass
 
 # Test it:
 raw_data = [10, 20, 15, 100, 18, 22, -5, 25]
 processed = process_dataset(raw_data)
 ```
 
-> **🔥 Advanced Visualization:** Python Tutor shows nested function scopes beautifully!
-> **🤖 Challenge:** "Explain when to use nested functions vs separate functions"
+> **Advanced Visualization:** Python Tutor shows nested function scopes beautifully!
+> **Challenge:** "Explain when to use nested functions vs separate functions"
 
-## 🚀 Challenge Projects
+## Challenge Projects
 
 ### Project 1: Temperature Converter
 Create a function that converts between Celsius, Fahrenheit, and Kelvin.
 ```python
 def convert_temperature(value, from_unit, to_unit):
-    # Your implementation
-    pass
+   # Your implementation
+   pass
 ```
 
 ### Project 2: Grade Calculator
@@ -870,50 +844,50 @@ Build a function that calculates letter grades from percentages with customizabl
 ### Project 3: Data Validator
 Create a function that validates data according to specified rules.
 
-> **📺 Video Help:** Check [Video Resources](./video-resources.md) - Functions section
-> **🤖 Code Review:** After completing, ask AI: "Review my function and suggest improvements: [paste code]"
+> **Video Help:** Check [Video Resources](./video-resources.md) - Functions section
+> **Code Review:** After completing, ask AI: "Review my function and suggest improvements: [paste code]"
 
-## 🐛 Debugging Functions
+## Debugging Functions
 
 ### Common Issues & Solutions
 
 **Issue 1: Function returns None**
 ```python
-# Wrong ❌
+# Wrong (avoid):
 def add_numbers(a, b):
-    result = a + b
-    # Forgot return!
+   result = a + b
+   # Forgot return!
 
-# Right ✅
+# Right (preferred):
 def add_numbers(a, b):
-    result = a + b
-    return result
+   result = a + b
+   return result
 ```
 
-> **🔍 Spot the Issue:** Python Tutor shows None being returned!
+> **Spot the Issue:** Python Tutor shows None being returned!
 
 **Issue 2: Variable not found**
 ```python
-# Wrong ❌
+# Wrong (avoid):
 def calculate():
-    x = 10
-    return x
+   x = 10
+   return x
 
 result = calculate()
-print(x)  # Error! x only exists inside function
+print(x) # Error! x only exists inside function
 
-# Right ✅
+# Right (preferred):
 def calculate():
-    x = 10
-    return x
+   x = 10
+   return x
 
 result = calculate()
-print(result)  # Use returned value
+print(result) # Use returned value
 ```
 
-> **🎨 See Scope:** Python Tutor visualizes function scope perfectly!
+> **See Scope:** Python Tutor visualizes function scope perfectly!
 
-> **🤖 Debug Helper:** Paste error and code, ask: "Why am I getting this error?"
+> **Debug Helper:** Paste error and code, ask: "Why am I getting this error?"
 
 Remember:
 
@@ -925,5 +899,15 @@ Remember:
 - **Visualize complex functions in Python Tutor**
 - **Use AI to understand error messages**
 - **Test functions with different inputs**
+
+## Common pitfalls
+
+- **Forgetting return** — If you omit **return**, the function returns **None**; Python Tutor shows this clearly.
+- **Mutable default arguments** — Do not use **def f(items=[])**; use **None** and assign **items = items or []** inside.
+- **Shadowing names** — Reusing a name for a parameter and an outer variable makes bugs hard to spot.
+
+## Next steps
+
+Continue to [Classes and objects](./classes-objects.md) for basic object-oriented programming.
 
 Happy analyzing!

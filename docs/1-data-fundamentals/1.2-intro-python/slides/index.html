@@ -9,99 +9,63 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <style>
         body {
-            background: #ffffff;
-            font-size: 12px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         .reveal {
-            --primary-blue: #1877F2;
-            --dark-blue: #0e305a;
-            --light-blue: #e7f0fd;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-size: 1.5em;
         }
 
         .reveal h1,
         .reveal h2,
         .reveal h3 {
-            color: var(--dark-blue);
             text-transform: none;
+            margin-bottom: 0.5em;
             text-align: center;
-            margin-top: 0.5em;
-            font-weight: 600;
         }
 
         .reveal h1 {
-            font-size: 1.8em;
+            font-size: 2em;
         }
 
         .reveal h2 {
-            font-size: 1.4em;
+            font-size: 1.6em;
         }
 
         .reveal h3 {
-            font-size: 1.2em;
+            font-size: 1.3em;
         }
 
-        .reveal .slides {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-            height: 100vh;
+        .reveal p {
+            margin-bottom: 1em;
+            line-height: 1.4;
+            text-align: center;
         }
 
         .reveal ul {
-            margin-left: 1em;
+            margin: 0 auto;
             text-align: left;
-            display: inline-block;
+            max-width: 80%;
         }
 
         .reveal li {
-            margin-bottom: 0.8em;
-            text-align: left;
-            line-height: 1.5;
+            margin-bottom: 0.5em;
         }
 
-        .reveal .highlight {
-            color: var(--primary-blue);
-            font-weight: 600;
+        .reveal code {
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
         }
 
-        .reveal .box {
-            background: var(--light-blue);
-            padding: 0.6em 1em;
+        .reveal pre {
+            padding: 1em;
             border-radius: 8px;
-            margin: 0.8em auto;
-            border-left: 4px solid var(--primary-blue);
-            max-width: 800px;
-            width: 100%;
-            box-sizing: border-box;
-            display: block;
-            font-size: 0.9em;
-            line-height: 1.4;
-        }
-
-        .reveal .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            width: 100%;
-            max-width: 1000px;
+            max-width: 80%;
             margin: 0 auto;
         }
 
-        .reveal .three-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
+        .reveal .slides {
+            text-align: center;
         }
 
         .reveal .center {
@@ -112,99 +76,58 @@
             text-align: right;
         }
 
-        .slide-header {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 1;
-            opacity: 0.1;
-            pointer-events: none;
+        .reveal .box {
+            padding: 1em;
+            border-radius: 8px;
+            margin: 1em auto;
+            max-width: 80%;
         }
 
-        .slide-header img {
-            height: 100vh;
-            width: auto;
-            object-fit: cover;
+        .reveal .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2em;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        .reveal .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2em;
+            max-width: 80%;
+            margin: 0 auto;
         }
 
         .slide-footer {
-            position: absolute;
-            bottom: 0.8em;
-            left: 1.5em;
-            color: var(--dark-blue);
-            font-size: 0.75em;
-            opacity: 0.85;
-            font-weight: 500;
-        }
-
-        .slide-number {
-            position: absolute;
-            bottom: 0.8em;
-            right: 1.5em;
-            color: var(--primary-blue);
-            font-size: 0.75em;
-            opacity: 0.85;
-            font-weight: 500;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.8em;
+            color: #666;
+            z-index: 1000;
+            background: white;
+            padding: 0.5em 1em;
+            border-top: 1px solid #eee;
+            text-align: left;
         }
 
         section {
+            padding: 2em;
+            padding-bottom: 4em;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-            height: 100vh;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 6em 2.5em;
-            text-align: center;
+            min-height: 100vh;
             box-sizing: border-box;
         }
 
-        .reveal section>* {
-            max-width: 900px;
+        .list-container {
             width: 100%;
-            margin: 0.8em auto;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .reveal p {
-            line-height: 1.6;
-            margin-bottom: 1em;
-        }
-
-        .reveal img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .reveal code {
-            background: var(--light-blue);
-            padding: 0.2em 0.4em;
-            border-radius: 4px;
-            font-size: 0.8em;
-        }
-
-        .reveal pre {
-            background: var(--light-blue);
-            padding: 0.6em;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            font-size: 0.8em;
-        }
-
-        .reveal .list-container {
-            display: inline-block;
-            text-align: left;
+            max-width: 80%;
             margin: 0 auto;
-        }
-
-        .reveal ul {
-            margin-left: 1em;
-            text-align: left;
         }
     </style>
 </head>
@@ -214,165 +137,203 @@
         <div class="slides">
             
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h1>Introduction to Python for Data Science</h1>
-                    <h3></h3>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="content-wrapper">
+                        <h1>Introduction to Python for Data Science</h1>
+                        
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Basic Syntax Data Types</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Basic Syntax and Data Types</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Importing libraries (`import` statement)</li>
-<li>Creating a data list</li>
-<li>Using functions for analysis</li>
-<li>Formatted output with f-strings</li>
-<li>Use numpy for numerical operations</li>
-<li>Pandas for structured data</li>
-<li>Always validate your data</li>
-<li>Handle errors gracefully</li>
+                            <li><strong>Python Basics</strong>:</li>
+<li>- Variables and assignment</li>
+<li>- Basic data types (int, float, str, bool)</li>
+<li>- Type conversion</li>
+<li>- Basic operators</li>
+<li><strong>Data Structures</strong>:</li>
+<li>- Lists and tuples</li>
+<li>- Dictionaries and sets</li>
+<li>- String manipulation</li>
+<li>- List comprehensions</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Use descriptive variable names</li>
+<li>- Follow PEP 8 style guide</li>
+<li>- Write clear comments</li>
+<li>- Use type hints</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Classes Objects</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Functions</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Modular and reusable code</li>
-<li>Maintainable data pipelines</li>
-<li>Scalable machine learning systems</li>
-<li>Consistent interfaces</li>
-<li>Use type hints for better code documentation</li>
-<li>Implement proper error handling</li>
-<li>Consider performance implications</li>
-<li>Write unit tests for your classes</li>
-<li>Follow SOLID principles</li>
+                            <li><strong>Function Basics</strong>:</li>
+<li>- Function definition and calling</li>
+<li>- Parameters and arguments</li>
+<li>- Return values</li>
+<li>- Scope and namespaces</li>
+<li><strong>Function Types</strong>:</li>
+<li>- Built-in functions</li>
+<li>- User-defined functions</li>
+<li>- Lambda functions</li>
+<li>- Generator functions</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Single responsibility principle</li>
+<li>- Clear documentation</li>
+<li>- Error handling</li>
+<li>- Type hints</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Conditions Iterations</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Conditions and Iterations</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Use vectorized operations when possible</li>
-<li>Consider memory efficiency</li>
-<li>Handle edge cases</li>
-<li>Validate results</li>
+                            <li><strong>Control Flow</strong>:</li>
+<li>- If-elif-else statements</li>
+<li>- For loops</li>
+<li>- While loops</li>
+<li>- Break and continue</li>
+<li><strong>Iteration Tools</strong>:</li>
+<li>- Range and enumerate</li>
+<li>- List comprehensions</li>
+<li>- Generator expressions</li>
+<li>- Iterators and generators</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Use appropriate loop types</li>
+<li>- Avoid nested loops when possible</li>
+<li>- Use list comprehensions for simple transformations</li>
+<li>- Handle edge cases</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Data Structures</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Data Structures</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Lists for flexible data collection</li>
-<li>Tuples for immutable records</li>
-<li>Sets for unique value operations</li>
-<li>Dictionaries for key-based lookups</li>
-<li>NumPy arrays for numerical computations</li>
-<li>Pandas for labeled data analysis</li>
-<li>Choose appropriate data structures for your task</li>
-<li>Consider performance implications</li>
-<li>Handle edge cases</li>
-<li>Document your code</li>
+                            <li><strong>Core Data Structures</strong>:</li>
+<li>- Lists: Ordered, mutable sequences</li>
+<li>- Tuples: Ordered, immutable sequences</li>
+<li>- Dictionaries: Key-value mappings</li>
+<li>- Sets: Unordered collections of unique elements</li>
+<li><strong>Advanced Data Structures</strong>:</li>
+<li>- Collections module</li>
+<li>- NumPy arrays</li>
+<li>- Pandas DataFrames</li>
+<li>- Custom data structures</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Choose appropriate data structure</li>
+<li>- Consider performance implications</li>
+<li>- Use built-in methods effectively</li>
+<li>- Document data structure choices</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Functions</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Classes and Objects</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Input: Raw data (e.g., DataFrame, array, list)</li>
-<li>Process: Data transformation, analysis, or modeling</li>
-<li>Output: Processed data, statistics, or visualizations</li>
-<li>Use type hints for better code documentation</li>
-<li>Handle edge cases and errors</li>
-<li>Optimize for performance with large datasets</li>
-<li>Write modular and reusable code</li>
-<li>Include examples in docstrings</li>
+                            <li><strong>Object-Oriented Concepts</strong>:</li>
+<li>- Classes and objects</li>
+<li>- Attributes and methods</li>
+<li>- Inheritance and polymorphism</li>
+<li>- Encapsulation</li>
+<li><strong>Class Design</strong>:</li>
+<li>- Constructor methods</li>
+<li>- Property decorators</li>
+<li>- Class methods and static methods</li>
+<li>- Special methods</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Follow SOLID principles</li>
+<li>- Use proper encapsulation</li>
+<li>- Write comprehensive docstrings</li>
+<li>- Implement proper error handling</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
 
                 <section>
-                    <div class="slide-header"><img src="/docs/slides/logo.png" alt="Logo"></div>
-                    <h2>Modules</h2>
-                    <div class="box">
-                        
-                        
+                    <div class="content-wrapper">
+                        <h2>Modules</h2>
+                        <div class="box">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li>Data preprocessing utilities</li>
-<li>Feature engineering functions</li>
-<li>Model evaluation tools</li>
-<li>Visualization helpers</li>
-<li>Numeric features</li>
-<li>Categorical features</li>
-<li>Date features</li>
-<li>Text features</li>
-<li>Use type hints</li>
-<li>Write comprehensive docstrings</li>
-<li>Include unit tests</li>
-<li>Follow PEP 8 style guide</li>
-<li>Create clear documentation</li>
+                            <li><strong>Module Basics</strong>:</li>
+<li>- Importing modules</li>
+<li>- Creating modules</li>
+<li>- Module organization</li>
+<li>- Package structure</li>
+<li><strong>Common Modules</strong>:</li>
+<li>- Standard library modules</li>
+<li>- Third-party packages</li>
+<li>- Custom modules</li>
+<li>- Virtual environments</li>
+<li><strong>Best Practices</strong>:</li>
+<li>- Use meaningful module names</li>
+<li>- Follow package structure</li>
+<li>- Document module purpose</li>
+<li>- Handle dependencies properly</li>
                         </ul>
                     </div>
                 
+                        </div>
                     </div>
-                    <div class="slide-footer">Data Science & Analytics | Skills Union</div>
-                    <div class="slide-number"></div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
             
         </div>
@@ -384,18 +345,9 @@
             hash: true,
             center: false,
             transition: 'slide',
+            slideNumber: true,
             plugins: []
         });
-        Reveal.on('slidechanged', function (event) {
-            document.querySelectorAll('.slide-number').forEach((el, idx) => {
-                el.textContent = `Slide ${idx + 1} / ${document.querySelectorAll('.slides section').length}`;
-            });
-        });
-        setTimeout(() => {
-            document.querySelectorAll('.slide-number').forEach((el, idx) => {
-                el.textContent = `Slide ${idx + 1} / ${document.querySelectorAll('.slides section').length}`;
-            });
-        }, 500);
     </script>
 </body>
 

@@ -1,10 +1,10 @@
 # Video Resources for Python Learning
 
-> **🎯 How to Use This Guide:** Each section includes curated videos with specific timestamps. Watch at 1.25x-1.5x speed for efficiency!
+> **How to Use This Guide:** Each section includes curated videos with specific timestamps. Watch at 1.25x-1.5x speed for efficiency!
 
-> **💡 Pro Tip:** Have Python Tutor open alongside videos - pause and visualize examples!
+> **Pro Tip:** Have Python Tutor open alongside videos - pause and visualize examples!
 
-## 📚 Complete Beginner Series (Start Here!)
+## Complete Beginner Series (Start Here!)
 
 ### Option 1: Corey Schafer's Python Programming Beginner Tutorial (HIGHLY RECOMMENDED)
 
@@ -49,7 +49,7 @@
 
 ---
 
-## 🎓 Topic-Specific Deep Dives
+## Topic-Specific Deep Dives
 
 ### Variables and Data Types
 
@@ -57,13 +57,13 @@
 - Duration: 12:43
 - Perfect for: Understanding variable assignment and memory
 - Watch: [Python Variables Tutorial](https://www.youtube.com/watch?v=Z1Yd7upQsXY)
-- 🔥 Key Moment: 5:30 - Variable naming conventions
+- Key Moment: 5:30 - Variable naming conventions
 
 **Socratica - Python Data Types**
 - Duration: 6:38
 - Perfect for: Quick overview of all data types
 - Watch: [Python Data Types](https://www.youtube.com/watch?v=gCCVsvgR2KU)
-- 🔥 Key Moment: 2:15 - Type checking
+- Key Moment: 2:15 - Type checking
 
 ### Data Structures
 
@@ -79,13 +79,13 @@
 - Duration: 34:08
 - Perfect for: Mastering dictionaries
 - Covered above in beginner series
-- 🔥 Best parts: 15:00-25:00 (real-world examples)
+- Best parts: 15:00-25:00 (real-world examples)
 
 **Keith Galli - Python Sets**
 - Duration: 11:54
 - Perfect for: Understanding set operations
 - Watch: [Python Sets Tutorial](https://www.youtube.com/watch?v=sBvaPopWOmQ)
-- 🔥 Key Moment: 6:30 - Set operations visualization
+- Key Moment: 6:30 - Set operations visualization
 
 ### Functions
 
@@ -101,7 +101,7 @@
 - Duration: 16:28
 - Perfect for: Alternative explanation
 - Watch: [Functions Deep Dive](https://www.youtube.com/watch?v=NE97ylAnrz4)
-- 🔥 Key Moment: 8:45 - Return values explained
+- Key Moment: 8:45 - Return values explained
 
 ### Loops and Conditionals
 
@@ -116,7 +116,7 @@
 - Duration: 8:17
 - Perfect for: Quick conditional logic review
 - Watch: [If Statements](https://www.youtube.com/watch?v=Zp5MuPOtsSY)
-- 🔥 Key Moment: 4:30 - Comparison operators
+- Key Moment: 4:30 - Comparison operators
 
 ### Object-Oriented Programming
 
@@ -142,7 +142,7 @@
 
 ---
 
-## 📊 Data Science Specific
+## Data Science Specific
 
 ### NumPy
 
@@ -187,7 +187,7 @@
 
 ---
 
-## 🎨 Visualization
+## Visualization
 
 ### Matplotlib
 
@@ -213,7 +213,7 @@
 
 ---
 
-## 🚀 Interactive Learning Channels
+## Interactive Learning Channels
 
 ### Sentdex (Data Science Focus)
 
@@ -246,7 +246,7 @@
 
 ---
 
-## 🎯 Learning Strategies
+## Learning Strategies
 
 ### Week 1: Foundations
 **Watch in order:**
@@ -282,7 +282,7 @@
 
 ---
 
-## 📱 YouTube Channels to Subscribe To
+## YouTube Channels to Subscribe To
 
 ### Must-Follow for Python & Data Science
 
@@ -299,7 +299,7 @@
 
 ---
 
-## 🎬 Playlists for Different Learning Styles
+## Playlists for Different Learning Styles
 
 ### Visual Learners
 - **Socratica Python** - Beautiful animations
@@ -318,7 +318,7 @@
 
 ---
 
-## 🔧 Specialized Topics
+## Specialized Topics
 
 ### Debugging Python
 
@@ -342,7 +342,7 @@
 
 ---
 
-## 💡 Tips for Learning from Videos
+## Tips for Learning from Videos
 
 ### Before Watching
 - [ ] Have Python Tutor open in another tab
@@ -364,7 +364,7 @@
 
 ---
 
-## 🤖 Combine Videos with AI Learning
+## Combine Videos with AI Learning
 
 ### After Each Video, Ask AI:
 
@@ -385,7 +385,7 @@ The part about [concept] is confusing. Can you explain it differently?"
 
 ---
 
-## 📚 Complementary Resources
+## Complementary Resources
 
 ### Written Tutorials to Pair with Videos
 - [Real Python](https://realpython.com) - Articles matching video topics
@@ -399,7 +399,7 @@ The part about [concept] is confusing. Can you explain it differently?"
 
 ---
 
-## 🎯 Recommended Learning Path
+## Recommended Learning Path
 
 ### Total Beginner (Never Coded Before)
 1. Start with Programming with Mosh (1-hour overview)
@@ -427,7 +427,7 @@ The part about [concept] is confusing. Can you explain it differently?"
 
 ---
 
-## 📌 Quick Reference: Best Video for Each Topic
+## Quick Reference: Best Video for Each Topic
 
 | Topic | Best Video | Duration | Link |
 |-------|-----------|----------|------|
@@ -447,4 +447,10 @@ The part about [concept] is confusing. Can you explain it differently?"
 
 **Remember:** Videos are great for learning, but you MUST code along! Pause, type the code, visualize it in Python Tutor, experiment with changes, break things, and fix them. That's where real learning happens!
 
-**Need help choosing?** Ask your instructor or use AI: "I'm learning [topic] and found these videos. Which should I watch first?"
+**Need help choosing?**Ask your instructor or use AI: "I'm learning [topic] and found these videos. Which should I watch first?"
+
+## Next steps in this course
+
+Work through the numbered lessons in [Introduction to Python](./README.md): start with [Basic syntax and data types](./basic-syntax-data-types.md), then [Data structures](./data-structures.md), and continue in order through [Modules](./modules.md).
+
+> **Note:** Maintainer-facing writing standards for all lesson pages live in `docs/meta/DOCUMENTATION_GUIDELINES.md` (excluded from the public Jekyll site).

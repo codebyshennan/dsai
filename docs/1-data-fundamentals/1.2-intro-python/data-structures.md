@@ -1,10 +1,10 @@
 # Data Structures for Data Analysis
 
-> **🎨 Essential Tool:** Open [Python Tutor](https://pythontutor.com) to visualize how data structures work in memory!
+> **Essential Tool:** Open [Python Tutor](https://pythontutor.com) to visualize how data structures work in memory!
 
-> **🤖 Start With AI:** Ask ChatGPT: "Explain Python data structures using everyday containers (boxes, folders, etc.)"
+> **Start With AI:** Ask ChatGPT: "Explain Python data structures using everyday containers (boxes, folders, etc.)"
 
-> **📓 Interactive Practice:** [Open in Google Colab](./notebooks/02-data-structures.ipynb)
+> **Interactive Practice:** [Open in Google Colab](./notebooks/02-data-structures.ipynb)
 
 ## Introduction to Data Structures
 
@@ -30,10 +30,9 @@ In Python, we use different "containers" (data structures) to store and organize
 - If you're tracking which products are in stock, you just need unique names → Use a **set**
 - If you have coordinates (x, y) that shouldn't change, make them unchangeable → Use a **tuple**
 
-> **💡 Key Insight:** Using the right data structure is like using the right tool. You can hammer a nail with a shoe, but a hammer works better! Similarly, you can solve problems with any data structure, but the right one makes life easier.
+> **Key Insight:** Using the right data structure is like using the right tool. You can hammer a nail with a shoe, but a hammer works better! Similarly, you can solve problems with any data structure, but the right one makes life easier.
 
-{% stepper %}
-{% step %}
+---
 
 ### The Four Main Data Structures You'll Use
 
@@ -52,9 +51,9 @@ shopping_list = ["milk", "eggs", "bread"]
 ```python
 # A dictionary is like a real dictionary: word → definition
 student = {
-    "name": "Alice",      # key: "name", value: "Alice"
-    "age": 20,           # key: "age", value: 20
-    "grade": "A"         # key: "grade", value: "A"
+   "name": "Alice",      # key: "name", value: "Alice"
+   "age": 20,           # key: "age", value: 20
+   "grade": "A"         # key: "grade", value: "A"
 }
 # Look up by key: student["name"] gives you "Alice"
 ```
@@ -62,7 +61,7 @@ student = {
 **3. Tuples `( )` - Ordered Collections You CANNOT Change**
 ```python
 # A tuple is like a sealed envelope with data inside
-coordinates = (10.5, 20.3)  # x and y position
+coordinates = (10.5, 20.3) # x and y position
 # Once created, you can't change it: coordinates[0] = 15 → ERROR!
 # Good for data that should never change (like GPS coordinates)
 ```
@@ -75,7 +74,7 @@ unique_visitors = {"Alice", "Bob", "Charlie"}
 # Order doesn't matter: {1, 2, 3} is the same as {3, 1, 2}
 ```
 
-> **🎯 Remember:** 
+> **Remember:** 
 > - **Lists** `[]` = Ordered, can change, allows duplicates
 > - **Dictionaries** `{}` = Key-value pairs, fast lookup
 > - **Tuples** `()` = Ordered, CANNOT change (immutable)
@@ -83,9 +82,7 @@ unique_visitors = {"Alice", "Bob", "Charlie"}
 
 Now let's explore each one in detail!
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Real-World Data Science Example
 
@@ -96,17 +93,17 @@ Before we dive into details, let's see how these structures work together in a r
 ```python
 # DICTIONARY: Store complete customer information
 customer = {
-    "id": "C001",
-    "name": "Alice Johnson",
-    "email": "alice@email.com",
-    "is_premium": True
+   "id": "C001",
+   "name": "Alice Johnson",
+   "email": "alice@email.com",
+   "is_premium": True
 }
 
 # LIST: Track purchase history (order matters!)
 purchase_history = [
-    {"date": "2024-01-15", "amount": 49.99},
-    {"date": "2024-01-20", "amount": 79.99},
-    {"date": "2024-02-01", "amount": 29.99}
+   {"date": "2024-01-15", "amount": 49.99},
+   {"date": "2024-01-20", "amount": 79.99},
+   {"date": "2024-02-01", "amount": 29.99}
 ]
 
 # TUPLE: Store fixed record (date, product, price)
@@ -120,16 +117,14 @@ browsed_categories = {"Electronics", "Books", "Clothing", "Electronics"}
 ```
 
 **Why each structure?**
-- **Dictionary** for customer: We look up info by field name ("email", "name")
-- **List** for purchases: Order matters (chronological history)
-- **Tuple** for record: Historical data should never be modified
-- **Set** for categories: We only care about unique values visited
+- **Dictionary**for customer: We look up info by field name ("email", "name")
+- **List**for purchases: Order matters (chronological history)
+- **Tuple**for record: Historical data should never be modified
+- **Set**for categories: We only care about unique values visited
 
 This is how data scientists organize real data! Now let's learn each structure in depth.
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Data Structures in Data Science
 
@@ -150,9 +145,9 @@ unique_symbols = {'AAPL', 'GOOGL', 'MSFT', 'AMZN'}
 
 # Dictionaries: Feature mappings
 feature_info = {
-    'price': {'type': 'numeric', 'missing': 0.02},
-    'volume': {'type': 'numeric', 'missing': 0.00},
-    'sector': {'type': 'categorical', 'unique_values': 11}
+   'price': {'type': 'numeric', 'missing': 0.02},
+   'volume': {'type': 'numeric', 'missing': 0.00},
+   'sector': {'type': 'categorical', 'unique_values': 11}
 }
 
 # NumPy Arrays: Efficient numerical computations
@@ -160,7 +155,7 @@ prices_array = np.array(stock_prices)
 
 # Pandas Series: Labeled data
 prices_series = pd.Series(stock_prices, 
-                         index=pd.date_range('2023-01-01', periods=4))
+                        index=pd.date_range('2023-01-01', periods=4))
 ```
 
 Each structure optimized for different operations:
@@ -172,7 +167,7 @@ Each structure optimized for different operations:
 - NumPy arrays for numerical computations
 - Pandas for labeled data analysis
 
-> **🔬 Visualize Data Structures:**
+> **Visualize Data Structures:**
 > Paste this into Python Tutor to see how different structures are stored:
 > ```python
 > # Watch how each structure is created and stored
@@ -183,17 +178,15 @@ Each structure optimized for different operations:
 > 
 > # See what happens with operations
 > my_list.append(4)
-> # my_tuple.append(4)  # Uncomment to see error!
+> # my_tuple.append(4) # Uncomment to see error!
 > my_set.add(4)
 > my_dict['d'] = 4
 > ```
 
-> **🤖 AI Challenge:**
+> **AI Challenge:**
 > Ask: "Create a table comparing lists, tuples, sets, and dictionaries with their pros/cons"
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Performance Considerations
 
@@ -205,39 +198,36 @@ import numpy as np
 
 # Comparing list vs. numpy array operations
 def compare_performance(size=1000000):
-    # Create data
-    list_data = list(range(size))
-    array_data = np.array(list_data)
-    
-    # List operations
-    start = time.time()
-    list_result = [x * 2 for x in list_data]
-    list_time = time.time() - start
-    
-    # NumPy operations
-    start = time.time()
-    array_result = array_data * 2
-    array_time = time.time() - start
-    
-    print(f"List time: {list_time:.4f} seconds")
-    print(f"NumPy time: {array_time:.4f} seconds")
-    print(f"NumPy is {list_time/array_time:.1f}x faster")
+   # Create data
+   list_data = list(range(size))
+   array_data = np.array(list_data)
+   
+   # List operations
+   start = time.time()
+   list_result = [x * 2 for x in list_data]
+   list_time = time.time() - start
+   
+   # NumPy operations
+   start = time.time()
+   array_result = array_data * 2
+   array_time = time.time() - start
+   
+   print(f"List time: {list_time:.4f} seconds")
+   print(f"NumPy time: {array_time:.4f} seconds")
+   print(f"NumPy is {list_time/array_time:.1f}x faster")
 
 # Memory usage comparison
 def compare_memory():
-    import sys
-    
-    # Create equivalent data structures
-    data = list(range(1000))
-    list_mem = sys.getsizeof(data)
-    array_mem = np.array(data).nbytes
-    
-    print(f"List memory: {list_mem} bytes")
-    print(f"NumPy memory: {array_mem} bytes")
+   import sys
+   
+   # Create equivalent data structures
+   data = list(range(1000))
+   list_mem = sys.getsizeof(data)
+   array_mem = np.array(data).nbytes
+   
+   print(f"List memory: {list_mem} bytes")
+   print(f"NumPy memory: {array_mem} bytes")
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Lists in Data Analysis - The Most Versatile Structure
 
@@ -264,7 +254,7 @@ empty_list = []
 
 # List of numbers - great for numerical data
 temperatures = [72, 75, 68, 70, 73]
-#               [0] [1] [2] [3] [4]  ← These are index positions
+#        [0] [1] [2] [3] [4] ← These are index positions
 
 # List of strings - good for names, labels
 students = ["Alice", "Bob", "Charlie"]
@@ -274,13 +264,13 @@ mixed = [42, "hello", True, 3.14]
 
 # List of lists (2D data) - like a spreadsheet
 grades = [
-    ["Alice", 95, 87, 92],    # Row 0
-    ["Bob", 88, 91, 85],       # Row 1
-    ["Charlie", 92, 95, 90]    # Row 2
+   ["Alice", 95, 87, 92],    # Row 0
+   ["Bob", 88, 91, 85],       # Row 1
+   ["Charlie", 92, 95, 90]    # Row 2
 ]
 ```
 
-> **📍 Important:** Python uses **0-based indexing**. The first item is at position 0, not 1!
+> **Important:** Python uses **0-based indexing**. The first item is at position 0, not 1!
 
 ### Accessing List Items - Finding What You Need
 
@@ -288,10 +278,10 @@ grades = [
 fruits = ["apple", "banana", "cherry", "date", "elderberry"]
 
 # Getting items by position (index)
-first_fruit = fruits[0]      # "apple" (first item)
-second_fruit = fruits[1]      # "banana"
-last_fruit = fruits[-1]       # "elderberry" (last item)
-second_to_last = fruits[-2]   # "date"
+first_fruit = fruits[0]   # "apple" (first item)
+second_fruit = fruits[1]   # "banana"
+last_fruit = fruits[-1]    # "elderberry" (last item)
+second_to_last = fruits[-2]  # "date"
 
 print(f"First: {first_fruit}")
 print(f"Last: {last_fruit}")
@@ -302,9 +292,9 @@ print(f"Last: {last_fruit}")
 ```
 
 **Think of it like this:**
-- `fruits[0]` = "Give me the 1st item" (computers count from 0!)
-- `fruits[-1]` = "Give me the last item" (no matter how long the list is)
-- `fruits[2]` = "Give me the 3rd item"
+- **fruits[0]** = "Give me the 1st item" (computers count from 0!)
+- **fruits[-1]** = "Give me the last item" (no matter how long the list is)
+- **fruits[2]** = "Give me the 3rd item"
 
 ### Slicing Lists - Getting Multiple Items at Once
 
@@ -312,32 +302,32 @@ print(f"Last: {last_fruit}")
 
 ```python
 numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-#         [0][1][2][3][4][5][6][7][8][9]  ← index positions
+#     [0][1][2][3][4][5][6][7][8][9] ← index positions
 
 # Basic slicing: list[start:stop]
 # Note: 'stop' is NOT included (it's "up to but not including")
 
-first_three = numbers[0:3]    # [0, 1, 2] - items 0, 1, 2 (not 3!)
-middle_items = numbers[3:7]   # [3, 4, 5, 6] - items 3, 4, 5, 6 (not 7!)
+first_three = numbers[0:3]  # [0, 1, 2] - items 0, 1, 2 (not 3!)
+middle_items = numbers[3:7]  # [3, 4, 5, 6] - items 3, 4, 5, 6 (not 7!)
 
 # Shortcuts
-from_start = numbers[:4]      # [0, 1, 2, 3] - from beginning to index 4
-to_end = numbers[5:]          # [5, 6, 7, 8, 9] - from index 5 to end
-everything = numbers[:]       # [0, 1, 2, ... 9] - copy of entire list
+from_start = numbers[:4]   # [0, 1, 2, 3] - from beginning to index 4
+to_end = numbers[5:]     # [5, 6, 7, 8, 9] - from index 5 to end
+everything = numbers[:]    # [0, 1, 2, ... 9] - copy of entire list
 
 # Every nth item: list[start:stop:step]
-every_second = numbers[::2]   # [0, 2, 4, 6, 8] - every 2nd item
-every_third = numbers[::3]    # [0, 3, 6, 9] - every 3rd item
+every_second = numbers[::2]  # [0, 2, 4, 6, 8] - every 2nd item
+every_third = numbers[::3]  # [0, 3, 6, 9] - every 3rd item
 reversed_list = numbers[::-1] # [9, 8, 7, ... 0] - reverse order!
 ```
 
-> **💡 Memory Trick for Slicing:**
+> **Memory Trick for Slicing:**
 > - `[start:stop]` = "Start here, stop before here"
 > - Think of index numbers as **positions between items**, not the items themselves:
->   ```
->   Items:    [ 'a' | 'b' | 'c' | 'd' ]
->   Indices:  0     1     2     3     4
->   ```
+>  ```
+>  Items:  [ 'a' | 'b' | 'c' | 'd' ]
+>  Indices: 0   1   2   3   4
+>  ```
 > - `[1:3]` means "from position 1 to position 3" = 'b' and 'c'
 
 ### Modifying Lists - Making Changes
@@ -346,38 +336,38 @@ reversed_list = numbers[::-1] # [9, 8, 7, ... 0] - reverse order!
 shopping = ["milk", "bread", "eggs", "butter"]
 
 # 1. CHANGE an existing item
-shopping[0] = "almond milk"  # Replace "milk" with "almond milk"
-print(shopping)  # ["almond milk", "bread", "eggs", "butter"]
+shopping[0] = "almond milk" # Replace "milk" with "almond milk"
+print(shopping) # ["almond milk", "bread", "eggs", "butter"]
 
 # 2. ADD items to the end
-shopping.append("cheese")    # Add one item to end
-print(shopping)  # [..., "butter", "cheese"]
+shopping.append("cheese")  # Add one item to end
+print(shopping) # [..., "butter", "cheese"]
 
 # 3. INSERT at a specific position
-shopping.insert(1, "bananas")  # Insert "bananas" at position 1
-print(shopping)  # ["almond milk", "bananas", "bread", ...]
+shopping.insert(1, "bananas") # Insert "bananas" at position 1
+print(shopping) # ["almond milk", "bananas", "bread", ...]
 # Everything after position 1 shifts to the right!
 
 # 4. REMOVE items
-shopping.remove("bread")     # Remove first occurrence of "bread"
-last_item = shopping.pop()   # Remove and return last item
-item_at_2 = shopping.pop(2)  # Remove and return item at index 2
+shopping.remove("bread")   # Remove first occurrence of "bread"
+last_item = shopping.pop()  # Remove and return last item
+item_at_2 = shopping.pop(2) # Remove and return item at index 2
 
 # 5. EXTEND - add multiple items at once
 more_items = ["yogurt", "juice"]
-shopping.extend(more_items)  # Add all items from more_items
+shopping.extend(more_items) # Add all items from more_items
 # Same as: shopping = shopping + more_items
 ```
 
-> **🔍 What's the difference?**
+> **What's the difference?**
 > - `append(item)` - Adds ONE item (even if it's a list!)
 > - `extend(list)` - Adds ALL items from the list
 > ```python
 > list1 = [1, 2, 3]
-> list1.append([4, 5])    # Result: [1, 2, 3, [4, 5]]  ← list inside list!
+> list1.append([4, 5])  # Result: [1, 2, 3, [4, 5]] ← list inside list!
 > 
 > list2 = [1, 2, 3]
-> list2.extend([4, 5])    # Result: [1, 2, 3, 4, 5]  ← items added individually
+> list2.extend([4, 5])  # Result: [1, 2, 3, 4, 5] ← items added individually
 > ```
 
 ### Checking if Items Exist
@@ -387,18 +377,18 @@ fruits = ["apple", "banana", "cherry"]
 
 # Check if something is in the list
 if "banana" in fruits:
-    print("We have bananas!")  # This will print
+   print("We have bananas!")  # This will print
 
 if "mango" not in fruits:
-    print("No mangoes available")  # This will print
+   print("No mangoes available")  # This will print
 
 # Get the position (index) of an item
-position = fruits.index("cherry")  # Returns 2
+position = fruits.index("cherry") # Returns 2
 print(f"Cherry is at position {position}")
 
 # Count how many times an item appears
 numbers = [1, 2, 3, 2, 4, 2, 5]
-count = numbers.count(2)  # Returns 3 (number 2 appears 3 times)
+count = numbers.count(2) # Returns 3 (number 2 appears 3 times)
 ```
 
 ### Common List Methods - Your Toolkit
@@ -407,26 +397,25 @@ count = numbers.count(2)  # Returns 3 (number 2 appears 3 times)
 data = [5, 2, 8, 1, 9, 3]
 
 # Sort the list (changes the original!)
-data.sort()              # [1, 2, 3, 5, 8, 9] - ascending order
-data.sort(reverse=True)  # [9, 8, 5, 3, 2, 1] - descending order
+data.sort()       # [1, 2, 3, 5, 8, 9] - ascending order
+data.sort(reverse=True) # [9, 8, 5, 3, 2, 1] - descending order
 
 # Sort without changing original (use sorted())
 original = [5, 2, 8, 1, 9]
-sorted_version = sorted(original)  # sorted_version = [1, 2, 5, 8, 9]
-print(original)  # Still [5, 2, 8, 1, 9] - unchanged!
+sorted_version = sorted(original) # sorted_version = [1, 2, 5, 8, 9]
+print(original) # Still [5, 2, 8, 1, 9] - unchanged!
 
 # Reverse the list
-data.reverse()  # Reverses in place
+data.reverse() # Reverses in place
 
 # Get length
-length = len(data)  # How many items?
+length = len(data) # How many items?
 
 # Clear all items
-data.clear()  # Now data = []
+data.clear() # Now data = []
 ```
 
-{% stepper %}
-{% step %}
+---
 
 ### Advanced List Operations for Data Analysis
 
@@ -438,32 +427,32 @@ prices = [100.23, 101.45, 99.78, 102.34, 101.89]
 
 # Calculate returns
 returns = [
-    ((prices[i] - prices[i-1]) / prices[i-1]) * 100
-    for i in range(1, len(prices))
+   ((prices[i] - prices[i-1]) / prices[i-1]) * 100
+   for i in range(1, len(prices))
 ]
 
 # Moving average
 def moving_average(data, window=3):
-    return [
-        sum(data[i:i+window]) / window
-        for i in range(len(data) - window + 1)
-    ]
+   return [
+       sum(data[i:i+window]) / window
+       for i in range(len(data) - window + 1)
+   ]
 
 # Data cleaning
 def clean_data(data):
-    """Remove outliers using IQR method"""
-    q1 = np.percentile(data, 25)
-    q3 = np.percentile(data, 75)
-    iqr = q3 - q1
-    lower_bound = q1 - 1.5 * iqr
-    upper_bound = q3 + 1.5 * iqr
-    
-    return [x for x in data if lower_bound <= x <= upper_bound]
+   """Remove outliers using IQR method"""
+   q1 = np.percentile(data, 25)
+   q3 = np.percentile(data, 75)
+   iqr = q3 - q1
+   lower_bound = q1 - 1.5 * iqr
+   upper_bound = q3 + 1.5 * iqr
+   
+   return [x for x in data if lower_bound <= x <= upper_bound]
 ```
 
  **Performance Tip**: For numerical computations, prefer NumPy arrays over lists!
 
-> **🎯 Try This Experiment:**
+> **Try This Experiment:**
 > Run this in Google Colab to see the speed difference:
 > ```python
 > import numpy as np
@@ -480,17 +469,15 @@ def clean_data(data):
 > print(f"NumPy time: {time.time() - start:.4f}s")
 > ```
 
-> **🤖 Learn More:**
+> **Learn More:**
 > Ask: "Why is NumPy faster than Python lists for numerical operations?"
 
-{% endstep %}
-
-{% step %}
+---
 
 ### List Comprehensions - Python's Power Feature
 
 **What is a list comprehension?**
-It's a **shortcut way to create new lists** based on existing lists. Think of it as a "recipe" written in one line instead of multiple lines.
+It's a **shortcut way to create new lists**based on existing lists. Think of it as a "recipe" written in one line instead of multiple lines.
 
 **Why use them?**
 - Faster to write (once you learn them!)
@@ -507,38 +494,38 @@ Let's see how to transform a regular loop into a list comprehension:
 ```python
 # Traditional way - using a loop
 numbers = [1, 2, 3, 4, 5]
-squared = []  # Start with empty list
+squared = [] # Start with empty list
 
-for num in numbers:      # For each number
-    result = num ** 2    # Square it
-    squared.append(result)  # Add to list
+for num in numbers:   # For each number
+   result = num ** 2    # Square it
+   squared.append(result)  # Add to list
 
-print(squared)  # [1, 4, 9, 16, 25]
+print(squared) # [1, 4, 9, 16, 25]
 
-# ✨ List comprehension way - ONE LINE!
+# List comprehension way - ONE LINE!
 squared = [num ** 2 for num in numbers]
-print(squared)  # [1, 4, 9, 16, 25] - same result!
+print(squared) # [1, 4, 9, 16, 25] - same result!
 ```
 
 **How to read it:**
 ```python
 squared = [num ** 2 for num in numbers]
-#          ↑        ↑
-#          |        └─ "for each num in numbers"
-#          └────────── "create num squared"
+#     ↑    ↑
+#     |    └─ "for each num in numbers"
+#     └────────── "create num squared"
 ```
 
-Think of it like English: "Make a list of **num squared** for each **num in numbers**"
+Think of it like English: "Make a list of **num squared**for each **num in numbers**"
 
 ### Breaking Down the Pattern
 
 **The template:**
 ```python
 new_list = [expression for item in old_list]
-           ↑           ↑         ↑
-           |           |         └─ Source: where items come from
-           |           └─────────── Loop: how to get each item
-           └─────────────────────── Transform: what to do with item
+          ↑           ↑         ↑
+          |           |         └─ Source: where items come from
+          |           └─────────── Loop: how to get each item
+          └─────────────────────── Transform: what to do with item
 ```
 
 **More examples to understand the pattern:**
@@ -565,15 +552,15 @@ with_tax = [price * 1.08 for price in prices]
 
 ### Adding Conditions (Filtering)
 
-You can add `if` conditions to **filter** which items to include:
+You can add `if` conditions to **filter**which items to include:
 
 **Template with condition:**
 ```python
 new_list = [expression for item in old_list if condition]
-           ↑           ↑                     ↑
-           |           |                     └─ Filter: only if this is True
-           |           └───────────────────────Loop through items
-           └───────────────────────────────── Transform each item
+          ↑           ↑                     ↑
+          |           |                     └─ Filter: only if this is True
+          |           └───────────────────────Loop through items
+          └───────────────────────────────── Transform each item
 ```
 
 **Examples:**
@@ -600,7 +587,7 @@ long_names = [name for name in names if len(name) > 3]
 
 ### Transformation + Filtering Together
 
-You can both **transform** AND **filter** in the same comprehension:
+You can both **transform**AND **filter**in the same comprehension:
 
 ```python
 # Square only the even numbers
@@ -618,7 +605,7 @@ short_upper = [name.upper() for name in names if len(name) <= 3]
 # Step 2: Convert to uppercase ["BOB", "DAN"]
 ```
 
-> **💡 How to think about it:**
+> **How to think about it:**
 > 1. Start with: "for item in list"
 > 2. Add filter (if needed): "if condition"
 > 3. Add transformation: "expression"
@@ -633,27 +620,27 @@ temp_strings = ["23.5", "25.0", "22.8", "invalid", "24.1"]
 # Traditional way (multiple steps)
 clean_temps = []
 for temp in temp_strings:
-    try:
-        clean_temps.append(float(temp))
-    except ValueError:
-        pass  # Skip invalid values
+   try:
+       clean_temps.append(float(temp))
+   except ValueError:
+       pass  # Skip invalid values
 
 # Better: List comprehension with helper function
 def safe_float(s):
-    try:
-        return float(s)
-    except ValueError:
-        return None
+   try:
+       return float(s)
+   except ValueError:
+       return None
 
 temps = [safe_float(t) for t in temp_strings]
-temps = [t for t in temps if t is not None]  # Remove None values
+temps = [t for t in temps if t is not None] # Remove None values
 # Result: [23.5, 25.0, 22.8, 24.1]
 
 # Example 2: Extract specific fields from dictionaries
 students = [
-    {"name": "Alice", "grade": 95},
-    {"name": "Bob", "grade": 87},
-    {"name": "Charlie", "grade": 92}
+   {"name": "Alice", "grade": 95},
+   {"name": "Bob", "grade": 87},
+   {"name": "Charlie", "grade": 92}
 ]
 
 # Get just the names
@@ -668,31 +655,31 @@ top_students = [s["name"] for s in students if s["grade"] > 90]
 ### Common Mistakes to Avoid
 
 ```python
-# ❌ WRONG: Forgetting brackets
+# WRONG: Forgetting brackets
 numbers = [1, 2, 3]
-squared = num ** 2 for num in numbers  # ERROR! Not a list!
+squared = num ** 2 for num in numbers # ERROR! Not a list!
 
-# ✅ CORRECT: Include brackets
+# CORRECT: Include brackets
 squared = [num ** 2 for num in numbers]
 
-# ❌ WRONG: Condition in wrong place
-evens = [num for num in numbers if num % 2 == 0 ** 2]  # Confusing!
+# WRONG: Condition in wrong place
+evens = [num for num in numbers if num % 2 == 0 ** 2] # Confusing!
 
-# ✅ CORRECT: Transform after filtering
+# CORRECT: Transform after filtering
 evens_squared = [num ** 2 for num in numbers if num % 2 == 0]
 
-# ❌ WRONG: Too complex (hard to read!)
+# WRONG: Too complex (hard to read!)
 result = [x ** 2 + y ** 2 for x in range(10) for y in range(10) if x > y and x % 2 == 0]
 
-# ✅ BETTER: Use traditional loop when it gets complex
+# BETTER: Use traditional loop when it gets complex
 result = []
 for x in range(10):
-    for y in range(10):
-        if x > y and x % 2 == 0:
-            result.append(x ** 2 + y ** 2)
+   for y in range(10):
+       if x > y and x % 2 == 0:
+           result.append(x ** 2 + y ** 2)
 ```
 
-> **🎯 Rule of Thumb:**
+> **Rule of Thumb:**
 > - If your list comprehension fits comfortably on one line → Use it!
 > - If it's getting complex and hard to read → Use a traditional loop
 > - Readability matters more than showing off!
@@ -706,7 +693,7 @@ Try converting these loops to comprehensions (answers at bottom):
 fruits = ["apple", "banana", "cherry"]
 lengths = []
 for fruit in fruits:
-    lengths.append(len(fruit))
+   lengths.append(len(fruit))
 
 # Your comprehension:
 # lengths = [...]
@@ -715,15 +702,15 @@ for fruit in fruits:
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 odd_squares = []
 for num in numbers:
-    if num % 2 == 1:
-        odd_squares.append(num ** 2)
+   if num % 2 == 1:
+       odd_squares.append(num ** 2)
 
 # Your comprehension:
 # odd_squares = [...]
 ```
 
 <details>
-<summary>💡 Answers</summary>
+<summary> Answers</summary>
 
 ```python
 # Exercise 1
@@ -734,9 +721,7 @@ odd_squares = [num ** 2 for num in numbers if num % 2 == 1]
 ```
 </details>
 
-{% endstep %}
-
-{% step %}
+---
 
 ### List Comprehensions in Data Science
 
@@ -752,33 +737,29 @@ values = [100, 101, 99]
 
 # Create time features
 features = [{
-    'date': pd.to_datetime(date),
-    'value': value,
-    'year': pd.to_datetime(date).year,
-    'month': pd.to_datetime(date).month,
-    'day': pd.to_datetime(date).day,
-    'day_of_week': pd.to_datetime(date).dayofweek
+   'date': pd.to_datetime(date),
+   'value': value,
+   'year': pd.to_datetime(date).year,
+   'month': pd.to_datetime(date).month,
+   'day': pd.to_datetime(date).day,
+   'day_of_week': pd.to_datetime(date).dayofweek
 } for date, value in zip(dates, values)]
 
 # Data normalization
 def normalize_features(data):
-    """Min-max normalization"""
-    min_val = min(data)
-    max_val = max(data)
-    return [
-        (x - min_val) / (max_val - min_val)
-        if max_val > min_val else 0
-        for x in data
-    ]
+   """Min-max normalization"""
+   min_val = min(data)
+   max_val = max(data)
+   return [
+       (x - min_val) / (max_val - min_val)
+       if max_val > min_val else 0
+       for x in data
+   ]
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Tuples in Data Analysis
 
-{% stepper %}
-{% step %}
+---
 
 ### Efficient Data Records
 
@@ -787,34 +768,32 @@ Using tuples for fixed-structure data:
 ```python
 # Dataset records
 records = [
-    ('2023-01-01', 'AAPL', 173.57, 1000000),
-    ('2023-01-01', 'GOOGL', 2951.88, 500000),
-    ('2023-01-01', 'MSFT', 339.32, 750000)
+   ('2023-01-01', 'AAPL', 173.57, 1000000),
+   ('2023-01-01', 'GOOGL', 2951.88, 500000),
+   ('2023-01-01', 'MSFT', 339.32, 750000)
 ]
 
 # Efficient unpacking
 for date, symbol, price, volume in records:
-    # Process each field
-    pass
+   # Process each field
+   pass
 
 # Named tuples for better readability
 from collections import namedtuple
 
 StockRecord = namedtuple('StockRecord', 
-                        ['date', 'symbol', 'price', 'volume'])
+                       ['date', 'symbol', 'price', 'volume'])
 
 records = [
-    StockRecord('2023-01-01', 'AAPL', 173.57, 1000000),
-    StockRecord('2023-01-01', 'GOOGL', 2951.88, 500000)
+   StockRecord('2023-01-01', 'AAPL', 173.57, 1000000),
+   StockRecord('2023-01-01', 'GOOGL', 2951.88, 500000)
 ]
 
 # Access by name
-print(records[0].price)  # 173.57
+print(records[0].price) # 173.57
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Tuple Performance Advantages
 
@@ -833,37 +812,33 @@ print(f"List size: {sys.getsizeof(list_data)} bytes")
 
 # Performance comparison
 def compare_access():
-    # Setup
-    setup = """
-    tuple_data = tuple(range(1000))
-    list_data = list(range(1000))
-    """
-    
-    # Test tuple access
-    tuple_time = timeit(
-        'x = tuple_data[500]',
-        setup=setup,
-        number=1000000
-    )
-    
-    # Test list access
-    list_time = timeit(
-        'x = list_data[500]',
-        setup=setup,
-        number=1000000
-    )
-    
-    print(f"Tuple access time: {tuple_time:.6f} seconds")
-    print(f"List access time: {list_time:.6f} seconds")
+   # Setup
+   setup = """
+   tuple_data = tuple(range(1000))
+   list_data = list(range(1000))
+   """
+   
+   # Test tuple access
+   tuple_time = timeit(
+       'x = tuple_data[500]',
+       setup=setup,
+       number=1000000
+   )
+   
+   # Test list access
+   list_time = timeit(
+       'x = list_data[500]',
+       setup=setup,
+       number=1000000
+   )
+   
+   print(f"Tuple access time: {tuple_time:.6f} seconds")
+   print(f"List access time: {list_time:.6f} seconds")
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Sets in Data Analysis
 
-{% stepper %}
-{% step %}
+---
 
 ### Advanced Set Operations
 
@@ -883,29 +858,27 @@ categorical_only = categorical_features - numerical_features
 
 # Efficient unique value counting
 def get_unique_counts(df):
-    """Get unique value counts for each column"""
-    return {
-        col: len(set(df[col].dropna()))
-        for col in df.columns
-    }
+   """Get unique value counts for each column"""
+   return {
+       col: len(set(df[col].dropna()))
+       for col in df.columns
+   }
 
 # Duplicate detection
 def find_duplicates(data):
-    """Find duplicate values in a sequence"""
-    seen = set()
-    duplicates = set()
-    
-    for item in data:
-        if item in seen:
-            duplicates.add(item)
-        seen.add(item)
-    
-    return duplicates
+   """Find duplicate values in a sequence"""
+   seen = set()
+   duplicates = set()
+   
+   for item in data:
+       if item in seen:
+           duplicates.add(item)
+       seen.add(item)
+   
+   return duplicates
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Set Operations for Data Cleaning
 
@@ -913,45 +886,42 @@ Common data cleaning patterns:
 
 ```python
 class DataCleaner:
-    def __init__(self, df):
-        self.df = df
-        self.categorical_cols = set()
-        self.numeric_cols = set()
-        self._identify_column_types()
-    
-    def _identify_column_types(self):
-        """Identify column types"""
-        for col in self.df.columns:
-            if np.issubdtype(self.df[col].dtype, np.number):
-                self.numeric_cols.add(col)
-            else:
-                self.categorical_cols.add(col)
-    
-    def standardize_categories(self, columns=None):
-        """Standardize categorical values"""
-        columns = columns or self.categorical_cols
-        
-        for col in columns:
-            # Get unique values
-            unique_values = set(self.df[col].dropna())
-            
-            # Create mapping for similar values
-            mapping = {}
-            for value in unique_values:
-                key = str(value).lower().strip()
-                if key not in mapping:
-                    mapping[key] = value
-            
-            # Apply standardization
-            self.df[col] = self.df[col].apply(
-                lambda x: mapping.get(
-                    str(x).lower().strip(), x
-                ) if pd.notna(x) else x
-            )
+   def __init__(self, df):
+       self.df = df
+       self.categorical_cols = set()
+       self.numeric_cols = set()
+       self._identify_column_types()
+   
+   def _identify_column_types(self):
+       """Identify column types"""
+       for col in self.df.columns:
+           if np.issubdtype(self.df[col].dtype, np.number):
+               self.numeric_cols.add(col)
+           else:
+               self.categorical_cols.add(col)
+   
+   def standardize_categories(self, columns=None):
+       """Standardize categorical values"""
+       columns = columns or self.categorical_cols
+       
+       for col in columns:
+           # Get unique values
+           unique_values = set(self.df[col].dropna())
+           
+           # Create mapping for similar values
+           mapping = {}
+           for value in unique_values:
+               key = str(value).lower().strip()
+               if key not in mapping:
+                   mapping[key] = value
+           
+           # Apply standardization
+           self.df[col] = self.df[col].apply(
+               lambda x: mapping.get(
+                   str(x).lower().strip(), x
+               ) if pd.notna(x) else x
+           )
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Dictionaries in Data Analysis - The Lookup Master
 
@@ -976,24 +946,24 @@ Think of it like:
 ```python
 # Empty dictionary
 empty_dict = {}
-empty_dict2 = dict()  # Another way
+empty_dict2 = dict() # Another way
 
 # Simple dictionary: key → value
 student = {
-    "name": "Alice",      # key: "name", value: "Alice"
-    "age": 20,           # key: "age", value: 20
-    "grade": "A",        # key: "grade", value: "A"
-    "is_active": True    # key: "is_active", value: True
+   "name": "Alice",      # key: "name", value: "Alice"
+   "age": 20,           # key: "age", value: 20
+   "grade": "A",        # key: "grade", value: "A"
+   "is_active": True    # key: "is_active", value: True
 }
 
 # Think of it visually:
 # ┌─────────────┬───────────┐
-# │ Key         │ Value     │
+# │ Key     │ Value   │
 # ├─────────────┼───────────┤
-# │ "name"      │ "Alice"   │
-# │ "age"       │ 20        │
-# │ "grade"     │ "A"       │
-# │ "is_active" │ True      │
+# │ "name"   │ "Alice"  │
+# │ "age"    │ 20    │
+# │ "grade"   │ "A"    │
+# │ "is_active" │ True   │
 # └─────────────┴───────────┘
 ```
 
@@ -1002,20 +972,20 @@ student = {
 **Compare these two approaches:**
 
 ```python
-# ❌ Using separate variables (messy!)
+# Using separate variables (messy!)
 student_name = "Alice"
 student_age = 20
 student_grade = "A"
 student_is_active = True
 
-# If you have 100 students, you'd need 400 variables! 😱
+# If you have 100 students, you'd need 400 variables! 
 
-# ✅ Using a dictionary (organized!)
+# Using a dictionary (organized!)
 student = {
-    "name": "Alice",
-    "age": 20,
-    "grade": "A",
-    "is_active": True
+   "name": "Alice",
+   "age": 20,
+   "grade": "A",
+   "is_active": True
 }
 
 # All related data is in ONE place!
@@ -1026,64 +996,64 @@ student = {
 
 ```python
 student = {
-    "name": "Alice",
-    "age": 20,
-    "major": "Computer Science",
-    "gpa": 3.8
+   "name": "Alice",
+   "age": 20,
+   "major": "Computer Science",
+   "gpa": 3.8
 }
 
 # Method 1: Using square brackets [key]
-name = student["name"]      # "Alice"
-age = student["age"]        # 20
+name = student["name"]   # "Alice"
+age = student["age"]    # 20
 
 print(f"{name} is {age} years old")
 # Output: Alice is 20 years old
 
 # Method 2: Using .get() method (safer!)
-major = student.get("major")           # "Computer Science"
-grade = student.get("grade", "N/A")    # "N/A" (key doesn't exist, returns default)
+major = student.get("major")      # "Computer Science"
+grade = student.get("grade", "N/A")  # "N/A" (key doesn't exist, returns default)
 
-# ⚠️ What's the difference?
-student["graduation_year"]      # ❌ ERROR! KeyError - key doesn't exist
-student.get("graduation_year")  # ✅ Returns None (no error)
-student.get("graduation_year", 2024)  # ✅ Returns 2024 (custom default)
+# What's the difference?
+student["graduation_year"]   # ERROR! KeyError - key doesn't exist
+student.get("graduation_year") # Returns None (no error)
+student.get("graduation_year", 2024) # Returns 2024 (custom default)
 ```
 
-> **💡 Pro Tip:** Use `.get()` when you're not sure if a key exists. Use `[key]` when you're certain it exists.
+> **Pro Tip:** Use `.get()` when you're not sure if a key exists. Use `[key]` when you're certain it exists.
 
 ### Adding and Modifying Values
 
 ```python
 person = {
-    "name": "Bob",
-    "age": 25
+   "name": "Bob",
+   "age": 25
 }
 
 # 1. ADD new key-value pairs
-person["city"] = "New York"      # Add city
+person["city"] = "New York"   # Add city
 person["occupation"] = "Engineer" # Add occupation
 
 print(person)
 # {"name": "Bob", "age": 25, "city": "New York", "occupation": "Engineer"}
 
 # 2. MODIFY existing values
-person["age"] = 26  # Change age from 25 to 26
-person["city"] = "San Francisco"  # Change city
+person["age"] = 26 # Change age from 25 to 26
+person["city"] = "San Francisco" # Change city
 
 # 3. ADD multiple items at once
 person.update({
-    "email": "bob@email.com",
-    "phone": "555-0123"
+   "email": "bob@email.com",
+   "phone": "555-0123"
 })
 
 # 4. REMOVE items
-removed_value = person.pop("phone")  # Remove "phone", returns its value
-print(removed_value)  # "555-0123"
+removed_value = person.pop("phone") # Remove "phone", returns its value
+print(removed_value) # "555-0123"
 
-del person["email"]  # Another way to remove
+del person["email"] # Another way to remove
 
 # 5. Remove last item added (rarely used)
-last_item = person.popitem()  # Returns tuple: (key, value)
+last_item = person.popitem() # Returns tuple: (key, value)
 ```
 
 ### Dictionary Keys - Important Rules
@@ -1091,17 +1061,17 @@ last_item = person.popitem()  # Returns tuple: (key, value)
 **What can be a key?**
 
 ```python
-# ✅ ALLOWED: Immutable types (strings, numbers, tuples)
+# ALLOWED: Immutable types (strings, numbers, tuples)
 valid_dict = {
-    "name": "Alice",          # String key ✅
-    42: "The Answer",          # Number key ✅
-    (10, 20): "Coordinates",   # Tuple key ✅
-    True: "Yes"                # Boolean key ✅
+   "name": "Alice",          # String key 
+   42: "The Answer",          # Number key 
+   (10, 20): "Coordinates",   # Tuple key 
+   True: "Yes"                # Boolean key 
 }
 
-# ❌ NOT ALLOWED: Mutable types (lists, dictionaries, sets)
+# NOT ALLOWED: Mutable types (lists, dictionaries, sets)
 invalid_dict = {
-    [1, 2]: "Bad"  # ❌ ERROR! Lists can't be keys
+   [1, 2]: "Bad"  #  ERROR! Lists can't be keys
 }
 
 # Why? Keys must be unchangeable (immutable) so Python can find them quickly
@@ -1111,9 +1081,9 @@ invalid_dict = {
 ```python
 # What happens with duplicate keys?
 data = {
-    "name": "Alice",
-    "age": 20,
-    "name": "Bob"  # ⚠️ Duplicate key!
+   "name": "Alice",
+   "age": 20,
+   "name": "Bob"  #  Duplicate key!
 }
 
 print(data)
@@ -1125,32 +1095,32 @@ print(data)
 
 ```python
 student = {
-    "name": "Alice",
-    "age": 20,
-    "major": "CS"
+   "name": "Alice",
+   "age": 20,
+   "major": "CS"
 }
 
 # Check if a KEY exists
 if "name" in student:
-    print("Name is recorded")  # ✅ This prints
+   print("Name is recorded")  #  This prints
 
 if "grade" in student:
-    print("Grade is recorded")  # This won't print
+   print("Grade is recorded")  # This won't print
 else:
-    print("No grade recorded")  # ✅ This prints
+   print("No grade recorded")  #  This prints
 
 # Check if a key does NOT exist
 if "email" not in student:
-    print("No email on file")  # ✅ This prints
+   print("No email on file")  #  This prints
 
 # Get all keys
 keys = student.keys()
-print(keys)  # dict_keys(['name', 'age', 'major'])
-print(list(keys))  # ['name', 'age', 'major'] - convert to list
+print(keys) # dict_keys(['name', 'age', 'major'])
+print(list(keys)) # ['name', 'age', 'major'] - convert to list
 
 # Get all values
 values = student.values()
-print(list(values))  # ['Alice', 20, 'CS']
+print(list(values)) # ['Alice', 20, 'CS']
 
 # Get all key-value pairs
 items = student.items()
@@ -1165,14 +1135,14 @@ print(list(items))
 
 ```python
 student = {
-    "name": "Alice",
-    "age": 20,
-    "major": "CS"
+   "name": "Alice",
+   "age": 20,
+   "major": "CS"
 }
 
 # Method 1: Loop through KEYS (default)
 for key in student:
-    print(f"Key: {key}")
+   print(f"Key: {key}")
 # Output:
 # Key: name
 # Key: age
@@ -1180,7 +1150,7 @@ for key in student:
 
 # Method 2: Loop through KEYS explicitly
 for key in student.keys():
-    print(f"{key} = {student[key]}")
+   print(f"{key} = {student[key]}")
 # Output:
 # name = Alice
 # age = 20
@@ -1188,7 +1158,7 @@ for key in student.keys():
 
 # Method 3: Loop through VALUES
 for value in student.values():
-    print(f"Value: {value}")
+   print(f"Value: {value}")
 # Output:
 # Value: Alice
 # Value: 20
@@ -1196,7 +1166,7 @@ for value in student.values():
 
 # Method 4: Loop through BOTH keys and values (most common!)
 for key, value in student.items():
-    print(f"{key}: {value}")
+   print(f"{key}: {value}")
 # Output:
 # name: Alice
 # age: 20
@@ -1210,41 +1180,41 @@ for key, value in student.items():
 ```python
 # A company's employee data
 employees = {
-    "E001": {
-        "name": "Alice",
-        "department": "Engineering",
-        "salary": 90000,
-        "skills": ["Python", "SQL", "AWS"]
-    },
-    "E002": {
-        "name": "Bob",
-        "department": "Marketing",
-        "salary": 75000,
-        "skills": ["SEO", "Analytics"]
-    }
+   "E001": {
+       "name": "Alice",
+       "department": "Engineering",
+       "salary": 90000,
+       "skills": ["Python", "SQL", "AWS"]
+   },
+   "E002": {
+       "name": "Bob",
+       "department": "Marketing",
+       "salary": 75000,
+       "skills": ["SEO", "Analytics"]
+   }
 }
 
 # Accessing nested data - go level by level
-alice = employees["E001"]           # Get Alice's entire record
-alice_name = employees["E001"]["name"]    # Get Alice's name
-alice_skills = employees["E001"]["skills"]  # Get Alice's skills list
+alice = employees["E001"]      # Get Alice's entire record
+alice_name = employees["E001"]["name"]  # Get Alice's name
+alice_skills = employees["E001"]["skills"] # Get Alice's skills list
 
 print(f"{alice_name} knows {', '.join(alice_skills)}")
 # Output: Alice knows Python, SQL, AWS
 
 # Modifying nested data
-employees["E001"]["salary"] = 95000  # Give Alice a raise!
+employees["E001"]["salary"] = 95000 # Give Alice a raise!
 
 # Adding to nested lists
-employees["E001"]["skills"].append("Docker")  # Alice learned Docker!
+employees["E001"]["skills"].append("Docker") # Alice learned Docker!
 
 # Safely accessing nested data
-# ❌ This could crash if key doesn't exist:
-salary = employees["E003"]["salary"]  # KeyError!
+# This could crash if key doesn't exist:
+salary = employees["E003"]["salary"] # KeyError!
 
-# ✅ Safe way:
+# Safe way:
 salary = employees.get("E003", {}).get("salary", "Not Found")
-print(salary)  # "Not Found"
+print(salary) # "Not Found"
 ```
 
 ### Real-World Example: Product Inventory
@@ -1252,52 +1222,52 @@ print(salary)  # "Not Found"
 ```python
 # An online store's inventory system
 inventory = {
-    "PROD001": {
-        "name": "Laptop",
-        "price": 999.99,
-        "stock": 15,
-        "category": "Electronics",
-        "specs": {
-            "ram": "16GB",
-            "storage": "512GB SSD",
-            "screen": "15.6 inch"
-        }
-    },
-    "PROD002": {
-        "name": "Mouse",
-        "price": 29.99,
-        "stock": 50,
-        "category": "Accessories",
-        "specs": {
-            "type": "Wireless",
-            "dpi": "1600"
-        }
-    }
+   "PROD001": {
+       "name": "Laptop",
+       "price": 999.99,
+       "stock": 15,
+       "category": "Electronics",
+       "specs": {
+           "ram": "16GB",
+           "storage": "512GB SSD",
+           "screen": "15.6 inch"
+       }
+   },
+   "PROD002": {
+       "name": "Mouse",
+       "price": 29.99,
+       "stock": 50,
+       "category": "Accessories",
+       "specs": {
+           "type": "Wireless",
+           "dpi": "1600"
+       }
+   }
 }
 
 # Function to display product info
 def show_product(product_id):
-    if product_id in inventory:
-        product = inventory[product_id]
-        print(f"📦 {product['name']}")
-        print(f"   Price: ${product['price']}")
-        print(f"   In stock: {product['stock']} units")
-        print(f"   Category: {product['category']}")
-        print(f"   Specs: {product['specs']}")
-    else:
-        print(f"Product {product_id} not found")
+   if product_id in inventory:
+       product = inventory[product_id]
+       print(f"Product: {product['name']}")
+       print(f"   Price: ${product['price']}")
+       print(f"   In stock: {product['stock']} units")
+       print(f"   Category: {product['category']}")
+       print(f"   Specs: {product['specs']}")
+   else:
+       print(f"Product {product_id} not found")
 
 # Function to check if product is available
 def is_available(product_id, quantity):
-    product = inventory.get(product_id)
-    if product:
-        return product["stock"] >= quantity
-    return False
+   product = inventory.get(product_id)
+   if product:
+       return product["stock"] >= quantity
+   return False
 
 # Usage
 show_product("PROD001")
-print(f"Can buy 10 laptops? {is_available('PROD001', 10)}")  # True
-print(f"Can buy 20 laptops? {is_available('PROD001', 20)}")  # False
+print(f"Can buy 10 laptops? {is_available('PROD001', 10)}") # True
+print(f"Can buy 20 laptops? {is_available('PROD001', 20)}") # False
 ```
 
 ### Dictionary Comprehensions - Yes, These Exist Too!
@@ -1312,30 +1282,29 @@ values = ["Alice", 25, "NYC"]
 # Traditional way
 person = {}
 for i in range(len(keys)):
-    person[keys[i]] = values[i]
+   person[keys[i]] = values[i]
 
 # Dictionary comprehension way!
 person = {keys[i]: values[i] for i in range(len(keys))}
 # Better: use zip()
 person = {k: v for k, v in zip(keys, values)}
-print(person)  # {"name": "Alice", "age": 25, "city": "NYC"}
+print(person) # {"name": "Alice", "age": 25, "city": "NYC"}
 
 # More examples
 # Square numbers as dictionary
 squares = {num: num**2 for num in range(1, 6)}
-print(squares)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+print(squares) # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
 
 # Filter dictionary by condition
 prices = {"apple": 1.20, "banana": 0.50, "orange": 1.80, "grape": 2.50}
 expensive = {fruit: price for fruit, price in prices.items() if price > 1.00}
-print(expensive)  # {"apple": 1.20, "orange": 1.80, "grape": 2.50}
+print(expensive) # {"apple": 1.20, "orange": 1.80, "grape": 2.50}
 
 # Transform values
 prices_with_tax = {fruit: price * 1.08 for fruit, price in prices.items()}
 ```
 
-{% stepper %}
-{% step %}
+---
 
 ### Advanced Dictionary Patterns for Data Science
 
@@ -1343,49 +1312,47 @@ Now let's see professional data science applications:
 
 ```python
 class DatasetMetadata:
-    def __init__(self, df):
-        self.df = df
-        self.metadata = self._generate_metadata()
-    
-    def _generate_metadata(self):
-        """Generate comprehensive dataset metadata"""
-        metadata = {}
-        
-        for column in self.df.columns:
-            metadata[column] = {
-                'dtype': str(self.df[column].dtype),
-                'missing_count': self.df[column].isna().sum(),
-                'missing_percentage': (
-                    self.df[column].isna().mean() * 100
-                ),
-                'unique_count': self.df[column].nunique(),
-                'memory_usage': self.df[column].memory_usage(deep=True)
-            }
-            
-            # Add type-specific metadata
-            if np.issubdtype(self.df[column].dtype, np.number):
-                metadata[column].update({
-                    'mean': self.df[column].mean(),
-                    'std': self.df[column].std(),
-                    'min': self.df[column].min(),
-                    'max': self.df[column].max()
-                })
-            else:
-                metadata[column].update({
-                    'most_common': self.df[column].mode().iloc[0],
-                    'unique_values': list(
-                        self.df[column].value_counts()
-                        .head()
-                        .to_dict()
-                    )
-                })
-        
-        return metadata
+   def __init__(self, df):
+       self.df = df
+       self.metadata = self._generate_metadata()
+   
+   def _generate_metadata(self):
+       """Generate comprehensive dataset metadata"""
+       metadata = {}
+       
+       for column in self.df.columns:
+           metadata[column] = {
+               'dtype': str(self.df[column].dtype),
+               'missing_count': self.df[column].isna().sum(),
+               'missing_percentage': (
+                   self.df[column].isna().mean() * 100
+               ),
+               'unique_count': self.df[column].nunique(),
+               'memory_usage': self.df[column].memory_usage(deep=True)
+           }
+           
+           # Add type-specific metadata
+           if np.issubdtype(self.df[column].dtype, np.number):
+               metadata[column].update({
+                   'mean': self.df[column].mean(),
+                   'std': self.df[column].std(),
+                   'min': self.df[column].min(),
+                   'max': self.df[column].max()
+               })
+           else:
+               metadata[column].update({
+                   'most_common': self.df[column].mode().iloc[0],
+                   'unique_values': list(
+                       self.df[column].value_counts()
+                       .head()
+                       .to_dict()
+                   )
+               })
+       
+       return metadata
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Dictionary Comprehensions for Analysis
 
@@ -1394,40 +1361,37 @@ Efficient data transformations:
 ```python
 # Feature statistics
 def calculate_feature_stats(df):
-    """Calculate statistics for each numeric feature"""
-    numeric_cols = df.select_dtypes(include=[np.number]).columns
-    
-    return {
-        col: {
-            'mean': df[col].mean(),
-            'median': df[col].median(),
-            'std': df[col].std(),
-            'skew': df[col].skew(),
-            'kurtosis': df[col].kurtosis()
-        }
-        for col in numeric_cols
-    }
+   """Calculate statistics for each numeric feature"""
+   numeric_cols = df.select_dtypes(include=[np.number]).columns
+   
+   return {
+       col: {
+           'mean': df[col].mean(),
+           'median': df[col].median(),
+           'std': df[col].std(),
+           'skew': df[col].skew(),
+           'kurtosis': df[col].kurtosis()
+       }
+       for col in numeric_cols
+   }
 
 # Correlation analysis
 def analyze_correlations(df, threshold=0.7):
-    """Find highly correlated feature pairs"""
-    corr_matrix = df.corr()
-    
-    return {
-        (col1, col2): corr_matrix.loc[col1, col2]
-        for col1 in corr_matrix.columns
-        for col2 in corr_matrix.columns
-        if col1 < col2 and  # Avoid duplicates
-        abs(corr_matrix.loc[col1, col2]) >= threshold
-    }
+   """Find highly correlated feature pairs"""
+   corr_matrix = df.corr()
+   
+   return {
+       (col1, col2): corr_matrix.loc[col1, col2]
+       for col1 in corr_matrix.columns
+       for col2 in corr_matrix.columns
+       if col1 < col2 and  # Avoid duplicates
+       abs(corr_matrix.loc[col1, col2]) >= threshold
+   }
 ```
 
-{% endstep %}
-{% endstepper %}
+## Practice Exercises for Data Analysis
 
-## 🎯 Practice Exercises for Data Analysis
-
-> **💡 Learning Strategy:** Solve in Colab → Visualize in Python Tutor → Review with AI
+> **Learning Strategy:** Solve in Colab → Visualize in Python Tutor → Review with AI
 
 ### Exercise 1: List Manipulation
 ```python
@@ -1444,18 +1408,18 @@ prices = [100, 102, 98, 105, 103, 107, 110]
 # Your code...
 ```
 
-> **🔍 Visualize:** Use Python Tutor to see how list comprehensions work
-> **🤖 Help:** Ask AI: "Explain list comprehensions with simple examples"
+> **Visualize:** Use Python Tutor to see how list comprehensions work
+> **Help:** Ask AI: "Explain list comprehensions with simple examples"
 
 ### Exercise 2: Dictionary for Data Aggregation
 ```python
 # Sales data by category
 sales = [
-    {'category': 'Electronics', 'amount': 1200},
-    {'category': 'Clothing', 'amount': 800},
-    {'category': 'Electronics', 'amount': 1500},
-    {'category': 'Food', 'amount': 300},
-    {'category': 'Clothing', 'amount': 600},
+   {'category': 'Electronics', 'amount': 1200},
+   {'category': 'Clothing', 'amount': 800},
+   {'category': 'Electronics', 'amount': 1500},
+   {'category': 'Food', 'amount': 300},
+   {'category': 'Clothing', 'amount': 600},
 ]
 
 # Tasks:
@@ -1466,8 +1430,8 @@ sales = [
 # Your code here...
 ```
 
-> **🎨 Visualize This:** See how dictionaries accumulate values in Python Tutor
-> **🤖 Prompt:** "Show me 3 ways to aggregate data using Python dictionaries"
+> **Visualize This:** See how dictionaries accumulate values in Python Tutor
+> **Prompt:** "Show me 3 ways to aggregate data using Python dictionaries"
 
 ### Exercise 3: Set Operations for Data Analysis
 ```python
@@ -1484,16 +1448,16 @@ campaign_b = {'customer3', 'customer4', 'customer5', 'customer6'}
 # Your code here...
 ```
 
-> **🔬 Experiment:** Watch set operations in Python Tutor - it's beautiful!
-> **🤖 Ask:** "Explain Venn diagrams and how they relate to Python sets"
+> **Experiment:** Watch set operations in Python Tutor - it's beautiful!
+> **Ask:** "Explain Venn diagrams and how they relate to Python sets"
 
 ### Exercise 4: Nested Data Structures
 ```python
 # Student records
 students = [
-    {'name': 'Alice', 'grades': [85, 90, 88], 'major': 'CS'},
-    {'name': 'Bob', 'grades': [78, 82, 80], 'major': 'Math'},
-    {'name': 'Charlie', 'grades': [92, 95, 94], 'major': 'CS'},
+   {'name': 'Alice', 'grades': [85, 90, 88], 'major': 'CS'},
+   {'name': 'Bob', 'grades': [78, 82, 80], 'major': 'Math'},
+   {'name': 'Charlie', 'grades': [92, 95, 94], 'major': 'CS'},
 ]
 
 # Tasks:
@@ -1505,10 +1469,10 @@ students = [
 # Your code here...
 ```
 
-> **🎯 Advanced:** Paste this into Python Tutor and step through nested loops
-> **🤖 Challenge:** Ask AI: "Create a similar exercise with company sales data"
+> **Advanced:** Paste this into Python Tutor and step through nested loops
+> **Challenge:** Ask AI: "Create a similar exercise with company sales data"
 
-## 🚀 Bonus Challenges
+## Bonus Challenges
 
 ### Challenge 1: Data Structure Olympics
 Pick the BEST data structure for each scenario and explain why:
@@ -1517,7 +1481,7 @@ Pick the BEST data structure for each scenario and explain why:
 3. Storing ordered transaction history
 4. Caching computed results
 
-> **🤖 Validate:** Ask AI to review your choices and reasoning
+> **Validate:** Ask AI to review your choices and reasoning
 
 ### Challenge 2: Build a Mini Database
 Create a simple contact management system using dictionaries:
@@ -1526,7 +1490,7 @@ Create a simple contact management system using dictionaries:
 - Update phone numbers
 - List all contacts
 
-> **📺 Need Help?** Check [Video Resources](./video-resources.md) - Section on Dictionaries
+> **Need Help?**Check [Video Resources](./video-resources.md) - Section on Dictionaries
 
 Remember:
 
@@ -1536,5 +1500,15 @@ Remember:
 - Document your code
 - **Visualize complex operations in Python Tutor**
 - **Use AI to understand trade-offs between structures**
+
+## Common pitfalls
+
+- **Mutating shared references** — Two variables can point at the same list; appending in one place changes what the other sees.
+- **Using lists as dict keys** — Lists are mutable and not hashable; use tuples or strings as keys instead.
+- **Shallow vs deep copies** — Nested structures may need **copy.deepcopy** when you want a fully independent copy.
+
+## Next steps
+
+Continue to [Conditions and iterations](./conditions-iterations.md) for **if**, loops, and control flow.
 
 Happy analyzing!

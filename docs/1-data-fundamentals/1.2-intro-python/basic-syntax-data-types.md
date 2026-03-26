@@ -1,15 +1,20 @@
 # Basic Syntax and Data Types for Data Science
 
-> **🤖 AI Learning Tip:** As you go through this section, try asking ChatGPT or Claude: "Explain Python variables using everyday objects as examples"
+## Overview
 
-> **🎨 Visualize Everything:** Open [Python Tutor](https://pythontutor.com) in another tab. Paste every code example to see exactly how Python executes it!
+**Primary outcome:** You can write small Python programs using variables, core types, operators, and formatted output—enough to read and tweak data-science examples.
 
-> **📓 Interactive Notebook:** [Open in Google Colab](./notebooks/01-basic-syntax.ipynb) - Run and modify examples interactively
+**Prerequisites:** [Introduction to Python](./README.md) module context; no other programming background required.
+
+> **AI learning tip:** As you go through this section, try asking ChatGPT or Claude: "Explain Python variables using everyday objects as examples"
+
+> **Visualize execution:** Open [Python Tutor](https://pythontutor.com) in another tab. Paste every code example to see exactly how Python executes it.
+
+> **Interactive notebook:** [Open in Google Colab](./notebooks/01-basic-syntax.ipynb) — run and modify examples interactively.
 
 ## Getting Started with Python
 
-{% stepper %}
-{% step %}
+---
 
 ### Your First Data Analysis Program
 
@@ -34,25 +39,23 @@ print(f"Standard Deviation: {std}")
 
 This example demonstrates:
 
-- Importing libraries (`import` statement)
+- Importing libraries (**import**statement)
 - Creating a data list
 - Using functions for analysis
 - Formatted output with f-strings
 
-> **🔍 Visualize This in Python Tutor:**
+> **Visualize This in Python Tutor:**
 > 1. Go to [pythontutor.com](https://pythontutor.com)
 > 2. Paste the code above
 > 3. Click "Visualize Execution"
 > 4. Step through to see how imports work and functions execute
 
-> **🤖 Try These AI Prompts:**
+> **Try These AI Prompts:**
 > - "Explain what `import` does in Python using a library analogy"
 > - "Show me 3 different ways to print formatted output in Python"
 > - "What happens in memory when I import a library?"
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Running Python Code for Data Analysis
 
@@ -61,40 +64,36 @@ Two main approaches for data analysis:
 1. **Interactive Mode (Jupyter Notebook)**:
 
    ```python
-   # In Jupyter cell
-   import pandas as pd
-   
-   # Read and display data
-   df = pd.read_csv('sales_data.csv')
-   df.head()
+  # In Jupyter cell
+  import pandas as pd
+  
+  # Read and display data
+  df = pd.read_csv('sales_data.csv')
+  df.head()
    ```
 
-   Perfect for exploratory data analysis!
+  Perfect for exploratory data analysis!
 
 2. **Script Mode (Production Code)**:
 
    ```python
-   # analysis.py
-   import pandas as pd
-   import numpy as np
-   
-   def analyze_sales(file_path):
-       df = pd.read_csv(file_path)
-       return {
-           'total_sales': df['amount'].sum(),
-           'average_sale': df['amount'].mean()
-       }
-   
-   results = analyze_sales('sales_data.csv')
+  # analysis.py
+  import pandas as pd
+  import numpy as np
+  
+  def analyze_sales(file_path):
+      df = pd.read_csv(file_path)
+      return {
+          'total_sales': df['amount'].sum(),
+          'average_sale': df['amount'].mean()
+      }
+  
+  results = analyze_sales('sales_data.csv')
    ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Python Syntax for Data Analysis
 
-{% stepper %}
-{% step %}
+---
 
 ### Indentation in Data Processing
 
@@ -102,16 +101,16 @@ Python's indentation is crucial in data processing flows:
 
 ```python
 def process_data(data):
-    # First level: Function body
-    if len(data) > 0:
-        # Second level: Inside if statement
-        cleaned_data = []
-        for value in data:
-            # Third level: Inside loop
-            if pd.notna(value):  # Check for non-NA values
-                cleaned_data.append(value)
-    
-    return cleaned_data
+   # First level: Function body
+   if len(data) > 0:
+       # Second level: Inside if statement
+       cleaned_data = []
+       for value in data:
+           # Third level: Inside loop
+           if pd.notna(value):  # Check for non-NA values
+               cleaned_data.append(value)
+   
+   return cleaned_data
 
 # Example usage
 raw_data = [10, None, 20, np.nan, 30]
@@ -120,23 +119,21 @@ clean_data = process_data(raw_data)
 
  **Pro Tip**: Consistent indentation is crucial for maintaining complex data processing pipelines.
 
-> **🎨 See Indentation in Action:**
+> **See Indentation in Action:**
 > Paste this code into Python Tutor to see how indentation creates code blocks:
 > ```python
 > x = 5
 > if x > 0:
->     print("Positive")
->     print("Still inside if")
+>   print("Positive")
+>   print("Still inside if")
 > print("Outside if")
 > ```
 
-> **🤖 Debug with AI:**
+> **Debug with AI:**
 > If you get an `IndentationError`, paste your code into ChatGPT and ask:
 > "Fix the indentation in this Python code: [paste code]"
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Comments in Data Analysis Code
 
@@ -149,34 +146,31 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 def preprocess_data(df):
-    """
-    Preprocess the input DataFrame for analysis.
-    
-    Parameters:
-        df (pd.DataFrame): Input data
-        
-    Returns:
-        pd.DataFrame: Preprocessed data
-    """
-    # Remove missing values
-    df = df.dropna()  # Important for model training
-    
-    # Standardize numerical columns
-    scaler = StandardScaler()
-    numeric_cols = df.select_dtypes(include=[np.number]).columns
-    df[numeric_cols] = scaler.fit_transform(df[numeric_cols])
-    
-    return df
+   """
+   Preprocess the input DataFrame for analysis.
+   
+   Parameters:
+       df (pd.DataFrame): Input data
+       
+   Returns:
+       pd.DataFrame: Preprocessed data
+   """
+   # Remove missing values
+   df = df.dropna()  # Important for model training
+   
+   # Standardize numerical columns
+   scaler = StandardScaler()
+   numeric_cols = df.select_dtypes(include=[np.number]).columns
+   df[numeric_cols] = scaler.fit_transform(df[numeric_cols])
+   
+   return df
 ```
 
  **Best Practice**: Use docstrings for functions and detailed inline comments for complex operations.
-{% endstep %}
-{% endstepper %}
 
 ## Variables and Data Types in Data Science
 
-{% stepper %}
-{% step %}
+---
 
 ### Variables in Data Analysis
 
@@ -184,16 +178,16 @@ Variables in data science often represent different types of data:
 
 ```python
 # Numerical data
-temperature = 23.5          # Continuous data
-count_users = 1000         # Discrete data
+temperature = 23.5     # Continuous data
+count_users = 1000     # Discrete data
 
 # Categorical data
-category = "Electronics"    # Nominal data
-rating = "A"               # Ordinal data
+category = "Electronics"  # Nominal data
+rating = "A"        # Ordinal data
 
 # Time-based data
 from datetime import datetime
-timestamp = datetime.now()  # Time data
+timestamp = datetime.now() # Time data
 
 # Arrays and matrices
 import numpy as np
@@ -203,14 +197,14 @@ data_matrix = np.array([[1, 2], [3, 4]])
 # DataFrame
 import pandas as pd
 df = pd.DataFrame({
-    'id': range(1, 4),
-    'value': [10, 20, 30]
+   'id': range(1, 4),
+   'value': [10, 20, 30]
 })
 ```
 
  **Remember**: Choose appropriate data types for efficient memory usage and processing!
 
-> **🔬 Experiment in Python Tutor:**
+> **Experiment in Python Tutor:**
 > See how different variable types are stored in memory:
 > ```python
 > number = 42
@@ -220,12 +214,10 @@ df = pd.DataFrame({
 > # Watch how Python allocates memory for each type
 > ```
 
-> **🤖 AI Learning Exercise:**
+> **AI Learning Exercise:**
 > Ask: "Create a quiz with 5 questions about Python data types for beginners"
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Variable Naming in Data Science
 
@@ -234,25 +226,24 @@ Follow these conventions for clear data analysis code:
  **Do This**:
 
 ```python
-mean_temperature = 23.5     # Clear statistical measure
-customer_id = "C001"        # Entity identifier
-is_outlier = True          # Boolean flag
-daily_sales_data = df      # DataFrame content
-MAX_ITERATIONS = 1000      # Constant value
+mean_temperature = 23.5   # Clear statistical measure
+customer_id = "C001"    # Entity identifier
+is_outlier = True     # Boolean flag
+daily_sales_data = df   # DataFrame content
+MAX_ITERATIONS = 1000   # Constant value
 ```
 
  **Don't Do This**:
 
 ```python
-temp = 23.5                # Too vague
-data1 = pd.DataFrame()     # Uninformative name
-x = np.array([1,2,3])     # Unclear purpose
+temp = 23.5        # Too vague
+data1 = pd.DataFrame()   # Uninformative name
+x = np.array([1,2,3])   # Unclear purpose
 ```
 
  **Pro Tip**: Use descriptive names that indicate the variable's role in your analysis.
-{% endstep %}
 
-{% step %}
+---
 
 ### Data Types for Analysis
 
@@ -261,76 +252,72 @@ Python data types commonly used in data science:
 1. **Numeric Types for Statistical Analysis**:
 
    ```python
-   import numpy as np
-   
-   # Integer types
-   sample_size = 1000                  # int
-   array_int = np.int32([1, 2, 3])    # numpy int32
-   
-   # Float types
-   mean_value = 75.5                   # float
-   array_float = np.float64([1.1, 1.2])  # numpy float64
-   
-   # Complex numbers (e.g., for signal processing)
-   signal = 3 + 4j
+  import numpy as np
+  
+  # Integer types
+  sample_size = 1000                  # int
+  array_int = np.int32([1, 2, 3])    # numpy int32
+  
+  # Float types
+  mean_value = 75.5                   # float
+  array_float = np.float64([1.1, 1.2])  # numpy float64
+  
+  # Complex numbers (e.g., for signal processing)
+  signal = 3 + 4j
    ```
 
 2. **Text Data for Natural Language Processing**:
 
    ```python
-   # String operations for text analysis
-   text = "Data Science is fascinating"
-   tokens = text.lower().split()
-   
-   # Regular expressions for pattern matching
-   import re
-   emails = re.findall(r'\S+@\S+', text)
+  # String operations for text analysis
+  text = "Data Science is fascinating"
+  tokens = text.lower().split()
+  
+  # Regular expressions for pattern matching
+  import re
+  emails = re.findall(r'\S+@\S+', text)
    ```
 
 3. **Boolean Arrays for Filtering**:
 
    ```python
-   import pandas as pd
-   
-   df = pd.DataFrame({
-       'value': [10, 20, 30, 40, 50]
-   })
-   
-   # Boolean indexing
-   mask = df['value'] > 30
-   high_values = df[mask]
+  import pandas as pd
+  
+  df = pd.DataFrame({
+      'value': [10, 20, 30, 40, 50]
+  })
+  
+  # Boolean indexing
+  mask = df['value'] > 30
+  high_values = df[mask]
    ```
 
 4. **Special Types for Missing Data**:
 
    ```python
-   # None for missing values
-   optional_value = None
-   
-   # NaN for numerical missing data
-   missing_numeric = np.nan
-   
-   # Handling missing data in pandas
-   df = pd.DataFrame({
-       'value': [10, np.nan, 30]
-   })
-   clean_df = df.dropna()
+  # None for missing values
+  optional_value = None
+  
+  # NaN for numerical missing data
+  missing_numeric = np.nan
+  
+  # Handling missing data in pandas
+  df = pd.DataFrame({
+      'value': [10, np.nan, 30]
+  })
+  clean_df = df.dropna()
    ```
 
  **Tip**: Use `dtype` to check array types in NumPy/Pandas:
 
 ```python
-print(df['value'].dtype)  # dtype('float64')
-print(np.array([1, 2]).dtype)  # dtype('int64')
+print(df['value'].dtype) # dtype('float64')
+print(np.array([1, 2]).dtype) # dtype('int64')
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Working with Numbers in Data Analysis
 
-{% stepper %}
-{% step %}
+---
 
 ### Mathematical Operations for Data Science
 
@@ -341,9 +328,9 @@ import numpy as np
 
 # Basic statistics
 data = [1, 2, 3, 4, 5]
-mean = np.mean(data)       # 3.0
-median = np.median(data)   # 3.0
-std = np.std(data)         # Standard deviation
+mean = np.mean(data)    # 3.0
+median = np.median(data)  # 3.0
+std = np.std(data)     # Standard deviation
 
 # Matrix operations
 matrix_a = np.array([[1, 2], [3, 4]])
@@ -361,9 +348,8 @@ correlation = np.corrcoef(data, data)
 ```
 
  **Pro Tip**: Use NumPy for efficient numerical computations with large datasets!
-{% endstep %}
 
-{% step %}
+---
 
 ### Numerical Precision and Types
 
@@ -387,16 +373,12 @@ print(f"Float64 memory: {float64_array.nbytes} bytes")
 # Precision considerations
 a = 0.1 + 0.2
 b = 0.3
-print(f"0.1 + 0.2 == 0.3: {abs(a - b) < 1e-10}")  # Use tolerance for float comparison
+print(f"0.1 + 0.2 == 0.3: {abs(a - b) < 1e-10}") # Use tolerance for float comparison
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## String Operations in Data Analysis
 
-{% stepper %}
-{% step %}
+---
 
 ### Text Data Processing
 
@@ -405,7 +387,7 @@ Common string operations in data analysis:
 ```python
 # Text cleaning
 text = " Data Science "
-cleaned = text.strip().lower()  # Remove whitespace and convert to lowercase
+cleaned = text.strip().lower() # Remove whitespace and convert to lowercase
 
 # Pattern matching
 import re
@@ -422,9 +404,7 @@ csv_line = "id,name,value"
 columns = csv_line.split(',')
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### String Formatting in Reports
 
@@ -433,13 +413,13 @@ Format strings for data reporting:
 ```python
 # Formatting numerical results
 accuracy = 0.9567
-print(f"Model Accuracy: {accuracy:.2%}")  # 95.67%
+print(f"Model Accuracy: {accuracy:.2%}") # 95.67%
 
 # Table-like output
 data = {
-    'precision': 0.95,
-    'recall': 0.92,
-    'f1_score': 0.93
+   'precision': 0.95,
+   'recall': 0.92,
+   'f1_score': 0.93
 }
 
 # Create formatted report
@@ -454,13 +434,9 @@ F1 Score: {f1_score:.2%}
 print(report)
 ```
 
-{% endstep %}
-{% endstepper %}
-
 ## Type Conversion in Data Processing
 
-{% stepper %}
-{% step %}
+---
 
 ### Data Type Conversions
 
@@ -492,15 +468,13 @@ int_array = float_array.astype(int)
 
 ```python
 def safe_float_convert(value):
-    try:
-        return float(value)
-    except (ValueError, TypeError):
-        return np.nan
+   try:
+       return float(value)
+   except (ValueError, TypeError):
+       return np.nan
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Data Type Checking and Validation
 
@@ -511,36 +485,32 @@ import pandas as pd
 import numpy as np
 
 def validate_dataset(df):
-    """Validate DataFrame data types and contents"""
-    
-    # Check numeric columns
-    numeric_cols = df.select_dtypes(include=[np.number]).columns
-    for col in numeric_cols:
-        # Check for infinite values
-        if np.any(np.isinf(df[col])):
-            print(f"Warning: Infinite values in {col}")
-        
-        # Check for reasonable ranges
-        if df[col].min() < 0 and col.endswith('_positive'):
-            print(f"Warning: Negative values in {col}")
-    
-    # Check categorical columns
-    cat_cols = df.select_dtypes(include=['object']).columns
-    for col in cat_cols:
-        # Check for unexpected categories
-        unique_vals = df[col].nunique()
-        if unique_vals > 100:  # Arbitrary threshold
-            print(f"Warning: High cardinality in {col}")
-    
-    return df
+   """Validate DataFrame data types and contents"""
+   
+   # Check numeric columns
+   numeric_cols = df.select_dtypes(include=[np.number]).columns
+   for col in numeric_cols:
+       # Check for infinite values
+       if np.any(np.isinf(df[col])):
+           print(f"Warning: Infinite values in {col}")
+       
+       # Check for reasonable ranges
+       if df[col].min() < 0 and col.endswith('_positive'):
+           print(f"Warning: Negative values in {col}")
+   
+   # Check categorical columns
+   cat_cols = df.select_dtypes(include=['object']).columns
+   for col in cat_cols:
+       # Check for unexpected categories
+       unique_vals = df[col].nunique()
+       if unique_vals > 100:  # Arbitrary threshold
+           print(f"Warning: High cardinality in {col}")
+   
+   return df
 ```
 
-{% endstep %}
-{% endstepper %}
-
-## 🎯 Practice Exercises for Data Science
-
-> **💡 Pro Tip:** Try solving these in Google Colab first, then use Python Tutor to understand your solution!
+## Practice Exercises for Data Science
+> **Pro Tip:** Try solving these in Google Colab first, then use Python Tutor to understand your solution!
 
 Try these data analysis exercises:
 
@@ -557,7 +527,7 @@ temperatures_celsius = np.array([22, 25, 19, 100, 23, 21, 24])
 # Your code here...
 ```
 
-> **🤖 Get Help:** If stuck, ask AI: "Walk me through solving this temperature analysis problem step by step"
+> **Get Help:** If stuck, ask AI: "Walk me through solving this temperature analysis problem step by step"
 
 ### Exercise 2: String Processing
 ```python
@@ -570,7 +540,7 @@ data_string = "10.5, 20.3, 15.7, 18.9, 22.1"
 # Your code here...
 ```
 
-> **🔍 Visualize It:** Use Python Tutor to see how string methods work
+> **Visualize It:** Use Python Tutor to see how string methods work
 
 ### Exercise 3: Date Manipulation
 ```python
@@ -594,16 +564,16 @@ date_strings = ["2024-01-15", "2024-02-20", "2024-03-10"]
 import numpy as np
 
 def clean_data(data):
-    # Your code here...
-    pass
+   # Your code here...
+   pass
 
 # Test with:
 messy_data = [1, 2, None, 4, 100, 5, np.nan]
 ```
 
-> **🤖 Code Review:** After solving, ask AI: "Review this code and suggest improvements: [paste your solution]"
+> **Code Review:** After solving, ask AI: "Review this code and suggest improvements: [paste your solution]"
 
-## 🚀 Challenge Yourself
+## Challenge Yourself
 
 ### Beginner Challenge
 Create a program that asks for your age and calculates how many days you've lived.
@@ -614,7 +584,7 @@ Build a temperature converter that handles Celsius, Fahrenheit, and Kelvin.
 ### Advanced Challenge
 Create a function that validates and cleans email addresses from a list.
 
-> **📺 Video Help:** Check our [Video Resources](./video-resources.md) for tutorials on these topics!
+> **Video Help:** Check our [Video Resources](./video-resources.md) for tutorials on these topics!
 
 Remember:
 
@@ -624,5 +594,15 @@ Remember:
 - Handle errors gracefully
 - **Use AI to explain concepts you don't understand**
 - **Visualize confusing code in Python Tutor**
+
+## Common pitfalls
+
+- **Indentation errors** — Python uses indentation for blocks; mixing spaces and tabs breaks code. Use one style (usually four spaces) in your editor.
+- **Name errors before assignment** — You must assign a variable before you use it; trace the order of lines when debugging.
+- **Float comparison** — Avoid checking **==** between floats; use **math.isclose** or compare rounded values.
+
+## Next steps
+
+Continue to [Data structures](./data-structures.md) for lists, dictionaries, tuples, and sets.
 
 Happy analyzing!

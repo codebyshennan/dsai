@@ -1,8 +1,8 @@
-# 📓 Interactive Python Notebooks
+# Interactive Python Notebooks
 
 Welcome to your interactive Python learning journey! These Jupyter notebooks are designed to be used in Google Colab for hands-on practice.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Option 1: Google Colab (Recommended)
 1. Click the "Open in Colab" badge at the top of any notebook
@@ -18,7 +18,7 @@ Welcome to your interactive Python learning journey! These Jupyter notebooks are
 
 ---
 
-## 📚 Notebook Guide
+## Notebook Guide
 
 ### 01-basic-syntax.ipynb
 **Duration:** ~1 hour
@@ -32,10 +32,10 @@ Welcome to your interactive Python learning journey! These Jupyter notebooks are
 - Type conversion
 
 **Includes:**
-- ✅ Interactive code cells
-- ✅ Practice challenges
-- ✅ Mini-projects
-- ✅ Solutions provided
+- Interactive code cells
+- Practice challenges
+- Mini-projects
+- Solutions provided
 
 **Try First:** Run this notebook even if you've programmed before - it's Python-specific!
 
@@ -80,50 +80,50 @@ Welcome to your interactive Python learning journey! These Jupyter notebooks are
 
 ---
 
-## 🎯 Learning Path
+## Learning Path
 
 ### Complete Beginner (Never Coded)
 ```
 Week 1: Complete 01-basic-syntax.ipynb
-        - Spend time on every example
-        - Complete all challenges
-        - Use AI to ask questions
-        
+       - Spend time on every example
+       - Complete all challenges
+       - Use AI to ask questions
+       
 Week 2: Complete 02-data-structures.ipynb
-        - Focus on understanding differences
-        - Build the mini-projects
-        - Visualize in Python Tutor
-        
+       - Focus on understanding differences
+       - Build the mini-projects
+       - Visualize in Python Tutor
+       
 Week 3: Complete 03-functions.ipynb
-        - Take your time with this one
-        - Functions are crucial!
-        - Build the final project
+       - Take your time with this one
+       - Functions are crucial!
+       - Build the final project
 ```
 
 ### Some Programming Experience
 ```
 Day 1: Speed through 01-basic-syntax.ipynb
-       Focus on Python-specific features
-       
+      Focus on Python-specific features
+      
 Day 2: Deep dive into 02-data-structures.ipynb
-       Python's data structures are powerful!
-       
+      Python's data structures are powerful!
+      
 Day 3-4: Master 03-functions.ipynb
-         Try the challenges without solutions
-         Build the final project
+        Try the challenges without solutions
+        Build the final project
 ```
 
 ### Python Refresher
 ```
 1-2 Days: Run all notebooks
-          Focus on parts you're rusty on
-          Use AI to test your knowledge
-          Jump to advanced topics
+         Focus on parts you're rusty on
+         Use AI to test your knowledge
+         Jump to advanced topics
 ```
 
 ---
 
-## 💡 How to Use These Notebooks
+## How to Use These Notebooks
 
 ### 1. Active Learning
 - **Don't just read** - Run every cell!
@@ -143,14 +143,14 @@ Day 3-4: Master 03-functions.ipynb
 ```
 
 ### 3. Use the Tools
-- 🎨 **Python Tutor**: Paste code to visualize execution
-- 🤖 **AI Assistant**: Ask questions about concepts
-- 📺 **Videos**: Check video-resources.md for tutorials
-- 👥 **Study Group**: Discuss with classmates
+- **Python Tutor**: Paste code to visualize execution
+- **AI Assistant**: Ask questions about concepts
+- **Videos**: Check video-resources.md for tutorials
+- **Study Group**: Discuss with classmates
 
 ---
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 ### Notebook Won't Open in Colab
 1. Check your internet connection
@@ -171,15 +171,15 @@ Day 3-4: Master 03-functions.ipynb
 
 ---
 
-## 🎨 Using Python Tutor
+## Using Python Tutor
 
 After running examples in the notebook:
 
-1. **Copy the code** from any cell
+1. **Copy the code**from any cell
 2. **Go to** [pythontutor.com](https://pythontutor.com)
-3. **Paste** the code
+3. **Paste**the code
 4. **Click** "Visualize Execution"
-5. **Step through** to see what happens
+5. **Step through**to see what happens
 
 **Best cells to visualize:**
 - Any function calls (see call stack!)
@@ -189,7 +189,7 @@ After running examples in the notebook:
 
 ---
 
-## 🤖 AI Learning Prompts
+## AI Learning Prompts
 
 Use these with ChatGPT, Claude, or your AI assistant:
 
@@ -221,7 +221,7 @@ Use these with ChatGPT, Claude, or your AI assistant:
 
 ---
 
-## 📊 Progress Tracking
+## Progress Tracking
 
 Track your learning progress:
 
@@ -248,9 +248,13 @@ Track your learning progress:
 
 ---
 
-## 🚀 Next Steps
+## Next Steps
 
-After completing these notebooks:
+### In this course
+
+These notebooks align with [Basic syntax](../basic-syntax-data-types.md), [Data structures](../data-structures.md), and [Functions](../functions.md). Continue the lesson path in [Introduction to Python](../README.md), then [Introduction to Statistics](../../1.3-intro-statistics/README.md).
+
+### After completing these notebooks
 
 1. **Review**: Revisit tricky concepts
 2. **Practice**: Build your own mini-projects
@@ -267,7 +271,7 @@ After completing these notebooks:
 
 ---
 
-## 📚 Additional Resources
+## Additional Resources
 
 ### Official Documentation
 - [Python Official Tutorial](https://docs.python.org/3/tutorial/)
@@ -288,40 +292,40 @@ After completing these notebooks:
 
 ---
 
-## 💬 Getting Help
+## Getting Help
 
 ### In Order of Preference:
 
 1. **Try Yourself**
-   - Read error messages
-   - Check for typos
-   - Review the notes
+  - Read error messages
+  - Check for typos
+  - Review the notes
 
 2. **Use AI**
-   - Paste error + code
-   - Ask for explanation
-   - Request examples
+  - Paste error + code
+  - Ask for explanation
+  - Request examples
 
 3. **Python Tutor**
-   - Visualize the code
-   - See where it breaks
-   - Understand the flow
+  - Visualize the code
+  - See where it breaks
+  - Understand the flow
 
 4. **Classmates**
-   - Study together
-   - Explain to each other
-   - Share solutions
+  - Study together
+  - Explain to each other
+  - Share solutions
 
 5. **Instructor**
-   - Office hours
-   - Email questions
-   - Class Q&A
+  - Office hours
+  - Email questions
+  - Class Q&A
 
 ---
 
-## 🎯 Success Tips
+## Success Tips
 
-### Do's ✅
+### Do's 
 - Run every code cell
 - Modify examples to experiment
 - Take breaks (Pomodoro technique!)
@@ -329,7 +333,7 @@ After completing these notebooks:
 - Ask questions early
 - Practice daily (consistency > quantity)
 
-### Don'ts ❌
+### Don'ts 
 - Don't just read - CODE!
 - Don't skip ahead too fast
 - Don't memorize - understand
@@ -339,27 +343,27 @@ After completing these notebooks:
 
 ---
 
-## 📝 Note-Taking Tips
+## Note-Taking Tips
 
 ### While Learning:
 1. **Code Comments**
    ```python
-   # I learned: Lists can hold any data type
-   mixed = [1, "hello", True]
+  # I learned: Lists can hold any data type
+  mixed = [1, "hello", True]
    ```
 
 2. **Markdown Cells**
-   Add your own notes between code cells in Colab
+  Add your own notes between code cells in Colab
 
 3. **Separate Notebook**
-   Keep a "My Notes" notebook with key insights
+  Keep a "My Notes" notebook with key insights
 
 4. **Mind Maps**
-   Draw connections between concepts
+  Draw connections between concepts
 
 ---
 
-## 🎉 You've Got This!
+## You've Got This!
 
 Remember:
 - Everyone starts as a beginner
@@ -372,6 +376,6 @@ Remember:
 
 ---
 
-**Questions?** Check the main course materials or ask your instructor!
+**Questions?**Check the main course materials or ask your instructor!
 
-**Ready to start?** Click a notebook above and let's code! 🚀
+**Ready to start?**Click a notebook above and let's code! 

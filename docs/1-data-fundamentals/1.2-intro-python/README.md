@@ -8,6 +8,8 @@ Welcome to Python! Whether you're new to programming or coming from another lang
 
 > **Note:** If you've never programmed before, don't worry! Python is known for being beginner-friendly, and we'll guide you through everything step by step.
 
+> **Contributors:** Lesson authoring standards live in `docs/meta/DOCUMENTATION_GUIDELINES.md` (the `meta/` folder is excluded from the Jekyll site).
+
 ## Prerequisites
 
 Before starting this module, you should have:
@@ -19,9 +21,10 @@ Before starting this module, you should have:
 
 > **Tip:** Python reads almost like English! If you can read this sentence, you can learn Python. The syntax is designed to be intuitive and beginner-friendly.
 
-## 📚 Module Contents & Resources
+## Module contents and resources
 
-### Core Lessons
+### Core lessons
+
 1. [Basic Syntax and Data Types](./basic-syntax-data-types.md) - Variables, operators, strings, numbers
 2. [Data Structures](./data-structures.md) - Lists, dictionaries, tuples, sets (Enhanced!)
 3. [Conditions and Iterations](./conditions-iterations.md) - If statements, loops, control flow
@@ -29,21 +32,22 @@ Before starting this module, you should have:
 5. [Classes and Objects](./classes-objects.md) - Object-oriented programming basics
 6. [Modules](./modules.md) - Organizing and importing code
 
-### 🎓 Learning Resources
-- **[📺 Video Resources Guide](./video-resources.md)** - 50+ curated videos with timestamps
-  - Corey Schafer's complete Python series
-  - freeCodeCamp tutorials
-  - Topic-specific deep dives
-  - Learning paths for different levels
+### Learning resources
 
-- **[📓 Interactive Notebooks](./notebooks/README.md)** - Hands-on practice in Google Colab
-  - [01: Basic Syntax](./notebooks/01-basic-syntax.ipynb) - Variables, data types, operations
-  - [02: Data Structures](./notebooks/02-data-structures.ipynb) - Lists, dicts, sets
-  - [03: Functions](./notebooks/03-functions.ipynb) - Creating and using functions
+- **[Video resources guide](./video-resources.md)** - Curated videos with timestamps
+ - Corey Schafer's complete Python series
+ - freeCodeCamp tutorials
+ - Topic-specific deep dives
+ - Learning paths for different levels
 
-- **[✨ What's New?](./ENHANCEMENTS-SUMMARY.md)** - See all the enhancements we've made!
+- **[Interactive notebooks](./notebooks/README.md)** - Hands-on practice in Google Colab
+ - [01: Basic Syntax](./notebooks/01-basic-syntax.ipynb) - Variables, data types, operations
+ - [02: Data Structures](./notebooks/02-data-structures.ipynb) - Lists, dicts, sets
+ - [03: Functions](./notebooks/03-functions.ipynb) - Creating and using functions
 
-### 🛠️ Tools You'll Use
+- **[Review: data structures enhancements](./REVIEW-ENHANCEMENTS.md)** - Maintainer notes on structure and teaching choices
+
+### Tools you'll use
 - **[Python Tutor](https://pythontutor.com)** - Visualize code execution step-by-step
 - **[Google Colab](https://colab.research.google.com)** - Run Python in your browser
 - **AI Assistants** - ChatGPT, Claude for instant help
@@ -51,8 +55,7 @@ Before starting this module, you should have:
 
 ---
 
-{% stepper %}
-{% step %}
+---
 
 ### What is Python?
 
@@ -83,9 +86,7 @@ plt.title('Monthly Sales Performance')
 plt.show()
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Why Python for Data Science?
 
@@ -94,44 +95,42 @@ Python stands out because it:
 - **Readable Syntax**: Compare these examples:
 
   ```python
-  # Python
-  sales_data = pd.read_csv('sales.csv')
-  average_sales = sales_data['amount'].mean()
-  
-  # R equivalent
-  sales_data <- read.csv('sales.csv')
-  average_sales <- mean(sales_data$amount)
+ # Python
+ sales_data = pd.read_csv('sales.csv')
+ average_sales = sales_data['amount'].mean()
+ 
+ # R equivalent
+ sales_data <- read.csv('sales.csv')
+ average_sales <- mean(sales_data$amount)
   ```
 
 - **Rich Ecosystem**: Essential data science libraries:
 
   ```python
-  import numpy as np        # Numerical computations
-  import pandas as pd       # Data manipulation
-  import matplotlib.pyplot as plt  # Visualization
-  import seaborn as sns    # Statistical visualization
-  import scikit-learn as sklearn  # Machine learning
+ import numpy as np        # Numerical computations
+ import pandas as pd       # Data manipulation
+ import matplotlib.pyplot as plt  # Visualization
+ import seaborn as sns    # Statistical visualization
+ import scikit-learn as sklearn  # Machine learning
   ```
 
 - **Integration Capabilities**: Connect with various data sources:
 
   ```python
-  # Database connection
-  from sqlalchemy import create_engine
-  engine = create_engine('postgresql://user:pass@localhost:5432/db')
-  
-  # API integration
-  import requests
-  api_data = requests.get('https://api.example.com/data').json()
-  
-  # Big Data processing
-  import pyspark
-  from pyspark.sql import SparkSession
+ # Database connection
+ from sqlalchemy import create_engine
+ engine = create_engine('postgresql://user:pass@localhost:5432/db')
+ 
+ # API integration
+ import requests
+ api_data = requests.get('https://api.example.com/data').json()
+ 
+ # Big Data processing
+ import pyspark
+ from pyspark.sql import SparkSession
   ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Python in Industry
 
@@ -161,13 +160,13 @@ from sklearn.ensemble import RandomForestClassifier
 
 # Predict patient readmission risk
 def predict_readmission(patient_data):
-    model = RandomForestClassifier()
-    X_train, X_test, y_train, y_test = train_test_split(
-        patient_data.drop('readmitted', axis=1),
-        patient_data['readmitted']
-    )
-    model.fit(X_train, y_train)
-    return model.predict_proba(X_test)
+   model = RandomForestClassifier()
+   X_train, X_test, y_train, y_test = train_test_split(
+       patient_data.drop('readmitted', axis=1),
+       patient_data['readmitted']
+   )
+   model.fit(X_train, y_train)
+   return model.predict_proba(X_test)
 ```
 
 **3. E-commerce**
@@ -177,10 +176,10 @@ def predict_readmission(patient_data):
 from sklearn.cluster import KMeans
 
 def segment_customers(customer_data):
-    # Perform k-means clustering
-    kmeans = KMeans(n_clusters=4)
-    segments = kmeans.fit_predict(customer_data)
-    return segments
+   # Perform k-means clustering
+   kmeans = KMeans(n_clusters=4)
+   segments = kmeans.fit_predict(customer_data)
+   return segments
 ```
 
 **4. Marketing**
@@ -190,16 +189,14 @@ def segment_customers(customer_data):
 from textblob import TextBlob
 
 def analyze_sentiment(tweets):
-    sentiments = []
-    for tweet in tweets:
-        analysis = TextBlob(tweet)
-        sentiments.append(analysis.sentiment.polarity)
-    return pd.Series(sentiments).mean()
+   sentiments = []
+   for tweet in tweets:
+       analysis = TextBlob(tweet)
+       sentiments.append(analysis.sentiment.polarity)
+   return pd.Series(sentiments).mean()
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Modern Python Features
 
@@ -212,14 +209,14 @@ from typing import List, Dict
 import pandas as pd
 
 def process_sales_data(
-    data: pd.DataFrame,
-    columns: List[str]
+   data: pd.DataFrame,
+   columns: List[str]
 ) -> Dict[str, float]:
-    """Process sales data with type hints"""
-    return {
-        'total': data[columns].sum().to_dict(),
-        'average': data[columns].mean().to_dict()
-    }
+   """Process sales data with type hints"""
+   return {
+       'total': data[columns].sum().to_dict(),
+       'average': data[columns].mean().to_dict()
+   }
 ```
 
 **2. Walrus Operator (Python 3.8+)**
@@ -227,30 +224,26 @@ def process_sales_data(
 ```python
 # Efficient data processing
 if (n_rows := len(df)) > 1000:
-    print(f"Processing {n_rows} rows in batches")
-    process_in_batches(df)
+   print(f"Processing {n_rows} rows in batches")
+   process_in_batches(df)
 ```
 
 **3. Pattern Matching (Python 3.10+)**
 
 ```python
 def analyze_data_point(point):
-    match point:
-        case {'type': 'sales', 'amount': amount} if amount > 1000:
-            return 'high_value_sale'
-        case {'type': 'refund', 'amount': amount}:
-            return 'refund_case'
-        case _:
-            return 'standard_transaction'
+   match point:
+       case {'type': 'sales', 'amount': amount} if amount > 1000:
+           return 'high_value_sale'
+       case {'type': 'refund', 'amount': amount}:
+           return 'refund_case'
+       case _:
+           return 'standard_transaction'
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## Advantages for Data Scientists
 
-{% stepper %}
-{% step %}
+---
 
 ### Efficient Data Analysis
 
@@ -260,25 +253,23 @@ import pandas as pd
 import seaborn as sns
 
 def quick_eda(df: pd.DataFrame) -> None:
-    """Perform quick exploratory data analysis"""
-    # Basic statistics
-    print("Basic Statistics:")
-    print(df.describe())
-    
-    # Missing values
-    print("\nMissing Values:")
-    print(df.isnull().sum())
-    
-    # Correlations
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(df.corr(), annot=True)
-    plt.title("Correlation Matrix")
-    plt.show()
+   """Perform quick exploratory data analysis"""
+   # Basic statistics
+   print("Basic Statistics:")
+   print(df.describe())
+   
+   # Missing values
+   print("\nMissing Values:")
+   print(df.isnull().sum())
+   
+   # Correlations
+   plt.figure(figsize=(10, 8))
+   sns.heatmap(df.corr(), annot=True)
+   plt.title("Correlation Matrix")
+   plt.show()
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Data Visualization
 
@@ -287,29 +278,27 @@ def quick_eda(df: pd.DataFrame) -> None:
 import plotly.express as px
 
 def create_interactive_dashboard(sales_data: pd.DataFrame) -> None:
-    """Create interactive sales dashboard"""
-    # Sales trend
-    fig1 = px.line(sales_data, x='date', y='amount',
-                   title='Sales Trend Over Time')
-    
-    # Category distribution
-    fig2 = px.pie(sales_data, values='amount', names='category',
-                  title='Sales by Category')
-    
-    # Geographic distribution
-    fig3 = px.scatter_mapbox(sales_data, lat='latitude', lon='longitude',
-                            size='amount', color='category',
-                            title='Sales Geographic Distribution')
-    
-    # Display dashboard
-    fig1.show()
-    fig2.show()
-    fig3.show()
+   """Create interactive sales dashboard"""
+   # Sales trend
+   fig1 = px.line(sales_data, x='date', y='amount',
+                  title='Sales Trend Over Time')
+   
+   # Category distribution
+   fig2 = px.pie(sales_data, values='amount', names='category',
+                 title='Sales by Category')
+   
+   # Geographic distribution
+   fig3 = px.scatter_mapbox(sales_data, lat='latitude', lon='longitude',
+                           size='amount', color='category',
+                           title='Sales Geographic Distribution')
+   
+   # Display dashboard
+   fig1.show()
+   fig2.show()
+   fig3.show()
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### Machine Learning Integration
 
@@ -320,22 +309,18 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 
 def create_ml_pipeline():
-    """Create a machine learning pipeline"""
-    return Pipeline([
-        ('scaler', StandardScaler()),
-        ('classifier', RandomForestClassifier())
-    ])
+   """Create a machine learning pipeline"""
+   return Pipeline([
+       ('scaler', StandardScaler()),
+       ('classifier', RandomForestClassifier())
+   ])
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## What You'll Learn
 
 This chapter will take you through Python fundamentals with a data science focus:
 
-{% stepper %}
-{% step %}
+---
 
 ### 1. Basic Syntax and Data Types
 
@@ -347,7 +332,7 @@ mean_value = 42.5
 count = 100
 
 # Strings for data cleaning
-text_data = "  Customer Feedback  "
+text_data = " Customer Feedback "
 cleaned_text = text_data.strip().lower()
 
 # Booleans for filtering
@@ -355,9 +340,7 @@ is_valid = True
 has_missing_values = False
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 2. Data Structures
 
@@ -369,9 +352,9 @@ stock_prices = [100.0, 101.5, 102.3, 101.7]
 
 # Dictionaries for feature mapping
 feature_mapping = {
-    'age': 'numeric',
-    'gender': 'categorical',
-    'income': 'numeric'
+   'age': 'numeric',
+   'gender': 'categorical',
+   'income': 'numeric'
 }
 
 # Sets for unique values
@@ -381,9 +364,7 @@ unique_categories = {'electronics', 'clothing', 'food'}
 data_point = (42.0, 'positive', True)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 3. Control Flow
 
@@ -392,27 +373,25 @@ Learn flow control with data processing examples:
 ```python
 # Data filtering
 def filter_outliers(data, threshold):
-    clean_data = []
-    for value in data:
-        if abs(value - mean(data)) < threshold:
-            clean_data.append(value)
-    return clean_data
+   clean_data = []
+   for value in data:
+       if abs(value - mean(data)) < threshold:
+           clean_data.append(value)
+   return clean_data
 
 # Data transformation
 def process_transactions(transactions):
-    while transactions:
-        transaction = transactions.pop()
-        if transaction['amount'] > 1000:
-            flag_for_review(transaction)
-        elif transaction['amount'] < 0:
-            process_refund(transaction)
-        else:
-            process_normal(transaction)
+   while transactions:
+       transaction = transactions.pop()
+       if transaction['amount'] > 1000:
+           flag_for_review(transaction)
+       elif transaction['amount'] < 0:
+           process_refund(transaction)
+       else:
+           process_normal(transaction)
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 4. Functions
 
@@ -420,26 +399,24 @@ Create reusable data analysis components:
 
 ```python
 def calculate_metrics(data: List[float]) -> Dict[str, float]:
-    """
-    Calculate basic statistical metrics
-    
-    Parameters:
-        data: List of numerical values
-    
-    Returns:
-        Dictionary of calculated metrics
-    """
-    return {
-        'mean': statistics.mean(data),
-        'median': statistics.median(data),
-        'std_dev': statistics.stdev(data),
-        'range': max(data) - min(data)
-    }
+   """
+   Calculate basic statistical metrics
+   
+   Parameters:
+       data: List of numerical values
+   
+   Returns:
+       Dictionary of calculated metrics
+   """
+   return {
+       'mean': statistics.mean(data),
+       'median': statistics.median(data),
+       'std_dev': statistics.stdev(data),
+       'range': max(data) - min(data)
+   }
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 5. Object-Oriented Programming
 
@@ -447,34 +424,32 @@ Learn to organize data science code:
 
 ```python
 class DataCleaner:
-    def __init__(self, data: pd.DataFrame):
-        self.data = data
-        self.original_shape = data.shape
-    
-    def remove_missing_values(self) -> pd.DataFrame:
-        """Remove rows with missing values"""
-        return self.data.dropna()
-    
-    def standardize_columns(self) -> pd.DataFrame:
-        """Standardize column names"""
-        self.data.columns = [
-            col.lower().replace(' ', '_')
-            for col in self.data.columns
-        ]
-        return self.data
-    
-    def get_cleaning_report(self) -> Dict:
-        """Generate cleaning report"""
-        return {
-            'original_rows': self.original_shape[0],
-            'cleaned_rows': len(self.data),
-            'removed_rows': self.original_shape[0] - len(self.data)
-        }
+   def __init__(self, data: pd.DataFrame):
+       self.data = data
+       self.original_shape = data.shape
+   
+   def remove_missing_values(self) -> pd.DataFrame:
+       """Remove rows with missing values"""
+       return self.data.dropna()
+   
+   def standardize_columns(self) -> pd.DataFrame:
+       """Standardize column names"""
+       self.data.columns = [
+           col.lower().replace(' ', '_')
+           for col in self.data.columns
+       ]
+       return self.data
+   
+   def get_cleaning_report(self) -> Dict:
+       """Generate cleaning report"""
+       return {
+           'original_rows': self.original_shape[0],
+           'cleaned_rows': len(self.data),
+           'removed_rows': self.original_shape[0] - len(self.data)
+       }
 ```
 
-{% endstep %}
-
-{% step %}
+---
 
 ### 6. Modules and Packages
 
@@ -488,33 +463,30 @@ import numpy as np
 from typing import List, Dict
 
 class DataAnalyzer:
-    @staticmethod
-    def summarize_numeric(data: pd.Series) -> Dict:
-        """Summarize numeric column"""
-        return {
-            'mean': data.mean(),
-            'median': data.median(),
-            'std': data.std(),
-            'skew': data.skew()
-        }
-    
-    @staticmethod
-    def summarize_categorical(data: pd.Series) -> Dict:
-        """Summarize categorical column"""
-        return {
-            'unique_values': data.nunique(),
-            'mode': data.mode()[0],
-            'frequencies': data.value_counts().to_dict()
-        }
+   @staticmethod
+   def summarize_numeric(data: pd.Series) -> Dict:
+       """Summarize numeric column"""
+       return {
+           'mean': data.mean(),
+           'median': data.median(),
+           'std': data.std(),
+           'skew': data.skew()
+       }
+   
+   @staticmethod
+   def summarize_categorical(data: pd.Series) -> Dict:
+       """Summarize categorical column"""
+       return {
+           'unique_values': data.nunique(),
+           'mode': data.mode()[0],
+           'frequencies': data.value_counts().to_dict()
+       }
 
 # Using the module
 from data_utils import DataAnalyzer
 analyzer = DataAnalyzer()
 numeric_summary = analyzer.summarize_numeric(df['sales'])
 ```
-
-{% endstep %}
-{% endstepper %}
 
 ## What You'll Be Able to Do After This Module
 
@@ -530,13 +502,13 @@ By the end of this module, you'll be able to:
 
 > **Tip:** Practice is key! Try writing your own code examples as you go through each section. Don't just read - code along!
 
-## 🤖 Modern Learning with AI
+## Modern learning with AI
 
-This course embraces modern AI-powered learning! Here's how to supercharge your Python learning:
+This course embraces modern AI-powered learning. Here is how to supercharge your Python learning:
 
-### Your AI Learning Toolkit
+### Your AI learning toolkit
 
-**AI Tutors (24/7 Help):**
+**AI tutors (24/7 help):**
 - **ChatGPT** (chat.openai.com) - Ask questions, get explanations, debug code
 - **Claude** (claude.ai) - Detailed explanations and code review
 - **Phind** (phind.com) - AI search engine specifically for developers
@@ -564,9 +536,9 @@ Copy these prompts and modify them for any Python concept:
 "Explain this code line by line: [paste code]"
 ```
 
-### 🎨 Visualize Your Code (HIGHLY RECOMMENDED!)
+### Visualize your code (highly recommended)
 
-**Never wonder what your code does again!**
+**Never wonder what your code does again:**
 
 Visit [Python Tutor](https://pythontutor.com) and try this:
 
@@ -582,17 +554,18 @@ Visit [Python Tutor](https://pythontutor.com) and try this:
 numbers = [1, 2, 3, 4, 5]
 total = 0
 for num in numbers:
-    total = total + num
+   total = total + num
 print(f"Total: {total}")
 ```
 
 **What to observe:**
+
 - How the loop counter changes
-- How `total` accumulates
+- How the **total**variable accumulates
 - How variables are stored in memory
 - The exact order of execution
 
-### 📺 Video Resources
+### Video resources
 
 See our complete [Video Resource Guide](./video-resources.md) with curated videos for each topic, including:
 - Corey Schafer's Python Tutorial series
@@ -601,20 +574,22 @@ See our complete [Video Resource Guide](./video-resources.md) with curated video
 - Real Python video tutorials
 - Each video includes specific timestamps for topics!
 
-### 🧪 Interactive Learning
+### Interactive learning
 
-**Google Colab Notebooks:**
-We've created interactive notebooks for each section:
-- [Basic Syntax Interactive](./notebooks/01-basic-syntax.ipynb)
-- [Data Structures Interactive](./notebooks/02-data-structures.ipynb)
-- [Functions Interactive](./notebooks/03-functions.ipynb)
-- [OOP Interactive](./notebooks/04-classes-objects.ipynb)
+**Google Colab notebooks:** Use these for the sections that have them:
+
+- [Basic syntax](./notebooks/01-basic-syntax.ipynb)
+- [Data structures](./notebooks/02-data-structures.ipynb)
+- [Functions](./notebooks/03-functions.ipynb)
 
 **Try in Google Colab:**
-1. Click any notebook link above
+
+1. Click a notebook link above
 2. Click "Open in Colab"
 3. Run cells and experiment
 4. Modify code and see results instantly
+
+For classes and objects, work through [Classes and Objects](./classes-objects.md) in your editor or Colab using your own notebook.
 
 ## Ready to Start?
 
