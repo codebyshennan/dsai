@@ -14,7 +14,11 @@ Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
 
 > **Time needed:** About 60 minutes.
 
-Data transformation is a crucial step in the data preparation process that involves converting data from one format or structure into another. This comprehensive guide covers various transformation techniques and when to use them effectively.
+## Why this matters
+
+Models and charts respond to **scale** and **representation**: distance-based algorithms care about units; trees often care less; linear models care about approximate linearity. Transformations align your features with those expectations—on purpose, not by habit.
+
+Data transformation is a crucial step in the data preparation process: converting data from one format or structure into another. The sections below map common transforms to those goals.
 
 ## Understanding Data Transformations: A Strategic Framework
 
@@ -804,6 +808,7 @@ Remember: "Choose transformations that enhance the signal in your data while pre
 
 ## Next steps
 
+- [Wrangling project](project.md) — consolidate cleaning and transforms in one brief
 - [Exploratory Data Analysis (Module 2.3)](../2.3-eda/README.md) — explore distributions after transforming
 - [Data engineering (Module 2.4)](../2.4-data-engineering/README.md) — where transforms often run in pipelines
 - [Module README](README.md)

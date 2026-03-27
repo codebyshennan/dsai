@@ -50,11 +50,11 @@ Use the same gem stack as [GitHub Pages](https://pages.github.com/versions/) (se
 brew install ruby@3.3
 cd docs
 make bundle-install   # once (or when Gemfile.lock changes)
-make jekyll-serve     # or: make jekyll-build
-make jekyll-build-with-search   # Jekyll build + Pagefind index (search works on the built site)
+make dev              # or: make site (local preview vs build only)
+make search           # Jekyll build + Pagefind (same as make jekyll-build-with-search)
 ```
 
-After `pnpm install`, `pnpm run pagefind` indexes `_site` into `_site/pagefind` (run after `jekyll build`). The layout loads Pagefind UI when you open Search; without this step, the hint about running a full build appears.
+After `pnpm install`, use `pnpm run build:jekyll-with-search` for a one-shot build + index, or `pnpm run build:jekyll` then `pnpm run pagefind`. The layout loads Pagefind UI when you open Search; without indexing, the hint about running a full build appears.
 
 To call Bundler/Jekyll yourself, put `ruby@3.3` first on `PATH` (Intel: `/usr/local/opt/ruby@3.3/bin`, Apple Silicon: `/opt/homebrew/opt/ruby@3.3/bin`):
 

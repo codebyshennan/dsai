@@ -2,6 +2,14 @@
 
 **After this lesson:** you can explain the core ideas in “Machine Learning Workflow: A Step-by-Step Guide” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+A **workflow** is the repeatable path from a business or research question through data, modeling, evaluation, and (when appropriate) deployment. This page walks that path with house-price-style examples so you see how each stage connects to the next. Read [What is Machine Learning?](what-is-ml.md) first if the problem types are still new.
+
+## Why this matters
+
+Skipping steps—especially clear problem definition, honest splits, and evaluation—produces models that look good in a notebook and fail in production. A shared workflow also keeps teams aligned on what “done” means and what to document.
+
 Welcome to our comprehensive guide on the machine learning workflow! This guide will walk you through each step of building a machine learning solution, with practical examples and clear explanations.
 
 ## Helpful video
@@ -17,6 +25,8 @@ A machine learning workflow is a systematic process that helps us build effectiv
 ![ML Workflow](./images/ml_workflow.png)
 
 ## Why is a Workflow Important?
+
+Structured stages reduce rework: you discover data issues before training, pick metrics that match the problem before tuning, and keep a validation set untouched until you are ready to estimate generalization. In short, the workflow is how you turn ad hoc experiments into something you can ship and maintain.
 
 Following a structured workflow helps us:
 
@@ -164,6 +174,8 @@ sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
 plt.title('Feature Correlations')
 plt.show()
 ```
+
+The histogram shows whether the target is skewed or multimodal (which can affect metrics and transforms). The correlation matrix is a first pass at **linear** relationships only; strong nonlinear links may not appear here.
 
 ## 3. Data Preparation
 
@@ -466,6 +478,8 @@ print(f"\nPredicted House Price: ${predicted_price:,.2f}")
 ```
 
 ## Best Practices and Tips
+
+These habits support the same workflow: reproducibility (version control), trust (documentation), and sustainability (monitoring and error analysis).
 
 ### 1. Version Control
 

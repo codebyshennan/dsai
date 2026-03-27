@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Implementing Backpropagation” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Numerical vs symbolic gradients, modular layers, and debugging shape mistakes when implementing backward passes.
+
 ## Helpful video
 
 Crash Course AI: supervised learning framing (~15 min).

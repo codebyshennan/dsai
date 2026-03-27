@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Hypothesis Formulation: Asking the Right Scientific Questions” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+A hypothesis ties a **decision** to a **testable claim**: what would the world look like if nothing interesting were happening (null), and what pattern would convince you otherwise (alternative)? Clear wording prevents “significant” results that no one can act on. This lesson follows [experimental design](./experimental-design.md) and feeds directly into [statistical tests](./statistical-tests.md).
+
 ## Why this matters
 
 - Clear **null** and **alternative** hypotheses keep your analysis aligned with the decision you need to make.
@@ -288,7 +292,7 @@ print(result)
 
 ## Next steps
 
-- Continue to [A/B testing](./ab-testing.md).
+- Continue to [Statistical tests](./statistical-tests.md), then [A/B testing](./ab-testing.md) and [Results analysis](./results-analysis.md).
 
 ## 8. Additional Resources
 

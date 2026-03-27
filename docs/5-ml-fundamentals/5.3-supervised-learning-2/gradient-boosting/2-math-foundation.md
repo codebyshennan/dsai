@@ -2,7 +2,11 @@
 
 **After this lesson:** you can explain the core ideas in “Mathematical Foundation of Gradient Boosting” and reproduce the examples here in your own notebook or environment.
 
-Think of Gradient Boosting as building a tower of blocks, where each block (model) is carefully placed to correct the mistakes of the previous ones. Let's break down the math behind this process in a way that's easy to understand!
+## Overview
+
+Sequential **additive** modeling: gradients in function space, shallow trees as weak learners, learning rate and subsampling intuition.
+
+[Introduction](1-introduction.md).
 
 ## Helpful video
 

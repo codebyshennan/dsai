@@ -16,6 +16,10 @@ DAGs, tasks, and scheduling—conceptual background for ETL-style pipelines.
 
 > **Note:** A **DAG** (Directed Acyclic Graph) is a workflow graph without cycles—common in orchestration tools such as Apache Airflow.
 
+## Why this matters
+
+**ETL** is the shared story: pull data from sources, apply rules and joins, then land it where consumers trust it. **Orchestration** (often DAG-based) turns that story into scheduled, retryable work—so failures are visible and reruns do not corrupt downstream tables.
+
 ## Introduction to ETL
 
 ETL (Extract, Transform, Load) is a fundamental process in data engineering that forms the backbone of data integration and warehousing solutions.
@@ -39,6 +43,8 @@ graph LR
     end
 ```
 
+Read left to right: raw extracts land in **Transform** (clean, enrich, validate), then **Load** stages them before they become warehouse tables consumers trust. Missing any step is how “the pipeline ran green” still ships bad data.
+
 ### Data Pipeline Architecture with Airflow
 
 ```mermaid
@@ -59,6 +65,8 @@ graph TD
     E -.-> H
     H -.-> I
 ```
+
+Orchestrators such as Airflow model work as a **DAG**: tasks run in dependency order, retries apply per task, and the UI shows which step failed—so you fix the right layer (extract vs transform vs load).
 
 ### Error Handling Flowchart
 
@@ -81,6 +89,8 @@ graph TD
     M --> N[Retry Load]
     N --> J
 ```
+
+Healthy pipelines assume **sources go away**, **rows fail validation**, and **loads partially complete**. Retries, rollback paths, and alerts are not optional polish—they define whether you can safely rerun without doubling data.
 
 ### Airflow DAG Example
 
@@ -184,6 +194,8 @@ extract_task >> transform_task >> load_task >> validate_task
 </aside>
 </div>
 
+**What to notice:** `default_args` centralizes retries and alerts; `schedule_interval` pins the cadence; `>>` chains task order so **extract → transform → load → validate** is explicit. Your callable names would point at real functions that return or raise on failure.
+
 ### Monitoring Dashboard Example (Tableau)
 
 ```
@@ -211,6 +223,8 @@ extract_task >> transform_task >> load_task >> validate_task
 | - Throughput                                   |
 +-----------------------------------------------+
 ```
+
+The sections below spell out **Extract**, **Transform**, and **Load** in more detail. Use them as a checklist when you design a pipeline: for each stage, ask what can fail, what “done” means, and what you log when it is not done.
 
 ### Core Concepts
 
@@ -1326,7 +1340,6 @@ Remember: A well-designed ETL pipeline is crucial for reliable data processing!
 
 ## Next steps
 
-- [Data storage](data-storage.md) — warehouses, lakes, and databases
-- [Data integration](data-integration.md) — batch, stream, and APIs
-- [Data engineering project](project.md)
-- [Module README](README.md)
+- [Data engineering project](project.md) — apply ETL ideas in one brief (last step in this submodule)
+- [Module README](README.md) — assignments and context
+- Next in the course: [Data visualization (Module 3)](../../3-data-visualization/README.md) when you are ready to present findings

@@ -14,6 +14,10 @@ High-level introduction to SQL and relational databases.
 
 > **Time needed:** About 60–90 minutes with hands-on practice.
 
+## Why this matters
+
+**CREATE**, **READ**, **UPDATE**, and **DELETE** are the daily loop of working with data: define structure, pull slices for analysis, correct mistakes, and retire bad rows safely. Aggregations, joins, and window functions all assume you are fluent here first.
+
 ## Introduction to SQL Basics
 
 SQL (Structured Query Language) is the standard language for managing and manipulating relational databases. Understanding basic SQL operations is crucial for:
@@ -24,6 +28,8 @@ SQL (Structured Query Language) is the standard language for managing and manipu
 - Application development
 
 ## CRUD Operations
+
+The sections below follow the same order most people learn: define a table, put rows in, read them back, then update or delete with a **scoped** `WHERE` so you do not touch the whole table by accident.
 
 ### 1. CREATE: Adding Data
 
@@ -1088,6 +1094,6 @@ Remember: "Clean, efficient queries lead to better performance and maintainabili
 
 ## Next steps
 
+- [Joins](joins.md) — combine rows from multiple tables (next in the lesson sequence)
 - [Aggregations](aggregations.md) — **GROUP BY**, aggregate functions, **HAVING**
-- [Joins](joins.md) — combine rows from multiple tables
-- [Advanced SQL Concepts](advanced-concepts.md) — window functions, CTEs, and optimization
+- [Advanced SQL concepts](advanced-concepts.md) — window functions, CTEs, and optimization

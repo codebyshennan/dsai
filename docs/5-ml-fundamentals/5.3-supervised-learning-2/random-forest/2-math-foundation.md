@@ -2,7 +2,11 @@
 
 **After this lesson:** you can explain the core ideas in “Mathematical Foundation of Random Forest” and reproduce the examples here in your own notebook or environment.
 
-Let's break down the mathematical concepts behind Random Forests in a way that's easy to understand. Think of this as learning the rules of a game - once you understand the basic principles, everything else makes more sense!
+## Overview
+
+Explains **bagging**, random subspaces at each split, and why variance drops when trees are decorrelated.
+
+[Introduction](1-introduction.md); compare with [decision trees in 5.2](../../5.2-supervised-learning-1/decision-trees/1-introduction.md).
 
 ## Helpful video
 

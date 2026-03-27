@@ -2,20 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “t-SNE (t-Distributed Stochastic Neighbor Embedding)” and reproduce the examples here in your own notebook or environment.
 
-> **Note**: This content has been consolidated into the dimensionality reduction guide for a better learning experience.
+## Overview
 
-t-SNE and UMAP are covered comprehensively in:
-
-**[t-SNE and UMAP: Visualization Techniques](tsne-umap.md)**
-
-This guide includes:
-- How t-SNE preserves local structure
-- Perplexity and its effects
-- t-SNE vs UMAP comparison
-- Best practices for visualization
-- Practical examples with real datasets
-
----
+Focus on **t-SNE** mechanics and interpretation—neighbor preservation, not cluster sizes or distances between clusters.
 
 ## Helpful video
 

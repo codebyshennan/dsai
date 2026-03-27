@@ -1,5 +1,30 @@
+# Quick reference (short aliases):
+#   make dev          — local site (Jekyll serve)
+#   make site         — Jekyll build only
+#   make search       — build + Pagefind index (search in built site)
+#   make gems         — bundle install (Ruby deps)
+#   make slides       — 0-prep + module 1 slide decks (same as build)
+#   make all-slides   — every submodule with slides/data.json
+#   make reg MOD=…    — clean + rebuild one module’s slides (path under docs/)
 .PHONY: clean build build-all-slides prep all data-fundamentals regenerate clean-module \
-	jekyll-serve jekyll-build bundle-install jekyll-build-with-search _ruby33
+	jekyll-serve jekyll-build bundle-install jekyll-build-with-search _ruby33 \
+	dev site search gems slides all-slides reg
+
+# --- Short aliases (easier to type) ---
+dev: jekyll-serve
+site: jekyll-build
+search: jekyll-build-with-search
+gems: bundle-install
+slides: build
+all-slides: build-all-slides
+
+# Regenerate one module’s slides: make reg MOD=2-data-wrangling/2.1-sql
+reg:
+	@if [ -z "$(MOD)" ]; then \
+		echo "Usage: make reg MOD=path/under/docs  (e.g. MOD=2-data-wrangling/2.1-sql)"; \
+		exit 1; \
+	fi
+	@$(MAKE) regenerate MODULE=$(MOD)
 
 # Homebrew ruby@3.3 (keg-only) — avoids using default Homebrew ruby 4.x with this Gemfile
 RUBY_33_PREFIX := $(shell brew --prefix ruby@3.3 2>/dev/null)

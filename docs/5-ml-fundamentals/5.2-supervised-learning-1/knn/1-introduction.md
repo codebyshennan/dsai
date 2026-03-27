@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Introduction to k-Nearest Neighbors (KNN)” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**kNN** is a **lazy** learner: it stores training points and, at prediction time, finds the $k$ closest neighbors by a distance metric, then votes (classification) or averages (regression). **Prerequisites:** [5.2 README](../README.md); [distance metrics](2-distance-metrics.md) and scaling matter a lot in practice.
+
 Welcome to your journey into k-Nearest Neighbors (KNN)! This algorithm is one of the most intuitive ways to start learning about machine learning. Think of it as your friendly neighborhood algorithm that makes decisions based on what's closest to it.
 
 ![KNN Decision Boundary](assets/knn_decision_boundary.png)

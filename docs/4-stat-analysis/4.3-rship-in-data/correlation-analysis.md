@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Correlation Analysis: Measuring How Things Move Together” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Correlation turns a scatterplot into a **single number** (with a sign and a strength) so you can compare many pairs or communicate quickly. It is still only a summary: it does not replace plots, and it does not imply causation. This lesson prepares you for [simple linear regression](./simple-linear-regression.md), where you move from association to an explicit predictive line.
+
 ## Why this matters
 
 - **Correlation** summarizes direction and strength of association for two numeric variables.

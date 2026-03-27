@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Logistic Regression Fundamentals” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+When the outcome is a **label** (often two classes), ordinary least squares is the wrong tool: predictions can fall outside \([0,1]\), and error assumptions do not match counts or Bernoulli trials. Logistic regression uses a **sigmoid** link so a linear score maps to a probability; from there you get the same coefficient intuition as linear models, plus classification metrics (confusion matrix, ROC). Later lessons add curvature ([polynomial regression](./polynomial-regression.md)) and complexity control.
+
 ## Why this matters
 
 - You will model **probabilities** for binary outcomes (yes/no) with an interpretable linear structure in feature space.

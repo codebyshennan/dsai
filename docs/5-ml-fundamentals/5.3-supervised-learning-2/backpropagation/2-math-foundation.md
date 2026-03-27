@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Mathematical Foundations of Backpropagation” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Chain rule, local derivatives for activations and losses, and assembling **$\partial L/\partial w$** layer by layer.
+
+[Introduction](1-introduction.md); [neural networks intro](../neural-networks/1-introduction.md) for forward-pass context.
+
 ## Helpful video
 
 Crash Course AI: supervised learning framing (~15 min).

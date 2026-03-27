@@ -2,7 +2,11 @@
 
 **After this lesson:** you can explain the core ideas in “Mathematical Foundation of Regularization” and reproduce the examples here in your own notebook or environment.
 
-Think of regularization as a set of rules that help keep your model in check, just like how traffic rules help keep roads safe. Let's break down the mathematical concepts in a way that's easier to understand!
+## Overview
+
+Ridge, Lasso, and Elastic Net penalties on linear models; geometric picture of shrinkage and sparsity.
+
+[Introduction](1-introduction.md); ties to [5.1 bias–variance](../../5.1-intro-to-ml/bias-variance.md).
 
 ## Helpful video
 

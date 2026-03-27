@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Bias-Variance Tradeoff” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Evaluation-focused view of **bias–variance** and what different validation designs reveal.
+
+Connects to [5.1 bias–variance](../5.1-intro-to-ml/bias-variance.md) intuition.
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

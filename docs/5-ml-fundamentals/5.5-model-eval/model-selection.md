@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Model Selection” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Choosing among models and hyperparameters using **nested** or carefully staged validation.
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

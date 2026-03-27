@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Implementing Naive Bayes in Practice” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Gaussian**, **multinomial**, and **Bernoulli** Naive Bayes in scikit-learn: APIs, inputs each variant expects, and smoothing (`alpha`).
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

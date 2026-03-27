@@ -14,7 +14,11 @@ Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
 
 > **Time needed:** About 45–60 minutes for concepts; more if you build the full dashboard examples.
 
-Data quality is the foundation of reliable analytics and machine learning. Poor data quality can lead to incorrect insights, biased models, and costly business decisions. This comprehensive guide will help you master the art and science of data quality assessment.
+## Why this matters
+
+You cannot fix what you do not measure. **Accuracy**, **completeness**, and **consistency** sound like buzzwords until a duplicate customer ID doubles revenue or a silent NULL column trains the wrong model. This lesson gives you a shared checklist to *document* problems before you impute, plot, or report.
+
+Data quality is the foundation of reliable analytics and machine learning. Poor data quality can lead to incorrect insights, biased models, and costly business decisions. This guide walks through dimensions and metrics you can apply on real tables.
 
 ## Understanding Data Quality Dimensions
 

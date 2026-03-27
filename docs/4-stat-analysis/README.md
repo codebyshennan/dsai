@@ -2,6 +2,10 @@
 
 **After this module:** you have a map of this module’s units, prerequisites, and how they connect to the rest of the course—then work through each submodule in order unless your instructor says otherwise.
 
+## Overview
+
+Module 4 moves from **quantifying uncertainty** and **testing claims** to **describing relationships** with regression and **building supervised models** with realistic complexity control. You will reuse Python and pandas throughout; math appears in service of plots and decisions.
+
 This module turns ideas from [intro statistics (module 1.3)](../1-data-fundamentals/1.3-intro-statistics/README.md) into tools for inference, testing, relationships, and modelling. Work through the units in order unless your instructor assigns a different path.
 
 ## Helpful video
@@ -11,6 +15,8 @@ Inferential statistics: estimating uncertainty with confidence intervals.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TqOeMYtOc1w" title="Confidence Intervals, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Why this matters
+
+Without inference and disciplined comparisons, analytics stays descriptive: charts without a story you can defend. This module matters because:
 
 - You will quantify uncertainty and justify conclusions from samples, not only describe charts.
 - You will connect study design, tests, regression, and modelling decisions to real questions.

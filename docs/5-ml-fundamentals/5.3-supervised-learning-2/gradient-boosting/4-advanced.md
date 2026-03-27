@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Advanced Gradient Boosting Techniques” and reproduce the examples here in your own notebook or environment.
 
-Welcome to the advanced section! Think of this as moving from basic cooking to gourmet recipes. We'll explore sophisticated techniques that can make your models even more powerful.
+## Overview
+
+Regularization, early stopping, monotone constraints, and other levers on modern GBDT systems.
 
 ## Helpful video
 

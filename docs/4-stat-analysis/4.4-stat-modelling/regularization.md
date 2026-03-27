@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Regularization Techniques” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Regularization adds a **penalty** on coefficient size (or count) to the usual sum of squared errors or log-likelihood. Ridge pulls weights smoothly toward zero; Lasso can zero some out entirely. Both reduce variance when predictors are noisy or correlated—common in real tables—and need sensible scaling and tuning, topics you began in [model selection](./model-selection.md).
+
 ## Why this matters
 
 - **Ridge** and **Lasso** shrink coefficients to reduce variance and, in Lasso’s case, perform feature selection.

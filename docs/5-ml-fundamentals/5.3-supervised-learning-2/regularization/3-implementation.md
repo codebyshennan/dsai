@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Implementing Regularization” and reproduce the examples here in your own notebook or environment.
 
-Think of implementing regularization like learning to ride a bicycle - we'll start with the basics and gradually build up to more advanced techniques. Let's make this journey as smooth as possible!
+## Overview
+
+Using **`Ridge`**, **`Lasso`**, **`ElasticNet`** (and related) in sklearn: pipelines, `alpha`, and metrics.
 
 ## Helpful video
 

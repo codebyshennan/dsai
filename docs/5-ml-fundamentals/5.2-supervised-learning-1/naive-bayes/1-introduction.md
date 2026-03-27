@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Introduction to Naive Bayes Classification” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Naive Bayes** classifiers use **Bayes’ theorem** and assume features are **conditionally independent** given the label—fast, closed-form training and strong baselines for text and categorical data. **Prerequisites:** [5.2 README](../README.md); probability notation from [Module 4](../../../4-stat-analysis/README.md) helps before [2-math-foundation.md](2-math-foundation.md).
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

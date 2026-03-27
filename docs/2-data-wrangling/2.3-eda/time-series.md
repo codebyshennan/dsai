@@ -14,6 +14,10 @@ Summarizing distributions with percentiles—common in exploratory analysis.
 
 > **Time needed:** About 60–90 minutes.
 
+## Why this matters
+
+Ignoring order—trends, seasonality, gaps, and irregular sampling—makes standard assumptions fail quietly. A short structured pass (visualize, check frequency, decompose or diff) saves you from treating sequential data as independent points.
+
 Time series analysis is crucial for:
 
 - Forecasting future trends

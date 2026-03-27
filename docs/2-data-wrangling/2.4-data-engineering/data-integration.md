@@ -14,6 +14,10 @@ DAGs, tasks, and scheduling—conceptual background for ETL-style pipelines.
 
 > **Time needed:** About 60 minutes.
 
+## Why this matters
+
+Most pipeline incidents are integration problems: **schema drift**, **duplicate keys**, **partial loads**, or **clock skew** between systems. Understanding batch vs near-real-time patterns—and where they break—helps you design **idempotent** loads, **monitoring**, and **replay** strategies, not only happy-path extracts.
+
 ## Introduction to Data Integration
 
 ### Integration Patterns Diagram
@@ -965,7 +969,7 @@ Remember: Effective data integration requires careful planning and robust error 
 
 ## Next steps
 
+- [ETL fundamentals](etl-fundamentals.md) — orchestration, loads, and quality checks (next in the lesson sequence)
 - [Data engineering project](project.md)
-- [ETL fundamentals](etl-fundamentals.md) — orchestration and quality
 - [Exploratory Data Analysis (Module 2.3)](../2.3-eda/README.md) — profile integrated outputs
 - [Module README](README.md)

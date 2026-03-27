@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Real-World Applications of Gradient Boosting” and reproduce the examples here in your own notebook or environment.
 
-Welcome to the practical world of Gradient Boosting! In this guide, we'll explore how this powerful technique is used to solve real problems in various industries. Think of this as seeing how professional chefs use their skills in different types of restaurants.
+## Overview
+
+Competition-style tabular problems, ranking, and deployment considerations (latency, model size).
 
 ## Helpful video
 

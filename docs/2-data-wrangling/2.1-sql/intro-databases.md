@@ -16,6 +16,10 @@ High-level introduction to SQL and relational databases.
 
 > **Note:** **SQL** (Structured Query Language) is the standard language for querying relational databases; you will use it starting in [Basic SQL Operations](basic-operations.md).
 
+## Why this matters
+
+Tables and keys are not academic details—they are how organizations keep orders, customers, and inventory consistent at scale. When you later write `JOIN` and `WHERE` clauses, you are relying on this structure. A clear mental model of rows, relationships, and normalization makes the rest of the SQL submodule easier to read and debug.
+
 ## Understanding Databases
 
 A **database** is software that stores and retrieves structured data reliably: many users, controlled updates, and rules that keep records consistent. You already think in **tables** if you have used spreadsheets or pandas; relational databases make relationships between those tables explicit with **keys** and **constraints**.
@@ -40,6 +44,8 @@ The bullets below are not separate topics to memorize in isolation—they descri
    - Scalability
 
 ## Types of Databases
+
+Not every system stores data like a spreadsheet with explicit foreign keys. This course focuses on **relational** databases, but you will hear the other families in architecture discussions—so a short map is useful.
 
 ### 1. Relational Databases (RDBMS)
 
@@ -72,13 +78,17 @@ CREATE TABLE orders (
       <span class="code-callout__title">Example of relational structure</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p>Two tables: <code>customers</code> owns identities; <code>orders</code> references <code>customer_id</code> so each order belongs to one customer—classic parent/child FK pattern.</p>
     </div>
   </div>
 </aside>
 </div>
 
+The two `CREATE TABLE` statements illustrate the usual pattern: `customers` holds stable identity, and `orders` points to it with `REFERENCES customers(customer_id)`—that is a **foreign key** in practice.
+
 ### 2. NoSQL Databases
+
+NoSQL systems often relax strict table-and-key rules to gain flexibility, scale, or speed for documents, key-value pairs, wide columns, or graphs. You still need a clear data model; it is expressed differently than in SQL.
 
 - Document Stores (MongoDB)
 - Key-Value Stores (Redis)
@@ -86,6 +96,8 @@ CREATE TABLE orders (
 - Graph Databases (Neo4j)
 
 ### 3. Specialized Databases
+
+These engines optimize for one workload—time-ordered metrics, full-text search, embeddings, or geography. Teams often combine them with a relational database: PostgreSQL for core transactions, plus Elasticsearch or a time-series DB for specialized queries.
 
 - Time-Series Databases (InfluxDB)
 - Search Engines (Elasticsearch)
@@ -95,6 +107,8 @@ CREATE TABLE orders (
 ## Database Design Principles
 
 ### 1. Entity-Relationship Model
+
+ER modeling is a sketch before you write DDL: **entities** (things you store), **relationships** (how they connect), and **cardinality** (one-to-many, many-to-many). The SQL below shows a classic many-to-many bridge table (`product_categories`) between `products` and `categories`.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -126,7 +140,7 @@ CREATE TABLE product_categories (
       <span class="code-callout__title">Example of implementing entities and relation…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–8: follow this band in the snippet.</p>
+      <p><code>products</code> and <code>categories</code> are linked by a junction table <code>product_categories</code> with a composite primary key—standard many-to-many modeling.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="9-17" data-tint="2">
@@ -135,19 +149,27 @@ CREATE TABLE product_categories (
       <span class="code-callout__title">Category_id SERIAL PRIMARY KEY,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 9–17: follow this band in the snippet.</p>
+      <p>Junction row: both columns are foreign keys; together they form the primary key so the same pair cannot be inserted twice.</p>
     </div>
   </div>
 </aside>
 </div>
 
+Here the composite primary key on the junction table enforces “each product–category pair appears at most once,” which is exactly what you want for a many-to-many link.
+
 ### 2. Data Modeling
+
+Teams usually move from whiteboard to database in three layers:
 
 - Conceptual Model
 - Logical Model
 - Physical Model
 
+In practice: **conceptual** is business nouns and verbs on a whiteboard; **logical** is tables and keys without worrying about disk; **physical** is indexes, partitions, and types tuned to your engine.
+
 ### 3. Normalization Forms
+
+**Normalization** reduces redundant storage and update anomalies by splitting tables until each fact lives in one logical place. The examples below are minimal illustrations—real schemas add history, soft deletes, and performance trade-offs.
 
 1. **First Normal Form (1NF)**
    - Atomic values
@@ -177,11 +199,13 @@ CREATE TABLE orders_good (
       <span class="code-callout__title">Bad: Non-1NF</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p>Contrasts a packed text list of products with one row per product line—atomic values enable joins and counts.</p>
     </div>
   </div>
 </aside>
 </div>
+
+> **Takeaway:** Storing several product IDs in one comma-separated column breaks 1NF: you cannot index or join cleanly, and updates are error-prone. One row per `(order_id, product_id)` is the relational fix.
 
 2. **Second Normal Form (2NF)**
    - Must be in 1NF
@@ -221,7 +245,7 @@ CREATE TABLE order_items (
       <span class="code-callout__title">Bad: Non-2NF</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p>Anti-pattern: <code>product_name</code> depends only on <code>product_id</code>, not the full composite key. The fix splits <code>products</code> out.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="11-21" data-tint="2">
@@ -230,11 +254,13 @@ CREATE TABLE order_items (
       <span class="code-callout__title">CREATE TABLE products (</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 11–21: follow this band in the snippet.</p>
+      <p>Clean <code>order_items</code> holds only keys and quantity; product names live solely in <code>products</code>.</p>
     </div>
   </div>
 </aside>
 </div>
+
+> **Takeaway:** Here `product_name` depends only on `product_id`, not on the full `(order_id, product_id)` key—so it belongs in a `products` table. That split is the usual 2NF fix for line-item tables.
 
 3. **Third Normal Form (3NF)**
    - Must be in 2NF
@@ -272,7 +298,7 @@ CREATE TABLE employees (
       <span class="code-callout__title">Bad: Non-3NF</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–9: follow this band in the snippet.</p>
+      <p>Redundant <code>department_name</code> on every employee row duplicates data tied to <code>department_id</code>.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="10-19" data-tint="2">
@@ -281,15 +307,21 @@ CREATE TABLE employees (
       <span class="code-callout__title">CREATE TABLE departments (</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 10–19: follow this band in the snippet.</p>
+      <p>Department attributes live in one place; employees reference <code>department_id</code> only—removes transitive dependency.</p>
     </div>
   </div>
 </aside>
 </div>
 
+> **Takeaway:** `department_name` is determined by `department_id`, not by `employee_id` directly—so repeating it on every employee row risks inconsistency when a department renames. Moving department attributes to `departments` restores 3NF.
+
 ## Database Management Systems (DBMS)
 
+A **DBMS** is the software that sits between your SQL (or API) and the disk: it stores pages, enforces permissions, runs transactions, and plans queries.
+
 ### 1. Core Functions
+
+At minimum you should expect: durable **storage**, query **retrieval**, controlled **updates**, **admin** tooling (users, backups), and **security** (authz, auditing). The list is short; production systems add replication, HA, and observability on top.
 
 - Data Storage
 - Data Retrieval
@@ -298,6 +330,8 @@ CREATE TABLE employees (
 - Security
 
 ### 2. Important Features
+
+The snippets below are **illustrative**—exact privilege syntax and backup commands depend on your engine (PostgreSQL, SQL Server, etc.). The point is to see what a DBMS provides beyond raw `SELECT`/`INSERT`.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -322,7 +356,7 @@ CREATE EXTENSION pg_dump;
       <span class="code-callout__title">Transaction Management</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p>Sketch of ACID-related features: explicit <code>BEGIN</code>/<code>COMMIT</code>, <code>GRANT</code> for privileges—syntax varies by engine; backup lines are illustrative.</p>
     </div>
   </div>
 </aside>
@@ -351,13 +385,15 @@ SET work_mem = '64MB';
       <span class="code-callout__title">Indexing</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–8: follow this band in the snippet.</p>
+      <p>Creates a btree index for lookups, mentions <code>EXPLAIN ANALYZE</code> for plans, and <code>work_mem</code> for sort/hash workspace—tune per workload.</p>
     </div>
   </div>
 </aside>
 </div>
 
 ## Basic Database Operations
+
+These are the lifecycle operations you use when bootstrapping a project or adjusting a schema: create databases and schemas, define tables and views, then load or change rows.
 
 ### 1. Database Creation
 
@@ -382,7 +418,7 @@ SET search_path TO my_schema, public;
       <span class="code-callout__title">Create database</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–8: follow this band in the snippet.</p>
+      <p><code>CREATE DATABASE</code>, optional <code>SCHEMA</code>, and <code>search_path</code> so unqualified names resolve predictably.</p>
     </div>
   </div>
 </aside>
@@ -421,7 +457,7 @@ WHERE last_login >= CURRENT_TIMESTAMP - INTERVAL '30 days';
       <span class="code-callout__title">Create table with constraints</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–9: follow this band in the snippet.</p>
+      <p><code>UNIQUE</code>, <code>NOT NULL</code>, regex <code>CHECK</code> on email, and defaults—constraints enforce rules at insert time.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="10-18" data-tint="2">
@@ -430,7 +466,7 @@ WHERE last_login >= CURRENT_TIMESTAMP - INTERVAL '30 days';
       <span class="code-callout__title">Alter table</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 10–18: follow this band in the snippet.</p>
+      <p><code>ALTER TABLE</code> adds columns and constraints; <code>CREATE VIEW</code> exposes a filtered “active users” subset.</p>
     </div>
   </div>
 </aside>
@@ -463,7 +499,7 @@ WHERE last_login < CURRENT_TIMESTAMP - INTERVAL '1 year';
       <span class="code-callout__title">Insert data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p>Standard <code>INSERT</code>, conditional <code>UPDATE</code>, and scoped <code>DELETE</code>—always pair mutating statements with a selective <code>WHERE</code>.</p>
     </div>
   </div>
 </aside>
@@ -514,7 +550,7 @@ GROUP BY p.product_id, p.name;
       <span class="code-callout__title">Track user behavior and product performance</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p>Defines an <code>user_events</code> fact table (JSONB for flexible payloads) and a materialized view aggregating funnel metrics per product.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
@@ -523,7 +559,7 @@ GROUP BY p.product_id, p.name;
       <span class="code-callout__title">SELECT</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–28: follow this band in the snippet.</p>
+      <p>Outer query joins events to products and computes conversion-style rates—typical engagement dashboard SQL.</p>
     </div>
   </div>
 </aside>
@@ -574,7 +610,7 @@ CREATE POLICY patient_access_policy ON patients
       <span class="code-callout__title">Patient records with privacy considerations</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–15: follow this band in the snippet.</p>
+      <p>Illustrative DDL with <code>ENCRYPTED</code> markers—real systems use column encryption or vaults; shows versioning fields on medical records.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="16-30" data-tint="2">
@@ -583,7 +619,7 @@ CREATE POLICY patient_access_policy ON patients
       <span class="code-callout__title">Patient_id INT REFERENCES patients(patient_id),</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 16–30: follow this band in the snippet.</p>
+      <p>Row-level security policy example: only certain roles see rows—Postgres-style; wire-up depends on your auth model.</p>
     </div>
   </div>
 </aside>
@@ -617,7 +653,7 @@ CREATE INDEX idx_products_search ON products USING GIN (to_tsvector('english', d
       <span class="code-callout__title">B-tree index for exact matches and ranges</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p>Contrasts btree, hash, GiST, and GIN—pick the access pattern (equality vs text search vs geometry).</p>
     </div>
   </div>
 </aside>
@@ -664,7 +700,7 @@ CREATE TABLE sales_south PARTITION OF sales
       <span class="code-callout__title">Range partitioning for time-series data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–13: follow this band in the snippet.</p>
+      <p>Parent <code>metrics</code> table partitioned by timestamp; child tables hold monthly ranges—prune partitions when dropping old data.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="14-26" data-tint="2">
@@ -673,7 +709,7 @@ CREATE TABLE sales_south PARTITION OF sales
       <span class="code-callout__title">List partitioning for categorical data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 14–26: follow this band in the snippet.</p>
+      <p><code>LIST</code> partitioning splits <code>sales</code> by region into separate physical tables behind one logical name.</p>
     </div>
   </div>
 </aside>
@@ -718,7 +754,7 @@ FROM sales_growth;
       <span class="code-callout__title">Use CTEs for better readability and performance</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p>Monthly revenue CTE, then <code>LAG</code> for prior month—month-over-month growth pattern.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -727,7 +763,7 @@ FROM sales_growth;
       <span class="code-callout__title">Revenue,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p>Computes percent growth from <code>LAG</code>; guard divide-by-zero on the first month.</p>
     </div>
   </div>
 </aside>
@@ -761,7 +797,7 @@ SELECT * FROM connection_pool;
       <span class="code-callout__title">Bad: Not closing connections</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p>Contrasts leaking connections with pooling—pseudo-SQL; real clients use poolers or context managers in app code.</p>
     </div>
   </div>
 </aside>
@@ -812,7 +848,7 @@ EXCEPTION WHEN OTHERS THEN
       <span class="code-callout__title">Bad: No error handling</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–15: follow this band in the snippet.</p>
+      <p>Two bare <code>UPDATE</code>s vs a transactional block with savepoints—illustrates atomic transfers and rollback on failure.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="16-30" data-tint="2">
@@ -821,7 +857,7 @@ EXCEPTION WHEN OTHERS THEN
       <span class="code-callout__title">END IF;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 16–30: follow this band in the snippet.</p>
+      <p>Continuation of PL/pgSQL-style error handling (dialect-specific); nested checks before <code>COMMIT</code>.</p>
     </div>
   </div>
 </aside>
@@ -867,7 +903,7 @@ ORDER BY cohort_month;
       <span class="code-callout__title">Create sample customer data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><code>generate_series</code> builds synthetic customers; cohort CTE groups by signup month and running sum for cumulative count.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-23" data-tint="2">
@@ -876,7 +912,7 @@ ORDER BY cohort_month;
       <span class="code-callout__title">SELECT</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–23: follow this band in the snippet.</p>
+      <p>Cohort query outer <code>SELECT</code>: orders cohort rows by month and applies a windowed cumulative sum.</p>
     </div>
   </div>
 </aside>
@@ -926,7 +962,7 @@ ORDER BY revenue DESC;
       <span class="code-callout__title">Generate sample sales data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p>Randomized bulk insert for stress testing; windowed <code>NTILE</code> buckets products by revenue quartile.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-29" data-tint="2">
@@ -935,7 +971,7 @@ ORDER BY revenue DESC;
       <span class="code-callout__title">SUM(quantity) as units_sold,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–29: follow this band in the snippet.</p>
+      <p>Aggregates random sales per product: counts, units, revenue, average ticket, and quartile rank—typical product leaderboard query.</p>
     </div>
   </div>
 </aside>

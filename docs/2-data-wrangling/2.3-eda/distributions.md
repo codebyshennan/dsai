@@ -14,7 +14,11 @@ Summarizing distributions with percentiles—common in exploratory analysis.
 
 > **Time needed:** About 60–90 minutes.
 
-Data distributions are fundamental to understanding your dataset's characteristics and making informed analytical decisions. This guide will help you master the art and science of distribution analysis.
+## Why this matters
+
+Summary numbers hide shape: **mean** and **standard deviation** can look reasonable while the data is bimodal, skewed, or dominated by outliers. Looking at distributions first tells you whether classical assumptions make sense and which transforms or robust methods belong in the next step.
+
+Data distributions are fundamental to understanding your dataset's characteristics and making informed analytical decisions. The sections below connect plots and summaries to those decisions.
 
 ## Why Study Distributions?
 

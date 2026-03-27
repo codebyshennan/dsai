@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Model Evaluation Learning Materials - Improvement Plan” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+A structured checklist when scores stall: data, features, model family, metrics, and leakage audit.
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

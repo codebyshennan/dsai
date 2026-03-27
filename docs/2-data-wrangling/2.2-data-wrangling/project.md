@@ -14,6 +14,10 @@ Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
 
 > **Time needed:** Often 6–12 hours including documentation.
 
+## Why this matters
+
+This project is the wrangling capstone: you show **judgment** (what to impute, cap, or flag) and **traceability** (what changed between raw exports and analysis-ready tables), not only that you can call pandas functions.
+
 ## Business Context
 
 As a data scientist at "GlobalMart", you face a critical challenge: the company's raw data needs significant cleaning and preparation before it can be used for advanced analytics. This project will guide you through the complete data wrangling process, from initial assessment to final validation.

@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Implementing Neural Networks” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Minimal **sklearn** `MLPClassifier` / framework-agnostic patterns: batches, epochs, and monitoring loss.
+
 ## Helpful video
 
 Crash Course AI: supervised learning framing (~15 min).

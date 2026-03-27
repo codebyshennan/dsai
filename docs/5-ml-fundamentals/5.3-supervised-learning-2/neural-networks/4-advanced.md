@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Advanced Neural Network Techniques” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Architectures and training refinements (initialization, batch norm sketch, etc.) at intro-plus level.
+
 ## Helpful video
 
 Crash Course AI: supervised learning framing (~15 min).

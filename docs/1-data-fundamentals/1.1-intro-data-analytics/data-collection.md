@@ -161,7 +161,12 @@ Teams often want to know where people walk, how long they linger, and where they
 - Purchase decision points
 - Traffic bottlenecks
 
-**Illustrative code** (abbreviated; `store_height` / `store_width` would match your camera frame):
+#### Retail heatmap sketch (illustrative)
+
+- **Purpose:** Show how in-store analytics code might hold a **2D accumulator** (`heatmap`) and expose **summary hooks** (`generate_insights`)—not a real tracker, but the shape of the program.
+- **Walkthrough:** `StoreAnalytics` stubs `process_frame` (where CV would update the heatmap) and returns dict-shaped “insights” for dashboards.
+
+**Note:** `store_height` / `store_width` would match your camera frame.
 
 ```python
 # Using computer vision for customer tracking (illustrative sketch)
@@ -204,6 +209,11 @@ You might combine session replay, tasks, and optional moderated sessions. Signal
 - Errors and dead ends
 - Task completion time
 - Qualitative notes or (with consent) emotion cues
+
+#### Session event buffer (conceptual JavaScript)
+
+- **Purpose:** Show how UX tooling often **buffers typed events** (move, click, error) with **relative timestamps** for replay or analytics—privacy and consent still apply before shipping anything like this.
+- **Walkthrough:** `UserSession` appends small objects to `events`; production code would batch, compress, and redact PII.
 
 **Illustrative pattern** (browser-side event capture):
 
@@ -254,6 +264,11 @@ class UserSession {
 
 **What teams do:** Define validation rules up front, require critical fields, audit samples regularly, and automate checks in pipelines—not only manual eyeballing.
 
+#### Field-level validation rules
+
+- **Purpose:** Centralize **per-column checks** (regex, bounds) in one `rules` map so pipelines can reject or quarantine bad rows consistently—instead of scattering one-off `if` statements.
+- **Walkthrough:** Each lambda is one predicate; `validate_record` walks fields and collects error strings; `clean_data` keeps rows that pass every rule present in `rules`.
+
 **Example — validation rules in code:**
 
 ```python
@@ -286,6 +301,11 @@ class DataValidator:
 **What goes wrong:** Collecting sensitive fields without legal basis, clear purpose, or secure handling.
 
 **What teams do:** Minimize data, obtain meaningful consent where required, anonymize or pseudonymize where possible, and separate **identification** from **analysis** when you can.
+
+#### Pseudonymization with a keyed hash (illustrative)
+
+- **Purpose:** Replace direct identifiers with a **keyed digest**, **bucket** ages, and **generalize** location so downstream tables keep utility with lower re-identification risk.
+- **Walkthrough:** `os.urandom` seeds `hash_key` (protect like any secret); `hash_value` concatenates value and key before SHA-256; `bucket_age` and `generalize_location` are placeholders for policy-defined coarsening.
 
 **Example — pseudonymization sketch:**
 
@@ -329,6 +349,11 @@ class DataAnonymizer:
 
 **What teams do:** Use multiple channels, sensible incentives, reminders, longer field periods, and **stratified** sampling when you need representation across known groups.
 
+#### Finite-population sample size (illustrative)
+
+- **Purpose:** Turn **confidence level**, **margin of error**, and **population size** into one planned $n$ using a normal approximation and \(p(1-p)\approx 0.25\) as a conservative proportion—useful for survey planning before fieldwork.
+- **Walkthrough:** `z_scores` maps common \(\alpha\) to critical $z$; the fraction is a standard finite-population form; `math.ceil` rounds up. Confirm design and assumptions with a statistician for important decisions.
+
 **Example — sample size helper** (classic formula sketch; confirm assumptions with a statistician for important decisions):
 
 ```python
@@ -364,6 +389,11 @@ def calculate_sample_size(population_size, confidence_level, margin_error):
 **What goes wrong:** Over-representing easy-to-reach groups, asking loaded questions, or training on historical discrimination.
 
 **What teams do:** Randomize where ethical and feasible, diversify sources, test question wording, and measure representation vs a reference population when you have one.
+
+#### Sample vs reference mix (illustrative stub)
+
+- **Purpose:** Sketch how teams compare **observed** category shares in a sample to a **reference** distribution (e.g. census) before trusting a survey or model training split.
+- **Walkthrough:** For each `protected_attribute`, align `sample_dist` with `population_dist`, then store ratios and a test statistic. Implement `get_population_distribution` and `chi_square_test` with real baselines and `scipy`/domain packages—stubs here are not runnable end-to-end.
 
 **Example — comparing sample mix to an expected distribution** (illustrative; needs domain-specific population baselines):
 
@@ -406,6 +436,11 @@ Before you pull data, write down **why** you need it and **what decision** it wi
 - **Tools** — Note systems of record, APIs, and access requests early.
 - **Timelines** — Include pilot, validation, and buffer for rework.
 - **Governance** — Who owns the data, retention rules, and approval for sensitive fields.
+
+#### Project planning scaffold (code-shaped charter)
+
+- **Purpose:** Keep **objectives, phases, timeline, and roles** in one structure so collection work stays traceable for engineering, compliance, or handoff.
+- **Walkthrough:** `add_phase` records duration, deliverables, and status; `assign_team` pairs people to roles via `get_role_responsibilities` (define that method for your org—omitted here as a stub).
 
 **Illustrative project scaffold:**
 
@@ -470,7 +505,14 @@ The blocks below are **patterns** you may see in larger systems: sensors, APIs, 
 
 ### IoT and sensor networks
 
+#### IoT buffer pattern
+
+- **Purpose:** **Register** sensors with metadata, then **append** timestamped readings to an in-memory buffer—typical first step before batching to a warehouse or stream.
+- **Walkthrough:** `register_sensor` stores type/location; `collect_sensor_data` timestamps each row with `datetime.now()`.
+
 ```python
+from datetime import datetime
+
 class IoTDataCollector:
     def __init__(self):
         self.sensors = {}
@@ -495,7 +537,15 @@ class IoTDataCollector:
 
 ### API integration
 
+#### Async API pull with rate limiting
+
+- **Purpose:** Show how **async** `GET` requests, **Authorization** headers, and a **rate limiter** fit together in a responsible API client—avoid hammering third-party endpoints.
+- **Walkthrough:** `aiohttp` session context managers; `try`/`finally` releases the limiter—`RateLimiter` would be your shared implementation (queue, token bucket, etc.).
+
 ```python
+# Illustrative: pip install aiohttp; implement RateLimiter for your policy
+import aiohttp
+
 class APIDataCollector:
     def __init__(self, api_key):
         self.api_key = api_key
@@ -518,16 +568,23 @@ class APIDataCollector:
 
 ### Web scraping
 
+#### CSS selector extraction
+
+- **Purpose:** Minimal **requests + BeautifulSoup** scrape: fetch HTML, parse, and pull text for each **CSS selector**—respect `robots.txt`, terms of service, and rate limits in real use.
+- **Walkthrough:** `Session()` reuses connections; `soup.select(selector)` returns lists matching each named field in `selectors`.
+
 ```python
+import requests
+from bs4 import BeautifulSoup
+
 class WebScraper:
     def __init__(self):
         self.session = requests.Session()
-        self.parser = BeautifulSoup
 
     def scrape_page(self, url, selectors):
         """Scrape specific elements from a webpage"""
         response = self.session.get(url)
-        soup = self.parser(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, 'html.parser')
 
         data = {}
         for key, selector in selectors.items():

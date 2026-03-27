@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Results Analysis: From Numbers to Insights” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+This is the “so what?” lesson. Significance is not a business case: you combine **effect size**, **intervals**, **design limits**, and **costs** into a recommendation someone can defend. It closes the 4.2 sequence after [A/B testing](./ab-testing.md); use it before presenting to non-specialists.
+
 ## Why this matters
 
 - You will move from **p-values** to decisions using effect sizes, intervals, and plain-language stakes.
@@ -9,7 +13,7 @@
 
 ## Prerequisites
 
-- [Statistical tests](./statistical-tests.md).
+- [Statistical tests](./statistical-tests.md) and [A/B testing](./ab-testing.md).
 - [Confidence intervals](../4.1-inferential-stats/confidence-intervals.md) and [p-values](../4.1-inferential-stats/p-values.md) for vocabulary.
 
 > **Note:** This lesson closes the 4.2 chain; use it before presenting to non-specialists.

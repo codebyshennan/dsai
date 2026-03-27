@@ -2,20 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “K-means Clustering” and reproduce the examples here in your own notebook or environment.
 
-> **Note**: This content has been consolidated into the main clustering guide for a better learning experience.
+## Overview
 
-K-means clustering is covered comprehensively in:
-
-**[Clustering: Finding Natural Groups in Data](clustering.md)**
-
-This guide includes:
-- How K-means works
-- Step-by-step implementation
-- Elbow method for choosing k
-- Practical examples and visualizations
-- Best practices and common pitfalls
-
----
+**K-means**: Lloyd's algorithm, centroids, when spherical clusters are a reasonable assumption, and common failure modes.
 
 ## Helpful video
 

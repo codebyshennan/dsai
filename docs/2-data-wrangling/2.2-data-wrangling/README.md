@@ -14,7 +14,19 @@ Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
 
 > **Time needed:** Several hours across lessons and the tutorial notebook.
 
-Data wrangling, also known as data munging or data preprocessing, is the art and science of transforming raw data into a clean, reliable format suitable for analysis. Think of it as preparing ingredients before cooking - just as a chef needs clean, properly cut ingredients, a data scientist needs clean, properly formatted data.
+## Lesson path (site order)
+
+1. [Data quality](data-quality.md)  
+2. [Missing values](missing-values.md)  
+3. [Outliers](outliers.md)  
+4. [Transformations](transformations.md)  
+5. [Wrangling project](project.md)  
+
+## Why this matters
+
+Raw exports from databases, APIs, and spreadsheets are rarely analysis-ready: types drift, codes disagree, and missingness follows real processes. Wrangling is how you **measure** those issues, **fix** what you can justify, and **document** what you changed so EDA and modeling rest on solid ground.
+
+Data wrangling, also known as data munging or data preprocessing, is the art and science of transforming raw data into a clean, reliable format suitable for analysis. Think of it as preparing ingredients before cooking: a chef needs clean, consistent ingredients; an analyst needs tables that match the question.
 
 ## The Data Wrangling Journey
 
@@ -504,6 +516,6 @@ encoded shape: (120, 10)
 
 ## Assignment
 
-Ready to practice your data wrangling skills? Head over to the [Data Wrangling Assignment](../_assignments/2.2-assignment.md) to apply what you've learned!
+Ready to practice your data wrangling skills? Head over to the [Module 2 assignment (student version)](../_assignments/module-assignment-student.md) to apply what you have learned.
 
 Let's transform messy data into analysis-ready datasets!

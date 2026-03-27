@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Parameters and Statistics: The Bridge to Understanding Populations” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Parameters** describe populations (usually unknown); **statistics** are computed from samples and estimate those parameters. This lesson pulls together notation, point and interval estimates, and properties of estimators—after you have already seen intervals, sampling behavior, and p-values in context.
+
 ## Helpful video
 
 StatQuest introduction to confidence intervals.
@@ -15,10 +19,10 @@ StatQuest introduction to confidence intervals.
 
 ## Prerequisites
 
-- [Population vs sample](./population-sample.md).
+- [Population vs sample](./population-sample.md) and [Understanding p-values](./p-values.md).
 - Optional: [Module 1.3 statistics](../../1-data-fundamentals/1.3-intro-statistics/README.md) for notation refresh.
 
-> **Note:** This lesson builds directly on sampling definitions from the previous file.
+> **Note:** This lesson consolidates vocabulary from earlier files in submodule 4.1; skim the headings if you are already comfortable with Greek vs Latin symbols.
 
 ## Introduction
 
@@ -346,7 +350,7 @@ Remember: The journey from sample to population is like building a bridge. The b
 
 ## Next steps
 
-- Continue to [Understanding p-values](./p-values.md).
+- Start [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md) with [Experimental design](../4.2-hypotheses-testing/experimental-design.md).
 
 ## Common Questions and Answers
 

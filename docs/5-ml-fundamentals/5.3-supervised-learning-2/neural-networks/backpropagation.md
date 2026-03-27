@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Backpropagation in Neural Networks” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Companion piece: **backpropagation** in the neural-networks folder—links the training algorithm to the math sequence.
+
+Prefer the dedicated [backpropagation module](../backpropagation/1-introduction.md) for the full walkthrough.
+
 ## Helpful video
 
 Crash Course AI: supervised learning framing (~15 min).

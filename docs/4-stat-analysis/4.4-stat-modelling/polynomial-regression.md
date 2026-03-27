@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Polynomial Regression” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Polynomial regression keeps the **linear-in-parameters** setup but adds powers (and interactions, in richer setups) of predictors so the fitted surface can curve. It is a stepping stone between straight lines and general nonlinear models: powerful, easy to overfit, and best paired with the selection and penalty ideas in [model selection](./model-selection.md) and [regularization](./regularization.md).
+
 ## Why this matters
 
 - Some relationships bend; **polynomial terms** extend linear methods to smooth curves without jumping straight to black-box models.

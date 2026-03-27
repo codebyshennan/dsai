@@ -2,6 +2,10 @@
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Model Evaluation Exercises - Progressive Learning Path** in your course schedule.
 
+## Overview
+
+These notebooks practice [cross-validation](../cross-validation.md), [metrics](../metrics.md), and [tuning](../hyperparameter-tuning.md) in increasing difficulty. Work through them after reading the linked lessons so vocabulary matches the course site.
+
 Welcome to the Model Evaluation exercises! This directory contains a carefully structured progression of exercises designed to build your skills from basic concepts to advanced real-world applications.
 
 ## Helpful video
@@ -10,14 +14,14 @@ StatQuest: why cross-validation matters for model evaluation.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## 🎯 Learning Philosophy
+## Learning philosophy
 
 These exercises follow a **progressive difficulty structure**:
 - **Beginner**: Focus on single concepts with guided practice
 - **Intermediate**: Combine multiple concepts with moderate complexity
 - **Advanced**: Real-world scenarios requiring independent problem-solving
 
-## 📚 Exercise Structure
+## Exercise structure
 
 ### Level 1: Beginner Exercises (Foundation Building)
 **Focus**: Single concepts, heavily guided, immediate feedback
@@ -132,7 +136,7 @@ pip install jupyter ipywidgets tqdm
 - **Intermediate**: 8GB+ RAM recommended
 - **Advanced**: 16GB+ RAM, GPU optional but helpful
 
-## 🎯 Exercise Selection Guide
+## Exercise selection guide
 
 ### If you're new to ML evaluation:
 Start with **Level 1** exercises in order. Don't skip ahead!

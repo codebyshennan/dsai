@@ -2,6 +2,14 @@
 
 **After this lesson:** you can explain the core ideas in “Support Vector Machines (SVM)” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+This hub page points to the **SVM** sequence in [svm/](svm/1-introduction.md): intuition, kernels, sklearn usage, advanced topics, and applications. Use it when you want the full path in order rather than jumping into a single file.
+
+## Why this matters
+
+SVMs illustrate **margin-based** classification and **kernel** tricks—ideas that recur in other algorithms and in how you tune regularization (`C`) and decision boundaries.
+
 This content has been reorganized into smaller, more digestible sections for better learning:
 
 1. [Introduction to SVM](svm/1-introduction.md)

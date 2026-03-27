@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Overfitting and Underfitting” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Recognizing **over** vs **under**fitting from learning curves and error gaps—not only training loss.
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

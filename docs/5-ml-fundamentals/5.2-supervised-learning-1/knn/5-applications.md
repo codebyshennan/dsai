@@ -2,10 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Real-World Applications of KNN: From Theory to Practice” and reproduce the examples here in your own notebook or environment.
 
-Welcome to the applications section! Here we'll explore how KNN is used in real-world scenarios. Each example will show you how to apply KNN to solve practical problems.
+## Overview
 
-![Movie Ratings Matrix](assets/movie_ratings.png)
-*Figure: Example of a movie ratings matrix used in recommendation systems*
+Worked-style scenarios (recommendation-style similarity, small tabular problems) with evaluation caveats.
 
 ## Helpful video
 

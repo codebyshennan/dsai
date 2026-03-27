@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Statistical Tests: Your Data Analysis Toolkit” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+This lesson is a **selector map**: given your outcome type (numeric vs counts vs paired), number of groups, and rough assumptions, you pick a test that matches the data-generating story. [Hypothesis formulation](./hypothesis-formulation.md) gave you \(H_0\) and \(H_1\); here you attach a concrete test statistic and null distribution. The next lessons apply the same logic in product-style [A/B testing](./ab-testing.md) and in [reporting](./results-analysis.md).
+
 ## Why this matters
 
 - Choosing the **wrong test** wastes time and can mislead stakeholders.
@@ -9,8 +13,8 @@
 
 ## Prerequisites
 
-- [A/B testing](./ab-testing.md) for experiment context.
-- [Hypothesis formulation](./hypothesis-formulation.md) for null and alternative statements.
+- [Hypothesis formulation](./hypothesis-formulation.md) and [Experimental design](./experimental-design.md).
+- [A/B testing](./ab-testing.md) comes next in this submodule; you do not need it to choose tests here.
 
 > **Important:** Pick the test before you analyze; note if you adjust after seeing the data.
 
@@ -370,7 +374,7 @@ Spearman correlation: 0.85, P-value: 0.031. Significant correlation at alpha=0.0
 
 ## Next steps
 
-- Continue to [Results analysis](./results-analysis.md).
+- Continue to [A/B testing](./ab-testing.md), then [Results analysis](./results-analysis.md).
 
 ## Additional Resources
 

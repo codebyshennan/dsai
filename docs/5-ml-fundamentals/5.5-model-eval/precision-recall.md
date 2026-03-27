@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Precision and Recall” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Precision** vs **recall**, tradeoffs, and **F1**—especially under imbalance or asymmetric error costs.
+
 ## Introduction
 
 Precision and Recall are fundamental metrics in machine learning for evaluating classification models. They provide insights into a model's performance in terms of accuracy and completeness.

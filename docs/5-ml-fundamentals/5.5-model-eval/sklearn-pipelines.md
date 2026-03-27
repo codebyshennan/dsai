@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Scikit-learn Pipelines” and reproduce the examples here in your own notebook or environment.
 
-Imagine building a car assembly line - each step needs to happen in the right order, and you want to be able to replicate the process exactly. That's what scikit-learn pipelines do for machine learning workflows! Let's learn how to build efficient and reproducible pipelines.
+## Overview
+
+**Pipelines** bundle preprocessing + model to prevent leakage and serialize a reproducible path to production.
 
 ## Helpful video
 

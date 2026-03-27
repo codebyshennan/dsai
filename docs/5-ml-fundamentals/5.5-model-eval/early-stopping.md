@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Early Stopping” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Early stopping** as regularization: monitoring validation loss/score and halting before overfitting.
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

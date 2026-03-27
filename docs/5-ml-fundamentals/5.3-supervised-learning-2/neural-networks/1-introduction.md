@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Introduction to Neural Networks” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Neural networks** stack differentiable layers of units; training adjusts **weights** to reduce a **loss** (usually via gradient-based optimization—see [backpropagation](../backpropagation/1-introduction.md)). **Prerequisites:** vectors and matrices from Module 1; [5.3 README](../README.md).
+
 ## Helpful video
 
 Crash Course AI: supervised learning framing (~15 min).

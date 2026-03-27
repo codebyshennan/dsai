@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Real-World Applications of Neural Networks” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Where fully connected nets still appear and when to reach for specialized architectures instead.
+
 ## Helpful video
 
 Crash Course AI: supervised learning framing (~15 min).

@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Confusion Matrix” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Builds the **TP/TN/FP/FN** grid so precision, recall, and related rates have a shared ground truth.
+
 ## Introduction
 
 A confusion matrix is a fundamental tool in machine learning for evaluating classification models. It provides a detailed breakdown of model predictions versus actual values, helping to understand model performance across different classes.

@@ -2,6 +2,14 @@
 
 **After this lesson:** you can explain the core ideas in “Feature Engineering in Machine Learning: A Beginner's Guide” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+This page mirrors [feature-engineering.md](feature-engineering.md) with the same concepts and code patterns; use whichever version your instructor links. **Feature engineering** is how you prepare numeric, categorical, and other fields so models learn signal instead of noise. **Prerequisites:** pandas comfort from Module 2; [What is ML?](what-is-ml.md) for how features fit the supervised workflow.
+
+## Why this matters
+
+Consistent scaling and encoding avoid subtle bugs (e.g., fitting a scaler on all data before a split) and make results comparable across models.
+
 ## Helpful video
 
 Crash Course AI: how supervised learning fits into ML workflows.

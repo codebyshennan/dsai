@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Regularization” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Evaluation chapter angle on **regularization** choices and how they interact with CV scores.
+
+Distinct from [5.3 regularization lesson](../5.3-supervised-learning-2/regularization/1-introduction.md)—this page is about choosing and measuring effects.
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

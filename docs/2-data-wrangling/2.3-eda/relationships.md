@@ -14,6 +14,10 @@ Summarizing distributions with percentiles—common in exploratory analysis.
 
 > **Time needed:** About 60–90 minutes.
 
+## Why this matters
+
+Association is easy to compute and easy to over-interpret: **correlation is not causation**, and lurking variables can create misleading patterns. This lesson helps you **pair** the right summaries and plots with each combination of variable types and to **qualify** what the evidence supports.
+
 Understanding relationships between variables is crucial for:
 
 - Making better predictions

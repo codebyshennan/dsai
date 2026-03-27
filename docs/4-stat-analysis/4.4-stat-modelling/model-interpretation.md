@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Model Interpretation” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Accuracy on a leaderboard is not enough for high-stakes use: teams need **consistent stories** about drivers of predictions—coefficients where the model is linear, marginal and partial plots where it is not, and modern attribution tools when features interact. This lesson sits last so you interpret models **after** you know how they were fit, selected, and possibly regularized.
+
 ## Why this matters
 
 - Stakeholders need **why** a model behaves as it does, not only accuracy.

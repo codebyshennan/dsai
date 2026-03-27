@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Real-World Applications of Decision Trees” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Applies decision trees to **explainable** domains—rules stakeholders can audit—plus pointers on metrics and validation.
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

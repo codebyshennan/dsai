@@ -16,6 +16,10 @@ Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
 
 > **Note:** **MCAR** (Missing Completely at Random), **MAR** (Missing at Random), and **MNAR** (Missing Not at Random) describe *why* data might be missing—see the diagram below.
 
+## Why this matters
+
+Defaulting to “drop all rows with NA” or “fill with zero” can **bias** estimates or hide real effects. The mechanism (MCAR / MAR / MNAR) tells you whether simple fixes are defensible or whether you need domain input, imputation, or sensitivity analysis.
+
 Missing data is one of the most common and challenging issues in data analysis. Understanding the nature of missing values and choosing appropriate handling strategies is crucial for maintaining data integrity and ensuring reliable analysis results.
 
 ## Understanding Missing Data Mechanisms

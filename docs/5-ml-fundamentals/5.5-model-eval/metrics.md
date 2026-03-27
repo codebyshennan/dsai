@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Model Evaluation Metrics” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Metrics** turn predictions and labels into comparable numbers: accuracy, error rates, calibration, ranking scores, and more. This hub orients you before the dedicated pages on [confusion matrix](confusion-matrix.md), [precision/recall](precision-recall.md), [ROC/AUC](roc-and-auc.md), and [accuracy](accuracy.md). **Prerequisites:** supervised setup from [5.1](../../5.1-intro-to-ml/what-is-ml.md); class imbalance intuition helps when accuracy misleads.
+
 ## What are Evaluation Metrics?
 
 Think of evaluation metrics as the "scorecard" or "report card" for your machine learning model. Just like how a teacher uses different tests and assignments to evaluate a student's performance, we use different metrics to evaluate how well our model is performing.

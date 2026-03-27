@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Advanced Clustering Techniques” and reproduce the examples here in your own notebook or environment.
 
-Sometimes basic clustering algorithms aren't enough - we need more sophisticated methods to handle complex data patterns. Let's explore advanced clustering techniques that can tackle challenging scenarios!
+## Overview
+
+Spectral / mixture-model angles and practical checks when basic k-means or DBSCAN are not enough.
 
 ## Helpful video
 

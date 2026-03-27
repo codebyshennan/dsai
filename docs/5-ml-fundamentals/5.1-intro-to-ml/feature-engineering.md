@@ -2,6 +2,14 @@
 
 **After this lesson:** you can explain the core ideas in “Feature Engineering in Machine Learning: A Beginner's Guide” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Feature engineering** means turning raw columns into inputs that algorithms can use: scaling numbers, encoding categories, and sometimes creating domain-informed combinations. This lesson groups features by type (numeric, categorical, time, text) and walks through scaling and encoding with small pandas and scikit-learn examples. **Prerequisites:** [pandas basics](../../2-data-wrangling/2.2-data-wrangling/) from Module 2 helps; [What is ML?](what-is-ml.md) clarifies how features feed supervised learning.
+
+## Why this matters
+
+Most real gains come from better inputs and problem framing, not from swapping the latest algorithm. Learning a small toolkit here saves time before you tune more complex models in [5.2](../5.2-supervised-learning-1/) and [5.5](../5.5-model-eval/).
+
 ## Helpful video
 
 Crash Course AI: how supervised learning fits into ML workflows.

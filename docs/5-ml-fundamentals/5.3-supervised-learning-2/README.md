@@ -2,6 +2,14 @@
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Supervised Learning - Part 2** in your course schedule.
 
+## Overview
+
+Part 2 moves from single learners to **ensembles** ([random forest](random-forest/1-introduction.md), [gradient boosting](gradient-boosting/1-introduction.md)), **neural networks** ([introduction](neural-networks/1-introduction.md) plus optional [backpropagation](backpropagation/1-introduction.md) deep dive), and **regularization** ([overview](regularization/1-introduction.md)) to control complexity. **Prerequisites:** [5.2 Supervised learning 1](../5.2-supervised-learning-1/README.md); evaluation ideas from [5.5](../5.5-model-eval/README.md) are worth skimming early so you tune with the right metrics.
+
+## Why this matters
+
+Tree ensembles and boosted models still dominate many tabular leaderboards; neural networks power vision and language. Regularization and honest validation are what keep these flexible models from overfitting noise.
+
 Welcome to the second part of supervised learning! In this section, we'll explore powerful ensemble methods and neural networks that have revolutionized machine learning. These advanced algorithms build upon the fundamentals you learned in Part 1 to solve even more complex problems.
 
 ## Helpful video
@@ -23,7 +31,7 @@ By the end of this section, you will be able to:
 
 ## Algorithms Overview
 
-### 1. [Random Forest](./random-forest.md)
+### 1. [Random Forest](random-forest/1-introduction.md)
 
 Ensemble method using multiple decision trees:
 
@@ -39,7 +47,7 @@ Perfect for:
 - Feature importance analysis
 - When stability is crucial
 
-### 2. [Gradient Boosting](./gradient-boosting.md)
+### 2. [Gradient Boosting](gradient-boosting/1-introduction.md)
 
 Sequential ensemble method:
 
@@ -55,7 +63,7 @@ Ideal for:
 - When accuracy is crucial
 - Handling imbalanced data
 
-### 3. [Neural Networks](./neural-networks.md)
+### 3. [Neural Networks](neural-networks/1-introduction.md)
 
 Deep learning foundation:
 
@@ -71,7 +79,7 @@ Best for:
 - Natural language processing
 - When large data is available
 
-### 4. [Regularization](./regularization.md)
+### 4. [Regularization](regularization/1-introduction.md)
 
 Techniques to prevent overfitting:
 
@@ -82,6 +90,8 @@ Techniques to prevent overfitting:
 - Early stopping
 
 ## Algorithm Selection Guide
+
+Treat the stub below as a **starting point**; always compare against simpler baselines and validate with cross-validation.
 
 ### Classification Tasks
 
@@ -178,6 +188,6 @@ import lightgbm
 
 ## Ready to Begin?
 
-Start your journey with [Random Forest](./random-forest.md) to understand ensemble methods. Each algorithm builds upon previous concepts, so following the suggested order will maximize your learning experience.
+Start with [Random Forest](random-forest/1-introduction.md) for bagging and feature-importance intuition, then follow the numbered lessons in each subfolder (introduction → math → implementation → advanced → applications). Add the [backpropagation](backpropagation/1-introduction.md) sequence when you want the training-time story spelled out step by step. Each algorithm builds upon previous concepts, so following the suggested order will maximize your learning experience.
 
 Remember: The best way to learn is by doing! Each section includes hands-on examples and exercises to reinforce your understanding. Let's dive in!

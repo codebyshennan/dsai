@@ -2,7 +2,11 @@
 
 **After this lesson:** you can explain the core ideas in “t-SNE and UMAP: Visualizing Complex Data in 2D” and reproduce the examples here in your own notebook or environment.
 
-Imagine you're trying to create a map of your neighborhood. You want to show how close different places are to each other, but you also want to preserve the relationships between them. That's exactly what t-SNE and UMAP do with high-dimensional data - they help us create meaningful 2D maps of complex data while preserving important relationships!
+## Overview
+
+**t-SNE** and **UMAP** for visualization: perplexity, local vs global structure, and when a 2D plot misleads.
+
+[PCA](pca.md) for linear structure first; [unsupervised README](README.md) for ordering.
 
 ## Helpful video
 

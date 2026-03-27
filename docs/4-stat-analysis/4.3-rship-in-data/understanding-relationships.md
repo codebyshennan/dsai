@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Understanding Relationships in Data: Connecting the Dots” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Before you compute a correlation or fit a line, you need a **picture of the joint behavior** of variables: linear or curved, strong or weak, driven by outliers or clusters. This lesson sets vocabulary (association vs causation, confounding) so the numeric work in the next files has a clear purpose.
+
 ## Why this matters
 
 - You will tell **association** from **causation** and choose the right follow-up tool (correlation, regression, or tests).

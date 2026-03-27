@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Building Your First Decision Tree” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Hands-on **scikit-learn**: `DecisionTreeClassifier` / `DecisionTreeRegressor`, fitting, predicting, and the hyperparameters you will tune first (`max_depth`, `min_samples_leaf`, etc.).
+
+Pairs with [tree structure](2-tree-structure.md); context in [5.2 README](../README.md).
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

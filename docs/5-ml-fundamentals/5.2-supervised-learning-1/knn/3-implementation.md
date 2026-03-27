@@ -2,10 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Implementing KNN: A Step-by-Step Guide” and reproduce the examples here in your own notebook or environment.
 
-Welcome to the practical side of KNN! In this section, we'll learn how to implement KNN both from scratch (to understand how it works) and using scikit-learn (for real-world applications).
+## Overview
 
-![Effect of Different k Values](assets/knn_different_k.png)
-*Figure: How different values of k affect the decision boundary in KNN*
+**`KNeighborsClassifier` / `Regressor`** in scikit-learn: `n_neighbors`, weights, and brute vs KD-tree ball queries at a high level.
 
 ## Helpful video
 

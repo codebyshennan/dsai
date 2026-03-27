@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Implementing Random Forest” and reproduce the examples here in your own notebook or environment.
 
-Let's learn how to implement Random Forests in Python using scikit-learn. We'll start with simple examples and gradually move to more complex applications.
+## Overview
+
+`RandomForestClassifier` / `Regressor`: `n_estimators`, `max_features`, out-of-bag estimates, and feature importances.
 
 ## Helpful video
 

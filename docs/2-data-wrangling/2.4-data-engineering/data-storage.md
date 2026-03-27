@@ -16,6 +16,10 @@ DAGs, tasks, and scheduling—conceptual background for ETL-style pipelines.
 
 > **Note:** **OLTP** (online transaction processing) systems optimize row-level transactions; warehouses optimize analytical queries across large history.
 
+## Why this matters
+
+Choosing where data lives—operational database, warehouse, lake, or a mix—shapes **cost**, **latency**, **schema strictness**, and **who** can query comfortably (applications vs analysts vs scientists). You do not need to pick vendors here; you need clear vocabulary for architecture discussions.
+
 ## Introduction to Data Storage
 
 Data storage is a fundamental aspect of data engineering that requires careful consideration of various factors to ensure efficient, reliable, and scalable data management.

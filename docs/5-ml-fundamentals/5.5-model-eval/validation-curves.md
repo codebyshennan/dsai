@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Validation Curves” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Validation curves** for a single hyperparameter: where the train/CV gap blows up (overfitting onset).
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

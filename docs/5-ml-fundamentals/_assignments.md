@@ -1,5 +1,7 @@
 # Module 5: Machine Learning Fundamentals Assignment Solutions
 
+This file is an **answer key** for the multiple-choice items (correct choices marked in italics). For instructions and coding parts of the assignment, use [module-assignment.md](_assignments/module-assignment.md).
+
 ## 5.1 Introduction to Machine Learning
 
 1. What is machine learning?

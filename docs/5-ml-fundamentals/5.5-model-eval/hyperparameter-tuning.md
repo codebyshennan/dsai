@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Hyperparameter Tuning” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Grid search**, **random search**, and workflow tips so tuning does not leak into the test set.
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

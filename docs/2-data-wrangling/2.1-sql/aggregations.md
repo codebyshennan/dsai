@@ -14,6 +14,10 @@ High-level introduction to SQL and relational databases.
 
 > **Time needed:** About 60 minutes, plus time for exercises.
 
+## Why this matters
+
+Reports and dashboards almost never show raw rows—they show **counts**, **sums**, **averages**, and **breakdowns by group**. `GROUP BY` and `HAVING` are how you express “per region,” “per month,” or “top ten” directly in SQL instead of exporting everything to a spreadsheet.
+
 ## Understanding Aggregations
 
 Aggregations in SQL transform detailed data into meaningful summaries. Think of it like:
@@ -1089,7 +1093,6 @@ Remember: "Good aggregations tell a story about your data!"
 
 ## Next steps
 
-- [Joins](joins.md) — combine tables before or after aggregating
-- [Advanced SQL Concepts](advanced-concepts.md) — deeper window analytics and CTEs
+- [Advanced SQL concepts](advanced-concepts.md) — deeper window analytics and CTEs
 - [SQL project](project.md) — end-to-end practice brief
 - [Module README](README.md) — assignments and slides

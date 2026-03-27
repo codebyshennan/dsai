@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Real-World Applications of Regularization” and reproduce the examples here in your own notebook or environment.
 
-Think of regularization as a set of rules that help make better decisions in real-world situations. Just like how traffic rules help keep roads safe, regularization helps make better predictions in various fields. Let's explore some practical applications!
+## Overview
+
+High-dimensional and noisy settings where regularization is the main lever.
 
 ## Helpful video
 

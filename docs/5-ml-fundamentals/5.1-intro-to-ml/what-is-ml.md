@@ -2,6 +2,14 @@
 
 **After this lesson:** you can explain the core ideas in “Introduction to Machine Learning” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+This lesson sets vocabulary you will reuse everywhere in Module 5: **supervised**, **unsupervised**, and **reinforcement** learning, the high-level **workflow** from problem to deployment, and the intuition behind **bias–variance** and **learning curves**. **Prerequisites:** comfortable Python, basic plots, and descriptive stats from [Module 1](../../1-data-fundamentals/README.md) and [Module 2](../../2-data-wrangling/README.md); probability thinking from [Module 4](../../4-stat-analysis/README.md) helps when we talk about generalization.
+
+## Why this matters
+
+If you can name the problem type and the main workflow steps, you can follow tutorials in order, read model documentation with context, and ask better questions in projects and interviews.
+
 Welcome to the exciting world of Machine Learning! This guide is designed to help you understand the fundamentals of machine learning in a clear and approachable way.
 
 ## Helpful video

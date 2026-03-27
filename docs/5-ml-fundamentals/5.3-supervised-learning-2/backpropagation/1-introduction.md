@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Introduction to Backpropagation” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Backpropagation** applies the **chain rule** to propagate loss gradients backward through the network so each weight can be updated efficiently. This sequence pairs with [neural networks](../neural-networks/1-introduction.md). **Prerequisites:** derivatives at the level of [Module 1 calculus refresh](../../../1-data-fundamentals/README.md); comfort with matrix shapes.
+
 ## Helpful video
 
 Crash Course AI: supervised learning framing (~15 min).

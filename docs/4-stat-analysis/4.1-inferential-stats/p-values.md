@@ -2,15 +2,21 @@
 
 **After this lesson:** you can explain the core ideas in “Understanding P-values: Your Statistical Detective Tool” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+A **p-value** answers a narrow question: “If the null hypothesis were true, how often would we see a test statistic this extreme or more?” It is not a probability that a hypothesis is true, and it is not the same as effect size. This lesson connects the definition to plots and common misreadings; [parameters and statistics](./parameters-statistics.md) next revisits notation and estimators in one place.
+
 ## Why this matters
 
-- You will read **p-values** in papers, A/B tools, and software output; this lesson aligns words with what the number does (and does not) mean.
+Software and papers will keep showing p-values whether you like them or not. This lesson matters because:
+
+- You will read **p-values** in papers, A/B tools, and software output; you will align words with what the number does (and does not) mean.
 - You will avoid the common mistake of confusing **statistical significance** with **practical importance**.
 
 ## Prerequisites
 
-- [Parameters and statistics](./parameters-statistics.md) for notation and estimators.
-- Basic idea of a **null hypothesis** (formal tests come in module 4.2).
+- [Population vs sample](./population-sample.md), [confidence intervals](./confidence-intervals.md), and [sampling distributions](./sampling-distributions.md).
+- Optional: [Module 1.3 statistics](../../1-data-fundamentals/1.3-intro-statistics/README.md) if you want a notation refresher before diving in.
 
 > **Note:** P-values do not measure the probability that either hypothesis is true.
 
@@ -387,7 +393,7 @@ print(f"Corrected significant results: {sum(corrected_p < 0.05)}")
 
 ## Next steps
 
-- Continue to [Confidence intervals](./confidence-intervals.md) to report uncertainty, not only a single p-value.
+- Continue to [Parameters and statistics](./parameters-statistics.md) to consolidate notation and estimation, then finish the submodule and move on to [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md).
 
 ## Additional Resources
 

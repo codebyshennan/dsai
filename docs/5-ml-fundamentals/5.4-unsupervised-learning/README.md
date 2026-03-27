@@ -2,6 +2,14 @@
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Unsupervised Learning: Discovering Hidden Patterns in Data** in your course schedule.
 
+## Overview
+
+Here you work **without labels**: [PCA](pca.md) and [t-SNE / UMAP](tsne-umap.md) for structure and visualization, [clustering](clustering.md) and [advanced clustering](advanced-clustering.md) for grouping, plus dedicated pages (e.g. [k-means](k-means-clustering.md), [DBSCAN](dbscan.md)) where linked from those hubs. **Prerequisites:** [5.1](../5.1-intro-to-ml/what-is-ml.md) (unsupervised problem type); linear algebra intuition for PCA; [Module 4](../../4-stat-analysis/README.md) helps when we discuss distances and variability.
+
+## Why this matters
+
+Exploratory grouping and dimensionality reduction show up in segmentation, anomaly screening, and preprocessing for supervised models—often before you ever pick a classifier.
+
 Welcome to the fascinating world of unsupervised learning! Think of it as being a detective who can find patterns and relationships in data without being told what to look for. Just like how you might naturally group similar items in your room without being instructed, unsupervised learning algorithms can find natural groupings and patterns in data all on their own.
 
 ## Helpful video

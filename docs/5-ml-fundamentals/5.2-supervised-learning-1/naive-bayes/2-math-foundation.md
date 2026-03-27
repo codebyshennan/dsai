@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Mathematical Foundation of Naive Bayes” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Walks through **Bayes' theorem**, likelihoods under the independence assumption, and log-prob scoring for classification.
+
+[Introduction](1-introduction.md); probability from Module 4 smooths the notation.
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

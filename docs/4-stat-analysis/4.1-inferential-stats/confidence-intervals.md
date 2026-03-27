@@ -2,15 +2,22 @@
 
 **After this lesson:** you can explain the core ideas in “Confidence Intervals: Quantifying Uncertainty in Statistics” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+A **point estimate** (for example, a sample mean) is one number. A **confidence interval** adds a range: plausible values for an unknown population quantity, tied to a stated procedure and confidence level. This lesson builds on [population vs sample](./population-sample.md) and prepares you for [sampling distributions](./sampling-distributions.md), where you will see why interval width shrinks as sample size grows.
+
 ## Why this matters
 
-- You will report **ranges** for unknown parameters, not only point estimates.
-- You will interpret intervals in plain language without overstating what “95% confidence” means.
+Reporting only \(\bar x\) hides how noisy the estimate might be. Intervals show **precision** as well as location. You will:
+
+- Report **ranges** for unknown parameters, not only point estimates.
+- Interpret intervals in plain language without overstating what “95% confidence” means.
 
 ## Prerequisites
 
-- [Understanding p-values](./p-values.md) for hypothesis-testing vocabulary.
+- [Population vs sample](./population-sample.md).
 - Comfort with the sample mean and a measure of spread (standard deviation or standard error in words).
+- [P-values](./p-values.md) and formal hypothesis tests appear later in this submodule and in [module 4.2](../4.2-hypotheses-testing/README.md); you do not need them to follow the interval formulas here.
 
 > **Tip:** Read the clinical-trial style example even if you skip plotting code on first pass. The next lesson, [sampling distributions](./sampling-distributions.md), deepens why intervals shrink as **n** grows.
 

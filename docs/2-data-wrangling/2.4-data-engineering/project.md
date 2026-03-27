@@ -14,7 +14,11 @@ DAGs, tasks, and scheduling—conceptual background for ETL-style pipelines.
 
 > **Time needed:** Often 8–15 hours for a solid submission.
 
-In this comprehensive assignment, you'll build a production-ready data engineering pipeline that demonstrates your ability to handle real-world data processing challenges. You'll apply advanced ETL concepts, implement robust error handling, and ensure scalable performance.
+## Why this matters
+
+This project checks whether you can narrate a pipeline end to end: **sources**, **transformations**, **load targets**, **quality checks**, and **what happens when a step fails**. Polished code is optional; coherent stages and failure thinking are not.
+
+In this assignment, you design or prototype an ETL-style pipeline that could plausibly serve analysts—emphasizing structure, data-quality gates, and recovery—not only a single successful run.
 
 ### Learning Objectives
 

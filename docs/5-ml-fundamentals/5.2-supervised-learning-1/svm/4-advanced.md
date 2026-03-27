@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Advanced SVM Techniques” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Deeper optimization and modeling notes (e.g. class weights, nu-SVM hooks)—use when defaults are not enough.
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

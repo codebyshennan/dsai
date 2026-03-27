@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Learning Curves” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Learning curves**: training vs validation error vs sample size—diagnosing bias, variance, and data needs.
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

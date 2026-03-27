@@ -2,6 +2,10 @@
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Testing Hypotheses: From Questions to Answers** in your course schedule.
 
+## Overview
+
+This unit turns a vague question into a **designed comparison**, a **null and alternative**, a **chosen test**, and a **report** that separates statistical noise from practical importance. Submodule 4.1 gave you uncertainty and p-values; here you use them inside disciplined experiments—especially A/B-style work—before you move on to modelling relationships in [module 4.3](../4.3-rship-in-data/README.md).
+
 See the [Module 4 overview](../README.md) for prerequisites and how this unit connects to inference and regression.
 
 ## Helpful video
@@ -27,42 +31,15 @@ By the end of this module, you will be able to:
 - Communicate results effectively to stakeholders
 - Identify and avoid common pitfalls
 
-## Topics Covered
+## Topics covered (lesson order)
 
-### 1. [Experimental Design Fundamentals](./experimental-design.md)
+Follow this sequence (it matches the site lesson navigation):
 
-- Control groups and randomization
-- Sample size determination
-- Controlling for confounding variables
-- Power analysis and effect sizes
-
-### 2. [Formulating Hypotheses](./hypothesis-formulation.md)
-
-- Null vs alternative hypotheses
-- One-tailed vs two-tailed tests
-- Multiple hypothesis testing
-- Common hypothesis patterns
-
-### 3. [A/B Testing Methodology](./ab-testing.md)
-
-- Setting up valid experiments
-- Sample size calculations
-- Randomization techniques
-- Monitoring and stopping rules
-
-### 4. [Statistical Tests in Practice](./statistical-tests.md)
-
-- Choosing the right test
-- Parametric vs non-parametric tests
-- Implementation in Python
-- Interpreting results
-
-### 5. [Results Analysis and Interpretation](./results-analysis.md)
-
-- Statistical vs practical significance
-- Effect size calculations
-- Visualization techniques
-- Communicating findings
+1. [Experimental design](./experimental-design.md) — Control, randomization, replication, blocking basics  
+2. [Hypothesis formulation](./hypothesis-formulation.md) — Null vs alternative, one- vs two-sided tests, clarity  
+3. [Statistical tests](./statistical-tests.md) — Matching tests to data types and assumptions  
+4. [A/B testing](./ab-testing.md) — Metrics, execution, and product-style workflows  
+5. [Results analysis](./results-analysis.md) — Effect sizes, intervals, and communication  
 
 ## Prerequisites
 
@@ -73,9 +50,11 @@ Before diving in, you should be comfortable with:
 - Python programming basics
 - Descriptive statistics
 
-## Why This Matters
+## Why this matters
 
-### In Business
+Hypothesis testing is not only for academic papers. The same structure applies whenever you must justify a change with data. The following lists show typical arenas—each still needs clean design and honest reporting.
+
+### In business
 
 - Optimize website conversions
 - Test marketing campaigns
@@ -83,14 +62,14 @@ Before diving in, you should be comfortable with:
 - Enhance customer experience
 - Make pricing decisions
 
-### In Research
+### In research
 
 - Validate scientific hypotheses
 - Compare treatment effects
 - Study behavioral patterns
 - Analyze experimental results
 
-### In Technology
+### In technology
 
 - Test new algorithms
 - Optimize system performance
@@ -224,13 +203,9 @@ Improvement: Yes
 - [Effect Size Calculator](https://www.psychometrica.de/effect_size.html)
 - [Power Analysis Tools](https://www.statmethods.net/stats/power.html)
 
-## Learning Path
+## Learning path
 
-1. Start with experimental design fundamentals
-2. Master hypothesis formulation
-3. Practice A/B testing methodology
-4. Learn statistical test selection
-5. Apply to real-world problems
+Work through the [Topics covered](#topics-covered-lesson-order) list in order: design and hypotheses before test selection, then A/B specifics, then interpretation and reporting.
 
 ## Recommended Visualizations
 

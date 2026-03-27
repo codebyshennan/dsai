@@ -2,6 +2,10 @@
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Introduction to Machine Learning** in your course schedule.
 
+## Overview
+
+This submodule answers: what counts as machine learning, how a typical project flows from question to deployment, how to prepare inputs (features) models can learn from, and how to think about **bias** and **variance** before you dive into specific algorithms in later sections.
+
 Welcome to the exciting world of Machine Learning! This section will introduce you to the fundamental concepts, workflows, and practices that form the foundation of machine learning.
 
 **How this fits the course:** You should already be comfortable with **pandas**, basic **plots**, and **summary statistics** from Modules 1–3. Module 4 deepened how we reason about uncertainty; here we use that same care when we **fit models** and **measure generalization**. Read the topics in order—later files assume vocabulary from [What is Machine Learning?](what-is-ml.md) and the [workflow](ml-workflow.md).
@@ -70,7 +74,7 @@ Before starting this section, you should be familiar with:
 
 ## Assignment
 
-Ready to apply your machine learning knowledge? Head over to the [Introduction to Machine Learning Assignment](../_assignments/5.1-assignment.md) to test your understanding!
+Ready to apply your knowledge? The module assignment (concepts plus implementation) is in [Module 5 assignment](../_assignments/module-assignment.md). Brief answers for self-check are in [_assignments.md](../_assignments.md) at the repo root of this module.
 
 ## Getting Started
 

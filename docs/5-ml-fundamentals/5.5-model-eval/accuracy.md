@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Accuracy” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Accuracy** as a baseline fraction correct—when it is meaningful and when **class imbalance** makes it misleading.
+
+Relates to [confusion matrix](confusion-matrix.md) and [metrics](metrics.md).
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

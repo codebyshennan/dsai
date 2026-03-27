@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Model Selection” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Training error almost always rewards **more** complexity; generalization asks which model predicts well on **new** data. This lesson covers cross-validation, holdout discipline, and criteria like AIC/BIC-style thinking—so you pick structure (polynomial degree, feature subsets) without fooling yourself. It pairs naturally with [regularization](./regularization.md), which penalizes complexity inside a single optimization instead of comparing many separate fits.
+
 ## Why this matters
 
 - You will compare models with **cross-validation** and information criteria instead of trusting training error alone.

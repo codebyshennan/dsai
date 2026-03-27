@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Introduction to Decision Trees” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+A **decision tree** splits the data with nested if/else rules on features until it reaches a prediction—easy to visualize and explain. This page uses a tiny “go for a walk” example; follow with [tree structure](2-tree-structure.md) and [implementation](3-implementation.md). **Prerequisites:** [Supervised learning 5.2](../README.md); sklearn `fit` / `predict` from [5.1 workflow](../../5.1-intro-to-ml/ml-workflow.md).
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

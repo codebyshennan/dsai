@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Advanced Topics in Naive Bayes” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Discusses **smoothing**, correlated features breaking the assumption, and mitigations—without losing the fast baseline story.
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

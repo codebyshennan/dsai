@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Experimental Design: Building a Strong Foundation” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+No p-value rescues a study that measured the wrong thing or mixed treatments with hidden causes. Experimental design is the plan: **what** you manipulate, **who** gets which condition, **what** you hold fixed, and **how** you will know you had enough data. This lesson comes first in submodule 4.2 so later files on hypotheses, tests, and A/B metrics sit on solid ground.
+
 ## Why this matters
 
 - Strong **design** determines whether statistics can answer the question you care about.

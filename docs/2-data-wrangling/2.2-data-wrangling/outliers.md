@@ -14,7 +14,11 @@ Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
 
 > **Time needed:** About 60 minutes.
 
-Outliers are observations that deviate significantly from the general pattern of a dataset. While they can sometimes represent errors, they may also contain valuable insights about unusual but important phenomena. This comprehensive guide will help you master the art of outlier detection and treatment.
+## Why this matters
+
+A single bad sensor reading or mistyped value can dominate means, distort plots, and mislead models. The goal is not always to delete extremes—sometimes the rare point *is* the insight—so you need **detection** plus a **decision** (keep, cap, investigate, or remove) tied to your question.
+
+Outliers are observations that deviate significantly from the general pattern of a dataset. While they can sometimes represent errors, they may also contain valuable information about unusual but important phenomena.
 
 ## Understanding Outliers: A Comprehensive Framework
 

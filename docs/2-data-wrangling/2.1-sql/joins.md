@@ -14,6 +14,10 @@ Quick tour of join types in SQL (inner, left, right, full).
 
 > **Time needed:** About 60–90 minutes with practice queries.
 
+## Why this matters
+
+Almost every real question spans more than one table—customers and orders, students and enrollments, parts and suppliers. Choosing **INNER** vs **LEFT** join is choosing *which rows you are willing to drop* from the result; getting that wrong silently loses data or duplicates it.
+
 ## Introduction to SQL Joins
 
 SQL joins combine rows from two or more tables based on related columns. They are essential for:
@@ -1068,6 +1072,7 @@ Remember: "Efficient joins are the key to unlocking insights from your data!"
 
 ## Next steps
 
-- [Advanced SQL Concepts](advanced-concepts.md) — subqueries, CTEs, and window functions
+- [Aggregations](aggregations.md) — **GROUP BY** and summaries on joined result sets
+- [Advanced SQL concepts](advanced-concepts.md) — subqueries, CTEs, and window functions
 - [SQL project](project.md) — apply joins in a structured brief
-- [Data Wrangling (Module 2.2)](../2.2-data-wrangling/README.md) — cleaning and shaping data before or after SQL extracts
+- [Data wrangling (Module 2.2)](../2.2-data-wrangling/README.md) — cleaning and shaping extracts

@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “ROC Curves and AUC: Complete Guide” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**ROC curves** and **AUC**: ranking quality across thresholds; complements precision–recall for skewed classes.
+
 ## Introduction
 
 The Receiver Operating Characteristic (ROC) curve and Area Under the Curve (AUC) are powerful tools for evaluating binary classification models. They provide a comprehensive view of model performance across different classification thresholds and help us understand the trade-offs between sensitivity and specificity.

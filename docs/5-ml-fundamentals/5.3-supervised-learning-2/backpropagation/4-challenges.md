@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Challenges and Solutions in Backpropagation” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Vanishing/exploding** gradients, initialization, and mitigations you will see in modern optimizers and architectures.
+
 ## Helpful video
 
 Crash Course AI: supervised learning framing (~15 min).

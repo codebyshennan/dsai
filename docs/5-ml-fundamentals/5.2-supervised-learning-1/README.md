@@ -2,6 +2,14 @@
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **5.2 Supervised Learning Part 1** in your course schedule.
 
+## Overview
+
+This submodule introduces four classical **supervised** algorithms—[Naive Bayes](naive-bayes/1-introduction.md), [k-nearest neighbors](knn/1-introduction.md), [support vector machines](svm/1-introduction.md), and [decision trees](decision-trees/1-introduction.md)—with enough intuition to choose a first model and know where to read next. **Prerequisites:** [5.1 Introduction to ML](../5.1-intro-to-ml/README.md) (workflow, features, bias–variance); comfort with pandas and train/test splits.
+
+## Why this matters
+
+These methods still appear in production, teaching, and interviews. Understanding their assumptions (e.g., independence for Naive Bayes, distance geometry for kNN, margins and kernels for SVM, axis-aligned splits for trees) helps you debug failures and pair algorithms with the right metrics.
+
 Welcome to the first part of supervised learning! Here we'll explore fundamental algorithms that form the backbone of machine learning. Think of these algorithms as different tools in your ML toolkit - each with its own strengths and ideal use cases.
 
 ## Helpful video
@@ -22,7 +30,7 @@ By the end of this section, you will be able to:
 
 ## Algorithm Overview
 
-### 1. [Naive Bayes](broken-reference)
+### 1. [Naive Bayes](naive-bayes/1-introduction.md)
 
 Probabilistic classifier based on Bayes' Theorem:
 
@@ -35,7 +43,7 @@ Perfect for:
 * Real-time prediction needs
 * When independence assumption holds
 
-### 2. [k-Nearest Neighbors](broken-reference)
+### 2. [k-Nearest Neighbors](knn/1-introduction.md)
 
 Instance-based learning using distance metrics:
 
@@ -48,7 +56,7 @@ Ideal for:
 * Anomaly detection
 * When data is well-clustered
 
-### 3. [Support Vector Machines](broken-reference)
+### 3. [Support Vector Machines](svm/1-introduction.md)
 
 Finds optimal hyperplane with maximum margin:
 
@@ -61,7 +69,7 @@ Best for:
 * High-dimensional spaces
 * When clear margin of separation exists
 
-### 4. [Decision Trees](broken-reference)
+### 4. [Decision Trees](decision-trees/1-introduction.md)
 
 Hierarchical decisions using information theory:
 
@@ -75,6 +83,8 @@ Excellent for:
 * When non-linear relationships exist
 
 ## Algorithm Selection Guide
+
+Use the sketch below as a **first guess**, then validate with cross-validation and baselines (logistic regression, linear SVM) as in [5.5 Model evaluation](../5.5-model-eval/).
 
 ### Classification Tasks
 
@@ -100,12 +110,14 @@ def select_classifier(data_characteristics):
 
 ### Performance Comparison
 
-| Algorithm      | Training Speed | Prediction Speed | Interpretability | Memory Usage |
+| Algorithm      | Training speed | Prediction speed | Interpretability | Memory usage |
 | -------------- | -------------- | ---------------- | ---------------- | ------------ |
-| Naive Bayes    |          |            |              |            |
-| kNN            |          |                |            |        |
-| SVM            |              |              |                |          |
-| Decision Trees |            |            |            |            |
+| Naive Bayes    | Usually fast   | Fast             | Moderate (coefficients / log-probs) | Low |
+| kNN            | Very fast (often just store data) | Slower as $n$ grows | Low (black-box votes) | High (stores training set) |
+| SVM            | Can be costly on large $n$ | Moderate | Low–moderate | Moderate |
+| Decision Trees | Fast           | Fast             | High (rules)     | Low          |
+
+Values are typical heuristics; always profile and validate on your dataset.
 
 ## Prerequisites
 
@@ -205,19 +217,21 @@ knn_classifier = KNeighborsClassifier(n_neighbors=5)
 
 ## Learning Path
 
-1. Start with [Naive Bayes](broken-reference)
+Suggested order follows the nav: start simple and build geometry and splitting ideas.
+
+1. Start with [Naive Bayes](naive-bayes/1-introduction.md)
    * Understand probability basics
    * Learn text classification
    * Master feature independence
-2. Move to [k-Nearest Neighbors](broken-reference)
+2. Move to [k-Nearest Neighbors](knn/1-introduction.md)
    * Grasp distance metrics
    * Understand k selection
    * Handle the curse of dimensionality
-3. Progress to [Support Vector Machines](broken-reference)
+3. Progress to [Support Vector Machines](svm/1-introduction.md)
    * Master linear classification
    * Explore kernel methods
    * Optimize hyperparameters
-4. Conclude with [Decision Trees](broken-reference)
+4. Conclude with [Decision Trees](decision-trees/1-introduction.md)
    * Learn tree construction
    * Understand splitting criteria
    * Practice pruning techniques
@@ -292,10 +306,10 @@ np.random.seed(42)
 
 ## Assignment
 
-Ready to apply your supervised learning knowledge? Head over to the [Supervised Learning Assignment](../_assignments/5.2-assignment.md) to test your understanding of these fundamental algorithms!
+Ready to apply your supervised learning knowledge? The questions are in [Module 5 assignment](../_assignments/module-assignment.md) (see Section 2 for **5.2**); self-check answers are in [_assignments.md](../_assignments.md).
 
 ## Ready to Begin?
 
-Start your journey with [Naive Bayes](broken-reference) to build a strong foundation in probabilistic classification. Each algorithm builds upon previous concepts, so following the suggested order will maximize your learning experience.
+Start your journey with [Naive Bayes](naive-bayes/1-introduction.md) to build a strong foundation in probabilistic classification. Each algorithm builds upon previous concepts, so following the suggested order will maximize your learning experience.
 
 Remember: The best way to learn is by doing! Each section includes hands-on examples and exercises to reinforce your understanding. Let's dive in!

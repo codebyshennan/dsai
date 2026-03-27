@@ -2,20 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Hierarchical Clustering” and reproduce the examples here in your own notebook or environment.
 
-> **Note**: This content has been consolidated into the main clustering guide for a better learning experience.
+## Overview
 
-Hierarchical clustering is covered comprehensively in:
-
-**[Clustering: Finding Natural Groups in Data](clustering.md)**
-
-This guide includes:
-- Agglomerative vs divisive approaches
-- Dendrograms and how to interpret them
-- Linkage methods (single, complete, average, ward)
-- Cutting dendrograms to form clusters
-- Practical examples and visualizations
-
----
+**Agglomerative** clustering: linkage criteria, dendrograms, and choosing a cut.
 
 ## Helpful video
 

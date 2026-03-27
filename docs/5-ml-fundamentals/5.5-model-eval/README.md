@@ -2,6 +2,14 @@
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Model Evaluation and Hyperparameter Tuning** in your course schedule.
 
+## Overview
+
+This submodule is the course’s **measurement** layer: [cross-validation](cross-validation.md), [metrics](metrics.md) (including [accuracy](accuracy.md), [confusion matrix](confusion-matrix.md), [precision/recall](precision-recall.md), [ROC/AUC](roc-and-auc.md)), [bias–variance](bias-variance.md), [overfitting/underfitting](overfitting-underfitting.md), [learning curves](learning-curves.md), [validation curves](validation-curves.md), [hyperparameter tuning](hyperparameter-tuning.md), [early stopping](early-stopping.md), [regularization](regularization.md), [feature importance](feature-importance.md), [model selection](model-selection.md), [pipelines](sklearn-pipelines.md), and an [improvement plan](improvement-plan.md). **Prerequisites:** models from [5.1–5.3](../5.1-intro-to-ml/README.md); basic probability helps for ROC and calibration.
+
+## Why this matters
+
+A strong model with sloppy evaluation is misleading; a simple model measured honestly often wins in production. This material connects every algorithm lesson to **reproducible** scores and safer tuning.
+
 Welcome to the model evaluation section! Here you'll learn how to properly assess your models' performance, tune their parameters for optimal results, and build efficient machine learning pipelines. These skills are crucial for developing robust and reliable machine learning solutions.
 
 ## Helpful video
@@ -111,7 +119,7 @@ Each topic includes:
 
 ## Assignment
 
-Ready to apply your model evaluation knowledge? Head over to the [Model Evaluation Assignment](../_assignments/5.5-assignment.md) to test your understanding of cross-validation, hyperparameter tuning, and pipeline development!
+Ready to apply your model evaluation knowledge? Use [Module 5 assignment](../_assignments/module-assignment.md) (implementation sections reference CV and metrics) and [_assignments.md](../_assignments.md) for quick self-check answers.
 
 ## Getting Started
 

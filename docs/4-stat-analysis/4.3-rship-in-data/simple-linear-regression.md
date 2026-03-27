@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Simple Linear Regression: Your First Step into Prediction” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Simple linear regression estimates an **intercept** and a **slope** that minimize squared errors for one predictor and one outcome. The same machinery underpins inference on coefficients (when assumptions hold) and feeds **multiple regression** when you add columns. Read this lesson as the template: interpret coefficients, inspect residuals early, then generalize.
+
 ## Why this matters
 
 - You will fit and interpret a **line of best fit** for prediction and for quantifying association.

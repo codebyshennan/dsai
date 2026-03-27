@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Implementing Gradient Boosting” and reproduce the examples here in your own notebook or environment.
 
-Welcome to the practical side of Gradient Boosting! In this guide, we'll walk through implementing Gradient Boosting using popular frameworks like XGBoost, LightGBM, and CatBoost. Think of this as learning to cook - we'll start with simple recipes and gradually move to more complex dishes.
+## Overview
+
+Libraries and APIs (e.g. **hist** gradient boosting in sklearn, XGBoost/LightGBM/CatBoost at overview level): key parameters and fit patterns.
 
 ## Helpful video
 

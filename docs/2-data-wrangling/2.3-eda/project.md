@@ -14,7 +14,11 @@ Summarizing distributions with percentiles—common in exploratory analysis.
 
 > **Time needed:** Often 6–10 hours including polish.
 
-In this assignment, you'll perform a comprehensive exploratory data analysis on a real-world e-commerce dataset. You'll apply various EDA techniques to uncover patterns, relationships, and trends in the data.
+## Why this matters
+
+EDA deliverables should read like **evidence**, not a gallery of plots: each figure should answer a stated question, and the write-up should name **limitations** (time window, selection bias, missing fields) alongside conclusions.
+
+In this assignment, you perform exploratory data analysis on a realistic e-commerce-style dataset. You apply the workflow from the readings to uncover patterns, relationships, and trends—and to document what you cannot claim from the data alone.
 
 ## Dataset Description
 

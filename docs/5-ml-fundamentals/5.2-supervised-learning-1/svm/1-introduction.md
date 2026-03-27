@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Introduction to Support Vector Machines (SVM)” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**SVMs** fit a **maximum-margin** boundary between classes (or regress with an $\varepsilon$-insensitive tube); **kernels** lift features so nonlinear boundaries are possible. **Prerequisites:** [5.2 README](../README.md); comfort with vectors from Module 1 helps for [2-math-kernels.md](2-math-kernels.md).
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Advanced Random Forest Techniques” and reproduce the examples here in your own notebook or environment.
 
-Let's explore advanced concepts and techniques to take your Random Forest models to the next level!
+## Overview
+
+Extra trees, class imbalance handling, and tuning strategies beyond defaults.
 
 ## Helpful video
 

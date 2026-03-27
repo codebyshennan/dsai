@@ -14,7 +14,18 @@ DAGs, tasks, and scheduling—conceptual background for ETL-style pipelines.
 
 > **Time needed:** Several hours across the three topic pages and the project.
 
-Data engineering is the backbone of modern data-driven organizations, focusing on designing, building, and maintaining the infrastructure and systems needed to collect, store, and analyze data at scale. This module will equip you with the essential skills and knowledge needed to become proficient in data engineering practices.
+## Lesson path (site order)
+
+1. [Data storage](data-storage.md)  
+2. [Data integration](data-integration.md)  
+3. [ETL fundamentals](etl-fundamentals.md)  
+4. [Data engineering project](project.md)  
+
+## Why this matters
+
+Analysts and scientists depend on **reliable pipelines**: data that arrives on schedule, matches an agreed schema, and can be traced back to a source. Data engineering is the discipline that makes that happen—**extract**, **transform**, **load**, orchestration, and storage choices—so downstream work is reproducible, not heroic.
+
+Data engineering is the backbone of modern data-driven organizations: designing, building, and maintaining the systems that collect, store, and serve data at scale. This submodule introduces vocabulary and patterns you will recognize in any modern stack.
 
 ## Learning Objectives
 
@@ -750,6 +761,6 @@ Real-world applications of data engineering across industries:
 
 ## Assignment
 
-Ready to practice your data engineering skills? Head over to the [Data Engineering Assignment](../_assignments/2.4-assignment.md) to apply what you've learned!
+Ready to practice your data engineering skills? Head over to the [Module 2 assignment (student version)](../_assignments/module-assignment-student.md) to apply what you have learned.
 
 Let's dive into the world of data engineering and learn how to build robust, scalable data pipelines!

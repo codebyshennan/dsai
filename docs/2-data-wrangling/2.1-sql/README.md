@@ -2,6 +2,10 @@
 
 **After this submodule:** You can read and write portable SQL against relational data—from **SELECT** and filters through **JOIN**s, aggregations, and introductory analytics patterns.
 
+## Why this matters
+
+SQL is how most organizations **ask questions** of structured data at scale. Reports, dashboards, and many ML feature pipelines still pass through relational engines; fluent SQL lets you pull trustworthy slices without waiting on someone else for every tweak.
+
 ## Helpful video
 
 High-level introduction to SQL and relational databases.
@@ -13,6 +17,17 @@ High-level introduction to SQL and relational databases.
 **Prerequisites:** Comfortable with tables, rows, and columns (spreadsheet or [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md)). Install a client such as [DBeaver](../../0-prep/dbeaver.md) and a practice database as listed under **Tools Required** below.
 
 > **Time needed:** Plan several hours across readings, the tutorial notebook, and practice.
+
+## Lesson path (site order)
+
+Work through these pages in order unless your instructor assigns otherwise:
+
+1. [Intro to databases](intro-databases.md)  
+2. [Basic operations](basic-operations.md)  
+3. [Joins](joins.md)  
+4. [Aggregations](aggregations.md)  
+5. [Advanced concepts](advanced-concepts.md)  
+6. [SQL project](project.md)  
 
 Welcome to the fascinating world of SQL! Imagine having a conversation with your data - that's exactly what SQL allows you to do. Whether you're analyzing customer behavior, tracking business metrics, or uncovering hidden patterns, SQL is your trusted companion in the data journey.
 
@@ -121,19 +136,19 @@ Basic           | 5250          | 45.75           | 240,187.50    | 1.0
   <div class="code-callout" data-lines="1-10" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">A single query that provides valuable busines…</span>
+      <span class="code-callout__title">Metrics and join</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p><strong>SELECT</strong> lists aggregates per segment after <strong>JOIN</strong> attaches each order to a segment. <code>COUNT(DISTINCT o.customer_id)</code> counts unique buyers; <code>AVG</code>/<code>SUM</code> summarize amounts; dividing order count by distinct customers approximates orders per buyer.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="11-20" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">GROUP BY c.customer_segment</span>
+      <span class="code-callout__title">Filter, group, sort</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 11–20: follow this band in the snippet.</p>
+      <p><strong>WHERE</strong> restricts to recent orders. <strong>GROUP BY c.customer_segment</strong> produces one result row per segment. <strong>ORDER BY total_revenue DESC</strong> ranks segments; the comment block shows example output columns.</p>
     </div>
   </div>
 </aside>
@@ -164,6 +179,8 @@ graph TD
     B --> K[Indexes]
     K --> L[Performance]
 ```
+
+The diagram is intentionally high level: every topic below exists so that **queries return correct rows quickly** without letting bad writes corrupt other rows. Skim the bullets as a map; you will revisit each idea in the linked lessons.
 
 Learn the building blocks of databases:
 
@@ -198,10 +215,10 @@ Learn the building blocks of databases:
     <div class="code-callout" data-lines="1-7" data-tint="1">
       <div class="code-callout__meta">
         <span class="code-callout__lines"></span>
-        <span class="code-callout__title">CREATE TABLE products (</span>
+        <span class="code-callout__title">Table definition</span>
       </div>
       <div class="code-callout__body">
-        <p>Lines 1–7: follow this band in the snippet.</p>
+        <p><code>SERIAL PRIMARY KEY</code> auto-generates surrogate IDs. <code>NOT NULL</code> and <code>CHECK (price &gt;= 0)</code> reject bad rows at insert time. <code>REFERENCES categories(id)</code> enforces a foreign key so every product points at a real category; <code>DEFAULT CURRENT_TIMESTAMP</code> fills <code>created_at</code> automatically.</p>
       </div>
     </div>
   </aside>
@@ -245,23 +262,25 @@ Apple Watch     | 60         | 24000    | 58
   <div class="code-callout" data-lines="1-12" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Find top-selling products this month</span>
+      <span class="code-callout__title">Joins and filters</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p>Two <strong>JOIN</strong>s connect products → line items → orders. Aggregates (<code>SUM</code>, <code>COUNT DISTINCT</code>) are computed per product after <strong>GROUP BY p.product_id, p.product_name</strong>. <strong>HAVING</strong> drops groups with zero quantity sold.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">ORDER BY units_sold DESC</span>
+      <span class="code-callout__title">Month filter and top five</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>WHERE</strong> uses <code>DATE_TRUNC('month', …)</code> so “this month” aligns to calendar boundaries. <strong>ORDER BY units_sold DESC</strong> ranks products; <strong>LIMIT 5</strong> returns only the leaders. The comment shows example numeric output.</p>
     </div>
   </div>
 </aside>
 </div>
+
+Notice how **JOIN** links products to line items and orders, **WHERE** limits to the current month, **GROUP BY** rolls up to each product, and **ORDER BY** with **LIMIT** surfaces the top sellers—one pipeline from fact tables to a ranking.
 
 ### 3. Aggregations and Grouping
 
@@ -294,23 +313,25 @@ ORDER BY cohort_month DESC;
   <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Customer cohort analysis</span>
+      <span class="code-callout__title">CTE: cohort aggregates</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–8: follow this band in the snippet.</p>
+      <p>The <strong>WITH</strong> clause builds <code>cohort_data</code>: one row per month of first order. <code>DATE_TRUNC('month', first_order_date)</code> buckets customers; inner <strong>SELECT</strong> computes cohort size, revenue, and average orders from <code>customer_metrics</code>.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="9-17" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">GROUP BY DATE_TRUNC(&#x27;month&#x27;, first_order_date)</span>
+      <span class="code-callout__title">Outer SELECT</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 9–17: follow this band in the snippet.</p>
+      <p>The outer query only reshapes CTE rows: revenue per customer, rounded averages, and <strong>ORDER BY cohort_month DESC</strong> so the newest cohorts appear first—no extra joins needed.</p>
     </div>
   </div>
 </aside>
 </div>
+
+The **CTE** (`WITH`) names the grouped cohort metrics first; the outer query only formats and sorts. That pattern keeps long aggregate queries readable when you add more cohort dimensions later.
 
 Performance consideration:
 $T_{query} = O(n \log n)$ for sorted aggregations
@@ -364,23 +385,25 @@ HAVING COUNT(DISTINCT order_id) > 0;
   <div class="code-callout" data-lines="1-12" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Customer order history with product details</span>
+      <span class="code-callout__title">Detail rows (CTE)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><code>customer_orders</code> flattens customers to orders to line items to products. Chained <strong>LEFT JOIN</strong>s preserve customers with no orders (NULLs on the right). <code>quantity * … price</code> is line revenue for downstream aggregation.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">LEFT JOIN orders o ON c.customer_id = o.custo…</span>
+      <span class="code-callout__title">Roll up per customer</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p>The outer <strong>SELECT</strong> groups by customer, counts distinct orders, sums revenue, and <code>STRING_AGG</code> lists product names. <strong>HAVING</strong> removes customers who never placed an order (all-null joins).</p>
     </div>
   </div>
 </aside>
 </div>
+
+**Reading the result:** chained **LEFT JOIN**s keep every customer even with sparse orders; `STRING_AGG` rolls product names into one line per customer; **`HAVING`** drops customers with no orders after the join. Compare with **INNER JOIN** if you only want buyers.
 
 ### 5. Advanced SQL Concepts
 
@@ -406,10 +429,10 @@ Take your SQL skills to the next level:
      <div class="code-callout" data-lines="1-8" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">EXPLAIN ANALYZE</span>
+         <span class="code-callout__title">Plan and monthly revenue</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–8: follow this band in the snippet.</p>
+         <p><strong>EXPLAIN ANALYZE</strong> runs the query and prints the executor plan plus actual timings—use it to see index use vs sequential scans. The <strong>SELECT</strong> buckets <code>order_date</code> by month over the last year and aggregates order counts and revenue (hint comment suggests an index on <code>order_date</code>).</p>
        </div>
      </div>
    </aside>
@@ -436,10 +459,10 @@ Take your SQL skills to the next level:
      <div class="code-callout" data-lines="1-9" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">SELECT</span>
+         <span class="code-callout__title">Partitioned windows</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–9: follow this band in the snippet.</p>
+         <p><code>AVG(price) OVER (PARTITION BY category_name)</code> computes each row’s category average without collapsing rows. The next column subtracts that average from price (distance from typical). <code>RANK() … ORDER BY price DESC</code> ranks items inside each category.</p>
        </div>
      </div>
    </aside>
@@ -471,10 +494,10 @@ Take your SQL skills to the next level:
      <div class="code-callout" data-lines="1-14" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">WITH RECURSIVE subordinates AS (</span>
+         <span class="code-callout__title">Recursive org chart</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–14: follow this band in the snippet.</p>
+         <p><strong>WITH RECURSIVE</strong> seeds with direct reports to manager 1, then <strong>UNION ALL</strong> joins employees to the growing result so each iteration walks one level down the tree. <code>level</code> increments until no new rows; the final <strong>SELECT</strong> returns the full subtree sorted by depth and id.</p>
        </div>
      </div>
    </aside>
@@ -535,10 +558,10 @@ Before starting this journey, ensure you have:
      <div class="code-callout" data-lines="1-6" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Installation commands</span>
+         <span class="code-callout__title">Install DBeaver</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–6: follow this band in the snippet.</p>
+         <p><strong>Homebrew</strong> (macOS) and <strong>snap</strong> (Ubuntu) install the community edition GUI. After install, create a connection to your Postgres (or other) instance and use the SQL editor to run the course snippets.</p>
        </div>
      </div>
    </aside>
@@ -575,10 +598,10 @@ Before starting this journey, ensure you have:
      <div class="code-callout" data-lines="1-10" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Core tables</span>
+         <span class="code-callout__title">Northwind outline</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–10: follow this band in the snippet.</p>
+         <p>This block is a **schema sketch** (comments, not runnable DDL): core entities are customers, products, orders, and employees, with classic one-to-many paths (customer → orders → line items) and categories on products.</p>
        </div>
      </div>
    </aside>
@@ -604,10 +627,10 @@ Before starting this journey, ensure you have:
      <div class="code-callout" data-lines="1-8" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">1. Create database</span>
+         <span class="code-callout__title">Create DB and load dumps</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–8: follow this band in the snippet.</p>
+         <p><strong>CREATE DATABASE</strong> makes an empty database. <code>psql -f</code> runs SQL files: first schema (tables, keys), then data. Paths to the dump files must match your download; run from a shell where <code>psql</code> is on <code>PATH</code>.</p>
        </div>
      </div>
    </aside>
@@ -639,10 +662,10 @@ Before starting this journey, ensure you have:
      <div class="code-callout" data-lines="1-8" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Initialize SQL project</span>
+         <span class="code-callout__title">Git folder for scripts</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–8: follow this band in the snippet.</p>
+         <p>Creates a directory and <strong>git init</strong> for versioned <code>.sql</code> files. <code>.gitignore</code> excludes logs and temp files so accidental local artifacts do not get committed.</p>
        </div>
      </div>
    </aside>
@@ -678,19 +701,19 @@ Before starting this journey, ensure you have:
      <div class="code-callout" data-lines="1-8" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Bad Practice</span>
+         <span class="code-callout__title">Implicit join (avoid)</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–8: follow this band in the snippet.</p>
+         <p>The “comma join” with <strong>WHERE</strong> is easy to misread and easy to turn into a Cartesian product if you forget a predicate. Prefer explicit <strong>JOIN … ON</strong> so relationships stay visible in the <strong>FROM</strong> clause.</p>
        </div>
      </div>
      <div class="code-callout" data-lines="9-16" data-tint="2">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">O.total_amount</span>
+         <span class="code-callout__title">Explicit JOIN and columns</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 9–16: follow this band in the snippet.</p>
+         <p>Lists only needed columns, joins orders to customers on <code>customer_id</code>, filters recent orders, and orders by date—readable structure for reviewers and for the optimizer.</p>
        </div>
      </div>
    </aside>
@@ -716,10 +739,10 @@ Before starting this journey, ensure you have:
        <div class="code-callout" data-lines="1-7" data-tint="1">
          <div class="code-callout__meta">
            <span class="code-callout__lines"></span>
-           <span class="code-callout__title">Create indexes for frequently queried columns</span>
+           <span class="code-callout__title">Single- and multi-column indexes</span>
          </div>
          <div class="code-callout__body">
-           <p>Lines 1–7: follow this band in the snippet.</p>
+           <p>B-tree indexes on <code>order_date</code> and <code>customer_id</code> speed filters and joins. The composite index matches queries that filter by customer <em>and</em> date—column order should match your most selective predicates.</p>
          </div>
        </div>
      </aside>
@@ -745,10 +768,10 @@ Before starting this journey, ensure you have:
        <div class="code-callout" data-lines="1-8" data-tint="1">
          <div class="code-callout__meta">
            <span class="code-callout__lines"></span>
-           <span class="code-callout__title">Bad: Full table scan</span>
+           <span class="code-callout__title">Sargable date range</span>
          </div>
          <div class="code-callout__body">
-           <p>Lines 1–8: follow this band in the snippet.</p>
+           <p><code>EXTRACT(YEAR FROM order_date) = 2023</code> applies a function to the column, which often blocks index use. Prefer a **range** on <code>order_date</code> (<code>&gt;=</code> start and <code>&lt;</code> end of next year) so the planner can use a btree index.</p>
          </div>
        </div>
      </aside>
@@ -774,10 +797,10 @@ Before starting this journey, ensure you have:
      <div class="code-callout" data-lines="1-8" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Use constraints to enforce business rules</span>
+         <span class="code-callout__title">Constraints</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–8: follow this band in the snippet.</p>
+         <p><code>CHECK</code> clauses forbid negative price or stock. <code>REFERENCES categories(id)</code> ties each product to an existing category row. Together they reject bad inserts before application code sees them.</p>
        </div>
      </div>
    </aside>
@@ -818,19 +841,19 @@ Before starting this journey, ensure you have:
      <div class="code-callout" data-lines="1-11" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Use CTEs for complex queries</span>
+         <span class="code-callout__title">Monthly revenue CTE</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–11: follow this band in the snippet.</p>
+         <p>First CTE aggregates orders to one revenue row per calendar month. Second CTE uses <code>LAG(revenue) OVER (ORDER BY month)</code> to pull the previous month’s revenue on the same row—setup for period-over-period math.</p>
        </div>
      </div>
      <div class="code-callout" data-lines="12-23" data-tint="2">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Revenue,</span>
+         <span class="code-callout__title">Growth rate</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 12–23: follow this band in the snippet.</p>
+         <p>Final <strong>SELECT</strong> computes percent change vs prior month; the <code>::numeric</code> cast and <code>ROUND</code> control display. Guard division-by-null if the first month has no <code>LAG</code> (not shown here).</p>
        </div>
      </div>
    </aside>
@@ -920,7 +943,7 @@ Before starting this journey, ensure you have:
 
 ## Assignment
 
-Ready to test your SQL skills? Head over to the [SQL Assignment](../_assignments/2.1-assignment.md) to apply what you've learned!
+Ready to test your SQL skills? Head over to the [Module 2 assignment (student version)](../_assignments/module-assignment-student.md) to apply what you have learned.
 
 ## What's Next?
 

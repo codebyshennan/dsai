@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Real-World Applications of Random Forest” and reproduce the examples here in your own notebook or environment.
 
-Let's explore how Random Forests are used to solve real-world problems across different industries!
+## Overview
+
+Tabular benchmarks, feature screening, and when a forest beats boosting—or does not.
 
 ## Helpful video
 

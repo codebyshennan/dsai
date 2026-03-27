@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Understanding How Decision Trees Work” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Here we go deeper on **how** a tree chooses splits: impurity measures (e.g. Gini, entropy), information gain, and how depth and leaf size control the decision surface.
+
+Start from [Introduction](1-introduction.md) if the basic picture is still fuzzy; the submodule hub is [here](../README.md).
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “A/B Testing: Making Data-Driven Decisions” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+A/B testing is the product-facing form of a two-arm experiment: **control** vs **treatment**, a clear **metric**, random assignment when possible, and rules for how long to run and how to read uncertainty. You already know how to phrase hypotheses and pick tests; here the focus is workflow, metrics, and interpretation in a live or simulated environment.
+
 ## Helpful video
 
 Core ideas behind hypothesis tests and the null hypothesis.
@@ -15,7 +19,7 @@ Core ideas behind hypothesis tests and the null hypothesis.
 
 ## Prerequisites
 
-- [Formulating hypotheses](./hypothesis-formulation.md).
+- [Formulating hypotheses](./hypothesis-formulation.md) and [Statistical tests](./statistical-tests.md) (how tests connect to metrics and designs).
 - [Experimental design](./experimental-design.md) for control and randomization.
 
 > **Note:** Pair this lesson with the [tutorial notebook](./tutorial.ipynb) if your cohort uses it.
@@ -462,7 +466,7 @@ def check_sample_ratio(control_size, treatment_size, expected_ratio=0.5):
 
 ## Next steps
 
-- Continue to [Statistical tests](./statistical-tests.md).
+- Continue to [Results analysis](./results-analysis.md).
 
 ## Additional Resources
 

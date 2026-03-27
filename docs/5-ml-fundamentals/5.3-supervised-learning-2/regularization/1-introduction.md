@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Introduction to Regularization” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Regularization** adds a penalty on model complexity (L1/L2 on weights, tree depth limits, dropout, etc.) so the fit does not chase noise. **Prerequisites:** [bias–variance](../../5.1-intro-to-ml/bias-variance.md); linear models from earlier modules help when reading Ridge/Lasso forms in [2-math-foundation.md](2-math-foundation.md).
+
 Imagine you're learning to ride a bicycle. At first, you might use training wheels to prevent falling over. Regularization in machine learning works similarly - it's like adding training wheels to your model to prevent it from "falling over" (overfitting) when making predictions.
 
 ![Regularization Path](assets/regularization_path.png)

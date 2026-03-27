@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Advanced Regularization Techniques” and reproduce the examples here in your own notebook or environment.
 
-Think of advanced regularization techniques like learning advanced driving techniques - they build upon the basics but help you handle more complex situations. Let's explore these sophisticated methods in a way that's easy to understand!
+## Overview
+
+Dropout and other NN-centric regularizers vs classical penalties; when to combine approaches.
 
 ## Helpful video
 

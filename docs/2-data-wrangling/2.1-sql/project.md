@@ -14,9 +14,15 @@ High-level introduction to SQL and relational databases.
 
 > **Time needed:** Often 4–8 hours including exploration and write-up.
 
+## Why this matters
+
+This project is a capstone for Module 2.1: you combine **joins**, **aggregates**, **CTEs**, and conditional logic the way analysts do in practice—then document assumptions and results so someone else could reproduce your queries.
+
 ## Project Overview
 
 This project implements a comprehensive analytics platform for GlobalMart, an e-commerce business. The platform provides insights into customer behavior, product performance, and business operations through SQL-based analysis.
+
+The numbered sections below mirror a typical assignment brief: work through them in order, and treat the SQL as **reference patterns**—adapt table and column names to your own database.
 
 ## Analysis Components
 

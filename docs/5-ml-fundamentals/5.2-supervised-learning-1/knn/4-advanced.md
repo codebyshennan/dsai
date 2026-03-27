@@ -2,10 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Advanced KNN Techniques: Taking Your Skills to the Next Level” and reproduce the examples here in your own notebook or environment.
 
-Welcome to the advanced section! Here we'll explore techniques that can make your KNN models more powerful and efficient. Don't worry if some concepts seem complex at first - we'll break them down into manageable pieces.
+## Overview
 
-![Weighted vs Uniform KNN](assets/weighted_knn.png)
-*Figure: Comparison of uniform weights vs distance-based weights in KNN*
+Touches **curse of dimensionality**, approximate neighbors, and practical tuning when $p$ is large or classes are imbalanced.
 
 ## Helpful video
 

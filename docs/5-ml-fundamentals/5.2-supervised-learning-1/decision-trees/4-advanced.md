@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Advanced Decision Tree Techniques” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Pruning**, cost-complexity ideas, and ways to curb overfitting when a single tree is still the right interpretable model.
+
+See [implementation](3-implementation.md) for baseline code paths.
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

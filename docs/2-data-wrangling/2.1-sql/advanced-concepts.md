@@ -16,6 +16,10 @@ High-level introduction to SQL and relational databases.
 
 > **Warning:** Dialects differ (PostgreSQL vs SQL Server vs BigQuery). Treat advanced snippets as patterns and check your engine’s docs for exact syntax.
 
+## Why this matters
+
+Readable SQL survives code review and production debugging. **CTEs** break big questions into named steps; **window functions** answer “rank within group” without self-joins; **EXPLAIN** shows whether the database is scanning whole tables or using indexes. Together, these are the bridge from “it runs” to “it runs efficiently.”
+
 ## Introduction to Advanced SQL
 
 SQL mastery goes beyond basic CRUD operations. Advanced SQL concepts enable you to:
@@ -28,6 +32,8 @@ SQL mastery goes beyond basic CRUD operations. Advanced SQL concepts enable you 
 ## Advanced SQL Functions
 
 ### 1. JSON Operations
+
+Applications often store nested payloads (orders with line items, flexible attributes) as **JSON** next to relational columns. Database engines expose functions to build, query, and unnest JSON so you can stay in SQL for many reporting tasks instead of exporting everything to Python first.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">

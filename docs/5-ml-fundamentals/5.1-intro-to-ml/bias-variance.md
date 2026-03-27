@@ -2,6 +2,14 @@
 
 **After this lesson:** you can explain the core ideas in “Understanding Bias and Variance in Machine Learning” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Bias** is systematic error (the model is too simple or too constrained). **Variance** is sensitivity to the particular training sample (the model is too flexible). You will see this tradeoff in learning curves, cross-validation, and regularization—topics developed further in [5.5 Model evaluation](../5.5-model-eval/). **Prerequisites:** [What is ML?](what-is-ml.md) and the [workflow](ml-workflow.md) lesson; basic sklearn from this page’s examples.
+
+## Why this matters
+
+Almost every modeling decision—adding features, deepening trees, increasing regularization—pushes bias and variance in different directions. Naming the failure mode (underfitting vs overfitting) is the first step toward fixing it.
+
 Welcome to the world of machine learning! If you're just starting out, you might have heard terms like "bias" and "variance" thrown around. Don't worry - we're going to break these concepts down in a way that makes sense, even if you're completely new to the field.
 
 ## Helpful video
@@ -441,6 +449,8 @@ plot_validation_curve(
 
 ## Common Pitfalls to Avoid
 
+These mistakes often show up as “great training score, poor test score” or unstable metrics across folds. Use them as a checklist when something looks off.
+
 1. **Not Splitting Data Properly**
    - Always use separate training, validation, and test sets
    - Use stratification for imbalanced datasets
@@ -457,6 +467,8 @@ plot_validation_curve(
    - Example: A complex model might have slightly better accuracy, but if stakeholders can't understand it, they won't trust it
 
 ## Next Steps
+
+When you are ready to go deeper, apply the same ideas on a dataset you care about, compare a few families of models, and keep a simple log of what changed and how metrics moved.
 
 1. **Practice with Real Data**
    - Try these techniques on a dataset you're familiar with

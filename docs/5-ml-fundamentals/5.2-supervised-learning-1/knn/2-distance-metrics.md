@@ -2,10 +2,11 @@
 
 **After this lesson:** you can explain the core ideas in “Understanding Distance Metrics in KNN” and reproduce the examples here in your own notebook or environment.
 
-Distance metrics are like different ways of measuring how far apart two things are. Just like you might measure distance differently when walking through a city versus flying in a plane, KNN uses different ways to measure "closeness" between data points.
+## Overview
 
-![Different Distance Metrics](assets/distance_metrics.png)
-*Figure: Visual comparison of Euclidean, Manhattan, and Cosine distance metrics*
+Compares **distance metrics** (Euclidean, Manhattan, Minkowski, etc.) and why scaling features first is non-negotiable for kNN.
+
+[Introduction](1-introduction.md) sets the voting story; [5.2 README](../README.md) places kNN among other learners.
 
 ## Helpful video
 

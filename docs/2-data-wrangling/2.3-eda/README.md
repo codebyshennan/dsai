@@ -10,7 +10,18 @@
 
 > **Figure (add screenshot or diagram):** Example EDA dashboard or notebook summary—replace **assets/eda_dashboard.png** when assets are generated.
 
-Exploratory Data Analysis (EDA) is the crucial first step in any data analysis project. It's like being a detective - you investigate your data to uncover patterns, spot anomalies, test hypotheses, and check assumptions. Through EDA, you transform raw data into actionable insights.
+## Lesson path (site order)
+
+1. [Distributions](distributions.md)  
+2. [Relationships](relationships.md)  
+3. [Time series](time-series.md)  
+4. [EDA project](project.md)  
+
+## Why this matters
+
+EDA is where you catch **skewed distributions**, **leaky features**, **wrong units**, and **silent missingness** before they become a pretty chart or a bad model. A short, repeatable EDA pass saves hours of debugging later and gives stakeholders confidence in your numbers.
+
+Exploratory Data Analysis (EDA) is the crucial first step in any data analysis project. It is like being a detective: you investigate your data to uncover patterns, spot anomalies, test hypotheses, and check assumptions. Through EDA, you turn raw tables into questions you can answer with statistics or visualization.
 
 ### Video Tutorial: Exploratory Data Analysis
 
@@ -745,7 +756,7 @@ def create_interactive_dashboard(df):
 
 ## Assignment
 
-Ready to practice your EDA skills? Head over to the [EDA Assignment](../_assignments/2.3-assignment.md) to apply what you've learned!
+Ready to practice your EDA skills? Head over to the [Module 2 assignment (student version)](../_assignments/module-assignment-student.md) to apply what you have learned.
 
 Remember: "EDA is not just about looking at data, it's about understanding the story it tells!"
 

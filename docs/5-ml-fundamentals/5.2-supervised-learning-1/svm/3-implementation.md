@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Implementing SVM with Scikit-learn” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**`SVC` / `SVR`** usage in scikit-learn: scaling, `C`, `gamma`, multiclass strategy, and calibration at a glance.
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

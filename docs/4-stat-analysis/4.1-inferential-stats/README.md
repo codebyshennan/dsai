@@ -2,9 +2,13 @@
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Introduction to Inferential Statistics** in your course schedule.
 
+## Overview
+
+Inferential statistics is how we justify statements about a **whole** population when we only see a **sample**. This submodule introduces populations and samples, how we quantify uncertainty (confidence intervals, sampling distributions, p-values), and how sample quantities relate to unknown population quantities (parameters vs statistics). Work through the lessons in the order below so each file builds on the last.
+
 See the [Module 4 overview](../README.md) for how this unit fits with hypothesis testing, regression, and modelling.
 
-Welcome to the fascinating world of inferential statistics! Imagine you're a detective trying to understand an entire city by studying just a few neighborhoods. That's essentially what inferential statistics allows us to do - make educated guesses about large populations by carefully studying smaller samples.
+Welcome to the fascinating world of inferential statistics. Imagine you are trying to understand an entire city by studying a few neighborhoods: that is the core move—learn from limited data without pretending the sample is the full world.
 
 ## Helpful video
 
@@ -22,13 +26,15 @@ By the end of this module, you will:
 - Develop critical thinking skills for statistical analysis
 - Apply inferential statistics to real-world problems
 
-## Topics Covered
+## Topics covered (lesson order)
 
-1. [Population vs Sample](./population-sample.md) - Understanding the building blocks
-2. [Parameters and Statistics](./parameters-statistics.md) - The numbers that tell the story
-3. [Understanding P-values](./p-values.md) - Making sense of statistical significance
-4. [Confidence Intervals](./confidence-intervals.md) - Quantifying uncertainty
-5. [Sampling Distributions](./sampling-distributions.md) - The bridge between samples and populations
+Follow this sequence (it matches the site lesson navigation):
+
+1. [Population vs sample](./population-sample.md) — Definitions and sampling methods  
+2. [Confidence intervals](./confidence-intervals.md) — Ranges that express uncertainty around an estimate  
+3. [Sampling distributions](./sampling-distributions.md) — Why statistics vary from sample to sample (CLT, standard error)  
+4. [Understanding p-values](./p-values.md) — What “surprising under the null” means in practice  
+5. [Parameters and statistics](./parameters-statistics.md) — Notation, estimators, and tying ideas together  
 
 ## Prerequisites
 
@@ -39,32 +45,32 @@ Before diving in, you should be comfortable with:
 - Basic Python programming skills (we'll use Python for examples)
 - Basic algebra and mathematical notation
 
-## Why This Matters
+## Why this matters
 
-Inferential statistics isn't just academic theory - it's a powerful tool used daily in:
+Almost every data role eventually asks: “Given this sample, what can we say about everyone or everything we did not measure?” Inferential tools are how you answer without hand-waving. The lists below are not exhaustive; they show where the same ideas show up repeatedly.
 
-### Business Decision Making
+### Business decision making
 
 - A/B testing new website features
 - Market research for product launches
 - Customer satisfaction analysis
 - Sales forecasting
 
-### Scientific Research
+### Scientific research
 
 - Clinical trials for new medications
 - Environmental impact studies
 - Social science research
 - Psychology experiments
 
-### Data Science Applications
+### Data science applications
 
 - Machine learning model validation
 - Predictive analytics
 - Feature selection
 - Model performance evaluation
 
-### Real-world Examples
+### Real-world examples
 
 - Netflix uses inferential statistics to predict which shows you'll enjoy
 - Medical researchers use it to determine if a new treatment is effective
@@ -83,7 +89,7 @@ This module combines:
 
 ## Getting Started
 
-Begin with the [Population vs Sample](./population-sample.md) lesson to build a strong foundation. Each subsequent lesson builds upon previous concepts, so it's recommended to follow the order listed in Topics Covered.
+Begin with [Population vs sample](./population-sample.md). Each lesson assumes familiarity with the previous one in [Topics covered](#topics-covered-lesson-order).
 
 Remember: Inferential statistics is like learning a new language - it takes practice and patience, but the ability to make data-driven decisions with confidence is an invaluable skill in today's data-rich world.
 

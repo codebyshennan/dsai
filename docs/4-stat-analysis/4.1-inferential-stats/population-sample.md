@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Population vs Sample: The Foundation of Statistical Inference” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+This lesson fixes vocabulary: **population** (what you want to learn about), **sample** (what you actually measure), and **how you pick** the sample. Every later idea—intervals, tests, models—assumes you can say clearly what was and was not included in the data.
+
 ## Helpful video
 
 StatQuest introduction to confidence intervals.
@@ -9,6 +13,8 @@ StatQuest introduction to confidence intervals.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TqOeMYtOc1w" title="Confidence Intervals, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Why this matters
+
+If “population” and “sample” are vague, every number you compute is easy to misread. This lesson matters because:
 
 - You need precise **population** and **sample** language before confidence intervals, tests, or models.
 - Sampling choices affect whether conclusions generalize beyond the rows in your spreadsheet.
@@ -21,7 +27,9 @@ StatQuest introduction to confidence intervals.
 
 > **Note:** This is the first lesson in [4.1 Inferential statistics](./README.md).
 
-## Key Terms
+## Key terms
+
+The rest of the module reuses these words constantly. Memorize the definitions, not the metaphors.
 
 - **Population**: The complete set of all items or individuals we want to study
 - **Sample**: A subset of the population that we actually measure
@@ -317,18 +325,18 @@ sample = cluster_sample(population, 5, 20)
 
 ## Common Sampling Errors and How to Avoid Them
 
-### 1. Selection Bias
+### 1. Selection bias
 
-When your sample isn't truly representative.
+Selection bias means the people or units in your data **do not represent** the population you claim to study. The sample is often easy to reach, willing to respond, or already filtered by another process—none of which guarantees a fair picture of everyone.
 
 #### Example
 
- Surveying only mall shoppers about online shopping habits
- Using a mix of in-store and online customer lists
+- **Risky:** Surveying only mall shoppers about *online* shopping habits (people who still go to malls may differ from those who shop only online).
+- **Better:** Draw from a frame that mixes channels, or separate reporting by segment so you do not overclaim.
 
-### 2. Sampling Error
+### 2. Sampling error
 
-Natural variation between sample and population.
+Even with a perfect design, **random samples differ** from each other and from the population. That unavoidable wiggle is sampling error—not a mistake, but variation you account for with intervals, standard errors, and larger *n* when feasible.
 
 **SE curve vs sample size**
 
@@ -364,14 +372,14 @@ plt.close()
 ![Sampling Error Effect](assets/sampling_error_effect.png)
 *Figure 9: Effect of sample size on standard error. As sample size increases, the standard error decreases, showing improved precision.*
 
-### 3. Coverage Error
+### 3. Coverage error
 
-When your sampling frame misses parts of the population.
+Coverage error happens when your **sampling frame**—the list or mechanism you draw from—does not cover the full population. You might still run a clean random draw *within* the frame and still miss entire groups.
 
 #### Example
 
- Email survey missing customers without email
- Using multiple contact methods (phone, mail, in-person)
+- **Risky:** Email-only survey for “all customers” when many never gave an email.
+- **Better:** Combine contact modes where appropriate, document who is excluded, or narrow the claim to “customers with email on file.”
 
 ## Sample Size Determination
 
@@ -436,7 +444,7 @@ print(f"\nRequired sample size: {n}")
 
 ## Next steps
 
-- Continue to [Parameters and statistics](./parameters-statistics.md).
+- Continue to [Confidence intervals](./confidence-intervals.md).
 
 ## Additional Resources
 

@@ -6,15 +6,16 @@
 
 > **Note:** The assignment assumes you can explain inference, tests, regression ideas, and basic modelling choices in your own words.
 
-This module contains a comprehensive assignment covering all aspects of statistical analysis, including:
-- Inferential Statistics
-- Hypothesis Testing
-- Relationships in Data
-- Statistical Modeling
+The capstone exercise for this module asks you to connect ideas across inference, experimental thinking, regression, and modelling—not only to compute answers, but to explain them clearly. Topics touched include:
 
-## Assignment Files
+- Inferential statistics  
+- Hypothesis testing  
+- Relationships in data  
+- Statistical modeling  
 
-- [Module Assignment](4-stat-analysis/_assignments/module-assignment.md) - Complete this comprehensive assignment that tests your understanding of all statistical analysis concepts covered in this module.
+## Assignment files
+
+- [Module assignment](./_assignments/module-assignment.md) — comprehensive assignment covering the statistical analysis concepts in this module.
 
 ## Grading
 

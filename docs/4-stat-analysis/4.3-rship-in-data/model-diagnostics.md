@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Model Check-Ups: Making Sure Your Predictions Are Trustworthy” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Fitting a model is cheap; **trusting** it requires checking whether the errors look like the theory assumes (linearity, independence, constant variance, approximate normality of residuals for inference). Residual plots, influence measures, and simple fixes are how you defend a line or plane—or decide to switch to a richer model in [module 4.4](../4.4-stat-modelling/README.md).
+
 ## Why this matters
 
 - **Residuals** and diagnostic plots turn “the model ran” into “the model fits the problem.”

@@ -2,9 +2,11 @@
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Statistical Modeling with Python** in your course schedule.
 
-See the [Module 4 overview](../README.md) for prerequisites and the full learning path.
+## Overview
 
-Welcome to the Statistical Modeling module! This comprehensive guide will walk you through advanced statistical modeling techniques using Python, with a focus on making complex concepts accessible to beginners.
+Submodule 4.4 extends [linear regression ideas from 4.3](../4.3-rship-in-data/README.md) into **classification** (logistic regression), **nonlinear structure** (polynomials), **choosing complexity** (model selection), **controlling complexity** (regularization), and **explaining predictions** (interpretation). The flow is deliberate: build a flexible model class, learn to pick and constrain it, then communicate what it means to others.
+
+See the [Module 4 overview](../README.md) for prerequisites and the full learning path.
 
 ## Helpful video
 

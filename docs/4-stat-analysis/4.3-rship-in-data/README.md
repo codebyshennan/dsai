@@ -2,9 +2,13 @@
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Relationships in Data: Correlation and Regression** in your course schedule.
 
+## Overview
+
+Most interesting questions are not about one variable in isolation—they are about **how variables move together** and whether we can **summarize** or **predict** one from others. This unit moves from plots and correlations to linear models with one or many predictors, then to **diagnostics** so you know when a line (or plane) is a fair summary. It bridges [hypothesis testing (4.2)](../4.2-hypotheses-testing/README.md) and the broader modelling topics in [module 4.4](../4.4-stat-modelling/README.md).
+
 See the [Module 4 overview](../README.md) for prerequisites and how this unit connects to inference and modelling.
 
-Welcome to this comprehensive guide on understanding relationships in data! This module is designed to take you from basic concepts to practical implementation, with plenty of examples and visualizations along the way.
+Welcome to this guide on understanding relationships in data. The path is: visualize and name relationships, quantify association, fit simple then multiple regression, then check whether the model’s assumptions match the story in the residuals.
 
 ## Helpful video
 
@@ -57,9 +61,9 @@ Don't worry if you're new to statistics! We'll guide you through everything you 
 - Familiarity with NumPy and Pandas (we'll provide refreshers)
 - A curious mind ready to learn!
 
-## Why This Matters
+## Why this matters
 
-Understanding relationships in data is a fundamental skill in data science. It helps you:
+Understanding relationships in data is a core skill for analysis and modelling. It helps you:
 
 - Make accurate predictions about future events
 - Understand how different factors influence outcomes

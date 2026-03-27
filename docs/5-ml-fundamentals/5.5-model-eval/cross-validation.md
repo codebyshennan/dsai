@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Cross-Validation” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+**Cross-validation** repeatedly trains on a subset of the data and validates on held-out folds so the score reflects **generalization**, not one lucky split. Use it for model comparison and tuning; reserve a final **test** set (or outer CV) for unbiased reporting. **Prerequisites:** [ML workflow](../../5.1-intro-to-ml/ml-workflow.md); later lessons such as [hyperparameter tuning](hyperparameter-tuning.md) build on the same splits.
+
 ## What is Cross-Validation?
 
 Cross-validation is a resampling method that uses different portions of the data to test and train a model on different iterations.

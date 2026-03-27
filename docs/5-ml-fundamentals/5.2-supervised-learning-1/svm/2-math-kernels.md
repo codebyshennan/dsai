@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Mathematical Foundation and Kernels in SVM” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Develops the **margin**, slack variables, and **kernels** (linear, polynomial, RBF) so you know what `kernel` and `gamma` are doing in `SVC`.
+
+[Introduction](1-introduction.md) first; linear algebra from Module 1 helps.
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

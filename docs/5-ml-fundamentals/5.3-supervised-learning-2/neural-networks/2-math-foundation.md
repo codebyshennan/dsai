@@ -2,6 +2,12 @@
 
 **After this lesson:** you can explain the core ideas in “Mathematical Foundation of Neural Networks” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Layers, activations, loss functions, and forward pass notation—setup for training with gradients.
+
+[Introduction](1-introduction.md); [backpropagation](../backpropagation/1-introduction.md) for the backward pass story.
+
 ## Helpful video
 
 Crash Course AI: supervised learning framing (~15 min).

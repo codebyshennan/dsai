@@ -2,20 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “DBSCAN (Density-Based Spatial Clustering)” and reproduce the examples here in your own notebook or environment.
 
-> **Note**: This content has been consolidated into the advanced clustering guide for a better learning experience.
+## Overview
 
-DBSCAN is covered comprehensively in:
-
-**[Advanced Clustering Techniques](advanced-clustering.md)**
-
-This guide includes:
-- How density-based clustering works
-- Core points, border points, and noise
-- Choosing epsilon and min_samples parameters
-- HDBSCAN (Hierarchical DBSCAN)
-- Practical examples and visualizations
-
----
+**DBSCAN** for arbitrary shapes and noise points: `eps`, `min_samples`, and when density clustering wins over k-means.
 
 ## Helpful video
 

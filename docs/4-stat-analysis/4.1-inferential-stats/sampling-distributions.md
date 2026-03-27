@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Sampling Distributions: The Heart of Statistical Inference” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+If you drew another sample tomorrow, your mean would change slightly. A **sampling distribution** describes how a statistic (like \(\bar x\)) would vary under repeated sampling. That distribution is what makes [confidence intervals](./confidence-intervals.md) and, later, p-values and tests behave the way they do—including the famous **Central Limit Theorem** for means.
+
 ## Helpful video
 
 StatQuest introduction to confidence intervals.
@@ -412,7 +416,7 @@ sampling_game()
 
 ## Next steps
 
-- Start [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md) with [Experimental design](../4.2-hypotheses-testing/experimental-design.md).
+- Continue to [Understanding p-values](./p-values.md). After that submodule, you will start [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md) with [Experimental design](../4.2-hypotheses-testing/experimental-design.md).
 
 ## Additional Resources
 

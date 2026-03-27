@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Feature Importance” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Tree importances, permutation importance, and caveats—correlation and baseline comparisons matter.
+
 ## Helpful video
 
 StatQuest: why cross-validation matters for model evaluation.

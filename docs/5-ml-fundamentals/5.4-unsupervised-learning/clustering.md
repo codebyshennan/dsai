@@ -2,15 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in “Clustering: Finding Natural Groups in Data” and reproduce the examples here in your own notebook or environment.
 
-Imagine you're organizing a library. You might naturally group books by genre, author, or topic. That's exactly what clustering algorithms do with data - they help us find natural groups or patterns without being told what to look for!
+## Overview
 
-### Video Tutorial: K-means Clustering Explained
-
-<div class="video-embed">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4b5d3muPQmA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-*StatQuest: K-means Clustering by Josh Starmer*
+Hub for **clustering** ideas: choosing $k$, distances, and validation without labels.
 
 ## What is Clustering?
 

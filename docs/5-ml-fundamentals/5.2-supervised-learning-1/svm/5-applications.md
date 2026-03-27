@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Real-World Applications of SVM” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Text (linear SVM), bioinformatics-style high-$p$ settings, and other cases where margins still shine.
+
 ## Helpful video
 
 Crash Course AI: supervised learning for classical algorithms.

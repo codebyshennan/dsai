@@ -2,6 +2,10 @@
 
 **After this lesson:** you can explain the core ideas in “Multiple Linear Regression: Prediction with Multiple Factors” and reproduce the examples here in your own notebook or environment.
 
+## Overview
+
+Multiple linear regression extends the simple case to a **linear combination of several predictors**. Each coefficient answers a conditional question: “How does the outcome change with this predictor **holding the others fixed**?” That conditioning is powerful and easy to misread—especially when predictors are correlated—so this lesson pairs intuition with careful wording before [diagnostics](./model-diagnostics.md).
+
 ## Why this matters
 
 - Real outcomes usually depend on **more than one** predictor; MLR separates overlapping effects where the design allows.
