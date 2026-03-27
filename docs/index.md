@@ -5,7 +5,9 @@ title: Data Science and AI Course
 
 # Welcome to Data Science and Analytics Course
 
-This comprehensive curriculum covers everything from data fundamentals to machine learning, designed to give you a solid foundation in data science and AI.
+This page is the **full site map**: every module, submodule, and linked lesson in one place. For a shorter introduction and learning objectives, read the [course overview](README.md).
+
+**Suggested path:** Complete [Prep](0-prep/README.md), then [Module 1](1-data-fundamentals/README.md), and proceed numerically unless your instructor directs otherwise. Use submodule READMEs to see prerequisites and ordering inside each module.
 
 ## Course Structure
 

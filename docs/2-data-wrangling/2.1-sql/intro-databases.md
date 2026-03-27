@@ -18,7 +18,9 @@ High-level introduction to SQL and relational databases.
 
 ## Understanding Databases
 
-A database is an organized collection of structured information stored electronically. Key concepts include:
+A **database** is software that stores and retrieves structured data reliably: many users, controlled updates, and rules that keep records consistent. You already think in **tables** if you have used spreadsheets or pandas; relational databases make relationships between those tables explicit with **keys** and **constraints**.
+
+The bullets below are not separate topics to memorize in isolation—they describe what “good” database design tries to protect: organized storage, trustworthy values, and safe access at scale.
 
 1. **Data Organization**
    - Structured vs Unstructured Data

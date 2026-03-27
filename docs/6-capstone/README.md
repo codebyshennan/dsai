@@ -9,7 +9,10 @@ End-to-end context for planning and presenting a capstone project.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Project Overview
+
 This capstone project is designed to demonstrate industry-relevant data science and AI skills acquired throughout the course. Students will work on real-world datasets to solve practical problems using various data science techniques.
+
+**Before you start:** You should be able to load and clean tabular data in **pandas**, build at least one **visualization** with clear intent, and explain **limitations** of a model or summary (Modules 1–5). The capstone is not the place to learn SQL or pandas from scratch—use earlier modules to refresh, then focus here on **problem framing**, **reproducibility**, and **communication**.
 
 ## Timeline
 - Duration: 2 weeks (part-time)

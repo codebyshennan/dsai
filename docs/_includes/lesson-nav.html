@@ -94,26 +94,27 @@
     {% endif %}
   {% endif %}
 
+  {% comment %} Jekyll outputs README.md as index.html (directory index), not README.html. {% endcomment %}
   {% if page.name == 'README.md' %}
     {% if dir_key contains '/' %}
       {% assign root_seg = dir_key | split: '/' | first %}
-      {% assign root_href = '/' | append: root_seg | append: '/README.html' %}
+      {% assign root_href = '/' | append: root_seg | append: '/' %}
       {% assign root_label = 'Back to module root' %}
     {% else %}
-      {% assign root_href = '/README.html' %}
+      {% assign root_href = '/' %}
       {% assign root_label = 'Course index' %}
     {% endif %}
   {% else %}
     {% if dir_key contains '/_assignments' %}
       {% assign mod_root = dir_key | split: '/_assignments' | first %}
-      {% assign root_href = '/' | append: mod_root | append: '/README.html' %}
+      {% assign root_href = '/' | append: mod_root | append: '/' %}
       {% assign root_label = 'Back to module root' %}
     {% else %}
       {% if dir_key contains '/' %}
-        {% assign root_href = '/' | append: dir_key | append: '/README.html' %}
+        {% assign root_href = '/' | append: dir_key | append: '/' %}
         {% assign root_label = 'Back to module root' %}
       {% else %}
-        {% assign root_href = '/README.html' %}
+        {% assign root_href = '/' %}
         {% assign root_label = 'Course index' %}
       {% endif %}
     {% endif %}

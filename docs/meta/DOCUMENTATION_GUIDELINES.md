@@ -367,6 +367,16 @@ it keeps your project's packages separate from other projects."
 "You should see a green checkmark appear..."
 ```
 
+### 6. Anti-patterns (outline-only pages)
+
+Avoid publishing a lesson that is mostly **topic headings + bullet lists** with no connective prose. Readers who are new to the topic need:
+
+- At least **one sentence per major idea** explaining *why* it matters or *when* it applies.
+- **Before** long bullet lists: a short paragraph that frames what the list is for.
+- **After** a code block: one or two sentences on what to notice in the output or what to try next.
+
+When revising legacy outline-only pages, prefer **expanding** sections over adding duplicate lists elsewhere.
+
 ## Quality Checklist
 
 Before publishing, ensure:

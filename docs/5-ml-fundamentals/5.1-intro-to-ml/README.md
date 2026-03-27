@@ -4,6 +4,8 @@
 
 Welcome to the exciting world of Machine Learning! This section will introduce you to the fundamental concepts, workflows, and practices that form the foundation of machine learning.
 
+**How this fits the course:** You should already be comfortable with **pandas**, basic **plots**, and **summary statistics** from Modules 1–3. Module 4 deepened how we reason about uncertainty; here we use that same care when we **fit models** and **measure generalization**. Read the topics in order—later files assume vocabulary from [What is Machine Learning?](what-is-ml.md) and the [workflow](ml-workflow.md).
+
 ## Helpful video
 
 Crash Course AI: how supervised learning fits into ML workflows.

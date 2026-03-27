@@ -2,97 +2,44 @@
 
 ## Overview
 
-Welcome to the Data Science and Analytics Course! This comprehensive curriculum is designed to take you from the fundamentals of data analysis to advanced concepts in machine learning and artificial intelligence.
+This site is a **self-contained curriculum** from first steps in Python and analytics through SQL, visualization, statistical inference, and machine learning, ending with a capstone-style project. You do not need prior data science employment experience; you do need persistence, a working computer, and willingness to run code and read error messages.
 
-## Learning Objectives
+**How to use the material:** Follow modules in order (**0 → 1 → … → 6**) unless an instructor assigns a different path. Within each module, open the **submodule README** first—it lists prerequisites, time hints, and the intended lesson order. Read the **Overview** or **Why this matters** sections on each lesson page before diving into long code blocks; run examples in your own environment when you can.
 
-What makes a good data scientist? This course aims to teach both technical skills and practical applications needed to succeed in the field.
+**If you are new to the stack:** Start with [Module 0: Prep](0-prep/README.md) (environment, Jupyter, optional tools), then [Module 1: Data fundamentals](1-data-fundamentals/README.md). Maintainer-facing authoring notes live in `meta/` in the repository and are **not** part of the public site build.
 
-### Technical Foundations
+The [course index](index.md) lists every lesson page in one place for bookmarking and search.
 
-1. Data Fundamentals
-   - Python Programming
-   - Statistics Fundamentals
-   - Linear Algebra Basics
-   - Data Analysis with Pandas
+## Learning objectives
 
-2. Data Processing & Analysis
-   - SQL and Databases
-   - Data Wrangling
-   - Exploratory Data Analysis
-   - Data Engineering Concepts
+What makes a strong data practitioner is a mix of **technical foundations**, **practical judgment**, and **clear communication**. This course moves from tools to judgment: you will compute summaries, query databases, plot responsibly, test claims with statistics, and evaluate models without overfitting—then explain results to a non-technical audience.
 
-3. Visualization & Communication
-   - Data Visualization Principles
-   - Advanced Visualization Tools
-   - Business Intelligence with Tableau
-   - Data Storytelling
+### Technical foundations
 
-4. Statistical Analysis & Machine Learning
-   - Inferential Statistics
-   - Hypothesis Testing
-   - Relationships in Data
-   - Machine Learning Fundamentals
+1. **Data fundamentals** — Python for data work, core statistics, NumPy, pandas; how data is collected and governed (privacy and security awareness).
+2. **Data processing and analysis** — SQL, wrangling, exploratory analysis, basic data engineering concepts.
+3. **Visualization and communication** — Chart choices, Python viz libraries, BI-style dashboards, storytelling.
+4. **Statistical analysis and machine learning** — Inference, hypothesis tests, relationships in data, supervised and unsupervised learning, evaluation.
 
-### Practical Skills
+### Practical skills
 
-1. Data Analysis
-   - Data Collection & Cleaning
-   - Feature Engineering
-   - Pattern Recognition
-   - Insight Generation
+1. **Data analysis** — Cleaning, feature thinking, spotting patterns, turning outputs into decisions.
+2. **Problem solving** — Framing questions, checking assumptions, choosing methods, iterating when results surprise you.
+3. **Communication** — Short reports, visuals stakeholders can read, honest limits of what the data shows.
 
-2. Problem Solving
-   - Analytical Thinking
-   - Statistical Reasoning
-   - Model Selection
-   - Performance Optimization
+## Curriculum outline
 
-3. Communication
-   - Technical Documentation
-   - Data Presentation
-   - Stakeholder Communication
-   - Results Interpretation
+The course is organized into **six modules** plus preparation:
 
-## Curriculum Outline
+1. **Data fundamentals** — Analytics vs data science, Python, statistics, NumPy, pandas ([start here after setup](1-data-fundamentals/README.md)).
+2. **Data wrangling** — SQL, quality and missing data, EDA, engineering concepts ([2-data-wrangling](2-data-wrangling/2.1-sql/README.md) entry).
+3. **Data visualization** — Principles, Matplotlib/Seaborn/Plotly, BI tools, storytelling ([module hub](3-data-visualization/README.md)).
+4. **Statistical analysis** — Inference, testing, regression-style relationships, modelling ([module hub](4-stat-analysis/README.md)).
+5. **Machine learning fundamentals** — ML workflow, supervised and unsupervised methods, evaluation ([start with 5.1](5-ml-fundamentals/5.1-intro-to-ml/README.md)).
+6. **Capstone project** — End-to-end project and presentation ([6-capstone](6-capstone/README.md)).
 
-The course is structured into 6 comprehensive modules:
+Each module combines readings, runnable examples, and assignments where listed. **Additional resources** (glossary, FAQ, visualization guides) are linked from [module 3](3-data-visualization/README.md) and the [additional-resources](additional-resources/beginners-guide.md) folder.
 
-1. Data Fundamentals
-   - Introduction to Data Analytics
-   - Python Programming
-   - Statistics Fundamentals
-   - Linear Algebra Foundations
-   - Data Analysis with Pandas
+## Next step
 
-2. Data Wrangling
-   - SQL and Databases
-   - Data Quality & Cleaning
-   - Exploratory Data Analysis
-   - Data Engineering Fundamentals
-
-3. Data Visualization
-   - Visualization Principles
-   - Advanced Visualization Techniques
-   - Business Intelligence with Tableau
-   - Data Storytelling
-
-4. Statistical Analysis
-   - Inferential Statistics
-   - Hypothesis Testing
-   - Relationships in Data
-   - Statistical Modeling
-
-5. Machine Learning Fundamentals
-   - Introduction to Machine Learning
-   - Supervised Learning
-   - Unsupervised Learning
-   - Model Evaluation
-
-6. Capstone Project
-   - Project Guidelines
-   - Implementation
-   - Documentation
-   - Presentation
-
-Each module includes theoretical concepts, practical exercises, and hands-on assignments to ensure comprehensive learning and skill development.
+Open [Module 0: Prep](0-prep/README.md) if you have not finished setup, or [Module 1](1-data-fundamentals/README.md) if your environment is ready.
