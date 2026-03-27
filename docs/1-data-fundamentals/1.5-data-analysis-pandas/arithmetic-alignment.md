@@ -10,6 +10,12 @@
 
 *Corey Schafer — Python pandas tutorial (part 2): DataFrame and Series basics*
 
+## Overview
+
+**Prerequisites:** [Series](./series.md) with labeled index; comfort with element-wise operations.
+
+**Why this lesson:** Pandas **aligns** Series and DataFrames by **index label** before it adds, subtracts, or multiplies. That prevents silent position-wise mistakes—but it also introduces **NaN** where labels do not match. Learning alignment is what makes pandas feel “smart” instead of “broken.”
+
 ## Understanding Data Alignment
 
 ---

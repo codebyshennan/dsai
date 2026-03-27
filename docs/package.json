@@ -5,7 +5,12 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "slide-index": "node scripts/generate-slide-index.mjs",
     "lesson-nav-order": "node scripts/generate-lesson-nav-order.mjs",
+    "site-data": "node scripts/generate-slide-index.mjs && node scripts/generate-lesson-nav-order.mjs",
+    "pagefind": "pagefind --site _site --output-path _site/pagefind",
+    "build:jekyll": "bundle exec jekyll build",
+    "build:jekyll-with-search": "bundle exec jekyll build && pnpm run pagefind",
     "inject-python-outputs": "uv run python scripts/inject_python_block_outputs.py",
     "wrap-code-explainers": "uv run python scripts/wrap_code_explainers.py",
     "audit-ml-code-blocks": "uv run python scripts/audit_ml_fundamentals_code_blocks.py",
@@ -16,5 +21,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.8.1"
+  "packageManager": "pnpm@10.8.1",
+  "devDependencies": {
+    "pagefind": "^1.4.0"
+  }
 }

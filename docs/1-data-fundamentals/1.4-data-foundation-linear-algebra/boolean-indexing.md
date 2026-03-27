@@ -10,6 +10,12 @@
 
 *freeCodeCamp — Python NumPy tutorial for beginners*
 
+## Overview
+
+**Prerequisites:** [Introduction to NumPy](./intro-numpy.md) and [ndarray basics](./ndarray-basic.md) (creating arrays and slicing).
+
+**Why this lesson:** **Boolean indexing** selects elements with a mask of `True`/`False` the same shape as your data. It is how you express “keep rows where score ≥ 80” without slow Python loops—essential before pandas boolean filters.
+
 ## What is Boolean Indexing?
 
 Think of boolean indexing as a smart filter for your data - like having a magic sieve that only lets through the items you want! It's one of NumPy's most powerful features for data analysis, letting you:

@@ -6,6 +6,8 @@
 
 **Prerequisites:** Basic Python and comfort reading imports; statistics module [Introduction to Statistics](./README.md) context helps.
 
+**Why this lesson:** Probability is the language of **uncertainty**. Simulation in code turns abstract rules (coins, dice, draws) into histograms you can **see**—the bridge to distributions and inference later.
+
 ### Video
 
 <div class="video-embed">
@@ -642,7 +644,7 @@ pc.plot_results(results)
 
 ![probability-fundamentals](assets/probability-fundamentals_fig_5.png)
 
-## Practice Exercises 🎯
+## Practice exercises
 
 Try these probability programming exercises:
 

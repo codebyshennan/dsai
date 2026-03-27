@@ -10,11 +10,11 @@
 
 *StatQuest with Josh Starmer — The normal distribution, clearly explained*
 
-## Understanding Random Variables Through Code
+## Understanding random variables through code
 
----
+A **random variable** is a quantity whose value is uncertain until you observe it (or simulate it). You describe it with a **distribution**: either a list of outcomes with probabilities (**discrete**) or a density over a continuum (**continuous**). The same code pattern appears everywhere: **specify law**, **draw samples**, **plot** to see shape.
 
-### Implementing Random Variables
+### Implementing random variables
 
 Let's explore random variables using Python:
 

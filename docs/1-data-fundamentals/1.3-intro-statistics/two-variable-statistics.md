@@ -2,7 +2,13 @@
 
 **After this lesson:** you can explain the core ideas in “Two-Variable Statistics” and reproduce the examples here in your own notebook or environment.
 
-## Understanding Relationships Between Variables
+## Overview
+
+**Prerequisites:** [One-variable statistics](./one-variable-statistics.md) (means, spreads, plots) and basic Python plotting.
+
+**Why this lesson:** Most interesting questions are about **relationships**: does X track with Y? Is the association linear? Could a third factor explain both? This page separates **correlation** (pattern in data) from **causation** (mechanism), then introduces tools you will reuse in modeling.
+
+## Understanding relationships between variables
 
 Have you ever wondered:
 
@@ -26,9 +32,9 @@ Let's learn how to understand relationships between different variables!
 
 ### What is Correlation?
 
-When two things tend to move together:
+**Correlation** means “tendency to move together” on average—not proof that one variable causes the other. When two things tend to move together:
 
-- 📈 **Positive**: Both increase together
+- **Positive**: Both increase together
   Example: Height and Weight
 
   ```

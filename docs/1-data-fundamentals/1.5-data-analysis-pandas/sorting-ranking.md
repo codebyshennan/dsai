@@ -10,6 +10,12 @@
 
 *Corey Schafer — Python pandas tutorial (part 7): sorting data*
 
+## Overview
+
+**Prerequisites:** [DataFrame](./dataframe.md) indexing; basic notion of **rank** vs **sort**.
+
+**Why this lesson:** Sorting puts rows in a readable order; **ranking** assigns positions for scoring and percentiles. You will use both for leaderboards, time-ordered panels, and preparing data for cumulative plots or window functions.
+
 ## Understanding Sorting
 
 ---

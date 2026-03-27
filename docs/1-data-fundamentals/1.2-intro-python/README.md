@@ -64,11 +64,11 @@ Before starting this module, you should have:
 
 ---
 
----
-
 ### What is Python?
 
-Python is a high-level, interpreted programming language that emphasizes code readability with its notable use of significant whitespace. In data science, Python serves as your Swiss Army knife for:
+Python is a high-level, interpreted programming language that emphasizes code readability with its notable use of significant whitespace. In data science, Python serves as your Swiss Army knife: one language for **exploring** data in notebooks, **automating** extracts, and **shipping** models with surrounding tooling.
+
+Typical uses:
 
 - Data analysis and manipulation
 - Statistical computations

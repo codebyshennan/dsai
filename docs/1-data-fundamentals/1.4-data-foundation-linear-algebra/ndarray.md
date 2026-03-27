@@ -10,6 +10,12 @@
 
 *freeCodeCamp — Python NumPy tutorial for beginners*
 
+## Overview
+
+**Prerequisites:** [Introduction to NumPy](./intro-numpy.md) (why arrays exist) and comfort with Python lists.
+
+**Why this lesson:** The **`ndarray`** is the concrete type behind “NumPy array.” Shape, dtype, and vectorized ops are the vocabulary for every numeric cell in this submodule.
+
 ## What is an ndarray?
 
 Think of a NumPy array (ndarray) as a super-powered list that can work with numbers at lightning speed! It's like having a spreadsheet where every cell can do math instantly. The 'nd' in ndarray stands for 'N-dimensional', meaning it can handle data in multiple dimensions:
@@ -24,7 +30,7 @@ Real-world examples:
 - 1D: Time series data (stock prices over time)
 - 2D: Spreadsheet data (rows and columns)
 - 3D: Image data (height × width × color channels)
-- 🎥 4D: Video data (frames × height × width × channels)
+- 4D: Video data (frames × height × width × color channels)
 
 ---
 

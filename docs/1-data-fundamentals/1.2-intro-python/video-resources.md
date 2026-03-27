@@ -1,6 +1,8 @@
 # Video Resources for Python Learning
 
-**After this lesson:** you can explain the core ideas in “Video Resources for Python Learning” and reproduce the examples here in your own notebook or environment.
+**After this lesson:** You know where to find **follow-along** videos that match this submodule, including rough timestamps for longer uploads.
+
+This page is a **curriculum map**, not a substitute for the written lessons. Use it when you want a second explanation, a different voice, or a deeper dive on one topic (strings, loops, functions). Start with **Corey Schafer** if you want tight pacing; use **freeCodeCamp** for longer, narrative-style courses.
 
 ### Featured walkthrough
 

@@ -1,0 +1,17 @@
+{
+  "name": "Data Science and AI Course",
+  "short_name": "Tamkeen",
+  "description": "Data fundamentals through machine learning — course materials",
+  "start_url": "../",
+  "display": "standalone",
+  "background_color": "#f6f8fa",
+  "theme_color": "#0969da",
+  "icons": [
+    {
+      "src": "../favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

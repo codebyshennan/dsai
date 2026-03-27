@@ -6,6 +6,8 @@
 
 **Prerequisites:** [Introduction to Python](../1.2-intro-python/README.md) and [Introduction to NumPy](../1.4-data-foundation-linear-algebra/intro-numpy.md) (arrays) at a basic level.
 
+**Why this lesson:** A **Series** is a single column with an **index** and a **dtype**. Mastering it now makes **DataFrame** operations (selection, alignment, missing data) much easier later.
+
 ### Video
 
 <div class="video-embed">

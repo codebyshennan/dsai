@@ -1,10 +1,10 @@
 # Data Collection
 
-**After this lesson:** You can name common data sources and collection methods, and you understand how those choices affect later analysis.
+**After this lesson:** You can name common data sources and collection methods, explain how those choices affect later analysis, and spot where planning and documentation matter as much as tools.
 
 ## Overview
 
-Data collection is the process of gathering and assembling data from various sources. It is a crucial step in the data analytics process, as it provides the raw material for analysis.
+Data collection is how you obtain the raw material for any analysis. The way you collect—who is included, how often you sample, what you ask, and how you record consent—shows up later as **bias**, **gaps**, or **compliance risk**. This page introduces vocabulary and trade-offs; it does not try to teach every tool in depth.
 
 ### Video
 
@@ -23,150 +23,192 @@ Poor collection (biased samples, wrong timestamps, missing consent) limits every
 - [Introduction to Data Analytics](./README.md) (or equivalent context on the analytics lifecycle)
 - No code required for this page; later examples use Python only as illustration
 
-## Types of Data Sources
+## Types of data sources
 
-1. First-Party Data
-   - Definition: Data collected directly by a company from its own sources.
-   - Examples:
-     - Customer interactions (website visits, purchases)
-     - CRM data
-     - Surveys and feedback forms
-2. Third-Party Data
-   - Definition: Data collected by an entity that does not have a direct relationship with the user.
-   - Examples:
-     - Data aggregators (e.g., demographic data)
-     - Social media insights
-     - Market research reports
-3. Second-Party Data
-   - Definition: Data shared between two parties that have a direct relationship.
-   - Examples:
-     - Partner companies sharing customer data
-     - Affiliate marketing data
-4. Public Data
-   - Definition: Data that is freely available to the public.
-   - Examples:
-     - Government databases
-     - Open datasets from research institutions
+Organizations rarely use a single source. You should know **who generated the data** and **what relationship** they have to the people or systems described in it. That affects trust, legal rights, and how you interpret gaps.
 
-## Data Collection Methods
+### First-party data
 
-1. **Data Logging**
+**What it is:** Data your organization collects directly from customers, systems, or employees.
 
-   - Recording events or data points for analysis.
-   - Essential for tracking user interactions and system performance.
+**Why it matters:** You usually know how it was captured (e.g. checkout logs, CRM fields). You still need clear definitions and timestamps, but you are not guessing a stranger’s pipeline.
 
-2. **Surveys and Questionnaires**
+**Examples:** Website or app events, purchases, support tickets, in-house surveys, operational logs.
 
-   - Structured forms for gathering information.
-   - Can be conducted online or offline.
+### Second-party data
 
-3. **Interviews**
+**What it is:** Another organization’s first-party data, shared with you under an agreement (often a partner or advertiser).
 
-   - Direct conversations for detailed insights.
-   - Can be structured, semi-structured, or unstructured.
+**Why it matters:** You inherit their definitions and collection rules. Contracts spell out **purpose**, **retention**, and **whether** the data can be combined with yours.
 
-4. **Observations**
+**Examples:** A retailer sharing purchase summaries with a brand; co-marketing lists governed by partner terms.
 
-   - Watching subjects in their natural environment.
-   - Useful for qualitative data collection.
+### Third-party data
 
-5. **Experiments**
+**What it is:** Data collected by a vendor that typically **does not** have a direct relationship with the individuals in the dataset (aggregators, brokers, market research firms).
 
-   - Controlled studies to test hypotheses.
-   - Often involves a control group and experimental group.
+**Why it matters:** Useful for benchmarks or enrichment, but provenance can be opaque. Compliance (consent, opt-out) is stricter in many jurisdictions; always align use with license and law.
 
-6. **Focus Groups**
+**Examples:** Demographic segments, credit or marketing databases where permitted, syndicated research.
 
-   - Guided discussions for diverse opinions.
-   - Typically involves 6-10 participants.
+### Public data
 
-7. **Secondary Data Analysis**
+**What it is:** Data published for reuse: government open data, research repositories, competition datasets.
 
-   - Analyzing existing data from other sources.
-   - Saves time and resources compared to primary data collection.
+**Why it matters:** Often free to access, but **not** free of responsibility. Check licenses (commercial use, attribution), refresh cadence, and known limitations (geographic coverage, methodology changes).
 
-8. **Web Scraping**
+**Examples:** Census tables, weather archives, open portals from cities or agencies.
 
-   - Automated extraction of data from websites.
-   - Useful for collecting large datasets quickly.
+## Data collection methods
 
-9. **Social Media Monitoring**
+Below are common **methods**, not a checklist for every project. Real work combines several (e.g. surveys plus server logs). For each method, ask: *What could go wrong if we only used this?*
 
-   - Analyzing data from social platforms.
-   - Helps understand public sentiment and trends.
+### 1. Data logging
 
-10. **Sensor Data Collection**
+**In plain terms:** Systems record events as they happen—clicks, errors, API calls, sensor readings.
 
-    - Gathering data from physical sensors.
-    - Common in IoT applications and environmental monitoring.
+**Good for:** High-volume, timestamped behavior; A/B tests; reliability monitoring.
 
-### 3. Observational Data Collection
+**Watch out for:** Missing events when logging fails silently; inconsistent event names; **PII** in logs without a plan.
+
+### 2. Surveys and questionnaires
+
+**In plain terms:** You ask people the same questions in a structured way (online or on paper).
+
+**Good for:** Opinions, demographics, satisfaction—things you cannot infer from clicks alone.
+
+**Watch out for:** Non-response bias, leading questions, and scale mismatch (e.g. comparing two surveys with different wording).
+
+### 3. Interviews
+
+**In plain terms:** One-on-one or small conversations, structured, semi-structured, or open-ended.
+
+**Good for:** Depth, nuance, and discovering variables you did not put in a survey yet.
+
+**Watch out for:** Small **N**, hard-to-generalize quotes, and transcription cost. Often paired with quantitative methods.
+
+### 4. Observations
+
+**In plain terms:** You record what people or systems do in context (ethnography, field notes, session observation).
+
+**Good for:** Workflows, physical spaces, and usability issues users cannot articulate.
+
+**Watch out for:** Observer bias and privacy; get consent when observing people.
+
+### 5. Experiments
+
+**In plain terms:** You change one thing at a time (where possible) and compare outcomes to a **control**.
+
+**Good for:** Causal claims (“this change *caused* that effect”) when randomized and well designed.
+
+**Watch out for:** Selection into treatment, spillover between groups, and short windows that miss long-term effects.
+
+### 6. Focus groups
+
+**In plain terms:** A facilitator leads a small group discussion (often 6–10 people).
+
+**Good for:** Exploring reactions to concepts, messaging, or prototypes.
+
+**Watch out for:** Dominant participants and groupthink; not a substitute for a representative sample.
+
+### 7. Secondary data analysis
+
+**In plain terms:** You analyze data someone else already collected (reports, studies, internal databases).
+
+**Good for:** Speed and cost; historical baselines.
+
+**Watch out for:** Definition drift, missing documentation, and **not** assuming the original purpose matches yours.
+
+### 8. Web scraping
+
+**In plain terms:** Automated extraction of content from websites.
+
+**Good for:** Public information at scale when APIs are missing.
+
+**Watch out for:** Terms of service, robots.txt, rate limits, and fragile HTML. Prefer official APIs when available.
+
+### 9. Social media monitoring
+
+**In plain terms:** Collecting and analyzing posts, mentions, or trends from social platforms.
+
+**Good for:** Brand sentiment, emerging topics.
+
+**Watch out for:** Bots, sarcasm, sampling bias (who posts publicly), and platform policy changes.
+
+### 10. Sensor data collection
+
+**In plain terms:** Streams from devices: temperature, GPS, industrial equipment, wearables.
+
+**Good for:** Physical world signals at high frequency.
+
+**Watch out for:** Calibration drift, dropped packets, and aligning sensor time with business events.
 
 ---
 
-### In-Store Observation
+## Observational studies in retail and product (examples)
 
-**Example: Retail Store Layout Study**
-What to Track:
+These are **special cases** of observation and logging, shown so you see how “methods” become concrete metrics.
+
+### In-store observation
+
+**Example: Retail store layout**
+
+Teams often want to know where people walk, how long they linger, and where they convert. Metrics might include:
 
 - Customer walking patterns (heatmap)
 - Time spent in each section (dwell time)
-- Product interaction frequency (touch points)
-- Purchase decision points (conversion zones)
-- Traffic flow bottlenecks
+- Product interaction frequency
+- Purchase decision points
+- Traffic bottlenecks
 
-**Implementation Example**:
+**Illustrative code** (abbreviated; `store_height` / `store_width` would match your camera frame):
 
 ```python
-# Using computer vision for customer tracking
-import cv2
+# Using computer vision for customer tracking (illustrative sketch)
 import numpy as np
-from tracking import CustomerTracker
+
+store_height, store_width = 480, 640  # example frame size in pixels
+
+# from tracking import CustomerTracker  # hypothetical module
 
 class StoreAnalytics:
     def __init__(self):
-        self.tracker = CustomerTracker()
+        # self.tracker = CustomerTracker()
         self.heatmap = np.zeros((store_height, store_width))
-    
+
     def process_frame(self, frame):
-        customers = self.tracker.detect_and_track(frame)
-        for customer in customers:
-            position = customer.get_position()
-            self.update_heatmap(position)
-            self.analyze_dwell_time(customer)
-    
+        # customers = self.tracker.detect_and_track(frame)
+        # for customer in customers:
+        #     position = customer.get_position()
+        #     self.update_heatmap(position)
+        #     self.analyze_dwell_time(customer)
+        pass
+
     def generate_insights(self):
         return {
             'high_traffic_areas': self.get_hotspots(),
             'avg_dwell_time': self.calculate_dwell_time(),
-            'conversion_zones': self.identify_conversion_zones()
+            'conversion_zones': self.identify_conversion_zones(),
         }
 ```
 
-**Methods:**
+**Typical tooling:** Computer vision, IoT beacons, RFID, WiFi positioning—each with different cost and privacy implications.
 
-- Computer vision tracking
-- IoT sensor networks
-- RFID tracking
-- WiFi positioning
+### User experience testing
 
----
+**Example: Website usability**
 
-### User Experience Testing
+You might combine session replay, tasks, and optional moderated sessions. Signals include:
 
-**Example: Website Usability Study**
-Observations:
+- Navigation paths and clicks
+- Errors and dead ends
+- Task completion time
+- Qualitative notes or (with consent) emotion cues
 
-- Navigation patterns (click paths)
-- Error encounters (frequency and type)
-- Task completion time (efficiency)
-- Facial expressions (emotional response)
-- Mouse movement patterns
-
-**Session Recording Example**:
+**Illustrative pattern** (browser-side event capture):
 
 ```javascript
-// Using FullStory-like session recording
+// Session recording style event buffer (conceptual)
 class UserSession {
     constructor() {
         this.events = [];
@@ -202,31 +244,21 @@ class UserSession {
 }
 ```
 
-**Tools:**
+**Tools:** Screen recording, eye tracking, session replay products—always governed by privacy notices and retention limits.
 
-- Screen recording software
-- Eye tracking hardware
-- Emotion recognition AI
-- Session replay tools
+## Common challenges and how teams address them
 
-## Common Data Collection Challenges and Solutions
+### 1. Data quality issues
 
----
+**What goes wrong:** Wrong types, duplicates, impossible values, or silent missingness.
 
-### 1. Data Quality Issues
+**What teams do:** Define validation rules up front, require critical fields, audit samples regularly, and automate checks in pipelines—not only manual eyeballing.
 
-**Challenge:** Incomplete or incorrect data
-**Solution:**
-
-- Implement validation rules
-- Use required fields
-- Double-check data entry
-- Regular data audits
-- Automated data cleaning
-
-**Data Validation Example**:
+**Example — validation rules in code:**
 
 ```python
+import re
+
 class DataValidator:
     def __init__(self):
         self.rules = {
@@ -235,7 +267,7 @@ class DataValidator:
             'age': lambda x: isinstance(x, int) and 0 <= x <= 120,
             'income': lambda x: isinstance(x, (int, float)) and x >= 0
         }
-    
+
     def validate_record(self, record):
         errors = []
         for field, value in record.items():
@@ -245,30 +277,26 @@ class DataValidator:
         return len(errors) == 0, errors
 
     def clean_data(self, dataset):
-        return [record for record in dataset 
+        return [record for record in dataset
                 if self.validate_record(record)[0]]
 ```
 
----
+### 2. Privacy concerns
 
-### 2. Privacy Concerns
+**What goes wrong:** Collecting sensitive fields without legal basis, clear purpose, or secure handling.
 
-**Challenge:** Collecting sensitive information
-**Solution:**
+**What teams do:** Minimize data, obtain meaningful consent where required, anonymize or pseudonymize where possible, and separate **identification** from **analysis** when you can.
 
-- Clear consent forms
-- Data anonymization
-- Secure storage
-- Privacy policy transparency
-- Data minimization
-
-**Data Anonymization Example**:
+**Example — pseudonymization sketch:**
 
 ```python
+import hashlib
+import os
+
 class DataAnonymizer:
     def __init__(self):
         self.hash_key = os.urandom(16)
-    
+
     def anonymize_pii(self, data):
         """Anonymize Personally Identifiable Information"""
         return {
@@ -277,33 +305,31 @@ class DataAnonymizer:
             'location': self.generalize_location(data['location']),
             'interests': data['interests']  # Non-PII can remain
         }
-    
+
     def hash_value(self, value):
         return hashlib.sha256(
             f"{value}{self.hash_key}".encode()
         ).hexdigest()
-    
+
     def bucket_age(self, age):
         ranges = [(0, 18), (19, 25), (26, 35), (36, 50), (51, float('inf'))]
         for start, end in ranges:
             if start <= age <= end:
                 return f"{start}-{end if end != float('inf') else '+'}"
+        return "unknown"
+
+    def generalize_location(self, location):
+        # Illustrative: replace with real generalization rules
+        return str(location)[:3] + "…"
 ```
 
----
+### 3. Sample size and representation
 
-### 3. Sample Size and Representation
+**What goes wrong:** Too few responses, or a sample that looks like “who answered the survey” instead of “who we care about.”
 
-**Challenge:** Getting enough responses and ensuring representation
-**Solution:**
+**What teams do:** Use multiple channels, sensible incentives, reminders, longer field periods, and **stratified** sampling when you need representation across known groups.
 
-- Multiple collection channels
-- Incentive programs
-- Extended collection period
-- Follow-up reminders
-- Stratified sampling
-
-**Sample Size Calculator**:
+**Example — sample size helper** (classic formula sketch; confirm assumptions with a statistician for important decisions):
 
 ```python
 import math
@@ -311,7 +337,7 @@ import math
 def calculate_sample_size(population_size, confidence_level, margin_error):
     """
     Calculate required sample size for a given population
-    
+
     Args:
         population_size: Total population size
         confidence_level: Desired confidence level (e.g., 0.95 for 95%)
@@ -322,71 +348,66 @@ def calculate_sample_size(population_size, confidence_level, margin_error):
         0.95: 1.96,
         0.99: 2.576
     }
-    
+
     z = z_scores.get(confidence_level, 1.96)
-    
+
     sample_size = (
         (z**2 * 0.25 * population_size) /
         ((margin_error**2 * (population_size - 1)) + (z**2 * 0.25))
     )
-    
+
     return math.ceil(sample_size)
 ```
 
----
+### 4. Bias management
 
-### 4. Bias Management
+**What goes wrong:** Over-representing easy-to-reach groups, asking loaded questions, or training on historical discrimination.
 
-**Challenge:** Skewed data collection
-**Solution:**
+**What teams do:** Randomize where ethical and feasible, diversify sources, test question wording, and measure representation vs a reference population when you have one.
 
-- Random sampling techniques
-- Diverse data sources
-- Neutral question phrasing
-- Representative demographics
-- Bias detection algorithms
-
-**Bias Detection Example**:
+**Example — comparing sample mix to an expected distribution** (illustrative; needs domain-specific population baselines):
 
 ```python
 class BiasDetector:
     def analyze_demographic_bias(self, data, protected_attributes):
         """
         Analyze dataset for demographic bias
-        
+
         Args:
             data: DataFrame with survey responses
             protected_attributes: List of demographic columns to check
         """
         bias_metrics = {}
-        
+
         for attribute in protected_attributes:
-            # Calculate representation ratios
             population_dist = self.get_population_distribution(attribute)
             sample_dist = data[attribute].value_counts(normalize=True)
-            
-            # Compare with expected distribution
+
             bias_metrics[attribute] = {
                 'representation_ratio': sample_dist / population_dist,
                 'chi_square_test': self.chi_square_test(
                     sample_dist, population_dist
                 )
             }
-        
+
         return bias_metrics
 ```
 
-## Best Practices for Data Collection
+## Best practices (what “good” looks like)
 
-### 1. Planning and Preparation
+These are habits that separate fragile projects from auditable ones. You do not need every item on day one; you **do** need the mindset: **plan, document, validate, and govern.**
 
-- Define clear objectives
-- Choose appropriate methods
-- Prepare necessary tools
-- Set realistic timelines
-- Create data governance framework
+### Planning and preparation
 
-**Project Planning Template**:
+Before you pull data, write down **why** you need it and **what decision** it will support. That drives method choice (survey vs log), timeline, and who must sign off.
+
+- **Objectives** — Tie metrics to decisions, not to “more data.”
+- **Methods** — Match method to question (causal vs descriptive).
+- **Tools** — Note systems of record, APIs, and access requests early.
+- **Timelines** — Include pilot, validation, and buffer for rework.
+- **Governance** — Who owns the data, retention rules, and approval for sensitive fields.
+
+**Illustrative project scaffold:**
 
 ```python
 class DataCollectionProject:
@@ -397,14 +418,14 @@ class DataCollectionProject:
         self.methods = []
         self.tools = []
         self.team = []
-    
+
     def add_phase(self, phase_name, duration, deliverables):
         self.timeline[phase_name] = {
             'duration': duration,
             'deliverables': deliverables,
             'status': 'planned'
         }
-    
+
     def assign_team(self, role, person):
         self.team.append({
             'role': role,
@@ -413,47 +434,55 @@ class DataCollectionProject:
         })
 ```
 
-### 2. Quality Control
+### Quality control
 
-- Data validation frameworks
-- Regular audits
-- Error logging
-- Quality metrics tracking
-- Automated testing
+Treat quality as **continuous**, not a one-time scrub.
 
-### 3. Documentation
+- **Validation** — Rules at ingest; quarantine bad rows instead of silently dropping without logs.
+- **Audits** — Periodic manual review of samples and edge cases.
+- **Error logging** — Know when pipelines fail or fields spike.
+- **Metrics** — Completeness, timeliness, duplicate rate—whatever matches your risk.
+- **Automated testing** — Especially for recurring extracts and transforms.
 
-- Detailed methodology
-- Data dictionary
-- Collection procedures
-- Quality control processes
-- Ethics considerations
+### Documentation
 
-### 4. Technical Infrastructure
+Future you is a stakeholder. Write for them.
 
-- Scalable storage solutions
-- Backup systems
-- Security measures
-- Processing pipelines
-- Monitoring tools
+- **Methodology** — How and when data was collected.
+- **Data dictionary** — Field names, units, allowed values, and known issues.
+- **Procedures** — Steps to reproduce a pull or survey wave.
+- **Quality notes** — What you fixed, what you did not, and why.
+- **Ethics** — Consent scope and sensitive fields.
 
-## Advanced Data Collection Methods
+### Technical infrastructure
 
-### 1. IoT and Sensor Networks
+Match investment to sensitivity and scale.
+
+- **Storage** — Durable, permissioned, and cost-aware.
+- **Backups** — Test restores, not only backups on paper.
+- **Security** — Encryption, access control, secrets hygiene (see [Data security](./data-security.md)).
+- **Pipelines** — Repeatable jobs with monitoring.
+- **Monitoring** — Volume, latency, and anomaly alerts for feeds you depend on.
+
+## Advanced collection patterns (sketches)
+
+The blocks below are **patterns** you may see in larger systems: sensors, APIs, scraping. Read them as architecture sketches, not copy-paste production code.
+
+### IoT and sensor networks
 
 ```python
 class IoTDataCollector:
     def __init__(self):
         self.sensors = {}
         self.data_buffer = []
-    
+
     def register_sensor(self, sensor_id, sensor_type, location):
         self.sensors[sensor_id] = {
             'type': sensor_type,
             'location': location,
             'status': 'active'
         }
-    
+
     def collect_sensor_data(self, sensor_id, data):
         timestamp = datetime.now()
         self.data_buffer.append({
@@ -464,14 +493,14 @@ class IoTDataCollector:
         })
 ```
 
-### 2. API Integration
+### API integration
 
 ```python
 class APIDataCollector:
     def __init__(self, api_key):
         self.api_key = api_key
         self.rate_limiter = RateLimiter()
-    
+
     async def collect_data(self, endpoint, parameters):
         """Collect data from API with rate limiting"""
         await self.rate_limiter.acquire()
@@ -487,32 +516,34 @@ class APIDataCollector:
             self.rate_limiter.release()
 ```
 
-### 3. Web Scraping
+### Web scraping
 
 ```python
 class WebScraper:
     def __init__(self):
         self.session = requests.Session()
         self.parser = BeautifulSoup
-    
+
     def scrape_page(self, url, selectors):
         """Scrape specific elements from a webpage"""
         response = self.session.get(url)
         soup = self.parser(response.text, 'html.parser')
-        
+
         data = {}
         for key, selector in selectors.items():
             elements = soup.select(selector)
             data[key] = [el.text.strip() for el in elements]
-        
+
         return data
 ```
 
 ## Common pitfalls
 
-- **Convenience sampling** — Data that is easy to reach (only active users, only one region) rarely represents the whole population.
-- **Ignoring time and seasonality** — Snapshots taken at a weird time can miss cycles and mislead trends.
-- **Unclear consent or purpose** — Collecting without a clear use case creates privacy and compliance headaches later.
+- **Convenience sampling** — Data that is easy to reach (only active users, only one region) rarely represents the whole population. Ask who is missing.
+
+- **Ignoring time and seasonality** — A snapshot taken in a holiday week or during an outage can mislead trends. Align windows and note anomalies.
+
+- **Unclear consent or purpose** — Collecting fields “for later” without a use case increases privacy risk and rework. Collect what you need for known purposes.
 
 ## Next steps
 

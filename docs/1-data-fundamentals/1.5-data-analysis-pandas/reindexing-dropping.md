@@ -10,6 +10,12 @@
 
 *Corey Schafer — Python pandas tutorial (part 3): indexes (set, reset, reindex)*
 
+## Overview
+
+**Prerequisites:** [DataFrame](./dataframe.md) creation; basic understanding of **row labels** vs positions.
+
+**Why this lesson:** You will often **change** the index (dates, IDs), **drop** bad rows or columns, or **reindex** to match another table’s labels. Doing this deliberately—without scrambling rows—is core data prep.
+
 ## Understanding Reindexing
 
 ---

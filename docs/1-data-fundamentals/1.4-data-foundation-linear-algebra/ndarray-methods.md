@@ -10,6 +10,12 @@
 
 *3Blue1Brown — Linear transformations and matrices (Essence of linear algebra)*
 
+## Overview
+
+**Prerequisites:** [Introduction to NumPy](./intro-numpy.md), [ndarray](./ndarray.md) concept, and [basic array creation and math](./ndarray-basic.md).
+
+**Why this lesson:** Real pipelines **reshape**, **stack**, **split**, and **aggregate** arrays to match model inputs and plot layouts. Knowing `reshape`, `axis`, and reductions (`sum`, `mean`) prevents silent shape bugs.
+
 ## Reshaping Arrays: The Transformer
 
 ---
@@ -171,7 +177,7 @@ Array2: [11 2  4 ]
 Output: [11 7  15]
 ```
 
-## Smart Choices with where()! 🤔
+## Smart choices with `where()`
 
 ---
 

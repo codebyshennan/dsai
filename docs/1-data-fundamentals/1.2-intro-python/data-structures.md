@@ -2,6 +2,8 @@
 
 **After this lesson:** you can explain the core ideas in “Data Structures for Data Analysis” and reproduce the examples here in your own notebook or environment.
 
+Lists, tuples, dicts, and sets are the **containers** you use before (and alongside) NumPy and pandas. Choosing the right one keeps code readable and fast enough for small and medium tasks; this page is long because it includes **patterns** you will see in data pipelines—skim the TOC mentally, then read the sections that match what you are building.
+
 > **Essential Tool:** Open [Python Tutor](https://pythontutor.com) to visualize how data structures work in memory!
 
 > **Start With AI:** Ask ChatGPT: "Explain Python data structures using everyday containers (boxes, folders, etc.)"

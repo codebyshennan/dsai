@@ -54,154 +54,38 @@ NumPy is everywhere:
 - Image Processing
 - Financial Analysis
 
-## Understanding Data Types
+## Understanding data types (nominal through ratio)
 
-Let's break down data types in a way that's easy to understand!
+Before you average or model, ask what **kind of measurement** you have. The four **levels of measurement** below are standard vocabulary; they tell you which summaries are meaningful.
 
-### 1. Nominal Data (Names/Categories)
+| Level | Order? | Equal steps? | True zero? | Examples | Sensible summaries |
+| ----- | ------ | -------------- | ---------- | -------- | ------------------- |
+| **Nominal** | No | — | No | Country codes, blood type | Counts, proportions, mode |
+| **Ordinal** | Yes | Not guaranteed equal | No | Likert scales, education band | Median, ranks; means need care |
+| **Interval** | Yes | Yes | No | Celsius, calendar years | Means, differences; ratios often misleading |
+| **Ratio** | Yes | Yes | Yes | Height, weight, revenue | Full arithmetic, ratios (“twice as much”) |
 
----
+**Nominal** values are labels: blue is not “greater than” red. You can count categories and find the mode, but an “average color” is nonsense.
 
-### What is it?
+**Ordinal** values can be sorted (mild, medium, hot), but the **distance** between ranks may be uneven—five stars are not necessarily “equal steps” in satisfaction. Medians and percentiles are often safer than means.
 
-Like putting labels on things:
+**Interval** scales have equal-sized steps, but **zero is arbitrary** (0°C is not “no heat”). Differences matter; ratios like “twice as hot” usually do not.
 
-- Colors (Red, Blue, Green)
-- Cuisines (Italian, Chinese, Mexican)
-- T-shirt sizes (S, M, L, XL)
+**Ratio** scales have a **true zero** (no money, no height). All arithmetic operations are on the table, including ratios.
 
----
+### Categorical vs continuous
 
-### Key Features
+**Categorical** variables take distinct buckets (often integers or strings): product ID, survey choice. **Continuous** variables can vary smoothly across a range: time, distance, temperature measured finely. Both appear in NumPy and pandas; plots and statistics should match the type (bar charts vs histograms, counts vs density).
 
-- No order (Blue isn't "more than" Red)
-- Just categories
-- Each item fits one category
-
----
-
-### What You Can Do
-
-- Count how many in each category
-- Find most common (mode)
-- Can't calculate average
-- Can't find median
-
-### 2. Ordinal Data (Ordered Categories)
-
----
-
-### What is it?
-
-Categories with a clear order:
-
-- Spice levels (Mild → Medium → Hot)
-- Ratings (1 star → 5 stars)
-- Education (High School → Bachelor's → Master's)
-
----
-
-### Key Features
-
-- Has order (Hot is more than Mild)
-- Spacing might not be equal
-- Still categories, but ranked
-
----
-
-### What You Can Do
-
-- Everything from Nominal
-- Compare (greater/less than)
-- Find median
-- Can't calculate average
-
-### 3. Interval Data (Equal Steps)
-
----
-
-### What is it?
-
-Numbers with equal steps between values:
-
-- Temperature (Celsius/Fahrenheit)
-- Calendar years
-- IQ scores
-
----
-
-### Key Features
-
-- Equal spacing between values
-- No true zero point
-- Can add and subtract
-
----
-
-### What You Can Do
-
-- Everything from Ordinal
-- Calculate average
-- Find differences
-- Can't say "twice as much"
-
-### 4. Ratio Data (True Zero)
-
----
-
-### What is it?
-
-Numbers with a meaningful zero:
-
-- Height
-- Weight
-- Money
-- Time
-
----
-
-### Key Features
-
-- Has true zero (0 height means no height)
-- Can compare ratios
-- Most flexible type
-
----
-
-### What You Can Do
-
-- Everything from Interval
-- Multiply and divide
-- Say "twice as much"
-- All math operations
-
-## Quick Reference Guide
-
----
-
-### Data Type Summary
+## Quick reference (compact)
 
 ```
-Level     Order?   Equal Steps?   True Zero?   Example
-Nominal                                 Colors
-Ordinal                                 Ratings
-Interval                                Temperature
-Ratio                                   Height
+Level      Order   Steps    Zero    Example
+Nominal    no      —        no      Colors
+Ordinal    yes     uneven   no      Star ratings
+Interval   yes     equal    no      °C
+Ratio      yes     equal    yes     Height (cm)
 ```
-
----
-
-### Categorical vs. Continuous
-
-1. **Categorical** (Discrete)
-   - Distinct groups
-   - Like boxes to sort things
-   - Example: T-shirt sizes
-
-2. **Continuous** (Measurement)
-   - Any value in a range
-   - Like a ruler
-   - Example: Height in cm
 
 ## What We'll Learn
 

@@ -10,6 +10,12 @@
 
 *3Blue1Brown — Matrix multiplication as composition (Essence of linear algebra)*
 
+## Overview
+
+**Prerequisites:** [Introduction to NumPy](./intro-numpy.md) and [What is an ndarray?](./ndarray.md).
+
+**Why this lesson:** **Vectorized** arithmetic and **broadcasting** are what make NumPy fast and concise. This page builds muscle memory for element-wise ops and shape rules before you tackle indexing and linear algebra.
+
 ## Arithmetic with Arrays
 
 Ever wished you could do math on entire lists at once? With NumPy arrays, you can! This is called _vectorization_ - it's like having a calculator that works on all numbers simultaneously. Imagine you're:
@@ -209,7 +215,7 @@ Array: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
        arr[5:8] gets elements 5,6,7
 ```
 
-## 2D Array Access: Matrix Magic! 🎯
+## 2D array access (matrix indexing)
 
 ---
 

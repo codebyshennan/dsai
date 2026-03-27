@@ -18,11 +18,11 @@
 
 ## Understanding Functions in Data Science
 
----
-
 ### Functions in Data Analysis
 
-Think of functions as reusable data processing components:
+A **function** is a named block of code with parameters and (optional) return values. In data work you wrap anything repeated—cleaning a column, computing a metric, plotting a standard figure—so notebooks stay short and tests can target one piece of logic.
+
+Think of each function as a reusable **input → process → output** pipeline:
 
 - Input: Raw data (e.g., DataFrame, array, list)
 - Process: Data transformation, analysis, or modeling

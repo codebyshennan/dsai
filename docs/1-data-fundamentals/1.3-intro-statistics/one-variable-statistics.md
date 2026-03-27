@@ -10,13 +10,17 @@
 
 *StatQuest with Josh Starmer — Quantiles and percentiles, clearly explained*
 
-## Understanding One-Variable Statistics
+## Overview
 
----
+**Prerequisites:** Python basics and [Introduction to Statistics](./README.md) context; optional NumPy for the examples.
+
+**Why this lesson:** Before comparing groups or fitting models, you must **summarize one column** well: center, spread, shape, and outliers. Those numbers (`describe`, mean/median, quartiles, histograms) are the vocabulary for every later statistics and ML lesson.
+
+## Understanding One-Variable Statistics
 
 ### What is One-Variable Statistics?
 
-One-variable (univariate) statistics helps us understand individual variables in our dataset. Let's explore with Python:
+**Univariate** (one-variable) statistics describes a **single** column or measurement: where it sits, how wide it is, and whether it is skewed. Let's explore with Python:
 
 ```python
 import numpy as np

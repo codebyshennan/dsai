@@ -1,0 +1,23 @@
+{% comment %}
+  Optional front matter: reading_minutes (number), objectives (list of strings).
+  Set lesson_meta: false to hide this block.
+{% endcomment %}
+{% unless page.lesson_meta == false %}
+{% if page.reading_minutes or page.objectives %}
+<section class="lesson-meta" aria-label="Lesson information">
+  {% if page.reading_minutes %}
+  <p class="lesson-meta__time"><span class="lesson-meta__label">Reading time</span> ~{{ page.reading_minutes }} min</p>
+  {% endif %}
+  {% if page.objectives %}
+  <div class="lesson-meta__objectives">
+    <h2 class="lesson-meta__objectives-title">In this lesson</h2>
+    <ul class="lesson-meta__objectives-list">
+      {% for obj in page.objectives %}
+      <li>{{ obj | escape }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</section>
+{% endif %}
+{% endunless %}

@@ -16,6 +16,8 @@
 
 *Corey Schafer — Loops and iteration in Python*
 
+**How this fits together:** `if` / `elif` / `else` choose what runs once; `for` and `while` repeat work. Data pipelines use both: **validate** a row with branches, **scan** a table with loops, or prefer vectorized NumPy/pandas later. Master the ideas here so you can read any script that filters, iterates, or retries.
+
 ## Making Decisions with Conditions
 
 ---

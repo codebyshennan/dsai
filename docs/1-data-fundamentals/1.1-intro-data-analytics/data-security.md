@@ -1,10 +1,10 @@
-# Data Security: Protecting Your Data Assets 🔒
+# Data Security: Protecting Data Assets
 
-**After this lesson:** you can explain the core ideas in “Data Security: Protecting Your Data Assets 🔒” and reproduce the examples here in your own notebook or environment.
+**After this lesson:** You can describe the core goals of data security (confidentiality, integrity, availability), explain defense in depth at a high level, and read the code sketches as common patterns—not as copy-paste production systems.
 
-## Introduction to Data Security
+## Introduction
 
-Data security is crucial in today's data-driven world. It encompasses the practices, technologies, and protocols used to protect data from unauthorized access, corruption, or theft throughout its entire lifecycle.
+**Data security** protects data from **unauthorized access**, **tampering**, and **loss** across storage, networks, and applications. Privacy asks whether you *should* hold certain data; security asks how you *protect* what you are allowed to hold.
 
 ### Video
 
@@ -14,46 +14,31 @@ Data security is crucial in today's data-driven world. It encompasses the practi
 
 *IBM Technology — Cybersecurity basics*
 
-## Key Components of Data Security
+## Goals and layers
 
-### 1. Data Protection Fundamentals
-- **Confidentiality**: Ensuring data is accessible only to authorized users
-- **Integrity**: Maintaining data accuracy and consistency
-- **Availability**: Ensuring data is accessible when needed
-- **Non-repudiation**: Preventing denial of data transmission or receipt
+### Protection goals (CIA + N)
 
-### 2. Security Layers
-1. **Physical Security**
-   - Secure data centers
-   - Access control systems
-   - Environmental controls
+- **Confidentiality** — Only **authorized** people and systems can read the data. Leaks and oversharing break confidentiality.
+- **Integrity** — Data is **accurate and complete**; changes are intentional and detectable.
+- **Availability** — Authorized users can use systems and data when needed. Attacks and outages can target availability.
+- **Non-repudiation** — Actors cannot plausibly deny sending or receiving data; important for audits and contracts.
 
-2. **Network Security**
-   - Firewalls
-   - Intrusion detection/prevention
-   - Network segmentation
-   - VPN access
+### Defense in depth (layers)
 
-3. **Application Security**
-   - Authentication
-   - Authorization
-   - Input validation
-   - Session management
+Teams stack controls so one failure does not mean total failure:
 
-4. **Data Security**
-   - Encryption
-   - Access controls
-   - Data masking
-   - Secure deletion
+1. **Physical** — Facilities, badges, environmental controls. Still relevant in the cloud: providers run the buildings.
+2. **Network** — Firewalls, segmentation, VPNs, intrusion detection—so one compromised laptop does not mean the whole network.
+3. **Application** — **Authentication** (identity), **authorization** (permissions), **input validation** (block malicious input), **session management** (tokens, expiry).
+4. **Data** — **Encryption**, **access controls**, **masking** in lower environments, **secure deletion** when data must go away.
 
-## Implementation Guide
+## Implementation guide (illustrative)
 
-### 1. Encryption Implementation
+### Encryption
 
----
+**Symmetric** keys are fast for bulk data. **Asymmetric** (public/private) pairs help with **key exchange** and **signatures** but are expensive for large payloads. **Hybrid** encryption mixes both: encrypt the payload with a random session key, then encrypt that key for the recipient.
 
-### Types of Encryption
-**Implementation Example**:
+**Example:**
 ```python
 class EncryptionService:
     def __init__(self):
@@ -92,17 +77,15 @@ class EncryptionService:
         }
 ```
 
-**When to Use Each Type:**
-- Symmetric: Large data sets, local encryption
-- Asymmetric: Key exchange, digital signatures
-- Hybrid: Secure communication channels
+**When each pattern shows up:** Symmetric encryption is typical for **disk or database** encryption when one system holds the key. Asymmetric is used for **establishing trust** between parties (TLS handshakes, signing). Hybrid is **TLS-like**: combine fast symmetric bulk encryption with asymmetric protection of the session key.
 
-### 2. Access Control Implementation
+### Access control
 
----
+**RBAC** assigns permissions to **roles** (analyst, admin), then assigns users to roles. **ABAC** (below) can depend on attributes (department, clearance, resource sensitivity) and context (time, location)—more flexible, more complex to configure.
 
-### Role-Based Access Control (RBAC)
-**Implementation Example**:
+#### Role-based access control (RBAC)
+
+**Example**:
 ```python
 class RBACSystem:
     def __init__(self):
@@ -170,8 +153,11 @@ PERMISSION_LEVELS = {
 
 ---
 
-### Attribute-Based Access Control (ABAC)
-**Implementation Example**:
+#### Attribute-based access control (ABAC)
+
+Policies can depend on **who** the user is, **what** the resource is, and **context** (device, time). Large enterprises use ABAC when RBAC alone is too coarse.
+
+**Example**:
 ```python
 class ABACSystem:
     def __init__(self):
@@ -206,10 +192,13 @@ class ABACSystem:
         return policy_decision
 ```
 
-## Security Monitoring and Incident Response
+## Security monitoring and incident response
 
-### 1. Security Monitoring
-**Implementation Example**:
+**Monitoring** watches logs and metrics for suspicious patterns. **Incident response** is the playbook when something bad happens: contain, investigate, recover, document. Both are essential in production; detecting late is expensive.
+
+### Security monitoring
+
+**Example**:
 ```python
 class SecurityMonitor:
     def __init__(self):
@@ -244,8 +233,9 @@ class SecurityMonitor:
         return response(threat)
 ```
 
-### 2. Incident Response
-**Implementation Example**:
+### Incident response
+
+**Example**:
 ```python
 class IncidentResponse:
     def __init__(self):
@@ -289,9 +279,11 @@ class IncidentResponse:
         return action(incident)
 ```
 
-## Best Practices Implementation
+## Baselines and assessments (illustrative)
 
-### 1. Security Baseline
+**Baseline** means a known-good configuration: patches, hardened settings, monitoring enabled. **Assessments** (scans, reviews) find gaps before attackers do.
+
+### Security baseline
 ```python
 class SecurityBaseline:
     def __init__(self):
@@ -315,7 +307,7 @@ class SecurityBaseline:
         return self.verify_baseline(system)
 ```
 
-### 2. Regular Security Assessment
+### Regular security assessment
 ```python
 class SecurityAssessment:
     def __init__(self):
@@ -348,33 +340,9 @@ Continue to [Workflow concepts](./workflow-concepts.md). Then start [Introductio
 
 ### Going deeper on your own
 
-After implementing these security measures:
+Specialists go further with **SIEM** tooling, **zero trust** architectures, **threat hunting**, and formal programs (ISO 27001, SOC 2, NIST CSF). For this course, focus on **hygiene**: least privilege, patching, secrets management, and logging—most incidents still exploit basics.
 
-1. **Advanced Security**
-   - Implement AI-based threat detection
-   - Deploy security information and event management (SIEM)
-   - Develop automated incident response
-   - Implement zero trust architecture
-
-2. **Compliance and Standards**
-   - ISO 27001 implementation
-   - SOC 2 compliance
-   - NIST framework adoption
-   - Industry-specific regulations
-
-3. **Security Operations**
-   - Build security operations center
-   - Develop incident response team
-   - Implement threat hunting
-   - Conduct regular red team exercises
-
-4. **Continuous Improvement**
-   - Regular security assessments
-   - Threat intelligence integration
-   - Security awareness training
-   - Process automation
-
-## Additional Resources
+## Additional resources
 
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
 - [OWASP Security Guidelines](https://owasp.org/www-project-security-guidelines/)

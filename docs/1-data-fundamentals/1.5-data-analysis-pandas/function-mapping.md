@@ -10,6 +10,12 @@
 
 *Corey Schafer — Python pandas tutorial (part 5): updating rows and columns (maps, replaces, transforms)*
 
+## Overview
+
+**Prerequisites:** Python **functions** and [Series](./series.md) / [DataFrame](./dataframe.md) basics.
+
+**Why this lesson:** Real tables need row- or column-level rules: normalize strings, parse dates, clip outliers, or compute features. **apply**, **map**, **applymap** (older) / **map** + **assign**, and **transform** are the main ways to plug Python logic into pandas—knowing *when* each is appropriate keeps code fast and readable.
+
 ## Understanding Function Application
 
 ---

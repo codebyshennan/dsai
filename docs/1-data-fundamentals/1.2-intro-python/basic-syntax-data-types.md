@@ -6,6 +6,8 @@
 
 **Prerequisites:** [Introduction to Python](./README.md) module context; no other programming background required.
 
+**Why this lesson:** Variables, operators, types, and f-strings are the **grammar** of every script you will read. Nothing here is “data science–only,” but skipping it makes later pandas errors impossible to debug.
+
 > **AI learning tip:** As you go through this section, try asking ChatGPT or Claude: "Explain Python variables using everyday objects as examples"
 
 > **Visualize execution:** Open [Python Tutor](https://pythontutor.com) in another tab. Paste every code example to see exactly how Python executes it.

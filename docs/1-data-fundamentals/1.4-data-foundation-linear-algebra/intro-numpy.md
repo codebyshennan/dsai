@@ -14,6 +14,8 @@
 
 *freeCodeCamp — Python NumPy tutorial for beginners*
 
+**Why start here:** Almost every numeric library in Python **builds on NumPy arrays** (pandas columns are backed by NumPy; many sklearn inputs are `ndarray`). Investing an hour in dtypes, shapes, and vectorization pays off in every later module.
+
 ## What is NumPy?
 
 NumPy (Numerical Python) is like a supercharged calculator for Python! Imagine you need to do math on thousands or millions of numbers - NumPy makes it lightning fast and super easy. It's the foundation of scientific computing in Python and is used extensively in:

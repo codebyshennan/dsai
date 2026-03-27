@@ -16,21 +16,20 @@
 
 *Corey Schafer — Python OOP: classes and instances*
 
-## Introduction to Object-Oriented Programming
+## Introduction to object-oriented programming
 
-### Core OOP Concepts
+**Object-oriented programming (OOP)** groups **state** (attributes) with **behavior** (methods) in **classes**. You build **instances** (objects) from those blueprints. Libraries you already use (`DataFrame`, estimators in scikit-learn) are OOP under the hood; learning classes helps you read their APIs and package your own helpers cleanly.
 
-1. **Encapsulation**: Bundling data and methods that operate on that data
-2. **Inheritance**: Creating new classes based on existing ones
-3. **Polymorphism**: Using a single interface for different data types
-4. **Abstraction**: Hiding complex implementation details
+### Core OOP concepts
 
-### Why OOP in Data Science?
+- **Encapsulation** — Keep related fields and functions together (a `Dataset` class that knows how to validate itself) instead of scattering dicts across files.
+- **Inheritance** — Reuse and specialize behavior (`BaseModel` → `RegressionModel`) without duplicating every method.
+- **Polymorphism** — Call the same method name on different types (`fit`, `transform`) and let each class implement the details.
+- **Abstraction** — Expose a simple interface (`model.predict(X)`) while hiding optimization details inside the class.
 
-- Modular and reusable code
-- Maintainable data pipelines
-- Scalable machine learning systems
-- Consistent interfaces
+### Why OOP in data science?
+
+Teams use classes for **reusable pipelines**, **shared evaluation code**, and **wrappers** around models or APIs. You can write good analysis without heavy OOP, but you cannot avoid **reading** objects once you use pandas and sklearn.
 
 ## Design Patterns in Data Science
 

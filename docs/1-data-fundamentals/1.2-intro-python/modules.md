@@ -14,16 +14,20 @@
 
 > **Modern Tools:** Learn to use virtual environments with `uv` or `conda`
 
-## Understanding Modules in Data Analysis
+## Understanding modules in data analysis
 
----
+A **module** is a `.py` file (or package) that holds related code. In real projects you rarely put an entire pipeline in one notebook cell: you **import** functions and classes from modules so notebooks stay readable and tests can target one file at a time.
 
-### Modules in Data Science
-Think of modules as reusable components in your data analysis workflow:
-- Data preprocessing utilities
-- Feature engineering functions
-- Model evaluation tools
-- Visualization helpers
+### What lives in “data science” modules?
+
+Typical building blocks you might split out:
+
+- **Preprocessing** — Cleaning, type fixes, winsorizing outliers (used on every dataset refresh).
+- **Feature helpers** — Date parts, rolling windows, encodings shared across models.
+- **Evaluation** — Metrics and plots so train and validation use the same definitions.
+- **Plotting** — Brand-consistent chart defaults so reports look uniform.
+
+Together these pieces form a **library** your team imports instead of copy-pasting cells.
 
 ```python
 # Example data science module structure

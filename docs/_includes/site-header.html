@@ -1,0 +1,28 @@
+{% comment %}
+  Top bar: home, search (Pagefind), theme toggle. Hidden on print.
+{% endcomment %}
+<header class="site-header" role="banner">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+    <div class="site-header__actions">
+      <button type="button" class="site-header__btn" id="site-search-open" aria-haspopup="dialog" aria-controls="site-search-dialog" aria-label="Open search">
+        Search
+      </button>
+      <button type="button" class="site-header__btn site-header__btn--theme" id="theme-toggle" aria-label="Toggle dark mode" title="Theme">
+        <span class="site-header__theme-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="site-search" id="site-search-dialog" role="dialog" aria-modal="true" aria-labelledby="site-search-title" hidden>
+  <div class="site-search__backdrop" id="site-search-backdrop" tabindex="-1"></div>
+  <div class="site-search__panel">
+    <div class="site-search__head">
+      <h2 class="site-search__title" id="site-search-title">Search lessons</h2>
+      <button type="button" class="site-search__close" id="site-search-close" aria-label="Close search">×</button>
+    </div>
+    <div id="pagefind-ui-root" class="site-search__mount"></div>
+    <p class="site-search__hint text-small text-gray" id="pagefind-unavailable" hidden>Search index is generated on full site build (<code>pnpm run build:jekyll</code> or <code>make jekyll-build-with-search</code>).</p>
+  </div>
+</div>

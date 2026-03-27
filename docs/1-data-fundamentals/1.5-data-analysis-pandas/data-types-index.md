@@ -10,7 +10,13 @@
 
 *Corey Schafer — Python pandas tutorial (part 2): DataFrame and Series basics*
 
-## Data Types (dtypes)
+## Overview
+
+**Prerequisites:** [Series](./series.md) and [DataFrame](./dataframe.md) basics.
+
+**Why this lesson:** Every column has a **dtype**; wrong dtypes break math (strings that look like numbers), waste memory (`int64` where `int8` would do), or hide bugs (`object` columns that should be categorical). The **index** labels rows—misunderstanding it breaks joins and alignment. This page connects dtypes and index to everyday fixes.
+
+## Data types (dtypes)
 
 ---
 

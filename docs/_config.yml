@@ -98,4 +98,6 @@ highlighter: rouge
 gist:
   noscript: false
 # Code highlighting: global Rouge (GFM fenced blocks use ` ```python ` etc. for language).
-# Math: layout loads MathJax; use $$...$$ / \\[...\\] in Markdown and verify in browser.
+# Math: layout loads KaTeX (auto-render); use $$...$$, \\[...\\], \\(...\\) in Markdown.
+# Optional privacy-friendly analytics (set to your Plausible site domain, or leave blank):
+# plausible_domain: your-site-id

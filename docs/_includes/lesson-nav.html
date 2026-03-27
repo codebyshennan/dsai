@@ -11,9 +11,11 @@
 
 {% if show_lesson_nav %}
   {% assign dir_key = page.dir | remove_first: '/' | remove_last: '/' %}
+  {% assign dir_key = dir_key | split: '/' | compact | join: '/' %}
   {% assign order = site.data.lesson_nav_order[dir_key] %}
 
   {% assign idx = -1 %}
+  {% assign sidx = -1 %}
   {% if order %}
     {% for f in order %}
       {% if f == page.name %}
@@ -107,10 +109,8 @@
       {% assign root_href = '/' | append: mod_root | append: '/README.html' %}
       {% assign root_label = 'Back to module root' %}
     {% else %}
-      {% assign readme_path = dir_key | append: '/README.md' %}
-      {% assign readme_index = site.pages | where: 'path', readme_path | first %}
-      {% if readme_index %}
-        {% assign root_href = readme_index.url %}
+      {% if dir_key contains '/' %}
+        {% assign root_href = '/' | append: dir_key | append: '/README.html' %}
         {% assign root_label = 'Back to module root' %}
       {% else %}
         {% assign root_href = '/README.html' %}
@@ -119,7 +119,34 @@
     {% endif %}
   {% endif %}
 
+  {% assign prog_cur = '' %}
+  {% assign prog_tot = '' %}
+  {% if idx > -1 %}
+    {% assign prog_cur = idx | plus: 1 %}
+    {% assign prog_tot = order | size %}
+  {% elsif sidx > -1 %}
+    {% assign prog_cur = sidx | plus: 1 %}
+    {% assign prog_tot = sibs | size %}
+  {% endif %}
+
+  {% assign has_slides = false %}
+  {% assign slide_dirs = site.data.slide_index.dirs %}
+  {% if slide_dirs and slide_dirs contains dir_key %}
+    {% assign has_slides = true %}
+  {% endif %}
+  {% assign slides_href = '/' | append: dir_key | append: '/slides/' %}
+
 <nav class="lesson-nav" aria-label="Lesson navigation">
+  {% if prog_cur != '' or has_slides %}
+  <div class="lesson-nav__meta">
+    {% if prog_cur != '' %}
+    <span class="lesson-nav__progress">Lesson {{ prog_cur }} of {{ prog_tot }}</span>
+    {% endif %}
+    {% if has_slides %}
+    <a class="lesson-nav__slides" href="{{ slides_href | relative_url }}">Slides</a>
+    {% endif %}
+  </div>
+  {% endif %}
   <div class="lesson-nav__inner">
     {% if prev_page %}
       <a class="lesson-nav__btn lesson-nav__btn--prev" href="{{ prev_page.url | relative_url }}"{% if prev_page.title %} title="{{ prev_page.title | escape }}"{% endif %}>← Previous</a>
@@ -127,7 +154,7 @@
       <span class="lesson-nav__btn lesson-nav__btn--disabled" aria-disabled="true">← Previous</span>
     {% endif %}
 
-    <a class="lesson-nav__btn lesson-nav__btn--root" href="{{ root_href | relative_url }}">{{ root_label }}</a>
+    <a class="lesson-nav__btn lesson-nav__btn--root" href="{{ root_href | replace: '//', '/' | relative_url }}">{{ root_label }}</a>
 
     {% if next_page %}
       <a class="lesson-nav__btn lesson-nav__btn--next" href="{{ next_page.url | relative_url }}"{% if next_page.title %} title="{{ next_page.title | escape }}"{% endif %}>Next →</a>

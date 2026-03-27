@@ -10,11 +10,13 @@
 
 *StatQuest with Josh Starmer — The binomial distribution*
 
-## Understanding Distribution Families
+## Understanding distribution families
 
----
+A **family** is a shape of randomness described by a formula and **parameters** (for example Normal: mean and standard deviation; Binomial: number of trials and success probability). Changing parameters changes the curve or the histogram, but the **same family** still answers the same kind of real-world question.
 
-### Distribution Families in Python
+**Discrete** families (Binomial, Poisson) describe counts and frequencies. **Continuous** families (Normal, Exponential) describe measurements and waiting times. The code below lets you **sample** and **plot** several parameter settings side by side so you build intuition for “what happens when we change *n*, *p*, *lambda*, *sigma*?”
+
+### Exploring families in Python
 
 Let's explore different distribution families using Python:
 

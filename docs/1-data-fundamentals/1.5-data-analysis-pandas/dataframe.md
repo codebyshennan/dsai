@@ -10,6 +10,12 @@
 
 *Corey Schafer — Python pandas tutorial (part 2): DataFrame and Series basics*
 
+## Overview
+
+**Prerequisites:** [Introduction to Python](../1.2-intro-python/README.md), [NumPy basics](../1.4-data-foundation-linear-algebra/intro-numpy.md), and ideally [Series](./series.md) (a DataFrame is a collection of aligned Series).
+
+**Why this lesson:** The **DataFrame** is the main table structure you will use for rows and columns. Understanding construction, dtypes, and index early prevents silent bugs when you merge, group, and plot later.
+
 ## What is a DataFrame?
 
 Think of a DataFrame as an Excel spreadsheet in Python! It's a 2-dimensional table with rows and columns, where each column can hold different types of data (numbers, text, dates, etc.). DataFrames are perfect for:

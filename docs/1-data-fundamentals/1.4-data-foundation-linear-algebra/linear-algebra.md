@@ -10,7 +10,11 @@
 
 *3Blue1Brown — Essence of linear algebra: vectors*
 
-## Set Operations: Finding Unique Values
+## How this lesson is organized
+
+This page mixes **set-like** ideas (unique values, membership) with **matrix multiplication** and other **linear algebra** tools. That mirrors real workflows: you often **deduplicate** or **filter** arrays before you **combine** or **transform** them with matrices. Read top to bottom; each section’s code is short enough to run in a notebook as you go.
+
+## Set operations: finding unique values
 
 ---
 
