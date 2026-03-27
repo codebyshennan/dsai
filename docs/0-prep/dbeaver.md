@@ -1,10 +1,13 @@
 # DBeaver Setup
 
+**After this guide:** DBeaver is installed, you can create a connection to a database (for example SQLite or your course server), open a SQL editor, and run a query that returns rows.
+
 ## What is DBeaver?
 
 DBeaver is a **free** database tool that lets you connect to and work with databases using a friendly graphical interface. Instead of typing commands in a terminal, you get buttons, menus, and visual tools to explore your data!
 
 **In simple terms:** DBeaver is like a "file explorer" for databases. You can:
+
 - Browse tables and data visually
 - Write and run SQL queries
 - See your data in easy-to-read tables
@@ -12,31 +15,38 @@ DBeaver is a **free** database tool that lets you connect to and work with datab
 - Create diagrams showing how tables connect
 
 **Why use DBeaver?**
+
 - ✅ **Free** - Community edition is completely free
 - ✅ **Works with many databases** - MySQL, PostgreSQL, SQLite, Snowflake, and more
 - ✅ **Visual interface** - No need to remember complex commands
 - ✅ **Great for beginners** - Easy to learn and use
 - ✅ **Powerful** - Has everything you need for SQL work
 
-> **Figure (add screenshot or diagram):** DBeaver main window and Database Navigator.
+> **On screen:** DBeaver main window and Database Navigator.
 
 > **Note:** DBeaver Community is recommended for this course, but you can use any SQL client you prefer. DBeaver is just the easiest to get started with!
 
+## Helpful video
+
+Official **DBeaver** walkthrough: create a database connection with the wizard and test it (about 4 minutes).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hKEnBhCbwV8" title="How to create a database connection in DBeaver" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## System Requirements
 
-* Windows 10/11, macOS 11 (Big Sur) or newer (current DBeaver builds target recent macOS), or Linux
-* 4GB RAM minimum (8GB recommended)
-* A **Java 17+** runtime (bundled with the official Community installers—no separate JDK install needed for most users)
-* 500MB free disk space
+- Windows 10/11, macOS 11 (Big Sur) or newer (current DBeaver builds target recent macOS), or Linux
+- 4GB RAM minimum (8GB recommended)
+- A **Java 17+** runtime (bundled with the official Community installers—no separate JDK install needed for most users)
+- 500MB free disk space
 
 ## Key Features
 
-* Multiple database support
-* SQL editor with syntax highlighting
-* Database structure visualization
-* Data export/import
-* ER diagrams
-* SQL execution and debugging
+- Multiple database support
+- SQL editor with syntax highlighting
+- Database structure visualization
+- Data export/import
+- ER diagrams
+- SQL execution and debugging
 
 ## Installation Instructions
 
@@ -47,11 +57,11 @@ DBeaver is a **free** database tool that lets you connect to and work with datab
 1. Visit the [DBeaver Community download page](https://dbeaver.io/download/)
 2. You'll see different versions - choose **"Community Edition"** (it's free!)
 3. Click the download button for your operating system:
-   * **Windows:** Download the **.exe** installer
-   * **macOS:** Download the **.dmg** file
-   * **Linux:** Download the appropriate package (**.deb** for Ubuntu/Debian, **.rpm** for RHEL/Fedora)
+   - **Windows:** Download the **.exe** installer
+   - **macOS:** Download the **.dmg** file
+   - **Linux:** Download the appropriate package (**.deb** for Ubuntu/Debian, **.rpm** for RHEL/Fedora)
 
-> **Figure (add screenshot or diagram):** download page with OS / installer choices.
+> **On screen:** download page with OS / installer choices.
 
 ### Step 2: Install DBeaver
 
@@ -68,7 +78,7 @@ DBeaver is a **free** database tool that lets you connect to and work with datab
 5. Click **"Finish"** when done
 6. DBeaver should launch automatically!
 
-> **Figure (add screenshot or diagram):** Windows installer steps.
+> **On screen:** Windows installer steps.
 
 </details>
 
@@ -83,7 +93,7 @@ DBeaver is a **free** database tool that lets you connect to and work with datab
 6. Open **Applications** folder and double-click **DBeaver** to launch
 7. If macOS asks about security, go to **System Preferences → Security & Privacy** and click **"Open Anyway"**
 
-> **Figure (add screenshot or diagram):** macOS DMG — drag DBeaver to Applications.
+> **On screen:** macOS DMG — drag DBeaver to Applications.
 
 </details>
 
@@ -92,6 +102,7 @@ DBeaver is a **free** database tool that lets you connect to and work with datab
 ### First Launch Configuration
 
 **Step 1: Launch DBeaver**
+
 - **Windows:** Find DBeaver in your Start menu and click it
 - **macOS:** Open Applications folder and double-click DBeaver
 
@@ -104,14 +115,14 @@ When you first open DBeaver, you might see a few popups:
    - **Just click "OK"** - the default location is perfect!
    - This is where DBeaver saves your database connections and settings
 
-> **Figure (add screenshot or diagram):** Workspace folder selection on first launch.
+> **On screen:** Workspace folder selection on first launch.
 
-2. **Install Additional Drivers:**
+1. **Install Additional Drivers:**
    - DBeaver might ask to download database drivers
    - **Click "Yes" or "Download"** - these are needed to connect to databases
    - This might take a minute or two
 
-3. **Proxy Settings:**
+2. **Proxy Settings:**
    - Only appears if you're behind a corporate firewall
    - Most students can skip this
    - If you're at school/work and having connection issues, ask your IT department
@@ -128,7 +139,7 @@ When you first open DBeaver, you might see a few popups:
    - OR click **"Database"** in the menu bar → **"New Database Connection"**
 2. A window will pop up showing different database types
 
-> **Figure (add screenshot or diagram):** New connection — choose database type.
+> **On screen:** New connection — choose database type.
 
 <details>
 <summary><b>SQLite (Recommended for Beginners)</b></summary>
@@ -143,7 +154,7 @@ When you first open DBeaver, you might see a few popups:
 4. Click **"Test Connection"** - you should see "Connected" in green
 5. Click **"Finish"**
 
-> **Figure (add screenshot or diagram):** SQLite file path / connection settings.
+> **On screen:** SQLite file path / connection settings.
 
 > **Tip:** SQLite databases are just files on your computer - you can easily copy, backup, or delete them!
 
@@ -165,7 +176,7 @@ When you first open DBeaver, you might see a few popups:
 4. Click **"Test Connection"** - if successful, you'll see "Connected"
 5. Click **"Finish"**
 
-> **Figure (add screenshot or diagram):** PostgreSQL host, port, database, user.
+> **On screen:** PostgreSQL host, port, database, user.
 
 > **Note:** If you don't have a PostgreSQL server set up, start with SQLite instead!
 
@@ -176,9 +187,9 @@ When you first open DBeaver, you might see a few popups:
 ### Recommended Settings
 
 1. Go to Preferences/Settings:
-   * Windows/Linux: Window → Preferences
-   * macOS: DBeaver → Preferences
-2.  Configure these settings:
+   - Windows/Linux: Window → Preferences
+   - macOS: DBeaver → Preferences
+2. Configure these settings:
 
     ```text
     Editors:
@@ -197,26 +208,26 @@ When you first open DBeaver, you might see a few popups:
 ### Security Best Practices
 
 1. **Password Security**:
-   * Use "Save Password Locally" with caution
-   * Enable master password for stored credentials
+   - Use "Save Password Locally" with caution
+   - Enable master password for stored credentials
 2. **SSH Tunneling** (for remote databases):
-   * Use SSH tunnel when possible
-   * Configure key-based authentication
+   - Use SSH tunnel when possible
+   - Configure key-based authentication
 3. **Network Security**:
-   * Use SSL/TLS connections when available
-   * Configure timeout settings
+   - Use SSL/TLS connections when available
+   - Configure timeout settings
 
 ## Common Issues & Troubleshooting
 
 ### Connection Issues
 
 1. **Cannot Connect to Database**:
-   * Verify database is running
-   * Check hostname/port
-   * Confirm credentials
-   * Test network connectivity
-   * Check firewall settings
-2.  **Driver Issues**:
+   - Verify database is running
+   - Check hostname/port
+   - Confirm credentials
+   - Test network connectivity
+   - Check firewall settings
+2. **Driver Issues**:
 
     ```text
     Solutions:
@@ -224,49 +235,50 @@ When you first open DBeaver, you might see a few popups:
     - Download driver manually
     - Clear driver cache
     ```
+
 3. **Performance Problems**:
-   * Adjust fetch size
-   * Configure result set limits
-   * Update database statistics
+   - Adjust fetch size
+   - Configure result set limits
+   - Update database statistics
 
 ### Workspace Issues
 
 1. **Slow Performance**:
-   * Clear workspace cache
-   * Reduce stored connection history
-   * Update database statistics
+   - Clear workspace cache
+   - Reduce stored connection history
+   - Update database statistics
 2. **UI Problems**:
-   * Reset perspective
-   * Clear workspace
-   * Update DBeaver
+   - Reset perspective
+   - Clear workspace
+   - Update DBeaver
 
 ### Error Messages
 
 Common error solutions:
 
 1. "Cannot create driver instance":
-   * Reinstall driver
-   * Check Java version
+   - Reinstall driver
+   - Check Java version
 2. "Connection refused":
-   * Verify database is running
-   * Check port number
-   * Review firewall settings
+   - Verify database is running
+   - Check port number
+   - Review firewall settings
 3. "Authentication failed":
-   * Verify credentials
-   * Check database permissions
-   * Review authentication method
+   - Verify credentials
+   - Check database permissions
+   - Review authentication method
 
 ## Tips & Best Practices
 
 1. **Query Optimization**:
-   * Use query explain plan
-   * Set appropriate fetch size
-   * Use connection pooling
+   - Use query explain plan
+   - Set appropriate fetch size
+   - Use connection pooling
 2. **Data Export/Import**:
-   * Use native database formats
-   * Configure batch sizes
-   * Set appropriate timeouts
+   - Use native database formats
+   - Configure batch sizes
+   - Set appropriate timeouts
 3. **Version Control**:
-   * Save queries as scripts
-   * Use project sharing
-   * Maintain script templates
+   - Save queries as scripts
+   - Use project sharing
+   - Maintain script templates

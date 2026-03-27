@@ -1,12 +1,16 @@
 # ROC Curves and AUC: Complete Guide
 
+**After this lesson:** you can explain the core ideas in “ROC Curves and AUC: Complete Guide” and reproduce the examples here in your own notebook or environment.
+
 ## Introduction
 
 The Receiver Operating Characteristic (ROC) curve and Area Under the Curve (AUC) are powerful tools for evaluating binary classification models. They provide a comprehensive view of model performance across different classification thresholds and help us understand the trade-offs between sensitivity and specificity.
 
 ### Video Tutorial: ROC and AUC Explained
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4jRBRDbJemM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: ROC and AUC, Clearly Explained! by Josh Starmer*
 
@@ -132,6 +136,13 @@ def plot_roc_curve(fpr, tpr, roc_auc, title="ROC Curve"):
 plot_roc_curve(fpr, tpr, roc_auc)
 ```
 
+
+![roc-and-auc](assets/roc-and-auc_fig_1.png)
+
+```
+AUC Score: 0.914
+```
+
 **Output:**
 ```
 Training samples: 800
@@ -207,6 +218,9 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+
+![roc-and-auc](assets/roc-and-auc_fig_2.png)
+
 **Output:**
 ```
 Model Performance Comparison:
@@ -273,6 +287,9 @@ plt.legend(loc="lower right")
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
+
+
+![roc-and-auc](assets/roc-and-auc_fig_3.png)
 
 **Output:**
 ```
@@ -513,6 +530,19 @@ print(f"Actual default rate: {y_test.mean():.2%}")
 print(f"Predicted default rate (threshold=0.5): {(y_pred_proba >= 0.5).mean():.2%}")
 ```
 
+
+![roc-and-auc](assets/roc-and-auc_fig_4.png)
+
+```
+Default rate: 25.65%
+
+Credit Risk Model Performance:
+AUC Score: 0.734
+Number of test samples: 400
+Actual default rate: 25.75%
+Predicted default rate (threshold=0.5): 13.00%
+```
+
 **Output:**
 ```
 Default rate: 25.65%
@@ -683,6 +713,10 @@ auc_mean, auc_lower, auc_upper = bootstrap_auc(y_test, y_pred_proba)
 print(f"AUC: {auc_mean:.3f} (95% CI: {auc_lower:.3f} - {auc_upper:.3f})")
 ```
 
+```
+AUC: 0.734 (95% CI: 0.677 - 0.787)
+```
+
 **Output:**
 ```
 Bootstrap Analysis Results:
@@ -714,6 +748,11 @@ cv_scores = cross_val_score(pipeline, X_train, y_train, cv=cv, scoring='roc_auc'
 
 print(f"Cross-validation AUC scores: {cv_scores}")
 print(f"Mean CV AUC: {cv_scores.mean():.3f} (+/- {cv_scores.std() * 2:.3f})")
+```
+
+```
+Cross-validation AUC scores: [0.73913712 0.7770291  0.71420885 0.70780385 0.77948862]
+Mean CV AUC: 0.744 (+/- 0.060)
 ```
 
 **Output:**

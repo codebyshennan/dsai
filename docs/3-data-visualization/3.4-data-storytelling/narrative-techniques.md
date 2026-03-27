@@ -1,6 +1,14 @@
 # Data Storytelling Narrative Techniques: A Beginner's Guide
 
+**After this lesson:** you can explain the core ideas in “Data Storytelling Narrative Techniques: A Beginner's Guide” and reproduce the examples here in your own notebook or environment.
+
 > **Note:** This is a **concept-first** companion to [Visual storytelling](visual-storytelling.md). Worked examples may reference charts you build in Python or BI tools.
+
+## Helpful video
+
+Framing insights for others—related context for storytelling.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Table of Contents
 

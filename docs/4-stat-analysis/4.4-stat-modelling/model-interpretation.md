@@ -1,5 +1,7 @@
 # Model Interpretation
 
+**After this lesson:** you can explain the core ideas in “Model Interpretation” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - Stakeholders need **why** a model behaves as it does, not only accuracy.
@@ -18,11 +20,15 @@ Model interpretation is the process of understanding and explaining how your sta
 
 ### Video Tutorial: Introduction to Model Interpretation
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VB9uV-xFgtU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *SHAP Values Explained by StatQuest with Josh Starmer*
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/MREiHgHgl0k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *LIME: Explaining Machine Learning Models by StatQuest with Josh Starmer*
 
@@ -69,6 +75,12 @@ Model interpretation transforms "black box" predictions into actionable insights
 ### 1. Coefficient Interpretation
 
 For linear and logistic regression models, the coefficients provide direct insight into how each feature affects the prediction:
+
+**Linear regression coefficients on simulated housing data**
+
+**Purpose:** Fit `LinearRegression` on synthetic housing features, plot signed coefficient magnitudes, and print per-feature dollar interpretations.
+
+**Walkthrough:** `LinearRegression.fit`; use `coef_` and `intercept_`; horizontal bar chart with green/red by sign; `savefig` for the lesson figure.
 
 ```python
 import numpy as np
@@ -178,6 +190,12 @@ Number of Rooms: $25233.23 - For each additional room, the house price increases
 
 One challenge with interpreting coefficients is that they depend on the scale of the feature. Let's see how this works with standardized features:
 
+**Standardized coefficients for comparable effect sizes**
+
+**Purpose:** Refit linear regression on `StandardScaler`-transformed features so coefficients reflect change in the target per one SD change in each feature.
+
+**Walkthrough:** `StandardScaler.fit_transform`; second `LinearRegression` on scaled `X`; compare with original `coef_` in a DataFrame and bar plot.
+
 ```python
 # Create a copy of the data and standardize features
 X_std = X.copy()
@@ -227,6 +245,12 @@ This shows us which features have the largest effect relative to their scale of 
 
 For more complex models like tree-based algorithms, we can extract feature importances:
 
+**Random Forest `feature_importances_` on housing features**
+
+**Purpose:** Train a `RandomForestRegressor` on the same `X`, `y` and visualize the built-in Gini-based importance scores.
+
+**Walkthrough:** `RandomForestRegressor.fit`; read `feature_importances_`; sort and horizontal bar chart with printed percentages.
+
 ```python
 from sklearn.ensemble import RandomForestRegressor
 
@@ -264,6 +288,12 @@ When you run this code, you'll see a visualization of the random forest feature 
 ### 3. Comparing Categorical Levels
 
 When dealing with categorical features, we often need to interpret the effect of different categories:
+
+**Dummy variables and baseline contrasts for loan amount**
+
+**Purpose:** Encode education and marital status with `get_dummies`, fit `LinearRegression`, and plot coefficients relative to dropped baseline levels.
+
+**Walkthrough:** `pd.get_dummies(..., drop_first=True)`; separate dummy columns from numeric; barh of category effects with a vertical line at 0.
 
 ```python
 # Create a dataset with categorical features
@@ -371,17 +401,27 @@ This approach shows the effect of each category compared to a reference category
 
 ### Video Tutorial: SHAP and LIME for Model Interpretation
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VB9uV-xFgtU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *SHAP Values Explained by StatQuest with Josh Starmer*
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/MREiHgHgl0k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *LIME: Explaining Machine Learning Models by StatQuest with Josh Starmer*
 
 ### 1. Partial Dependence Plots (PDPs)
 
 PDPs show how a feature affects predictions, on average, while controlling for other features:
+
+**Partial dependence for a gradient boosting regressor**
+
+**Purpose:** Fit `GradientBoostingRegressor` on the loan `X`, `y` and plot average partial dependence for Income and Age (plus manual line plots).
+
+**Walkthrough:** `sklearn.inspection.plot_partial_dependence` / `partial_dependence` with `kind='average'`; optional loop over features for custom matplotlib curves.
 
 ```python
 from sklearn.ensemble import GradientBoostingRegressor
@@ -438,6 +478,12 @@ PDPs are powerful because they:
 ### 2. Individual Conditional Expectation (ICE) Plots
 
 ICE plots show how predictions change for individual observations as we vary a feature:
+
+**ICE curves and PDP overlay on a feature grid**
+
+**Purpose:** For a random subset of rows, sweep one feature through a grid, collect predictions, and draw per-sample blue curves with the mean PDP in red.
+
+**Walkthrough:** Loop over `X.index`, mutate a copy of the row for each grid value, `model.predict`; `np.mean` across samples for the average curve.
 
 ```python
 # Generate ICE plots
@@ -509,6 +555,12 @@ ICE plots show:
 
 SHAP values provide a powerful framework for interpreting model predictions:
 
+**SHAP summary, dependence, and waterfall plots**
+
+**Purpose:** Train a small `GradientBoostingRegressor`, compute SHAP values with the Tree explainer, and save bar summary, beeswarm, dependence, and waterfall figures.
+
+**Walkthrough:** `shap.Explainer(model, X)`; `shap_values = explainer(X)`; `summary_plot`, `dependence_plot`, `shap.plots.waterfall` (requires `pip install shap`).
+
 ```python
 # NOTE: You need to install shap first with: pip install shap
 import shap
@@ -579,6 +631,12 @@ SHAP values are especially powerful because they:
 ### 1. Linear Regression
 
 For linear regression, the interpretation is straightforward through coefficients:
+
+**Linear coefficients with OLS-style confidence intervals**
+
+**Purpose:** Helper that augments coefficient table with standard errors and 95% CIs for specified numeric features and plots coefficients with or without error bars.
+
+**Walkthrough:** MSE from residuals; `(X'X)^{-1}` for variance; `scipy.stats.t.ppf` for critical t; `plt.errorbar` when SEs exist.
 
 ```python
 def interpret_linear_model(model, feature_names, numeric_features=None):
@@ -653,6 +711,12 @@ When you run this code, you'll see a visualization of the linear regression coef
 ### 2. Logistic Regression
 
 For logistic regression, we often interpret coefficients as odds ratios:
+
+**Simulated diabetes risk: odds ratios from logistic regression**
+
+**Purpose:** Generate binary outcomes from a known logit, fit `LogisticRegression`, and visualize `exp(coef)` on a log scale with a reference line at OR = 1.
+
+**Walkthrough:** `LogisticRegression.fit`; `coef_[0]` and `np.exp`; horizontal barh with `plt.xscale('log')`.
 
 ```python
 # Create a classification example
@@ -737,6 +801,12 @@ When you run this code, you'll see a visualization of the logistic regression od
 
 Decision trees are inherently interpretable and can be visualized directly:
 
+**Decision tree plot, importances, and printed decision path**
+
+**Purpose:** Fit a shallow `DecisionTreeRegressor`, draw the tree with `plot_tree`, show split importances, and trace splits for one sample via `decision_path`.
+
+**Walkthrough:** `DecisionTreeRegressor`; `plot_tree`; `tree_.feature`, `threshold`, `value`; custom `interpret_tree_prediction` walks nodes.
+
 ```python
 from sklearn.tree import DecisionTreeRegressor, plot_tree
 
@@ -816,6 +886,22 @@ def interpret_tree_prediction(tree_model, X, feature_names, sample_index=0):
 interpret_tree_prediction(tree_model, X, X.columns, sample_index=0)
 ```
 
+
+![model-interpretation](assets/model-interpretation_fig_1.png)
+
+
+![model-interpretation](assets/model-interpretation_fig_2.png)
+
+```
+Decision path for sample 0:
+Sample values: {'Income': np.float64(67450.71229516849), 'Age': np.float64(26.710049890779274), 'Education_High School': np.False_, 'Education_Master': np.True_, 'Education_PhD': np.False_, 'MaritalStatus_Married': np.True_, 'MaritalStatus_Single': np.False_}
+Predicted value: 52388.22
+Node 0: MaritalStatus_Married = 1.00 > 0.50 → Go to right child
+Node 8: Education_High School = 0.00 <= 0.50 → Go to left child
+Node 9: Education_PhD = 0.00 <= 0.50 → Go to left child
+Leaf node 10: Predicted value = 52388.22
+```
+
 When you run this code, you'll see a visualization of the decision tree (saved as `decision_tree.png`):
 
 ![Decision Tree](assets/decision_tree.png)
@@ -836,6 +922,12 @@ Decision trees are excellent for interpretation because:
 ### 1. Start with a Simple Model
 
 Before diving into complex models, start with a simpler one:
+
+**Compare interpretability labels vs R² and MSE across estimators**
+
+**Purpose:** Train several sklearn regressors on a train/test split of the housing data, score them, and scatter-plot R² vs MSE colored by a coarse interpretability tier.
+
+**Walkthrough:** `train_test_split`; loop over `LinearRegression`, `Lasso`, `DecisionTreeRegressor`, `RandomForestRegressor`, `GradientBoostingRegressor`, `MLPRegressor`; `mean_squared_error`, `r2_score`; `plt.scatter` with custom legend.
 
 ```python
 def compare_model_interpretability():
@@ -949,6 +1041,12 @@ When you run this code, you'll see a comparison of different models in terms of 
 
 Different interpretation methods provide complementary insights:
 
+**Built-in importance, permutation importance, and partial dependence**
+
+**Purpose:** For one fitted model, print coefficient or `feature_importances_` rankings, run `permutation_importance`, and plot partial dependence for the top two features by permutation mean.
+
+**Walkthrough:** `sklearn.inspection.permutation_importance`; `partial_dependence` with column index; small matplotlib loop over top features.
+
 ```python
 def apply_multiple_interpretation_techniques(model, X, y, feature_names):
     """Apply multiple interpretation techniques to the same model"""
@@ -1010,6 +1108,12 @@ multiple_interpretations = apply_multiple_interpretation_techniques(rf_model, X,
 ### 3. Always Consider the Audience
 
 Tailor your interpretations to your audience:
+
+**Technical, business, and “homeowner” narratives from one regressor**
+
+**Purpose:** Print regression metrics and top drivers for a technical audience, paraphrase business bullets from importances/coefficients, and show a counterfactual price for a sample house.
+
+**Walkthrough:** `r2_score`, `mean_squared_error`, `mean_absolute_error`; branch on `feature_importances_` vs `coef_`; `model.predict` on perturbed `DataFrame` rows.
 
 ```python
 def create_audience_specific_interpretations(model, X, y):
@@ -1112,6 +1216,12 @@ create_audience_specific_interpretations(model, X, y)
 
 Just because a feature is important in your model doesn't mean it has a causal relationship with the target:
 
+**Confounded regression: temperature vs shorts-wearing for ice cream sales**
+
+**Purpose:** Fit `LinearRegression` with two correlated predictors where only one is causal, print coefficients, and plot scatter/violin panels illustrating the confounding.
+
+**Walkthrough:** `LinearRegression.fit` on `Temperature` and `Shorts_Wearing`; subplot layout with `scatter` and `violinplot`.
+
 ```python
 def explore_correlation_vs_causation():
     """Demonstrate the difference between correlation and causation"""
@@ -1202,6 +1312,12 @@ When you run this code, you'll see a visualization of correlation vs. causation 
 ### 2. Interactions Between Features
 
 Sometimes features interact, and their combined effect is different from their individual effects:
+
+**Linear model with vs without an explicit interaction term**
+
+**Purpose:** Simulate `y = x1 * x2` plus noise, compare R² and coefficients for main-effects-only vs model with `x1 * x2`, and surface/contour plot the interaction surface.
+
+**Walkthrough:** Two `LinearRegression` fits; `r2_score`; 3D `plot_surface` and `contourf` with predictions on a grid.
 
 ```python
 def explore_feature_interactions():
@@ -1315,6 +1431,12 @@ When you run this code, you'll see a visualization of feature interactions (save
 ### 3. Interpreting Complex Models
 
 As models become more complex, interpretation becomes more challenging:
+
+**Tree depth, forest size, test R², and a subjective interpretability score**
+
+**Purpose:** Sweep `DecisionTreeRegressor` depths and two `RandomForestRegressor` configs, record train/test R² and node counts, and scatter complexity vs test R² colored by interpretability.
+
+**Walkthrough:** `train_test_split`; `tree_.node_count`; sum nodes over forest estimators; `plt.scatter` with `RdYlGn` colormap and annotations.
 
 ```python
 def compare_model_complexity_interpretability():

@@ -1,6 +1,14 @@
 # Principal Component Analysis (PCA): Simplifying Complex Data
 
+**After this lesson:** you can explain the core ideas in “Principal Component Analysis (PCA): Simplifying Complex Data” and reproduce the examples here in your own notebook or environment.
+
 Imagine you're trying to describe a person to someone who's never met them. Instead of listing every single detail (height, weight, hair color, eye color, clothing, etc.), you might focus on the most distinctive features that make them recognizable. That's exactly what PCA does with data - it helps us focus on the most important aspects while simplifying the rest!
+
+## Helpful video
+
+StatQuest overview of K-means clustering.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4b5d3muPQmA" title="K-means Clustering, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is PCA?
 
@@ -81,6 +89,10 @@ plt.close()
 
 # Print explained variance
 print("Explained variance ratio:", pca.explained_variance_ratio_)
+```
+
+```
+Explained variance ratio: [0.50565666 0.49434334]
 ```
 
 ## Real-World Example: Image Compression

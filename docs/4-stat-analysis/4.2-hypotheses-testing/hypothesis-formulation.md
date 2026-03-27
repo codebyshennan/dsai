@@ -1,5 +1,7 @@
 # Hypothesis Formulation: Asking the Right Scientific Questions
 
+**After this lesson:** you can explain the core ideas in “Hypothesis Formulation: Asking the Right Scientific Questions” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - Clear **null** and **alternative** hypotheses keep your analysis aligned with the decision you need to make.
@@ -18,11 +20,15 @@ A hypothesis is your scientific roadmap—it guides your investigation and helps
 
 ### Video Tutorial: Hypothesis Testing Explained
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/0oc49DyA3hU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Hypothesis Testing and The Null Hypothesis, Clearly Explained!!! by Josh Starmer*
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5koKb5B_YWo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Alternative Hypotheses: Main Ideas!!! by Josh Starmer*
 
@@ -60,6 +66,12 @@ A good hypothesis is precise and unambiguous.
 
 **Good:** "The new treatment reduces recovery time by at least 2 days."
 
+**One-sided test for a minimum improvement**
+
+**Purpose:** Encode a *directional* hypothesis (“at least 2 days better”) as a one-sample-style contrast against `min_improvement` using a pooled SE, so the p-value reads off the right tail only.
+
+**Walkthrough:** Effect is `mean(control) - mean(treatment)`; `pooled_std` and `se` build a two-sample t standard error; `stats.t.cdf` with `1 -` gives a one-tailed p-value vs `min_improvement`.
+
 ```python
 def test_specific_hypothesis(control_data, treatment_data, min_improvement=2):
     """
@@ -85,9 +97,21 @@ print(result)
 # {'effect_size': 3.0, 't_statistic': 2.683, 'p_value': 0.012, 'significant': True}
 ```
 
+**Captured output (example):** Numeric types may print as `np.float64`; check `significant` and that `effect_size` exceeds your stated minimum.
+
+```
+{'effect_size': np.float64(3.200000000000001), 't_statistic': np.float64(2.121320343559645), 'p_value': np.float64(0.03334399999999982), 'significant': np.True_}
+```
+
 ### 2. Measurable
 
 Your hypothesis should involve quantifiable variables.
+
+**Descriptive metrics + one-sample t-test vs a target**
+
+**Purpose:** Tie a verbal hypothesis (“satisfaction above 4”) to concrete summaries (mean, median, proportion ≥ 4) and a `ttest_1samp` against the benchmark.
+
+**Walkthrough:** `metrics` dict holds everything you might report in a dashboard; `ttest_1samp(ratings, target_score)` tests the mean against the reference value (two-sided by default).
 
 ```python
 def measure_customer_satisfaction(ratings, target_score=4.0):
@@ -118,9 +142,21 @@ print(result)
 # {'mean_score': 4.2, 'median_score': 4.0, 'std_dev': 0.748, 'satisfaction_rate': 0.8, 'sample_size': 10, 't_statistic': 0.845, 'p_value': 0.420}
 ```
 
+**Captured output (example):** With a mean only slightly above 4, the two-sided p-value may be large—failing to reject does *not* prove the mean equals the target.
+
+```
+{'mean_score': np.float64(4.1), 'median_score': np.float64(4.0), 'std_dev': np.float64(0.7000000000000001), 'satisfaction_rate': np.float64(0.8), 'sample_size': 10, 't_statistic': np.float64(0.42857142857142705), 'p_value': np.float64(0.6783097418055807)}
+```
+
 ### 3. Falsifiable
 
 A hypothesis must be testable and possible to prove wrong.
+
+**Falsifiable vs vague statements**
+
+**Purpose:** Contrast a rule that returns a Boolean from data (`test_mean_effect`) with a placeholder that cannot yield a test statistic—emphasizing why “falsifiable” matters operationally.
+
+**Walkthrough:** `test_mean_effect` uses `ttest_1samp` and an arbitrary threshold; `vague_statement` deliberately avoids quantitative rejection rules.
 
 ```python
 def demonstrate_falsifiability():
@@ -149,12 +185,24 @@ print(result)
 # {'falsifiable_result': True, 'non_falsifiable': 'Statement too vague to test statistically'}
 ```
 
+**Captured output (example):** With these draws, the one-sided “mean > 9.5” check may or may not fire; the vague branch always returns the same string.
+
+```
+{'falsifiable_result': np.False_, 'non_falsifiable': 'Statement too vague to test statistically'}
+```
+
 ## 4. Types of Hypotheses
 
 ### Simple vs. Composite
 
 - **Simple:** Tests an exact value (e.g., H₀: μ = 100)
 - **Composite:** Tests a range (e.g., H₀: 95 ≤ μ ≤ 105)
+
+**Simple null vs composite range check**
+
+**Purpose:** Show one workflow that tests \(H_0: \mu = 100\) with `ttest_1samp`, and a separate *interval* check that implements “is the sample mean inside [95, 105]?” as a descriptive composite screen.
+
+**Walkthrough:** `simple_test.pvalue` comes from SciPy’s two-sided t-test vs 100; `composite_result` is a plain Python range check on \(\bar x\), not a formal LRT.
 
 ```python
 def demonstrate_hypothesis_types(data):
@@ -171,6 +219,12 @@ result = demonstrate_hypothesis_types(data)
 print(result)
 # Sample output:
 # {'simple_p_value': 0.682, 'composite_result': True}
+```
+
+**Captured output (example):** A p-value of 1.0 for the toy data means the sample mean equals the tested null exactly in this construction; interpret composite flags separately from the p-value.
+
+```
+{'simple_p_value': np.float64(1.0), 'composite_result': np.True_}
 ```
 
 ### Directional vs. Non-directional

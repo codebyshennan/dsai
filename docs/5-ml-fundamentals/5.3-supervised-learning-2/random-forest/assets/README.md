@@ -1,5 +1,7 @@
 # Random Forest Visualizations
 
+**Maintainer note:** figures here support the Random Forest lessons; regenerate with `generate_visualizations.py` when lesson code changes.
+
 This directory contains visualizations that help explain key concepts of Random Forests. The visualizations are generated using Python and can be recreated by running the `generate_visualizations.py` script.
 
 ## Visualizations

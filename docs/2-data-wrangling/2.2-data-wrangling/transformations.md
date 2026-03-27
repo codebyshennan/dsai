@@ -1,8 +1,14 @@
 # Data Transformations: Shaping Data for Analysis
 
-## Overview
+**After this lesson:** You can scale numeric features (**standard**, **min-max**), encode categoricals (**one-hot**, **label**), and apply common fixes (log, datetime features) with a clear reason for each choice.
 
-**Primary outcome:** You can scale numeric features (**standard**, **min-max**), encode categoricals (**one-hot**, **label**), and apply common fixes (log, datetime features) with a clear reason for each choice.
+## Helpful video
+
+Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m1_33jhhiLE" title="Learn PANDAS in 5 minutes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Missing values](missing-values.md) and [Outliers](outliers.md) (or equivalent cleaning). Familiarity with **scikit-learn**’s preprocessing module is useful; we cite it in examples.
 
@@ -59,65 +65,164 @@ graph TD
 
 - **Standard Scaling (Z-score)**
 
-  ```python
-  z = (x - μ) / σ
-  # Where:
-  # x is the original value
-  # μ is the mean
-  # σ is the standard deviation
-  ```
+  <div class="code-explainer" data-code-explainer>
+  <div class="code-explainer__code">
+  
+  {% highlight text %}
+    z = (x - μ) / σ
+    # Where:
+    # x is the original value
+    # μ is the mean
+    # σ is the standard deviation
+  {% endhighlight %}
+  </div>
+  <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+    <div class="code-callout" data-lines="1-5" data-tint="1">
+      <div class="code-callout__meta">
+        <span class="code-callout__lines"></span>
+        <span class="code-callout__title">Z = (x - μ) / σ</span>
+      </div>
+      <div class="code-callout__body">
+        <p>Lines 1–5: follow this band in the snippet.</p>
+      </div>
+    </div>
+  </aside>
+  </div>
 
 - **Min-Max Scaling**
 
-  ```python
-  x_scaled = (x - x_min) / (x_max - x_min)
-  # Scales data to [0, 1] range
-  ```
+  <div class="code-explainer" data-code-explainer>
+  <div class="code-explainer__code">
+  
+  {% highlight text %}
+    x_scaled = (x - x_min) / (x_max - x_min)
+    # Scales data to [0, 1] range
+  {% endhighlight %}
+  </div>
+  <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+    <div class="code-callout" data-lines="1-2" data-tint="1">
+      <div class="code-callout__meta">
+        <span class="code-callout__lines"></span>
+        <span class="code-callout__title">X_scaled = (x - x_min) / (x_max - x_min)</span>
+      </div>
+      <div class="code-callout__body">
+        <p>Lines 1–2: follow this band in the snippet.</p>
+      </div>
+    </div>
+  </aside>
+  </div>
 
 - **Robust Scaling**
 
-  ```python
-  x_robust = (x - Q2) / (Q3 - Q1)
-  # Where:
-  # Q1 is 25th percentile
-  # Q2 is median
-  # Q3 is 75th percentile
-  ```
+  <div class="code-explainer" data-code-explainer>
+  <div class="code-explainer__code">
+  
+  {% highlight text %}
+    x_robust = (x - Q2) / (Q3 - Q1)
+    # Where:
+    # Q1 is 25th percentile
+    # Q2 is median
+    # Q3 is 75th percentile
+  {% endhighlight %}
+  </div>
+  <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+    <div class="code-callout" data-lines="1-5" data-tint="1">
+      <div class="code-callout__meta">
+        <span class="code-callout__lines"></span>
+        <span class="code-callout__title">X_robust = (x - Q2) / (Q3 - Q1)</span>
+      </div>
+      <div class="code-callout__body">
+        <p>Lines 1–5: follow this band in the snippet.</p>
+      </div>
+    </div>
+  </aside>
+  </div>
 
 ### 2. Distribution Transformations
 
 - **Log Transform**
 
-  ```python
-  x_log = log(x + c)  # c is a constant to handle zeros
-  ```
+  <div class="code-explainer" data-code-explainer>
+  <div class="code-explainer__code">
+  
+  {% highlight text %}
+    x_log = log(x + c)  # c is a constant to handle zeros
+  {% endhighlight %}
+  </div>
+  <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+    <div class="code-callout" data-lines="1-1" data-tint="1">
+      <div class="code-callout__meta">
+        <span class="code-callout__lines"></span>
+        <span class="code-callout__title">X_log = log(x + c)  # c is a constant to hand…</span>
+      </div>
+      <div class="code-callout__body">
+        <p>Lines 1–1: follow this band in the snippet.</p>
+      </div>
+    </div>
+  </aside>
+  </div>
 
 - **Box-Cox Transform**
 
-  ```python
-  x_boxcox = {
-      (x^λ - 1) / λ  if λ ≠ 0
-      log(x)         if λ = 0
-  }
-  ```
+  <div class="code-explainer" data-code-explainer>
+  <div class="code-explainer__code">
+  
+  {% highlight text %}
+    x_boxcox = {
+        (x^λ - 1) / λ  if λ ≠ 0
+        log(x)         if λ = 0
+    }
+  {% endhighlight %}
+  </div>
+  <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+    <div class="code-callout" data-lines="1-4" data-tint="1">
+      <div class="code-callout__meta">
+        <span class="code-callout__lines"></span>
+        <span class="code-callout__title">X_boxcox = {</span>
+      </div>
+      <div class="code-callout__body">
+        <p>Lines 1–4: follow this band in the snippet.</p>
+      </div>
+    </div>
+  </aside>
+  </div>
 
 - **Yeo-Johnson Transform**
 
-  ```python
-  # Handles negative values unlike Box-Cox
-  x_yeojohnson = {
-      ((x + 1)^λ - 1) / λ     if λ ≠ 0, x ≥ 0
-      log(x + 1)              if λ = 0, x ≥ 0
-      -((-x + 1)^(2-λ) - 1) / (2-λ)   if λ ≠ 2, x < 0
-      -log(-x + 1)            if λ = 2, x < 0
-  }
-  ```
+  <div class="code-explainer" data-code-explainer>
+  <div class="code-explainer__code">
+  
+  {% highlight text %}
+    # Handles negative values unlike Box-Cox
+    x_yeojohnson = {
+        ((x + 1)^λ - 1) / λ     if λ ≠ 0, x ≥ 0
+        log(x + 1)              if λ = 0, x ≥ 0
+        -((-x + 1)^(2-λ) - 1) / (2-λ)   if λ ≠ 2, x < 0
+        -log(-x + 1)            if λ = 2, x < 0
+    }
+  {% endhighlight %}
+  </div>
+  <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+    <div class="code-callout" data-lines="1-7" data-tint="1">
+      <div class="code-callout__meta">
+        <span class="code-callout__lines"></span>
+        <span class="code-callout__title">Handles negative values unlike Box-Cox</span>
+      </div>
+      <div class="code-callout__body">
+        <p>Lines 1–7: follow this band in the snippet.</p>
+      </div>
+    </div>
+  </aside>
+  </div>
 
 ## Advanced Transformation Techniques
 
 ### 1. Feature Scaling Pipeline
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -138,7 +243,7 @@ def create_transformation_pipeline(numeric_features, categorical_features):
     ])
     
     categorical_transformer = Pipeline(steps=[
-        ('onehot', OneHotEncoder(drop='first', sparse=False))
+        ('onehot', OneHotEncoder(drop='first', sparse_output=False))
     ])
     
     preprocessor = ColumnTransformer(
@@ -148,11 +253,41 @@ def create_transformation_pipeline(numeric_features, categorical_features):
         ])
     
     return Pipeline(steps=[('preprocessor', preprocessor)])
-```
+{% endhighlight %}
+
+![transformations](assets/transformations_fig_1.png)
+
+![transformations](assets/transformations_fig_2.png)
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From sklearn.compose import ColumnTransformer</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-30" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Numeric_transformer = Pipeline(steps=[</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 16–30: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Advanced Distribution Transformer
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DistributionTransformer:
     """Transform data to follow specific distributions"""
     
@@ -202,11 +337,54 @@ class DistributionTransformer:
             return special.inv_boxcox(transformed_data, self.lambda_)
         elif self.method in ['yeo-johnson', 'quantile']:
             return self.transformer.inverse_transform(transformed_data)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DistributionTransformer:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Parameters:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Self.transformer = pt</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37-49" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&quot;&quot;&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 37–49: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Time Feature Engineering
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def engineer_time_features(df, datetime_column):
     """
     Create comprehensive time-based features
@@ -242,13 +420,47 @@ def engineer_time_features(df, datetime_column):
     time_features['is_morning'] = dt.dt.hour < 12
     
     return time_features
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def engineer_time_features(df, datetime_column):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Dt = pd.to_datetime(df[datetime_column])</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-35" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Cyclical features</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 24–35: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Real-World Applications
 
 ### 1. E-commerce Data Transformation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def transform_ecommerce_data(df):
     """Transform e-commerce dataset for analysis"""
     
@@ -260,7 +472,7 @@ def transform_ecommerce_data(df):
     time_features = engineer_time_features(df, 'order_date')
     
     # 3. Encode categories
-    cat_encoder = OneHotEncoder(drop='first', sparse=False)
+    cat_encoder = OneHotEncoder(drop='first', sparse_output=False)
     encoded_categories = cat_encoder.fit_transform(
         df[['category', 'payment_method']]
     )
@@ -274,11 +486,36 @@ def transform_ecommerce_data(df):
         pd.DataFrame(encoded_categories, columns=cat_encoder.get_feature_names_out()),
         time_features
     ], axis=1)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def transform_ecommerce_data(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Encoded_categories = cat_encoder.fit_transform(</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Financial Data Transformation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def transform_financial_data(df):
     """Transform financial time series data"""
     
@@ -303,7 +540,29 @@ def transform_financial_data(df):
     df['MACD'] = calculate_macd(df['price'])
     
     return df
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def transform_financial_data(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Df[f&#x27;rolling_mean_{window}&#x27;] = df[&#x27;price&#x27;].ro…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices and Common Pitfalls
 
@@ -316,7 +575,10 @@ def transform_financial_data(df):
 
 ### 2. Validation Framework
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def validate_transformation(original, transformed):
     """
     Validate transformation results
@@ -358,11 +620,45 @@ def validate_transformation(original, transformed):
     plt.show()
     
     return validation
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def validate_transformation(original, transfo…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;original_skew&#x27;: stats.skew(original),</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–27: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-41" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 28–41: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Performance Considerations
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def optimize_transformation_pipeline(df, pipeline):
     """
     Optimize transformation pipeline performance
@@ -386,15 +682,40 @@ def optimize_transformation_pipeline(df, pipeline):
     pipeline.set_params(memory='cachedir')
     
     return pipeline.fit(df_optimized)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def optimize_transformation_pipeline(df, pipe…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Memory optimization</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Practice Exercise: Customer Data Transformation
 
 Transform a customer dataset for churn prediction:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Load data
-df = pd.read_csv('customer_data.csv')
+df = pd.read_csv('../_data/customer_data.csv')
 
 # 1. Analyze distributions
 for col in df.select_dtypes(include=[np.number]):
@@ -421,7 +742,63 @@ for i, col in enumerate(numeric_features):
     )
     print(f"\nValidation results for {col}:")
     print(validation)
+{% endhighlight %}
+
+![transformations](assets/transformations_fig_3.png)
+
+![transformations](assets/transformations_fig_4.png)
+
+![transformations](assets/transformations_fig_5.png)
+
 ```
+
+Analyzing customer_id:
+DescribeResult(nobs=np.int64(40), minmax=(np.int64(1), np.int64(40)), mean=np.float64(20.5), variance=np.float64(136.66666666666666), skewness=np.float64(0.0), kurtosis=np.float64(-1.201500938086304))
+
+Analyzing age:
+DescribeResult(nobs=np.int64(40), minmax=(np.int64(20), np.int64(68)), mean=np.float64(43.975), variance=np.float64(200.28141025641025), skewness=np.float64(-0.012562191403870635), kurtosis=np.float64(-1.0821420745312342))
+
+Analyzing income:
+DescribeResult(nobs=np.int64(40), minmax=(np.float64(20957.09506763072), np.float64(130942.3995248616)), mean=np.float64(82334.25940723266), variance=np.float64(1090563668.5542665), skewness=np.float64(-0.2318415185752648), kurtosis=np.float64(-1.1567951739204037))
+
+Analyzing tenure:
+DescribeResult(nobs=np.int64(40), minmax=(np.int64(2), np.int64(119)), mean=np.float64(56.8), variance=np.float64(1124.5230769230768), skewness=np.float64(0.24466179126919488), kurtosis=np.float64(-0.9849466326562171))
+
+Analyzing spending:
+DescribeResult(nobs=np.int64(40), minmax=(np.float64(211.73896804551777), np.float64(4848.964249003847)), mean=np.float64(2495.191596246369), variance=np.float64(1996206.2350566147), skewness=np.float64(0.0032941507320504446), kurtosis=np.float64(-1.1741950054579988))
+
+Validation results for age:
+{'distribution_metrics': {'original_skew': np.float64(-0.012562191403870635), 'transformed_skew': np.float64(-0.012562191403870571), 'original_kurtosis': np.float64(-1.0821420745312342), 'transformed_kurtosis': np.float64(-1.0821420745312345)}, 'normality_tests': {'original': NormaltestResult(statistic=np.float64(5.303572081068238), pvalue=np.float64(0.07052513974965449)), 'transformed': NormaltestResult(statistic=np.float64(5.303572081068246), pvalue=np.float64(0.07052513974965421))}, 'range_metrics': {'original_range': (np.int64(20), np.int64(68)), 'transformed_range': (np.float64(-1.715678810762139), np.float64(1.7192568687616427))}}
+
+Validation results for income:
+{'distribution_metrics': {'original_skew': np.float64(-0.2318415185752648), 'transformed_skew': np.float64(-0.231841518575264), 'original_kurtosis': np.float64(-1.1567951739204037), 'transformed_kurtosis': np.float64(-1.1567951739204052)}, 'normality_tests': {'original': NormaltestResult(statistic=np.float64(7.540657486692158), pvalue=np.float64(0.023044486320313473)), 'transformed': NormaltestResult(statistic=np.float64(7.540657486692189), pvalue=np.float64(0.023044486320313112))}, 'range_metrics': {'original_range': (np.float64(20957.09506763072), np.float64(130942.3995248616)), 'transformed_range': (np.float64(-1.8822573400166058), np.float64(1.4906688750677477))}}
+
+Validation results for tenure:
+{'distribution_metrics': {'original_skew': np.float64(0.24466179126919488), 'transformed_skew': np.float64(0.24466179126919477), 'original_kurtosis': np.float64(-0.9849466326562171), 'transformed_kurtosis': np.float64(-0.9849466326562166)}, 'normality_tests': {'original': NormaltestResult(statistic=np.float64(4.092861552058872), pvalue=np.float64(0.129195208268122)), 'transformed': NormaltestResult(statistic=np.float64(4.092861552058864), pvalue=np.float64(0.1291952082681225))}, 'range_metrics': {'original_range': (np.int64(2), np.int64(119)), 'transformed_range': (np.float64(-1.6549850099914483), np.float64(1.8784683872530672))}}
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Categorical_features</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Remember: "Choose transformations that enhance the signal in your data while preserving meaningful relationships!"
 

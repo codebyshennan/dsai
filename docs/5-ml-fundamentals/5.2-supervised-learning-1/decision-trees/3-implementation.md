@@ -1,5 +1,13 @@
 # Building Your First Decision Tree
 
+**After this lesson:** you can explain the core ideas in “Building Your First Decision Tree” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Getting Started with Scikit-learn
 
 Scikit-learn is like a toolbox for machine learning. It provides ready-to-use implementations of many algorithms, including decision trees. Let's learn how to use it!
@@ -7,6 +15,10 @@ Scikit-learn is like a toolbox for machine learning. It provides ready-to-use im
 ### Installation
 
 First, make sure you have scikit-learn installed:
+
+#### Install scikit-learn
+
+**Purpose:** Ensure `sklearn` is available locally or in your course environment before running the examples.
 
 ```bash
 pip install scikit-learn
@@ -17,6 +29,12 @@ pip install scikit-learn
 Let's build a simple system that helps diagnose whether someone might be sick based on their symptoms.
 
 ### Step 1: Prepare the Data
+
+#### Toy patient feature matrix and string labels
+
+**Purpose:** Represent symptoms as numeric columns and outcomes as class names for `DecisionTreeClassifier` (supports string targets).
+
+**Walkthrough:** Rows are patients; columns are temperature, cough, fatigue (0/1 except temperature).
 
 ```python
 import numpy as np
@@ -43,6 +61,12 @@ This code sets up our sample patient data with three features: body temperature,
 
 ### Step 2: Create and Train the Model
 
+#### Fit `DecisionTreeClassifier` and plot with `plot_tree`
+
+**Purpose:** Control depth and leaf rules with hyperparameters, then visualize the learned splits.
+
+**Walkthrough:** `class_names` order should match alphabetical or `np.unique` order—here `['healthy','sick']` matches sklearn’s internal encoding.
+
 ```python
 # Create the model with specific settings
 clf = DecisionTreeClassifier(
@@ -67,9 +91,18 @@ plt.title('Disease Diagnosis Decision Tree')
 plt.show()
 ```
 
+
+![3-implementation](assets/3-implementation_fig_1.png)
+
 In this step, we create a decision tree classifier with specific settings to control its complexity. We then train the model using our patient data and visualize the resulting tree to understand how it makes decisions. The visualization shows which features (temperature, cough, fatigue) the tree uses to classify patients.
 
 ### Step 3: Make Predictions
+
+#### `predict` and `predict_proba` for a new row
+
+**Purpose:** Return the majority class and leaf class proportions (confidence) for diagnosis-style outputs.
+
+**Walkthrough:** `predict_proba` rows sum to 1; `max` picks the winning class probability.
 
 ```python
 # New patient data
@@ -82,6 +115,13 @@ print(f"Diagnosis: {prediction[0]}")
 # Get prediction probabilities
 probabilities = clf.predict_proba(new_patient)
 print(f"Confidence: {max(probabilities[0]) * 100:.1f}%")
+```
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Diagnosis: healthy
+Confidence: 100.0%
 ```
 
 Here we use our trained model to diagnose a new patient. We input their symptoms (temperature, cough, fatigue) and the model returns a prediction. We also calculate the confidence level of this prediction.
@@ -100,6 +140,12 @@ This visual representation helps us understand exactly how the model makes decis
 ## Iris Flower Classification Example
 
 Let's try another example with the famous Iris dataset, which is built into scikit-learn:
+
+#### Iris: train/test split, accuracy, and tree plot
+
+**Purpose:** Standard sklearn workflow on a built-in multiclass dataset with real feature names.
+
+**Walkthrough:** `train_test_split` with `random_state=42`; `score` is mean accuracy on `X_test`.
 
 ```python
 from sklearn.datasets import load_iris
@@ -138,6 +184,15 @@ plt.title('Iris Classification Tree')
 plt.show()
 ```
 
+
+![3-implementation](assets/3-implementation_fig_2.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Accuracy: 100.0%
+```
+
 This example demonstrates how to work with a real dataset. We:
 1. Load the built-in Iris dataset with measurements of different Iris flowers
 2. Split the data into training and testing sets
@@ -148,6 +203,12 @@ This example demonstrates how to work with a real dataset. We:
 ## House Price Prediction Example
 
 Now let's try a regression problem - predicting house prices:
+
+#### `DecisionTreeRegressor` with R² and feature importances
+
+**Purpose:** Predict a continuous target (price) and compare train vs test $R^2$; bar-chart importances for interpretation.
+
+**Walkthrough:** Uses `train_test_split` from the Iris section if run top-to-bottom; in isolation add `from sklearn.model_selection import train_test_split`.
 
 ```python
 from sklearn.tree import DecisionTreeRegressor
@@ -204,6 +265,17 @@ plt.ylabel('Importance')
 plt.show()
 ```
 
+
+![3-implementation](assets/3-implementation_fig_3.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Training R² Score: 1.000
+Testing R² Score: 0.782
+Predicted price: $220.00k
+```
+
 This example shows:
 1. How to use decision trees for regression (predicting numeric values)
 2. How to create and train a DecisionTreeRegressor
@@ -213,6 +285,12 @@ This example shows:
 ## Visualizing Decision Boundaries
 
 For a better understanding, let's create a simple 2D visualization of how decision trees create boundaries:
+
+##### Noisy 2D rule + axis-aligned decision regions
+
+**Purpose:** Show piecewise-constant regions (`contourf`) from a shallow tree on synthetic data.
+
+**Walkthrough:** Labels derive from $x_0+x_1>1$ with random flips; mesh predictions illustrate rectangles.
 
 ```python
 import numpy as np
@@ -257,6 +335,9 @@ plt.ylabel('Feature 2')
 plt.show()
 ```
 
+
+![3-implementation](assets/3-implementation_fig_4.png)
+
 This visualization shows:
 1. How the decision tree divides the feature space into regions
 2. How these regions form a "decision boundary" between different classes
@@ -265,6 +346,12 @@ This visualization shows:
 ## Common Mistakes to Avoid
 
 ### 1. Overfitting
+
+#### Compare unconstrained depth vs `max_depth=3` on Iris split
+
+**Purpose:** Show train-perfect / test-weak behavior when the tree memorizes (illustrative scores depend on the small toy splits above).
+
+**Walkthrough:** Reuses `X_train`, `X_test`, `y_train`, `y_test` from the Iris example—run that cell first.
 
 ```python
 # Bad: Tree too deep - will memorize training data
@@ -280,11 +367,26 @@ print(f"Training score: {good_tree.score(X_train, y_train):.3f}")
 print(f"Testing score: {good_tree.score(X_test, y_test):.3f}")
 ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Training score: 1.000
+Testing score: 0.000
+Training score: 0.571
+Testing score: 0.000
+```
+
 Overfitting happens when your tree becomes too complex and starts memorizing the training data instead of learning general patterns. This is why we limit the tree depth and use other parameters to control complexity.
 
 ### 2. Ignoring Feature Scaling
 
 Decision trees don't require feature scaling, which is a benefit compared to many other algorithms:
+
+#### Optional `StandardScaler` (trees are scale-invariant)
+
+**Purpose:** Confirm that affine-invariant tree splits give identical accuracy with or without scaling for axis-aligned trees.
+
+**Walkthrough:** Fit scaler on train only; same `max_depth` on raw vs scaled matrices.
 
 ```python
 from sklearn.preprocessing import StandardScaler
@@ -302,6 +404,13 @@ X_test_scaled = scaler.transform(X_test)
 tree_with_scaling = DecisionTreeClassifier(max_depth=3)
 tree_with_scaling.fit(X_train_scaled, y_train)
 print(f"With scaling: {tree_with_scaling.score(X_test_scaled, y_test):.3f}")
+```
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Without scaling: 0.000
+With scaling: 0.000
 ```
 
 This is a key advantage of decision trees - they don't require feature scaling because they make decisions based on greater than/less than comparisons, not distances between points.

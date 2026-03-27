@@ -1,6 +1,14 @@
 # t-SNE and UMAP: Visualizing Complex Data in 2D
 
+**After this lesson:** you can explain the core ideas in “t-SNE and UMAP: Visualizing Complex Data in 2D” and reproduce the examples here in your own notebook or environment.
+
 Imagine you're trying to create a map of your neighborhood. You want to show how close different places are to each other, but you also want to preserve the relationships between them. That's exactly what t-SNE and UMAP do with high-dimensional data - they help us create meaningful 2D maps of complex data while preserving important relationships!
+
+## Helpful video
+
+StatQuest overview of K-means clustering.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4b5d3muPQmA" title="K-means Clustering, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What are t-SNE and UMAP?
 

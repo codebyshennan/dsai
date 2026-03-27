@@ -1,6 +1,14 @@
 # Learning Tableau Through a Real Example: SuperStore Analysis
 
+**After this lesson:** you can explain the core ideas in “Learning Tableau Through a Real Example: SuperStore Analysis” and reproduce the examples here in your own notebook or environment.
+
 > **Note:** This tutorial is **UI-first** (Tableau Desktop). Install Tableau or use your course lab; paths to sample data may differ slightly by version and OS.
+
+## Helpful video
+
+Short Tableau Public install; pair with the written guides in this folder.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lTNWfhmurUg" title="Tableau Public Tutorial Download and Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Getting Started
 

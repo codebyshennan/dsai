@@ -1,5 +1,15 @@
 # Python Modules in Data Science
 
+**After this lesson:** you can explain the core ideas in “Python Modules in Data Science” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sugvnHA7ElY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Corey Schafer — How Python runs modules and the `if __name__ == "__main__"` guard*
+
 > **AI Learning:** Ask "Explain Python modules using a library analogy"
 
 > **Modern Tools:** Learn to use virtual environments with `uv` or `conda`

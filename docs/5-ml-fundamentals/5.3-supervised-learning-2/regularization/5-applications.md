@@ -1,6 +1,14 @@
 # Real-World Applications of Regularization
 
+**After this lesson:** you can explain the core ideas in “Real-World Applications of Regularization” and reproduce the examples here in your own notebook or environment.
+
 Think of regularization as a set of rules that help make better decisions in real-world situations. Just like how traffic rules help keep roads safe, regularization helps make better predictions in various fields. Let's explore some practical applications!
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 1. Financial Applications
 
@@ -66,6 +74,17 @@ model.fit(X_train_scaled, y_train)
 # This shows how well our model predicts defaults
 y_pred = model.predict(X_test_scaled)
 print(classification_report(y_test, y_pred))
+```
+
+```
+              precision    recall  f1-score   support
+
+           0       0.93      1.00      0.96       126
+           1       1.00      0.86      0.93        74
+
+    accuracy                           0.95       200
+   macro avg       0.96      0.93      0.94       200
+weighted avg       0.95      0.95      0.95       200
 ```
 
 ## 2. Healthcare Applications

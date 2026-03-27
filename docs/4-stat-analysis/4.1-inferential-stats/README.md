@@ -1,8 +1,16 @@
 # Introduction to Inferential Statistics
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Introduction to Inferential Statistics** in your course schedule.
+
 See the [Module 4 overview](../README.md) for how this unit fits with hypothesis testing, regression, and modelling.
 
 Welcome to the fascinating world of inferential statistics! Imagine you're a detective trying to understand an entire city by studying just a few neighborhoods. That's essentially what inferential statistics allows us to do - make educated guesses about large populations by carefully studying smaller samples.
+
+## Helpful video
+
+StatQuest introduction to confidence intervals.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TqOeMYtOc1w" title="Confidence Intervals, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Learning Objectives
 

@@ -1,6 +1,14 @@
 # Implementing Random Forest
 
+**After this lesson:** you can explain the core ideas in “Implementing Random Forest” and reproduce the examples here in your own notebook or environment.
+
 Let's learn how to implement Random Forests in Python using scikit-learn. We'll start with simple examples and gradually move to more complex applications.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Basic Implementation
 

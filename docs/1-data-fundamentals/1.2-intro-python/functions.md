@@ -1,10 +1,20 @@
 # Functions in Data Analysis
 
+**After this lesson:** you can explain the core ideas in “Functions in Data Analysis” and reproduce the examples here in your own notebook or environment.
+
 > **Must Watch:** Functions are WHERE Python Tutor shines! Visualize every function call!
 
 > **AI Prompt:** "Explain Python functions using cooking recipes as an analogy"
 
 > **Interactive:** [Open Functions Notebook in Colab](./notebooks/03-functions.ipynb)
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9Os0o3wzS_I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Corey Schafer — Python functions*
 
 ## Understanding Functions in Data Science
 
@@ -18,7 +28,10 @@ Think of functions as reusable data processing components:
 - Process: Data transformation, analysis, or modeling
 - Output: Processed data, statistics, or visualizations
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 
@@ -44,7 +57,52 @@ def analyze_numeric_column(data: pd.Series) -> dict:
 df = pd.DataFrame({'values': [1, 2, 3, np.nan, 5]})
 stats = analyze_numeric_column(df['values'])
 print(stats)
+{% endhighlight %}
 ```
+{'mean': np.float64(2.75), 'median': np.float64(2.5), 'std': np.float64(1.707825127659933), 'skew': np.float64(0.7528371991317256), 'missing': np.int64(1)}
+```
+
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Walkthrough of this example">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Libraries</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import pandas for tables and NumPy for numeric helpers.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Definition and docstring</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The function takes a numeric <code>Series</code>, documents inputs and return value, and keeps analysis in one place.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-20" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Returned metrics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Return a dict of summary stats learners can print or log.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-25" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Call site</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Build a tiny DataFrame, run the function on one column, and display the result.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **Visualize Function Calls:**
 > Paste this simpler version into Python Tutor to see how functions work:
@@ -59,6 +117,10 @@ print(stats)
 > result = calculate_average(data)
 > print(f"Average: {result}")
 > ```
+
+```
+Average: 30.0
+```
 > 
 > **Watch carefully:**
 > - Function definition vs function call
@@ -83,7 +145,10 @@ Functions help you:
 
 Example without functions:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Without functions (repetitive and error-prone)
 # Dataset 1
 df1_nulls = df1.isnull().sum()
@@ -94,11 +159,37 @@ df1_scaled = (df1_cleaned - df1_cleaned.mean()) / df1_cleaned.std()
 df2_nulls = df2.isnull().sum()
 df2_cleaned = df2.dropna()
 df2_scaled = (df2_cleaned - df2_cleaned.mean()) / df2_cleaned.std()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Repetitive preprocessing without functions">
+  <div class="code-callout" data-lines="2-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Dataset 1</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Same three steps: count nulls, drop missing, z-score scale.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Dataset 2</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Identical logic repeated—motivation for a function.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Example with functions:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def preprocess_dataset(df: pd.DataFrame) -> pd.DataFrame:
    """Standardized preprocessing pipeline"""
    # Check missing values
@@ -114,7 +205,30 @@ def preprocess_dataset(df: pd.DataFrame) -> pd.DataFrame:
 # Now we can process any dataset consistently
 df1_processed = preprocess_dataset(df1)
 df2_processed = preprocess_dataset(df2)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Single preprocessing function and reuse">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Reusable pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>One function encapsulates inspect, clean, and scale.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Reuse</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Call the same preprocessing for df1 and df2.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **See It Work:**
 > Python Tutor can show you the BEFORE and AFTER:
@@ -126,6 +240,10 @@ df2_processed = preprocess_dataset(df2)
 > y = add_ten(x)
 > print(f"Original: {x}, Result: {y}")
 > ```
+
+```
+Original: 5, Result: 15
+```
 > **Notice:** `x` doesn't change! Functions don't modify originals (unless using lists/dicts)
 
 > **Deep Dive:**
@@ -139,7 +257,10 @@ df2_processed = preprocess_dataset(df2)
 
 Modern data analysis function structure:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from typing import Union, List, Dict
 import pandas as pd
 import numpy as np
@@ -187,7 +308,48 @@ def process_timeseries(
 # Using the function
 data = pd.Series([1, 2, 3, 2, 3, 4, 3, 4, 5])
 results = process_timeseries(data, window=3, method='mean')
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Rolling time series helper">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and typing</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Union, List, Dict for flexible inputs and structured return.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">API contract</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Parameters, rolling method, docstring, and raised errors.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-43" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Implementation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Coerce to Series, validate method, rolling stats, return bundle.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="45-47" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Example call</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Series input, window=3, method=mean.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ---
 
@@ -195,7 +357,10 @@ results = process_timeseries(data, window=3, method='mean')
 
 Different ways to configure data processing:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from dataclasses import dataclass
 from typing import Optional, List, Union
 import pandas as pd
@@ -270,7 +435,57 @@ result_custom = process_dataset(
    numeric_columns=['A', 'B'],
    config=custom_config
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Configurable pipeline with dataclass">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>dataclass, typing, pandas, numpy.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ProcessingConfig</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Frozen defaults for outlier, fill, scaling, threshold.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-53" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">process_dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Default config, copy, per-column z-score outliers, fill, scale.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="55-62" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sample data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Build df with outlier and missing value.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="64-74" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Default vs custom</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Default run then override config for median fill and no scaling.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ---
 
@@ -278,7 +493,10 @@ result_custom = process_dataset(
 
 Functions can return different types of analysis results:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from typing import Dict, Tuple, Any
 import pandas as pd
 import numpy as np
@@ -347,7 +565,67 @@ for key, value in analysis.items():
    if isinstance(value, dict):
        for k, v in value.items():
            print(f"  {k}: {v}")
+{% endhighlight %}
 ```
+
+Statistics:
+  mean: 0.019332055822325486
+  median: 0.02530061223488824
+  std: 0.9787262077473543
+  skew: 0.1168008311053351
+  kurtosis: 0.06620589292148393
+
+Normality_Test:
+  statistic: 0.9986092190571157
+  p_value: 0.627257829024364
+  is_normal: True
+
+Distribution:
+  type: normal
+  parameters: {'loc': np.float64(0.019332055822325486), 'scale': np.float64(0.9787262077473543)}
+```
+
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Distribution analysis return shape">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>typing, pandas, numpy, scipy.stats.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Signature and goal</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Union input; return dict of stats, tests, and fit.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-56" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Body</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Dropna, descriptive stats, Shapiro, normal fit, nested return.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="58-68" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Demo and print</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Seed RNG, analyze, iterate nested dict for display.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Advanced Data Analysis Functions
 
@@ -357,7 +635,10 @@ for key, value in analysis.items():
 
 Use decorators to add validation:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from functools import wraps
 import pandas as pd
 import numpy as np
@@ -424,7 +705,53 @@ try:
    calculate_correlation(df_bad)
 except ValueError as e:
    print(f"Error: {e}")
+{% endhighlight %}
 ```
+1.0
+Error: Non-numeric columns found: Index(['B'], dtype='str')
+```
+
+
+</div>
+<aside class="code-explainer__callouts" aria-label="DataFrame validation decorator">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>wraps, pandas, numpy.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-40" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">validate_dataframe factory</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Nested decorator checks type, columns, dtypes before calling through.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="42-49" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Decorated function</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Correlation on validated numeric A/B.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="51-66" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Tests</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Good frame succeeds; bad frame raises ValueError.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ---
 
@@ -432,7 +759,10 @@ except ValueError as e:
 
 Optimize functions for large datasets:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 from typing import List, Dict
@@ -522,7 +852,61 @@ for col, stats in results.items():
    print(f"\nColumn {col}:")
    for stat, value in stats.items():
        print(f"  {stat}: {value:.2f}")
+{% endhighlight %}
 ```
+
+Column A:
+  mean: -0.00
+  std: 1.00
+  median: -0.00
+
+Column B:
+  mean: 5.03
+  std: 2.00
+  median: 5.03
+```
+
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Chunked processing with caching">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>pandas, numpy, typing, lru_cache.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Cached stats</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Tuple keys for lru_cache; mean/std/median dict.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-67" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Chunked processing</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Window over rows, per-column tuples, aggregate chunk stats.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="69-89" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Driver</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Instantiate, synthetic large_df, process, print per column.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices for Data Analysis Functions
 
@@ -534,7 +918,10 @@ Follow these data science best practices:
 
 1. **Clear Documentation and Type Hints**:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from typing import Union, List, Dict, Optional
 import pandas as pd
 import numpy as np
@@ -572,11 +959,55 @@ def preprocess_features(
        ... )
    """
    # Function implementation...
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Documented preprocess_features sketch">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>typing helpers and pandas/numpy.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Signature</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Features lists, optional categoricals, scaling flag, Tuple return.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Docstring</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Args, returns, and doctest-style example.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Placeholder</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Implementation left for the lesson.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 2. **Error Handling and Validation**:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def analyze_timeseries(
    data: pd.Series,
    window_size: int = 3
@@ -605,11 +1036,46 @@ def analyze_timeseries(
        return results
    except Exception as e:
        raise RuntimeError(f"Error analyzing time series: {str(e)}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Validated time series analysis">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">API</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Series input, window default, typed return.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Guards</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Type, numeric dtype, window bounds before compute.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-28" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compute and errors</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Rolling mean and volatility; wrap failures in RuntimeError.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 3. **Modular Design**:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataAnalyzer:
    """Modular data analysis pipeline"""
    
@@ -650,7 +1116,30 @@ results = (analyzer
    .calculate_statistics()
    .analyze_correlations()
    .get_results())
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Fluent DataAnalyzer chain">
+  <div class="code-callout" data-lines="1-32" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class API</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Copy df, chain clean → stats → corr, store in results.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="34-40" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fluent usage</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Method chaining then get_results().</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ---
 
@@ -658,7 +1147,10 @@ results = (analyzer
 
 1. **Vectorization Over Loops**:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Slow: Using loops
 def calculate_zscore_slow(df: pd.DataFrame) -> pd.DataFrame:
    results = df.copy()
@@ -674,11 +1166,37 @@ def calculate_zscore_slow(df: pd.DataFrame) -> pd.DataFrame:
 # Fast: Using vectorization
 def calculate_zscore_fast(df: pd.DataFrame) -> pd.DataFrame:
    return (df - df.mean()) / df.std()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Loop versus vectorized z-score">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Loop version</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Nested loops and per-cell loc—slow on big frames.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Vectorized</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Whole-frame mean/std in one expression.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 2. **Efficient Memory Usage**:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def process_large_file(
    filepath: str,
    chunksize: int = 10000
@@ -694,11 +1212,37 @@ def process_large_file(
    
    # Combine results
    return pd.concat(results).groupby(level=0).mean()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Chunked CSV aggregation">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Signature</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Path, chunk size, aggregated DataFrame return.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Chunk loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>read_csv chunks, groupby mean per chunk, concat and re-average.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 3. **Caching Expensive Computations**:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from functools import lru_cache
 
 class FeatureEngine:
@@ -716,14 +1260,40 @@ class FeatureEngine:
            feature = self.calculate_feature(values)
            results.append(feature)
        return pd.Series(results)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="lru_cache feature pattern">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">lru_cache</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Expensive feature memoized on tuple argument.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Batch use</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Groupby category, tuple per group, collect Series.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Practice Exercises for Data Analysis
 
 > **Learning Path:** Write code → Visualize in Python Tutor → Refine with AI feedback
 
 ### Exercise 1: Simple Statistics Function
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def calculate_statistics(numbers):
    """
    Calculate basic statistics for a list of numbers.
@@ -742,13 +1312,43 @@ def calculate_statistics(numbers):
 data = [10, 15, 20, 25, 30, 35, 40]
 stats = calculate_statistics(data)
 print(stats)
+{% endhighlight %}
 ```
+None
+```
+
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Exercise: statistics dict">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Stub</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Docstring contract; learner fills statistics dict.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Test harness</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Sample list and print.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **Visualize:** Paste into Python Tutor to see how your function processes the list
 > **Get Help:** "Show me how to calculate median in Python"
 
 ### Exercise 2: Data Cleaning Function
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def clean_data(data_list):
    """
    Clean a list by:
@@ -764,13 +1364,43 @@ def clean_data(data_list):
 messy_data = [10, None, "20", -5, "30", 40, None, "-10", 50]
 clean = clean_data(messy_data)
 print(clean) # Should output: [10, 20, 30, 40, 50]
+{% endhighlight %}
 ```
+None
+```
+
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Exercise: clean mixed list">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Stub</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Cleaning rules as checklist in docstring.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Messy input</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Mixed types and sentinels for testing.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **Debug Visually:** If something breaks, paste into Python Tutor to see where
 > **Prompt:** "Help me handle edge cases in this data cleaning function"
 
 ### Exercise 3: Function with Multiple Return Values
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def analyze_sales(sales_list):
    """
    Analyze sales data and return:
@@ -787,13 +1417,39 @@ def analyze_sales(sales_list):
 sales = [100, 150, 200, 175, 225, 190, 210]
 total, avg, high, low, count = analyze_sales(sales)
 print(f"Total: ${total}, Average: ${avg:.2f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Exercise: sales tuple return">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Stub</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Multiple metrics to return (tuple unpacking practice).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sales test data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Unpack five values into formatted print.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **Observe:** Python Tutor shows how functions return multiple values as a tuple!
 > **Learn:** "Explain tuple unpacking in Python with examples"
 
 ### Exercise 4: Nested Functions
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def process_dataset(data):
    """
    Main function that uses helper functions.
@@ -823,7 +1479,39 @@ def process_dataset(data):
 # Test it:
 raw_data = [10, 20, 15, 100, 18, 22, -5, 25]
 processed = process_dataset(raw_data)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Exercise: nested helpers">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Outer contract</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Nested helpers listed in docstring.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Inner defs</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Placeholders for validate, outliers, normalize.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Test list</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Raw data passed into outer function.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **Advanced Visualization:** Python Tutor shows nested function scopes beautifully!
 > **Challenge:** "Explain when to use nested functions vs separate functions"
@@ -832,11 +1520,28 @@ processed = process_dataset(raw_data)
 
 ### Project 1: Temperature Converter
 Create a function that converts between Celsius, Fahrenheit, and Kelvin.
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def convert_temperature(value, from_unit, to_unit):
    # Your implementation
    pass
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Project: temperature converter stub">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Signature</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Units in/out—implementation left to learner.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Project 2: Grade Calculator
 Build a function that calculates letter grades from percentages with customizable ranges.
@@ -852,7 +1557,10 @@ Create a function that validates data according to specified rules.
 ### Common Issues & Solutions
 
 **Issue 1: Function returns None**
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Wrong (avoid):
 def add_numbers(a, b):
    result = a + b
@@ -862,12 +1570,38 @@ def add_numbers(a, b):
 def add_numbers(a, b):
    result = a + b
    return result
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Debugging: missing return">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Missing return</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Computes result but callers get None.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-9" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fix</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Explicit return passes value back.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **Spot the Issue:** Python Tutor shows None being returned!
 
 **Issue 2: Variable not found**
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Wrong (avoid):
 def calculate():
    x = 10
@@ -883,7 +1617,35 @@ def calculate():
 
 result = calculate()
 print(result) # Use returned value
+{% endhighlight %}
 ```
+5
+10
+```
+
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Debugging: scope and return value">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Name error</span>
+    </div>
+    <div class="code-callout__body">
+      <p>x exists only inside calculate; print(x) fails at module scope.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fix</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Capture return value and print that.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **See Scope:** Python Tutor visualizes function scope perfectly!
 

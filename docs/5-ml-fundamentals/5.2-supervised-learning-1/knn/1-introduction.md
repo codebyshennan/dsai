@@ -1,9 +1,17 @@
 # Introduction to k-Nearest Neighbors (KNN)
 
+**After this lesson:** you can explain the core ideas in “Introduction to k-Nearest Neighbors (KNN)” and reproduce the examples here in your own notebook or environment.
+
 Welcome to your journey into k-Nearest Neighbors (KNN)! This algorithm is one of the most intuitive ways to start learning about machine learning. Think of it as your friendly neighborhood algorithm that makes decisions based on what's closest to it.
 
 ![KNN Decision Boundary](assets/knn_decision_boundary.png)
 *Figure: KNN Decision Boundary showing how the algorithm classifies different regions*
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is KNN?
 
@@ -50,6 +58,12 @@ Let's break it down into simple steps:
 2. **Make a Decision**
    - For classification: Take a vote among the neighbors
    - For regression: Take the average of the neighbors' values
+
+#### Minimal `KNeighborsClassifier` usage
+
+**Purpose:** See the lazy-learning API: `fit` stores references; `predict` queries the stored `X_train` at inference time.
+
+**Walkthrough:** Requires `X_train`, `y_train`, `X_test` from your split; `n_neighbors=3` sets the vote size.
 
 ```python
 # Simple KNN Example

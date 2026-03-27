@@ -1,8 +1,14 @@
 # Mastering Basic SQL Operations: Your Data Query Journey
 
-## Overview
+**After this lesson:** You can **CREATE** tables, **INSERT** rows, **SELECT** and filter data with **WHERE**, **UPDATE** and **DELETE** safely, and read simple query plans.
 
-**Primary outcome:** You can **CREATE** tables, **INSERT** rows, **SELECT** and filter data with **WHERE**, **UPDATE** and **DELETE** safely, and read simple query plans.
+## Helpful video
+
+High-level introduction to SQL and relational databases.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/27axs9dO7AE" title="What is SQL?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Introduction to Databases](intro-databases.md) (tables, keys, types). Have a SQL client and a practice database as described in the [module README](README.md).
 
@@ -21,7 +27,10 @@ SQL (Structured Query Language) is the standard language for managing and manipu
 
 ### 1. CREATE: Adding Data
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Create a new table
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
@@ -40,11 +49,36 @@ INSERT INTO customers (first_name, last_name, email)
 VALUES 
     ('Jane', 'Smith', 'jane.smith@email.com'),
     ('Bob', 'Johnson', 'bob.johnson@email.com');
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create a new table</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Insert single row</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 10–18: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. READ: Querying Data
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Select all columns
 SELECT * FROM customers;
 
@@ -59,11 +93,27 @@ WHERE last_name = 'Smith';
 -- Pattern matching
 SELECT * FROM customers
 WHERE email LIKE '%@email.com';
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Select all columns</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. UPDATE: Modifying Data
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Update single record
 UPDATE customers
 SET email = 'new.email@email.com'
@@ -82,11 +132,36 @@ SET
 WHERE 
     first_name != INITCAP(first_name) OR
     last_name != INITCAP(last_name);
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Update single record</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Update with conditions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 10–18: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 4. DELETE: Removing Data
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Delete specific records
 DELETE FROM customers
 WHERE customer_id = 1;
@@ -97,13 +172,29 @@ WHERE created_at < CURRENT_DATE - INTERVAL '1 year';
 
 -- Delete all records
 TRUNCATE TABLE customers;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Delete specific records</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Basic Query Structure
 
 ### 1. SELECT Statement Anatomy
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 SELECT 
     column1,
     column2,
@@ -115,11 +206,27 @@ GROUP BY column1
 HAVING group_condition
 ORDER BY column3 DESC
 LIMIT 10;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Filtering and Sorting
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Basic WHERE clauses
 SELECT * FROM products
 WHERE 
@@ -150,13 +257,38 @@ FROM products
 ORDER BY 
     price DESC,
     product_name ASC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Basic WHERE clauses</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-30" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pattern matching</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 16–30: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Data Types and Constraints
 
 ### 1. Common Data Types
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 CREATE TABLE products (
     -- Numeric types
     product_id SERIAL PRIMARY KEY,
@@ -177,11 +309,36 @@ CREATE TABLE products (
     -- Enumerated type
     status product_status
 );
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CREATE TABLE products (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Date/Time types</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Constraints
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 CREATE TABLE orders (
     -- Primary Key
     order_id SERIAL PRIMARY KEY,
@@ -201,13 +358,38 @@ CREATE TABLE orders (
     -- Default value
     status VARCHAR(20) DEFAULT 'pending'
 );
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CREATE TABLE orders (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Unique</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 10–19: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Table Relationships
 
 ### 1. One-to-Many Relationship
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 CREATE TABLE categories (
     category_id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL
@@ -218,11 +400,27 @@ CREATE TABLE products (
     category_id INTEGER REFERENCES categories(category_id),
     name VARCHAR(100) NOT NULL
 );
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CREATE TABLE categories (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Many-to-Many Relationship
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 CREATE TABLE products (
     product_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
@@ -240,13 +438,38 @@ CREATE TABLE order_items (
     price_at_time DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (order_id, product_id)
 );
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CREATE TABLE products (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">);</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–17: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Basic Joins
 
 ### 1. INNER JOIN
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Get all orders with customer information
 SELECT 
     o.order_id,
@@ -256,11 +479,27 @@ SELECT
     o.total_amount
 FROM orders o
 INNER JOIN customers c ON o.customer_id = c.customer_id;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Get all orders with customer information</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. LEFT JOIN
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Get all customers and their orders (if any)
 SELECT 
     c.customer_id,
@@ -271,11 +510,27 @@ SELECT
 FROM customers c
 LEFT JOIN orders o ON c.customer_id = o.customer_id
 GROUP BY c.customer_id, c.first_name, c.last_name;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Get all customers and their orders (if any)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Multiple Joins
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Get order details with product and customer information
 SELECT 
     o.order_id,
@@ -289,13 +544,29 @@ JOIN customers c ON o.customer_id = c.customer_id
 JOIN order_items oi ON o.order_id = oi.order_id
 JOIN products p ON oi.product_id = p.product_id
 ORDER BY o.order_id, p.name;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Get order details with product and customer i…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Additional Real-World Business Scenarios
 
 ### 1. E-commerce Order Analytics
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Comprehensive order analysis with multiple metrics
 WITH order_metrics AS (
     SELECT 
@@ -332,11 +603,45 @@ SELECT
     ) as revenue_per_customer
 FROM order_metrics
 ORDER BY order_day DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Comprehensive order analysis with multiple me…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHERE o2.order_date &lt; o.order_date</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ROUND(avg_order_value::numeric, 2) as aov,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Customer Segmentation
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH customer_metrics AS (
     SELECT 
         c.customer_id,
@@ -373,11 +678,45 @@ SELECT
     END as customer_segment
 FROM customer_metrics
 ORDER BY total_spent DESC NULLS LAST;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH customer_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GROUP BY c.customer_id, c.email</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHEN last_order_date &gt;= CURRENT_DATE - INTERV…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Product Performance
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH product_metrics AS (
     SELECT 
         p.product_id,
@@ -416,13 +755,47 @@ SELECT
     ) as units_per_customer
 FROM product_metrics
 ORDER BY revenue DESC NULLS LAST;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH product_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">FROM products p</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Customer_count,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–38: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Performance Optimization Examples
 
 ### 1. Index Usage
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Create strategic indexes
 CREATE INDEX idx_orders_customer_date 
 ON orders(customer_id, order_date DESC);
@@ -443,11 +816,36 @@ WHERE
     o.order_date >= CURRENT_DATE - INTERVAL '30 days'
     AND o.total_amount > 100
 GROUP BY c.customer_id, c.name;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create strategic indexes</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Query Optimization
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Bad: Inefficient subquery
 SELECT *
 FROM orders
@@ -472,11 +870,36 @@ WHERE EXISTS (
     WHERE c.customer_id = o.customer_id
     AND c.status = 'active'
 );
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: Inefficient subquery</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">JOIN customers c ON o.customer_id = c.custome…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Batch Processing
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Process large datasets in batches
 DO $$
 DECLARE
@@ -508,13 +931,47 @@ BEGIN
         COMMIT;
     END LOOP;
 END $$;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Process large datasets in batches</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">FROM orders</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-31" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GET DIAGNOSTICS batch_count = ROW_COUNT;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 21–31: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Pitfalls and Solutions
 
 ### 1. N+1 Query Problem
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Bad: Separate query for each order
 SELECT o.order_id, 
        (SELECT c.name FROM customers c WHERE c.id = o.customer_id) as customer_name
@@ -524,11 +981,27 @@ FROM orders o;
 SELECT o.order_id, c.name as customer_name
 FROM orders o
 JOIN customers c ON o.customer_id = c.customer_id;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: Separate query for each order</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Cartesian Products
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Bad: Implicit cross join
 SELECT * FROM orders, customers 
 WHERE orders.customer_id = customers.customer_id;
@@ -536,11 +1009,27 @@ WHERE orders.customer_id = customers.customer_id;
 -- Good: Explicit JOIN syntax
 SELECT * FROM orders o
 JOIN customers c ON o.customer_id = c.customer_id;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: Implicit cross join</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. NULL Handling
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Bad: NULL comparison
 SELECT * FROM products WHERE price = NULL;
 
@@ -554,7 +1043,20 @@ SELECT
     COALESCE(price, 0) as price,
     COALESCE(description, 'No description available') as description
 FROM products;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: NULL comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices Checklist
 

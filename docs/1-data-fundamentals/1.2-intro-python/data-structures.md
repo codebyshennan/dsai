@@ -1,10 +1,20 @@
 # Data Structures for Data Analysis
 
+**After this lesson:** you can explain the core ideas in “Data Structures for Data Analysis” and reproduce the examples here in your own notebook or environment.
+
 > **Essential Tool:** Open [Python Tutor](https://pythontutor.com) to visualize how data structures work in memory!
 
 > **Start With AI:** Ask ChatGPT: "Explain Python data structures using everyday containers (boxes, folders, etc.)"
 
 > **Interactive Practice:** [Open in Google Colab](./notebooks/02-data-structures.ipynb)
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/W8KRzm-HUcc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Corey Schafer — Lists, tuples, and sets*
 
 ## Introduction to Data Structures
 
@@ -291,6 +301,11 @@ print(f"Last: {last_fruit}")
 # Negative numbers count from the end: -5, -4, -3, -2, -1
 ```
 
+```
+First: apple
+Last: elderberry
+```
+
 **Think of it like this:**
 - **fruits[0]** = "Give me the 1st item" (computers count from 0!)
 - **fruits[-1]** = "Give me the last item" (no matter how long the list is)
@@ -359,6 +374,12 @@ shopping.extend(more_items) # Add all items from more_items
 # Same as: shopping = shopping + more_items
 ```
 
+```
+['almond milk', 'bread', 'eggs', 'butter']
+['almond milk', 'bread', 'eggs', 'butter', 'cheese']
+['almond milk', 'bananas', 'bread', 'eggs', 'butter', 'cheese']
+```
+
 > **What's the difference?**
 > - `append(item)` - Adds ONE item (even if it's a list!)
 > - `extend(list)` - Adds ALL items from the list
@@ -391,6 +412,12 @@ numbers = [1, 2, 3, 2, 4, 2, 5]
 count = numbers.count(2) # Returns 3 (number 2 appears 3 times)
 ```
 
+```
+We have bananas!
+No mangoes available
+Cherry is at position 2
+```
+
 ### Common List Methods - Your Toolkit
 
 ```python
@@ -413,6 +440,10 @@ length = len(data) # How many items?
 
 # Clear all items
 data.clear() # Now data = []
+```
+
+```
+[5, 2, 8, 1, 9]
 ```
 
 ---
@@ -469,6 +500,11 @@ def clean_data(data):
 > print(f"NumPy time: {time.time() - start:.4f}s")
 > ```
 
+```
+List time: 0.0182s
+NumPy time: 0.0007s
+```
+
 > **Learn More:**
 > Ask: "Why is NumPy faster than Python lists for numerical operations?"
 
@@ -505,6 +541,11 @@ print(squared) # [1, 4, 9, 16, 25]
 # List comprehension way - ONE LINE!
 squared = [num ** 2 for num in numbers]
 print(squared) # [1, 4, 9, 16, 25] - same result!
+```
+
+```
+[1, 4, 9, 16, 25]
+[1, 4, 9, 16, 25]
 ```
 
 **How to read it:**
@@ -793,6 +834,10 @@ records = [
 print(records[0].price) # 173.57
 ```
 
+```
+173.57
+```
+
 ---
 
 ### Tuple Performance Advantages
@@ -834,6 +879,11 @@ def compare_access():
    
    print(f"Tuple access time: {tuple_time:.6f} seconds")
    print(f"List access time: {list_time:.6f} seconds")
+```
+
+```
+Tuple size: 8048 bytes
+List size: 8056 bytes
 ```
 
 ## Sets in Data Analysis
@@ -1056,6 +1106,11 @@ del person["email"] # Another way to remove
 last_item = person.popitem() # Returns tuple: (key, value)
 ```
 
+```
+{'name': 'Bob', 'age': 25, 'city': 'New York', 'occupation': 'Engineer'}
+555-0123
+```
+
 ### Dictionary Keys - Important Rules
 
 **What can be a key?**
@@ -1089,6 +1144,10 @@ data = {
 print(data)
 # {"name": "Bob", "age": 20}
 # The second "name" OVERWRITES the first one!
+```
+
+```
+{'name': 'Bob', 'age': 20}
 ```
 
 ### Checking What's in a Dictionary
@@ -1127,6 +1186,16 @@ items = student.items()
 print(list(items))
 # [('name', 'Alice'), ('age', 20), ('major', 'CS')]
 # Each pair is a tuple!
+```
+
+```
+Name is recorded
+No grade recorded
+No email on file
+dict_keys(['name', 'age', 'major'])
+['name', 'age', 'major']
+['Alice', 20, 'CS']
+[('name', 'Alice'), ('age', 20), ('major', 'CS')]
 ```
 
 ### Looping Through Dictionaries
@@ -1171,6 +1240,21 @@ for key, value in student.items():
 # name: Alice
 # age: 20
 # major: CS
+```
+
+```
+Key: name
+Key: age
+Key: major
+name = Alice
+age = 20
+major = CS
+Value: Alice
+Value: 20
+Value: CS
+name: Alice
+age: 20
+major: CS
 ```
 
 ### Nested Dictionaries - Dictionaries Inside Dictionaries
@@ -1270,6 +1354,16 @@ print(f"Can buy 10 laptops? {is_available('PROD001', 10)}") # True
 print(f"Can buy 20 laptops? {is_available('PROD001', 20)}") # False
 ```
 
+```
+Product: Laptop
+   Price: $999.99
+   In stock: 15 units
+   Category: Electronics
+   Specs: {'ram': '16GB', 'storage': '512GB SSD', 'screen': '15.6 inch'}
+Can buy 10 laptops? True
+Can buy 20 laptops? False
+```
+
 ### Dictionary Comprehensions - Yes, These Exist Too!
 
 Just like list comprehensions, but for dictionaries:
@@ -1302,6 +1396,12 @@ print(expensive) # {"apple": 1.20, "orange": 1.80, "grape": 2.50}
 
 # Transform values
 prices_with_tax = {fruit: price * 1.08 for fruit, price in prices.items()}
+```
+
+```
+{'name': 'Alice', 'age': 25, 'city': 'NYC'}
+{1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+{'apple': 1.2, 'orange': 1.8, 'grape': 2.5}
 ```
 
 ---

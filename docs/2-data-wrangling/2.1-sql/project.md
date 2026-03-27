@@ -1,8 +1,14 @@
 # E-commerce Data Analysis Project: GlobalMart Analytics Platform
 
-## Overview
+**After this lesson:** You produce a small set of documented SQL answers (segments, product performance, trends) that mirror real analyst work—using **JOIN**s, **CTEs**, and aggregates.
 
-**Primary outcome:** You produce a small set of documented SQL answers (segments, product performance, trends) that mirror real analyst work—using **JOIN**s, **CTEs**, and aggregates.
+## Helpful video
+
+High-level introduction to SQL and relational databases.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/27axs9dO7AE" title="What is SQL?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** Work through [Joins](joins.md) and [Aggregations](aggregations.md) first. Use the same database tooling as in the [module README](README.md).
 
@@ -18,7 +24,10 @@ This project implements a comprehensive analytics platform for GlobalMart, an e-
 
 #### 1.1 Customer Segmentation (15 points)
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH customer_metrics AS (
     SELECT 
         c.customer_id,
@@ -67,11 +76,54 @@ SELECT
     END as buying_pattern
 FROM customer_segments
 ORDER BY total_spent DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH customer_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHERE o.order_date &gt;= CURRENT_DATE - INTERVAL…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37-48" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHEN days_since_last_order &lt;= 30 THEN &#x27; Active&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 37–48: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 #### 1.2 Customer Retention Analysis (15 points)
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH cohort_dates AS (
     SELECT 
         customer_id,
@@ -117,13 +169,56 @@ SELECT
 FROM retention_analysis
 WHERE months_since_join <= 12
 ORDER BY cohort_month DESC, months_since_join;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH cohort_dates AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">COUNT(DISTINCT customer_id) as num_customers</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">FROM cohort_dates c</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 23–33: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="34-45" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">(active_customers::float / cohort_size * 100)…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 34–45: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Product Performance (30 points)
 
 #### 2.1 Product Analytics (15 points)
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH product_metrics AS (
     SELECT 
         p.product_id,
@@ -185,11 +280,63 @@ SELECT
     END as rating_display
 FROM product_rankings
 ORDER BY gross_revenue DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH product_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">COUNT(r.review_id) as review_count</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ROUND((gross_profit / NULLIF(gross_revenue, 0…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37-48" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Profit_margin,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 37–48: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="49-61" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHEN profit_margin &gt;= 25 THEN &#x27; Good Margin&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 49–61: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 #### 2.2 Inventory Analysis (15 points)
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH inventory_metrics AS (
     SELECT 
         p.product_id,
@@ -249,13 +396,65 @@ SELECT
     END as recommended_action
 FROM inventory_analysis
 ORDER BY inventory_value DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH inventory_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">FROM products p</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-35" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CASE</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 24–35: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="36-47" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Days_of_inventory,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 36–47: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="48-59" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHEN inventory_turnover &gt;= 25 THEN &#x27; Good Tur…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 48–59: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Business Operations (40 points)
 
 #### 3.1 Sales Performance (15 points)
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH daily_sales AS (
     SELECT 
         DATE_TRUNC('day', o.order_date) as sale_date,
@@ -342,11 +541,72 @@ SELECT
     END as customer_trend
 FROM sales_analysis
 ORDER BY sale_date DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH daily_sales AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHERE o.order_date &gt;= CURRENT_DATE - INTERVAL…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-43" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">),</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 29–43: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="44-57" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">((num_customers - prev_day_customers)::float /</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 44–57: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="58-71" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 58–71: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="72-86" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Customer_growth,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 72–86: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 #### 3.2 Marketing Campaign Analysis (15 points)
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH campaign_metrics AS (
     SELECT 
         mc.campaign_id,
@@ -438,11 +698,72 @@ SELECT
     END as recommended_action
 FROM campaign_kpis
 ORDER BY roi DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH campaign_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-30" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">FROM marketing_campaigns mc</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 16–30: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="31-45" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHEN total_clicks &gt; 0</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 31–45: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="46-60" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ROUND((total_spend / NULLIF(total_conversions…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 46–60: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="61-75" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Campaign_days,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 61–75: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="76-91" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CASE</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 76–91: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 #### 3.3 Supply Chain Efficiency (10 points)
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH supplier_metrics AS (
     SELECT 
         s.supplier_id,
@@ -512,7 +833,56 @@ SELECT
     END as supplier_status
 FROM supplier_performance
 ORDER BY inventory_value DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH supplier_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">THEN sh.shipment_id</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–27: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-41" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">NTILE(4) OVER (ORDER BY inventory_value DESC)…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 28–41: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="42-55" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHEN reliability_quartile = 1 THEN &#x27;High Risk&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 42–55: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="56-69" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHEN value_quartile = 3 THEN &#x27;Medium&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 56–69: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Implementation Guidelines
 
@@ -534,19 +904,35 @@ ORDER BY inventory_value DESC;
 
 1. Index strategy
 
-   ```sql
-   -- Indexes for frequent joins
-   CREATE INDEX idx_orders_customer ON orders(customer_id);
-   CREATE INDEX idx_orders_date ON orders(order_date);
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   -- Indexes for range queries
-   CREATE INDEX idx_products_price ON products(price);
-   CREATE INDEX idx_inventory_stock ON products(stock_quantity);
-   
-   -- Composite indexes for common query patterns
-   CREATE INDEX idx_orders_customer_date 
-   ON orders(customer_id, order_date DESC);
-   ```
+   {% highlight sql %}
+      -- Indexes for frequent joins
+      CREATE INDEX idx_orders_customer ON orders(customer_id);
+      CREATE INDEX idx_orders_date ON orders(order_date);
+      
+      -- Indexes for range queries
+      CREATE INDEX idx_products_price ON products(price);
+      CREATE INDEX idx_inventory_stock ON products(stock_quantity);
+      
+      -- Composite indexes for common query patterns
+      CREATE INDEX idx_orders_customer_date 
+      ON orders(customer_id, order_date DESC);
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-11" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Indexes for frequent joins</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–11: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. Query optimization
    - Use CTEs for complex queries
@@ -556,17 +942,33 @@ ORDER BY inventory_value DESC;
 
 3. Maintenance
 
-   ```sql
-   -- Regular statistics update
-   ANALYZE customers;
-   ANALYZE orders;
-   ANALYZE products;
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   -- Monitor query performance
-   SELECT * FROM pg_stat_statements 
-   ORDER BY total_time DESC 
-   LIMIT 10;
-   ```
+   {% highlight sql %}
+      -- Regular statistics update
+      ANALYZE customers;
+      ANALYZE orders;
+      ANALYZE products;
+      
+      -- Monitor query performance
+      SELECT * FROM pg_stat_statements 
+      ORDER BY total_time DESC 
+      LIMIT 10;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-9" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Regular statistics update</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–9: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 ## Deliverables
 

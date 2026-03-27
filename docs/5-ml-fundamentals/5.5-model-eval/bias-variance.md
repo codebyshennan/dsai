@@ -1,5 +1,13 @@
 # Bias-Variance Tradeoff
 
+**After this lesson:** you can explain the core ideas in “Bias-Variance Tradeoff” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Introduction
 
 Understanding the bias-variance tradeoff is crucial in machine learning. It helps us diagnose model performance and make better decisions about model complexity.

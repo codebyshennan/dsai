@@ -1,5 +1,15 @@
 # NumPy Array Basics: Math Magic
 
+**After this lesson:** you can explain the core ideas in “NumPy Array Basics: Math Magic” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XkY2DOUCWMU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*3Blue1Brown — Matrix multiplication as composition (Essence of linear algebra)*
+
 ## Arithmetic with Arrays
 
 Ever wished you could do math on entire lists at once? With NumPy arrays, you can! This is called _vectorization_ - it's like having a calculator that works on all numbers simultaneously. Imagine you're:

@@ -1,5 +1,7 @@
 # Tableau Setup
 
+**After this guide:** Tableau Public is installed, you are signed in, and you can connect a data source and build a simple view or sheet (remember: Public workbooks are visible to others).
+
 ## What is Tableau?
 
 Tableau is a powerful tool for creating beautiful, interactive data visualizations (charts, graphs, dashboards) without writing code. Tableau Public is the **free version** that's perfect for learning and sharing your work!
@@ -16,7 +18,13 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
 
 **Important Note:** Tableau Public workbooks are saved to the cloud and are **publicly visible**. Don't use sensitive or private data!
 
-> **Figure (add screenshot or diagram):** Tableau workspace — shelves, marks, data pane.
+> **On screen:** Tableau workspace — shelves, marks, data pane.
+
+## Helpful video
+
+Short **Tableau Public** setup: sign up, download, and install (under one minute). Follow the written steps in this guide for account details and security notes.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lTNWfhmurUg" title="Tableau Public Tutorial Download and Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## System Requirements
 
@@ -52,7 +60,7 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
 4. Check your email and click the verification link
 5. Sign in to your new account
 
-> **Figure (add screenshot or diagram):** Tableau Public sign-up.
+> **On screen:** Tableau Public sign-up.
 
 > **Tip:** Your username will be part of your public profile URL, so choose something professional!
 
@@ -65,7 +73,7 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
 3. Click **"Download the App"** button
 4. The download will start automatically
 
-> **Figure (add screenshot or diagram):** Download page and installer button.
+> **On screen:** Download page and installer button.
 
 **Installation:**
 
@@ -91,7 +99,7 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
 
 </details>
 
-> **Figure (add screenshot or diagram):** Installer progress.
+> **On screen:** Installer progress.
 
 ### Step 3: First Launch Setup
 
@@ -105,7 +113,7 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
    - Enter the email and password you used to create your account
    - Click **"Sign In"**
 
-> **Figure (add screenshot or diagram):** Sign-in to Tableau Public / account.
+> **On screen:** Sign-in to Tableau Public / account.
 
 3. **Welcome Screen:**
    - You might see a welcome tutorial - feel free to skip it for now (you can always access it later)
@@ -115,7 +123,7 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
    - You should now see the Tableau workspace
    - The main area is where you'll build your visualizations
 
-> **Figure (add screenshot or diagram):** Blank workbook or saved workbook view.
+> **On screen:** Blank workbook or saved workbook view.
 
 > **Note:** Tableau will automatically save your workbooks to the cloud. You can access them from any computer by logging into your account!
 
@@ -138,7 +146,7 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
    - **Text File** — For **.csv** or **.txt** files
    - **More...** - For other file types
 
-> **Figure (add screenshot or diagram):** Connect to data — file / server options.
+> **On screen:** Connect to data — file / server options.
 
 **Step 2: Choose Your Data File**
 1. Click on the file type you want (e.g., "Microsoft Excel" or "Text File")
@@ -154,7 +162,7 @@ Tableau is a powerful tool for creating beautiful, interactive data visualizatio
    - **Split columns** - Right-click a column for options
    - **Remove columns** - Uncheck columns you don't need
 
-> **Figure (add screenshot or diagram):** Data source preview — fields and types.
+> **On screen:** Data source preview — fields and types.
 
 **Step 4: Load Your Data**
 1. Once you're happy with your data, click **"Sheet 1"** at the bottom

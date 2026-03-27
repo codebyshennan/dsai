@@ -1,8 +1,16 @@
 # Statistical Modeling with Python
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Statistical Modeling with Python** in your course schedule.
+
 See the [Module 4 overview](../README.md) for prerequisites and the full learning path.
 
 Welcome to the Statistical Modeling module! This comprehensive guide will walk you through advanced statistical modeling techniques using Python, with a focus on making complex concepts accessible to beginners.
+
+## Helpful video
+
+StatQuest: connecting regression-style thinking to common tests.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NF5_btOaCig" title="Using Linear Models for t-tests and ANOVA, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction to Statistical Modeling
 

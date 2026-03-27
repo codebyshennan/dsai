@@ -1,5 +1,7 @@
 # Confidence Intervals: Quantifying Uncertainty in Statistics
 
+**After this lesson:** you can explain the core ideas in “Confidence Intervals: Quantifying Uncertainty in Statistics” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - You will report **ranges** for unknown parameters, not only point estimates.
@@ -18,7 +20,9 @@ Imagine you're a weather forecaster trying to predict tomorrow's temperature. In
 
 ### Video Tutorial: Confidence Intervals Explained
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TqOeMYtOc1w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Confidence Intervals, Clearly Explained!!! by Josh Starmer*
 
@@ -71,6 +75,12 @@ where:
 
 ## Real-world Example: Clinical Trial
 
+**t-based CI for one-sample mean effect**
+
+**Purpose:** Walk through the textbook recipe—sample mean, sample SD with `ddof=1`, `t.ppf` critical value, margin \(t \cdot s/\sqrt{n}\)—and plot the interval on the effect histogram.
+
+**Walkthrough:** `confidence = 0.95` implies two-sided \(\alpha/2\); vertical lines mark \(\bar x\) and endpoints; prose printout restates the frequentist CI wording used in reports.
+
 ```python
 import numpy as np
 from scipy import stats
@@ -120,6 +130,16 @@ def analyze_clinical_trial():
 analyze_clinical_trial()
 ```
 
+**Captured output (example):** With `seed(42)` the printed mean and bounds are stable across runs.
+
+```
+Clinical Trial Analysis
+Average BP Reduction: 9.7 mm Hg
+95% CI: (9.1, 10.2) mm Hg
+Interpretation: We're 95% confident that the true average
+BP reduction lies between 9.1 and 10.2 mm Hg
+```
+
 *Note: The visualization shows the distribution of treatment effects with the mean (red dashed line) and 95% confidence interval (blue shaded area). This helps us understand both the central tendency and the uncertainty in our estimate.*
 
 ![Treatment Effects](assets/treatment_effects_ci.png)
@@ -145,6 +165,12 @@ The point estimate is our best guess.
 ## Factors Affecting CI Width
 
 ### 1. Sample Size Effect
+
+**Grid of CIs: width shrinks with n**
+
+**Purpose:** Show the same 95% t-interval machinery (`stats.t.interval` with `loc` and `scale=sem`) across increasing `n`, plus a toy “precision stars” printout scaling inversely with width.
+
+**Walkthrough:** Fresh `np.random.normal` per panel (no fixed seed—widths vary run-to-run); `ci[1]-ci[0]` titles each subplot; second loop repeats draws for console output.
 
 ```python
 def demonstrate_sample_size_effect():
@@ -188,12 +214,41 @@ def demonstrate_sample_size_effect():
 demonstrate_sample_size_effect()
 ```
 
+**Captured output (example):** Stochastic; expect narrower widths as `n` increases.
+
+```
+
+Sample Size Effect on CI Width
+
+Sample size: 10
+CI width: 24.51
+Precision: **
+
+Sample size: 30
+CI width: 11.55
+Precision: ****
+
+Sample size: 100
+CI width: 6.36
+Precision: *******
+
+Sample size: 300
+CI width: 3.25
+Precision: ***************
+```
+
 *Note: The visualization shows how confidence intervals become narrower as sample size increases, demonstrating the relationship between sample size and precision.*
 
 ![Sample Size Effect](assets/sample_size_effect_ci.png)
 *Figure 6: Effect of sample size on confidence interval width.*
 
 ### 2. Confidence Level Effect
+
+**Same data, wider z/t multiplier at higher confidence**
+
+**Purpose:** Freeze one sample of size 30 and overlay intervals for 80/90/95/99% levels to visualize the precision–confidence trade-off.
+
+**Walkthrough:** `stats.t.interval(level, df, loc, scale)` sweeps `level`; each subplot title shows CI width; reliability stars are illustrative only.
 
 ```python
 def demonstrate_confidence_level_effect():
@@ -234,6 +289,29 @@ def demonstrate_confidence_level_effect():
 demonstrate_confidence_level_effect()
 ```
 
+**Captured output (example):** One run’s widths; 99% should be widest.
+
+```
+
+Confidence Level Effect on CI Width
+
+80.0% Confidence Level:
+CI width: 6.27
+Reliability: ********
+
+90.0% Confidence Level:
+CI width: 8.12
+Reliability: *********
+
+95.0% Confidence Level:
+CI width: 9.77
+Reliability: *********
+
+99.0% Confidence Level:
+CI width: 13.17
+Reliability: *********
+```
+
 *Note: The visualization shows how confidence intervals become wider as the confidence level increases, demonstrating the trade-off between confidence and precision.*
 
 ![Confidence Level Effect](assets/confidence_level_effect.png)
@@ -242,6 +320,12 @@ demonstrate_confidence_level_effect()
 ## Different Types of Confidence Intervals
 
 ### 1. CI for a Mean (t-interval)
+
+**Wrapper around `stats.t.interval` for arbitrary data**
+
+**Purpose:** Encapsulate mean + SEM → CI in a two-line helper, then plot scores with bounds for a classroom-style “class average” narrative.
+
+**Walkthrough:** `stats.sem` feeds the scale argument; histogram + vertical lines duplicate earlier lesson visuals with new variable names.
 
 ```python
 def mean_ci(data, confidence=0.95):
@@ -275,12 +359,27 @@ print(f"Mean score: {mean:.1f}")
 print(f"95% CI: ({ci[0]:.1f}, {ci[1]:.1f})")
 ```
 
+**Captured output (example):** Random `scores` vector each run unless you add `np.random.seed`.
+
+```
+
+Test Score Analysis
+Mean score: 77.4
+95% CI: (74.7, 80.1)
+```
+
 *Note: The visualization shows the distribution of test scores with the mean and 95% confidence interval. This helps us understand both the average performance and the uncertainty in our estimate.*
 
 ![Test Scores](assets/test_scores_ci.png)
 *Figure 8: Distribution of test scores with mean and 95% confidence interval.*
 
 ### 2. CI for a Proportion
+
+**Wilson score interval (not Wald)**
+
+**Purpose:** Avoid boundary issues near 0 or 1 by using the Wilson center/margin formulas—better small-sample behavior than \(\hat p \pm z SE\) for some settings.
+
+**Walkthrough:** `z = norm.ppf` for two-sided critical value; denominator `1 + z²/n` pulls the center toward ½; bar plot uses half-width as symmetric error.
 
 ```python
 def proportion_ci(successes, n, confidence=0.95):
@@ -318,12 +417,27 @@ print(f"Response rate: {responses/total:.1%}")
 print(f"95% CI: ({ci[0]:.1%}, {ci[1]:.1%})")
 ```
 
+**Captured output (example):** Fixed `responses/total` here yields repeatable percentages.
+
+```
+
+Survey Analysis
+Response rate: 90.0%
+95% CI: (85.1%, 93.4%)
+```
+
 *Note: The visualization shows the survey response rate with error bars representing the 95% confidence interval. This helps us understand both the proportion of positive responses and the uncertainty in our estimate.*
 
 ![Survey Response](assets/survey_response_ci.png)
 *Figure 9: Survey response rate with 95% confidence interval.*
 
 ### 3. CI for Difference Between Means
+
+**Welch-style SE and df, two-sample t critical value**
+
+**Purpose:** Build a CI on \(\bar X_1 - \bar X_2\) with unpooled variances—matches the unequal-variance two-sample t spirit—then visualize arms with a boxplot.
+
+**Walkthrough:** `se = sqrt(s1²/n1 + s2²/n2)`; Welch–Satterthwaite `df` formula feeds `t.ppf`; margin is `t_val * se`.
 
 ```python
 def diff_means_ci(group1, group2, confidence=0.95):
@@ -360,6 +474,15 @@ plt.close()
 print(f"\nTeaching Method Comparison")
 print(f"Mean difference: {np.mean(method1_scores) - np.mean(method2_scores):.1f}")
 print(f"95% CI: ({ci[0]:.1f}, {ci[1]:.1f})")
+```
+
+**Captured output (example):** Random method scores each run; interval may or may not cover zero.
+
+```
+
+Teaching Method Comparison
+Mean difference: 0.1
+95% CI: (-5.5, 5.6)
 ```
 
 *Note: The visualization shows the distribution of test scores for both teaching methods using box plots. This helps us understand both the difference in means and the variability in each group.*

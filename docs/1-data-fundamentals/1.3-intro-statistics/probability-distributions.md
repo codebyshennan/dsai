@@ -1,5 +1,15 @@
 # Probability Distributions with Python
 
+**After this lesson:** you can explain the core ideas in “Probability Distributions with Python” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iYiOVISeS84" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*StatQuest with Josh Starmer — The normal distribution, clearly explained*
+
 ## Understanding Random Variables Through Code
 
 ---
@@ -7,6 +17,11 @@
 ### Implementing Random Variables
 
 Let's explore random variables using Python:
+
+**`RandomVariableExplorer`: discrete vs continuous draws**
+
+- **Purpose:** Tie code to the idea of a random variable: **simulate** draws from a discrete law (`np.random.choice` with probabilities) and from continuous families (`normal`, `uniform`), then **plot** with bar vs histogram/KDE.
+- **Walkthrough:** `simulate_discrete` uses `p=`; `simulate_continuous` branches on `distribution`; `plot_distribution` picks `discrete` vs `continuous` from `n_unique`.
 
 ```python
 import numpy as np
@@ -151,11 +166,51 @@ print("\nHeight Distribution:")
 explorer.plot_distribution(heights, kind='continuous')
 ```
 
+
+![probability-distributions](assets/probability-distributions_fig_1.png)
+
+
+![probability-distributions](assets/probability-distributions_fig_2.png)
+
+```
+
+Die Rolls:
+
+Summary Statistics:
+count    1000.000
+mean        3.443
+std         1.725
+min         1.000
+25%         2.000
+50%         3.000
+75%         5.000
+max         6.000
+Name: Value, dtype: float64
+
+Height Distribution:
+
+Summary Statistics:
+count    1000.000
+mean      170.989
+std         9.889
+min       140.786
+25%       164.359
+50%       170.842
+75%       177.396
+max       201.931
+Name: Value, dtype: float64
+```
+
 ---
 
 ### Expected Value and Variance
 
 Let's implement tools for calculating distribution properties:
+
+**Moments and skew/kurtosis on samples**
+
+- **Purpose:** Connect **E[X]** and **Var(X)** for both tabulated `(values, probabilities)` and raw samples; visualize with histogram + mean/median and a normal Q-Q plot.
+- **Walkthrough:** `calculate_expected_value` / `calculate_variance` use `np.mean`/`np.var` when `probabilities` is `None`; `analyze_distribution` builds the summary dict and `stats.probplot` for Q-Q.
 
 ```python
 class DistributionAnalyzer:
@@ -281,6 +336,48 @@ uniform_data = np.random.uniform(low=-3, high=3, size=1000)
 analyzer.analyze_distribution(uniform_data, "Uniform")
 ```
 
+
+![probability-distributions](assets/probability-distributions_fig_3.png)
+
+
+![probability-distributions](assets/probability-distributions_fig_4.png)
+
+
+![probability-distributions](assets/probability-distributions_fig_5.png)
+
+```
+
+Normal Distribution:
+
+Normal Analysis:
+Mean: 0.014
+Median: 0.011
+Std Dev: 0.970
+Variance: 0.941
+Skewness: 0.002
+Kurtosis: 0.052
+
+Right-Skewed Distribution:
+
+Right-Skewed Analysis:
+Mean: 1.702
+Median: 0.969
+Std Dev: 2.564
+Variance: 6.572
+Skewness: 8.941
+Kurtosis: 142.635
+
+Uniform Distribution:
+
+Uniform Analysis:
+Mean: -0.024
+Median: -0.098
+Std Dev: 1.736
+Variance: 3.014
+Skewness: 0.054
+Kurtosis: -1.214
+```
+
 ## Common Probability Distributions
 
 ---
@@ -288,6 +385,11 @@ analyzer.analyze_distribution(uniform_data, "Uniform")
 ### Implementing Distribution Functions
 
 Let's create tools for working with common distributions:
+
+**Sampling binomial, Poisson, normal, exponential**
+
+- **Purpose:** See how NumPy’s `np.random.*` generators map to common families; compare shapes side-by-side with histograms and normal Q-Q panels.
+- **Walkthrough:** Each method wraps one generator (`binomial`, `poisson`, `normal`, `exponential`); `plot_distributions` lays out two columns per distribution.
 
 ```python
 class ProbabilityDistributions:
@@ -425,11 +527,68 @@ distributions = {
 pd_explorer.plot_distributions(distributions)
 ```
 
+
+![probability-distributions](assets/probability-distributions_fig_6.png)
+
+```
+
+Summary Statistics:
+
+Binomial:
+count    1000.000
+mean        4.939
+std         1.579
+min         1.000
+25%         4.000
+50%         5.000
+75%         6.000
+max        10.000
+Name: Binomial, dtype: float64
+
+Poisson:
+count    1000.000
+mean        2.979
+std         1.693
+min         0.000
+25%         2.000
+50%         3.000
+75%         4.000
+max         9.000
+Name: Poisson, dtype: float64
+
+Normal:
+count    1000.000
+mean       -0.014
+std         0.980
+min        -3.275
+25%        -0.671
+50%        -0.060
+75%         0.618
+max         2.769
+Name: Normal, dtype: float64
+
+Exponential:
+count    1000.000
+mean        1.980
+std         1.917
+min         0.000
+25%         0.577
+50%         1.362
+75%         2.865
+max        14.280
+Name: Exponential, dtype: float64
+```
+
 ---
 
 ### Distribution Shape Analysis
 
 Let's create tools for analyzing distribution shapes:
+
+**Classify skew/tails and compare plot types**
+
+- **Purpose:** Practice reading **skewness** and **kurtosis** thresholds, and pair histograms with box and violin plots for the same data.
+- **Walkthrough:** `classify_shape` uses `stats.skew` / `stats.kurtosis`; `plot_shape_analysis` builds a 2×2 grid with `sns.histplot`, `sns.boxplot`, `sns.violinplot`.
 
 ```python
 class ShapeAnalyzer:
@@ -543,11 +702,43 @@ shape_analyzer.plot_shape_analysis(
 )
 ```
 
+
+![probability-distributions](assets/probability-distributions_fig_7.png)
+
+
+![probability-distributions](assets/probability-distributions_fig_8.png)
+
+
+![probability-distributions](assets/probability-distributions_fig_9.png)
+
+```
+
+Normal Distribution:
+
+Shape Statistics:
+Skewness: 0.054
+Kurtosis: -0.093
+
+Right-Skewed Distribution:
+
+Shape Statistics:
+Skewness: 4.106
+Kurtosis: 28.778
+
+Bimodal Distribution:
+
+Shape Statistics:
+Skewness: 0.005
+Kurtosis: -1.763
+```
+
 ## Practice Exercises
 
 Try these distribution analysis exercises:
 
 1. **Stock Returns Analysis**
+
+   - **Purpose:** Stub for **Practice Exercise 1**—implement the four comment bullets (load prices, returns, fit, tails) using your own data source.
 
    ```python
    # Create functions to:
@@ -559,6 +750,8 @@ Try these distribution analysis exercises:
 
 2. **Customer Behavior Model**
 
+   - **Purpose:** Stub for **Practice Exercise 2**—model frequency and order value distributions and lifetime-style summaries from transactional data.
+
    ```python
    # Build analysis tools for:
    # - Purchase frequency distribution
@@ -567,6 +760,8 @@ Try these distribution analysis exercises:
    ```
 
 3. **Quality Control System**
+
+   - **Purpose:** Stub for **Practice Exercise 3**—monitor measurements, compare to baseline distributions, and set control limits.
 
    ```python
    # Implement system to:

@@ -1,5 +1,13 @@
 # Model Evaluation Learning Materials - Improvement Plan
 
+**After this lesson:** you can explain the core ideas in “Model Evaluation Learning Materials - Improvement Plan” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Executive Summary
 
 Based on a comprehensive review of the model evaluation learning materials, this document outlines a strategic improvement plan to enhance the educational effectiveness, accessibility, and depth of the content. The materials currently provide a solid foundation but require targeted improvements to better serve learners at different skill levels.

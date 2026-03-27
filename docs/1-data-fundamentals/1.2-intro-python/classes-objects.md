@@ -1,10 +1,20 @@
 # Python Classes and Objects in Data Science
 
+**After this lesson:** you can explain the core ideas in “Python Classes and Objects in Data Science” and reproduce the examples here in your own notebook or environment.
+
 > **Visualize OOP:** Python Tutor can show object creation and method calls!
 
 > **AI Helper:** "Explain classes using real-world objects as examples"
 
 > **Interactive:** Practice OOP concepts in your own Colab notebooks
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZDa-Z5JzLYM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Corey Schafer — Python OOP: classes and instances*
 
 ## Introduction to Object-Oriented Programming
 
@@ -746,6 +756,11 @@ try:
    print("\nProcessed data shape:", result.shape)
 except Exception as e:
    print(f"\nPipeline execution failed: {str(e)}")
+```
+
+```
+
+Pipeline execution failed: [Errno 2] No such file or directory: 'data.csv'
 ```
 
 ## Practice Exercises for Data Science

@@ -1,5 +1,7 @@
 # Experimental Design: Building a Strong Foundation
 
+**After this lesson:** you can explain the core ideas in “Experimental Design: Building a Strong Foundation” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - Strong **design** determines whether statistics can answer the question you care about.
@@ -19,7 +21,9 @@ Imagine you're baking a cake. You need a recipe, the right ingredients, and a pl
 
 ### Video Tutorial: Experimental Design
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/0oc49DyA3hU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Hypothesis Testing and The Null Hypothesis, Clearly Explained!!! by Josh Starmer*
 
@@ -63,6 +67,12 @@ This guide will help you understand the basics of experimental design, with simp
 
 Suppose you have 10 participants and want to assign them to two groups at random:
 
+**Random split into two arms**
+
+**Purpose:** Practice a basic randomization primitive—permute IDs, then slice into control and treatment halves so every unit appears exactly once.
+
+**Walkthrough:** `np.random.permutation` shuffles labels; equal `group_size` uses floor division; seed `42` makes the split reproducible in course materials.
+
 ```python
 # Example: Randomly assign 10 participants to two groups
 import numpy as np
@@ -79,6 +89,13 @@ print("Treatment group:", treatment_group)
 # Sample output:
 # Control group: ['P7' 'P4' 'P8' 'P5' 'P3']
 # Treatment group: ['P6' 'P1' 'P9' 'P10' 'P2']
+```
+
+**Captured output (example):** With seed 42, group membership is fixed; your run should list all ten IDs across the two arrays.
+
+```
+Control group: ['P9' 'P2' 'P6' 'P1' 'P8']
+Treatment group: ['P3' 'P10' 'P5' 'P4' 'P7']
 ```
 
 **What to look for:**
@@ -132,6 +149,12 @@ Experimental design is about how you assign treatments to units (like people, pl
 **Real-world example:**
 Suppose you're testing two fertilizers (A and B) on 20 identical plants. You want to assign each plant to a fertilizer at random.
 
+**Completely randomized assignment map**
+
+**Purpose:** Build a unit→treatment lookup for a CRD by drawing independent random labels—appropriate when units are exchangeable within the experiment.
+
+**Walkthrough:** `np.random.choice(treatments, size=len(units))` assigns each plant independently; `dict(zip(...))` is easy to log and merge with outcome data later.
+
 ```python
 # Example: Completely Randomized Design (CRD)
 import numpy as np
@@ -164,6 +187,18 @@ for unit, treatment in assignment.items():
 # Plant_6: B
 ```
 
+**Captured output (example):** Each plant ID should appear once with either A or B; counts may be slightly uneven with independent draws.
+
+```
+Assignments:
+Plant_1: A
+Plant_2: B
+Plant_3: A
+Plant_4: A
+Plant_5: A
+Plant_6: B
+```
+
 **What to look for:**
 
 - Each plant is randomly assigned to either fertilizer A or B.
@@ -189,6 +224,12 @@ for unit, treatment in assignment.items():
 
 **Real-world example:**
 Suppose you're testing two fertilizers on plants, but your garden has sunny and shady areas. You want to make sure both fertilizers are tested in both conditions.
+
+**Randomized block: permute treatments within each block**
+
+**Purpose:** Implement blocking by first listing units per block (e.g., sun vs shade), then randomizing treatment order *within* each block to balance known nuisance factors.
+
+**Walkthrough:** The loop walks `blocks`; `block_treatments` repeats the treatment list to cover all units; `permutation` randomizes within-block order before zipping to unit IDs.
 
 ```python
 # Example: Randomized Block Design (RBD)
@@ -230,6 +271,20 @@ for unit, treatment in assignment.items():
 # Shady_2: A
 # Shady_3: B
 # Shady_4: A
+```
+
+**Captured output (example):** You should see two A and two B within each of `Sunny_*` and `Shady_*` when block sizes match treatment replications as coded.
+
+```
+Assignments:
+Sunny_1: B
+Sunny_2: B
+Sunny_3: A
+Sunny_4: A
+Shady_1: B
+Shady_2: B
+Shady_3: A
+Shady_4: A
 ```
 
 **What to look for:**

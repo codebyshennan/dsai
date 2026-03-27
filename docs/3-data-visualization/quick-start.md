@@ -1,5 +1,13 @@
 # Data Visualization Quick Start Guide
 
+**After this lesson:** you can explain the core ideas in “Data Visualization Quick Start Guide” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Orientation for the course visualization materials.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## What you'll learn
 
 In this quick start guide, you'll learn how to:
@@ -19,6 +27,10 @@ In this quick start guide, you'll learn how to:
 
 ### Step 1: Set Up Your Environment
 
+**Purpose:** Import the plotting libraries and define shared month labels and sales values used by the rest of this page.
+
+**Walkthrough:** Lists drive categorical x-positions for `plt.plot`; no pandas required for this minimal example.
+
 ```python
 # Import the libraries we need
 import matplotlib.pyplot as plt
@@ -31,6 +43,10 @@ sales = [100, 120, 140, 130, 150]
 
 ### Step 2: Create a Simple Line Chart
 
+**Purpose:** Draw a first line chart with title, y-label, grid, and markers so the trend is readable at a glance.
+
+**Walkthrough:** `figure` sets canvas size; `plot` connects `(months, sales)`; `grid` adds reference lines without extra packages.
+
 ```python
 # Create the chart
 plt.figure(figsize=(10, 6))  # Set the size
@@ -41,7 +57,14 @@ plt.grid(True, linestyle='--', alpha=0.7)  # Add a grid
 plt.show()  # Display the chart
 ```
 
+
+![quick-start](assets/quick-start_fig_1.png)
+
 ### Step 3: Make it Look Better
+
+**Purpose:** See how color, line width, and title typography change the same data without changing the numbers.
+
+**Walkthrough:** Hex color `#2ecc71` and `linewidth=2` emphasize the series; `fontsize`/`pad` adjust hierarchy.
 
 ```python
 # Create a more professional chart
@@ -53,11 +76,18 @@ plt.grid(True, linestyle='--', alpha=0.7)
 plt.show()
 ```
 
+
+![quick-start](assets/quick-start_fig_2.png)
+
 ## Three Most Common Chart Types
 
 ### 1. Line Chart
 
 **Best for:** Showing trends over time
+
+**Purpose:** Reuse `months` and `sales` in a minimal trend chart for comparison with bar and pie variants below.
+
+**Walkthrough:** Same `plot` call as Step 2 but stripped to essentials—good for copying into your own notebook.
 
 ```python
 # Line chart example
@@ -67,9 +97,16 @@ plt.title('Sales Trend')
 plt.show()
 ```
 
+
+![quick-start](assets/quick-start_fig_3.png)
+
 ### 2. Bar Chart
 
 **Best for:** Comparing categories
+
+**Purpose:** Encode the same values as bar heights—better than lines when categories are not ordered time.
+
+**Walkthrough:** `plt.bar` maps each month to a rectangle; axis defaults treat `months` as categorical positions.
 
 ```python
 # Bar chart example
@@ -79,9 +116,16 @@ plt.title('Sales by Month')
 plt.show()
 ```
 
+
+![quick-start](assets/quick-start_fig_4.png)
+
 ### 3. Pie Chart
 
 **Best for:** Showing parts of a whole
+
+**Purpose:** Show each month’s share of total sales—use only when “part of a whole” is the actual question.
+
+**Walkthrough:** `autopct` formats wedge labels; `labels` ties slices back to month names.
 
 ```python
 # Pie chart example
@@ -90,6 +134,9 @@ plt.pie(sales, labels=months, autopct='%1.1f%%')
 plt.title('Sales Distribution')
 plt.show()
 ```
+
+
+![quick-start](assets/quick-start_fig_5.png)
 
 ## Quick Tips for Better Charts
 
@@ -135,6 +182,10 @@ Once you are comfortable with basic charts:
 
 **Solution:**
 
+**Purpose:** Compare an overcrowded multi-series line chart with a reduced chart that highlights one series and a legend.
+
+**Walkthrough:** Multiple `plot` calls stack on the same axes; trimming series and adding `label`/`legend` clarifies the message.
+
 ```python
 # Before: Too much data
 plt.plot(data1, data2, data3, data4)
@@ -148,6 +199,10 @@ plt.legend()
 
 **Solution:**
 
+**Purpose:** Fix cramped or overlapping text by enlarging the title and rotating tick labels.
+
+**Walkthrough:** `fontsize`/`pad` on `title`; `xticks(rotation=45)` rotates category labels on dense axes.
+
 ```python
 # Before: Default size
 plt.title('Sales')
@@ -157,9 +212,18 @@ plt.title('Sales', fontsize=14, pad=20)
 plt.xticks(rotation=45)  # Rotate labels if needed
 ```
 
+
+![quick-start](assets/quick-start_fig_6.png)
+
+**Captured output (notebook):** The cell above may print the return value of `plt.xticks(rotation=45)`—a tuple of tick locations and label objects. That repr is normal; the figure shows the rotated labels.
+
 ### Problem: Poor Color Choice
 
 **Solution:**
+
+**Purpose:** Swap default colors for a single explicit hue and transparency so the line stays legible on white backgrounds.
+
+**Walkthrough:** `color` takes a hex string; `alpha` softens saturation when overlaying other elements.
 
 ```python
 # Before: Default colors
@@ -170,6 +234,8 @@ plt.plot(data, color='#2ecc71', alpha=0.7)
 ```
 
 ## Practice Exercises
+
+**Note:** These are offline prompts—complete them in your own environment; there is no autograder in this repo.
 
 1. **Basic Line Chart**
    Create a line chart showing temperature over a week

@@ -1,5 +1,13 @@
 # Introduction to Backpropagation
 
+**After this lesson:** you can explain the core ideas in “Introduction to Backpropagation” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## What is Backpropagation?
 
 Imagine you're learning to play a musical instrument. When you make a mistake, you adjust your fingers to play the correct note. Backpropagation is like this learning process for neural networks - it's how they learn from their mistakes and improve their performance.

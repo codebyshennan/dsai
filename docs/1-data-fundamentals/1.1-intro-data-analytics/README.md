@@ -1,10 +1,18 @@
 # Introduction to Data Analytics and Data Science
 
+**After this submodule:** You can explain how data analytics and data science differ, describe the main stages of the analytics lifecycle, and recognize why privacy and security matter in real projects.
+
 ## Overview
 
-**Primary outcome:** You can explain how data analytics and data science differ, describe the main stages of the analytics lifecycle, and recognize why privacy and security matter in real projects.
-
 In today’s data-driven world, understanding data analytics and data science is crucial for making informed decisions. This lesson introduces both fields, their methodologies, and typical applications. We define terms as they appear.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9VamqHc7dRo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Alex the Analyst — What does a data analyst do?*
 
 > **Contributors:** Authoring standards: `docs/meta/DOCUMENTATION_GUIDELINES.md` (`meta/` is excluded from the Jekyll build).
 

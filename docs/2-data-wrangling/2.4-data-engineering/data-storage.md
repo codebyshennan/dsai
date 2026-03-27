@@ -1,8 +1,14 @@
 # Data Storage Solutions
 
-## Overview
+**After this lesson:** You can contrast **OLTP** databases, **data warehouses**, and **data lakes** for typical analytics workloads, and name one sensible use case for each.
 
-**Primary outcome:** You can contrast **OLTP** databases, **data warehouses**, and **data lakes** for typical analytics workloads, and name one sensible use case for each.
+## Helpful video
+
+DAGs, tasks, and scheduling—conceptual background for ETL-style pipelines.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eeSLDdz-aLg" title="Apache Airflow Tutorial for Beginners" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [ETL fundamentals](etl-fundamentals.md) and [Intro to databases](../2.1-sql/intro-databases.md). Optional: skim [Snowflake](../../0-prep/snowflake.md) if your org uses it.
 
@@ -214,7 +220,10 @@ graph TD
 
 ### 1. Relational Databases (RDBMS)
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -253,7 +262,38 @@ def setup_database(connection_string):
     Session = sessionmaker(bind=engine)
     
     return Session()
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From sqlalchemy import create_engine, Column,…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">__tablename__ = &#x27;sales&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&quot;&quot;&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–38: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. NoSQL Databases
 
@@ -317,7 +357,10 @@ NoSQL databases provide flexible schema design and horizontal scalability for ha
 
 Here's a comprehensive MongoDB implementation:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from pymongo import MongoClient
 from datetime import datetime
 
@@ -355,11 +398,45 @@ document = {
     'amount': 99.99
 }
 mongo.insert_document('sales_db', 'transactions', document)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From pymongo import MongoClient</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Db = self.client[database]</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-37" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Db = self.client[database]</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–37: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Data Lakes
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import boto3
 import pandas as pd
 from io import StringIO
@@ -410,7 +487,47 @@ class DataLakeHandler:
             Prefix=prefix
         )
         return [obj['Key'] for obj in response.get('Contents', [])]
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import boto3</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def upload_dataframe(self, df, key, partition…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-37" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Self.s3.put_object(</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–37: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="38-50" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Read CSV data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 38–50: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 4. Data Warehouses
 
@@ -466,7 +583,10 @@ Data warehouses are specialized databases optimized for analytics and reporting,
 
 Here's a comprehensive implementation:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from snowflake.connector import connect
 import pandas as pd
 
@@ -499,13 +619,47 @@ class DataWarehouseHandler:
             FROM @{stage_name}
             FILE_FORMAT = (TYPE = CSV)
         """)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From snowflake.connector import connect</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def execute_query(self, query):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–21: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-32" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Write data to stage</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 22–32: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Data Storage Patterns
 
 ### 1. Data Partitioning
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def partition_data(df, partition_columns):
     """
     Partition DataFrame by specified columns
@@ -531,11 +685,36 @@ def partition_data(df, partition_columns):
         })
     
     return partitions
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def partition_data(df, partition_columns):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Partition_path = &#x27;/&#x27;.join([</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Data Compression
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import gzip
 import json
 
@@ -564,11 +743,36 @@ def decompress_data(compressed_data, compression='gzip'):
         return json.loads(json_str)
     
     raise ValueError(f"Unsupported compression: {compression}")
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import gzip</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Raise ValueError(f&quot;Unsupported compression: {…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Data Versioning
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from datetime import datetime
 import hashlib
 
@@ -611,7 +815,38 @@ class DataVersioning:
         else:
             data_str = str(data)
         return hashlib.md5(data_str.encode()).hexdigest()
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From datetime import datetime</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create version metadata</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-42" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def _generate_version_id(self, data):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 29–42: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices
 
@@ -651,7 +886,10 @@ Implement a data storage system that:
 
 ## Solution Template
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataStorage:
     """
     Multi-backend data storage system
@@ -779,7 +1017,65 @@ storage.store_data(
     key='sales/transactions.csv',
     partition={'name': 'date', 'value': '2023-01-01'}
 )
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-21" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DataStorage:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–21: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-42" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Backends[&#x27;mongodb&#x27;] = MongoDBHandler(</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 22–42: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="43-63" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 43–63: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="64-84" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Session.add_all(records)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 64–84: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="85-105" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Partition=kwargs.get(&#x27;partition&#x27;)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 85–105: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="106-127" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;product_id&#x27;: [1, 2, 3],</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 106–127: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Remember: Choose your data storage solution based on your specific requirements and use cases!
 

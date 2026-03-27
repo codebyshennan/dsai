@@ -1,10 +1,10 @@
 # Data Analysis with Pandas
 
+**After this submodule:** You can load tabular data into pandas, explore it with **Series** and **DataFrame** operations, and prepare it for analysis and visualization.
+
 > **Time needed:** 5-6 hours to complete this module
 
 ## Overview
-
-**Primary outcome:** You can load tabular data into pandas, explore it with **Series** and **DataFrame** operations, and prepare it for analysis and visualization.
 
 **Prerequisites:** [Introduction to Python](../1.2-intro-python/README.md) and [Data foundation with NumPy](../1.4-data-foundation-linear-algebra/README.md).
 
@@ -14,15 +14,13 @@
 
 Pandas is your best friend when it comes to working with data in Python! Think of it as Excel on steroids - it's a powerful library that makes data manipulation and analysis much easier.
 
-### Video Tutorial: Introduction to Pandas
+### Video: Introduction to Pandas
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Iqjy9UqKKuo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZyhVh-qRZPA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
-*Data Analysis with Python and Pandas Tutorial Introduction by sentdex*
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZyhV4-qRgG4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-*Pandas Tutorial for Beginners - Data Analysis for Machine Learning with Python*
+*Corey Schafer — Python pandas tutorial (part 1): getting started with data analysis*
 
 > **Note:** The name "Pandas" comes from "Panel Data", but don't worry about that - just think of it as your go-to tool for working with tables of data in Python!
 

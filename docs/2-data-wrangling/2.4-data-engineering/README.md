@@ -1,8 +1,14 @@
 # Data Engineering Essentials
 
-## Overview
+**After this submodule:** You can describe how **ETL** and **ELT** pipelines move data from sources to storage, why orchestration and quality checks matter, and how warehouses differ from lakes.
 
-**Primary outcome:** You can describe how **ETL** and **ELT** pipelines move data from sources to storage, why orchestration and quality checks matter, and how warehouses differ from lakes.
+## Helpful video
+
+DAGs, tasks, and scheduling—conceptual background for ETL-style pipelines.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eeSLDdz-aLg" title="Apache Airflow Tutorial for Beginners" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [SQL (Module 2.1)](../2.1-sql/README.md), [wrangling (Module 2.2)](../2.2-data-wrangling/README.md), and [EDA (Module 2.3)](../2.3-eda/README.md) at a practical level. Python 3 and **pandas** for examples.
 

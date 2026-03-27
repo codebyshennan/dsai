@@ -1,6 +1,14 @@
 # Introduction to Data Visualization
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Introduction to Data Visualization** in your course schedule.
+
 > **Note:** This submodule starts with **why** charts work (perception, color, hierarchy), then moves to **Matplotlib** in code. Read [Visualization principles](visualization-principles.md) before [Matplotlib basics](matplotlib-basics.md) if you are new to design terms.
+
+## Helpful video
+
+Context for how visualization fits into analytics and communication.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is Data Visualization?
 
@@ -67,6 +75,10 @@ Think of colors like a language:
 
 ### Your First Plot
 
+**Purpose:** Draw a simple sine curve with pyplot: one figure, labeled axes, legend, and grid.
+
+**Walkthrough:** `linspace` builds x; `plot` with `'b-'` sets color and linestyle; `show()` displays in scripts.
+
 ```python
 # Import the necessary libraries
 import matplotlib.pyplot as plt
@@ -86,6 +98,9 @@ plt.legend()
 plt.grid(True)
 plt.show()
 ```
+
+
+![README](assets/README_fig_1.png)
 
 ### Before and After
 

@@ -1,5 +1,7 @@
 # Correlation Analysis: Measuring How Things Move Together
 
+**After this lesson:** you can explain the core ideas in “Correlation Analysis: Measuring How Things Move Together” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - **Correlation** summarizes direction and strength of association for two numeric variables.
@@ -15,11 +17,15 @@ Welcome to the world of correlation analysis! In this guide, we'll learn how to 
 
 ### Video Tutorial: Introduction to Correlation Analysis
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xZ_z8KWkhXE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Correlation by Josh Starmer*
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4EXNedimDMs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Pearson vs Spearman Correlation Tutorial*
 
@@ -71,6 +77,12 @@ Just as you wouldn't use a hammer for every home repair job, we have different t
 
 **Everyday Analogy**: It's like measuring how consistently two cars change speed together. If one car accelerates and the other accelerates proportionally, they have a high Pearson correlation.
 
+**Pearson correlation for study time vs. exam scores**
+
+**Purpose:** Compute Pearson’s \(r\) and the two-sided p-value for two numeric arrays to quantify linear association and statistical significance.
+
+**Walkthrough:** `stats.pearsonr` returns `(r, p_value)`; the formatted prints match the example interpretation below.
+
 ```python
 import numpy as np
 from scipy import stats
@@ -84,6 +96,9 @@ r, p_value = stats.pearsonr(study_time, exam_scores)
 print(f"Pearson correlation: {r:.2f}")
 print(f"P-value: {p_value:.4f}")
 ```
+
+**Captured output (example):** Exact floating-point formatting may differ slightly by SciPy version; you should still see \(r\) very close to 1 and a small p-value for this toy data.
+
 ```
 Pearson correlation: 0.99
 P-value: 0.0010
@@ -106,12 +121,21 @@ This tells us there's a very strong positive relationship (0.99 is very close to
 
 **Everyday Analogy**: Instead of asking "Do these exact measurements rise together?", Spearman asks "If we ranked these from lowest to highest, would the rankings match up?"
 
+**Spearman rank correlation on the same study vs. score arrays**
+
+**Purpose:** Measure monotonic association via ranks (robust to outliers and mild nonlinearity) and print \(\rho\) and its p-value using the same `study_time` and `exam_scores` as Pearson.
+
+**Walkthrough:** `stats.spearmanr` returns Spearman’s \(\rho\) and a p-value; compare to Pearson when you suspect outliers or nonlinearity.
+
 ```python
 # Calculate Spearman correlation
 rho, p_value = stats.spearmanr(study_time, exam_scores)
 print(f"Spearman correlation: {rho:.2f}")
 print(f"P-value: {p_value:.4f}")
 ```
+
+**Captured output (example):** For strictly increasing paired data, Spearman \(\rho\) is often 1.0; p-value formatting may differ in the last decimal place.
+
 ```
 Spearman correlation: 1.00
 P-value: 0.0000
@@ -133,12 +157,21 @@ The Spearman correlation of 1.00 tells us there's a perfect rank correlation - a
 
 **Everyday Analogy**: Imagine looking at all possible pairs of data points and asking, "Do these values move in the same direction, or do they move in opposite directions?"
 
+**Kendall’s tau for pairwise concordance**
+
+**Purpose:** Summarize agreement between ranks using concordant vs. discordant pairs, useful for small samples or many ties.
+
+**Walkthrough:** `stats.kendalltau` returns Kendall’s \(\tau\) and a p-value; interpret \(\tau\) on a similar \([-1, 1]\)-style scale as other correlations.
+
 ```python
 # Calculate Kendall correlation
 tau, p_value = stats.kendalltau(study_time, exam_scores)
 print(f"Kendall correlation: {tau:.2f}")
 print(f"P-value: {p_value:.4f}")
 ```
+
+**Captured output (example):** With only five points, the exact p-value can differ slightly; perfect rank agreement should still yield \(\tau = 1\).
+
 ```
 Kendall correlation: 1.00
 P-value: 0.0167
@@ -196,6 +229,12 @@ Correlation analysis is a powerful tool used across many fields:
 ## Exploring Multiple Relationships: Correlation Matrices
 
 When you have many variables, checking correlations between each pair individually becomes tedious. That's where correlation matrices come in - they show all possible correlations in one view!
+
+**Correlation matrix and heatmap for several variables**
+
+**Purpose:** Assemble a small multivariate table, compute pairwise Pearson correlations with `DataFrame.corr()`, and draw an annotated heatmap for all pairs at once.
+
+**Walkthrough:** `df.corr()` defaults to Pearson; `sns.heatmap` with `vmin=-1` and `vmax=1` maps strength to color on a consistent scale.
 
 ```python
 import pandas as pd
@@ -276,6 +315,12 @@ Correlations based on few data points can appear stronger than they really are.
 ## Let's Try It Together: Temperature and Ice Cream Sales
 
 Now let's apply what we've learned with a practical example:
+
+**Scatter plot of temperature vs. ice cream sales with correlation annotation**
+
+**Purpose:** Simulate noisy bivariate data, plot a scatter, and overlay the Pearson correlation from `np.corrcoef` to connect visualization with a single-number summary.
+
+**Walkthrough:** `np.corrcoef` returns a 2×2 matrix; element `[0, 1]` is the correlation; `plt.text(..., transform=plt.gca().transAxes)` pins the label in axes coordinates.
 
 ```python
 # Generate sample data

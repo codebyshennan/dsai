@@ -1,5 +1,15 @@
 # Boolean Indexing: Smart Data Selection
 
+**After this lesson:** you can explain the core ideas in “Boolean Indexing: Smart Data Selection” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QUT1VHiLmmI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*freeCodeCamp — Python NumPy tutorial for beginners*
+
 ## What is Boolean Indexing?
 
 Think of boolean indexing as a smart filter for your data - like having a magic sieve that only lets through the items you want! It's one of NumPy's most powerful features for data analysis, letting you:

@@ -1,6 +1,14 @@
 # Frequently Asked Questions (FAQ)
 
+**After this lesson:** you can explain the core ideas in “Frequently Asked Questions (FAQ)” and reproduce the examples here in your own notebook or environment.
+
 Quick answers about libraries, chart choice, Jupyter quirks, and performance. For structured lessons, start with the [module README](README.md) and [3.1 Intro to data visualization](3.1-intro-data-viz/README.md).
+
+## Helpful video
+
+Orientation for the course visualization materials.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## General Questions
 
@@ -51,6 +59,11 @@ Quick answers about libraries, chart choice, Jupyter quirks, and performance. Fo
 4. Verify plot commands are executed in order
 
 Example:
+
+**Purpose:** Minimal notebook cell that proves the inline backend and `show()` display a line plot.
+
+**Walkthrough:** Magic first, then imports; `plot` then `show()`—order matches execution.
+
 ```python
 %matplotlib inline
 import matplotlib.pyplot as plt
@@ -62,6 +75,11 @@ plt.show()
 ### Q: How do I save high-quality plots for publication?
 
 **A:** Use these settings:
+
+**Purpose:** Pick DPI and format for print (vector/PDF, high-DPI PNG) versus web (smaller PNG, optional SVG).
+
+**Walkthrough:** `bbox_inches='tight'` trims margins; `optimize` for PNG where supported.
+
 ```python
 # For print (PDF)
 plt.savefig('plot.pdf', dpi=300, bbox_inches='tight')
@@ -77,6 +95,11 @@ plt.savefig('plot.svg', bbox_inches='tight')
 
 **A:** Several approaches:
 1. **Sampling**:
+
+**Purpose:** Plot a random subset of rows so the scatter stays readable and fast.
+
+**Walkthrough:** `np.random.choice` indices without replacement; index both columns consistently.
+
 ```python
 sample_size = 1000
 sample_idx = np.random.choice(len(data), sample_size)
@@ -84,12 +107,22 @@ plt.scatter(data[sample_idx, 0], data[sample_idx, 1])
 ```
 
 2. **Aggregation**:
+
+**Purpose:** Summarize massive `(x,y)` pairs into a 2D heatmap of counts per bin.
+
+**Walkthrough:** `histogram2d` returns counts and bin edges; `pcolormesh` plots the grid.
+
 ```python
 binned_data = np.histogram2d(x, y, bins=50)
 plt.pcolormesh(binned_data[1], binned_data[2], binned_data[0].T)
 ```
 
 3. **Streaming**:
+
+**Purpose:** Process a CSV in chunks when the full table does not fit in memory.
+
+**Walkthrough:** `chunksize` in `read_csv` yields DataFrames; replace `process_and_plot` with your aggregation.
+
 ```python
 for chunk in pd.read_csv('large_file.csv', chunksize=1000):
     process_and_plot(chunk)
@@ -106,6 +139,11 @@ for chunk in pd.read_csv('large_file.csv', chunksize=1000):
 4. **Highlight Data**: Use bright color against neutral
 
 Example:
+
+**Purpose:** See how Seaborn named palettes support sequential, categorical, and diverging data.
+
+**Walkthrough:** `color_palette` returns RGB tuples; pass to `scatter`/`bar` or use as `cmap` when appropriate.
+
 ```python
 # Sequential
 colors = sns.color_palette("Blues", n_colors=5)
@@ -117,21 +155,39 @@ colors = sns.color_palette("Set2")
 colors = sns.color_palette("RdBu", n_colors=11)
 ```
 
+
+![FAQ](assets/FAQ_fig_1.png)
+
 ### Q: How do I handle overlapping data points?
 
 **A:** Several solutions:
 1. **Transparency**:
+
+**Purpose:** Reveal density where many points stack at the same coordinates.
+
+**Walkthrough:** lower `alpha` stacks visually; tune until structure appears without washing out.
+
 ```python
 plt.scatter(x, y, alpha=0.1)
 ```
 
 2. **Jittering**:
+
+**Purpose:** Break ties on discrete axes (e.g. Likert scales) so individual points don’t sit on one pixel.
+
+**Walkthrough:** Small Gaussian noise on x only (or y); keep sigma small relative to spacing.
+
 ```python
 x_jitter = x + np.random.normal(0, 0.1, len(x))
 plt.scatter(x_jitter, y)
 ```
 
 3. **2D Histogram**:
+
+**Purpose:** When jitter is not enough, show counts per bin as a heatmap.
+
+**Walkthrough:** `hist2d` is the same family as `histogram2d` but plots directly.
+
 ```python
 plt.hist2d(x, y, bins=50)
 ```

@@ -1,12 +1,20 @@
 # Module 1: Data fundamentals
 
-## Overview
+**After this module:** You build a practical base for the rest of the course: what data work looks like in organizations, how to read and write Python for data tasks, how to think statistically, how to compute with arrays in NumPy, and how to work with tables in pandas.
 
-**Primary outcome:** You build a practical base for the rest of the course: what data work looks like in organizations, how to read and write Python for data tasks, how to think statistically, how to compute with arrays in NumPy, and how to work with tables in pandas.
+## Overview
 
 **Who this is for:** Learners who have completed [Module 0: Prep](../0-prep/README.md) (or equivalent: editor, notebooks, and a working Python environment). No prior data science career experience is assumed.
 
 This module moves from concepts (analytics, ethics, collection) into Python, then statistics, then NumPy and pandas—the stack you will use in later modules for wrangling, visualization, and modeling.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGaqsY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*IBM Technology — What is data science?*
 
 ## Prerequisites
 
@@ -15,6 +23,8 @@ This module moves from concepts (analytics, ethics, collection) into Python, the
 - Willingness to run short code examples and read errors (especially in sections 1.2 onward)
 
 > **Note:** Lesson pages are built with [GitHub Flavored Markdown (GFM)](https://github.github.com/gfm/) on Jekyll. **Contributors:** authoring standards are in `docs/meta/DOCUMENTATION_GUIDELINES.md` in the repository (the `meta/` folder is excluded from the public Jekyll build).
+
+**Code blocks:** When adding lesson snippets, follow the title / Purpose / Walkthrough pattern in [CODE-BLOCK-PATTERN.md](CODE-BLOCK-PATTERN.md).
 
 ## Submodule path
 

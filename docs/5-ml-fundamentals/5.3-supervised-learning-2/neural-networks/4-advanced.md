@@ -1,5 +1,13 @@
 # Advanced Neural Network Techniques
 
+**After this lesson:** you can explain the core ideas in “Advanced Neural Network Techniques” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Welcome to Advanced Neural Networks
 
 Ready to take your neural network skills to the next level? This guide will introduce you to advanced techniques that power state-of-the-art AI systems. Think of it like learning advanced cooking techniques after mastering the basics!

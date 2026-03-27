@@ -1,5 +1,7 @@
 # IDE Setup
 
+**After this guide:** VS Code opens Python files, uses your **conda** or **uv** interpreter (status bar), and you can run or debug a small script from the editor or integrated terminal.
+
 ## What is an IDE?
 
 An **IDE** (Integrated Development Environment) is a code editor with extra features like error checking, autocomplete, and debugging tools. Think of it as a word processor, but for writing code instead of documents.
@@ -16,9 +18,15 @@ An **IDE** (Integrated Development Environment) is a code editor with extra feat
 - ✅ **Popular** - Used by millions of developers
 - ✅ **Cross-platform** - Works on Windows, macOS, and Linux
 
-> **Figure (add screenshot or diagram):** VS Code main window — editor, sidebar, and terminal.
+> **On screen:** VS Code main window — editor, sidebar, and terminal.
 
 > **Note:** This guide assumes you have Anaconda or **uv** installed. If not, start with the [Anaconda guide](./anaconda.md) or your course’s Python setup materials.
+
+## Helpful video
+
+Official Microsoft **beginner tour of VS Code** (~7 minutes): interface, extensions, terminal, and a **Python** segment (install the Python extension and run a file). Follow the written steps below for interpreter selection and your own OS.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/B-s71n0dHUk" title="Learn Visual Studio Code in 7min (Official Beginner Tutorial)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Setting Up Python in VS Code
 
@@ -33,7 +41,7 @@ If you don't have VS Code yet:
 3. Run the installer and follow the prompts
 4. Launch VS Code
 
-> **Figure (add screenshot or diagram):** VS Code download or first-run screen for your OS.
+> **On screen:** VS Code download or first-run screen for your OS.
 
 ### Step 2: Install the Python Extension
 
@@ -46,7 +54,7 @@ If you don't have VS Code yet:
 5. Click the **"Install"** button
 6. Wait for installation to complete
 
-> **Figure (add screenshot or diagram):** Extensions view with the Microsoft Python extension selected.
+> **On screen:** Extensions view with the Microsoft Python extension selected.
 
 > **Tip:** VS Code will suggest installing the Python extension automatically when you open a **.py** file!
 
@@ -68,7 +76,7 @@ If you don't have VS Code yet:
    - **uv**: **Python 3.12.x ('.venv': venv)** (versions vary)
 5. Click on the one you want to use
 
-> **Figure (add screenshot or diagram):** Command Palette open to **Python: Select Interpreter** with a list of environments.
+> **On screen:** Command Palette open to **Python: Select Interpreter** with a list of environments.
 
 > **Tip:** You can see which interpreter is active in the bottom-right corner of VS Code!
 
@@ -76,7 +84,16 @@ If you don't have VS Code yet:
 
 To check if VS Code is using your Python environment:
 
-1. Open or create a Python file named **hello.py**, add a simple **print** statement, and save
+1. Open or create a Python file named **hello.py**, add a simple **print** statement, and save. For example:
+
+```python
+print("Hello from your course environment!")
+```
+```
+Hello from your course environment!
+```
+
+
 2. Look at the bottom status bar — you should see your Python version and environment
 3. Open a new terminal: **Terminal → New Terminal**
 4. You should see your environment name at the beginning of your terminal prompt:
@@ -108,4 +125,4 @@ To check if VS Code is using your Python environment:
 
 ## PyCharm (by JetBrains)
 
-> **Figure (add screenshot or diagram):** PyCharm (optional) — ML-aware completion or project view.
+> **On screen:** PyCharm (optional) — ML-aware completion or project view.

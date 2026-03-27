@@ -1,6 +1,14 @@
 # Model Evaluation Exercises - Progressive Learning Path
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Model Evaluation Exercises - Progressive Learning Path** in your course schedule.
+
 Welcome to the Model Evaluation exercises! This directory contains a carefully structured progression of exercises designed to build your skills from basic concepts to advanced real-world applications.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 🎯 Learning Philosophy
 

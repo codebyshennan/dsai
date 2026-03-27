@@ -1,6 +1,14 @@
 # Taking Your Tableau Skills to the Next Level
 
+**After this lesson:** you can explain the core ideas in “Taking Your Tableau Skills to the Next Level” and reproduce the examples here in your own notebook or environment.
+
 > **Note:** This lesson is **UI-first** (Tableau Desktop or comparable). You should already know worksheets, filters, and simple calculations from [Tableau basics](tableau-basics.md).
+
+## Helpful video
+
+Short Tableau Public install; pair with the written guides in this folder.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lTNWfhmurUg" title="Tableau Public Tutorial Download and Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction: Beyond the Basics
 
@@ -20,6 +28,10 @@ Think of them as Excel formulas that work across your entire visualization. They
 
 #### Running Total (Like a Growing Bank Balance)
 
+**Purpose:** Express a cumulative sum of sales along the visualization’s sort order (often date).
+
+**Walkthrough:** `RUNNING_SUM` is Tableau’s formula language; UI steps in the comment describe Quick Table Calc.
+
 ```sql
 -- Shows how sales add up over time
 Running Total = RUNNING_SUM(SUM([Sales]))
@@ -33,6 +45,10 @@ Example Use:
 ```
 
 #### Growth Rate (Like Calculating Interest)
+
+**Purpose:** Compute period-over-period percent change using `LOOKUP` to read the previous mark’s value.
+
+**Walkthrough:** `-1` in `LOOKUP` means one step back along the partition; denominator is prior period sales.
 
 ```sql
 -- Shows how much something grew
@@ -49,6 +65,10 @@ Example Use:
 ```
 
 #### Moving Average (Smoothing Out the Bumps)
+
+**Purpose:** Smooth a noisy series with a trailing window average (here three periods including current).
+
+**Walkthrough:** `WINDOW_AVG` with `-2` to `0` averages current and two prior periods along the partition.
 
 ```sql
 -- Averages last 3 periods to smooth trends
@@ -73,6 +93,10 @@ Think of them as a way to look at your data from different angles at the same ti
 
 #### FIXED: Look at Specific Things
 
+**Purpose:** Compute a per-customer aggregate (here average sales) that ignores other dimensions on the sheet unless blended.
+
+**Walkthrough:** `{FIXED [Customer Name] : ...}` pins the grain to customer; compare to table totals with `TOTAL()` or reference lines.
+
 ```sql
 -- Find average order value per customer
 {FIXED [Customer Name] : 
@@ -86,6 +110,10 @@ Real-World Use:
 
 #### INCLUDE: Add Extra Detail
 
+**Purpose:** Add a dimension to the LOD grain beyond what the view already groups by—here product within each region context.
+
+**Walkthrough:** `INCLUDE` increases detail relative to the view; use when the view is coarser than the aggregation you need.
+
 ```sql
 -- Sales by product within each region
 {INCLUDE [Product]: 
@@ -98,6 +126,10 @@ When to Use:
 ```
 
 #### EXCLUDE: Remove Some Detail
+
+**Purpose:** Compute an aggregate at a coarser level by stripping a dimension from the LOD (e.g. company average without region).
+
+**Walkthrough:** `EXCLUDE [Region]` removes region from the inner aggregation; compare to per-region marks.
 
 ```sql
 -- Overall average excluding regions
@@ -114,6 +146,10 @@ Perfect For:
 
 ### Combo Charts (Two Charts in One!)
 
+**Purpose:** Combine bar and line (or other mark types) on shared time or category axes with dual axes when scales differ.
+
+**Walkthrough:** Dual axis aligns two measures; synchronize or not depending on whether scales are comparable.
+
 ```yaml
 Steps to Create:
 1. Start with a bar chart
@@ -127,6 +163,10 @@ Example:
 ```
 
 ### Custom Charts (Be Creative!)
+
+**Purpose:** Suggest chart types beyond defaults (dumbbell, bullet, waterfall) for comparisons and part-to-whole stories.
+
+**Walkthrough:** Each type maps to a Tableau recipe (often dual-axis or Gantt-style marks); look up the official tutorial for your version.
 
 ```yaml
 Try These Cool Ideas:
@@ -150,6 +190,10 @@ Try These Cool Ideas:
 
 ### Parameters (Let Users Choose!)
 
+**Purpose:** Let viewers change thresholds, N, or dates through a control without editing the workbook.
+
+**Walkthrough:** Parameter is a workbook object; calculated fields reference it with `[Parameter Name]`.
+
 ```yaml
 Create a Parameter:
 1. Right-click in Data pane
@@ -164,6 +208,10 @@ Example Uses:
 ```
 
 ### Actions (Make Things Happen!)
+
+**Purpose:** Link sheets—filter, highlight, or navigate—so dashboards feel like one connected app.
+
+**Walkthrough:** Define source sheet, action type, and target; test with multi-select and clearing.
 
 ```yaml
 Types of Actions:
@@ -185,6 +233,10 @@ Types of Actions:
 
 ### Performance Tips
 
+**Purpose:** Reduce query load and calculation cost so large dashboards stay responsive.
+
+**Walkthrough:** Extracts trade freshness for speed; simplify calcs; push filters and date bounds early.
+
 ```yaml
 Speed Up Your Dashboard:
 1. Use Extracts Instead of Live:
@@ -205,6 +257,10 @@ Speed Up Your Dashboard:
 
 ### Design for Understanding
 
+**Purpose:** Reinforce narrative, guidance, and visual hygiene on advanced vizzes—not only performance.
+
+**Walkthrough:** Reference lines and annotations answer “compared to what?”; tooltips carry definitions.
+
 ```yaml
 Make It Clear:
 1. Add Context:
@@ -224,6 +280,8 @@ Make It Clear:
 ```
 
 ## Practice Exercises to Try
+
+**Note:** Exercise IDs 1–3 below are open-ended lab prompts—build them in Tableau (or your course sandbox); no starter workbook is bundled here.
 
 1. **Customer Analysis Dashboard:**
 

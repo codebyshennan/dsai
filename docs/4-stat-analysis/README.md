@@ -1,6 +1,14 @@
 # Module 4: Statistical Analysis
 
+**After this module:** you have a map of this module’s units, prerequisites, and how they connect to the rest of the course—then work through each submodule in order unless your instructor says otherwise.
+
 This module turns ideas from [intro statistics (module 1.3)](../1-data-fundamentals/1.3-intro-statistics/README.md) into tools for inference, testing, relationships, and modelling. Work through the units in order unless your instructor assigns a different path.
+
+## Helpful video
+
+Inferential statistics: estimating uncertainty with confidence intervals.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TqOeMYtOc1w" title="Confidence Intervals, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Why this matters
 
@@ -23,6 +31,10 @@ This module turns ideas from [intro statistics (module 1.3)](../1-data-fundament
 | [4.2 Hypothesis testing](./4.2-hypotheses-testing/README.md) | Design, hypotheses, A/B tests, choosing tests, reporting | [Experimental design](./4.2-hypotheses-testing/experimental-design.md) |
 | [4.3 Relationships in data](./4.3-rship-in-data/README.md) | Correlation and regression, diagnostics | [Understanding relationships](./4.3-rship-in-data/understanding-relationships.md) |
 | [4.4 Statistical modelling](./4.4-stat-modelling/README.md) | Logistic and polynomial models, selection, regularization, interpretation | [Logistic regression](./4.4-stat-modelling/logistic-regression.md) |
+
+## Code examples (maintainers)
+
+Substantive `python` fenced blocks in this module pair with a short **bold title**, **Purpose:** (what the learner gains), and **Walkthrough:** when pointing at specific lines or APIs helps. Bare stdout fences that immediately follow a snippet are labeled **Captured output (example):** so they are not orphaned. Reference style: [Statistical tests](./4.2-hypotheses-testing/statistical-tests.md). Do not mirror these annotations in companion `*_output.md` files (they duplicate lesson code for execution logs). For [tutorial notebooks](./4.2-hypotheses-testing/tutorial.ipynb) and other `.ipynb` files, use the same structure in markdown cells above the relevant code cells.
 
 ## Practice and assessment
 

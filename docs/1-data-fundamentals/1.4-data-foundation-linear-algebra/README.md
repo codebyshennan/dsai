@@ -1,5 +1,7 @@
 # Data Foundation with NumPy
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Data Foundation with NumPy** in your course schedule.
+
 > **Time needed:** 4-5 hours to complete this module
 
 ## Why Learn NumPy?
@@ -21,6 +23,14 @@ Before starting this module, you should have:
 - Comfortable with arrays or matrices from math class (we'll review if needed)
 
 > **Tip:** Think of NumPy arrays like super-powered lists. If you understand Python lists, you're already halfway there!
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QUT1VHiLmmI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*freeCodeCamp — Python NumPy tutorial for beginners*
 
 ---
 

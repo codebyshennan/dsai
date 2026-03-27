@@ -1,8 +1,14 @@
 # Understanding Data Distributions: A Comprehensive Guide
 
-## Overview
+**After this lesson:** You can summarize a numeric column with appropriate center and spread, recognize skew and heavy tails from plots, and connect distribution shape to next steps (transform, robust stats, or modeling).
 
-**Primary outcome:** You can summarize a numeric column with appropriate center and spread, recognize skew and heavy tails from plots, and connect distribution shape to next steps (transform, robust stats, or modeling).
+## Helpful video
+
+Summarizing distributions with percentiles—common in exploratory analysis.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IFKQLDmRK0Y" title="Quantiles and Percentiles, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Module 2.3 README](README.md) and [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md). [Two-variable statistics](../../1-data-fundamentals/1.3-intro-statistics/two-variable-statistics.md) supports correlation context.
 
@@ -106,7 +112,10 @@ Shape measures help identify the need for transformations:
 
 This framework provides a systematic approach to understanding your data's distribution:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -249,7 +258,65 @@ class DistributionAnalyzer:
             title='Interactive Box Plot'
         )
         fig2.show()
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-23" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import pandas as pd</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-47" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Self.tests = {}</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 24–47: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="48-71" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;iqr&#x27;: self.data.quantile(0.75) - self.data.q…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 48–71: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="72-94" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;critical_values&#x27;: anderson_test.critical_values</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 72–94: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="95-118" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plt.title(&#x27;Violin Plot&#x27;)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 95–118: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="119-142" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def create_interactive_plots(self):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 119–142: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **Figure (add screenshot or diagram):** Histogram with overlaid mean or median—see **assets/histogram_with_stats.png** when available.
 
@@ -261,9 +328,12 @@ class DistributionAnalyzer:
 
 Let's analyze a real sales dataset to understand common distribution patterns and their business implications:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Load sample sales data
-sales_data = pd.read_csv('sales_data.csv')
+sales_data = pd.read_csv('../_data/sales_data.csv')
 
 # Initialize analyzer
 analyzer = DistributionAnalyzer(sales_data, 'revenue')
@@ -288,7 +358,29 @@ if stats['skew'] > 1:
     print("- Consider log transformation for analysis")
     print("- Focus on median for central tendency")
     print("- Investigate high-value outliers")
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load sample sales data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Print(&quot;\nDistribution Analysis:&quot;)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–26: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Distribution Patterns and Their Business Implications
 
@@ -324,7 +416,10 @@ Understanding these patterns helps make better business decisions:
 
 ### 1. Normal Distribution
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def analyze_normality(data, alpha=0.05):
     """Comprehensive normality analysis"""
     results = {
@@ -347,11 +442,36 @@ def analyze_normality(data, alpha=0.05):
     ])
     
     return results
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def analyze_normality(data, alpha=0.05):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">}</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Long-Tailed Distributions
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def analyze_tail_behavior(data):
     """Analyze distribution tail behavior"""
     percentiles = np.percentile(data, [1, 5, 95, 99])
@@ -367,11 +487,36 @@ def analyze_tail_behavior(data):
             'right_heavy': (percentiles[3] - percentiles[2]) / iqr > 1.5
         }
     }
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def analyze_tail_behavior(data):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;left_tail&#x27;: (percentiles[1] - percentiles[0]…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 8–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Multimodal Distributions
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def detect_multimodality(data, bandwidth=None):
     """Detect multiple modes in distribution"""
     from scipy.signal import find_peaks
@@ -389,13 +534,38 @@ def detect_multimodality(data, bandwidth=None):
         'mode_locations': x_range[peaks],
         'is_multimodal': len(peaks) > 1
     }
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def detect_multimodality(data, bandwidth=None):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Find peaks</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–17: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Performance Optimization Tips: Handling Large-Scale Distribution Analysis
 
 ### 1. Memory Efficiency
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def optimize_numeric_analysis(data):
     """Optimize numeric computations"""
     # Use numpy arrays for computations
@@ -415,11 +585,36 @@ def optimize_numeric_analysis(data):
         'skewness': skew,
         'kurtosis': kurt
     }
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def optimize_numeric_analysis(data):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Var = np.sum(diff**2) / n</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 10–19: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Efficient Visualization
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def create_efficient_plots(data, max_points=10000):
     """Create efficient visualizations for large datasets"""
     if len(data) > max_points:
@@ -442,7 +637,29 @@ def create_efficient_plots(data, max_points=10000):
     
     plt.tight_layout()
     plt.show()
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def create_efficient_plots(data, max_points=1…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Histogram (using bins)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Pitfalls and Solutions: Learning from Experience
 
@@ -450,56 +667,113 @@ Avoid these common mistakes in distribution analysis:
 
 1. **Assuming Normality**
 
-   ```python
-   # Bad: Always using mean and std
-   summary = {'mean': data.mean(), 'std': data.std()}
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   # Good: Use robust statistics when appropriate
-   def robust_summary(data):
-       return {
-           'median': np.median(data),
-           'mad': stats.median_abs_deviation(data),
-           'iqr': np.percentile(data, 75) - np.percentile(data, 25)
-       }
-   ```
+   {% highlight python %}
+      # Bad: Always using mean and std
+      summary = {'mean': data.mean(), 'std': data.std()}
+      
+      # Good: Use robust statistics when appropriate
+      def robust_summary(data):
+          return {
+              'median': np.median(data),
+              'mad': stats.median_abs_deviation(data),
+              'iqr': np.percentile(data, 75) - np.percentile(data, 25)
+          }
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-10" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Bad: Always using mean and std</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–10: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **Ignoring Sample Size**
 
-   ```python
-   def adjust_for_sample_size(data):
-       """Adjust analysis based on sample size"""
-       n = len(data)
-       if n < 30:
-           print("Warning: Small sample size")
-           # Use non-parametric methods
-           return {
-               'central': np.median(data),
-               'spread': stats.iqr(data),
-               'test': stats.shapiro(data)
-           }
-       else:
-           return {
-               'central': np.mean(data),
-               'spread': np.std(data),
-               'test': stats.normaltest(data)
-           }
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      def adjust_for_sample_size(data):
+          """Adjust analysis based on sample size"""
+          n = len(data)
+          if n < 30:
+              print("Warning: Small sample size")
+              # Use non-parametric methods
+              return {
+                  'central': np.median(data),
+                  'spread': stats.iqr(data),
+                  'test': stats.shapiro(data)
+              }
+          else:
+              return {
+                  'central': np.mean(data),
+                  'spread': np.std(data),
+                  'test': stats.normaltest(data)
+              }
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Def adjust_for_sample_size(data):</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–8: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="9-17" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">&#x27;spread&#x27;: stats.iqr(data),</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 9–17: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **Overlooking Outliers**
 
-   ```python
-   def analyze_with_outliers(data):
-       """Analyze distribution with and without outliers"""
-       Q1, Q3 = np.percentile(data, [25, 75])
-       IQR = Q3 - Q1
-       outlier_mask = (data < Q1 - 1.5*IQR) | (data > Q3 + 1.5*IQR)
-       
-       return {
-           'with_outliers': data.describe(),
-           'without_outliers': data[~outlier_mask].describe(),
-           'n_outliers': sum(outlier_mask)
-       }
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      def analyze_with_outliers(data):
+          """Analyze distribution with and without outliers"""
+          Q1, Q3 = np.percentile(data, [25, 75])
+          IQR = Q3 - Q1
+          outlier_mask = (data < Q1 - 1.5*IQR) | (data > Q3 + 1.5*IQR)
+          
+          return {
+              'with_outliers': data.describe(),
+              'without_outliers': data[~outlier_mask].describe(),
+              'n_outliers': sum(outlier_mask)
+          }
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-11" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Def analyze_with_outliers(data):</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–11: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 Remember: "The choice of distribution analysis method should be guided by your data's characteristics and your analysis goals!"
 

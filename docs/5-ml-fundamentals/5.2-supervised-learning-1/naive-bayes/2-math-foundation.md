@@ -1,5 +1,13 @@
 # Mathematical Foundation of Naive Bayes
 
+**After this lesson:** you can explain the core ideas in “Mathematical Foundation of Naive Bayes” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Welcome to the Math Behind Naive Bayes
 
 Don't worry if math isn't your strongest suit! We'll break down the concepts into simple, understandable pieces. Think of this as learning a new language - we'll start with the basics and build up gradually.
@@ -35,6 +43,14 @@ Think of it like this:
 ### Real-World Example: Email Spam Detection
 
 Let's make this concrete with an email example:
+
+#### Spam posterior from counts
+
+**Purpose:** Compute \(P(\text{spam} \mid \text{"free"})\) using Bayes' rule from simple email/word counts (prior, likelihood, evidence, posterior).
+
+**Walkthrough:**
+- Set `total_emails`, `spam_emails`, joint counts for "free", then `prior`, `likelihood`, `evidence`.
+- Posterior is `(likelihood * prior) / evidence`.
 
 ```python
 # Let's say we have 1000 emails in our training data
@@ -101,6 +117,14 @@ It's like a voting system where each feature gets a say, and the class with the 
 
 Let's classify a document as either tech or sports:
 
+#### Tech vs sports score (naive product)
+
+**Purpose:** Show how class priors multiply independent word likelihoods to get a score for each label; the larger score wins.
+
+**Walkthrough:**
+- Set priors `P_tech`, `P_sports` and per-word conditional probabilities for each class.
+- Multiply (naive independence) to get `tech_score` and `sports_score`.
+
 ```python
 # Our document: "computer program code"
 words = ["computer", "program", "code"]
@@ -138,7 +162,17 @@ For example, if we're predicting gender based on height:
 - Most women are around 162cm
 - The curve shows how likely other heights are
 
+#### Gaussian likelihood for height
+
+**Purpose:** Compare Gaussian density values at a fixed height for two groups (male vs female) to see which label is more likely under each curve.
+
+**Walkthrough:**
+- Define `gaussian_probability(x, mean, std)` using the normal PDF.
+- Evaluate at `x=168` for both groups and compare `male_prob` vs `female_prob`.
+
 ```python
+import math
+
 # Example: Predicting gender based on height
 male_height_mean = 175    # Average male height
 male_height_std = 10      # How much heights vary

@@ -1,5 +1,7 @@
 # Understanding Relationships in Data: Connecting the Dots
 
+**After this lesson:** you can explain the core ideas in “Understanding Relationships in Data: Connecting the Dots” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - You will tell **association** from **causation** and choose the right follow-up tool (correlation, regression, or tests).
@@ -16,7 +18,9 @@ Welcome to your journey of discovering how things connect in the world of data! 
 
 ### Video Tutorial: Understanding Relationships in Data
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xZ_z8KWkhXE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Correlation by Josh Starmer*
 

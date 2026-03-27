@@ -1,5 +1,13 @@
 # Data Science & AI Capstone Project
 
+**After this module:** you have a map of this module’s units, prerequisites, and how they connect to the rest of the course—then work through each submodule in order unless your instructor says otherwise.
+
+## Helpful video
+
+End-to-end context for planning and presenting a capstone project.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Project Overview
 This capstone project is designed to demonstrate industry-relevant data science and AI skills acquired throughout the course. Students will work on real-world datasets to solve practical problems using various data science techniques.
 

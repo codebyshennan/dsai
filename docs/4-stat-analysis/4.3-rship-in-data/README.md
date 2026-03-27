@@ -1,8 +1,16 @@
 # Relationships in Data: Correlation and Regression
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Relationships in Data: Correlation and Regression** in your course schedule.
+
 See the [Module 4 overview](../README.md) for prerequisites and how this unit connects to inference and modelling.
 
 Welcome to this comprehensive guide on understanding relationships in data! This module is designed to take you from basic concepts to practical implementation, with plenty of examples and visualizations along the way.
+
+## Helpful video
+
+Overview of regression with several predictors.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zITIFTsivN8" title="Multiple Regression, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Learning Objectives
 

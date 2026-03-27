@@ -1,5 +1,13 @@
 # Hyperparameter Tuning
 
+**After this lesson:** you can explain the core ideas in “Hyperparameter Tuning” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Introduction
 
 Hyperparameter tuning is the process of finding the optimal set of hyperparameters for a machine learning model. Think of it as fine-tuning a musical instrument - you need to adjust various knobs and settings to get the best sound. Unlike model parameters (which are learned during training), hyperparameters are set before training begins and control the learning process itself.
@@ -144,6 +152,17 @@ test_score = best_model.score(X_test, y_test)
 print(f"Test set accuracy: {test_score:.4f}")
 ```
 
+
+![hyperparameter-tuning](assets/hyperparameter-tuning_fig_1.png)
+
+```
+Starting grid search...
+Fitting 5 folds for each of 108 candidates, totalling 540 fits
+Best parameters: {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 300}
+Best cross-validation score: 0.9075
+Test set accuracy: 0.9450
+```
+
 **Expected Output:**
 ```
 Starting grid search...
@@ -215,6 +234,14 @@ print(f"Best cross-validation score: {random_search.best_score_:.4f}")
 # Compare with grid search
 test_score = random_search.best_estimator_.score(X_test, y_test)
 print(f"Test set accuracy: {test_score:.4f}")
+```
+
+```
+Starting random search...
+Fitting 5 folds for each of 50 candidates, totalling 250 fits
+Best parameters: {'max_depth': 32, 'max_features': np.float64(0.42066805426927745), 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 426}
+Best cross-validation score: 0.9037
+Test set accuracy: 0.9500
 ```
 
 ### 3. Bayesian Optimization
@@ -381,6 +408,12 @@ end_time = time.time()
 
 print(f"Tuning took {end_time - start_time:.2f} seconds")
 print(f"Evaluated {len(grid_search.cv_results_['params'])} combinations")
+```
+
+```
+Fitting 5 folds for each of 108 candidates, totalling 540 fits
+Tuning took 14.01 seconds
+Evaluated 108 combinations
 ```
 
 ### 4. Consider Early Stopping

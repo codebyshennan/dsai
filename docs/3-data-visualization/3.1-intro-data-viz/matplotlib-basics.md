@@ -1,6 +1,14 @@
 # Getting Started with Matplotlib
 
+**After this lesson:** you can explain the core ideas in “Getting Started with Matplotlib” and reproduce the examples here in your own notebook or environment.
+
 > **Note:** This lesson is **code-first**. You will type Python to control figures, axes, and styles. Skim [Visualization principles](visualization-principles.md) first if you are unsure *why* certain choices make charts easier to read.
+
+## Helpful video
+
+Context for how visualization fits into analytics and communication.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is Matplotlib?
 
@@ -16,6 +24,10 @@ Matplotlib is like a digital artist's canvas for data. It's Python's most popula
 ## Your First Steps
 
 ### Setting Up Your Environment
+
+**Purpose:** Import Matplotlib and NumPy, enable inline figures in Jupyter, and apply a consistent default style.
+
+**Walkthrough:** `%matplotlib inline` is IPython/Jupyter magic; `plt.style.use` applies a named style sheet to subsequent figures.
 
 ```python
 # Essential imports - think of these as your art supplies
@@ -42,6 +54,10 @@ Think of a Matplotlib plot like a painting:
 ## Creating Your First Plot
 
 ### Simple Line Plot
+
+**Purpose:** Build one sine curve with the object-oriented API: figure/axes, styled line, labels, grid, and legend.
+
+**Walkthrough:** `subplots` returns `(fig, ax)`; plotting goes on `ax`; `label` + `legend()` explains the curve.
 
 ```python
 def create_simple_plot():
@@ -87,6 +103,10 @@ Let's break down what each part does:
 
 Think of this as quick sketching:
 
+**Purpose:** See the stateful `pyplot` workflow: one global figure, `plot`, then `show()`.
+
+**Walkthrough:** `'ro-'` is format shorthand (color, marker, linestyle); quick for scripts, less explicit than the OO API.
+
 ```python
 def pyplot_example():
     plt.figure(figsize=(10, 6))
@@ -101,6 +121,10 @@ def pyplot_example():
 ### 2. Object-Oriented
 
 Think of this as detailed painting:
+
+**Purpose:** Same geometry as the pyplot example but all drawing goes through an `Axes` object—preferred for multi-panel figures.
+
+**Walkthrough:** `subplots` creates `ax`; methods are `set_title`/`set_xlabel` instead of `plt.title`.
 
 ```python
 def object_oriented_example():
@@ -118,6 +142,10 @@ def object_oriented_example():
 ### 1. Line Plots
 
 Perfect for showing trends over time:
+
+**Purpose:** Overlay two series on shared axes with distinct colors and a legend.
+
+**Walkthrough:** Two `ax.plot` calls; `grid` uses dotted lines; `legend` picks up `label=` strings.
 
 ```python
 def create_line_plot(x, y1, y2):
@@ -148,6 +176,10 @@ def create_line_plot(x, y1, y2):
 
 Great for showing relationships between variables:
 
+**Purpose:** Encode two continuous variables as position, plus optional color and size channels, with a colorbar legend.
+
+**Walkthrough:** `scatter` returns a `PathCollection`; pass it to `colorbar`; `cmap` controls the gradient.
+
 ```python
 def create_scatter_plot(x, y, colors, sizes):
     """Create an informative scatter plot"""
@@ -173,6 +205,10 @@ def create_scatter_plot(x, y, colors, sizes):
 ### 3. Bar Charts
 
 Ideal for comparing categories:
+
+**Purpose:** Draw vertical bars with optional error bars and numeric labels on top of each bar.
+
+**Walkthrough:** `bar` accepts `yerr`/`capsize`; the loop uses `bar.get_x()` and `get_width()` to center text.
 
 ```python
 def create_bar_chart(categories, values, errors=None):
@@ -209,6 +245,10 @@ def create_bar_chart(categories, values, errors=None):
 
 Think of colors as your paint palette:
 
+**Purpose:** Keep named hex lists ready for categorical series, pastels, or grayscale layouts.
+
+**Walkthrough:** This dict is data only—index into it when assigning `color=` to plots.
+
 ```python
 # Professional color schemes
 color_schemes = {
@@ -221,6 +261,10 @@ color_schemes = {
 ### Text Styling
 
 Make your text clear and readable:
+
+**Purpose:** Centralize title/label sizing and tick fontsize so every subplot in a dashboard matches.
+
+**Walkthrough:** Reads existing title/label strings with `get_*` before re-applying with new sizes; `tick_params` adjusts tick numbers.
 
 ```python
 def style_text(ax, title_size=14, label_size=12):
@@ -247,6 +291,10 @@ def style_text(ax, title_size=14, label_size=12):
 
 Think of this as creating a gallery of related plots:
 
+**Purpose:** Reserve a 2×2 grid where one subplot spans the full bottom row for a wide chart.
+
+**Walkthrough:** `add_gridspec` defines geometry; `add_subplot(gs[row,col])` places axes; bottom spans columns with `gs[1, :]`.
+
 ```python
 def create_dashboard():
     """Create a dashboard with multiple plots"""
@@ -272,6 +320,10 @@ def create_dashboard():
 ### High-Quality Exports
 
 Save your visualizations for different purposes:
+
+**Purpose:** Export the same figure to raster (PNG) and vector (PDF) with tight bounding boxes.
+
+**Walkthrough:** `savefig` on the `Figure` object; `bbox_inches='tight'` crops padding; `transparent=True` for slides.
 
 ```python
 def save_plot(fig, filename, dpi=300):

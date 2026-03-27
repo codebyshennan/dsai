@@ -1,5 +1,13 @@
 # Parameters and Statistics: The Bridge to Understanding Populations
 
+**After this lesson:** you can explain the core ideas in “Parameters and Statistics: The Bridge to Understanding Populations” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest introduction to confidence intervals.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TqOeMYtOc1w" title="Confidence Intervals, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Why this matters
 
 - You will separate **population parameters** (unknown, fixed) from **sample statistics** (computed from data) in every inference task.
@@ -79,6 +87,12 @@ A good estimator should possess the following properties:
 
 A point estimate is like taking your best shot at the true value:
 
+**Simulated forest: μ vs one \(\bar x\)**
+
+**Purpose:** Ground notation—population mean vs sample mean—on a synthetic finite “forest” and a single draw of 100 trees.
+
+**Walkthrough:** `population` is stand-in census; `choice` with replacement mimics IID sampling from a large population; prints report |μ̂ − μ| for one realization.
+
 ```python
 import numpy as np
 np.random.seed(42)  # For reproducibility
@@ -103,6 +117,12 @@ print(f"Difference: {abs(population_mean - sample_mean):.2f} feet")
 ### Interval Estimates: Being Realistic About Uncertainty
 
 Instead of a single guess, we provide a range where we believe the true value lies:
+
+**t-interval continuing the same sample**
+
+**Purpose:** Turn the previous lesson’s `sample` and `sample_mean` into a textbook t-based CI using sample SD and \(n-1\) degrees of freedom.
+
+**Walkthrough:** `stats.t.ppf` at \((1+0.95)/2\) gives two-sided critical t; margin is \(t_{df} \cdot s/\sqrt{n}\); relies on `sample` still in memory from the prior cell.
 
 ```python
 from scipy import stats
@@ -132,6 +152,12 @@ print(f"tree height falls between {ci_lower:.2f} and {ci_upper:.2f} feet")
 
 An unbiased estimator's expected value equals the population parameter:
 
+**Monte Carlo average of \(\bar x\)**
+
+**Purpose:** Show empirically that the mean of many sample means tracks \(\mu\)—the computational face of unbiasedness for the sample mean.
+
+**Walkthrough:** Loop draws fresh n=100 samples with replacement; `mean_of_means` should hug `population_mean` from the earlier simulation block.
+
 ```python
 # Demonstrate unbiasedness of sample mean
 n_simulations = 1000
@@ -155,6 +181,12 @@ print(f"Difference: {abs(population_mean - mean_of_means):.2f}")
 ### 2. Efficiency: Minimal Variance
 
 An efficient estimator has less variability in its estimates:
+
+**Mean vs 10% trimmed mean on the same draw**
+
+**Purpose:** Illustrate two competing location estimators on identical data—under normality the plain mean is BLUE; trimming trades bias/variance when tails are heavy.
+
+**Walkthrough:** `stats.trim_mean(data, 0.1)` drops the lowest/highest 10% before averaging; compare numeric closeness for teaching, not a formal efficiency calculation.
 
 ```python
 def compare_estimators(data):
@@ -180,6 +212,12 @@ print(f"Trimmed mean: {trimmed_mean:.2f}")
 
 A consistent estimator converges to the true value as sample size increases:
 
+**One \(\bar x\) per n on a ladder of sizes**
+
+**Purpose:** Print how |x̄ − μ| shrinks as `size` grows—visual consistency narrative without a formal limit proof.
+
+**Walkthrough:** Same `population` array as before; independent draws per row—differences step down on average as n increases.
+
 ```python
 # Demonstrate consistency with increasing sample sizes
 sample_sizes = [10, 100, 1000, 5000]
@@ -202,6 +240,12 @@ for size, result in zip(sample_sizes, results):
 ## Real-World Applications
 
 ### 1. Quality Control in Manufacturing
+
+**One-shot manufacturing sample → t CI**
+
+**Purpose:** Package sample mean, sample SD, and `stats.t.interval` into a dict return—pattern matches how you’d log QC telemetry in code.
+
+**Walkthrough:** Gaussian sample around target 100; `stats.sem` implicit inside `t.interval` via `scale` argument; function body stays side-effect free.
 
 ```python
 import numpy as np
@@ -236,6 +280,12 @@ def quality_control_example():
 *Figure 8: Quality control measurements with target value (red), sample mean (green), and 95% confidence interval (blue).*
 
 ### 2. A/B Testing in Tech
+
+**Bernoulli arms and normal-approx CI on \(\hat p_T - \hat p_C\)**
+
+**Purpose:** Estimate lift between two conversion rates and attach an asymptotic CI—common quick-and-dirty reporting path (check assumptions in production).
+
+**Walkthrough:** Independent Bernoulli vectors; `diff_std` uses separate-factor SE formula; `stats.norm.interval` treats the difference as normal—OK for large n.
 
 ```python
 def ab_testing_example():
@@ -345,6 +395,12 @@ A:
 
 A sampling distribution is the distribution of a statistic (like the mean) across all possible samples of a given size from a population. It's crucial because it tells us how our sample statistics would vary if we were to take many samples.
 
+**Empirical sampling distribution with seaborn KDE**
+
+**Purpose:** Histogram/KDE of many x̄ values with a vertical line at μ—needs `matplotlib`/`seaborn` imported in the notebook environment running this snippet.
+
+**Walkthrough:** Double loop unnecessary—inner draws `sample_size` with replacement; returns dict comparing population mean to mean/SD of simulated x̄’s.
+
 ```python
 def demonstrate_sampling_distribution():
     # Generate population data
@@ -386,6 +442,12 @@ The Central Limit Theorem (CLT) states that:
 - The mean of the sampling distribution equals the population mean
 - The standard deviation of the sampling distribution (standard error) equals σ/√n
 
+**Skewed population: CLT at three n values**
+
+**Purpose:** Side-by-side KDE/histograms of x̄ for small, medium, and large n from an exponential population—normality emerges for the *mean*, not the raw data.
+
+**Walkthrough:** Exponential draws; nested loops fill `sample_means` per panel; axis titles show n.
+
 ```python
 def demonstrate_clt():
     # Generate non-normal population
@@ -416,6 +478,12 @@ def demonstrate_clt():
 ### Standard Error
 
 The standard error (SE) measures the precision of our sample statistic:
+
+**Manual SEM and t-interval**
+
+**Purpose:** Show SE as `s/√n` with `ddof=1`, then feed that scalar into `stats.t.interval` as the scale—mirrors the hand formula for μ.
+
+**Walkthrough:** Single random normal sample; return dict bundles point estimate, SE, and CI tuple.
 
 ```python
 def calculate_standard_error():
@@ -471,6 +539,12 @@ def calculate_standard_error():
 
 A resampling technique to estimate sampling distributions:
 
+**Nonparametric bootstrap CI for the mean**
+
+**Purpose:** Resample rows with replacement to build an empirical distribution of x̄ and take percentile bounds—distribution-free alternative when parametric assumptions hesitate.
+
+**Walkthrough:** Inner loop draws `len(sample)` picks with replacement; `np.percentile` on bootstrap means gives equal-tail 95% interval.
+
 ```python
 def bootstrap_example():
     # Original sample
@@ -497,6 +571,12 @@ def bootstrap_example():
 ### Finite Population Correction
 
 When sampling without replacement from a finite population:
+
+**Finite population correction factor**
+
+**Purpose:** Show the √(N−n)/(N−1) multiplier that shrinks variance when sampling without replacement from small frames—often omitted in “infinite population” approximations.
+
+**Walkthrough:** Pure scalar math; multiply estimated SE by `fpc` when applying formulas that assumed WR sampling.
 
 ```python
 def finite_population_correction():

@@ -1,5 +1,7 @@
 # Interactive Visualization with Plotly
 
+**After this lesson:** you can explain the core ideas in “Interactive Visualization with Plotly” and reproduce the examples here in your own notebook or environment.
+
 > **Note:** This lesson is **code-first**. Comfortable **pandas** plots or [Seaborn](seaborn-guide.md) help, but you can follow along if you know Matplotlib basics.
 
 ## Introduction
@@ -8,9 +10,17 @@ Plotly transforms static visualizations into dynamic, interactive web experience
 
 ### Video Tutorial: Plotly Interactive Visualization
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/GGL6U0k8WYA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Plotly Express - Interactive Visualization made easy in Python*
+
+**Plotly at a glance**
+
+**Purpose:** Highlight interactivity, web output, and live-update patterns versus static Matplotlib.
+
+**Walkthrough:** Schematic only—not runnable Python.
 
 ```yaml
 Key Features:
@@ -26,6 +36,11 @@ Key Features:
 ## Getting Started
 
 ### Professional Setup
+
+**Purpose:** Import Plotly Express and Graph Objects, set a default template and size, and initialize notebook mode for inline HTML.
+
+**Walkthrough:** `pio.templates.default` sets global styling; `init_notebook_mode(connected=True)` loads JS from CDN in Jupyter.
+
 ```python
 import plotly.express as px      # High-level interface
 import plotly.graph_objects as go # Low-level interface
@@ -52,6 +67,11 @@ setup_plotly_environment()
 ```
 
 ### Data Loading & Inspection
+
+**Purpose:** Load Plotly’s sample Gapminder-style frame, drop nulls, and add a log GDP column when present.
+
+**Walkthrough:** `px.data.gapminder()` is bundled; pattern extends to other `px.data` loaders via `getattribute`.
+
 ```python
 def load_and_prepare_data(dataset_name="gapminder"):
     """Load and prepare dataset for visualization"""
@@ -77,6 +97,11 @@ df = load_and_prepare_data()
 ## Basic Interactive Plots
 
 ### 1. Enhanced Scatter Plots
+
+**Purpose:** Build a scatter with size and color encodings, optional animation by year, formatted hovers, and a centered title.
+
+**Walkthrough:** `px.scatter` handles encoding; `update_layout` sets paper/plot background and gridline colors.
+
 ```python
 def create_interactive_scatter(data, x_col, y_col, 
                              size_col=None, color_col=None,
@@ -146,6 +171,11 @@ scatter_fig = create_interactive_scatter(
 **Output (Animation Frames):**
 > **Figure (add screenshot or diagram):** Animated Scatter Frames
 ### 2. Time Series Visualization
+
+**Purpose:** Interactive line chart with optional range slider and quick “YTD vs full range” relayout buttons.
+
+**Walkthrough:** `update_xaxes(rangeslider_visible=True)` adds the mini navigator; `updatemenus` injects Plotly `relayout` buttons.
+
 ```python
 def create_time_series_plot(data, x_col, y_col, 
                            group_col=None, add_range_slider=True):
@@ -206,9 +236,15 @@ time_fig = create_time_series_plot(
 
 **Output (with Range Slider):**
 > **Figure (add screenshot or diagram):** Time Series with Range Slider
-## 📈 Statistical Visualizations
+
+## Statistical Visualizations
 
 ### 1. Distribution Analysis
+
+**Purpose:** Four-cell dashboard: histogram, box, violin, and normal QQ plot using Graph Objects subplots.
+
+**Walkthrough:** `make_subplots` builds the grid; `go.Histogram`/`Box`/`Violin`/`Scatter` add traces; `scipy.stats.probplot` feeds QQ points—ensure `scipy` is installed.
+
 ```python
 def create_distribution_dashboard(data, numeric_col, 
                                 group_col=None):
@@ -307,6 +343,11 @@ dist_fig = create_distribution_dashboard(
 ## Advanced Features
 
 ### 1. Custom Themes
+
+**Purpose:** Toggle light vs dark presentation themes by updating paper/plot background, font, and gridline colors.
+
+**Walkthrough:** `fig.update_layout` merges dicts; extend `themes` with your brand colors.
+
 ```python
 def apply_custom_theme(fig, theme='modern'):
     """Apply professional custom theme"""
@@ -353,6 +394,11 @@ def apply_custom_theme(fig, theme='modern'):
 ```
 
 ### 2. Interactive Features
+
+**Purpose:** Standardize hover behavior, modebar styling, and add simple restyle buttons for trace visibility.
+
+**Walkthrough:** `hovermode='closest'`; `updatemenus` with `method='restyle'` toggles `visible` arrays—align indices with `fig.data`.
+
 ```python
 def add_interactive_features(fig):
     """Add professional interactive features"""
@@ -402,6 +448,11 @@ def add_interactive_features(fig):
 ## Best Practices
 
 ### 1. Performance Optimization
+
+**Purpose:** Downsample traces that exceed a point budget and prefer WebGL markers for large scatters.
+
+**Walkthrough:** Mutates `trace.x`/`y` in place—copy the figure first if you need the full data elsewhere; WebGL path depends on trace types.
+
 ```python
 def optimize_for_web(fig, max_points=1000):
     """Optimize figure for web performance"""
@@ -426,6 +477,11 @@ def optimize_for_web(fig, max_points=1000):
 ```
 
 ### 2. Export Settings
+
+**Purpose:** Export self-contained HTML (CDN JS) and static images when `kaleido` is available for raster/vector write.
+
+**Walkthrough:** `write_html` for sharing; `write_image` needs the Kaleido package for PNG/SVG/PDF.
+
 ```python
 def export_figure(fig, filename, formats=None):
     """Export figure in multiple formats"""

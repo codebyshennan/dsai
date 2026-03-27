@@ -1,145 +1,104 @@
-# Getting Started - Setup Guides
+# Getting started: setup guides
 
-Welcome to the Data Science & AI bootcamp! This folder contains all the setup guides you'll need to get your development environment ready.
+**After this folder (essential path):** you meet every bullet under **You are ready when** below—a working env, imports, Jupyter, and ideally VS Code tied to the same interpreter.
 
-## Quick Start Checklist
+Welcome to the Data Science and AI bootcamp. The pages in this folder get your **Python environment**, **libraries**, **editor**, and **notebooks** working so lesson time can focus on ideas instead of install errors.
 
-Before you begin the course, work through these in order:
+**Start here:** if you have done nothing yet, do only this sequence today: (1) install [Anaconda](./anaconda.md) or [uv](./anaconda.md), (2) install the [Python data science stack](./python-ds-stack.md), (3) open [Jupyter](./jupyter-notebook.md) and run a one-cell “hello” notebook. Add [VS Code](./vscode.md) when you want a full editor for `.py` files. Everything else on this page is optional until a module tells you to install it.
+
+## Helpful video
+
+Short overview of **what data science is** and how teams use data (about 8 minutes)—context before setup, not a substitute for the lessons.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## You are ready when
+
+You can check all of the following:
+
+- You have a **conda env** or **uv `.venv`** you know how to activate, and you use it every time you open a terminal.
+- `python -c "import pandas, numpy, matplotlib"` runs with **no** `ModuleNotFoundError`.
+- You can **start Jupyter** (from Anaconda Navigator or the command line) and run a cell that prints something.
+- Optional but recommended: VS Code opens a `.py` file and uses the **same** interpreter as your course environment (status bar shows the env).
+
+If any box fails, stay on that step until it passes—adding more tools rarely fixes a broken base install.
+
+## Quick start (order matters)
 
 1. **Python environment** (pick one):
-   - [Anaconda Setup](./anaconda.md) (recommended if you are new to Python)
-   - Or install **uv** using the steps in the [Anaconda guide](./anaconda.md)
-2. **Python libraries** — [Python Data Science Stack](./python-ds-stack.md)
-3. **Code editor** — [VS Code Setup](./vscode.md) (recommended)
-4. **Notebook tool** — [Jupyter Notebook Introduction](./jupyter-notebook.md)
+   - [Anaconda](./anaconda.md) if you are new to Python or want a GUI.
+   - **uv** only if you are already comfortable in the terminal—follow the same guide.
+2. **Libraries** — [Python data science stack](./python-ds-stack.md)
+3. **Editor** — [VS Code](./vscode.md) (recommended for scripts)
+4. **Notebooks** — [Jupyter](./jupyter-notebook.md)
 
-> **Note:** The site build does not turn `- [ ]` GitHub task-list syntax into interactive checkboxes, so this page uses a numbered checklist instead. Track progress in your own notes or in the repo if you use one.
+> **Note:** GitHub-style `- [ ]` task lists do not render as checkboxes on the course site, so use your own checklist or notes to track progress.
 
-## Essential Tools
+## Essential tools
 
-### Must Have (Required)
+### Must have
 
-1. **[Anaconda or uv](./anaconda.md)** - Python environment manager
-   - **Time needed:** 15-20 minutes
-   - **Difficulty:** Beginner-friendly
-   - Choose Anaconda if you're new to programming
+1. **[Anaconda or uv](./anaconda.md)** — isolates project packages  
+   - **Time:** about 15–20 minutes  
+   - Prefer Anaconda if you are new to programming.
 
-2. **[Python Data Science Libraries](./python-ds-stack.md)** - Essential packages
-   - **Time needed:** 10-15 minutes
-   - **Difficulty:** Easy (just run commands)
-   - Installs NumPy, Pandas, Matplotlib, and more
+2. **[Python data science libraries](./python-ds-stack.md)** — NumPy, pandas, plotting, sklearn, etc.  
+   - **Time:** about 10–15 minutes after the env exists  
 
-3. **[Jupyter Notebook](./jupyter-notebook.md)** - Interactive coding environment
-   - **Time needed:** Already included with Anaconda!
-   - **Difficulty:** Very easy
-   - This is where you'll do most of your work
+3. **[Jupyter Notebook](./jupyter-notebook.md)** — where most early exercises run  
+   - **Time:** usually zero extra install if you use Anaconda with Jupyter included  
 
-### Recommended Tools
+### Recommended
 
-4. **[VS Code](./vscode.md)** - Code editor
-   - **Time needed:** 5-10 minutes
-   - **Difficulty:** Easy
-   - Great for writing Python scripts
+4. **[VS Code](./vscode.md)** — editing and debugging `.py` files  
+5. **[DBeaver](./dbeaver.md)** — connect to databases for SQL lessons (any SQL client you prefer is fine)
 
-5. **[DBeaver](./dbeaver.md)** - Database tool
-   - **Time needed:** 5-10 minutes
-   - **Difficulty:** Easy
-   - For SQL lessons (you can use any SQL client)
+### Optional (install when a module needs them)
 
-### Optional Tools (Used in Specific Modules)
+| Guide | Use case |
+|-------|----------|
+| [Google Colab](./google-colab.md) | Browser notebooks, no local install |
+| [Tableau Public](./tableau.md) | BI / visualization modules |
+| [Snowflake](./snowflake.md) | Cloud warehouse and advanced SQL |
+| [Databricks](./databricks.md) | Spark / big data lessons |
+| [Airflow](./airflow.md) | Workflow and scheduling labs |
 
-6. **[Google Colab](./google-colab.md)** - Cloud-based notebooks
-   - **Time needed:** 2 minutes (just sign up)
-   - **Difficulty:** Very easy
-   - Alternative to Jupyter Notebook (no installation needed)
+## Suggested timeline
 
-7. **[Tableau Public](./tableau.md)** - Data visualization
-   - **Time needed:** 15-20 minutes
-   - **Difficulty:** Easy
-   - For data visualization modules
+**Week 1 — core setup:** conda or uv, libraries, confirm Jupyter, then VS Code.
 
-8. **[Snowflake](./snowflake.md)** - Cloud data warehouse
-   - **Time needed:** 10 minutes (free trial)
-   - **Difficulty:** Easy
-   - For advanced SQL and data engineering
+**Later — as assigned:** DBeaver when SQL starts; Tableau, Snowflake, Databricks, or Airflow when the module syllabus says so.
 
-9. **[Databricks Community Edition](./databricks.md)** - Big data platform
-   - **Time needed:** 5 minutes (just sign up)
-   - **Difficulty:** Very easy
-   - For big data and Spark lessons
+## Getting help
 
-10. **[Apache Airflow](./airflow.md)** - Workflow automation
-    - **Time needed:** 20-30 minutes
-    - **Difficulty:** Intermediate
-    - For data engineering workflows
+1. Troubleshooting sections in each guide  
+2. [How this course works](./pedagogy.md) — what to bring to office hours  
+3. Your instructor’s syllabus and announced channels  
 
-## Setup Order (Recommended)
+### Common first-time issues
 
-**Week 1 - Essential Setup:**
-1. Install Anaconda (or set up **uv**)
-2. Install Python data science libraries
-3. Test Jupyter Notebook
-4. Install VS Code (optional but recommended)
+- **“Command not found”** — the tool is not on your `PATH`; restart the terminal after install, or use the “Anaconda Prompt” / full path your guide mentions.
+- **Installs take a long time** — normal for large scientific stacks; use a stable connection.
+- **Permission errors** — on macOS/Linux avoid `sudo` for Python envs; fix ownership or use a user-level install instead.
+- **Wrong Python** — multiple Pythons are normal; always **activate** the course env before `pip`/`conda`/`uv`.
 
-**Week 2-3 - As Needed:**
-- Install DBeaver when you start SQL lessons
-- Set up Tableau when you reach visualization modules
-- Create Snowflake account for advanced SQL
-- Set up Databricks for big data topics
-- Install Airflow for data engineering projects
+## How teaching works here
 
-## Getting Help
+We use a **flipped** model: you study materials before live sessions and use class time to practice. Read [How this course works](./pedagogy.md) for a concrete week-by-week pattern and how to use office hours well.
 
-### If You Get Stuck
+## Tips
 
-1. **Check the troubleshooting section** in each guide
-2. **Review the "Common Issues"** section
-3. **Ask during office hours** (see [Pedagogy Guide](./pedagogy.md))
-4. **Check the documentation** links in each guide
+1. Finish core setup before racing ahead—broken envs waste more time than slow installs.  
+2. After each install, run the **verification** step in that guide.  
+3. Keep a short log of errors and fixes; it speeds up help.  
+4. Use one folder or repo for course work so paths stay predictable.
 
-### Common First-Time Issues
+## Need more help?
 
-- **"Command not found"** - Usually means the tool isn't in your PATH. Try restarting your terminal.
-- **Installation takes forever** - This is normal! Some packages are large. Be patient.
-- **Permission errors** - On macOS/Linux, you might need to use **sudo** (but be careful!)
-- **Can't find Python** - Make sure you installed Anaconda or Python first
-
-## Understanding the Course Structure
-
-This bootcamp uses a **flipped classroom** approach. Learn more in the [Pedagogy Guide](./pedagogy.md).
-
-**What this means:**
-
-- Review materials before class
-- Practice during class time
-- Get help during office hours
-- Learn at your own pace
-
-## Additional Resources
-
-Each setup guide includes:
-
-- Step-by-step instructions
-- Platform-specific notes (Windows, macOS, Linux)
-- Troubleshooting sections
-- Links to official documentation
-- Time estimates for each task
-
-## Tips for Success
-
-1. **Don't rush** - Take your time with setup
-2. **Test as you go** - Verify each tool works before moving on
-3. **Ask questions** - Office hours are there to help!
-4. **Keep notes** - Write down any issues you encounter
-5. **Stay organized** - Create a dedicated folder for course work
-
-## Need More Help?
-
-- Check the troubleshooting section in each guide
-- Contributors: see [Documentation Guidelines](https://github.com/codebyshennan/tamkeen-data/blob/main/docs/meta/DOCUMENTATION_GUIDELINES.md). The **docs/meta** folder is not published on the course site.
-- Contact your instructor during office hours
-- Check the official documentation links in each guide
+- Each guide links to official documentation for the tool.  
+- Contributors: [Documentation guidelines](https://github.com/codebyshennan/tamkeen-data/blob/main/docs/meta/DOCUMENTATION_GUIDELINES.md) (the `docs/meta` folder is not published on the site).  
+- Grading and policies: your instructor and syllabus.
 
 ---
 
-**Ready to start?** Begin with [Anaconda Setup](./anaconda.md) or check out the [Pedagogy Guide](./pedagogy.md) to understand how the course works!
+**Next step:** [Anaconda or uv](./anaconda.md), or [How this course works](./pedagogy.md) if your environment is already working.

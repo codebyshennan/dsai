@@ -1,6 +1,14 @@
 # Data Visualization Principles
 
+**After this lesson:** you can explain the core ideas in “Data Visualization Principles” and reproduce the examples here in your own notebook or environment.
+
 > **Note:** This lesson is **concept-first**: it explains *how people see* charts (pre-attentive vs attentive processing, Gestalt cues) before you lean on tool syntax. Use it with [Matplotlib basics](matplotlib-basics.md) when you implement ideas in code.
+
+## Helpful video
+
+Context for how visualization fits into analytics and communication.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Understanding Visual Perception
 

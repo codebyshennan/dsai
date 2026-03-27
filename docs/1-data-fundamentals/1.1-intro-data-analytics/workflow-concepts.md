@@ -1,5 +1,15 @@
 # Workflows and Lifecycle
 
+**After this lesson:** you can explain the core ideas in “Workflows and Lifecycle” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b9HMF4hqW0A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Ken Jee — The data science workflow*
+
 ## Data Analytics Lifecycle
 
 The Data Analytics Lifecycle is a structured approach that guides the process of analyzing data to derive meaningful insights. It consists of several key stages that ensure a comprehensive understanding of the data and its implications for decision-making.

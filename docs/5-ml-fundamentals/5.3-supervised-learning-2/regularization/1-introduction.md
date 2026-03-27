@@ -1,9 +1,17 @@
 # Introduction to Regularization
 
+**After this lesson:** you can explain the core ideas in “Introduction to Regularization” and reproduce the examples here in your own notebook or environment.
+
 Imagine you're learning to ride a bicycle. At first, you might use training wheels to prevent falling over. Regularization in machine learning works similarly - it's like adding training wheels to your model to prevent it from "falling over" (overfitting) when making predictions.
 
 ![Regularization Path](assets/regularization_path.png)
 *Figure 1: How regularization affects model coefficients as the regularization strength () changes*
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is Regularization?
 

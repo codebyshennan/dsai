@@ -1,5 +1,7 @@
 # Introduction to Python for Data Science
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Introduction to Python for Data Science** in your course schedule.
+
 > **Time needed:** 4-5 hours to complete this module
 
 ## Overview
@@ -7,6 +9,14 @@
 Welcome to Python! Whether you're new to programming or coming from another language, Python is an excellent choice for your data science journey. Let's understand why Python has become the de facto language for data science and analytics.
 
 > **Note:** If you've never programmed before, don't worry! Python is known for being beginner-friendly, and we'll guide you through everything step by step.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YYXdXT2l-Gg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Corey Schafer — Python tutorial: install and setup*
 
 > **Contributors:** Lesson authoring standards live in `docs/meta/DOCUMENTATION_GUIDELINES.md` (the `meta/` folder is excluded from the Jekyll site).
 
@@ -35,15 +45,14 @@ Before starting this module, you should have:
 ### Learning resources
 
 - **[Video resources guide](./video-resources.md)** - Curated videos with timestamps
- - Corey Schafer's complete Python series
- - freeCodeCamp tutorials
- - Topic-specific deep dives
- - Learning paths for different levels
-
+  - Corey Schafer's complete Python series
+  - freeCodeCamp tutorials
+  - Topic-specific deep dives
+  - Learning paths for different levels
 - **[Interactive notebooks](./notebooks/README.md)** - Hands-on practice in Google Colab
- - [01: Basic Syntax](./notebooks/01-basic-syntax.ipynb) - Variables, data types, operations
- - [02: Data Structures](./notebooks/02-data-structures.ipynb) - Lists, dicts, sets
- - [03: Functions](./notebooks/03-functions.ipynb) - Creating and using functions
+  - [01: Basic Syntax](./notebooks/01-basic-syntax.ipynb) - Variables, data types, operations
+  - [02: Data Structures](./notebooks/02-data-structures.ipynb) - Lists, dicts, sets
+  - [03: Functions](./notebooks/03-functions.ipynb) - Creating and using functions
 
 - **[Review: data structures enhancements](./REVIEW-ENHANCEMENTS.md)** - Maintainer notes on structure and teaching choices
 
@@ -92,43 +101,43 @@ plt.show()
 
 Python stands out because it:
 
-- **Readable Syntax**: Compare these examples:
+**Readable Syntax** — Compare these examples:
 
-  ```python
- # Python
- sales_data = pd.read_csv('sales.csv')
- average_sales = sales_data['amount'].mean()
- 
- # R equivalent
- sales_data <- read.csv('sales.csv')
- average_sales <- mean(sales_data$amount)
-  ```
+```python
+# Python
+sales_data = pd.read_csv('sales.csv')
+average_sales = sales_data['amount'].mean()
 
-- **Rich Ecosystem**: Essential data science libraries:
+# R equivalent
+sales_data <- read.csv('sales.csv')
+average_sales <- mean(sales_data$amount)
+```
 
-  ```python
- import numpy as np        # Numerical computations
- import pandas as pd       # Data manipulation
- import matplotlib.pyplot as plt  # Visualization
- import seaborn as sns    # Statistical visualization
- import scikit-learn as sklearn  # Machine learning
-  ```
+**Rich Ecosystem** — Essential data science libraries:
 
-- **Integration Capabilities**: Connect with various data sources:
+```python
+import numpy as np        # Numerical computations
+import pandas as pd       # Data manipulation
+import matplotlib.pyplot as plt  # Visualization
+import seaborn as sns    # Statistical visualization
+import sklearn  # Machine learning (scikit-learn)
+```
 
-  ```python
- # Database connection
- from sqlalchemy import create_engine
- engine = create_engine('postgresql://user:pass@localhost:5432/db')
- 
- # API integration
- import requests
- api_data = requests.get('https://api.example.com/data').json()
- 
- # Big Data processing
- import pyspark
- from pyspark.sql import SparkSession
-  ```
+**Integration Capabilities** — Connect with various data sources:
+
+```python
+# Database connection
+from sqlalchemy import create_engine
+engine = create_engine('postgresql://user:pass@localhost:5432/db')
+
+# API integration
+import requests
+api_data = requests.get('https://api.example.com/data').json()
+
+# Big Data processing
+import pyspark
+from pyspark.sql import SparkSession
+```
 
 ---
 
@@ -549,6 +558,7 @@ Visit [Python Tutor](https://pythontutor.com) and try this:
 5. See the call stack for functions
 
 **Example to try right now:**
+
 ```python
 # Paste this into Python Tutor
 numbers = [1, 2, 3, 4, 5]
@@ -558,10 +568,14 @@ for num in numbers:
 print(f"Total: {total}")
 ```
 
+```text
+Total: 15
+```
+
 **What to observe:**
 
 - How the loop counter changes
-- How the **total**variable accumulates
+- How the **total** variable accumulates
 - How variables are stored in memory
 - The exact order of execution
 

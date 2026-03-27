@@ -1,5 +1,15 @@
 # Linear Algebra: Matrix Magic
 
+**After this lesson:** you can explain the core ideas in “Linear Algebra: Matrix Magic” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fNk_zzaMoSs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*3Blue1Brown — Essence of linear algebra: vectors*
+
 ## Set Operations: Finding Unique Values
 
 ---
@@ -201,6 +211,12 @@ square_matrix = np.array([[1, 2],
 print("Trace:", np.trace(square_matrix))
 ```
 
+```
+Shape: (2, 3)
+Rank: 2
+Trace: 5
+```
+
 ---
 
 ### Eigenvalues and Eigenvectors
@@ -214,6 +230,13 @@ square = np.array([[4, -2],
 eigenvals, eigenvecs = np.linalg.eig(square)
 print("Eigenvalues:", eigenvals)
 print("Eigenvectors:\n", eigenvecs)
+```
+
+```
+Eigenvalues: [3. 2.]
+Eigenvectors:
+ [[0.89442719 0.70710678]
+ [0.4472136  0.70710678]]
 ```
 
 **Pro Tips**:

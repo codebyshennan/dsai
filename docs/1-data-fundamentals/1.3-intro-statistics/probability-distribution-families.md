@@ -1,5 +1,15 @@
 # Probability Distribution Families with Python
 
+**After this lesson:** you can explain the core ideas in “Probability Distribution Families with Python” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qBigTk9VwNU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*StatQuest with Josh Starmer — The binomial distribution*
+
 ## Understanding Distribution Families
 
 ---
@@ -249,6 +259,21 @@ best_fit = fitter.find_best_fit(data)
 fitter.plot_fit_comparison(data, best_fit)
 ```
 
+
+![probability-distribution-families](assets/probability-distribution-families_fig_1.png)
+
+```
+
+Fit Statistics:
+Best fit distribution: lognorm
+P-value: 0.9511
+
+Parameters:
+Parameter 1: 0.5209
+Parameter 2: 0.0546
+Parameter 3: 0.9478
+```
+
 ## Common Distribution Families
 
 ---
@@ -344,6 +369,29 @@ prob_5 = analyzer.calculate_probability(5)
 print(f"\nProbability of exactly 5 successes: {prob_5:.4f}")
 ```
 
+
+![probability-distribution-families](assets/probability-distribution-families_fig_2.png)
+
+```
+
+Distribution Statistics:
+Mean: 3.00
+Variance: 2.10
+
+Simulated Statistics:
+count    10000.00
+mean         2.97
+std          1.43
+min          0.00
+25%          2.00
+50%          3.00
+75%          4.00
+max          8.00
+Name: Successes, dtype: float64
+
+Probability of exactly 5 successes: 0.1029
+```
+
 ---
 
 ### Poisson Distribution
@@ -436,6 +484,29 @@ analyzer.plot_distribution(simulated_data)
 # Calculate specific probability
 prob_5 = analyzer.calculate_probability(5)
 print(f"\nProbability of exactly 5 events: {prob_5:.4f}")
+```
+
+
+![probability-distribution-families](assets/probability-distribution-families_fig_3.png)
+
+```
+
+Distribution Statistics:
+Mean: 3.00
+Variance: 3.00
+
+Simulated Statistics:
+count    10000.00
+mean         2.99
+std          1.72
+min          0.00
+25%          2.00
+50%          3.00
+75%          4.00
+max         11.00
+Name: Events, dtype: float64
+
+Probability of exactly 5 events: 0.1008
 ```
 
 ---
@@ -571,6 +642,63 @@ demonstrator.plot_clt_demonstration(
     params,
     sample_sizes
 )
+```
+
+
+![probability-distribution-families](assets/probability-distribution-families_fig_4.png)
+
+
+![probability-distribution-families](assets/probability-distribution-families_fig_5.png)
+
+```
+
+CLT Demonstration (Uniform Distribution):
+
+Sample Statistics:
+
+Sample Size: 1
+Mean: 0.4996
+Std Dev: 0.2745
+Normality Test p-value: 0.0000
+
+Sample Size: 5
+Mean: 0.5071
+Std Dev: 0.1311
+Normality Test p-value: 0.0926
+
+Sample Size: 30
+Mean: 0.5025
+Std Dev: 0.0536
+Normality Test p-value: 0.4245
+
+Sample Size: 100
+Mean: 0.5010
+Std Dev: 0.0296
+Normality Test p-value: 0.9482
+
+CLT Demonstration (Exponential Distribution):
+
+Sample Statistics:
+
+Sample Size: 1
+Mean: 2.0838
+Std Dev: 2.1226
+Normality Test p-value: 0.0000
+
+Sample Size: 5
+Mean: 2.0069
+Std Dev: 0.9192
+Normality Test p-value: 0.0000
+
+Sample Size: 30
+Mean: 1.9851
+Std Dev: 0.3591
+Normality Test p-value: 0.0000
+
+Sample Size: 100
+Mean: 2.0066
+Std Dev: 0.2044
+Normality Test p-value: 0.0019
 ```
 
 ## Practice Exercises

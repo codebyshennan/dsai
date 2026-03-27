@@ -1,5 +1,7 @@
 # BI tool screenshots
 
+**Maintainer note:** export real screenshots into this folder and replace figure placeholders in the Tableau/BI lessons.
+
 Lesson markdown uses **blockquote figure prompts** (see `meta/DOCUMENTATION_GUIDELINES.md`) until real PNGs live here. This folder is where you add exported screenshots when you have them.
 
 ## Status

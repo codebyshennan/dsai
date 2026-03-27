@@ -1,8 +1,18 @@
 # Data Security: Protecting Your Data Assets 🔒
 
+**After this lesson:** you can explain the core ideas in “Data Security: Protecting Your Data Assets 🔒” and reproduce the examples here in your own notebook or environment.
+
 ## Introduction to Data Security
 
 Data security is crucial in today's data-driven world. It encompasses the practices, technologies, and protocols used to protect data from unauthorized access, corruption, or theft throughout its entire lifecycle.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/inWWhTJ_0Zs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*IBM Technology — Cybersecurity basics*
 
 ## Key Components of Data Security
 

@@ -1,5 +1,13 @@
 # Mathematical Foundation and Kernels in SVM
 
+**After this lesson:** you can explain the core ideas in “Mathematical Foundation and Kernels in SVM” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Learning Objectives 🎯
 
 By the end of this section, you will be able to:
@@ -73,7 +81,12 @@ Sometimes data isn't linearly separable, and we need to transform it into a high
 
 1. **Linear Kernel**
 
+   #### Linear kernel (dot product)
+   **Purpose:** Show the closed-form inner-product kernel used by a linear SVM.
+
    ```python
+   import numpy as np
+
    def linear_kernel(x1, x2):
        return np.dot(x1, x2)
    ```
@@ -84,7 +97,12 @@ Sometimes data isn't linearly separable, and we need to transform it into a high
 
 2. **RBF (Radial Basis Function) Kernel**
 
+   #### RBF kernel
+   **Purpose:** Express the Gaussian radial basis function used for flexible, smooth decision boundaries.
+
    ```python
+   import numpy as np
+
    def rbf_kernel(x1, x2, gamma=0.1):
        return np.exp(-gamma * np.linalg.norm(x1 - x2)**2)
    ```
@@ -95,7 +113,12 @@ Sometimes data isn't linearly separable, and we need to transform it into a high
 
 3. **Polynomial Kernel**
 
+   #### Polynomial kernel
+   **Purpose:** Encode polynomial interactions between features via \((x_1^\top x_2 + r)^d\).
+
    ```python
+   import numpy as np
+
    def polynomial_kernel(x1, x2, degree=2, coef0=1):
        return (np.dot(x1, x2) + coef0) ** degree
    ```
@@ -106,7 +129,16 @@ Sometimes data isn't linearly separable, and we need to transform it into a high
 
 ### Visualizing Kernel Effects
 
+#### Compare kernel decision regions
+**Purpose:** Fit three SVMs with different `kernel` settings and plot their 2D decision regions side by side.
+
+**Walkthrough:** Same data and mesh grid; only the kernel string changes so you can compare boundaries.
+
 ```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.svm import SVC
+
 def plot_kernel_effects(X, y):
     """Show how different kernels transform data"""
     kernels = ['linear', 'rbf', 'poly']
@@ -149,7 +181,12 @@ Sometimes data isn't perfectly separable. That's where soft margin comes in:
 
 2. **The C Parameter**
 
+   #### Sweep the soft-margin parameter C
+   **Purpose:** Illustrate training separate SVC models with different `C` on the same scaled data.
+
    ```python
+   from sklearn.svm import SVC
+
    # Example of different C values
    C_values = [0.1, 1, 10]
    for C in C_values:
@@ -167,7 +204,13 @@ Sometimes data isn't perfectly separable. That's where soft margin comes in:
 
 1. **Gamma (γ)**
 
+   #### RBF gamma and the decision boundary (sketch)
+   **Purpose:** Show the loop structure for comparing several `gamma` values; fill in mesh prediction/plotting like the other examples.
+
    ```python
+   from sklearn.svm import SVC
+   import matplotlib.pyplot as plt
+
    def visualize_gamma_effect(X, y):
        gammas = [0.1, 1, 10]
        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
@@ -187,7 +230,13 @@ Sometimes data isn't perfectly separable. That's where soft margin comes in:
 
 1. **Degree**
 
+   #### Polynomial degree and the decision boundary (sketch)
+   **Purpose:** Compare polynomial kernels of different `degree` on the same data.
+
    ```python
+   from sklearn.svm import SVC
+   import matplotlib.pyplot as plt
+
    def visualize_degree_effect(X, y):
        degrees = [2, 3, 4]
        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
@@ -231,9 +280,13 @@ graph TD
 
 2. **Parameter Tuning**
 
+   #### Grid search over C, gamma, and kernel
+   **Purpose:** Find best hyperparameters with cross-validated `GridSearchCV`.
+
    ```python
    from sklearn.model_selection import GridSearchCV
-   
+   from sklearn.svm import SVC
+
    def tune_parameters(X, y):
        param_grid = {
            'C': [0.1, 1, 10],

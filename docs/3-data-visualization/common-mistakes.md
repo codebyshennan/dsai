@@ -1,5 +1,13 @@
 # Common Data Visualization Mistakes and How to Fix Them
 
+**After this lesson:** you can explain the core ideas in “Common Data Visualization Mistakes and How to Fix Them” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Orientation for the course visualization materials.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Overview
 
 Use this page as a **checklist**: each section names a mistake, gives a fix, and includes a figure placeholder you can replace with your own before/after screenshot.

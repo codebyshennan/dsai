@@ -1,5 +1,15 @@
 # One-Variable Statistics with Python
 
+**After this lesson:** you can explain the core ideas in “One-Variable Statistics with Python” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IFKQLDmRK0Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*StatQuest with Josh Starmer — Quantiles and percentiles, clearly explained*
+
 ## Understanding One-Variable Statistics
 
 ---
@@ -29,6 +39,22 @@ plt.figure(figsize=(10, 6))
 sns.histplot(scores_series, kde=True)
 plt.title('Distribution of Test Scores')
 plt.show()
+```
+
+
+![one-variable-statistics](assets/one-variable-statistics_fig_1.png)
+
+```
+Summary Statistics:
+count    10.000000
+mean     84.000000
+std       8.844333
+min      68.000000
+25%      77.500000
+50%      85.500000
+75%      89.750000
+max      95.000000
+Name: Test Scores, dtype: float64
 ```
 
 This gives us a quick overview of:
@@ -87,6 +113,19 @@ def analyze_distribution(data: pd.Series) -> None:
 
 # Analyze house prices
 analyze_distribution(house_prices)
+```
+
+
+![one-variable-statistics](assets/one-variable-statistics_fig_2.png)
+
+```
+
+Distribution Analysis:
+Mean: 338.75
+Median: 310.00
+Std: 73.21
+Skewness: 0.92
+Kurtosis: -0.35
 ```
 
 ## Measures of Central Tendency
@@ -157,6 +196,18 @@ ct.print_summary()
 ct.compare_measures()
 ```
 
+
+![one-variable-statistics](assets/one-variable-statistics_fig_3.png)
+
+```
+
+Central Tendency Measures:
+Mean: 63000.00
+Median: 54500.00
+Mode: 45000.00
+Trimmed_Mean: 54375.00
+```
+
  **Pro Tip**: Use `trimmed_mean` when your data has outliers but you still want to use a mean-like measure!
 
 ---
@@ -202,6 +253,21 @@ datasets = {
 for name, data in datasets.items():
     print(f"\n{name} Dataset:")
     print(recommend_central_measure(data))
+```
+
+```
+
+Symmetric Dataset:
+Recommend: Median
+Reason: Data contains outliers
+
+With Outliers Dataset:
+Recommend: Median
+Reason: Data contains outliers
+
+Skewed Dataset:
+Recommend: Median
+Reason: Data contains outliers
 ```
 
 ## Measures of Variability
@@ -383,6 +449,29 @@ datasets = {
 compare_variability(datasets)
 ```
 
+
+![one-variable-statistics](assets/one-variable-statistics_fig_4.png)
+
+```
+
+Variability Comparison:
+
+STD:
+Stock Prices: 1.923
+Temperature: 0.103
+Website Traffic: 542.525
+
+IQR:
+Stock Prices: 2.250
+Temperature: 0.175
+Website Traffic: 700.000
+
+CV:
+Stock Prices: 0.019
+Temperature: 0.005
+Website Traffic: 0.385
+```
+
 ## Frequency Distributions and Visualization
 
 ---
@@ -486,6 +575,30 @@ freq_analyzer.print_summary()
 freq_analyzer.plot_distributions()
 ```
 
+
+![one-variable-statistics](assets/one-variable-statistics_fig_5.png)
+
+```
+
+Frequency Distribution Summary:
+   bin_start  bin_end  ...  cumulative_freq  cumulative_relative
+0     50.809   56.763  ...                2                0.010
+1     56.763   62.718  ...               19                0.095
+2     62.718   68.672  ...               48                0.240
+3     68.672   74.626  ...               90                0.450
+4     74.626   80.581  ...              136                0.680
+5     80.581   86.535  ...              173                0.865
+6     86.535   92.490  ...              193                0.965
+7     92.490   98.444  ...              200                1.000
+
+[8 rows x 6 columns]
+
+Distribution Statistics:
+Number of bins: 8
+Most common bin frequency: 46
+Median frequency: 24.5
+```
+
 ---
 
 ### Advanced Visualization Techniques
@@ -567,6 +680,27 @@ create_analysis_dashboard(
     house_sizes,
     "Real Estate Size Analysis"
 )
+```
+
+
+![one-variable-statistics](assets/one-variable-statistics_fig_6.png)
+
+```
+
+Summary Statistics:
+count     200.00
+mean     1104.03
+std       327.64
+min       530.00
+25%       863.68
+50%      1040.83
+75%      1306.60
+max      2367.40
+Name: House Sizes, dtype: float64
+
+Normality Tests:
+Shapiro-Wilk p-value: 0.0000
+Kolmogorov-Smirnov p-value: 0.0924
 ```
 
 ## Practice Exercises

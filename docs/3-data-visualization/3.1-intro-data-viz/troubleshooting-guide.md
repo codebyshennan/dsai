@@ -1,8 +1,16 @@
 # Matplotlib Troubleshooting Guide
 
+**After this lesson:** you can explain the core ideas in “Matplotlib Troubleshooting Guide” and reproduce the examples here in your own notebook or environment.
+
 Use this page when code runs but plots look wrong, fail to display, or raise backend errors. Pair it with [Matplotlib basics](matplotlib-basics.md) for API context.
 
 > **Tip:** Most “nothing shows” issues in notebooks are fixed with **inline mode** and **plt.show()** (see below).
+
+## Helpful video
+
+Context for how visualization fits into analytics and communication.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Common Issues and Solutions
 
@@ -11,6 +19,10 @@ Use this page when code runs but plots look wrong, fail to display, or raise bac
 #### Plot Not Showing
 
 Think of this as your TV not turning on:
+
+**Purpose:** Know why a figure might not render in a script or notebook, and fix it with an explicit draw/show path or inline mode.
+
+**Walkthrough:** `plt.show()` flushes the GUI event loop; `%matplotlib inline` embeds figures in Jupyter outputs; order matters (build the plot, then show).
 
 ```python
 #  Problem: Your plot is invisible
@@ -30,6 +42,10 @@ plt.plot([1, 2, 3], [1, 2, 3])
 
 Think of this as your TV not being connected properly:
 
+**Purpose:** Run Matplotlib on a machine without a display (servers, CI, SSH) by selecting a non-interactive backend before `pyplot` initializes.
+
+**Walkthrough:** `matplotlib.use('Agg')` must run before `import matplotlib.pyplot as plt`; `Agg` renders to a buffer/file instead of opening a window.
+
 ```python
 #  Error: No display name and no $DISPLAY environment variable
 #  Solution: Switch to non-interactive backend - like using a different TV input
@@ -43,6 +59,10 @@ import matplotlib.pyplot as plt
 #### Overlapping Elements
 
 Think of this as trying to fit too many things in a small room:
+
+**Purpose:** Reduce label overlap and clipping by giving the figure more space and letting Matplotlib auto-adjust margins.
+
+**Walkthrough:** Larger `figsize`, `labelpad` on axis labels, and `tight_layout`/`constrained_layout` fix most overlap issues.
 
 ```python
 #  Problem: Cramped layout - like a crowded room
@@ -63,6 +83,10 @@ plt.tight_layout(pad=1.5)
 
 Think of this as arranging pictures on a wall:
 
+**Purpose:** Separate stacked axes vertically so titles and tick labels do not collide.
+
+**Walkthrough:** `gridspec_kw={'hspace': ...}` passes spacing into the `GridSpec` that `subplots` creates; tune `hspace`/`wspace` until labels clear.
+
 ```python
 #  Problem: Overlapping subplots - like pictures too close together
 fig, (ax1, ax2) = plt.subplots(2, 1)
@@ -78,6 +102,10 @@ fig, (ax1, ax2) = plt.subplots(2, 1,
 #### Missing Data
 
 Think of this as having gaps in your story:
+
+**Purpose:** Keep plotting functions from propagating NaNs into broken lines or empty axes by filtering or interpolating first.
+
+**Walkthrough:** List comprehension drops NaNs; `np.interp` fills gaps using neighboring valid points along the index.
 
 ```python
 #  Problem: NaN values breaking plot - like missing pages in a book
@@ -103,6 +131,10 @@ def handle_missing(data):
 
 Think of this as trying to compare very different things:
 
+**Purpose:** Plot series with very different magnitudes without misleading the reader—either twin axes or normalized units.
+
+**Walkthrough:** `twinx()` shares x but draws a second y-axis; normalization maps each series to [0, 1] for overlay comparison.
+
 ```python
 #  Problem: Different scales making plot unreadable - like comparing inches and miles
 x = np.linspace(0, 1, 100)
@@ -127,6 +159,10 @@ def normalize(data):
 
 Think of this as leaving too many windows open on your computer:
 
+**Purpose:** Avoid leaking figure objects when creating many plots in a loop (especially in scripts or long notebooks).
+
+**Walkthrough:** `plt.close('all')` after `show()` releases figures; the `try`/`finally` pattern ensures cleanup even if plotting errors.
+
 ```python
 #  Problem: Memory growing with multiple plots - like leaving windows open
 for i in range(100):
@@ -148,6 +184,10 @@ def plot_with_cleanup(data):
 #### Large Dataset Handling
 
 Think of this as trying to show too many stars in the sky:
+
+**Purpose:** Keep scatter plots responsive when `x` and `y` have millions of points by subsampling and raster-friendly rendering.
+
+**Walkthrough:** Random subset caps point count; `alpha` and `rasterized=True` help when exporting dense scatters to vector formats.
 
 ```python
 #  Problem: Slow with large datasets - like trying to show every star
@@ -177,6 +217,10 @@ def plot_large_dataset(x, y, max_points=10_000):
 
 Think of this as trying to use a font that's not installed:
 
+**Purpose:** Set a preferred font while falling back to a generic family if the name is unavailable on the system.
+
+**Walkthrough:** `rcParams['font.family']` applies globally; wrapping in try/except is illustrative—production code often uses `font_manager` to list available fonts.
+
 ```python
 #  Problem: Font not found - like trying to use a font you don't have
 plt.rcParams['font.family'] = 'NonExistentFont'
@@ -193,6 +237,10 @@ def set_font_safely():
 #### Color Issues
 
 Think of this as trying to read yellow text on a white background:
+
+**Purpose:** Replace low-contrast or neon defaults with hex colors that stay readable on white backgrounds and in print.
+
+**Walkthrough:** The dict holds named hex codes; swap `professional_colors['blue']` into `plt.plot(..., color=...)`.
 
 ```python
 #  Problem: Poor color visibility - like hard-to-read colors
@@ -215,6 +263,10 @@ professional_colors = {
 
 Think of this as taking a blurry photo:
 
+**Purpose:** Export PNG/PDF suitable for slides or papers by controlling DPI, padding, and bounding box.
+
+**Walkthrough:** `dpi` sets resolution; `bbox_inches='tight'` trims whitespace; `transparent=True` is useful for slides on non-white backgrounds.
+
 ```python
 #  Problem: Blurry exports - like a low-resolution photo
 plt.savefig('plot.png')
@@ -234,6 +286,10 @@ def save_high_quality(fig, filename):
 ### 1. Plot Information
 
 Think of this as checking your car's dashboard:
+
+**Purpose:** Inspect the current figure and axes state (size, limits, child artists) when debugging layout or memory.
+
+**Walkthrough:** `gcf()`/`gca()` grab the active figure and axes; `psutil` is optional and only valid if you import it elsewhere.
 
 ```python
 def print_plot_info():
@@ -263,6 +319,10 @@ def print_plot_info():
 
 Think of this as timing how long something takes:
 
+**Purpose:** Measure how long plotting functions take when profiling slow notebooks or batch figure generation.
+
+**Walkthrough:** The decorator wraps any callable; `functools.wraps` preserves metadata for introspection.
+
 ```python
 import time
 import functools
@@ -284,6 +344,10 @@ def plot_timer(func):
 ### 1. Setup Template
 
 Think of this as having a checklist before starting:
+
+**Purpose:** Apply one consistent style, figure size, font, and grid defaults before building a plot.
+
+**Walkthrough:** `plt.style.use` sets a named style; `rcParams` fine-tunes fonts and grids; returns current figure/axes for further drawing.
 
 ```python
 def setup_professional_plot():
@@ -332,4 +396,7 @@ Remember: The best way to learn is by doing. Start with simple plots and gradual
 
 ### Documentation Links
 
-```
+- [Matplotlib documentation](https://matplotlib.org/stable/)
+- [Matplotlib FAQ](https://matplotlib.org/stable/faq/index.html)
+- [Matplotlib backends](https://matplotlib.org/stable/users/explain/figure/backends.html)
+

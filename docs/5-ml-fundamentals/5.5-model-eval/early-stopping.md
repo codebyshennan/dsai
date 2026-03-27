@@ -1,5 +1,13 @@
 # Early Stopping
 
+**After this lesson:** you can explain the core ideas in “Early Stopping” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Introduction
 
 Early stopping is a regularization technique that helps prevent overfitting by monitoring the model's performance on a validation set and stopping training when performance starts to degrade.
@@ -216,6 +224,11 @@ for n_estimators in range(10, 100, 10):
         break
 
 print(f"Best model score: {best_score:.3f}")
+```
+
+```
+Early stopping at 90 trees
+Best model score: 0.985
 ```
 
 ## Additional Resources

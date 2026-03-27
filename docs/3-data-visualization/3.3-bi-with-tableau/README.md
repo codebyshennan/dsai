@@ -1,5 +1,13 @@
 # 3.3 Business Intelligence with Tableau
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **3.3 Business Intelligence with Tableau** in your course schedule.
+
+## Helpful video
+
+Short Tableau Public install; pair with the written guides in this folder.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lTNWfhmurUg" title="Tableau Public Tutorial Download and Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Overview
 
 This submodule is **UI-first**: you will connect data and build views in **Tableau** (and related lessons may reference **Looker Studio** or **Power BI**) with drag-and-drop analytics instead of Python scripts.
@@ -7,6 +15,12 @@ This submodule is **UI-first**: you will connect data and build views in **Table
 > **Note:** Perception and chart-choice principles still apply; see [3.1 visualization principles](../3.1-intro-data-viz/visualization-principles.md) when you are unsure which visual to use.
 
 > **Time needed:** Plan several hours across the case studies and practice labs if you have access to the tools.
+
+**Submodule map**
+
+**Purpose:** Show how BI lessons move from connecting data, to building views, to dashboards and stories.
+
+**Walkthrough:** Reference diagram only.
 
 ```yaml
 Module Structure:
@@ -28,6 +42,10 @@ Module Structure:
 
 ### 1. Intuitive Design
 
+**Purpose:** Summarize drag-and-drop, built-in analytics, and iteration speed as reasons teams adopt Tableau.
+
+**Walkthrough:** Not Tableau XML—conceptual outline for reading order.
+
 ```yaml
 Key Features:
   Drag-and-Drop:
@@ -47,6 +65,10 @@ Key Features:
 ```
 
 ### 2. Enterprise Power
+
+**Purpose:** Capture why BI tools matter beyond a single workbook: extracts, governance, and deployment.
+
+**Walkthrough:** Pair each bullet with your org’s Tableau Server/Cloud docs when deploying.
 
 ```yaml
 Capabilities:
@@ -70,6 +92,10 @@ Capabilities:
 
 ### 1. Data Architecture
 
+**Purpose:** Show the abstract flow from raw source through Tableau’s data engine to worksheets.
+
+**Walkthrough:** ASCII diagram; live vs extract choice sits in the middle stage.
+
 ```
 Data Pipeline:
 ┌─────────────┐    ┌─────────────┐    ┌───────────────┐
@@ -79,6 +105,10 @@ Data Pipeline:
 ```
 
 #### Connection Types
+
+**Purpose:** Decide between querying the database on each interaction (live) versus a snapshot hyper extract for speed.
+
+**Walkthrough:** Trade-offs drive dashboard design; large classes often use extracts for published workbooks.
 
 ```yaml
 Live Connection:
@@ -106,6 +136,10 @@ Extract:
 
 #### Basic Charts
 
+**Purpose:** Map analysis tasks (compare, distribution, composition, relationship) to common mark types in Tableau.
+
+**Walkthrough:** Use with [Choosing the right visualization](../choosing-the-right-visualization.md) for Python parallels.
+
 ```yaml
 Chart Selection:
   Comparison:
@@ -131,6 +165,10 @@ Chart Selection:
 
 #### Visual Best Practices
 
+**Purpose:** Encode color role (sequential, diverging, categorical) and reinforce hierarchy with layout and type.
+
+**Walkthrough:** Aligns with Module 3 principles lessons—apply before publishing dashboards.
+
 ```yaml
 Design Principles:
   Color Usage:
@@ -153,6 +191,10 @@ Design Principles:
 
 #### Basic Formulas
 
+**Purpose:** Show representative calculated-field expressions for YoY, moving average, and running total in Tableau’s formula language.
+
+**Walkthrough:** Same patterns as [advanced-analytics](advanced-analytics.md); `LOOKUP`/`WINDOW_AVG`/`RUNNING_SUM` depend on compute direction and partitioning.
+
 ```sql
 -- Year-over-Year Growth
 YOY_Growth = 
@@ -169,6 +211,10 @@ RUNNING_SUM(SUM([Sales]))
 ```
 
 #### Advanced Analytics
+
+**Purpose:** Illustrate built-in forecasting, clustering, and statistical test functions—availability varies by Tableau version.
+
+**Walkthrough:** Treat as signatures to look up in current docs; clustering and t-test need appropriate data prep.
 
 ```sql
 -- Forecasting
@@ -194,6 +240,10 @@ T_TEST(
 
 #### Layout Patterns
 
+**Purpose:** Show two common grid sketches—KPI band + main chart vs filter rail + detail—for planning wireframes.
+
+**Walkthrough:** ASCII only; translate to Tableau containers and floating/layout when building.
+
 ```
 1. Executive Dashboard
 ┌──────────┬──────────┬──────────┐
@@ -215,6 +265,10 @@ T_TEST(
 ```
 
 #### Interactive Elements
+
+**Purpose:** Checklist of filter widgets, dashboard actions, and parameter types you can combine for interactivity.
+
+**Walkthrough:** Pair with [advanced-analytics](advanced-analytics.md) actions section for behavior details.
 
 ```yaml
 Filter Types:
@@ -242,6 +296,10 @@ Parameters:
 
 ### Week 1: Foundation
 
+**Purpose:** Suggested pacing for instructor-led or self-study—adjust to your schedule.
+
+**Walkthrough:** Outline only; not executable.
+
 ```yaml
 Day 1-2:
   - Tableau interface
@@ -263,6 +321,10 @@ Day 5:
 
 ### Week 2: Advanced Features
 
+**Purpose:** Week-two focus on calculations, LOD, SQL, and dashboard actions.
+
+**Walkthrough:** Outline only.
+
 ```yaml
 Day 1-2:
   - Complex calculations
@@ -283,6 +345,10 @@ Day 5:
 ```
 
 ### Week 3: Real-World Applications
+
+**Purpose:** Capstone-style week across domains (sales, finance, marketing, ops).
+
+**Walkthrough:** Outline only.
 
 ```yaml
 Day 1-2:

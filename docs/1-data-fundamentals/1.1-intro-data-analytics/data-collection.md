@@ -1,10 +1,18 @@
 # Data Collection
 
+**After this lesson:** You can name common data sources and collection methods, and you understand how those choices affect later analysis.
+
 ## Overview
 
-**Primary outcome:** You can name common data sources and collection methods, and you understand how those choices affect later analysis.
-
 Data collection is the process of gathering and assembling data from various sources. It is a crucial step in the data analytics process, as it provides the raw material for analysis.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sxzD_kC4McQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*CrashCourse Statistics — Mathematical thinking (sampling and study design)*
 
 ## Why this matters
 
@@ -97,8 +105,10 @@ Poor collection (biased samples, wrong timestamps, missing consent) limits every
 ---
 
 ### In-Store Observation
+
 **Example: Retail Store Layout Study**
 What to Track:
+
 - Customer walking patterns (heatmap)
 - Time spent in each section (dwell time)
 - Product interaction frequency (touch points)
@@ -106,6 +116,7 @@ What to Track:
 - Traffic flow bottlenecks
 
 **Implementation Example**:
+
 ```python
 # Using computer vision for customer tracking
 import cv2
@@ -133,6 +144,7 @@ class StoreAnalytics:
 ```
 
 **Methods:**
+
 - Computer vision tracking
 - IoT sensor networks
 - RFID tracking
@@ -141,8 +153,10 @@ class StoreAnalytics:
 ---
 
 ### User Experience Testing
+
 **Example: Website Usability Study**
 Observations:
+
 - Navigation patterns (click paths)
 - Error encounters (frequency and type)
 - Task completion time (efficiency)
@@ -150,6 +164,7 @@ Observations:
 - Mouse movement patterns
 
 **Session Recording Example**:
+
 ```javascript
 // Using FullStory-like session recording
 class UserSession {
@@ -188,6 +203,7 @@ class UserSession {
 ```
 
 **Tools:**
+
 - Screen recording software
 - Eye tracking hardware
 - Emotion recognition AI
@@ -198,8 +214,10 @@ class UserSession {
 ---
 
 ### 1. Data Quality Issues
+
 **Challenge:** Incomplete or incorrect data
-**Solution:** 
+**Solution:**
+
 - Implement validation rules
 - Use required fields
 - Double-check data entry
@@ -207,6 +225,7 @@ class UserSession {
 - Automated data cleaning
 
 **Data Validation Example**:
+
 ```python
 class DataValidator:
     def __init__(self):
@@ -233,8 +252,10 @@ class DataValidator:
 ---
 
 ### 2. Privacy Concerns
+
 **Challenge:** Collecting sensitive information
 **Solution:**
+
 - Clear consent forms
 - Data anonymization
 - Secure storage
@@ -242,6 +263,7 @@ class DataValidator:
 - Data minimization
 
 **Data Anonymization Example**:
+
 ```python
 class DataAnonymizer:
     def __init__(self):
@@ -271,8 +293,10 @@ class DataAnonymizer:
 ---
 
 ### 3. Sample Size and Representation
+
 **Challenge:** Getting enough responses and ensuring representation
 **Solution:**
+
 - Multiple collection channels
 - Incentive programs
 - Extended collection period
@@ -280,6 +304,7 @@ class DataAnonymizer:
 - Stratified sampling
 
 **Sample Size Calculator**:
+
 ```python
 import math
 
@@ -311,8 +336,10 @@ def calculate_sample_size(population_size, confidence_level, margin_error):
 ---
 
 ### 4. Bias Management
+
 **Challenge:** Skewed data collection
 **Solution:**
+
 - Random sampling techniques
 - Diverse data sources
 - Neutral question phrasing
@@ -320,6 +347,7 @@ def calculate_sample_size(population_size, confidence_level, margin_error):
 - Bias detection algorithms
 
 **Bias Detection Example**:
+
 ```python
 class BiasDetector:
     def analyze_demographic_bias(self, data, protected_attributes):
@@ -351,6 +379,7 @@ class BiasDetector:
 ## Best Practices for Data Collection
 
 ### 1. Planning and Preparation
+
 - Define clear objectives
 - Choose appropriate methods
 - Prepare necessary tools
@@ -358,6 +387,7 @@ class BiasDetector:
 - Create data governance framework
 
 **Project Planning Template**:
+
 ```python
 class DataCollectionProject:
     def __init__(self, name, objectives):
@@ -384,6 +414,7 @@ class DataCollectionProject:
 ```
 
 ### 2. Quality Control
+
 - Data validation frameworks
 - Regular audits
 - Error logging
@@ -391,6 +422,7 @@ class DataCollectionProject:
 - Automated testing
 
 ### 3. Documentation
+
 - Detailed methodology
 - Data dictionary
 - Collection procedures
@@ -398,6 +430,7 @@ class DataCollectionProject:
 - Ethics considerations
 
 ### 4. Technical Infrastructure
+
 - Scalable storage solutions
 - Backup systems
 - Security measures
@@ -407,6 +440,7 @@ class DataCollectionProject:
 ## Advanced Data Collection Methods
 
 ### 1. IoT and Sensor Networks
+
 ```python
 class IoTDataCollector:
     def __init__(self):
@@ -431,6 +465,7 @@ class IoTDataCollector:
 ```
 
 ### 2. API Integration
+
 ```python
 class APIDataCollector:
     def __init__(self, api_key):
@@ -453,6 +488,7 @@ class APIDataCollector:
 ```
 
 ### 3. Web Scraping
+
 ```python
 class WebScraper:
     def __init__(self):

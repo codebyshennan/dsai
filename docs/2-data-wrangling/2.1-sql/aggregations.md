@@ -1,8 +1,14 @@
 # SQL Aggregations: Transforming Data into Insights
 
-## Overview
+**After this lesson:** You can group rows with **GROUP BY**, apply aggregate functions (**COUNT**, **SUM**, **AVG**, etc.), filter groups with **HAVING**, and use basic window functions for running totals and ranks.
 
-**Primary outcome:** You can group rows with **GROUP BY**, apply aggregate functions (**COUNT**, **SUM**, **AVG**, etc.), filter groups with **HAVING**, and use basic window functions for running totals and ranks.
+## Helpful video
+
+High-level introduction to SQL and relational databases.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/27axs9dO7AE" title="What is SQL?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Basic SQL Operations](basic-operations.md) (**SELECT**, **WHERE**, **ORDER BY**). Comfortable with grouping ideas from descriptive stats in [Intro Statistics](../../1-data-fundamentals/1.3-intro-statistics/README.md) is helpful but not required.
 
@@ -35,101 +41,201 @@ graph TD
 
 1. **COUNT**: Row Counter
 
-   ```sql
-   -- Different COUNT variations
-   SELECT 
-       COUNT(*) as total_rows,           -- All rows
-       COUNT(1) as also_total_rows,      -- Same as COUNT(*)
-       COUNT(column) as non_null_values,  -- Excludes NULL
-       COUNT(DISTINCT column) as unique_values
-   FROM table;
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   -- Example: Customer order analysis
-   SELECT 
-       customer_id,
-       COUNT(*) as total_orders,
-       COUNT(DISTINCT product_id) as unique_products,
-       COUNT(DISTINCT DATE_TRUNC('month', order_date)) as active_months
-   FROM orders
-   GROUP BY customer_id;
-   ```
+   {% highlight sql %}
+      -- Different COUNT variations
+      SELECT 
+          COUNT(*) as total_rows,           -- All rows
+          COUNT(1) as also_total_rows,      -- Same as COUNT(*)
+          COUNT(column) as non_null_values,  -- Excludes NULL
+          COUNT(DISTINCT column) as unique_values
+      FROM table;
+      
+      -- Example: Customer order analysis
+      SELECT 
+          customer_id,
+          COUNT(*) as total_orders,
+          COUNT(DISTINCT product_id) as unique_products,
+          COUNT(DISTINCT DATE_TRUNC('month', order_date)) as active_months
+      FROM orders
+      GROUP BY customer_id;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Different COUNT variations</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–8: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="9-16" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Example: Customer order analysis</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 9–16: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **SUM**: Numerical Addition
 
-   ```sql
-   -- Sales Analysis
-   SELECT 
-       category,
-       SUM(amount) as total_sales,
-       SUM(amount) FILTER (WHERE status = 'completed') as completed_sales,
-       SUM(CASE 
-           WHEN status = 'completed' THEN amount 
-           ELSE 0 
-       END) as another_way_completed_sales
-   FROM sales
-   GROUP BY category;
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   -- Running totals
-   SELECT 
-       order_date,
-       amount,
-       SUM(amount) OVER (
-           ORDER BY order_date
-           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
-       ) as running_total
-   FROM sales;
-   ```
+   {% highlight sql %}
+      -- Sales Analysis
+      SELECT 
+          category,
+          SUM(amount) as total_sales,
+          SUM(amount) FILTER (WHERE status = 'completed') as completed_sales,
+          SUM(CASE 
+              WHEN status = 'completed' THEN amount 
+              ELSE 0 
+          END) as another_way_completed_sales
+      FROM sales
+      GROUP BY category;
+      
+      -- Running totals
+      SELECT 
+          order_date,
+          amount,
+          SUM(amount) OVER (
+              ORDER BY order_date
+              ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+          ) as running_total
+      FROM sales;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-10" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Sales Analysis</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–10: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="11-21" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">GROUP BY category;</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 11–21: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **AVG**: Mean Calculator
 
-   ```sql
-   -- Price Analysis with Standard Error
-   SELECT 
-       category,
-       COUNT(*) as product_count,
-       AVG(price) as mean_price,
-       STDDEV(price) / SQRT(COUNT(*)) as standard_error,
-       AVG(price) - (STDDEV(price) / SQRT(COUNT(*)) * 1.96) as ci_lower,
-       AVG(price) + (STDDEV(price) / SQRT(COUNT(*)) * 1.96) as ci_upper
-   FROM products
-   GROUP BY category;
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   -- Moving averages
-   SELECT 
-       sale_date,
-       amount,
-       AVG(amount) OVER (
-           ORDER BY sale_date
-           ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
-       ) as moving_7day_avg
-   FROM daily_sales;
-   ```
+   {% highlight sql %}
+      -- Price Analysis with Standard Error
+      SELECT 
+          category,
+          COUNT(*) as product_count,
+          AVG(price) as mean_price,
+          STDDEV(price) / SQRT(COUNT(*)) as standard_error,
+          AVG(price) - (STDDEV(price) / SQRT(COUNT(*)) * 1.96) as ci_lower,
+          AVG(price) + (STDDEV(price) / SQRT(COUNT(*)) * 1.96) as ci_upper
+      FROM products
+      GROUP BY category;
+      
+      -- Moving averages
+      SELECT 
+          sale_date,
+          amount,
+          AVG(amount) OVER (
+              ORDER BY sale_date
+              ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+          ) as moving_7day_avg
+      FROM daily_sales;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-10" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Price Analysis with Standard Error</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–10: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="11-20" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Moving averages</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 11–20: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 4. **MIN/MAX**: Range Identifiers
 
-   ```sql
-   -- Price Range Analysis
-   SELECT 
-       category,
-       MIN(price) as min_price,
-       MAX(price) as max_price,
-       MAX(price) - MIN(price) as price_range,
-       ROUND(
-           (MAX(price) - MIN(price)) / NULLIF(AVG(price), 0) * 100,
-           2
-       ) as price_spread_percentage
-   FROM products
-   GROUP BY category;
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   -- First/Last values
-   SELECT 
-       customer_id,
-       MIN(order_date) as first_order,
-       MAX(order_date) as last_order,
-       MAX(order_date) - MIN(order_date) as customer_lifespan
-   FROM orders
-   GROUP BY customer_id;
-   ```
+   {% highlight sql %}
+      -- Price Range Analysis
+      SELECT 
+          category,
+          MIN(price) as min_price,
+          MAX(price) as max_price,
+          MAX(price) - MIN(price) as price_range,
+          ROUND(
+              (MAX(price) - MIN(price)) / NULLIF(AVG(price), 0) * 100,
+              2
+          ) as price_spread_percentage
+      FROM products
+      GROUP BY category;
+      
+      -- First/Last values
+      SELECT 
+          customer_id,
+          MIN(order_date) as first_order,
+          MAX(order_date) as last_order,
+          MAX(order_date) - MIN(order_date) as customer_lifespan
+      FROM orders
+      GROUP BY customer_id;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-10" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Price Range Analysis</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–10: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="11-21" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">FROM products</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 11–21: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 ## Advanced Aggregation Concepts
 
@@ -137,7 +243,10 @@ graph TD
 
 Window functions perform calculations across a set of table rows related to the current row.
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Employee salary analysis by department
 SELECT 
     employee_name,
@@ -175,11 +284,45 @@ SELECT
         AND INTERVAL '1' MONTH FOLLOWING
     ) as three_month_window
 FROM sales;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Employee salary analysis by department</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">PARTITION BY department</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-37" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SUM(amount) OVER (ORDER BY sale_date) as runn…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–37: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### HAVING vs WHERE: Understanding the Difference
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- WHERE filters individual rows before grouping
 -- HAVING filters groups after grouping
 
@@ -213,11 +356,45 @@ SELECT
 FROM products
 GROUP BY product_category
 HAVING AVG(price) > 100;  -- Correct! Filters after aggregation
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHERE filters individual rows before grouping</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GROUP BY department</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHERE AVG(price) &gt; 100  -- Wrong! Will cause…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 23–33: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### GROUP BY vs PARTITION BY: Key Differences
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- GROUP BY: Reduces rows, one row per group
 SELECT 
     department,
@@ -252,13 +429,47 @@ SELECT
     RANK() OVER (PARTITION BY e.department ORDER BY e.salary DESC) as salary_rank
 FROM employees e
 JOIN dept_stats ds ON e.department = ds.department;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GROUP BY: Reduces rows, one row per group</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Employee_name,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">AVG(salary) as avg_salary</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 23–34: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Pitfalls and Best Practices
 
 ### 1. NULL Handling
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Bad: Ignoring NULLs
 SELECT AVG(salary) FROM employees;  -- Might be misleading
 
@@ -270,11 +481,27 @@ SELECT
     AVG(COALESCE(salary, 0)) as avg_salary_including_zeros,
     AVG(salary) as avg_salary_excluding_nulls
 FROM employees;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: Ignoring NULLs</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Performance Considerations
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Bad: Unnecessary subquery
 SELECT 
     department,
@@ -288,11 +515,27 @@ SELECT DISTINCT
     department,
     AVG(salary) OVER (PARTITION BY department) as avg_salary
 FROM employees;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: Unnecessary subquery</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Precision and Rounding
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Bad: Inconsistent decimal places
 SELECT 
     department,
@@ -308,47 +551,133 @@ SELECT
     ROUND(SUM(salary)::numeric, 2) as total_salary
 FROM employees
 GROUP BY department;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: Inconsistent decimal places</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Good: Consistent decimal handling</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 8–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Practice Exercises
 
 1. **Basic Aggregation**
 
-   ```sql
-   -- Calculate monthly sales metrics
-   -- Include: total sales, average order value, order count
-   -- Group by year and month
-   -- Sort by year and month descending
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight sql %}
+      -- Calculate monthly sales metrics
+      -- Include: total sales, average order value, order count
+      -- Group by year and month
+      -- Sort by year and month descending
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-4" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Calculate monthly sales metrics</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–4: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **Window Functions**
 
-   ```sql
-   -- For each order:
-   -- Calculate running total sales for the customer
-   -- Show customer's previous order amount
-   -- Show customer's average order value
-   -- Rank orders by amount within customer
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight sql %}
+      -- For each order:
+      -- Calculate running total sales for the customer
+      -- Show customer's previous order amount
+      -- Show customer's average order value
+      -- Rank orders by amount within customer
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-5" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">For each order:</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–5: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **Complex Grouping**
 
-   ```sql
-   -- Create a sales summary with:
-   -- Daily, weekly, monthly totals
-   -- Year-over-year comparison
-   -- Moving averages
-   -- Percentage of total calculations
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight sql %}
+      -- Create a sales summary with:
+      -- Daily, weekly, monthly totals
+      -- Year-over-year comparison
+      -- Moving averages
+      -- Percentage of total calculations
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-5" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Create a sales summary with:</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–5: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 4. **Advanced Analytics**
 
-   ```sql
-   -- Customer cohort analysis
-   -- Product affinity analysis
-   -- Customer lifetime value calculation
-   -- Churn risk scoring
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight sql %}
+      -- Customer cohort analysis
+      -- Product affinity analysis
+      -- Customer lifetime value calculation
+      -- Churn risk scoring
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-4" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Customer cohort analysis</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–4: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 ## Additional Resources
 
@@ -361,70 +690,123 @@ GROUP BY department;
 
 1. **STDDEV**: Standard Deviation
 
-   ```sql
-   -- Product price variation analysis
-   SELECT 
-       category,
-       COUNT(*) as product_count,
-       ROUND(AVG(price)::numeric, 2) as avg_price,
-       ROUND(STDDEV(price)::numeric, 2) as price_std,
-       ROUND(
-           (STDDEV(price) / NULLIF(AVG(price), 0) * 100)::numeric,
-           2
-       ) as coefficient_of_variation
-   FROM products
-   GROUP BY category
-   HAVING COUNT(*) >= 5;
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight sql %}
+      -- Product price variation analysis
+      SELECT 
+          category,
+          COUNT(*) as product_count,
+          ROUND(AVG(price)::numeric, 2) as avg_price,
+          ROUND(STDDEV(price)::numeric, 2) as price_std,
+          ROUND(
+              (STDDEV(price) / NULLIF(AVG(price), 0) * 100)::numeric,
+              2
+          ) as coefficient_of_variation
+      FROM products
+      GROUP BY category
+      HAVING COUNT(*) >= 5;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-13" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Product price variation analysis</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–13: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **PERCENTILE**: Distribution Analysis
 
-   ```sql
-   -- Price distribution by category
-   SELECT 
-       category,
-       PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price) as p25,
-       PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY price) as median,
-       PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price) as p75,
-       PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price) -
-       PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price) as iqr
-   FROM products
-   GROUP BY category;
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   -- Customer spending percentiles
-   SELECT 
-       ROUND(
-           PERCENTILE_CONT(0.25) WITHIN GROUP (
-               ORDER BY total_spent
-           )::numeric,
-           2
-       ) as p25_spending,
-       ROUND(
-           PERCENTILE_CONT(0.50) WITHIN GROUP (
-               ORDER BY total_spent
-           )::numeric,
-           2
-       ) as median_spending,
-       ROUND(
-           PERCENTILE_CONT(0.75) WITHIN GROUP (
-               ORDER BY total_spent
-           )::numeric,
-           2
-       ) as p75_spending
-   FROM (
-       SELECT 
-           customer_id,
-           SUM(amount) as total_spent
-       FROM orders
-       GROUP BY customer_id
-   ) customer_totals;
-   ```
+   {% highlight sql %}
+      -- Price distribution by category
+      SELECT 
+          category,
+          PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price) as p25,
+          PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY price) as median,
+          PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price) as p75,
+          PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY price) -
+          PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY price) as iqr
+      FROM products
+      GROUP BY category;
+      
+      -- Customer spending percentiles
+      SELECT 
+          ROUND(
+              PERCENTILE_CONT(0.25) WITHIN GROUP (
+                  ORDER BY total_spent
+              )::numeric,
+              2
+          ) as p25_spending,
+          ROUND(
+              PERCENTILE_CONT(0.50) WITHIN GROUP (
+                  ORDER BY total_spent
+              )::numeric,
+              2
+          ) as median_spending,
+          ROUND(
+              PERCENTILE_CONT(0.75) WITHIN GROUP (
+                  ORDER BY total_spent
+              )::numeric,
+              2
+          ) as p75_spending
+      FROM (
+          SELECT 
+              customer_id,
+              SUM(amount) as total_spent
+          FROM orders
+          GROUP BY customer_id
+      ) customer_totals;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-12" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Price distribution by category</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–12: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="13-25" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">SELECT</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 13–25: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="26-38" data-tint="3">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">ROUND(</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 26–38: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 ## Real-World Business Analytics
 
 ### 1. Customer Segmentation
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH customer_metrics AS (
     SELECT 
         c.customer_id,
@@ -471,11 +853,54 @@ ORDER BY
         ELSE 4
     END,
     spend_quartile;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH customer_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">FROM customers c</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ELSE &#x27;Lost&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 24–34: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="35-46" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ROUND(AVG(active_months)::numeric, 1) as avg_…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 35–46: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Product Performance Analysis
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH product_metrics AS (
     SELECT 
         p.product_id,
@@ -521,11 +946,54 @@ FROM product_rankings
 ORDER BY 
     category,
     revenue DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH product_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">FROM products p</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Units_sold / NULLIF(active_months, 0) as mont…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 23–33: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="34-45" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Unique_customers,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 34–45: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Sales Trend Analysis
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH daily_sales AS (
     SELECT 
         DATE_TRUNC('day', order_date) as sale_date,
@@ -575,7 +1043,47 @@ SELECT
     END as day_performance
 FROM sales_stats
 ORDER BY sale_date DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH daily_sales AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ORDER BY sale_date</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37-49" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">((revenue - prev_day_revenue) / NULLIF(prev_d…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 37–49: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Remember: "Good aggregations tell a story about your data!"
 

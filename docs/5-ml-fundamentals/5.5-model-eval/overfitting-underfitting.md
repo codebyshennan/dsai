@@ -1,5 +1,13 @@
 # Overfitting and Underfitting
 
+**After this lesson:** you can explain the core ideas in “Overfitting and Underfitting” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Introduction
 
 Understanding overfitting and underfitting is crucial for building effective machine learning models. These concepts help us diagnose model performance and make better decisions about model complexity.
@@ -111,6 +119,9 @@ plt.title('Model Performance Comparison')
 plt.ylabel('Mean Squared Error')
 plt.show()
 ```
+
+
+![overfitting-underfitting](assets/overfitting-underfitting_fig_1.png)
 
 ## Best Practices
 

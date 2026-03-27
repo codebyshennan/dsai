@@ -1,5 +1,7 @@
 # t-SNE (t-Distributed Stochastic Neighbor Embedding)
 
+**After this lesson:** you can explain the core ideas in “t-SNE (t-Distributed Stochastic Neighbor Embedding)” and reproduce the examples here in your own notebook or environment.
+
 > **Note**: This content has been consolidated into the dimensionality reduction guide for a better learning experience.
 
 t-SNE and UMAP are covered comprehensively in:
@@ -14,6 +16,12 @@ This guide includes:
 - Practical examples with real datasets
 
 ---
+
+## Helpful video
+
+StatQuest overview of K-means clustering.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4b5d3muPQmA" title="K-means Clustering, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Quick Reference
 

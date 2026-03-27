@@ -1,8 +1,8 @@
 # Basic Syntax and Data Types for Data Science
 
-## Overview
+**After this lesson:** You can write small Python programs using variables, core types, operators, and formatted output—enough to read and tweak data-science examples.
 
-**Primary outcome:** You can write small Python programs using variables, core types, operators, and formatted output—enough to read and tweak data-science examples.
+## Overview
 
 **Prerequisites:** [Introduction to Python](./README.md) module context; no other programming background required.
 
@@ -12,6 +12,14 @@
 
 > **Interactive notebook:** [Open in Google Colab](./notebooks/01-basic-syntax.ipynb) — run and modify examples interactively.
 
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/khKv-8q7YmY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Corey Schafer — Integers, floats, and numeric types in Python*
+
 ## Getting Started with Python
 
 ---
@@ -19,6 +27,11 @@
 ### Your First Data Analysis Program
 
 Let's start with a simple data analysis example:
+
+**Mean and standard deviation of a small list**
+
+- **Purpose:** Connect imports to a one-line summary: central tendency (`np.mean`) and spread (`np.std`) with readable f-string output.
+- **Walkthrough:** `data` is a plain Python list; NumPy functions reduce it to scalars printed below the code.
 
 ```python
 # Import essential libraries
@@ -35,6 +48,11 @@ std = np.std(data)
 print(f"Data Analysis Results:")
 print(f"Mean: {mean}")
 print(f"Standard Deviation: {std}")
+```
+```
+Data Analysis Results:
+Mean: 20.0
+Standard Deviation: 7.0710678118654755
 ```
 
 This example demonstrates:
@@ -63,33 +81,65 @@ Two main approaches for data analysis:
 
 1. **Interactive Mode (Jupyter Notebook)**:
 
+   **Inline CSV string to DataFrame**
+
+   - **Purpose:** Mimic reading a file with `StringIO` so the snippet runs without an external CSV; `head()` previews rows in a notebook.
+   - **Walkthrough:** `pd.read_csv(StringIO(sales_csv))` parses the triple-quoted string as file contents.
+
    ```python
   # In Jupyter cell
   import pandas as pd
-  
-  # Read and display data
-  df = pd.read_csv('sales_data.csv')
+  from io import StringIO
+
+  # Example rows (in a real notebook you would use pd.read_csv("sales_data.csv"))
+  sales_csv = """amount
+  100
+  200
+  150"""
+  df = pd.read_csv(StringIO(sales_csv))
   df.head()
    ```
+
+```
+   amount
+0     100
+1     200
+2     150
+```
 
   Perfect for exploratory data analysis!
 
 2. **Script Mode (Production Code)**:
 
+   **Reusable function + `if __name__`-style flow**
+
+   - **Purpose:** Encapsulate loading and aggregation in `analyze_sales` so the same logic can target a file path or a `StringIO` buffer.
+   - **Walkthrough:** The dict returned uses column sums/means from pandas—`StringIO` again stands in for a real path.
+
    ```python
   # analysis.py
   import pandas as pd
   import numpy as np
-  
-  def analyze_sales(file_path):
-      df = pd.read_csv(file_path)
+  from io import StringIO
+
+  def analyze_sales(source):
+      df = pd.read_csv(source)
       return {
           'total_sales': df['amount'].sum(),
           'average_sale': df['amount'].mean()
       }
-  
-  results = analyze_sales('sales_data.csv')
+
+  sales_csv = """amount
+  100
+  200
+  150"""
+  results = analyze_sales(StringIO(sales_csv))
+  print(results)
    ```
+
+```
+{'total_sales': np.int64(450), 'average_sale': np.float64(150.0)}
+```
 
 ## Python Syntax for Data Analysis
 
@@ -98,6 +148,11 @@ Two main approaches for data analysis:
 ### Indentation in Data Processing
 
 Python's indentation is crucial in data processing flows:
+
+**Nested blocks: function → if → for**
+
+- **Purpose:** See how indentation defines scope—`cleaned_data` is built only when `len(data) > 0` and each value passes `pd.notna`.
+- **Walkthrough:** `pd.notna(value)` filters out `None` and NumPy NaN in a list context.
 
 ```python
 def process_data(data):
@@ -129,6 +184,12 @@ clean_data = process_data(raw_data)
 > print("Outside if")
 > ```
 
+```
+Positive
+Still inside if
+Outside if
+```
+
 > **Debug with AI:**
 > If you get an `IndentationError`, paste your code into ChatGPT and ask:
 > "Fix the indentation in this Python code: [paste code]"
@@ -138,6 +199,11 @@ clean_data = process_data(raw_data)
 ### Comments in Data Analysis Code
 
 Good documentation is essential in data science:
+
+**Docstring + sklearn `StandardScaler` on numeric columns**
+
+- **Purpose:** Show a typical preprocessing skeleton: drop NA, then scale only numeric columns selected by `select_dtypes`.
+- **Walkthrough:** `scaler.fit_transform` returns an ndarray assigned back to `df[numeric_cols]`.
 
 ```python
 # Import required libraries
@@ -175,6 +241,11 @@ def preprocess_data(df):
 ### Variables in Data Analysis
 
 Variables in data science often represent different types of data:
+
+**Representing common data-science dtypes**
+
+- **Purpose:** Tie variable names to roles: continuous vs discrete numbers, nominal vs ordinal categories, datetimes, and small `DataFrame` tables.
+- **Walkthrough:** `np.array` vs `pd.DataFrame` previews Module 1.4–1.5 content.
 
 ```python
 # Numerical data
@@ -225,6 +296,10 @@ Follow these conventions for clear data analysis code:
 
  **Do This**:
 
+**Clear names for analysis variables**
+
+- **Purpose:** Contrast readable names with vague ones—same values, better scan-ability in notebooks and reviews.
+
 ```python
 mean_temperature = 23.5   # Clear statistical measure
 customer_id = "C001"    # Entity identifier
@@ -234,6 +309,10 @@ MAX_ITERATIONS = 1000   # Constant value
 ```
 
  **Don't Do This**:
+
+**Avoid vague identifiers**
+
+- **Purpose:** See how `temp`, `data1`, `x` obscure intent compared to the “Do This” block above—no behavior change, only naming.
 
 ```python
 temp = 23.5        # Too vague
@@ -314,6 +393,10 @@ Python data types commonly used in data science:
 print(df['value'].dtype) # dtype('float64')
 print(np.array([1, 2]).dtype) # dtype('int64')
 ```
+```
+int64
+int64
+```
 
 ## Working with Numbers in Data Analysis
 
@@ -375,6 +458,11 @@ a = 0.1 + 0.2
 b = 0.3
 print(f"0.1 + 0.2 == 0.3: {abs(a - b) < 1e-10}") # Use tolerance for float comparison
 ```
+```
+Int32 memory: 12 bytes
+Float64 memory: 24 bytes
+0.1 + 0.2 == 0.3: True
+```
 
 ## String Operations in Data Analysis
 
@@ -432,6 +520,15 @@ F1 Score: {f1_score:.2%}
 """.format(**data)
 
 print(report)
+```
+```
+Model Accuracy: 95.67%
+
+Model Metrics:
+-------------
+Precision: 95.00%
+Recall: 92.00%
+F1 Score: 93.00%
 ```
 
 ## Type Conversion in Data Processing
@@ -515,6 +612,9 @@ def validate_dataset(df):
 Try these data analysis exercises:
 
 ### Exercise 1: Temperature Analysis
+
+- **Purpose:** Stub for **Exercise 1**—complete the bullets in the heading (stats + °F + outliers).
+
 ```python
 # Create a numpy array of temperatures and calculate:
 # - Mean, median, and standard deviation
@@ -530,6 +630,9 @@ temperatures_celsius = np.array([22, 25, 19, 100, 23, 21, 24])
 > **Get Help:** If stuck, ask AI: "Walk me through solving this temperature analysis problem step by step"
 
 ### Exercise 2: String Processing
+
+- **Purpose:** Stub for **Exercise 2**—split, parse floats, summarize.
+
 ```python
 # Process a string of comma-separated values:
 # - Split into individual values
@@ -543,6 +646,9 @@ data_string = "10.5, 20.3, 15.7, 18.9, 22.1"
 > **Visualize It:** Use Python Tutor to see how string methods work
 
 ### Exercise 3: Date Manipulation
+
+- **Purpose:** Stub for **Exercise 3**—parse strings, differences, components.
+
 ```python
 # Work with dates and times:
 # - Convert string dates to datetime objects
@@ -555,6 +661,9 @@ date_strings = ["2024-01-15", "2024-02-20", "2024-03-10"]
 ```
 
 ### Exercise 4: Data Cleaning Function
+
+- **Purpose:** Stub for **Exercise 4**—implement `clean_data` per comments and test with `messy_data`.
+
 ```python
 # Create a simple data cleaning function:
 # - Remove missing values

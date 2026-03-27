@@ -1,5 +1,7 @@
 # Logistic Regression Fundamentals
 
+**After this lesson:** you can explain the core ideas in “Logistic Regression Fundamentals” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - You will model **probabilities** for binary outcomes (yes/no) with an interpretable linear structure in feature space.
@@ -17,7 +19,9 @@ Logistic regression is one of the most fundamental and widely used classificatio
 
 ### Video Tutorial: Introduction to Logistic Regression
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/yIYKR4sgzI8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Logistic Regression by Josh Starmer*
 
@@ -57,6 +61,12 @@ Before diving into the technical details, let's look at some everyday examples w
 ### Visualizing the Classification Problem
 
 Let's visualize a simple binary classification problem that logistic regression can solve:
+
+**Synthetic pass/fail exam data and scatter plot**
+
+**Purpose:** Draw study hours and aptitude from normals, pass labels from a logistic probability, and scatter-plot passes vs fails with `exam_data.head()` printed.
+
+**Walkthrough:** Manual sigmoid for `passing_probability`; `np.random.binomial`; matplotlib scatter with markers/colors by class; `savefig` for the lesson figure.
 
 ```python
 import numpy as np
@@ -107,6 +117,18 @@ plt.show()
 print(exam_data.head())
 ```
 
+
+![logistic-regression](assets/logistic-regression_fig_1.png)
+
+```
+   StudyHours  AptitudeScore  Passed
+0    5.993428      43.769439       0
+1    4.723471      58.690320       1
+2    6.295377      59.859282       1
+3    8.046060      52.965841       1
+4    4.531693      62.580714       0
+```
+
 This code generates and visualizes a dataset representing student exam results based on study hours and aptitude scores. When you run it, you'll see a scatter plot like this (saved as `binary_classification_example.png`):
 
 ![Binary Classification Example](assets/binary_classification_example.png)
@@ -121,7 +143,9 @@ In this plot:
 
 ### Video Tutorial: Logistic Regression Details
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vN5cNN2-HWE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Logistic Regression Details Pt 1: Coefficients by Josh Starmer*
 
@@ -146,6 +170,12 @@ Where:
 - $e$ is the base of natural logarithm (approximately 2.718)
 
 Let's visualize this function:
+
+**Annotated plot of the standard logistic (sigmoid) curve**
+
+**Purpose:** Plot \(p(z)=1/(1+e^{-z})\) over a grid with reference lines at \(z=0\) and \(p=0.5\) and text annotations for interpretation.
+
+**Walkthrough:** Pure NumPy and matplotlib; `plt.annotate`, `axhline`, `axvline`; `savefig` as `logistic_curve_annotated.png`.
 
 ```python
 def plot_logistic_curve():
@@ -180,6 +210,9 @@ def plot_logistic_curve():
 # Plot the logistic curve
 plot_logistic_curve()
 ```
+
+
+![logistic-regression](assets/logistic-regression_fig_2.png)
 
 When you run this code, you'll see a visualization of the logistic function (saved as `logistic_curve_annotated.png`):
 
@@ -225,6 +258,12 @@ Interpreting coefficients in logistic regression is slightly different than in l
 
 Let's visualize how different coefficients affect the probability curve:
 
+**Overlay logistic curves for different linear predictors \(z=\beta x\)**
+
+**Purpose:** On the same axes, plot sigmoid curves for several \(\beta\) values to show steep vs gradual separation and sign effects.
+
+**Walkthrough:** Loop over scenario dict mapping label → `z` array; `1/(1+np.exp(-z))`; shared horizontal line at 0.5.
+
 ```python
 def plot_coefficient_effects():
     """Visualize how coefficients affect the probability curve"""
@@ -256,6 +295,9 @@ def plot_coefficient_effects():
 plot_coefficient_effects()
 ```
 
+
+![logistic-regression](assets/logistic-regression_fig_3.png)
+
 When you run this code, you'll see how different coefficients affect the probability curve (saved as `coefficient_effects.png`):
 
 ![Coefficient Effects](assets/coefficient_effects.png)
@@ -276,6 +318,12 @@ Another important concept in logistic regression is the odds ratio. When we expo
 - If odds ratio = 1: Feature has no effect on odds
 
 Here's a way to visualize odds ratios:
+
+**Forest-style odds ratios with illustrative 95% error bars**
+
+**Purpose:** From toy coefficients and SEs, compute `exp(coef)` and asymptotic CI bounds, sort, and plot on a log x-axis with a reference line at OR = 1.
+
+**Walkthrough:** `np.exp` for point and CI limits; `plt.errorbar` with asymmetric x errors; `plt.xscale('log')`.
 
 ```python
 def plot_odds_ratios():
@@ -322,6 +370,9 @@ def plot_odds_ratios():
 plot_odds_ratios()
 ```
 
+
+![logistic-regression](assets/logistic-regression_fig_4.png)
+
 When you run this code, you'll see a visualization of odds ratios (saved as `odds_ratios.png`):
 
 ![Odds Ratios](assets/odds_ratios.png)
@@ -336,7 +387,9 @@ This visualization shows:
 
 ### Video Tutorial: Implementing Logistic Regression
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YYEJ_GUguHw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Logistic Regression from Scratch in Python by AssemblyAI*
 
@@ -350,6 +403,12 @@ Before building a model, you need to:
 2. Handle missing values
 3. Scale numerical features
 4. Split into training and test sets
+
+**Train/test split and `StandardScaler` on exam features**
+
+**Purpose:** Isolate predictors and target, `train_test_split` with fixed seed, and z-score features for `LogisticRegression` (fit scaler on train only).
+
+**Walkthrough:** `train_test_split`; `StandardScaler.fit_transform` / `transform`; print shapes to confirm dimensions.
 
 ```python
 # Let's use our exam data from earlier
@@ -369,7 +428,21 @@ print(f"Training set shape: {X_train.shape}")
 print(f"Test set shape: {X_test.shape}")
 ```
 
+**Captured output (example):**
+
+```
+Data preparation complete.
+Training set shape: (75, 2)
+Test set shape: (25, 2)
+```
+
 ### Step 2: Train the Model
+
+**Fit logistic regression and tabulate coefficients and odds ratios**
+
+**Purpose:** Train on scaled data, build a DataFrame of feature names with `coef_[0]` and `exp(coef)`, and print intercept for interpretation.
+
+**Walkthrough:** `LogisticRegression.fit`; odds ratio as `np.exp(model.coef_[0])`; comments sketch the 0.5 probability contour in 2D.
 
 ```python
 # Create and train the model
@@ -393,7 +466,26 @@ print(f"\nIntercept: {model.intercept_[0]:.4f}")
 # Solving for x₂ (AptitudeScore): x₂ = -(β₀ + β₁x₁) / β₂
 ```
 
+**Captured output (example):**
+
+```
+Model trained successfully!
+
+Coefficients:
+         Feature  Coefficient  Odds Ratio
+0     StudyHours     1.381725    3.981764
+1  AptitudeScore     0.109766    1.116016
+
+Intercept: 0.2269
+```
+
 ### Step 3: Visualize the Decision Boundary
+
+**Probability surface and 0.5 contour in feature space**
+
+**Purpose:** Build a fine mesh in original feature space, transform with the fitted scaler, map `predict_proba`[:,1] to colors, and overlay the p=0.5 contour with training points.
+
+**Walkthrough:** `np.meshgrid`; `scaler.transform` on flattened grid; `contourf` + `contour` at 0.5; `scatter` colored by class.
 
 ```python
 def plot_decision_boundary(X, y, model, scaler):
@@ -438,6 +530,9 @@ X_scaled = scaler.transform(X)
 plot_decision_boundary(X_scaled, y, model, scaler)
 ```
 
+
+![logistic-regression](assets/logistic-regression_fig_5.png)
+
 When you run this code, you'll see a visualization of the decision boundary (saved as `logistic_decision_boundary.png`):
 
 ![Logistic Decision Boundary](assets/logistic_decision_boundary.png)
@@ -450,6 +545,12 @@ In this plot:
 - **Red points** are students who passed the exam
 
 ### Step 4: Evaluate the Model
+
+**Accuracy, confusion matrix heatmap, report, and ROC/AUC**
+
+**Purpose:** Class predictions and probabilities on the test set; `accuracy_score`, `confusion_matrix`, `classification_report`; seaborn heatmap; ROC curve with `roc_auc_score`.
+
+**Walkthrough:** `predict` / `predict_proba`; `roc_curve`; diagonal baseline; `savefig` for CM and ROC figures.
 
 ```python
 def evaluate_model(model, X_test, y_test):
@@ -503,6 +604,28 @@ def evaluate_model(model, X_test, y_test):
 evaluate_model(model, X_test_scaled, y_test)
 ```
 
+
+![logistic-regression](assets/logistic-regression_fig_6.png)
+
+
+![logistic-regression](assets/logistic-regression_fig_7.png)
+
+```
+Model Accuracy: 0.7600
+
+Confusion Matrix:
+
+Classification Report:
+              precision    recall  f1-score   support
+
+      Failed       1.00      0.62      0.77        16
+      Passed       0.60      1.00      0.75         9
+
+    accuracy                           0.76        25
+   macro avg       0.80      0.81      0.76        25
+weighted avg       0.86      0.76      0.76        25
+```
+
 When you run this code, you'll see the confusion matrix (saved as `confusion_matrix.png`):
 
 ![Confusion Matrix](assets/confusion_matrix.png)
@@ -516,6 +639,12 @@ And the ROC curve (saved as `roc_curve.png`):
 ### 1. Handling Multiple Features
 
 Logistic regression can handle multiple features. Let's create an example with more variables:
+
+**Loan approval simulation: multi-feature model and `evaluate_model`**
+
+**Purpose:** Construct a synthetic loan dataset with correlated credit score, fit `LogisticRegression` on scaled train data, print sorted odds ratios, and reuse the evaluation helper on the test set.
+
+**Walkthrough:** Manual logit → `sigmoid` → Bernoulli outcomes; `train_test_split` + `StandardScaler`; `loan_model.coef_[0]` and `np.exp`; calls `evaluate_model`.
 
 ```python
 # Generate a more complex dataset
@@ -586,7 +715,55 @@ print(loan_coefficients)
 evaluate_model(loan_model, X_test_scaled, y_test)
 ```
 
+
+![logistic-regression](assets/logistic-regression_fig_8.png)
+
+
+![logistic-regression](assets/logistic-regression_fig_9.png)
+
+```
+Loan approval dataset created.
+              Age        Income  ...  CreditScore    Approved
+count  500.000000    500.000000  ...   500.000000  500.000000
+mean    35.068380  50477.391756  ...   849.351735    0.046000
+std      9.812532  14669.957928  ...     6.854254    0.209695
+min      2.587327   9546.700356  ...   738.183677    0.000000
+25%     27.996926  41070.623902  ...   850.000000    0.000000
+50%     35.127971  50427.973993  ...   850.000000    0.000000
+75%     41.367833  59768.634463  ...   850.000000    0.000000
+max     73.527315  89485.730973  ...   850.000000    1.000000
+
+[8 rows x 6 columns]
+
+Loan Approval Model Coefficients:
+          Feature  Coefficient  Odds_Ratio
+0             Age     0.630864    1.879233
+1          Income     0.583599    1.792477
+2  EducationYears     0.460648    1.585101
+4     CreditScore     0.042793    1.043722
+3    DebtToIncome    -0.244546    0.783060
+Model Accuracy: 0.9440
+
+Confusion Matrix:
+
+Classification Report:
+              precision    recall  f1-score   support
+
+      Failed       0.94      1.00      0.97       117
+      Passed       1.00      0.12      0.22         8
+
+    accuracy                           0.94       125
+   macro avg       0.97      0.56      0.60       125
+weighted avg       0.95      0.94      0.92       125
+```
+
 ### 2. Feature Importance and Interpretation
+
+**Bar chart of signed coefficients as importance for the loan model**
+
+**Purpose:** Rank features by absolute logistic coefficient, color bars green/red for direction, and show odds ratios in the underlying table logic (plot uses coefficients).
+
+**Walkthrough:** `model.coef_[0]`; `Patch` legend for positive/negative effect; horizontal bar chart.
 
 ```python
 def plot_feature_importance(model, feature_names):
@@ -628,6 +805,9 @@ def plot_feature_importance(model, feature_names):
 plot_feature_importance(loan_model, X_loan.columns)
 ```
 
+
+![logistic-regression](assets/logistic-regression_fig_10.png)
+
 When you run this code, you'll see a visualization of feature importance (saved as `feature_importance.png`):
 
 ![Feature Importance](assets/feature_importance.png)
@@ -635,6 +815,12 @@ When you run this code, you'll see a visualization of feature importance (saved 
 ### 3. Handling Class Imbalance
 
 In many real-world applications, the classes are imbalanced (e.g., rare medical conditions, fraud detection). Here's how to handle this:
+
+**Imbalanced labels: `class_weight` vs default with ROC and PR curves**
+
+**Purpose:** Force a 10% positive rate, fit plain and `class_weight='balanced'` logistic models, and compare ROC and precision–recall curves plus classification reports.
+
+**Walkthrough:** `stratify` in `train_test_split`; `roc_curve`, `roc_auc_score`, `precision_recall_curve`, `average_precision_score`; subplot layout.
 
 ```python
 # Create an imbalanced dataset (10% positive class)
@@ -766,6 +952,12 @@ This comparison shows that:
 - Undersample the majority class
 - Use different evaluation metrics (F1-score, precision-recall AUC)
 
+**Instantiate `LogisticRegression` with balanced or custom `class_weight`**
+
+**Purpose:** Show two ways to pass class weights: `'balanced'` or an explicit `{class: weight}` dict for skewed costs.
+
+**Walkthrough:** `LogisticRegression(class_weight=...)` constructors only (no fit in snippet).
+
 ```python
 # Example of using class weights
 from sklearn.linear_model import LogisticRegression
@@ -778,6 +970,12 @@ class_weights = {0: 1, 1: 10}  # Give 10x importance to class 1
 weighted_model = LogisticRegression(class_weight=class_weights)
 ```
 
+
+![logistic-regression](assets/logistic-regression_fig_11.png)
+
+
+![logistic-regression](assets/logistic-regression_fig_12.png)
+
 ### 2. Multicollinearity
 
 **Problem**: Features are highly correlated, making coefficient interpretation difficult.
@@ -787,6 +985,12 @@ weighted_model = LogisticRegression(class_weight=class_weights)
 - Remove redundant features
 - Use regularization (L1 or L2)
 - Apply dimensionality reduction techniques (like PCA)
+
+**L1 vs L2 penalties via `penalty` and `solver` choice**
+
+**Purpose:** Illustrate `LogisticRegression` with `penalty='l1'` and `liblinear` vs `penalty='l2'` at the same `C` for multicollinear settings.
+
+**Walkthrough:** `C` as inverse regularization strength; comment ties smaller `C` to stronger shrinkage.
 
 ```python
 # Example of using regularization to handle multicollinearity
@@ -811,6 +1015,12 @@ l2_model = LogisticRegression(penalty='l2', C=0.1)
 - Use feature transformations
 - Consider non-linear models (random forests, neural networks)
 
+**Pipeline: quadratic feature expansion then logistic regression**
+
+**Purpose:** Chain `PolynomialFeatures(degree=2)` with `LogisticRegression` to capture curvature in log-odds, fit on train split.
+
+**Walkthrough:** `make_pipeline`; `fit` on `X_train`, `y_train` from earlier exam workflow.
+
 ```python
 # Example of adding polynomial features
 from sklearn.preprocessing import PolynomialFeatures
@@ -824,6 +1034,13 @@ poly_model = make_pipeline(
 poly_model.fit(X_train, y_train)
 ```
 
+**Captured output (example):**
+
+```
+Pipeline(steps=[('polynomialfeatures', PolynomialFeatures(include_bias=False)),
+                ('logisticregression', LogisticRegression())])
+```
+
 ## Extending to Multi-class Classification
 
 Logistic regression can be extended to handle multiple classes using two approaches:
@@ -831,6 +1048,12 @@ Logistic regression can be extended to handle multiple classes using two approac
 ### 1. One-vs-Rest (OvR)
 
 Trains one binary classifier per class and selects the class with the highest probability.
+
+**Iris data: one-vs-rest logistic regression**
+
+**Purpose:** Load Iris, split, fit `LogisticRegression(multi_class='ovr')`, report test accuracy and `predict_proba` shape.
+
+**Walkthrough:** `load_iris`; `train_test_split`; `score`; `predict_proba` for class probabilities.
 
 ```python
 from sklearn.linear_model import LogisticRegression
@@ -859,6 +1082,12 @@ print("Shape of probability matrix:", class_probabilities.shape)
 
 Generalizes logistic regression to multiple classes using the softmax function.
 
+**Multinomial logistic (`multinomial` + `lbfgs`) on the same Iris split**
+
+**Purpose:** Fit softmax regression on the same train/test as OvR and compare held-out accuracy.
+
+**Walkthrough:** `multi_class='multinomial'`; `solver='lbfgs'`; `score` on `X_test`, `y_test`.
+
 ```python
 # Train multinomial logistic regression
 softmax_model = LogisticRegression(multi_class='multinomial', solver='lbfgs', random_state=42)
@@ -872,6 +1101,12 @@ print(f"Multinomial (Softmax) accuracy: {softmax_accuracy:.4f}")
 ## Interactive Example: Predict Customer Purchase
 
 Let's create an interactive example where we predict if a customer will make a purchase based on their behavior:
+
+**Toy `coef_` / `intercept_` and manual scaling for purchase probability**
+
+**Purpose:** Demonstrate `predict_proba` from a hand-set logistic model after z-scoring features with fixed population means/stds.
+
+**Walkthrough:** Assign `coef_` and `intercept_`; manual `(X - mean) / std`; threshold narrative at 0.5.
 
 ```python
 # Create a function to predict purchase probability
@@ -914,6 +1149,12 @@ else:
 ## Practice Exercise
 
 Try building a logistic regression model to predict diabetes using the Pima Indians Diabetes dataset:
+
+**End-to-end Pima Indians pipeline: scale, fit, metrics, odds ratios**
+
+**Purpose:** Load CSV from URL, inspect with `info`/`describe`, train `LogisticRegression` on scaled features, print confusion matrix and report, and rank features by odds ratio.
+
+**Walkthrough:** `pd.read_csv`; `train_test_split`; `StandardScaler`; `classification_report`, `confusion_matrix`; `np.exp` on coefficients.
 
 ```python
 # Import libraries
@@ -967,6 +1208,65 @@ coefficients = pd.DataFrame({
 coefficients = coefficients.sort_values('Odds_Ratio', ascending=False)
 print("\nFeature Importance:")
 print(coefficients)
+```
+
+**Captured output (example):**
+
+```
+<class 'pandas.DataFrame'>
+RangeIndex: 768 entries, 0 to 767
+Data columns (total 9 columns):
+ #   Column                    Non-Null Count  Dtype  
+---  ------                    --------------  -----  
+ 0   Pregnancies               768 non-null    int64  
+ 1   Glucose                   768 non-null    int64  
+ 2   BloodPressure             768 non-null    int64  
+ 3   SkinThickness             768 non-null    int64  
+ 4   Insulin                   768 non-null    int64  
+ 5   BMI                       768 non-null    float64
+ 6   DiabetesPedigreeFunction  768 non-null    float64
+ 7   Age                       768 non-null    int64  
+ 8   Outcome                   768 non-null    int64  
+dtypes: float64(2), int64(7)
+memory usage: 54.1 KB
+None
+       Pregnancies     Glucose  ...         Age     Outcome
+count   768.000000  768.000000  ...  768.000000  768.000000
+mean      3.845052  120.894531  ...   33.240885    0.348958
+std       3.369578   31.972618  ...   11.760232    0.476951
+min       0.000000    0.000000  ...   21.000000    0.000000
+25%       1.000000   99.000000  ...   24.000000    0.000000
+50%       3.000000  117.000000  ...   29.000000    0.000000
+75%       6.000000  140.250000  ...   41.000000    1.000000
+max      17.000000  199.000000  ...   81.000000    1.000000
+
+[8 rows x 9 columns]
+
+Confusion Matrix:
+[[95 28]
+ [24 45]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.80      0.77      0.79       123
+           1       0.62      0.65      0.63        69
+
+    accuracy                           0.73       192
+   macro avg       0.71      0.71      0.71       192
+weighted avg       0.73      0.73      0.73       192
+
+
+Feature Importance:
+                    Feature  Coefficient  Odds_Ratio
+1                   Glucose     1.131155    3.099233
+5                       BMI     0.760050    2.138384
+7                       Age     0.429940    1.537165
+0               Pregnancies     0.201701    1.223482
+6  DiabetesPedigreeFunction     0.171810    1.187453
+3             SkinThickness     0.066148    1.068385
+4                   Insulin    -0.172464    0.841589
+2             BloodPressure    -0.222390    0.800603
 ```
 
 ## Next steps

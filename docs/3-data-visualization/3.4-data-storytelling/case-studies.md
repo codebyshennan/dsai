@@ -1,6 +1,14 @@
 # Data Storytelling Case Studies: Learning from Real-World Examples
 
+**After this lesson:** you can explain the core ideas in “Data Storytelling Case Studies: Learning from Real-World Examples” and reproduce the examples here in your own notebook or environment.
+
 > **Note:** Scenarios are illustrative. Replace figure placeholders with your own screenshots when you recreate similar views in your tool of choice.
+
+## Helpful video
+
+Framing insights for others—related context for storytelling.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction: Why Case Studies Matter
 

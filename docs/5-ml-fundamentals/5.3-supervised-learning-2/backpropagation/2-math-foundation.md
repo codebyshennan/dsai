@@ -1,5 +1,13 @@
 # Mathematical Foundations of Backpropagation
 
+**After this lesson:** you can explain the core ideas in “Mathematical Foundations of Backpropagation” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Understanding the Chain Rule
 
 ### What is the Chain Rule?
@@ -39,6 +47,9 @@ def plot_chain_rule_example():
 
 plot_chain_rule_example()
 ```
+
+
+![2-math-foundation](assets/2-math-foundation_fig_1.png)
 
 ## Forward Pass
 
@@ -91,6 +102,9 @@ def plot_forward_pass():
 
 plot_forward_pass()
 ```
+
+
+![2-math-foundation](assets/2-math-foundation_fig_2.png)
 
 ## Backward Pass
 
@@ -196,6 +210,9 @@ def plot_activation_functions():
 
 plot_activation_functions()
 ```
+
+
+![2-math-foundation](assets/2-math-foundation_fig_3.png)
 
 ## Loss Functions
 

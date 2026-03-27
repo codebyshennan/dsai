@@ -1,5 +1,15 @@
 # Function Application and Mapping in Pandas
 
+**After this lesson:** you can explain the core ideas in “Function Application and Mapping in Pandas” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/DCDe29sIKcE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Corey Schafer — Python pandas tutorial (part 5): updating rows and columns (maps, replaces, transforms)*
+
 ## Understanding Function Application
 
 ---
@@ -34,6 +44,11 @@ Real-world applications:
 ### Basic Function Application
 
 Let's explore with practical examples:
+
+**`Series.apply` for grades and cleaning**
+
+- **Purpose:** Map numeric scores to letter buckets with a Python function, then clean currency strings and whitespace on a second table.
+- **Walkthrough:** `df[subject].apply(to_letter_grade)` is per-cell; `clean_price` strips `$` and commas before `float`.
 
 ```python
 import pandas as pd
@@ -88,6 +103,26 @@ print("\nCleaned sales data:")
 print(sales_data)
 ```
 
+```
+Original grades:
+      Name  Math  Science  History
+0    Alice    85       92       88
+1      Bob    76       88       82
+2  Charlie    92       95       85
+
+With letter grades:
+      Name  Math  Science  History Math_Grade Science_Grade History_Grade
+0    Alice    85       92       88          B             A             B
+1      Bob    76       88       82          C             B             B
+2  Charlie    92       95       85          A             A             B
+
+Cleaned sales data:
+         Date   Product    Price  Quantity    Total
+0  2023-01-01    Laptop  1200.00         5  6000.00
+1  2023-01-02     Mouse    25.99        10   259.90
+2  2023-01-03  Keyboard    89.99         8   719.92
+```
+
 ## Different Ways to Apply Functions
 
 ---
@@ -95,6 +130,11 @@ print(sales_data)
 ### Using apply()
 
 The `apply()` method is the most versatile way to apply functions:
+
+**Row-wise `apply` with `axis=1`**
+
+- **Purpose:** Compute a value from multiple columns in the same row (revenue = price × quantity).
+- **Walkthrough:** `calculate_revenue(row)` receives a Series for each row when `axis=1`.
 
 ```python
 # Create a DataFrame with sales data
@@ -114,6 +154,14 @@ print("Sales with revenue:")
 print(sales_df)
 ```
 
+```
+Sales with revenue:
+  Product  Price  Quantity  Revenue
+0   Apple    0.5       100     50.0
+1  Banana    0.3       150     45.0
+2  Orange    0.6        80     48.0
+```
+
 The **axis** parameter determines whether the function is applied to:
 
 - rows (**axis=1**)
@@ -124,6 +172,11 @@ The **axis** parameter determines whether the function is applied to:
 ### Using applymap()
 
 `applymap()` applies a function to every single element in a DataFrame:
+
+**Element-wise formatting (use `map` in modern pandas for a single column)**
+
+- **Purpose:** Transform every cell—here format floats as strings with two decimals for display.
+- **Walkthrough:** `applymap` receives scalar `x` per cell; pandas 2.1+ prefers `DataFrame.map` for the same idea.
 
 ```python
 # Create a DataFrame with numbers
@@ -147,6 +200,11 @@ print(formatted_df)
 
 For Series objects, use `map()` to transform values:
 
+**Dictionary lookup on a Series**
+
+- **Purpose:** Replace codes with human-readable labels using a dict—faster than nested `if` for large code tables.
+- **Walkthrough:** `products.map(product_names)` aligns index to the original Series.
+
 ```python
 # Create a Series of product codes
 products = pd.Series(['A123', 'B456', 'C789'])
@@ -167,6 +225,20 @@ print("\nProduct names:")
 print(product_labels)
 ```
 
+```
+Product codes:
+0    A123
+1    B456
+2    C789
+dtype: str
+
+Product names:
+0      Laptop
+1       Mouse
+2    Keyboard
+dtype: str
+```
+
 ## Real-World Examples
 
 ---
@@ -174,6 +246,11 @@ print(product_labels)
 ### Data Cleaning Example
 
 Clean and standardize customer data:
+
+**Title-case names and normalize phones**
+
+- **Purpose:** Show per-column cleaning pipelines—string methods for names, digit extraction for phones.
+- **Walkthrough:** `filter(str.isdigit, phone)` keeps digits before slicing into `XXX-XXX-XXXX`.
 
 ```python
 # Create a DataFrame with messy customer data
@@ -202,11 +279,24 @@ print("Cleaned customer data:")
 print(customers)
 ```
 
+```
+Cleaned customer data:
+         Name           Email         Phone
+0    John Doe  john@email.com  123-456-7890
+1  Jane Smith  jane@email.com  987-654-3210
+2  Bob Wilson   bob@email.com  555-444-3333
+```
+
 ---
 
 ### Data Analysis Example
 
 Calculate statistics for student grades:
+
+**Return a Series per row from `apply`**
+
+- **Purpose:** Aggregate each student’s quiz columns into average, min, max, and a boolean trend flag in one pass.
+- **Walkthrough:** `analyze_grades` returns `pd.Series(...)`; `apply(..., axis=1)` stacks those into new columns.
 
 ```python
 # Create grade data
@@ -234,6 +324,22 @@ print("Original grades:")
 print(grades)
 print("\nGrade analysis:")
 print(analysis)
+```
+
+```
+Original grades:
+   Student  Quiz1  Quiz2  Quiz3
+0    Alice     95     88     92
+1      Bob     80     85     88
+2  Charlie     85     90     85
+3    David     70     75     80
+
+Grade analysis:
+     Average  Highest  Lowest  Improved
+0  91.666667       95      88     False
+1  84.333333       88      80      True
+2  86.666667       90      85     False
+3  75.000000       80      70      True
 ```
 
 ## Best Practices and Tips

@@ -1,6 +1,14 @@
 # Real-World Applications of Gradient Boosting
 
+**After this lesson:** you can explain the core ideas in “Real-World Applications of Gradient Boosting” and reproduce the examples here in your own notebook or environment.
+
 Welcome to the practical world of Gradient Boosting! In this guide, we'll explore how this powerful technique is used to solve real problems in various industries. Think of this as seeing how professional chefs use their skills in different types of restaurants.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 1. Financial Applications: Making Smart Money Decisions
 

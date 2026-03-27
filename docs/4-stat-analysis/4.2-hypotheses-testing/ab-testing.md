@@ -1,5 +1,13 @@
 # A/B Testing: Making Data-Driven Decisions
 
+**After this lesson:** you can explain the core ideas in “A/B Testing: Making Data-Driven Decisions” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Core ideas behind hypothesis tests and the null hypothesis.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0oc49DyA3hU" title="Hypothesis Testing and The Null Hypothesis, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Why this matters
 
 - You will run **controlled comparisons** of two variants and interpret results without fooling yourself.
@@ -33,6 +41,12 @@ A/B testing (or split testing) is like running a scientific experiment where you
 - Mobile app features
 - Pricing strategies
 - UI/UX design choices
+
+**`ABTest` helper: summaries, CIs, and a three-panel figure**
+
+**Purpose:** Show a typical teaching scaffold—per-arm mean/SEM, 95% CI via `stats.t.interval`, KDE/boxplot views, and a bar for standardized mean difference—so learners see analysis and visualization in one class.
+
+**Walkthrough:** `_calculate_stats` uses `stats.sem` for the standard error passed to `t.interval`; `visualize` builds three `subplot`s and saves to `assets/ab_test_results.png` next to this module.
 
 ```python
 import numpy as np
@@ -107,6 +121,12 @@ class ABTest:
 
 Don't start without knowing how many samples you need!
 
+**Approximate per-arm sample size (normal approximation)**
+
+**Purpose:** Translate baseline rate, minimum detectable effect, \(\alpha\), and power into a rounded per-group `n`—the kind of back-of-envelope planning step used before you trust a full statsmodels power routine.
+
+**Walkthrough:** Uses normal critical values `norm.ppf`; the pooled variance line is a simplified prop-of-variance setup; result returns both per-group and total `2n`.
+
 ```python
 def calculate_sample_size(
     baseline_rate=0.1,    # Current conversion rate
@@ -168,6 +188,12 @@ sample_size_calc = calculate_sample_size(
 
 Ensure fair comparison with proper randomization:
 
+**Shuffle-and-slice assignment**
+
+**Purpose:** Demonstrate reproducible random assignment with an optional seed, an explicit split point from `split_ratio`, and printed diagnostics so you catch accidental 90/10 splits.
+
+**Walkthrough:** `shuffle` mutates a copy of `user_ids`; first `split_point` indices become control here—confirm ordering matches your product convention (sometimes treatment is first).
+
 ```python
 def assign_to_groups(user_ids, split_ratio=0.5, seed=None):
     """
@@ -215,6 +241,12 @@ def assign_to_groups(user_ids, split_ratio=0.5, seed=None):
 
 Track everything systematically:
 
+**Row-level event log → `DataFrame` aggregation**
+
+**Purpose:** Show the minimum structure for experiment telemetry—append dict rows, then `groupby` to counts and means—so monitoring code has a single source of truth.
+
+**Walkthrough:** `record_observation` stamps wall-clock time and “days in test”; `get_results` uses a MultiIndex column from `agg`—handy for dashboards, easy to flatten for exports.
+
 ```python
 class ABTestDataCollector:
     def __init__(self):
@@ -252,6 +284,12 @@ class ABTestDataCollector:
 ### 2. Monitoring
 
 Watch your test without peeking too much:
+
+**Interim dashboard: sample size gate + running p-value**
+
+**Purpose:** Illustrate why “stop when p < 0.05” without a sample-size rule inflates false positives—here `can_conclude` naively ANDs size and significance (still only a teaching stub; production tests need sequential methods).
+
+**Walkthrough:** Pulls lists from `data_collector.data` for `ttest_ind`; `current_size` uses the minimum per-group count from the grouped table.
 
 ```python
 def monitor_test(data_collector, min_sample_size):
@@ -297,6 +335,12 @@ def monitor_test(data_collector, min_sample_size):
 ### 1. Statistical Analysis
 
 Don't just look at the numbers - understand them:
+
+**Means, relative lift, t-test, and a CI on the mean difference**
+
+**Purpose:** Package the numbers stakeholders ask for—lift, p-value, and an interval on the difference—plus a toy `recommendation` flag (you would replace business rules in production).
+
+**Walkthrough:** `relative_change` divides by control mean; `ttest_ind` on raw arrays; `stats.t.interval` targets the sampling distribution of \(\bar B - \bar A\) with a large-sample style scale (illustrative).
 
 ```python
 def analyze_results(control_data, treatment_data, alpha=0.05):
@@ -351,6 +395,12 @@ def analyze_results(control_data, treatment_data, alpha=0.05):
 
 Don't keep checking results - it increases false positives!
 
+**Bonferroni-style peeking adjustment (illustrative)**
+
+**Purpose:** Show how `multipletests` can shrink effective \(\alpha\) when you peek repeatedly—real A/B platforms often use spending functions instead, but Bonferroni is the didactic baseline.
+
+**Walkthrough:** `alpha_per_peek = 0.05 / total_looks` is strict; `multipletests(..., method='bonferroni')` returns adjusted p-values and rejection flags.
+
 ```python
 def adjust_for_peeking(p_values, total_looks):
     """Adjust significance level for multiple looks at the data"""
@@ -376,6 +426,12 @@ def adjust_for_peeking(p_values, total_looks):
 ### 2. Sample Ratio Mismatch
 
 Check if your randomization is working:
+
+**Chi-square goodness-of-fit on assignment counts**
+
+**Purpose:** Turn “did we get a 50/50 split?” into a single p-value—large deviations from expected allocation trigger investigation (bugs, targeting, or attrition).
+
+**Walkthrough:** `stats.chisquare(observed, expected)` compares realized counts to `[ (1-p)N, pN ]`; `is_valid` uses p > 0.05 as “not suspicious” (coarse rule of thumb).
 
 ```python
 def check_sample_ratio(control_size, treatment_size, expected_ratio=0.5):
@@ -552,6 +608,12 @@ Determine how many samples you need:
 
 ### Setting Up Groups
 
+**Permutation split (treatment prefix)**
+
+**Purpose:** Compact variant of random assignment using `permutation`; treatment takes the first `n_treatment` IDs—compare carefully with `assign_to_groups` above where control took the prefix.
+
+**Walkthrough:** `shuffled_ids[:n_treatment]` is treatment; remainder is control—document this choice in real experiments to avoid flipping arms.
+
 ```python
 import numpy as np
 
@@ -570,6 +632,12 @@ def assign_groups(user_ids, split_ratio=0.5):
 ```
 
 ### Data Collection
+
+**Minimal observation buffer**
+
+**Purpose:** Show a lighter-weight collector than `ABTestDataCollector`—one row per metric observation with timestamp for later joins to dim tables.
+
+**Walkthrough:** Requires `pandas` in scope for `get_data`; extend with schema validation before production use.
 
 ```python
 class DataCollector:

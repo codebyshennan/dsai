@@ -1,5 +1,13 @@
 # Mathematical Foundation of Neural Networks
 
+**After this lesson:** you can explain the core ideas in “Mathematical Foundation of Neural Networks” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Welcome to the Math Behind Neural Networks
 
 Don't worry if math isn't your strongest suit! We'll break down these concepts into simple, understandable pieces. Think of this like learning to cook - you don't need to be a master chef to make a great meal, you just need to understand the basic ingredients and how they work together.
@@ -333,6 +341,9 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 ```
+
+
+![2-math-foundation](assets/2-math-foundation_fig_1.png)
 
 ## Next Steps
 

@@ -1,8 +1,14 @@
 # Data Querying with SQL: Your Gateway to Data Mastery
 
-## Overview
+**After this submodule:** You can read and write portable SQL against relational data—from **SELECT** and filters through **JOIN**s, aggregations, and introductory analytics patterns.
 
-**Primary outcome:** You can read and write portable SQL against relational data—from **SELECT** and filters through **JOIN**s, aggregations, and introductory analytics patterns.
+## Helpful video
+
+High-level introduction to SQL and relational databases.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/27axs9dO7AE" title="What is SQL?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** Comfortable with tables, rows, and columns (spreadsheet or [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md)). Install a client such as [DBeaver](../../0-prep/dbeaver.md) and a practice database as listed under **Tools Required** below.
 
@@ -85,7 +91,10 @@ In today's data-driven world, SQL is more relevant than ever:
 
 Consider this real-world scenario:
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- A single query that provides valuable business insights
 SELECT 
     c.customer_segment,
@@ -106,7 +115,29 @@ Premium         | 1250          | 185.50          | 580,937.50    | 2.5
 Standard        | 3500          | 75.25           | 395,062.50    | 1.5
 Basic           | 5250          | 45.75           | 240,187.50    | 1.0
 */
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">A single query that provides valuable busines…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GROUP BY c.customer_segment</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 This single query tells us:
 
@@ -150,21 +181,40 @@ Learn the building blocks of databases:
 
 - **Data Types & Constraints**
 
-  ```sql
-  CREATE TABLE products (
-      product_id SERIAL PRIMARY KEY,
-      name VARCHAR(100) NOT NULL,
-      price DECIMAL(10,2) CHECK (price >= 0),
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      category_id INT REFERENCES categories(id)
-  );
-  ```
+  <div class="code-explainer" data-code-explainer>
+  <div class="code-explainer__code">
+  
+  {% highlight sql %}
+    CREATE TABLE products (
+        product_id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        price DECIMAL(10,2) CHECK (price >= 0),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        category_id INT REFERENCES categories(id)
+    );
+  {% endhighlight %}
+  </div>
+  <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+    <div class="code-callout" data-lines="1-7" data-tint="1">
+      <div class="code-callout__meta">
+        <span class="code-callout__lines"></span>
+        <span class="code-callout__title">CREATE TABLE products (</span>
+      </div>
+      <div class="code-callout__body">
+        <p>Lines 1–7: follow this band in the snippet.</p>
+      </div>
+    </div>
+  </aside>
+  </div>
 
 ### 2. Basic SQL Operations
 
 Master the fundamental operations with practical examples:
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Find top-selling products this month
 SELECT 
     p.product_name,
@@ -189,13 +239,38 @@ MacBook Pro     | 75         | 150000   | 75
 iPad Air        | 65         | 45500    | 63
 Apple Watch     | 60         | 24000    | 58
 */
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Find top-selling products this month</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ORDER BY units_sold DESC</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Aggregations and Grouping
 
 Transform raw data into actionable insights:
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Customer cohort analysis
 WITH cohort_data AS (
     SELECT 
@@ -213,7 +288,29 @@ SELECT
     ROUND(avg_orders, 1) as avg_orders_per_customer
 FROM cohort_data
 ORDER BY cohort_month DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Customer cohort analysis</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GROUP BY DATE_TRUNC(&#x27;month&#x27;, first_order_date)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–17: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Performance consideration:
 $T_{query} = O(n \log n)$ for sorted aggregations
@@ -233,7 +330,10 @@ graph LR
 
 Example of complex joins:
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Customer order history with product details
 WITH customer_orders AS (
     SELECT 
@@ -258,7 +358,29 @@ SELECT
 FROM customer_orders
 GROUP BY customer_id, customer_name
 HAVING COUNT(DISTINCT order_id) > 0;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Customer order history with product details</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">LEFT JOIN orders o ON c.customer_id = o.custo…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 5. Advanced SQL Concepts
 
@@ -266,49 +388,97 @@ Take your SQL skills to the next level:
 
 1. **Query Optimization**
 
-   ```sql
-   EXPLAIN ANALYZE
-   SELECT /*+ INDEX(orders idx_order_date) */
-       DATE_TRUNC('month', order_date) as month,
-       COUNT(*) as order_count,
-       SUM(total_amount) as revenue
-   FROM orders
-   WHERE order_date >= CURRENT_DATE - INTERVAL '1 year'
-   GROUP BY DATE_TRUNC('month', order_date);
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight sql %}
+      EXPLAIN ANALYZE
+      SELECT /*+ INDEX(orders idx_order_date) */
+          DATE_TRUNC('month', order_date) as month,
+          COUNT(*) as order_count,
+          SUM(total_amount) as revenue
+      FROM orders
+      WHERE order_date >= CURRENT_DATE - INTERVAL '1 year'
+      GROUP BY DATE_TRUNC('month', order_date);
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">EXPLAIN ANALYZE</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–8: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **Window Functions**
 
-   ```sql
-   SELECT 
-       category_name,
-       product_name,
-       price,
-       AVG(price) OVER (PARTITION BY category_name) as avg_category_price,
-       price - AVG(price) OVER (PARTITION BY category_name) as price_diff_from_avg,
-       RANK() OVER (PARTITION BY category_name ORDER BY price DESC) as price_rank
-   FROM products p
-   JOIN categories c ON p.category_id = c.category_id;
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight sql %}
+      SELECT 
+          category_name,
+          product_name,
+          price,
+          AVG(price) OVER (PARTITION BY category_name) as avg_category_price,
+          price - AVG(price) OVER (PARTITION BY category_name) as price_diff_from_avg,
+          RANK() OVER (PARTITION BY category_name ORDER BY price DESC) as price_rank
+      FROM products p
+      JOIN categories c ON p.category_id = c.category_id;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-9" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">SELECT</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–9: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **Common Table Expressions (CTEs)**
 
-   ```sql
-   WITH RECURSIVE subordinates AS (
-       -- Base case: direct reports
-       SELECT employee_id, manager_id, name, 1 as level
-       FROM employees
-       WHERE manager_id = 1
-       
-       UNION ALL
-       
-       -- Recursive case: subordinates of subordinates
-       SELECT e.employee_id, e.manager_id, e.name, s.level + 1
-       FROM employees e
-       JOIN subordinates s ON e.manager_id = s.employee_id
-   )
-   SELECT * FROM subordinates ORDER BY level, employee_id;
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight sql %}
+      WITH RECURSIVE subordinates AS (
+          -- Base case: direct reports
+          SELECT employee_id, manager_id, name, 1 as level
+          FROM employees
+          WHERE manager_id = 1
+          
+          UNION ALL
+          
+          -- Recursive case: subordinates of subordinates
+          SELECT e.employee_id, e.manager_id, e.name, s.level + 1
+          FROM employees e
+          JOIN subordinates s ON e.manager_id = s.employee_id
+      )
+      SELECT * FROM subordinates ORDER BY level, employee_id;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-14" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">WITH RECURSIVE subordinates AS (</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–14: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 Performance considerations:
 
@@ -349,14 +519,30 @@ Before starting this journey, ensure you have:
 1. **DBeaver Community Edition**
    - Universal Database Tool
 
-   ```bash
-   # Installation commands
-   # For macOS:
-   brew install --cask dbeaver-community
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   # For Ubuntu:
-   sudo snap install dbeaver-ce
-   ```
+   {% highlight bash %}
+      # Installation commands
+      # For macOS:
+      brew install --cask dbeaver-community
+      
+      # For Ubuntu:
+      sudo snap install dbeaver-ce
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-6" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Installation commands</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–6: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
    Features:
    - SQL Editor with syntax highlighting
@@ -369,31 +555,63 @@ Before starting this journey, ensure you have:
 2. **Sample Database - Northwind**
    Real-world business scenario database including:
 
-   ```sql
-   -- Core tables
-   - Customers (customer demographics and contacts)
-   - Products (product details and inventory)
-   - Orders (order details and shipping)
-   - Employees (staff information and territories)
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   -- Key relationships
-   - One customer can have many orders
-   - One order can have multiple products
-   - Each product belongs to a category
-   ```
+   {% highlight sql %}
+      -- Core tables
+      - Customers (customer demographics and contacts)
+      - Products (product details and inventory)
+      - Orders (order details and shipping)
+      - Employees (staff information and territories)
+      
+      -- Key relationships
+      - One customer can have many orders
+      - One order can have multiple products
+      - Each product belongs to a category
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-10" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Core tables</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–10: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
    Installation:
 
-   ```sql
-   -- 1. Create database
-   CREATE DATABASE northwind;
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   -- 2. Import schema
-   psql -d northwind -f northwind_schema.sql
-   
-   -- 3. Import data
-   psql -d northwind -f northwind_data.sql
-   ```
+   {% highlight sql %}
+      -- 1. Create database
+      CREATE DATABASE northwind;
+      
+      -- 2. Import schema
+      psql -d northwind -f northwind_schema.sql
+      
+      -- 3. Import data
+      psql -d northwind -f northwind_data.sql
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">1. Create database</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–8: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **Additional Tools (Optional)**
    - **pgAdmin 4**: Alternative GUI for PostgreSQL
@@ -403,106 +621,220 @@ Before starting this journey, ensure you have:
 
 4. **Version Control Setup**
 
-   ```bash
-   # Initialize SQL project
-   mkdir sql-practice
-   cd sql-practice
-   git init
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   # Create .gitignore
-   echo "*.log" > .gitignore
-   echo "*.tmp" >> .gitignore
-   ```
+   {% highlight bash %}
+      # Initialize SQL project
+      mkdir sql-practice
+      cd sql-practice
+      git init
+      
+      # Create .gitignore
+      echo "*.log" > .gitignore
+      echo "*.tmp" >> .gitignore
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Initialize SQL project</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–8: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 ## Best Practices
 
 1. **Query Writing Standards**
 
-   ```sql
-   --  Bad Practice
-   SELECT * FROM orders o, customers c WHERE o.customer_id=c.id;
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   --  Good Practice
-   SELECT 
-       c.first_name,
-       c.last_name,
-       o.order_date,
-       o.total_amount
-   FROM orders o
-   JOIN customers c 
-       ON o.customer_id = c.id
-   WHERE 
-       o.order_date >= CURRENT_DATE - INTERVAL '30 days'
-   ORDER BY 
-       o.order_date DESC;
-   ```
+   {% highlight sql %}
+      --  Bad Practice
+      SELECT * FROM orders o, customers c WHERE o.customer_id=c.id;
+      
+      --  Good Practice
+      SELECT 
+          c.first_name,
+          c.last_name,
+          o.order_date,
+          o.total_amount
+      FROM orders o
+      JOIN customers c 
+          ON o.customer_id = c.id
+      WHERE 
+          o.order_date >= CURRENT_DATE - INTERVAL '30 days'
+      ORDER BY 
+          o.order_date DESC;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Bad Practice</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–8: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="9-16" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">O.total_amount</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 9–16: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **Performance Optimization**
    - **Indexing Strategy**
 
-     ```sql
-     -- Create indexes for frequently queried columns
-     CREATE INDEX idx_orders_date ON orders(order_date);
-     CREATE INDEX idx_orders_customer ON orders(customer_id);
+     <div class="code-explainer" data-code-explainer>
+     <div class="code-explainer__code">
      
-     -- Use composite indexes for common query patterns
-     CREATE INDEX idx_orders_customer_date 
-     ON orders(customer_id, order_date);
-     ```
+     {% highlight sql %}
+          -- Create indexes for frequently queried columns
+          CREATE INDEX idx_orders_date ON orders(order_date);
+          CREATE INDEX idx_orders_customer ON orders(customer_id);
+          
+          -- Use composite indexes for common query patterns
+          CREATE INDEX idx_orders_customer_date 
+          ON orders(customer_id, order_date);
+     {% endhighlight %}
+     </div>
+     <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+       <div class="code-callout" data-lines="1-7" data-tint="1">
+         <div class="code-callout__meta">
+           <span class="code-callout__lines"></span>
+           <span class="code-callout__title">Create indexes for frequently queried columns</span>
+         </div>
+         <div class="code-callout__body">
+           <p>Lines 1–7: follow this band in the snippet.</p>
+         </div>
+       </div>
+     </aside>
+     </div>
 
    - **Query Optimization**
 
-     ```sql
-     --  Bad: Full table scan
-     SELECT * FROM orders 
-     WHERE EXTRACT(YEAR FROM order_date) = 2023;
+     <div class="code-explainer" data-code-explainer>
+     <div class="code-explainer__code">
      
-     --  Good: Uses index
-     SELECT * FROM orders 
-     WHERE order_date >= '2023-01-01' 
-       AND order_date < '2024-01-01';
-     ```
+     {% highlight sql %}
+          --  Bad: Full table scan
+          SELECT * FROM orders 
+          WHERE EXTRACT(YEAR FROM order_date) = 2023;
+          
+          --  Good: Uses index
+          SELECT * FROM orders 
+          WHERE order_date >= '2023-01-01' 
+            AND order_date < '2024-01-01';
+     {% endhighlight %}
+     </div>
+     <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+       <div class="code-callout" data-lines="1-8" data-tint="1">
+         <div class="code-callout__meta">
+           <span class="code-callout__lines"></span>
+           <span class="code-callout__title">Bad: Full table scan</span>
+         </div>
+         <div class="code-callout__body">
+           <p>Lines 1–8: follow this band in the snippet.</p>
+         </div>
+       </div>
+     </aside>
+     </div>
 
 3. **Data Integrity**
 
-   ```sql
-   -- Use constraints to enforce business rules
-   CREATE TABLE products (
-       product_id SERIAL PRIMARY KEY,
-       name VARCHAR(100) NOT NULL,
-       price DECIMAL(10,2) CHECK (price >= 0),
-       stock INT CHECK (stock >= 0),
-       category_id INT REFERENCES categories(id)
-   );
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight sql %}
+      -- Use constraints to enforce business rules
+      CREATE TABLE products (
+          product_id SERIAL PRIMARY KEY,
+          name VARCHAR(100) NOT NULL,
+          price DECIMAL(10,2) CHECK (price >= 0),
+          stock INT CHECK (stock >= 0),
+          category_id INT REFERENCES categories(id)
+      );
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Use constraints to enforce business rules</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–8: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 4. **Code Organization**
 
-   ```sql
-   -- Use CTEs for complex queries
-   WITH monthly_sales AS (
-       SELECT 
-           DATE_TRUNC('month', order_date) as month,
-           SUM(total_amount) as revenue
-       FROM orders
-       GROUP BY DATE_TRUNC('month', order_date)
-   ),
-   sales_growth AS (
-       SELECT 
-           month,
-           revenue,
-           LAG(revenue) OVER (ORDER BY month) as prev_month_revenue
-       FROM monthly_sales
-   )
-   SELECT 
-       month,
-       revenue,
-       ROUND(
-           ((revenue - prev_month_revenue) / prev_month_revenue * 100)::numeric, 
-           2
-       ) as growth_rate
-   FROM sales_growth;
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight sql %}
+      -- Use CTEs for complex queries
+      WITH monthly_sales AS (
+          SELECT 
+              DATE_TRUNC('month', order_date) as month,
+              SUM(total_amount) as revenue
+          FROM orders
+          GROUP BY DATE_TRUNC('month', order_date)
+      ),
+      sales_growth AS (
+          SELECT 
+              month,
+              revenue,
+              LAG(revenue) OVER (ORDER BY month) as prev_month_revenue
+          FROM monthly_sales
+      )
+      SELECT 
+          month,
+          revenue,
+          ROUND(
+              ((revenue - prev_month_revenue) / prev_month_revenue * 100)::numeric, 
+              2
+          ) as growth_rate
+      FROM sales_growth;
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-11" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Use CTEs for complex queries</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–11: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="12-23" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Revenue,</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 12–23: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 ## Resources
 

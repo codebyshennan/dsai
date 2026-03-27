@@ -1,8 +1,14 @@
 # Choosing the Right Visualization: A Beginner's Guide
 
-## Overview
+**After this lesson:** you can match **data types** and **analysis goals** to common chart families and avoid obvious mismatches (for example, pie charts for trends).
 
-After this guide, you should be able to match **data types** and **analysis goals** to common chart families and avoid obvious mismatches (for example, pie charts for trends).
+## Helpful video
+
+Orientation for the course visualization materials.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 > **Note:** This is a **reference-style** lesson: use it beside [Visualization principles](3.1-intro-data-viz/visualization-principles.md) and your Python or BI tool of choice.
 
@@ -48,6 +54,10 @@ Before choosing a visualization, identify what type of data you're working with:
 - Checking for normal distribution
 
 **Example:**
+
+**Purpose:** Sketch a one-variable distribution with frequency on the y-axis and binned values on the x-axis.
+
+**Walkthrough:** `hist` chooses bin counts via `bins=`; add title and axis labels so “what is counted” is explicit. Assumes `plt` and `data` exist.
 
 ```python
 # Histogram for showing distribution

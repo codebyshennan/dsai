@@ -1,5 +1,13 @@
 # Introduction to Decision Trees
 
+**After this lesson:** you can explain the core ideas in “Introduction to Decision Trees” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Why Learn Decision Trees?
 
 Decision trees are one of the most intuitive and powerful machine learning algorithms. They're perfect for beginners because:
@@ -39,6 +47,12 @@ This is exactly how a decision tree works! It's a series of yes/no questions tha
 ## Key Components of a Decision Tree
 
 Let's break down the parts of a decision tree using a simple example:
+
+#### Train a toy tree and inspect structure
+
+**Purpose:** Connect the walking-decision story to `DecisionTreeClassifier`, `plot_tree`, a prediction, and `feature_importances_`.
+
+**Walkthrough:** Rows of `X` are `[is_raining, temp_F, have_time]`; `plot_tree` labels nodes; importances sum to 1 over features used in splits.
 
 ```python
 import numpy as np
@@ -92,6 +106,18 @@ for i, importance in enumerate(feature_importance):
     print(f"{features[i]}: {importance:.2f}")
 ```
 
+
+![1-introduction](assets/1-introduction_fig_1.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Decision: Go for a walk
+Is Raining: 0.49
+Temperature: 0.51
+Have Time: 0.00
+```
+
 In this decision tree:
 
 1. **Root Node**: The starting point at the top, representing the entire dataset.
@@ -117,6 +143,12 @@ In this decision tree:
 ## How Decision Trees Learn
 
 Decision trees learn by finding the best questions to ask that separate the data most effectively:
+
+#### 2D synthetic data: decision surface + tree diagram
+
+**Purpose:** Visualize axis-aligned decision regions from `make_classification` and compare to the exported tree structure.
+
+**Walkthrough:** `plot_decision_boundary` fills class regions on a mesh; second `plot_tree` shows the splits that produced those rectangles.
 
 ```python
 # Let's see the splitting process visually
@@ -177,6 +209,12 @@ plt.title('Decision Tree Structure')
 plt.show()
 ```
 
+
+![1-introduction](assets/1-introduction_fig_2.png)
+
+
+![1-introduction](assets/1-introduction_fig_3.png)
+
 The tree learning process:
 
 1. **Start** with all data in the root node
@@ -212,6 +250,14 @@ Decision trees are ideal for:
 ## Practice Exercise
 
 Try building a simple decision tree on your own:
+
+#### Exercise: student pass/fail (`5.2-dt-1-intro-exercise`)
+
+**Purpose:** Practice fitting and predicting on a tiny table; read which feature the tree relies on most via `feature_importances_`.
+
+**Walkthrough:** Four numeric features → binary label; `np.argmax` picks the top importance—extend with train/test split in your own notebook.
+
+**Exercise:** `5.2-dt-1-intro-exercise` — complete in your environment; compare your predictions to the captured run below.
 
 ```python
 # Simple exercise: Predicting if a student will pass or fail
@@ -249,6 +295,13 @@ importances = student_model.feature_importances_
 # Display the most important factor in passing
 most_important = features[np.argmax(importances)]
 print(f"Most important factor: {most_important}")
+```
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Prediction: Pass
+Most important factor: Previous Score
 ```
 
 ## Next Steps

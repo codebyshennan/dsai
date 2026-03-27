@@ -1,5 +1,7 @@
 # Anaconda Setup
 
+**After this guide:** you have Anaconda or **uv** installed, can create and activate an environment, and know how to install packages without mixing system Python and your course env.
+
 ## What is Anaconda?
 
 Anaconda is a **free** Python distribution that comes with Python and hundreds of pre-installed data science packages. Think of it as a "starter kit" for data science - everything you need is already included!
@@ -7,19 +9,27 @@ Anaconda is a **free** Python distribution that comes with Python and hundreds o
 **In simple terms:** Instead of installing Python and then installing dozens of packages one by one, Anaconda gives you everything in one package. It also includes a visual tool (Anaconda Navigator) that lets you manage everything with clicks instead of typing commands.
 
 **Why use Anaconda?**
+
 - ✅ **Beginner-friendly** - Visual interface (Anaconda Navigator) for managing packages
 - ✅ **Pre-installed packages** - Popular data science tools ready to use
 - ✅ **Easy environment management** - Create separate workspaces for different projects
 - ✅ **Includes Jupyter Notebook** - Ready to use for data analysis
 - ✅ **Well-supported** - Great documentation and community
 
-> **Figure (add screenshot or diagram):** Anaconda Navigator home screen with **Launch** buttons.
+> **On screen:** Anaconda Navigator home screen with **Launch** buttons.
+
+## Helpful video
+
+Short install walkthrough (download, run the installer, open Jupyter from Anaconda Navigator). The demo uses **Windows**; on macOS and Linux you still download the matching installer from [anaconda.com](https://www.anaconda.com/) and follow the same overall flow.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wXyaCiL_cHg" title="How to Install Anaconda and Jupyter Notebook on Windows" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is uv?
 
 **uv** is a modern, super-fast Python package manager. It's like a turbocharged version of **pip** — it installs packages 10–100 times faster!
 
 **When to use uv:**
+
 - You're comfortable with command-line tools
 - You want faster package installation
 - You prefer lightweight tools
@@ -28,12 +38,14 @@ Anaconda is a **free** Python distribution that comes with Python and hundreds o
 ## Which Should I Choose?
 
 **Choose Anaconda if:**
+
 - You're a beginner
 - You prefer visual tools (GUI)
 - You want everything pre-installed
 - You want the easiest setup experience
 
 **Choose uv if:**
+
 - You're comfortable with command-line
 - You want faster package installation
 - You prefer lightweight tools
@@ -45,11 +57,11 @@ Anaconda is a **free** Python distribution that comes with Python and hundreds o
 
 ### Why Anaconda?
 
-* Simplifies package management and deployment
-* Includes 1,500+ open source packages
-* Includes the most popular data science tools like Jupyter Notebook
-* Suitable for both beginners and advanced users
-* Provides Anaconda Navigator GUI for easy management
+- Simplifies package management and deployment
+- Includes 1,500+ open source packages
+- Includes the most popular data science tools like Jupyter Notebook
+- Suitable for both beginners and advanced users
+- Provides Anaconda Navigator GUI for easy management
 
 ### Download and Installation
 
@@ -62,7 +74,7 @@ Anaconda is a **free** Python distribution that comes with Python and hundreds o
 3. Click **"Download"** for your operating system (choose 64-Bit)
 4. The download will start - this file is large (500MB+), so it may take a while
 
-> **Figure (add screenshot or diagram):** Anaconda download page with OS choices.
+> **On screen:** Anaconda download page with OS choices.
 
 **Step 2: Install Anaconda**
 
@@ -77,14 +89,14 @@ Anaconda is a **free** Python distribution that comes with Python and hundreds o
    **Important Installation Options:**
    - **Install for:** Choose **"Just Me"** (recommended for most users)
    - **Destination folder:** Leave as default (usually **C:\\Users\\YourName\\anaconda3**)
-   - **Advanced Options:** 
+   - **Advanced Options:**
      - ✅ **Check:** "Add Anaconda to my PATH environment variable"
      - ✅ **Check:** "Register Anaconda as my default Python"
-   
+
 5. Click **"Install"** and wait (this takes 5-10 minutes)
 6. Click **"Next"** and then **"Finish"** when done
 
-> **Figure (add screenshot or diagram):** Windows installer — **Just Me**, PATH, and finish screens.
+> **On screen:** Windows installer — **Just Me**, PATH, and finish screens.
 
 > **Note:** If you see a warning about PATH, that's okay - you checked the box to add it automatically.
 
@@ -103,7 +115,7 @@ Anaconda is a **free** Python distribution that comes with Python and hundreds o
 4. Wait for installation to complete (5-10 minutes)
 5. Click **"Close"** when finished
 
-> **Figure (add screenshot or diagram):** macOS installer — license, destination, password prompt.
+> **On screen:** macOS installer — license, destination, password prompt.
 
 **Verify Installation:**
 
@@ -160,7 +172,7 @@ When prompted, type `y` and press Enter for each installation.
 
 For **Apache Airflow**, use a **separate** environment or a **uv** virtualenv: Airflow 3.x is installed with official [constraint files](https://airflow.apache.org/docs/apache-airflow/stable/installation/installing-from-pypi.html), and the version on `conda-forge` may not match the course. Follow the [Airflow setup guide](./airflow.md) when you reach that module.
 
-> **Figure (add screenshot or diagram):** Terminal running **conda create** / **conda activate** / **conda install**.
+> **On screen:** Terminal running **conda create** / **conda activate** / **conda install**.
 
 ### Environment Management
 
@@ -185,12 +197,14 @@ conda env remove -n environment_name
 Anaconda Navigator is a visual tool that lets you launch applications and manage packages with clicks instead of commands.
 
 **How to Open:**
+
 - **Windows:** Start menu → Search "Anaconda Navigator" → Click it
 - **macOS:** Launchpad → Search "Anaconda Navigator" → Click it
 
-> **Figure (add screenshot or diagram):** Anaconda Navigator list of apps (Jupyter, VS Code, etc.).
+> **On screen:** Anaconda Navigator list of apps (Jupyter, VS Code, etc.).
 
 **What you'll see:**
+
 - A list of applications you can launch (Jupyter Notebook, VS Code, etc.)
 - Package management tools
 - Environment management
@@ -204,7 +218,7 @@ Anaconda Navigator is a visual tool that lets you launch applications and manage
 3. Click the **"Launch"** button below it
 4. Your web browser will open automatically with Jupyter Notebook
 
-> **Figure (add screenshot or diagram):** Jupyter Notebook row with **Launch** highlighted.
+> **On screen:** Jupyter Notebook row with **Launch** highlighted.
 
 **Method 2: Using Terminal/Command Prompt**
 
@@ -213,7 +227,7 @@ Anaconda Navigator is a visual tool that lets you launch applications and manage
 3. Type: **jupyter notebook** and press Enter
 4. Your default browser will open with Jupyter Notebook
 
-> **Tip:** If you see a URL like **http://localhost:8888**, that's normal — Jupyter is running on your computer!
+> **Tip:** If you see a URL like **<http://localhost:8888>**, that's normal — Jupyter is running on your computer!
 
 ### VS Code
 
@@ -231,9 +245,9 @@ Anaconda Navigator is a visual tool that lets you launch applications and manage
 ### Anaconda Issues
 
 1. **PATH Issues**:
-   * Windows: Restart your computer
-   * macOS: Run **source ~/.bash_profile** (or use **~/.zshrc** on newer macOS) or restart Terminal
-2.  **Package Conflicts**:
+   - Windows: Restart your computer
+   - macOS: Run **source ~/.bash_profile** (or use **~/.zshrc** on newer macOS) or restart Terminal
+2. **Package Conflicts**:
 
     ```bash
     # Remove conflicting package
@@ -242,10 +256,11 @@ Anaconda Navigator is a visual tool that lets you launch applications and manage
     # Reinstall with specific version
     conda install package_name=version
     ```
+
 3. **Environment Activation Fails**:
-   * Windows: Run as Administrator
-   * macOS: Check **conda init** was run for your shell
-4.  **Jupyter Notebook Kernel Missing**:
+   - Windows: Run as Administrator
+   - macOS: Check **conda init** was run for your shell
+4. **Jupyter Notebook Kernel Missing**:
 
     ```bash
     python -m ipykernel install --user --name=dsai
@@ -258,6 +273,7 @@ Anaconda Navigator is a visual tool that lets you launch applications and manage
 [**uv**](https://github.com/astral-sh/uv) is a modern Python package manager created by Astral (the team behind Ruff). It's designed to be **10–100 times faster** than traditional **pip**.
 
 **Key Benefits:**
+
 - **Super fast** — Installs packages much faster than pip
 - **Better dependency resolution** — Handles package conflicts automatically
 - **Lightweight** — Smaller footprint than Anaconda
@@ -265,12 +281,13 @@ Anaconda Navigator is a visual tool that lets you launch applications and manage
 - **Compatible** — Works with **requirements.txt** and **pyproject.toml**
 
 **Who should use uv?**
+
 - Developers comfortable with command-line tools
 - People who want faster package installation
 - Those who prefer lightweight tools
 - Experienced Python developers
 
-> **Figure (add screenshot or diagram):** Optional — timing **uv** vs **pip** for the same installs (for slides or motivation).
+> **On screen:** Optional — timing **uv** vs **pip** for the same installs (for slides or motivation).
 
 ### Installation
 
@@ -281,11 +298,13 @@ Anaconda Navigator is a visual tool that lets you launch applications and manage
 Open your terminal and run the command for your operating system:
 
 **For macOS/Linux:**
+
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 **For Windows (PowerShell):**
+
 ```powershell
 irm https://astral.sh/uv/install.ps1 | iex
 ```
@@ -293,6 +312,7 @@ irm https://astral.sh/uv/install.ps1 | iex
 **Step 2: Verify Installation**
 
 Close and reopen your terminal, then type:
+
 ```bash
 uv --version
 ```
@@ -337,35 +357,36 @@ Install **Apache Airflow** in its own folder and virtual environment using the p
 
 > **Tip:** You can install packages one at a time, or all together like above. **uv** will handle many conflicts automatically.
 
-> **Figure (add screenshot or diagram):** Terminal showing **uv pip install** resolving packages.
+> **On screen:** Terminal showing **uv pip install** resolving packages.
 
 ### uv issues
 
 1. **Installation Fails**:
-   * Check Python version compatibility
-   * Ensure build tools are installed
-2.  **Package Conflicts**:
+   - Check Python version compatibility
+   - Ensure build tools are installed
+2. **Package Conflicts**:
 
     ```bash
     # Force reinstall of one package
     uv pip install --reinstall package_name
     ```
+
 3. **Environment Issues**:
-   * Delete the **.venv** folder and recreate
-   * Check **PATH** settings
+   - Delete the **.venv** folder and recreate
+   - Check **PATH** settings
 
 ### General Tips
 
 1. **Slow Package Installation**:
-   * Use faster package mirrors
-   * For Anaconda: **conda config --add channels conda-forge**
-   * For uv: **uv pip install --cache-dir=.cache** (example cache location)
+   - Use faster package mirrors
+   - For Anaconda: **conda config --add channels conda-forge**
+   - For uv: **uv pip install --cache-dir=.cache** (example cache location)
 2. **Memory Issues**:
-   * Close unnecessary applications
-   * For large packages, try installing one at a time
+   - Close unnecessary applications
+   - For large packages, try installing one at a time
 3. **Version Conflicts**:
-   * Create a new environment for different projects
-   * Use **conda list** or **pip list** to check installed versions
+   - Create a new environment for different projects
+   - Use **conda list** or **pip list** to check installed versions
 4. **Jupyter Integration**:
-   * Ensure kernels are properly registered
-   * Check kernel paths match environment paths
+   - Ensure kernels are properly registered
+   - Check kernel paths match environment paths

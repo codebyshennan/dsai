@@ -1,5 +1,7 @@
 # Getting Started with Databricks Community Edition
 
+**After this guide:** you can log into Community Edition, create or open a **notebook**, attach **compute**, and run a Python or SQL cell successfully.
+
 ## What is Databricks?
 
 Databricks is a cloud-based platform that lets you work with data and build machine learning models using Python, SQL, R, or Scala. The Community Edition is **completely free** and perfect for learning!
@@ -13,7 +15,13 @@ Databricks is a cloud-based platform that lets you work with data and build mach
 - ✅ Can handle much larger datasets than your local computer
 - ✅ Great for learning Spark and distributed computing
 
-> **Figure (add screenshot or diagram):** Databricks workspace with notebooks.
+> **On screen:** Databricks workspace with notebooks.
+
+## Helpful video
+
+Very short **what is Databricks?** overview (under 4 minutes): lakehouse idea at a high level. Use it alongside the sign-up steps below—this is not a product tutorial.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GGqQqjLrJYI" title="what is databricks | introduction" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## System Requirements
 
@@ -38,7 +46,7 @@ Databricks is a cloud-based platform that lets you work with data and build mach
 1. Go to [Databricks Community Edition](https://community.cloud.databricks.com/login.html)
 2. Click the **"Get Started With Community Edition"** button
 
-> **Figure (add screenshot or diagram):** Community Edition sign-up / login.
+> **On screen:** Community Edition sign-up / login.
 
 **Step 2: Choose Your Sign-Up Method**
 - **Option A: GitHub** (Recommended - faster and easier)
@@ -71,7 +79,7 @@ A notebook is where you'll write and run your code - similar to Jupyter Notebook
 4. Give your notebook a descriptive name (e.g., "My First Data Analysis")
 5. Click **"Create"**
 
-> **Figure (add screenshot or diagram):** Creating a new notebook.
+> **On screen:** Creating a new notebook.
 
 **Step 2: Create a Cluster**
 
@@ -84,7 +92,7 @@ A cluster is like a remote computer that runs your code. You need one to execute
 5. Click **"Create Cluster"**
 6. Wait 2-3 minutes for the cluster to start (you'll see a spinning icon)
 
-> **Figure (add screenshot or diagram):** Cluster / compute creation (size, runtime).
+> **On screen:** Cluster / compute creation (size, runtime).
 
 > **Important:** Your cluster will automatically stop after 2 hours of inactivity to save resources. Just click "Start" when you need it again!
 

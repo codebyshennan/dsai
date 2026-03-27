@@ -1,6 +1,14 @@
 # Implementing Gradient Boosting
 
+**After this lesson:** you can explain the core ideas in “Implementing Gradient Boosting” and reproduce the examples here in your own notebook or environment.
+
 Welcome to the practical side of Gradient Boosting! In this guide, we'll walk through implementing Gradient Boosting using popular frameworks like XGBoost, LightGBM, and CatBoost. Think of this as learning to cook - we'll start with simple recipes and gradually move to more complex dishes.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Getting Started: Basic Implementation with XGBoost
 

@@ -1,12 +1,16 @@
 # Precision and Recall
 
+**After this lesson:** you can explain the core ideas in “Precision and Recall” and reproduce the examples here in your own notebook or environment.
+
 ## Introduction
 
 Precision and Recall are fundamental metrics in machine learning for evaluating classification models. They provide insights into a model's performance in terms of accuracy and completeness.
 
 ### Video Tutorial: Precision and Recall Explained
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vP06aMoz4v8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Machine Learning Fundamentals: Sensitivity and Specificity by Josh Starmer*
 
@@ -90,6 +94,9 @@ plt.grid(True)
 plt.show()
 ```
 
+
+![precision-recall](assets/precision-recall_fig_1.png)
+
 ### 2. Multi-class Classification
 
 ```python
@@ -136,6 +143,9 @@ plt.legend(loc="lower left")
 plt.grid(True)
 plt.show()
 ```
+
+
+![precision-recall](assets/precision-recall_fig_2.png)
 
 ## Interpreting Precision-Recall Curves
 
@@ -264,6 +274,9 @@ plt.legend(loc="lower left")
 plt.grid(True)
 plt.show()
 ```
+
+
+![precision-recall](assets/precision-recall_fig_3.png)
 
 ## Additional Resources
 

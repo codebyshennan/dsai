@@ -1,10 +1,20 @@
 # Conditions and Iterations in Data Analysis
 
+**After this lesson:** you can explain the core ideas in “Conditions and Iterations in Data Analysis” and reproduce the examples here in your own notebook or environment.
+
 > **Best for Visualization:** Loops and conditions are AMAZING in Python Tutor - watch the flow!
 
 > **AI Starter:** "Explain if-else statements using real-world decision-making examples"
 
 > **Practice:** Run the examples locally or in [Google Colab](https://colab.research.google.com). This submodule ships notebooks for [basic syntax](./notebooks/01-basic-syntax.ipynb), [data structures](./notebooks/02-data-structures.ipynb), and [functions](./notebooks/03-functions.ipynb); paste loop and branch examples there if you want a notebook environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6iF8Xb7Z3wQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Corey Schafer — Loops and iteration in Python*
 
 ## Making Decisions with Conditions
 
@@ -56,6 +66,10 @@ def process_value(value):
 > 
 > print(f"{category}: {discount * 100}% discount")
 > ```
+
+```
+Adult: 0% discount
+```
 
 > **Experiment:** Ask AI: "Create 5 real-world scenarios that use if-elif-else"
 
@@ -245,6 +259,12 @@ def filter_outliers(df, columns, n_std=3):
 > print(f"Vectorized: {vector_time:.4f}s")
 > print(f"Speedup: {loop_time/vector_time:.1f}x faster!")
 > ```
+
+```
+Loop: 0.0535s
+Vectorized: 0.0029s
+Speedup: 18.6x faster!
+```
 
 > **Learn Why:** Ask: "Why are vectorized operations faster than loops in pandas?"
 
@@ -534,6 +554,15 @@ for score in scores:
    print(f"Score {score}: Grade {grade}")
 ```
 
+```
+Score 95: Grade None
+Score 87: Grade None
+Score 73: Grade None
+Score 62: Grade None
+Score 58: Grade None
+Score 91: Grade None
+```
+
 > **Visualize:** Paste into Python Tutor to see the loop iterate!
 > **Ask:** "What are best practices for grade boundaries in code?"
 
@@ -562,6 +591,10 @@ def validate_dataset(data):
 test_data = [10, -5, 50, 1200, 30, -10, 800, 45]
 result = validate_dataset(test_data)
 print(result)
+```
+
+```
+{'total': 0, 'valid': 0, 'negative': 0, 'too_high': 0}
 ```
 
 > **Watch Counters:** Python Tutor shows how report values update in the loop!

@@ -9,8 +9,19 @@ github:
   repository_url: https://github.com/codebyshennan/tamkeen-data
 
 # Build settings
-# GFM = GitHub Flavored Markdown via jekyll-commonmark-ghpages (same engine GitHub Pages uses)
-markdown: GFM
+# Use CommonMarkGhPages explicitly (same libcmark-gfm stack as `markdown: GFM`).
+# The github-pages gem maps `GFM` → CommonMarkGhPages and injects the `tagfilter`
+# extension, which escapes <iframe> (YouTube embeds) to literal text. Omit
+# tagfilter so embedded videos render; keep tables / strikethrough / autolink.
+markdown: CommonMarkGhPages
+commonmark:
+  options:
+    - UNSAFE
+    - FOOTNOTES
+  extensions:
+    - table
+    - strikethrough
+    - autolink
 # Theme via gem (see `theme:` below); do not use `remote_theme` here — it downloads from
 # GitHub at build time and can fail on flaky networks or SSL issues. Gem matches Pages.
 # Keep in sync with GitHub Pages defaults (see Gemfile / https://pages.github.com/versions/)

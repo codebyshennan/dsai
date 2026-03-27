@@ -1,6 +1,14 @@
 # Supervised Learning - Part 2
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Supervised Learning - Part 2** in your course schedule.
+
 Welcome to the second part of supervised learning! In this section, we'll explore powerful ensemble methods and neural networks that have revolutionized machine learning. These advanced algorithms build upon the fundamentals you learned in Part 1 to solve even more complex problems.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Learning Objectives
 

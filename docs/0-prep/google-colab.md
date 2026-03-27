@@ -1,5 +1,7 @@
 # Getting Started with Google Colab
 
+**After this guide:** you can open Colab in a browser, run notebook cells, change the runtime type if needed, and save or duplicate notebooks linked to your Google account.
+
 ## What is Google Colab?
 
 Google Colab (short for Colaboratory) is a **free** online platform that lets you write and run Python code directly in your web browser - no installation needed!
@@ -7,6 +9,7 @@ Google Colab (short for Colaboratory) is a **free** online platform that lets yo
 **In simple terms:** Think of it as Jupyter Notebooks that run in the cloud. You can write code, see results, and even use powerful GPUs (graphics cards) for free - perfect for machine learning!
 
 **Why use Colab?**
+
 - ✅ **Free** - No cost, no credit card needed
 - ✅ **No setup** - Works in any web browser
 - ✅ **Free GPUs** - Access to powerful processors for machine learning
@@ -14,7 +17,13 @@ Google Colab (short for Colaboratory) is a **free** online platform that lets yo
 - ✅ **Easy sharing** - Share notebooks with others instantly
 - ✅ **Saves to Google Drive** - Your work is automatically backed up
 
-> **Figure (add screenshot or diagram):** Colab notebook with code cell and output.
+> **On screen:** Colab notebook with code cell and output.
+
+## Helpful video
+
+Quick demo of Colab as a **cloud Jupyter-style** environment: notebook basics, pre-installed packages, and connecting to Google Drive for files.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/aaebOpi1kik" title="Google Colab Demo | Jupyter Notebook Environment in the Cloud" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## System Requirements
 
@@ -38,14 +47,16 @@ Google Colab (short for Colaboratory) is a **free** online platform that lets yo
 > **Time needed:** Less than 2 minutes!
 
 **Step 1: Sign In**
+
 1. Visit [Google Colab](https://colab.research.google.com)
 2. Click **"Sign in"** in the top right corner
 3. Use your Google account (Gmail account works perfectly!)
 4. Accept the terms of service if prompted
 
-> **Figure (add screenshot or diagram):** Colab welcome / sign-in page.
+> **On screen:** Colab welcome / sign-in page.
 
 **Step 2: Create Your First Notebook**
+
 - Click **"File"** → **"New notebook"**, OR
 - Click the **"+ New Notebook"** button on the welcome page
 
@@ -60,11 +71,12 @@ That's it! You're ready to start coding.
 **Method 1:** Click **"File"** → **"New notebook"** in the menu bar
 **Method 2:** Click the **"+ New Notebook"** button on the welcome page
 
-> **Figure (add screenshot or diagram):** Welcome screen with **New notebook** or **File → New notebook**.
+> **On screen:** Welcome screen with **New notebook** or **File → New notebook**.
 
 ### Basic Setup
 
 **Step 1: Rename Your Notebook**
+
 1. Click on **"Untitled0.ipynb"** at the top of the page
 2. Type a descriptive name (e.g., "Data Analysis Project")
 3. Press Enter
@@ -80,7 +92,7 @@ The runtime is the "computer" that runs your code. You can choose to use a GPU f
    - **Runtime shape:** Leave as default
 4. Click **"Save"**
 
-> **Figure (add screenshot or diagram):** **Runtime → Change runtime type** dialog (GPU/TPU options).
+> **On screen:** **Runtime → Change runtime type** dialog (GPU/TPU options).
 
 > **Note:** GPU access is free but limited. If you get a message saying GPUs aren't available, you can still use Colab - just select "None" for the hardware accelerator.
 
@@ -95,12 +107,13 @@ drive.mount('/content/drive')
 ```
 
 **What happens:**
+
 1. A popup will ask for permission - click **"Allow"**
 2. Copy the authorization code that appears
 3. Paste it into the input box in Colab
 4. Your Google Drive is now accessible at **/content/drive/MyDrive/**
 
-> **Figure (add screenshot or diagram):** Google Drive mount authorization step.
+> **On screen:** Google Drive mount authorization step.
 
 > **Tip:** After mounting, you can load files with Pandas, for example paths under **/content/drive/MyDrive/**.
 
@@ -126,10 +139,12 @@ drive.mount('/content/drive')
    - Include cell outputs in saved notebooks
 
 2. **Package Management**:
+
    ```python
    # Install additional packages
    %pip install package_name
    ```
+
    After installing packages that affect imports, use **Runtime → Restart runtime** so notebooks pick up the new libraries.
 
 ## Common Issues & Troubleshooting
@@ -173,6 +188,7 @@ drive.mount('/content/drive')
    - **Ctrl+M D**: Delete cell
 
 2. **File Management**:
+
    ```python
    # Upload files
    from google.colab import files

@@ -1,5 +1,7 @@
 # Multiple Linear Regression: Prediction with Multiple Factors
 
+**After this lesson:** you can explain the core ideas in “Multiple Linear Regression: Prediction with Multiple Factors” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - Real outcomes usually depend on **more than one** predictor; MLR separates overlapping effects where the design allows.
@@ -15,7 +17,9 @@ Welcome to the next level of prediction! We've explored how one factor can predi
 
 ### Video Tutorial: Introduction to Multiple Regression
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zITIFTsivN8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Multiple Regression, Clearly Explained!!! by Josh Starmer*
 
@@ -104,6 +108,12 @@ The factors you use should be relatively independent of each other.
 
 Let's walk through a concrete example using Python. Don't worry if the code looks complex - focus on understanding the concepts!
 
+**Multiple regression with coefficients, R², and VIF**
+
+**Purpose:** Simulate exam scores from three predictors, fit `LinearRegression` on all three, print each coefficient and the intercept, report in-sample R², and screen for multicollinearity with variance inflation factors.
+
+**Walkthrough:** `model.score(X, y)` is training R²; `variance_inflation_factor` from statsmodels runs per-column VIF on the predictor matrix.
+
 ```python
 import numpy as np
 import pandas as pd
@@ -158,6 +168,9 @@ def check_predictor_similarity(X):
 print("\nMulticollinearity Check (VIF values):")
 print(check_predictor_similarity(X))
 ```
+
+**Captured output (example):** Coefficients and VIFs stay stable with `seed(42)`; last-decimal noise can differ by platform.
+
 ```
 Contribution of each factor:
 study_hours: 1.82 points
@@ -218,6 +231,12 @@ This is when you use your understanding of the subject to choose predictors.
 
 You can let the numbers guide you by including only statistically significant predictors.
 
+**Univariate F-test feature selection (`SelectKBest`)**
+
+**Purpose:** Rank predictors by univariate linear F-scores and keep the top `k` columns, then print which features were selected for this dataset.
+
+**Walkthrough:** `SelectKBest(score_func=f_regression, k=2)` fits separate F-tests; `get_support()` marks the chosen columns.
+
 ```python
 from sklearn.feature_selection import SelectKBest, f_regression
 
@@ -229,6 +248,9 @@ X_selected = selector.fit_transform(X, y)
 selected_features = X.columns[selector.get_support()].tolist()
 print("\nStatistically strongest features:", selected_features)
 ```
+
+**Captured output (example):** Which two features win can depend on the random draw; with `np.random.seed(42)` as in the snippet you should match the pair below.
+
 ```
 Statistically strongest features: ['prev_gpa', 'sleep_hours']
 ```
@@ -237,6 +259,12 @@ Statistically strongest features: ['prev_gpa', 'sleep_hours']
 ### 3. Stepwise Selection
 
 This is like building a team one player at a time - you add predictors one by one, keeping only those that improve the model.
+
+**Recursive feature elimination (`RFE`)**
+
+**Purpose:** Greedy backward selection wrapped around the fitted linear model, keeping a fixed number of features and listing which columns survived.
+
+**Walkthrough:** `RFE(estimator=model, n_features_to_select=2)` uses the already-fitted `model`; `support_` is a boolean mask over `X.columns`.
 
 ```python
 from sklearn.feature_selection import RFE
@@ -249,6 +277,9 @@ selector = selector.fit(X, y)
 selected_features = X.columns[selector.support_].tolist()
 print("\nFeatures selected by stepwise method:", selected_features)
 ```
+
+**Captured output (example):** RFE can disagree with `SelectKBest` because it uses the joint model; expect a different pair than univariate ranking alone.
+
 ```
 Features selected by stepwise method: ['study_hours', 'prev_gpa']
 ```
@@ -259,6 +290,12 @@ Notice how different methods can select different predictors! This shows why it'
 ## Checking If Your Model Is Valid
 
 Just like we check a car before a long journey, we should check our model before relying on its predictions. Here are some key diagnostics:
+
+**Residual panels plus predictor correlation heatmap**
+
+**Purpose:** Plot residuals vs fitted, Q-Q of residuals, absolute residuals vs fitted for spread, and a heatmap of `X.corr()` to spot strong predictor–predictor correlations.
+
+**Walkthrough:** The first three panels mirror standard regression diagnostics; `sns.heatmap` on `X.corr()` highlights multicollinearity risks among inputs.
 
 ```python
 # Function for diagnostic plots
@@ -385,6 +422,12 @@ Even with a powerful tool like multiple regression, there are pitfalls to watch 
 ## Hands-On Practice: Sales Prediction Exercise
 
 Try working through this example to solidify your understanding:
+
+**Sales prediction exercise scaffold**
+
+**Purpose:** Create a small synthetic dataset with advertising, price, and competition, then use the commented checklist to explore, fit, and diagnose a multiple regression yourself.
+
+**Walkthrough:** The response is built as a linear combination of predictors plus Gaussian noise; `pd.DataFrame` holds everything for plotting and `sklearn` fitting in the tasks.
 
 ```python
 # Generate a realistic sales dataset

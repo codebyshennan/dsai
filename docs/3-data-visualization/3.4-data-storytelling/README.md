@@ -1,6 +1,14 @@
 # Mastering Data Storytelling: A Beginner's Guide
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Mastering Data Storytelling: A Beginner's Guide** in your course schedule.
+
 > **Note:** This submodule blends **principles** (how to structure a message) with **examples** you can build in any tool (Python charts or BI dashboards). It is not only code-first.
+
+## Helpful video
+
+Framing insights for others—related context for storytelling.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction: What is Data Storytelling?
 
@@ -184,6 +192,10 @@ Think of this like a song:
 
 ### Step 1: Gather Your Elements
 
+**Purpose:** Checklist of ingredients—data facts, narrative arc, and visuals—before drafting slides or a dashboard story.
+
+**Walkthrough:** Not executable; use as a worksheet outline.
+
 ```yaml
 Story Elements:
   Data:
@@ -228,6 +240,12 @@ Story Elements:
 3. Try the [module assignment](../_assignments/module-assignment.md) when your instructor assigns it.
 
 Remember: The best data stories make complex information simple and actionable. Start small, practice often, and iterate from feedback.
+
+**Illustrative impact comparison**
+
+**Purpose:** Contrast comprehension outcomes from reports vs charts vs storytelling—numbers are pedagogical, not a cited study.
+
+**Walkthrough:** Diagram only.
 
 ```yaml
 Impact Metrics:

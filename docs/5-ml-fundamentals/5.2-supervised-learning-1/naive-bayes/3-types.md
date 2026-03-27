@@ -1,5 +1,13 @@
 # Types of Naive Bayes Classifiers
 
+**After this lesson:** you can explain the core ideas in “Types of Naive Bayes Classifiers” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Welcome to Different Flavors of Naive Bayes
 
 Just like ice cream comes in different flavors for different tastes, Naive Bayes comes in different types for different kinds of data. Let's explore each type and learn when to use them!
@@ -44,6 +52,14 @@ Imagine you're a doctor trying to predict if a patient has a certain disease bas
 - Age
 
 These are all numbers, so Gaussian NB is perfect!
+
+#### Gaussian NB on scaled vitals
+
+**Purpose:** Train `GaussianNB` on continuous patient features after `StandardScaler`, then predict a new patient.
+
+**Walkthrough:**
+- `StandardScaler().fit_transform` on training rows; `GaussianNB().fit`.
+- `transform` the new patient before `predict`.
 
 ```python
 from sklearn.naive_bayes import GaussianNB
@@ -102,6 +118,14 @@ Imagine you're building a system to automatically categorize news articles into:
 
 Multinomial NB counts how often words appear in each category to make its predictions.
 
+#### Multinomial NB on word counts
+
+**Purpose:** Vectorize short articles with `CountVectorizer`, fit `MultinomialNB`, and classify a new headline.
+
+**Walkthrough:**
+- `CountVectorizer().fit_transform(articles)` builds the document-term matrix.
+- `MultinomialNB().fit(X, categories)`; `vectorizer.transform(new_article)` then `predict`.
+
 ```python
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import CountVectorizer
@@ -157,6 +181,14 @@ Imagine you're building a spam filter that checks for:
 - Has exclamation marks? (yes/no)
 
 Bernoulli NB is perfect for these yes/no features!
+
+#### Bernoulli NB on binary feature vectors
+
+**Purpose:** Fit `BernoulliNB` on 0/1 feature rows (spam cues) and predict a new email vector.
+
+**Walkthrough:**
+- `email_features` and `labels` are parallel lists; `BernoulliNB().fit`.
+- `predict` on `new_email` with the same four binary columns.
 
 ```python
 from sklearn.naive_bayes import BernoulliNB

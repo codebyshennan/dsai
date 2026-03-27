@@ -1,5 +1,13 @@
 # Accuracy
 
+**After this lesson:** you can explain the core ideas in “Accuracy” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Introduction
 
 Accuracy is one of the most fundamental metrics in machine learning, measuring the proportion of correct predictions made by a model. While simple to understand and calculate, it's important to use accuracy appropriately and understand its limitations.
@@ -15,6 +23,12 @@ Accuracy is the ratio of correct predictions to total predictions:
 ## Types of Accuracy
 
 ### 1. Binary Classification
+
+#### Compute accuracy on a held-out set (binary)
+
+**Purpose:** Relate the accuracy formula to `sklearn.metrics.accuracy_score` for a logistic regression on synthetic balanced data.
+
+**Walkthrough:** `make_classification` builds a toy dataset; compare `y_test` to `y_pred` from `model.predict`.
 
 ```python
 import numpy as np
@@ -39,7 +53,19 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.3f}")
 ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Accuracy: 0.810
+```
+
 ### 2. Multi-class Classification
+
+#### Accuracy with three classes (Iris)
+
+**Purpose:** Show that accuracy generalizes to multi-class: fraction of samples where predicted class equals true class.
+
+**Walkthrough:** `RandomForestClassifier` predicts class indices; chance baseline is roughly $1/\text{n\_classes}$ when uniform.
 
 ```python
 from sklearn.datasets import load_iris
@@ -60,6 +86,12 @@ y_pred = model.predict(X_test)
 # Calculate accuracy
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.3f}")
+```
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Accuracy: 1.000
 ```
 
 ## Interpreting Accuracy
@@ -169,6 +201,11 @@ print(f"Accuracy: {accuracy:.3f}")
 # Calculate baseline accuracy
 baseline_accuracy = max(y_test.mean(), 1 - y_test.mean())
 print(f"Baseline Accuracy: {baseline_accuracy:.3f}")
+```
+
+```
+Accuracy: 0.970
+Baseline Accuracy: 0.555
 ```
 
 ## Additional Resources

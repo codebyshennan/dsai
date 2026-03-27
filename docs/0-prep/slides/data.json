@@ -9,14 +9,14 @@
         },
         {
             "type": "content",
-            "title": "Teaching Pedagogy",
+            "title": "How this course works",
             "content": {
                 "type": "box",
-                "title": "Flipped Classroom Model",
+                "title": "Flipped classroom",
                 "items": [
-                    "Learn at your own pace",
-                    "Hands-on practice during class",
-                    "Regular office hours for support"
+                    "Study lessons before live sessions",
+                    "Class time for practice, debugging, and questions",
+                    "Use office hours with specific errors and reproduction steps"
                 ]
             }
         },

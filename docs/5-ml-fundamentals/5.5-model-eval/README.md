@@ -1,6 +1,14 @@
 # Model Evaluation and Hyperparameter Tuning
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Model Evaluation and Hyperparameter Tuning** in your course schedule.
+
 Welcome to the model evaluation section! Here you'll learn how to properly assess your models' performance, tune their parameters for optimal results, and build efficient machine learning pipelines. These skills are crucial for developing robust and reliable machine learning solutions.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Learning Objectives
 

@@ -1,5 +1,13 @@
 # Sampling Distributions: The Heart of Statistical Inference
 
+**After this lesson:** you can explain the core ideas in “Sampling Distributions: The Heart of Statistical Inference” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest introduction to confidence intervals.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TqOeMYtOc1w" title="Confidence Intervals, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Why this matters
 
 - **Sampling distributions** explain why means and proportions vary from sample to sample.
@@ -46,6 +54,12 @@ The Central Limit Theorem states that for sufficiently large samples:
 3. The larger the sample size, the more normal it becomes
 
 Let's see it in action!
+
+**CLT simulation: population → one sample → distribution of \(\bar x\)**
+
+**Purpose:** Visualize three panels—population shape, a single sample, and the histogram of many sample means—with an overlaid normal curve so the sampling distribution looks approximately Gaussian even when the population is not.
+
+**Walkthrough:** `np.random.choice` with replacement builds bootstrap-style means; subplot 133 compares empirical spread to `stats.norm.pdf` matched to the simulated mean and SD of `sample_means`; PNGs write under `assets/clt_*.png`.
 
 ```python
 import numpy as np
@@ -125,6 +139,12 @@ The standard error (SE) tells us how much sample statistics typically deviate fr
 
 Let's see how sample size affects SE:
 
+**Empirical vs theoretical standard error across n**
+
+**Purpose:** Tie the \(1/\sqrt{n}\) formula to a Monte Carlo: for each `n`, estimate the spread of \(\bar x\) and compare to \(\sigma/\sqrt{n}\) from the fixed synthetic population.
+
+**Walkthrough:** Nested list comprehensions draw repeated means; subplot titles print empirical SE (`np.std(sample_means)`); bottom loop prints a table aligning theoretical and empirical columns.
+
 ```python
 def demonstrate_standard_error():
     """
@@ -201,6 +221,12 @@ for r in se_results:
 
 ### 1. Quality Control in Manufacturing
 
+**Single hour’s sample vs spec band**
+
+**Purpose:** Practice reading `stats.sem` as the SE of the hourly mean and mapping it to a tolerance window around a nominal target—process-control intuition before formal control charts.
+
+**Walkthrough:** One draw of `n=30` measurements; `fill_between` shades the spec window; status compares |sample mean − target| to `tolerance` (coarse rule).
+
 ```python
 def quality_control_demo():
     """
@@ -244,6 +270,12 @@ quality_control_demo()
 
 ### 2. Political Polling
 
+**Monte Carlo distribution of \(\hat p\) and one poll’s MOE**
+
+**Purpose:** Show how repeated polls of the same size vary around the true support, then compute \(\hat p\) and a normal-approx margin \(\pm 1.96 \times SE\) for a single survey.
+
+**Walkthrough:** `poll_results` lists means of Bernoulli draws; second block uses \(\sqrt{\hat p(1-\hat p)/n}\) for SE; figure saved as `polling_results.png`.
+
 ```python
 def polling_demo():
     """
@@ -283,6 +315,15 @@ def polling_demo():
     print(f"Sample Size: {sample_size:,}")
 ```
 
+
+![sampling-distributions](assets/sampling-distributions_fig_1.png)
+
+
+![sampling-distributions](assets/sampling-distributions_fig_2.png)
+
+
+![sampling-distributions](assets/sampling-distributions_fig_3.png)
+
 *Note: The visualization shows the distribution of poll results from multiple samples. This helps us understand the variability in polling estimates and the role of sampling error.*
 
 ## Common Misconceptions: Let's Clear Them Up
@@ -308,6 +349,12 @@ def polling_demo():
 ## Interactive Learning: Try It Yourself
 
 ### Mini-Exercise: The Sampling Game
+
+**One draw + approximate 95% band (z = 1.96)**
+
+**Purpose:** Let learners see sampling variability in one shot: overlay population, single sample, and a rough CI using sample-derived SE (pedagogical; for inference you’d use t).
+
+**Walkthrough:** `se = np.std(sample)/sqrt(n)` uses sample SD; shaded band is \(\bar x \pm 1.96\cdot SE\); the “contains true mean?” printout is a single-check narrative exercise.
 
 ```python
 def sampling_game(true_mean=100, true_std=15, sample_size=30):

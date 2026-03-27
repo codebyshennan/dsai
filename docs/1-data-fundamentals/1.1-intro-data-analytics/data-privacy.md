@@ -1,8 +1,18 @@
 # Lesson on Data Privacy
 
+**After this lesson:** you can explain the core ideas in “Lesson on Data Privacy” and reproduce the examples here in your own notebook or environment.
+
 ## Introduction to Data Privacy
 
 Data privacy refers to the proper handling, processing, and storage of personal information. It encompasses the rights of individuals to control how their data is collected, used, and shared.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mdNQYU8Xj4E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Simplilearn — GDPR explained*
 
 ### Importance of Data Privacy
 

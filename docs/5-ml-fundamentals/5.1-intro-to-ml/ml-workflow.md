@@ -1,6 +1,14 @@
 # Machine Learning Workflow: A Step-by-Step Guide
 
+**After this lesson:** you can explain the core ideas in “Machine Learning Workflow: A Step-by-Step Guide” and reproduce the examples here in your own notebook or environment.
+
 Welcome to our comprehensive guide on the machine learning workflow! This guide will walk you through each step of building a machine learning solution, with practical examples and clear explanations.
+
+## Helpful video
+
+Crash Course AI: how supervised learning fits into ML workflows.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is a Machine Learning Workflow?
 
@@ -67,6 +75,12 @@ There are three main types of ML problems:
 
 Let's look at a concrete example:
 
+#### Document the problem before writing modeling code
+
+**Purpose:** Practice writing a short problem spec (goal, problem type, metric, data needs, business impact) so downstream choices stay aligned with the task.
+
+**Walkthrough:** The triple-quoted string is documentation only—running it prints the same text via stdout in the build pipeline.
+
 ```python
 """
 Problem Statement Example:
@@ -78,6 +92,18 @@ Business Impact: Help real estate agents price houses accurately
 """
 ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+
+Problem Statement Example:
+Goal: Predict house prices
+Type: Regression problem
+Success Metric: Predictions within $50,000 of actual price
+Required Data: House features (size, location, etc.)
+Business Impact: Help real estate agents price houses accurately
+```
+
 ## 2. Data Collection and Exploration
 
 ### Understanding Your Data
@@ -87,6 +113,12 @@ Before we can build a model, we need to understand our data. This is like gettin
 ### Initial Data Assessment
 
 Let's start by loading and examining our data:
+
+#### Load CSV and inspect shape, dtypes, and missing values
+
+**Purpose:** Know how to sanity-check a new dataset: dimensions, column types, missingness, and `describe()` for numeric ranges.
+
+**Walkthrough:** Adjust `house_data.csv` to your path; `isnull().sum()` counts gaps per column before imputation.
 
 ```python
 import pandas as pd
@@ -110,6 +142,12 @@ print(df.describe())
 ### Exploratory Data Analysis (EDA)
 
 EDA helps us understand patterns and relationships in our data:
+
+#### Visualize the target and feature correlations
+
+**Purpose:** Connect EDA to modeling—distribution of `price` and a correlation heatmap highlight skew, outliers, and redundant features.
+
+**Walkthrough:** `histplot` for univariate shape; `heatmap` on `df.corr()` for linear relationships (nonlinear links may still hide).
 
 ```python
 # Distribution of house prices
@@ -136,6 +174,12 @@ Data preparation is like preparing ingredients for cooking. We need to clean and
 ### Data Cleaning
 
 Let's create a helper class to clean our data:
+
+#### Encapsulate imputation and outlier clipping
+
+**Purpose:** See a reusable cleaning pattern: median/mode imputation by dtype, then z-score filtering on a chosen column.
+
+**Walkthrough:** `select_dtypes` splits numeric vs object columns; `remove_outliers` keeps rows within `n_std` standard deviations of the mean for one column.
 
 ```python
 class DataCleaner:
@@ -179,6 +223,12 @@ cleaner.remove_outliers('price')
 
 Feature engineering is about creating new features that might help our model:
 
+#### Derive ratios, totals, and one-hot encodings
+
+**Purpose:** Practice turning domain ideas (price per sqft, room counts, renovation flag) into columns models can use; encode categoricals with `get_dummies`.
+
+**Walkthrough:** `price_per_sqft` and `total_rooms` combine existing fields; `get_dummies` expands `view` and `condition` into binary columns.
+
 ```python
 def create_features(df):
     """Create new features from existing ones"""
@@ -204,6 +254,12 @@ We need to split our data to evaluate our model properly. Think of it as having 
 
 ### Splitting the Data
 
+#### Train / validation / test split for honest evaluation
+
+**Purpose:** Reserve held-out data for final evaluation while keeping a validation fold for model comparison and tuning.
+
+**Walkthrough:** First `train_test_split` peels off 30% as `X_temp`/`y_temp`; second split halves that into validation and test (15% each of original when sizes match).
+
 ```python
 from sklearn.model_selection import train_test_split
 
@@ -219,6 +275,12 @@ X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, r
 ### Training Multiple Models
 
 Let's try different models to find the best one:
+
+#### Compare baselines with the same MAE / R² reporting
+
+**Purpose:** Train several regressors with one evaluation helper so you compare on validation MAE and R² without copy-paste bugs.
+
+**Walkthrough:** `train_evaluate_model` fits each model, predicts train and val sets, then packs `mean_absolute_error` and `r2_score` into a dict; the loop fills `results` per model name.
 
 ```python
 from sklearn.linear_model import LinearRegression, Ridge
@@ -264,6 +326,12 @@ Evaluation helps us understand how well our model performs and where it needs im
 
 ### Comprehensive Evaluation
 
+#### Metrics plus an actual-vs-predicted scatter on the test set
+
+**Purpose:** Report error scalars (MAE, RMSE, R²) and visualize systematic bias or heteroscedasticity in residuals via a scatter plot.
+
+**Walkthrough:** `mean_squared_error` with `sqrt` gives RMSE; the red diagonal line is perfect calibration.
+
 ```python
 def evaluate_model(model, X_test, y_test):
     """Evaluate model on test set"""
@@ -298,6 +366,12 @@ evaluate_model(best_model, X_test, y_test)
 
 Learning curves help us understand if our model is learning well:
 
+#### Plot learning curves to spot under- vs overfitting
+
+**Purpose:** See whether adding training data would help (large gap) or the model is too simple (both curves low).
+
+**Walkthrough:** `learning_curve` returns scores per train size; plotting mean train vs mean CV score shows the bias–variance story.
+
 ```python
 from sklearn.model_selection import learning_curve
 
@@ -329,6 +403,12 @@ Deployment makes our model available for real-world use. It's like opening a res
 
 ### Saving the Model
 
+#### Persist estimator and preprocessing artifacts
+
+**Purpose:** Serialize the trained model and related objects so scoring code can reload the exact same pipeline later.
+
+**Walkthrough:** `joblib.dump` writes binary blobs under `model/`; paths are illustrative—match your deployment layout.
+
 ```python
 import joblib
 
@@ -347,6 +427,12 @@ save_model(best_model, scaler, X.columns)
 ```
 
 ### Making Predictions
+
+#### Load artifacts and score new rows
+
+**Purpose:** Show the inference path: load model + scaler + feature list, align columns, transform, then `predict`.
+
+**Walkthrough:** Column order must match training; `scaler.transform` expects the same feature matrix shape the scaler saw at fit time.
 
 ```python
 def predict_house_price(features_df, model_path='model/'):

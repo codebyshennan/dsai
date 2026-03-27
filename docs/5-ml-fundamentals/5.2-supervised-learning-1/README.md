@@ -1,6 +1,14 @@
 # 5.2 Supervised Learning Part 1
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **5.2 Supervised Learning Part 1** in your course schedule.
+
 Welcome to the first part of supervised learning! Here we'll explore fundamental algorithms that form the backbone of machine learning. Think of these algorithms as different tools in your ML toolkit - each with its own strengths and ideal use cases.
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Learning Objectives
 
@@ -70,6 +78,12 @@ Excellent for:
 
 ### Classification Tasks
 
+#### Heuristic mapping from data traits to a first algorithm
+
+**Purpose:** Give learners a memorable decision stub—not a rule—linking text data, interpretability, dimensionality, and geometry to Naive Bayes, trees, SVM, or kNN.
+
+**Walkthrough:** Replace `data_characteristics` with your real checks (imbalance, $n$, latency); always validate with CV and baselines.
+
 ```python
 def select_classifier(data_characteristics):
     if data_characteristics.text_data:
@@ -106,6 +120,10 @@ Before diving in, ensure you're comfortable with:
 
 ### 2. Programming
 
+#### Core imports for this module
+
+**Purpose:** Align vocabulary with the rest of the course: NumPy/Pandas for data, scikit-learn for estimators, Matplotlib for plots.
+
 ```python
 # Essential Python libraries
 import numpy as np          # Numerical operations
@@ -125,6 +143,12 @@ import matplotlib.pyplot as plt  # Visualization
 
 ### 1. Email Classification
 
+#### Text pipeline sketch: TF–IDF + multinomial Naive Bayes
+
+**Purpose:** Show the usual spam/sentiment stack—sparse word counts or TF–IDF feeding a fast generative classifier.
+
+**Walkthrough:** `TfidfVectorizer` must `fit_transform` on training text only; `MultinomialNB` is a common default for word counts.
+
 ```python
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -136,6 +160,12 @@ classifier = MultinomialNB()
 
 ### 2. Medical Diagnosis
 
+#### Nonlinear SVM with RBF kernel (illustrative)
+
+**Purpose:** Recall that margin-based classifiers with kernels handle nonlinear boundaries when features are mapped implicitly.
+
+**Walkthrough:** `C` trades margin width vs violations; kernel choice and calibration matter—this is only a starting point.
+
 ```python
 from sklearn.svm import SVC
 
@@ -145,6 +175,12 @@ svm_classifier = SVC(kernel='rbf', C=1.0)
 
 ### 3. Credit Risk Assessment
 
+#### Shallow tree for interpretable credit decisions
+
+**Purpose:** Emphasize transparency and rule-like splits for regulated or explainable use cases.
+
+**Walkthrough:** `max_depth` limits complexity; pair with cost-sensitive metrics if classes are imbalanced.
+
 ```python
 from sklearn.tree import DecisionTreeClassifier
 
@@ -153,6 +189,12 @@ dt_classifier = DecisionTreeClassifier(max_depth=5)
 ```
 
 ### 4. Recommendation Systems
+
+#### kNN as a lazy learner for similarity-style classification
+
+**Purpose:** Connect user–item or content similarity ideas to a distance-based vote among neighbors.
+
+**Walkthrough:** Scale features first; `n_neighbors` and distance metric heavily affect results.
 
 ```python
 from sklearn.neighbors import KNeighborsClassifier
@@ -184,12 +226,22 @@ knn_classifier = KNeighborsClassifier(n_neighbors=5)
 
 ### Required Libraries
 
+#### Install scientific Python stack (example)
+
+**Purpose:** One-line environment setup aligned with the lessons; use `uv`/`conda` in your own workflow if preferred.
+
 ```bash
 # Install required packages
 pip install numpy pandas scikit-learn matplotlib seaborn
 ```
 
 ### Recommended IDE Setup
+
+#### Notebook starter imports and reproducibility
+
+**Purpose:** Standardize evaluation imports and fixed randomness so notebooks reruns match teaching outputs.
+
+**Walkthrough:** `train_test_split` + `accuracy_score` / `classification_report` cover common classification reporting; extend with your metric of record.
 
 ```python
 # Standard imports for all notebooks

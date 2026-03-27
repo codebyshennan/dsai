@@ -1,8 +1,14 @@
 # ETL Fundamentals
 
-## Overview
+**After this lesson:** You can explain **ETL** (**Extract**, **Transform**, **Load**) as an ordered pipeline—pull data from sources, clean and reshape it, then load it into a target—and connect that idea to orchestration sketches (for example **DAG**-based schedulers).
 
-**Primary outcome:** You can explain **ETL** (**Extract**, **Transform**, **Load**) as an ordered pipeline—pull data from sources, clean and reshape it, then load it into a target—and connect that idea to orchestration sketches (for example **DAG**-based schedulers).
+## Helpful video
+
+DAGs, tasks, and scheduling—conceptual background for ETL-style pipelines.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eeSLDdz-aLg" title="Apache Airflow Tutorial for Beginners" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [SQL](../2.1-sql/README.md), [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md), and [data wrangling](../2.2-data-wrangling/README.md). Skim the **Extract → Transform → Load** diagrams in the next sections before the Airflow-style figures.
 
@@ -78,7 +84,11 @@ graph TD
 
 ### Airflow DAG Example
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+# no-output
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
@@ -132,7 +142,47 @@ validate_task = PythonOperator(
 
 # Define task dependencies
 extract_task >> transform_task >> load_task >> validate_task
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From airflow import DAG</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">}</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–26: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-39" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Python_callable=extract_sales_data,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 27–39: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="40-53" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Task_id=&#x27;load_sales_data&#x27;,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 40–53: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Monitoring Dashboard Example (Tableau)
 
@@ -239,7 +289,10 @@ Here's a comprehensive implementation of an ETL pipeline:
 
 ## ETL Pipeline Components
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import sqlalchemy
 import requests
@@ -328,7 +381,65 @@ class ETLPipeline:
         except Exception as e:
             self.logger.error(f"Pipeline failed: {str(e)}")
             raise
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import pandas as pd</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&quot;&quot;&quot;Setup logging configuration&quot;&quot;&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–29: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="30-44" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Response = requests.get(source)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 30–44: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="45-58" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Self.logger.info(&quot;Starting transformation&quot;)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 45–58: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="59-73" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data.to_csv(target, index=False)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 59–73: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="74-88" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Try:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 74–88: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Extract Phase
 
@@ -402,7 +513,10 @@ Different data sources require specific handling approaches:
 
 Here's a comprehensive implementation:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataExtractor:
     """
     Handle different types of data extraction
@@ -429,11 +543,36 @@ class DataExtractor:
     def from_json(file_path):
         """Extract from JSON file"""
         return pd.read_json(file_path)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DataExtractor:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Response.raise_for_status()</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–26: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Error Handling
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def extract_with_retry(source, max_retries=3):
     """
     Extract data with retry logic
@@ -453,7 +592,29 @@ def extract_with_retry(source, max_retries=3):
             if attempt == max_retries - 1:
                 raise
             time.sleep(2 ** attempt)  # Exponential backoff
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def extract_with_retry(source, max_retries=3):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Response = requests.get(source)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 10–19: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Transform Phase
 
@@ -525,7 +686,10 @@ Data cleaning ensures data quality and consistency:
 
 Here's a comprehensive implementation:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataTransformer:
     """
     Handle data transformation operations
@@ -561,11 +725,45 @@ class DataTransformer:
         for column, transformation in transformations.items():
             df[column] = df[column].apply(transformation)
         return df
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DataTransformer:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Df = df.fillna({</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-35" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&quot;&quot;&quot;Validate data against rules&quot;&quot;&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 24–35: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Data Validation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def validate_dataset(df, schema):
     """
     Validate dataset against schema
@@ -593,7 +791,29 @@ def validate_dataset(df, schema):
         raise ValueError("\n".join(errors))
     
     return True
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def validate_dataset(df, schema):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">If col in df.columns and df[col].dtype != dtype:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–27: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Load Phase
 
@@ -667,7 +887,10 @@ Different loading approaches for various target systems:
 
 Here's a comprehensive implementation:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataLoader:
     """
     Handle different types of data loading
@@ -687,11 +910,36 @@ class DataLoader:
     def to_json(df, file_path):
         """Load to JSON file"""
         df.to_json(file_path, orient='records')
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DataLoader:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">@staticmethod</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 10–19: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Error Recovery
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class TransactionLoader:
     """
     Load data with transaction support
@@ -719,7 +967,29 @@ class TransactionLoader:
             except Exception as e:
                 # Transaction will automatically rollback
                 raise
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class TransactionLoader:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Df.to_sql(temp_table, connection, index=False)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–27: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Pipeline Orchestration
 
@@ -791,7 +1061,10 @@ Configuration management for ETL pipelines:
 
 Here's a comprehensive implementation:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class PipelineConfig:
     """
     Configure ETL pipeline
@@ -816,11 +1089,36 @@ class PipelineConfig:
     def get_target_config(self):
         """Get target configuration"""
         return self.config['target']
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class PipelineConfig:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def get_source_config(self):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Pipeline Monitoring
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class PipelineMonitor:
     """
     Monitor ETL pipeline execution
@@ -854,7 +1152,38 @@ class PipelineMonitor:
     def record_metric(self, metric_name, value):
         """Record custom metric"""
         self.metrics[metric_name] = value
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class PipelineMonitor:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Self.metrics = {</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return {</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 23–33: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices
 
@@ -894,7 +1223,10 @@ Build an ETL pipeline that:
 
 ## Solution Template
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Pipeline implementation
 class MyETLPipeline(ETLPipeline):
     def transform(self, data):
@@ -944,7 +1276,51 @@ if __name__ == "__main__":
         
     except Exception as e:
         print(f"Pipeline failed: {str(e)}")
+{% endhighlight %}
 ```
+Pipeline failed: [Errno 2] No such file or directory: 'data.csv'
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline implementation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;dtypes&#x27;: {&#x27;id&#x27;: &#x27;int64&#x27;, &#x27;value&#x27;: &#x27;float64&#x27;},</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37-49" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Run pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 37–49: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Remember: A well-designed ETL pipeline is crucial for reliable data processing!
 

@@ -1,5 +1,7 @@
 # Simple Linear Regression: Your First Step into Prediction
 
+**After this lesson:** you can explain the core ideas in “Simple Linear Regression: Your First Step into Prediction” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - You will fit and interpret a **line of best fit** for prediction and for quantifying association.
@@ -16,7 +18,9 @@ Welcome to the exciting world of prediction! In this guide, we'll explore simple
 
 ### Video Tutorial: Introduction to Linear Regression
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/nk2CQITm_eo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Linear Regression, Clearly Explained!!! by Josh Starmer*
 
@@ -93,6 +97,12 @@ The mistakes in our predictions should follow a normal distribution (bell curve)
 
 Let's walk through a concrete example using Python. Don't worry if you're not familiar with the code - focus on the concepts!
 
+**Fit `LinearRegression`, print intercept, slope, and R², and plot the line**
+
+**Purpose:** Fit ordinary least squares on simulated study hours vs. test scores, report the intercept and slope, quantify fit with `r2_score`, and overlay predictions on a scatter plot.
+
+**Walkthrough:** `LinearRegression().fit` expects `X` as a 2D array; `model.coef_` and `model.intercept_` are the slope and intercept; `r2_score(y, y_pred)` compares observed and predicted outcomes.
+
 ```python
 import numpy as np
 import pandas as pd
@@ -129,6 +139,8 @@ plt.show()
 ```
 
 ![simple-linear-regression_fig_1](assets/simple-linear-regression_fig_1.png)
+
+**Captured output (example):** With `np.random.seed(42)`, intercept, slope, and R² should stay close to the values below; tiny differences can appear across sklearn or NumPy versions.
 
 ```
 Starting point (intercept): 0.83
@@ -196,6 +208,12 @@ R-squared measures how well your line fits the data, from 0 (terrible) to 1 (per
 ## Checking If Your Model Is Valid: Diagnostic Plots
 
 Before trusting your model, you should always check if it's valid. One way to do this is through diagnostic plots.
+
+**Four-panel diagnostic plots (residuals, Q-Q, scale-location, leverage)**
+
+**Purpose:** Visualize residuals versus fitted values, normality of residuals, spread of absolute residuals, and residual versus leverage from the hat matrix for a simple linear setup.
+
+**Walkthrough:** `stats.probplot` draws the Q-Q plot; the leverage panel uses the diagonal of `X (X'X)^{-1} X'` for the `X` passed into the function.
 
 ```python
 # Function to create diagnostic plots
@@ -370,6 +388,12 @@ Even with a simple tool like linear regression, there are several pitfalls to wa
 
 Try working through this simple example:
 
+**Practice dataset: random hours studied and exam scores**
+
+**Purpose:** Build a small synthetic dataset in a `DataFrame` and inspect the first rows with `head()` before you plot, fit, and diagnose as in the commented tasks.
+
+**Walkthrough:** `pd.DataFrame` aligns `hours_studied` and `exam_scores` as columns; `print(data.head())` shows the first five rows for a quick sanity check.
+
 ```python
 # Generate a realistic dataset
 np.random.seed(42)
@@ -393,6 +417,9 @@ print(data.head())
 # 5. Check if your model meets the assumptions using diagnostic plots
 # 6. Interpret what the intercept and slope mean in real-world terms
 ```
+
+**Captured output (example):** Row values are random draws from the uniform and normal generators; with `seed(42)` you should reproduce these first five lines unless you change the generator calls.
+
 ```
 hours_studied  exam_scores
 0       3.745401    74.928536

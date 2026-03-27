@@ -1,6 +1,14 @@
 # Unsupervised Learning: Discovering Hidden Patterns in Data
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Unsupervised Learning: Discovering Hidden Patterns in Data** in your course schedule.
+
 Welcome to the fascinating world of unsupervised learning! Think of it as being a detective who can find patterns and relationships in data without being told what to look for. Just like how you might naturally group similar items in your room without being instructed, unsupervised learning algorithms can find natural groupings and patterns in data all on their own.
+
+## Helpful video
+
+StatQuest overview of K-means clustering.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4b5d3muPQmA" title="K-means Clustering, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is Unsupervised Learning?
 

@@ -1,12 +1,16 @@
 # Model Evaluation Metrics
 
+**After this lesson:** you can explain the core ideas in “Model Evaluation Metrics” and reproduce the examples here in your own notebook or environment.
+
 ## What are Evaluation Metrics?
 
 Think of evaluation metrics as the "scorecard" or "report card" for your machine learning model. Just like how a teacher uses different tests and assignments to evaluate a student's performance, we use different metrics to evaluate how well our model is performing.
 
 ### Video Tutorial: Model Evaluation Metrics
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Kdsp6soqA7o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Machine Learning Fundamentals: The Confusion Matrix by Josh Starmer*
 
@@ -111,6 +115,9 @@ def demonstrate_precision_recall_tradeoff():
 demonstrate_precision_recall_tradeoff()
 ```
 
+
+![metrics](assets/metrics_fig_1.png)
+
 #### When to Use Which Metric: Decision Tree
 
 ```
@@ -200,6 +207,13 @@ def plot_confusion_matrix(y_true, y_pred):
 plot_confusion_matrix(y_test, y_pred)
 ```
 
+
+![metrics](assets/metrics_fig_2.png)
+
+```
+Accuracy: 0.825
+```
+
 **Output:**
 ```
 Training samples: 800
@@ -267,6 +281,15 @@ y_pred_proba = model.predict_proba(X_test)[:, 1]
 plot_precision_recall_tradeoff(y_test, y_pred_proba)
 ```
 
+
+![metrics](assets/metrics_fig_3.png)
+
+```
+Precision: 0.817
+Recall: 0.809
+F1 Score: 0.813
+```
+
 **Output:**
 ```
 Precision-Recall Analysis:
@@ -319,6 +342,9 @@ def plot_roc_curve(y_true, y_pred_proba):
 
 plot_roc_curve(y_test, y_pred_proba)
 ```
+
+
+![metrics](assets/metrics_fig_4.png)
 
 **Output:**
 ```
@@ -392,6 +418,13 @@ def plot_regression_predictions(y_true, y_pred):
     plt.show()
 
 plot_regression_predictions(y_test, y_pred)
+```
+
+
+![metrics](assets/metrics_fig_5.png)
+
+```
+Mean Squared Error: 0.010
 ```
 
 **Output:**
@@ -471,6 +504,13 @@ def plot_residuals(y_true, y_pred):
 plot_residuals(y_test, y_pred)
 ```
 
+
+![metrics](assets/metrics_fig_6.png)
+
+```
+R-squared Score: 1.000
+```
+
 ## Common Mistakes to Avoid
 
 1. **Using Wrong Metrics**
@@ -535,6 +575,16 @@ print(f"F1 Score: {f1_score(y_test, y_pred):.3f}")
 
 # Plot ROC curve
 plot_roc_curve(y_test, y_pred_proba)
+```
+
+
+![metrics](assets/metrics_fig_7.png)
+
+```
+Accuracy: 0.970
+Precision: 0.946
+Recall: 0.989
+F1 Score: 0.967
 ```
 
 **Output:**

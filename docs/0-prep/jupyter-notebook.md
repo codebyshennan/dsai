@@ -1,5 +1,7 @@
 # Introduction to Jupyter Notebook
 
+**After this guide:** you can start Jupyter, add and run code and markdown cells, restart the kernel when needed, and save a `.ipynb` notebook that runs top-to-bottom.
+
 ## What is Jupyter Notebook?
 
 Jupyter Notebook is a **free** web-based tool that lets you create documents that combine code, text, images, and charts all in one place. It's the most popular tool for data science work!
@@ -13,9 +15,15 @@ Jupyter Notebook is a **free** web-based tool that lets you create documents tha
 - ✅ **Shareable** - Easy to share with others
 - ✅ **Industry standard** - Used by data scientists worldwide
 
-> **Figure (add screenshot or diagram):** Jupyter notebook with a code cell, output, and markdown.
+> **On screen:** Jupyter notebook with a code cell, output, and markdown.
 
 > **Note:** This guide assumes you have Anaconda or **uv** installed. If not, start with the [Anaconda guide](./anaconda.md) or your course’s Python setup materials.
+
+## Helpful video
+
+Quick start: **Jupyter notebooks in VS Code** (under 4 minutes)—cells, running code, and saving `.ipynb` files. The same notebook ideas apply if you use Jupyter in the browser via Anaconda instead.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/h1sAzPojKMg" title="Get started with Jupyter Notebooks in less than 4 minutes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Understanding Notebooks
 
@@ -37,7 +45,7 @@ A notebook is made up of **cells** - think of them as building blocks. Each cell
 - Can include images, links, and even math equations
 - Great for documenting what your code does
 
-> **Figure (add screenshot or diagram):** Side-by-side or stacked view of a code cell vs a markdown cell.
+> **On screen:** Side-by-side or stacked view of a code cell vs a markdown cell.
 
 > **Tip:** You can mix code and markdown cells to create a story with your data analysis!
 
@@ -52,7 +60,7 @@ A notebook is made up of **cells** - think of them as building blocks. Each cell
 
 > **Tip:** The most common way is **Shift + Enter** — it runs your code and automatically moves to the next cell!
 
-> **Figure (add screenshot or diagram):** Toolbar with the Run control highlighted.
+> **On screen:** Toolbar with the Run control highlighted.
 
 ## Keyboard Shortcuts (Hotkeys)
 
@@ -79,7 +87,7 @@ Press **Enter** to enter edit mode. The cell border turns green.
 
 > **Tip:** Don't try to memorize all shortcuts at once! Start with **Shift + Enter** to run cells, and **a** / **b** to add cells. You'll learn the rest as you go.
 
-> **Figure (add screenshot or diagram):** Same cell in command mode (blue border) vs edit mode (green border).
+> **On screen:** Same cell in command mode (blue border) vs edit mode (green border).
 
 ## Installation
 
@@ -126,7 +134,7 @@ jupyter notebook
 - Navigate to your project folder
 - Click "New" → "Python 3" to create a new notebook
 
-> **Figure (add screenshot or diagram):** Jupyter file browser / home page listing folders and **New** menu.
+> **On screen:** Jupyter file browser / home page listing folders and **New** menu.
 
 ## Useful Resources
 

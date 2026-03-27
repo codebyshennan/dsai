@@ -1,5 +1,13 @@
 # Validation Curves
 
+**After this lesson:** you can explain the core ideas in “Validation Curves” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Introduction
 
 Validation curves are essential tools in machine learning for understanding how a model's performance changes with different hyperparameter values. They help us find the optimal hyperparameter settings and diagnose issues like overfitting and underfitting.
@@ -53,6 +61,9 @@ plt.grid(True)
 plt.show()
 ```
 
+
+![validation-curves](assets/validation-curves_fig_1.png)
+
 ### 2. Regularization Strength
 
 ```python
@@ -85,6 +96,9 @@ plt.grid(True)
 plt.show()
 ```
 
+
+![validation-curves](assets/validation-curves_fig_2.png)
+
 ### 3. Learning Rate
 
 ```python
@@ -116,6 +130,9 @@ plt.legend(loc='best')
 plt.grid(True)
 plt.show()
 ```
+
+
+![validation-curves](assets/validation-curves_fig_3.png)
 
 ## Interpreting Validation Curves
 
@@ -237,6 +254,9 @@ plt.legend(loc='best')
 plt.grid(True)
 plt.show()
 ```
+
+
+![validation-curves](assets/validation-curves_fig_4.png)
 
 ## Additional Resources
 

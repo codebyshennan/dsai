@@ -12,7 +12,7 @@ This comprehensive curriculum covers everything from data fundamentals to machin
 ### 0. Preparation
 
 * [Course Overview](0-prep/README.md)
-* [Pedagogy and Teaching Approach](0-prep/pedagogy.md)
+* [How this course works](0-prep/pedagogy.md)
 * [Anaconda Setup](0-prep/anaconda.md)
 * [Python for Data Science](0-prep/python-ds-stack.md)
 * [Jupyter Notebook](0-prep/jupyter-notebook.md)

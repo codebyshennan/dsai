@@ -1,10 +1,18 @@
 # Introduction to NumPy
 
+**After this lesson:** You understand why NumPy exists, how **ndarray** differs from Python lists, and you can run small vectorized examples on your machine.
+
 ## Overview
 
-**Primary outcome:** You understand why NumPy exists, how **ndarray** differs from Python lists, and you can run small vectorized examples on your machine.
-
 **Prerequisites:** Basic Python (lists, loops, functions) from this module’s Python unit.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QUT1VHiLmmI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*freeCodeCamp — Python NumPy tutorial for beginners*
 
 ## What is NumPy?
 

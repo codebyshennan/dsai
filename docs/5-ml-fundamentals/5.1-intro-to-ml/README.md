@@ -1,6 +1,14 @@
 # Introduction to Machine Learning
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Introduction to Machine Learning** in your course schedule.
+
 Welcome to the exciting world of Machine Learning! This section will introduce you to the fundamental concepts, workflows, and practices that form the foundation of machine learning.
+
+## Helpful video
+
+Crash Course AI: how supervised learning fits into ML workflows.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Learning Objectives
 

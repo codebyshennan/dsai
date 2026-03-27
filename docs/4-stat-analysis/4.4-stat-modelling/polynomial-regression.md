@@ -1,5 +1,7 @@
 # Polynomial Regression
 
+**After this lesson:** you can explain the core ideas in “Polynomial Regression” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - Some relationships bend; **polynomial terms** extend linear methods to smooth curves without jumping straight to black-box models.
@@ -18,7 +20,9 @@ Polynomial regression is a powerful extension of linear regression that allows u
 
 ### Video Tutorial: Introduction to Polynomial Regression
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/15W63X2q_Dc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Polynomial Regression Explained by StatQuest with Josh Starmer*
 
@@ -68,6 +72,12 @@ Let's look at some scenarios where polynomial regression is useful:
 ### Visualizing Non-linear Relationships
 
 Imagine you're studying how study time affects exam scores. The relationship might not be linear - there could be diminishing returns after a certain point:
+
+**Simulated quadratic-in-hours exam scores with scatter plot**
+
+**Purpose:** Generate study hours on a grid, scores from a concave quadratic plus noise, and scatter-plot the nonlinear relationship.
+
+**Walkthrough:** `np.linspace`; polynomial in `study_hours`; `plt.scatter`; `savefig` as `nonlinear_relationship.png`.
 
 ```python
 import numpy as np
@@ -128,6 +138,12 @@ Linear regression uses a straight line to model relationships, which is often to
 3. **Maintaining linearity in parameters**: Despite the name, it's still a "linear model" because it's linear in the parameters (the β coefficients)
 
 Let's compare linear and polynomial fits to see the difference:
+
+**Linear vs degree-3 polynomial OLS on noisy cubic data**
+
+**Purpose:** Fit `LinearRegression` on `x` and on `PolynomialFeatures(degree=3)` expanded `x`, overlay predictions, and annotate MSE for each.
+
+**Walkthrough:** `PolynomialFeatures.fit_transform`; two `LinearRegression` fits; `mean_squared_error` in legend strings.
 
 ```python
 def compare_linear_polynomial():
@@ -191,6 +207,12 @@ Polynomial regression works through a process called feature transformation. Her
 4. **Apply linear regression**: Fit a linear model using these transformed features
 
 Let's visualize this transformation process:
+
+**Print and plot `PolynomialFeatures(degree=2)` columns for small `x`**
+
+**Purpose:** Show how `[x]` becomes `[x, x^2]` with `include_bias=False`, print the matrix, and subplot visual comparisons.
+
+**Walkthrough:** `PolynomialFeatures(degree=2, include_bias=False)`; `fit_transform` on column vector; three subplots.
 
 ```python
 def visualize_polynomial_transformation():
@@ -285,6 +307,12 @@ The interaction term $x_1x_2$ allows the model to capture how the effect of one 
 
 The degree of the polynomial is crucial. Too low, and you underfit the data. Too high, and you overfit. Let's visualize this tradeoff:
 
+**Subplot grid: degrees 1, 2, 3, 10 vs known cubic truth**
+
+**Purpose:** Fit `PolynomialFeatures` + `LinearRegression` for each degree on noisy cubic-shaped `y`, plot data, true curve, and fitted curve with MSE in title.
+
+**Walkthrough:** Loop `degrees`; in-sample `predict`; `mean_squared_error`; `plt.subplot(2,2,i)`.
+
 ```python
 def plot_different_degrees():
     """Show effect of different polynomial degrees"""
@@ -343,7 +371,9 @@ This visualization shows:
 
 ### Video Tutorial: Implementing Polynomial Regression
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/15W63X2q_Dc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Polynomial Regression Tutorial in Python*
 
@@ -357,6 +387,12 @@ First, we need to prepare our data, which includes:
 - Handling missing values
 - Creating polynomial features
 - Splitting into training and test sets
+
+**Train/test split, polynomial expansion, and scaling helper**
+
+**Purpose:** Split raw `X`, build `PolynomialFeatures`, then `StandardScaler` on train/test poly matrices; print shape and illustrative feature names.
+
+**Walkthrough:** `train_test_split`; `poly.fit_transform` / `transform`; `StandardScaler` fit on train only.
 
 ```python
 def prepare_polynomial_data(X, y, degree=2):
@@ -410,6 +446,12 @@ This huge difference in scale can cause problems for the optimizer.
 ### Step 2: Train the Model
 
 Now we can train our polynomial regression model:
+
+**Train `LinearRegression` on scaled polynomial features and demo dataset**
+
+**Purpose:** `create_example_dataset` builds noisy cubic-like `y`; `prepare_polynomial_data` returns scaled train matrices; `train_polynomial_model` prints intercept and leading coefficients.
+
+**Walkthrough:** `LinearRegression.fit`; scatter raw data; chain `prepare_polynomial_data` then `train_polynomial_model`.
 
 ```python
 def train_polynomial_model(X, y):
@@ -475,6 +517,12 @@ First few coefficients: [ 1.9873 -0.9865  0.2134]
 ### Step 3: Make Predictions and Evaluate the Model
 
 After training, we need to evaluate the model's performance:
+
+**Metrics, smooth fitted curve, and actual vs predicted scatter**
+
+**Purpose:** On test scaled features, compute MSE/RMSE/R²; inverse-transform grid through `poly` + `scaler` for a smooth prediction curve; second plot for calibration.
+
+**Walkthrough:** `mean_squared_error`, `r2_score`; `poly.transform` + `scaler.transform` on linspace; note `X_original` slice for scatter x-axis.
 
 ```python
 def evaluate_polynomial_model(model, X, y, poly, scaler, X_original):
@@ -558,6 +606,12 @@ These plots and metrics tell us:
 
 One of the most important steps in polynomial regression is selecting the right degree. Let's implement a method to find the optimal degree:
 
+**5-fold CV MSE vs degree via `make_pipeline`**
+
+**Purpose:** For each degree, `cross_val_score` on a pipeline of polynomial expansion, scaling, and `LinearRegression`, negating neg-MSE to positive MSE and plotting argmin.
+
+**Walkthrough:** `make_pipeline(PolynomialFeatures, StandardScaler, LinearRegression)`; `cross_val_score(..., scoring='neg_mean_squared_error')`.
+
 ```python
 def find_optimal_degree(X, y, max_degree=10):
     """Find the optimal polynomial degree using cross-validation"""
@@ -627,6 +681,12 @@ Polynomial regression comes with several challenges. Let's explore these and dis
 - Use cross-validation to select the optimal degree
 - Apply regularization to penalize complex models
 - Ensure you have enough data for higher-degree polynomials
+
+**Sine curve: train/test split and degrees 1, 3, 15**
+
+**Purpose:** On `[0,1]` noisy sine, compare polynomial pipelines of three degrees with train vs test MSE in titles and true `sin(2πx)` dashed.
+
+**Walkthrough:** `make_pipeline(PolynomialFeatures, LinearRegression)`; dense `x_smooth` for plotting; MSE on train and test sets.
 
 ```python
 def demonstrate_overfitting():
@@ -706,6 +766,12 @@ This clearly shows how:
 - Use regularization techniques (Ridge, Lasso)
 - Apply orthogonal polynomials
 - Center your data before creating polynomial features
+
+**Degree-10 polynomial with OLS vs Ridge vs Lasso on test**
+
+**Purpose:** High-degree `PolynomialFeatures` fit with `LinearRegression`, `Ridge`, and `Lasso` on train; plot test predictions vs true cubic on a smooth grid.
+
+**Walkthrough:** Shared `poly.fit_transform`; three models; `mean_squared_error` on test; 1×3 subplot layout.
 
 ```python
 def demonstrate_regularization():

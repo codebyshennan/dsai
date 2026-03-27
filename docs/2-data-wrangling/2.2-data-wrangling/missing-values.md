@@ -1,8 +1,14 @@
 # Missing Values: Strategies for Incomplete Data
 
-## Overview
+**After this lesson:** You can tell **MCAR**, **MAR**, and **MNAR** apart in plain language, explore missingness patterns in **pandas**, and pick a defensible strategy (drop, impute, or model) for a simple dataset.
 
-**Primary outcome:** You can tell **MCAR**, **MAR**, and **MNAR** apart in plain language, explore missingness patterns in **pandas**, and pick a defensible strategy (drop, impute, or model) for a simple dataset.
+## Helpful video
+
+Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m1_33jhhiLE" title="Learn PANDAS in 5 minutes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Data quality assessment](data-quality.md) and [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) basics (**isna**, indexing). Optional: probability ideas from [Intro Statistics](../../1-data-fundamentals/1.3-intro-statistics/README.md).
 
@@ -55,7 +61,11 @@ graph TD
    - Detection: Requires domain knowledge
    - Impact: Most challenging to handle, may need sensitivity analysis
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+# no-output
 def analyze_missing_mechanism(df):
     """
     Analyze missing data patterns to suggest likely mechanism
@@ -94,17 +104,54 @@ def analyze_missing_mechanism(df):
         }
     
     return results
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def analyze_missing_mechanism(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Results = {</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Perform Little&#x27;s MCAR test</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–38: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Missing Value Analysis Framework 
 
 ### 1. Detection and Visualization
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import missingno as msno
+
+df = pd.read_csv('../_data/ecommerce_data.csv')
 
 def analyze_missing_values(df):
     """Comprehensive missing value analysis"""
@@ -149,7 +196,67 @@ def analyze_missing_values(df):
 missing_analysis = analyze_missing_values(df)
 print("\nMissing Value Statistics:")
 print(missing_analysis)
+{% endhighlight %}
+
+![missing-values](assets/missing-values_fig_1.png)
+
+![missing-values](assets/missing-values_fig_2.png)
+
+![missing-values](assets/missing-values_fig_3.png)
+
 ```
+
+Missing Value Statistics:
+             Missing Count  Missing Percentage Data Type
+customer_id              0                 0.0     int64
+product_id               0                 0.0     int64
+order_date               0                 0.0       str
+amount                   8                16.0   float64
+quantity                 0                 0.0   float64
+category                 0                 0.0       str
+rating                   5                10.0   float64
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import pandas as pd</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;Missing Percentage&#x27;: (df.isnull().sum() / le…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">2. Missing value correlation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37-49" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plt.subplot(2, 2, 4)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 37–49: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Imputation Strategies Decision Tree
 
@@ -172,7 +279,10 @@ graph TD
 
 ### 1. Statistical Imputation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class StatisticalImputer:
     """Advanced statistical imputation methods"""
     
@@ -199,11 +309,36 @@ class StatisticalImputer:
         for column, value in self.statistics.items():
             df_imputed[column].fillna(value, inplace=True)
         return df_imputed
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class StatisticalImputer:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Self.statistics[column] = df[column].median()</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–26: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Machine Learning Imputation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 
 class MLImputer:
@@ -248,11 +383,46 @@ class MLImputer:
                 self.models[column] = model
         
         return df_imputed
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From sklearn.ensemble import RandomForestRegr…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Prepare training data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–29: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="30-44" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Known_data[features].fillna(0),</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 30–44: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Multiple Imputation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+# no-output
 def multiple_imputation(df, n_imputations=5):
     """Multiple imputation with uncertainty estimation"""
     
@@ -284,11 +454,45 @@ def multiple_imputation(df, n_imputations=5):
         }
     
     return imputed_datasets, combined_stats
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def multiple_imputation(df, n_imputations=5):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Max_iter=10</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-31" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Combined_stats = {}</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 21–31: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Performance Impact Analysis
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def analyze_imputation_impact(original_df, imputed_df, target_col):
     """Analyze impact of imputation on model performance"""
     
@@ -327,7 +531,38 @@ def analyze_imputation_impact(original_df, imputed_df, target_col):
         }
     
     return results
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def analyze_imputation_impact(original_df, im…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">X_imp = imputed_df.drop(columns=[target_col])</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">X_train, X_test, y_train, y_test = train_test…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–38: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices and Common Pitfalls
 
@@ -339,7 +574,10 @@ def analyze_imputation_impact(original_df, imputed_df, target_col):
 
 ### 2. Method Selection
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def select_imputation_method(df, column):
     """Select appropriate imputation method"""
     
@@ -363,11 +601,36 @@ def select_imputation_method(df, column):
             return "ML-based imputation"
     
     return "Custom imputation needed"
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def select_imputation_method(df, column):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">If missing_rate &lt; 0.1:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Validation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def validate_imputation(original_df, imputed_df):
     """Validate imputation results"""
     
@@ -397,15 +660,41 @@ def validate_imputation(original_df, imputed_df):
     })
     
     return validations
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def validate_imputation(original_df, imputed_…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;original&#x27;: [orig_range[&#x27;min&#x27;], orig_range[&#x27;m…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–29: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Practice Exercise: E-commerce Missing Data
 
 Scenario: You have an e-commerce dataset with missing customer and transaction data.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+# no-output
 # Load and prepare data
-df = pd.read_csv('ecommerce_data.csv')
+df = pd.read_csv('../_data/ecommerce_data.csv')
 
 # 1. Analyze missing patterns
 missing_analysis = analyze_missing_values(df)
@@ -428,7 +717,29 @@ imputation_report = {
     },
     'validation_results': validation_results
 }
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load and prepare data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">3. Validate results</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Remember: "The quality of your imputation directly impacts the reliability of your analysis!"
 

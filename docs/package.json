@@ -5,6 +5,12 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "lesson-nav-order": "node scripts/generate-lesson-nav-order.mjs",
+    "inject-python-outputs": "uv run python scripts/inject_python_block_outputs.py",
+    "wrap-code-explainers": "uv run python scripts/wrap_code_explainers.py",
+    "audit-ml-code-blocks": "uv run python scripts/audit_ml_fundamentals_code_blocks.py",
+    "after-outcomes": "uv run python scripts/add_after_outcomes.py",
+    "helpful-videos": "uv run python scripts/add_helpful_videos.py",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -1,5 +1,13 @@
 # Data Visualization Best Practices Guide
 
+**After this lesson:** you can explain the core ideas in “Data Visualization Best Practices Guide” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Orientation for the course visualization materials.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Overview
 
 These practices apply whether you plot in Python or in a BI tool: one clear message per view, audience-appropriate complexity, honest scales, and accessible color and type.
@@ -17,6 +25,11 @@ These practices apply whether you plot in Python or in a BI tool: one clear mess
 - Guide viewer's attention
 
 #### Example
+
+**Purpose:** Contrast an over-plotted figure with a reduced series count so the viewer can follow one comparison.
+
+**Walkthrough:** Four `plot` calls without hierarchy vs. two labeled series with distinct colors—legend stays readable.
+
 ```python
 # Bad: Too much information
 plt.plot(data1, label='Sales')
@@ -38,6 +51,11 @@ plt.plot(data4, label='Profits', color='green')
 - Decision needs
 
 #### Example Adaptations
+
+**Purpose:** Show how axis titles and units shift between technical and general audiences for the same chart family.
+
+**Walkthrough:** Line plot emphasizes rates and quarter labels; bar chart keeps language outcome-focused with dollars on the axis.
+
 ```python
 # Technical Audience
 plt.plot(data, label='Revenue Growth')
@@ -60,6 +78,11 @@ plt.ylabel('Sales ($M)')
 - Relational: Scatter plots, bubble charts
 
 #### Examples for Different Data Types
+
+**Purpose:** Map four common data–task pairings to the minimal Matplotlib calls: trend, category compare, distribution, relationship.
+
+**Walkthrough:** `plot`, `bar`, `hist`, `scatter`—each encodes a different visual question; swap in your real `dates`, `categories`, `x`, `y`.
+
 ```python
 # Time Series
 plt.plot(dates, values)
@@ -85,6 +108,11 @@ plt.scatter(x, y)
 - Create hierarchy
 
 #### Color Best Practices
+
+**Purpose:** Avoid assigning random per-point colors and instead map values to a single sequential colormap.
+
+**Walkthrough:** `sns.color_palette` builds discrete blues; `as_cmap=True` feeds `scatter(..., c=values, cmap=...)`.
+
 ```python
 # Bad: Rainbow colors
 plt.scatter(x, y, c=np.random.rand(100))
@@ -104,6 +132,11 @@ plt.scatter(x, y, c=values, cmap=sns.color_palette("Blues", as_cmap=True))
 - Consistent styling
 
 #### Example
+
+**Purpose:** Set title, axis labels, and tick label sizes in one place so hierarchy (title > axis > ticks) stays consistent.
+
+**Walkthrough:** `fontsize`/`pad` on title; `tick_params` scales tick numbers without touching each tick manually.
+
 ```python
 plt.figure(figsize=(10, 6))
 plt.plot(data)
@@ -122,12 +155,23 @@ plt.tick_params(labelsize=10)
 - Use consistent spacing
 
 #### Example
+
+**Purpose:** Lay out four related panels in a 2×2 grid with a shared dashboard title and tightened margins.
+
+**Walkthrough:** `plt.subplots` returns axes array; `suptitle` is figure-level; `tight_layout` reserves space for the title via `rect`.
+
 ```python
 # Create grid layout
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(12, 8))
 fig.suptitle('Sales Analysis Dashboard', fontsize=16)
 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 ```
+
+
+![best-practices-guide](assets/best-practices-guide_fig_1.png)
+
+
+![best-practices-guide](assets/best-practices-guide_fig_2.png)
 
 ## Interactive Features
 
@@ -140,6 +184,11 @@ plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 - Avoid clutter
 
 #### Example (Plotly)
+
+**Purpose:** Enrich hover with extra columns and a stable row identifier without cluttering the markers.
+
+**Walkthrough:** Plotly Express `hover_data` selects fields; `hover_name` sets the primary label in the tooltip.
+
 ```python
 import plotly.express as px
 
@@ -158,6 +207,11 @@ fig = px.scatter(data, x='x', y='y',
 - Reset capability
 
 #### Example (Plotly)
+
+**Purpose:** Let viewers scrub time (`animation_frame`) while keeping axes ranges fixed so comparisons stay stable.
+
+**Walkthrough:** `color` splits series; `range_x`/`range_y` lock scales across frames.
+
 ```python
 fig = px.scatter(data, x='x', y='y',
                 color='category',
@@ -177,6 +231,11 @@ fig = px.scatter(data, x='x', y='y',
 - Cache results
 
 #### Example
+
+**Purpose:** Replace millions of scatter points with a 2D density grid when overplotting hides structure.
+
+**Walkthrough:** `histogram2d` counts per cell; `pcolormesh` renders the grid—legible at a glance for dense data.
+
 ```python
 # Bad: Plot all points
 plt.scatter(large_dataset_x, large_dataset_y)
@@ -195,6 +254,11 @@ plt.pcolormesh(bins[1], bins[2], bins[0].T)
 - Consider file size
 
 #### Example
+
+**Purpose:** Choose DPI and format by medium: lower resolution and raster for web, vector or high-DPI raster for print.
+
+**Walkthrough:** `dpi` sets pixels per inch; PDF stays scalable; `optimize` applies to PNG writers that support it.
+
 ```python
 # Export for web
 plt.savefig('plot.png', dpi=72, optimize=True)
@@ -214,6 +278,11 @@ plt.savefig('plot.pdf', dpi=300)
 - Test with simulators
 
 #### Example
+
+**Purpose:** Distinguish series by both color and marker/line style so lines remain separable in grayscale or for color-vision deficiency.
+
+**Walkthrough:** `sns.color_palette("colorblind")` returns a safe set; linestyle and marker add redundant encoding.
+
 ```python
 # Use colorblind-friendly palette
 plt.style.use('seaborn')
@@ -231,6 +300,11 @@ plt.plot(data2, color=colors[1], linestyle='--', marker='s')
 - Alternative text
 
 #### Example
+
+**Purpose:** Keep title and axis text large enough and high-contrast for projection or small screens.
+
+**Walkthrough:** Explicit `fontsize` on title and labels; black title on default white figure is a simple contrast baseline.
+
 ```python
 plt.figure(figsize=(10, 6))
 plt.plot(data)
@@ -250,6 +324,11 @@ plt.ylabel('Sales ($)', fontsize=12)
 - Include references
 
 #### Example
+
+**Purpose:** Document smoothing logic inline so readers know why a second line diverges from raw data.
+
+**Walkthrough:** `rolling` + `mean` on a pandas-like series; two `plot` calls with `alpha` and `label` separate raw vs smoothed.
+
 ```python
 # Calculate moving average for smoothing
 window = 7  # 7-day window for weekly patterns
@@ -269,11 +348,24 @@ plt.plot(smoothed_data, label='7-day Average')
 - Update frequency
 
 #### Example
+
+**Purpose:** Tie the figure to a documented data lineage and refresh cadence in the margin.
+
+**Walkthrough:** Same `figtext` pattern as the beginner guide; `style='italic'` differentiates source from axis titles.
+
 ```python
 # Add source annotation
 plt.figtext(0.99, 0.01, 'Source: Sales Database (Updated Daily)',
             ha='right', va='bottom', fontsize=8, style='italic')
 ```
+
+
+![best-practices-guide](assets/best-practices-guide_fig_3.png)
+
+
+![best-practices-guide](assets/best-practices-guide_fig_4.png)
+
+**Captured output (notebook):** Jupyter may display the `Text` object returned by `figtext`; the caption still renders on the figure.
 
 ## Quality Assurance
 
@@ -286,6 +378,11 @@ plt.figtext(0.99, 0.01, 'Source: Sales Database (Updated Daily)',
 - Accessibility
 
 #### Example
+
+**Purpose:** Guardrail plotted data with assertions and catch rendering failures before publishing.
+
+**Walkthrough:** Assertions enforce domain rules; try/except around `savefig` isolates backend/export issues from data bugs.
+
 ```python
 # Verify data ranges
 assert data.min() >= 0, "Negative values found"

@@ -1,5 +1,7 @@
 # Code Execution Output: model-interpretation.md
 
+**After this lesson:** you can explain the core ideas in “Code Execution Output: model-interpretation.md” and reproduce the examples here in your own notebook or environment.
+
 This file contains the output from running the code blocks in `model-interpretation.md`.
 
 

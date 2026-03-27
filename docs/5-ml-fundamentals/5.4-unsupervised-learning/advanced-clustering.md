@@ -1,6 +1,14 @@
 # Advanced Clustering Techniques
 
+**After this lesson:** you can explain the core ideas in “Advanced Clustering Techniques” and reproduce the examples here in your own notebook or environment.
+
 Sometimes basic clustering algorithms aren't enough - we need more sophisticated methods to handle complex data patterns. Let's explore advanced clustering techniques that can tackle challenging scenarios!
+
+## Helpful video
+
+StatQuest overview of K-means clustering.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4b5d3muPQmA" title="K-means Clustering, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## HDBSCAN: Advanced Density-Based Clustering
 
@@ -79,6 +87,9 @@ plt.tight_layout()
 plt.show()
 ```
 
+
+![advanced-clustering](assets/advanced-clustering_fig_1.png)
+
 ## Spectral Clustering
 
 Spectral clustering is like finding communities in a social network:
@@ -106,6 +117,9 @@ plt.title('Spectral Clustering')
 plt.colorbar(scatter)
 plt.show()
 ```
+
+
+![advanced-clustering](assets/advanced-clustering_fig_2.png)
 
 ## Real-World Applications
 
@@ -137,6 +151,28 @@ for doc, label, probs in zip(documents, doc_labels, doc_probs):
     print(f"Document: {doc}")
     print(f"Topic: {label}")
     print(f"Topic Probabilities: {probs}\n")
+```
+
+```
+Document: machine learning algorithms classification
+Topic: 0
+Topic Probabilities: [1. 0.]
+
+Document: neural networks deep learning
+Topic: 0
+Topic Probabilities: [1. 0.]
+
+Document: clustering unsupervised learning
+Topic: 1
+Topic Probabilities: [0. 1.]
+
+Document: deep neural networks training
+Topic: 0
+Topic Probabilities: [1. 0.]
+
+Document: kmeans clustering algorithm
+Topic: 1
+Topic Probabilities: [0. 1.]
 ```
 
 ### 2. Image Segmentation with HDBSCAN

@@ -1,8 +1,8 @@
 # Exploratory Data Analysis: From Data to Insights
 
-## Overview
+**After this submodule:** Profile a dataset, plot distributions and relationships, and document findings before modeling—using a repeatable **EDA workflow** (see the mermaid diagram below).
 
-**Primary outcome:** After this submodule you can profile a dataset, plot distributions and relationships, and document findings before modeling—using a repeatable **EDA workflow** (see the mermaid diagram below).
+## Overview
 
 **Prerequisites:** [Data wrangling (Module 2.2)](../2.2-data-wrangling/README.md) and [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md). [Visualization basics](../../3-data-visualization/3.1-intro-data-viz/README.md) complement this unit.
 
@@ -14,7 +14,9 @@ Exploratory Data Analysis (EDA) is the crucial first step in any data analysis p
 
 ### Video Tutorial: Exploratory Data Analysis
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xi0vhXFPegw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Exploratory Data Analysis (EDA) Using Python - Edureka*
 
@@ -51,7 +53,10 @@ graph TD
 
 ### 1. Initial Data Exploration
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -170,11 +175,72 @@ class DataExplorer:
                 plt.title(f'{num_col} by {col}')
                 plt.xticks(rotation=45)
                 plt.show()
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-19" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import pandas as pd</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–19: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-39" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">- Relationship exploration</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 20–39: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="40-59" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&quot;&quot;&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 40–59: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="60-78" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return missing[missing[&#x27;count&#x27;] &gt; 0]</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 60–78: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="79-98" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plt.tight_layout()</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 79–98: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="99-118" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def analyze_categorical(self):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 99–118: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Advanced Analysis Techniques
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class AdvancedAnalyzer:
     """Advanced techniques for in-depth exploratory data analysis.
     
@@ -226,7 +292,7 @@ class AdvancedAnalyzer:
         patterns = {
             'daily': self.df.resample('D', on=date_column)[value_column].mean(),
             'weekly': self.df.resample('W', on=date_column)[value_column].mean(),
-            'monthly': self.df.resample('M', on=date_column)[value_column].mean()
+            'monthly': self.df.resample('ME', on=date_column)[value_column].mean()
         }
         
         # Decompose time series
@@ -238,13 +304,65 @@ class AdvancedAnalyzer:
         )
         
         return patterns, decomposition
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class AdvancedAnalyzer:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def __init__(self, df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-37" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return (self.df[column] &lt; (Q1 - 1.5 * IQR)) |…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–37: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="38-50" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;skew&#x27;: stats.skew(self.df[column]),</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 38–50: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="51-63" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;weekly&#x27;: self.df.resample(&#x27;W&#x27;, on=date_colum…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 51–63: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Real-World Case Study: E-commerce Analytics
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Load sample e-commerce data
-df = pd.read_csv('ecommerce_data.csv')
+df = pd.read_csv('../_data/ecommerce_data.csv')
 
 # Initialize explorers
 explorer = DataExplorer(df)
@@ -300,7 +418,65 @@ fig = px.scatter_3d(
     title='Customer Segmentation'
 )
 fig.show()
+{% endhighlight %}
+
+![README](assets/README_fig_1.png)
+
+![README](assets/README_fig_2.png)
+
 ```
+Data Summary:
+{'shape': (50, 8), 'dtypes': order_id         int64
+customer_id      int64
+product_id       int64
+order_date         str
+amount         float64
+quantity       float64
+category           str
+rating         float64
+dtype: object, 'memory_usage': np.float64(0.003177642822265625)}
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load sample e-commerce data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">3. Sales Analysis</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-42" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plt.subplot(413)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 29–42: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="43-57" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;total_spent&#x27;: df.groupby(&#x27;customer_id&#x27;)[&#x27;amo…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 43–57: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Performance Optimization Tips
 
@@ -308,7 +484,10 @@ When working with large datasets, performance optimization becomes crucial. Here
 
 ### 1. Memory Management: Working Smart with Big Data
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def optimize_dataframe(df):
     """Optimize DataFrame memory usage"""
     
@@ -337,11 +516,39 @@ def optimize_dataframe(df):
             df[col] = df[col].astype('category')
     
     return df
-```
+{% endhighlight %}
+
+![README](assets/README_fig_1.png)
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def optimize_dataframe(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Df[col] = df[col].astype(np.int16)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Chunked Processing
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def analyze_large_dataset(file_path, chunk_size=10000):
     """Process large datasets in chunks"""
     chunks = []
@@ -357,7 +564,29 @@ def analyze_large_dataset(file_path, chunk_size=10000):
     
     # Combine results
     return pd.concat(chunks)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def analyze_large_dataset(file_path, chunk_si…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Chunk = optimize_dataframe(chunk)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 8–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Pitfalls and Solutions
 
@@ -365,47 +594,103 @@ Even experienced data scientists can fall into these common traps. Here's how to
 
 1. **Skewed Distributions: The Silent Analysis Killer**
 
-   ```python
-   # Bad: Assuming normal distribution
-   mean = df['amount'].mean()
-   std = df['amount'].std()
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   # Good: Use robust statistics
-   median = df['amount'].median()
-   mad = stats.median_abs_deviation(df['amount'])
-   ```
+   {% highlight python %}
+# no-output
+import pandas as pd
+from scipy import stats
+
+df = pd.read_csv('../_data/ecommerce_data.csv')
+# Bad: Assuming normal distribution
+mean = df['amount'].mean()
+std = df['amount'].std()
+
+# Good: Use robust statistics
+median = df['amount'].median()
+mad = stats.median_abs_deviation(df['amount'])
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-7" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Bad: Assuming normal distribution</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–7: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **Correlation vs Causation: Don't Jump to Conclusions**
 
-   ```python
-   # Correlation analysis
-   correlation = df['price'].corr(df['sales'])
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   # Additional analysis needed
-   # - Time series analysis
-   # - A/B testing
-   # - Control for confounding variables
-   ```
+   {% highlight python %}
+      # Correlation analysis
+      correlation = df['price'].corr(df['sales'])
+      
+      # Additional analysis needed
+      # - Time series analysis
+      # - A/B testing
+      # - Control for confounding variables
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-7" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Correlation analysis</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–7: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **Missing Data Impact: The Hidden Influence**
 
-   ```python
-   # Bad: Drop all missing values
-   df_clean = df.dropna()
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   # Good: Analyze missing patterns
-   missing_patterns = pd.DataFrame({
-       'missing_count': df.isnull().sum(),
-       'missing_pct': (df.isnull().sum() / len(df)) * 100,
-       'missing_corr': df.isnull().corr()
-   })
-   ```
+   {% highlight python %}
+      # Bad: Drop all missing values
+      df_clean = df.dropna()
+      
+      # Good: Analyze missing patterns
+      missing_patterns = pd.DataFrame({
+          'missing_count': df.isnull().sum(),
+          'missing_pct': (df.isnull().sum() / len(df)) * 100,
+          'missing_corr': df.isnull().corr()
+      })
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-9" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Bad: Drop all missing values</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–9: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 ## Interactive Visualization Tips: Making Your Data Come Alive
 
 Static visualizations are good, but interactive ones can tell a more compelling story. Here's how to create engaging visualizations that help stakeholders explore and understand the data themselves:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def create_interactive_dashboard(df):
     """Create interactive visualizations with Plotly"""
     
@@ -434,7 +719,29 @@ def create_interactive_dashboard(df):
     )
     
     return [fig1, fig2, fig3]
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def create_interactive_dashboard(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Size=&#x27;monetary&#x27;,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Assignment
 

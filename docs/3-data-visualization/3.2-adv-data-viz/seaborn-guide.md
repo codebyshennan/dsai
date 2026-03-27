@@ -1,5 +1,7 @@
 # Mastering Statistical Visualization with Seaborn
 
+**After this lesson:** you can explain the core ideas in “Mastering Statistical Visualization with Seaborn” and reproduce the examples here in your own notebook or environment.
+
 > **Note:** This lesson is **code-first**. You should understand [Matplotlib basics](../3.1-intro-data-viz/matplotlib-basics.md) and [visualization principles](../3.1-intro-data-viz/visualization-principles.md) first so you can interpret what Seaborn is doing.
 
 ## Introduction
@@ -8,9 +10,17 @@ Seaborn is your statistical visualization powerhouse - think of it as Matplotlib
 
 ### Video Tutorial: Seaborn Data Visualization
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/6GUZXDef2U0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Seaborn Tutorial - Data Visualization in Python*
+
+**Seaborn at a glance**
+
+**Purpose:** Summarize why Seaborn is used on top of Matplotlib for statistical plots and tidy data.
+
+**Walkthrough:** Not executable code—a schematic of strengths (defaults, stats, pandas integration).
 
 ```yaml
 Key Advantages:
@@ -26,6 +36,11 @@ Key Advantages:
 ## Getting Started
 
 ### Professional Setup
+
+**Purpose:** Import Seaborn and Matplotlib and set global theme, palette, font scale, and `rcParams` for figure size and label sizes.
+
+**Walkthrough:** `sns.set_theme` wraps style + palette + font; `plt.rcParams.update` aligns Matplotlib defaults with the same look.
+
 ```python
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -56,6 +71,11 @@ setup_plotting_defaults()
 ```
 
 ### Data Loading & Inspection
+
+**Purpose:** Load a built-in Seaborn dataset and return both the frame and a small dict of diagnostics (shape, dtypes, nulls, `describe`).
+
+**Walkthrough:** `sns.load_dataset` ships sample CSVs; the dict pattern is handy for teaching EDA before plotting.
+
 ```python
 def load_and_inspect_data(dataset_name="tips"):
     """Load and provide quick data overview"""
@@ -80,6 +100,11 @@ tips, tips_summary = load_and_inspect_data("tips")
 ## Distribution Analysis
 
 ### 1. Single Variable Distributions
+
+**Purpose:** Compare four views of one numeric column—histogram+KDE, box, violin, and ECDF—on one canvas.
+
+**Walkthrough:** `histplot`/`boxplot`/`violinplot`/`ecdfplot` share `data=` and `x=` or `y=`; `GridSpec` lays out four axes.
+
 ```python
 def plot_distribution_suite(data, variable):
     """Create comprehensive distribution analysis"""
@@ -135,9 +160,17 @@ def plot_distribution_suite(data, variable):
 dist_fig = plot_distribution_suite(tips, "total_bill")
 ```
 
+
+![seaborn-guide](assets/seaborn-guide_fig_1.png)
+
 **Output:**
 > **Figure (add screenshot or diagram):** Distribution Suite
 ### 2. Categorical Distributions
+
+**Purpose:** Show how a numeric outcome varies across a category using box, violin, strip, and swarm plots.
+
+**Walkthrough:** Categorical encodings use `x=` for the grouping column and `y=` for the measurement; swarm can be slow on large *n*.
+
 ```python
 def plot_categorical_analysis(data, cat_var, num_var):
     """Create comprehensive categorical analysis"""
@@ -194,11 +227,20 @@ def plot_categorical_analysis(data, cat_var, num_var):
 cat_fig = plot_categorical_analysis(tips, "day", "total_bill")
 ```
 
+
+![seaborn-guide](assets/seaborn-guide_fig_2.png)
+
 **Output:**
 > **Figure (add screenshot or diagram):** Categorical Analysis
-## 📈 Relationship Analysis
+
+## Relationship Analysis
 
 ### 1. Scatter Plot Suite
+
+**Purpose:** Explore bivariate relationship with scatter, regression line, residuals, and hexbin density in one figure.
+
+**Walkthrough:** `regplot` fits OLS; `residplot` shows errors; `hexbin` handles overlap—watch `kde`/`regplot` defaults for large data.
+
 ```python
 def create_scatter_analysis(data, x_var, y_var, hue_var=None):
     """Create comprehensive scatter plot analysis"""
@@ -262,6 +304,11 @@ scatter_fig = create_scatter_analysis(tips, "total_bill", "tip", "time")
 **Output:**
 > **Figure (add screenshot or diagram):** Scatter Analysis
 ### 2. Complex Relationships
+
+**Purpose:** Combine `PairGrid` (same y vs x with hue) and `FacetGrid` (small multiples by category) for multivariate views.
+
+**Walkthrough:** `PairGrid.map` applies a plotting function row-wise; `FacetGrid.map_dataframe` passes column names to `scatterplot`.
+
 ```python
 def analyze_complex_relationships(data, x_var, y_var, cat_vars):
     """Analyze relationships with categorical variables"""
@@ -299,6 +346,15 @@ pair_g, facet_g = analyze_complex_relationships(
 )
 ```
 
+
+![seaborn-guide](assets/seaborn-guide_fig_3.png)
+
+
+![seaborn-guide](assets/seaborn-guide_fig_4.png)
+
+
+![seaborn-guide](assets/seaborn-guide_fig_5.png)
+
 **Output - Pair Grid:**
 > **Figure (add screenshot or diagram):** Pair Plot
 **Output - Facet Grid:**
@@ -306,6 +362,11 @@ pair_g, facet_g = analyze_complex_relationships(
 ## Matrix Visualizations
 
 ### 1. Correlation Analysis
+
+**Purpose:** Numeric correlation matrix as a labeled heatmap and as a clustered heatmap to reveal variable groups.
+
+**Walkthrough:** `select_dtypes` keeps numeric columns; `heatmap` vs `clustermap`—second reorders rows/columns by similarity.
+
 ```python
 def create_correlation_analysis(data, method='pearson'):
     """Create comprehensive correlation analysis"""
@@ -342,6 +403,12 @@ def create_correlation_analysis(data, method='pearson'):
 corr_fig = create_correlation_analysis(tips)
 ```
 
+
+![seaborn-guide](assets/seaborn-guide_fig_6.png)
+
+
+![seaborn-guide](assets/seaborn-guide_fig_7.png)
+
 **Output - Heatmap:**
 > **Figure (add screenshot or diagram):** Correlation Heatmap
 **Output - Clustermap:**
@@ -361,6 +428,11 @@ corr_fig = create_correlation_analysis(tips)
 ## Best Practices
 
 ### 1. Style Management
+
+**Purpose:** Switch Seaborn themes for slides (`presentation`), papers (`paper`), or notebooks (`notebook`) from one function.
+
+**Walkthrough:** Dict holds kwargs for `sns.set_theme`; unknown keys fall back to `notebook`.
+
 ```python
 def set_plot_style(style_type='presentation'):
     """Set plot style based on context"""
@@ -394,6 +466,11 @@ style = set_plot_style('presentation')
 ```
 
 ### 2. Export Settings
+
+**Purpose:** Write the same figure to PDF, PNG, and SVG with tight bounding boxes for documents and web.
+
+**Walkthrough:** Loop over extensions; `savefig` on the Matplotlib `Figure` returned by Seaborn plotting functions.
+
 ```python
 def save_publication_quality(fig, filename, dpi=300):
     """Save figure in publication quality"""

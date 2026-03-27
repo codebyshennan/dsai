@@ -1,5 +1,7 @@
 # Model Selection
 
+**After this lesson:** you can explain the core ideas in “Model Selection” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - You will compare models with **cross-validation** and information criteria instead of trusting training error alone.
@@ -18,7 +20,9 @@ Model selection is the process of choosing the best statistical model from a set
 
 ### Video Tutorial: Introduction to Model Selection
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/r-Mc8YswoCE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Model Selection & Boosting | Machine Learning Tutorial | Edureka*
 
@@ -95,11 +99,15 @@ At the heart of model selection is the bias-variance tradeoff. This is a fundame
 
 ### Video Tutorial: Bias-Variance Tradeoff
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Vzw54MFIwFk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Bias Variance Trade off Clearly Explained!! Machine Learning Tutorials by Kindson The Genius*
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YIPsfEtJppE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Bias-Variance Tradeoff: Data Science Basics by ritvikmath*
 
@@ -107,6 +115,12 @@ At the heart of model selection is the bias-variance tradeoff. This is a fundame
 - **Variance**: The error from sensitivity to small fluctuations in the training data. High variance means the model is too complex and captures noise (overfitting).
 
 Let's visualize this tradeoff:
+
+**Schematic bias, variance, and total error vs complexity**
+
+**Purpose:** Plot stylized decreasing bias, increasing variance, and their sum to mark an “optimal complexity” vertical line for teaching.
+
+**Walkthrough:** Pure NumPy curves; `np.argmin` on total error; `plt.annotate` for under/overfitting regions.
 
 ```python
 import numpy as np
@@ -176,11 +190,19 @@ This plot illustrates:
 
 ### Video Tutorial: Overfitting and Underfitting
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/U3jGdnRL3KI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Overfitting and Underfitting by StatQuest with Josh Starmer*
 
 Let's explore these concepts further with a concrete example of different models applied to the same dataset:
+
+**Polynomial degree 1 vs 3 vs 15 on noisy sinusoidal data**
+
+**Purpose:** Train/test split on synthetic data, fit `PolynomialFeatures` + `LinearRegression` pipelines for three degrees, and plot fits with train vs test MSE in titles.
+
+**Walkthrough:** `make_pipeline(PolynomialFeatures(degree), LinearRegression())`; `mean_squared_error` on train and test; three-column subplot.
 
 ```python
 def demonstrate_overfitting_underfitting():
@@ -282,9 +304,17 @@ The simplest way to evaluate a model is to split your data into training and tes
 
 ### Video Tutorial: Train-Test Split and Cross-Validation
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1AGuK_8LkGQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *K-Fold Cross Validation: Explanation + Tutorial in Python, Scikit-Learn & NumPy by Greg Hogg*
+
+**Train/test split, linear fit, and MSE printout**
+
+**Purpose:** Optional synthetic `X`,`y`; `train_test_split`; `LinearRegression` fit; train vs test MSE and scatter with prediction line.
+
+**Walkthrough:** `train_test_split` with `random_state`; `mean_squared_error`; linspace prediction line for visualization.
 
 ```python
 def train_test_split_example(X, y, test_size=0.2):
@@ -383,9 +413,17 @@ A more robust approach is k-fold cross-validation, which uses all of your data f
 
 ### Video Tutorial: Cross-Validation
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/eTkAJQLQMgw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *K-Fold Cross Validation Example Using Sklearn Python by Cory Maklin*
+
+**K-fold layout: per-fold scatter and bar of fold MSEs**
+
+**Purpose:** Use `KFold` to iterate splits, fit `LinearRegression` each fold, plot train/val points per fold, and bar-chart MSEs with mean line.
+
+**Walkthrough:** `KFold(n_splits=k, shuffle=True)`; index arrays into `X`,`y`; `np.mean`/`np.std` of fold scores; `plt.subplot(2,3,...)`.
 
 ```python
 def cross_validation_example(X, y, k=5):
@@ -496,13 +534,23 @@ For more formal model comparison, especially in statistical modeling, we can use
 
 ### Video Tutorial: AIC and BIC
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-BR4WElPIXg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Statistics 101: Multiple Regression, AIC, AICc, and BIC Basics*
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/McEN54l3EPU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Time Series Model Selection (AIC & BIC) : Time Series Talk*
+
+**Polynomial degrees 1–5: MSE-based AIC/BIC and plots**
+
+**Purpose:** Fit OLS on polynomial expansions of `X`, compute MSE and common AIC/BIC surrogates, plot criteria vs degree, and print best degree by each.
+
+**Walkthrough:** `PolynomialFeatures`; `LinearRegression.fit`; `n * log(mse) + 2k` style AIC; `pandas` summary table.
 
 ```python
 def compare_models_aic_bic(X, y, max_degree=5):
@@ -624,9 +672,17 @@ Start with no features and add them one by one:
 
 ### Video Tutorial: Forward Selection
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5l_3Lrey-Wc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Forward Stepwise Feature Selection | Variable Selection | Machine Learning*
+
+**Greedy forward selection with train MSE and test tracking**
+
+**Purpose:** Iteratively add the feature that most reduces training MSE, log train/test MSE each step, plot error curves, and report optimal subset by test MSE.
+
+**Walkthrough:** Nested loop over candidate features; `LinearRegression` on column subsets; `argmin` on test error list.
 
 ```python
 def forward_selection(X, y, max_features=None):
@@ -784,9 +840,17 @@ Backward elimination starts with all features and removes them one by one:
 
 ### Video Tutorial: Backward Elimination
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/nh2IGC_kLWw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Python Feature Selection: Backward Elimination | Feature Selection | Python*
+
+**Backward elimination: remove one feature per step by training MSE**
+
+**Purpose:** Start from full model, repeatedly drop the feature whose removal most improves training MSE until `min_features`, plot train/test curves, and infer optimal subset from test error.
+
+**Walkthrough:** `pop` on feature index list; refit `LinearRegression`; track removal order bar chart.
 
 ```python
 def backward_elimination(X, y, min_features=1):
@@ -910,6 +974,8 @@ def backward_elimination(X, y, min_features=1):
 
 # Execute the function with our multivariate data
 selected_backward, train_errors_backward, test_errors_backward = backward_elimination(X_multi, y_multi)
+```
+
 ## Practical Tips
 
 When selecting models in practice, follow these steps:
@@ -988,6 +1054,12 @@ Try building a model to predict student performance based on various features. C
    - What metrics will you use to evaluate performance?
 
 ### Example Implementation
+
+**Compare multiple sklearn regressors on synthetic student scores**
+
+**Purpose:** Generate nonlinear exam_score from study/sleep/etc., train Linear/Ridge/Lasso and polynomial+Ridge pipelines, tabulate train/test MSE and test R², and plot top polynomial coefficients.
+
+**Walkthrough:** `train_test_split`; `make_pipeline(PolynomialFeatures(2), Ridge)`; `named_steps['ridge']` for coefficients; horizontal bar of top |coef|.
 
 ```python
 # Generate synthetic student performance data

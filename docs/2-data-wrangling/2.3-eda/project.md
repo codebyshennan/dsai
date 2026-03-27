@@ -1,8 +1,14 @@
 # Exploratory Data Analysis Assignment
 
-## Overview
+**After this lesson:** You produce a short EDA report (notebook or slides) with distributions, key relationships, and clear limitations—grounded in the [EDA README](README.md) workflow.
 
-**Primary outcome:** You produce a short EDA report (notebook or slides) with distributions, key relationships, and clear limitations—grounded in the [EDA README](README.md) workflow.
+## Helpful video
+
+Summarizing distributions with percentiles—common in exploratory analysis.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IFKQLDmRK0Y" title="Quantiles and Percentiles, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Distributions](distributions.md), [relationships](relationships.md), and [time series](time-series.md) readings (or parallel skimming). [Wrangling (Module 2.2)](../2.2-data-wrangling/README.md) should be done or in progress.
 
@@ -22,7 +28,10 @@ You'll be working with an e-commerce dataset containing:
 
 ## Setup
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Required libraries
 import pandas as pd
 import numpy as np
@@ -32,8 +41,21 @@ from scipy import stats
 from statsmodels.tsa.seasonal import seasonal_decompose
 
 # Load the dataset
-df = pd.read_csv('ecommerce_data.csv')
-```
+df = pd.read_csv('../_data/ecommerce_data.csv')
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Required libraries</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Tasks
 
@@ -58,7 +80,10 @@ b) Categorical Variables (10 points)
 
 a) Numeric Relationships (10 points)
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example structure
 def analyze_numeric_relationships(data):
     """
@@ -66,7 +91,20 @@ def analyze_numeric_relationships(data):
     """
     # Your code here
     return analysis_results
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Example structure</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 b) Categorical Relationships (10 points)
 
@@ -106,7 +144,11 @@ c) Anomaly Detection (5 points)
 
 a) Customer Segmentation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+# no-output
 def segment_customers(data):
     """
     Segment customers based on behavior
@@ -120,7 +162,20 @@ def segment_customers(data):
     # Your code here
     
     return segments
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def segment_customers(data):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 b) Product Analysis
 
@@ -179,7 +234,10 @@ b) Visualizations
 
 ## Solution Template
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # 1. Initial Setup
 import pandas as pd
 import numpy as np
@@ -193,7 +251,7 @@ def load_and_prepare_data():
     Load and prepare the dataset for analysis
     """
     # Load data
-    df = pd.read_csv('ecommerce_data.csv')
+    df = pd.read_csv('../_data/ecommerce_data.csv')
     
     # Basic cleaning
     df['date'] = pd.to_datetime(df['date'])
@@ -298,7 +356,65 @@ if __name__ == "__main__":
     }
     
     report = generate_report(df, results)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-19" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">1. Initial Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–19: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-39" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Your code here</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 20–39: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="40-59" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Categorical distributions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 40–59: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="60-78" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sns.heatmap(correlation_matrix, annot=True, c…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 60–78: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="79-98" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plt.figure(figsize=(15, 5))</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 79–98: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="99-118" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return report</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 99–118: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Tips for Success
 

@@ -1,6 +1,14 @@
 # Tableau Basics: Sample Superstore Guide
 
+**After this lesson:** you can explain the core ideas in “Tableau Basics: Sample Superstore Guide” and reproduce the examples here in your own notebook or environment.
+
 > **Note:** This submodule is **UI-first**. You will follow clicks and shelves in Tableau Desktop rather than writing Python for the main workflow.
+
+## Helpful video
+
+Short Tableau Public install; pair with the written guides in this folder.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lTNWfhmurUg" title="Tableau Public Tutorial Download and Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction to Tableau with Sample Superstore
 

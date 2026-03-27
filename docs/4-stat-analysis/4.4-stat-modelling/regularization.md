@@ -1,5 +1,7 @@
 # Regularization Techniques
 
+**After this lesson:** you can explain the core ideas in “Regularization Techniques” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - **Ridge** and **Lasso** shrink coefficients to reduce variance and, in Lasso’s case, perform feature selection.
@@ -18,11 +20,15 @@ Regularization is a crucial technique in statistical modeling that helps prevent
 
 ### Video Tutorial: Introduction to Regularization
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Q81RR3yKn30" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Regularization Part 1: Ridge (L2) Regression by Josh Starmer*
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/NGf0voTMlcs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Regularization Part 2: Lasso (L1) Regression by Josh Starmer*
 
@@ -44,6 +50,12 @@ Regularization helps by:
 ### The Problem: Overfitting
 
 Before we dive into regularization techniques, let's understand the problem they solve. Overfitting occurs when a model learns the training data too well, including its noise and random fluctuations, rather than the underlying pattern.
+
+**Noisy quadratic data: polynomial pipelines and train vs test MSE**
+
+**Purpose:** Simulate \(y \approx x^2\) with noise, compare degree 1/2/15 `PolynomialFeatures` + `LinearRegression` on a train split, and overlay predictions on a dense grid.
+
+**Walkthrough:** `train_test_split`; `make_pipeline(PolynomialFeatures(degree), LinearRegression())`; `mean_squared_error` train/test; multi-series line plot.
 
 ```python
 import numpy as np
@@ -171,6 +183,12 @@ Regularization works by adding a penalty term to the loss function that the mode
 
 Let's visualize how these work:
 
+**Ridge vs Lasso predictions across penalty strengths on 1D data**
+
+**Purpose:** For several `alpha` values including 0, overlay fitted lines from `Ridge` and `Lasso` on noisy linear data in side-by-side subplots.
+
+**Walkthrough:** `Ridge(alpha=...)` and `Lasso(alpha=...)` with `.fit` / `.predict`; shared scatter; `tight_layout` and `savefig`.
+
 ```python
 def plot_regularization_effects():
     """Visualize how different regularization methods affect coefficients"""
@@ -266,6 +284,12 @@ Where:
 
 A helpful way to understand the difference between L1 and L2 regularization is to visualize their constraint regions:
 
+**L1 diamond vs L2 circle vs quadratic loss contours (2D intuition)**
+
+**Purpose:** Contour plot `|β1|+|β2|` and `β1²+β2²` against circular MSE contours to show why L1 hits axes (sparsity) and L2 typically does not.
+
+**Walkthrough:** `np.meshgrid`; `plt.contour`; annotations for sparse vs non-sparse intersections.
+
 ```python
 def plot_constraint_spaces():
     """Visualize L1 and L2 constraint spaces"""
@@ -348,13 +372,21 @@ This geometric interpretation explains:
 
 ### Video Tutorial: Elastic Net Regularization
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1dKRdX9bfIo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Regularization Part 3: Elastic Net Regression by Josh Starmer*
 
 Now let's implement Ridge, Lasso, and Elastic Net regularization in Python:
 
 ### 1. Ridge Regression (L2)
+
+**RidgeCV on scaled collinear data with coefficient bar chart**
+
+**Purpose:** Generate mildly collinear `X`, true linear `y`, then `RidgeCV` with 5-fold neg-MSE scoring on train, report best `alpha_` and R², and plot coefficients when `p` is small.
+
+**Walkthrough:** `StandardScaler` on train/test; `RidgeCV(alphas=..., cv=5)`; `generate_collinear_data` helper builds `X @ true_coef + noise`.
 
 ```python
 def implement_ridge(X, y, alphas=np.logspace(-4, 4, 100)):
@@ -455,6 +487,12 @@ And a visualization of the coefficients (saved as `ridge_coefficients.png`):
 
 ### 2. Lasso Regression (L1)
 
+**LassoCV: sparsity count and coefficient plot**
+
+**Purpose:** Same `X`,`y` as Ridge; `LassoCV` selects `alpha_`, reports nonzero coefficient count, and visualizes fitted coefficients.
+
+**Walkthrough:** `LassoCV(alphas=..., cv=5, selection='random')`; `np.sum(coef_ != 0)`; optional horizontal bar.
+
 ```python
 def implement_lasso(X, y, alphas=np.logspace(-4, 1, 100)):
     """Implement lasso regression with cross-validation"""
@@ -535,6 +573,12 @@ Notice how Lasso tends to select a subset of features by setting some coefficien
 ### 3. Elastic Net
 
 Elastic Net combines both L1 and L2 penalties, providing a balance between Ridge and Lasso:
+
+**ElasticNetCV over `l1_ratio` and `alpha` grid**
+
+**Purpose:** Jointly tune mixing parameter and penalty strength on scaled data, print best `alpha_`, `l1_ratio_`, R², and nonzero count, with coefficient plot.
+
+**Walkthrough:** `ElasticNetCV(l1_ratio=..., alphas=..., cv=5)`; same evaluation pattern as Lasso.
 
 ```python
 def implement_elastic_net(X, y, l1_ratios=[.1, .5, .7, .9, .95, .99, 1], alphas=np.logspace(-4, 1, 100)):
@@ -617,6 +661,12 @@ How do you choose the best type of regularization and its strength? Here's a com
 
 ### 1. Cross-Validation for Parameter Selection
 
+**Overlay RidgeCV vs LassoCV mean CV error vs `alpha`**
+
+**Purpose:** On fully scaled `X`, fit `RidgeCV` and `LassoCV` with shared `KFold`, plot MSE paths vs `alpha` with vertical lines at chosen `alpha_` values.
+
+**Walkthrough:** `ridge.cv_values_.mean(axis=0)`; `lasso.mse_path_` mean; `semilogx`; `plt.axvline` for best alphas.
+
 ```python
 def select_regularization_parameter(X, y):
     """Select optimal regularization parameter using cross-validation"""
@@ -682,6 +732,12 @@ When you run this code, you'll see a visualization of how MSE changes with alpha
 ![Regularization Selection](assets/regularization_selection.png)
 
 ### 2. Comparing Different Regularization Methods
+
+**Bar comparison: OLS vs tuned Ridge/Lasso/ElasticNet**
+
+**Purpose:** Fit `LinearRegression` and three penalized models using alphas from prior CV results, compare train/test R² and nonzero counts, stacked subplots.
+
+**Walkthrough:** Reuses `ridge_results`, `lasso_results`, `elastic_net_results` dicts; `model.score`; `plt.bar` twice for R² and feature counts.
 
 ```python
 def compare_regularization_methods(X, y):
@@ -794,6 +850,12 @@ Ridge regression is a good default choice for most problems because:
 - It handles multicollinearity well
 - It's less likely to discard potentially useful features
 
+**GridSearchCV over `Ridge` `alpha` on scaled data**
+
+**Purpose:** `GridSearchCV` with log-spaced `alpha` and neg-MSE scoring; print best `alpha` and negated score (as MSE).
+
+**Walkthrough:** Uses `X_train_scaled`, `y_train` from earlier ridge section; `grid.best_params_`, `grid.best_score_`.
+
 ```python
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import GridSearchCV
@@ -813,6 +875,12 @@ print(f"Best score: {-grid.best_score_:.4f} MSE")
 ### 2. Use Lasso for Feature Selection
 
 If you have many features and suspect that some might be irrelevant, Lasso can help identify the important ones:
+
+**Print nonzero Lasso coefficients after fitting with `best_alpha`**
+
+**Purpose:** Refit `Lasso` with `lasso_results['best_alpha']` on scaled training data and list features with nonzero coefficients.
+
+**Walkthrough:** List comprehension over `coef_`; uses dummy `feature_names` if needed.
 
 ```python
 from sklearn.linear_model import Lasso
@@ -835,6 +903,12 @@ for feature, coef in important_features:
 
 When you're unsure whether to use Ridge or Lasso, Elastic Net provides a balance:
 
+**Fit `ElasticNetCV` and print tuned `alpha_` and `l1_ratio_`**
+
+**Purpose:** Standalone snippet showing grid over `l1_ratio` and `alphas` with 5-fold CV on `X_train_scaled`, `y_train`.
+
+**Walkthrough:** `ElasticNetCV.fit`; read `alpha_` and `l1_ratio_` attributes.
+
 ```python
 from sklearn.linear_model import ElasticNetCV
 
@@ -854,6 +928,12 @@ print(f"Best l1_ratio: {elastic_net.l1_ratio_:.2f}")
 ### 4. Always Scale Your Features
 
 Regularization is sensitive to the scale of your features, so standardization is crucial:
+
+**Pipeline: scaler then `Ridge` for fit/predict**
+
+**Purpose:** `Pipeline` with `StandardScaler` and fixed `Ridge(alpha=1.0)` so scaling is applied inside CV or deployment consistently.
+
+**Walkthrough:** `pipeline.fit` / `predict` on raw `X_train`, `X_test`.
 
 ```python
 from sklearn.preprocessing import StandardScaler
@@ -877,6 +957,12 @@ y_pred = pipeline.predict(X_test)
 **Challenge**: Choosing the right value for alpha (λ) can be difficult.
 
 **Solution**: Use cross-validation with a wide range of alpha values:
+
+**Repeated K-fold `RidgeCV` for a wider alpha search**
+
+**Purpose:** Fit `RidgeCV` with `RepeatedKFold` and dense `logspace` alphas on prescaled `X_scaled`, `y` (assumed defined earlier).
+
+**Walkthrough:** `RepeatedKFold(n_splits=5, n_repeats=3)`; `RidgeCV(alphas=..., cv=cv)`; print `alpha_`.
 
 ```python
 from sklearn.linear_model import RidgeCV, LassoCV
@@ -915,6 +1001,12 @@ print(f"Optimal Ridge alpha: {ridge_cv.alpha_:.4f}")
 - For prediction accuracy, the bias is often acceptable
 - For causal inference, be cautious with heavy regularization
 
+**Standardized coefficients from model + `StandardScaler`**
+
+**Purpose:** Multiply raw `coef_` by `scaler.scale_` to recover effect sizes in original units per SD of each feature.
+
+**Walkthrough:** Guard `hasattr(scaler, 'scale_')`; return sorted `DataFrame`.
+
 ```python
 # Get standardized coefficients
 def get_standardized_coefs(model, scaler, feature_names=None):
@@ -949,6 +1041,12 @@ print(std_coefs)
 ## Practice Exercise
 
 Let's apply regularization to improve a model for housing price prediction:
+
+**Synthetic housing design matrix (starter scaffold for learners)**
+
+**Purpose:** Build correlated and noise features with a nonlinear price target, stack into `X_housing`, then `train_test_split`—comment prompts compare Linear/Ridge/Lasso/ElasticNet.
+
+**Walkthrough:** `np.column_stack` + name list; exercise leaves modeling steps to the student.
 
 ```python
 # Generate synthetic housing data

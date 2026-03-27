@@ -1,10 +1,18 @@
 # Probability fundamentals with Python
 
+**After this lesson:** You connect probability ideas (events, simulation, long-run frequency) to short Python examples you can run and plot.
+
 ## Overview
 
-**Primary outcome:** You connect probability ideas (events, simulation, long-run frequency) to short Python examples you can run and plot.
-
 **Prerequisites:** Basic Python and comfort reading imports; statistics module [Introduction to Statistics](./README.md) context helps.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uzkc-qNVoOk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Khan Academy — Introduction to probability*
 
 ## Understanding probability through code
 
@@ -103,6 +111,26 @@ experiment.plot_results(
     dice_results,
     "Dice Roll Probabilities (1000 rolls)"
 )
+```
+
+![probability-fundamentals](assets/probability-fundamentals_fig_1.png)
+
+![probability-fundamentals](assets/probability-fundamentals_fig_2.png)
+
+```
+
+Coin Flip Probabilities:
+heads_prob: 0.490
+tails_prob: 0.510
+
+Dice Roll Probabilities:
+1    0.178
+5    0.177
+3    0.174
+6    0.170
+2    0.168
+4    0.133
+Name: count, dtype: float64
 ```
 
 ---
@@ -223,6 +251,18 @@ print(f"Probability when switching: {prob_switch:.3f}")
 print(f"Probability when staying: {prob_stay:.3f}")
 ```
 
+![probability-fundamentals](assets/probability-fundamentals_fig_3.png)
+
+```
+
+Birthday Problem:
+Probability with 23 people: 0.511
+
+Monty Hall Problem:
+Probability when switching: 0.670
+Probability when staying: 0.334
+```
+
 ## Probability Rules and Calculations
 
 ---
@@ -295,6 +335,12 @@ p_disease_given_positive = calc.bayes_theorem(
 print("\nMedical Test Example:")
 print(f"Probability of disease given positive test: "
       f"{p_disease_given_positive:.3f}")
+```
+
+```
+
+Medical Test Example:
+Probability of disease given positive test: 0.088
 ```
 
 ---
@@ -488,6 +534,13 @@ print(f"\nProbability of hitting ±{threshold}: {hit_prob:.3f}")
 ap.plot_random_walks(paths[:100], threshold)  # Plot first 100 paths
 ```
 
+![probability-fundamentals](assets/probability-fundamentals_fig_4.png)
+
+```
+
+Probability of hitting ±10: 0.631
+```
+
 ---
 
 ### Probability in Machine Learning
@@ -586,6 +639,8 @@ results = pc.fit_and_evaluate(X, y)
 # Plot results
 pc.plot_results(results)
 ```
+
+![probability-fundamentals](assets/probability-fundamentals_fig_5.png)
 
 ## Practice Exercises 🎯
 

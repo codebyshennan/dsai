@@ -1,8 +1,14 @@
 # Mastering SQL Joins: Connecting Your Data Universe
 
-## Overview
+**After this lesson:** You can choose the right join type (**INNER**, **LEFT**, **RIGHT**, **FULL**) for a question, write multi-table queries with clear aliases, and avoid accidental Cartesian products.
 
-**Primary outcome:** You can choose the right join type (**INNER**, **LEFT**, **RIGHT**, **FULL**) for a question, write multi-table queries with clear aliases, and avoid accidental Cartesian products.
+## Helpful video
+
+Quick tour of join types in SQL (inner, left, right, full).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9yeOJ0ZMUYw" title="SQL Joins Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Basic SQL Operations](basic-operations.md) and [Aggregations](aggregations.md). You should recognize foreign keys from [Introduction to Databases](intro-databases.md).
 
@@ -23,7 +29,10 @@ SQL joins combine rows from two or more tables based on related columns. They ar
 
 Returns only matching rows from both tables.
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Basic INNER JOIN
 SELECT 
     o.order_id,
@@ -41,13 +50,38 @@ FROM orders o
 INNER JOIN customers c 
     ON o.customer_id = c.customer_id
     AND o.store_id = c.preferred_store_id;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Basic INNER JOIN</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Multiple conditions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–17: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. LEFT JOIN (LEFT OUTER JOIN)
 
 Returns all rows from the left table and matching rows from the right table.
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Basic LEFT JOIN
 SELECT 
     c.customer_name,
@@ -64,13 +98,38 @@ SELECT
 FROM customers c
 LEFT JOIN orders o ON c.customer_id = o.customer_id
 WHERE o.order_id IS NULL;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Basic LEFT JOIN</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Finding missing relationships</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–16: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. RIGHT JOIN (RIGHT OUTER JOIN)
 
 Returns all rows from the right table and matching rows from the left table.
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Basic RIGHT JOIN
 SELECT 
     p.product_name,
@@ -86,13 +145,38 @@ SELECT
 FROM order_items oi
 RIGHT JOIN products p ON oi.product_id = p.product_id
 WHERE oi.order_id IS NULL;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Basic RIGHT JOIN</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Finding unused products</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 8–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 4. FULL JOIN (FULL OUTER JOIN)
 
 Returns all rows when there's a match in either left or right table.
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Basic FULL JOIN
 SELECT 
     c.customer_name,
@@ -114,13 +198,38 @@ FULL JOIN orders o ON c.customer_id = o.customer_id
 FULL JOIN order_items oi ON o.order_id = oi.order_id
 FULL JOIN products p ON oi.product_id = p.product_id
 WHERE o.order_id IS NULL;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Basic FULL JOIN</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Finding all missing relationships</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–21: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 5. CROSS JOIN
 
 Returns Cartesian product of both tables.
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Basic CROSS JOIN
 SELECT 
     p.product_name,
@@ -138,13 +247,38 @@ FROM generate_series(
     INTERVAL '1 day'
 ) as d(date)
 CROSS JOIN products p;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Basic CROSS JOIN</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–17: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Join Patterns
 
 ### 1. Multi-Table Joins
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Order details with customer and product info
 SELECT 
     o.order_id,
@@ -156,11 +290,27 @@ FROM orders o
 JOIN customers c ON o.customer_id = c.customer_id
 JOIN order_items oi ON o.order_id = oi.order_id
 JOIN products p ON oi.product_id = p.product_id;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Order details with customer and product info</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Self Joins
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Employee hierarchy
 SELECT 
     e.employee_name as employee,
@@ -182,11 +332,36 @@ JOIN products p2 ON oi2.product_id = p2.product_id
 GROUP BY p1.product_name, p2.product_name
 HAVING COUNT(*) > 5
 ORDER BY times_bought_together DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Employee hierarchy</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">P2.product_name as recommended_product,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–21: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Conditional Joins
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Join based on date ranges
 SELECT 
     e.event_name,
@@ -204,13 +379,38 @@ LEFT JOIN drivers d
     ON d.zone_id = o.delivery_zone_id
     AND d.is_active = true
     AND d.current_orders < d.max_orders;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Join based on date ranges</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Join with multiple conditions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–17: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Join Best Practices
 
 ### 1. Performance Optimization
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Use proper indexes
 CREATE INDEX idx_orders_customer 
 ON orders(customer_id);
@@ -224,11 +424,27 @@ SELECT /*+ LEADING(small_table medium_table large_table) */
 FROM small_table
 JOIN medium_table ON small_table.id = medium_table.id
 JOIN large_table ON medium_table.id = large_table.id;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Use proper indexes</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Common Mistakes to Avoid
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Avoid Cartesian products
 -- Bad:
 SELECT * FROM orders, customers;
@@ -244,11 +460,36 @@ SELECT
 FROM customers c
 LEFT JOIN orders o ON c.customer_id = o.customer_id
 GROUP BY c.customer_name;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Avoid Cartesian products</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Handle NULL values</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 8–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Maintainability Tips
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Use meaningful aliases
 SELECT 
     cust.name,
@@ -280,13 +521,47 @@ SELECT
 FROM customers c
 LEFT JOIN customer_orders co ON c.customer_id = co.customer_id
 LEFT JOIN customer_spending cs ON c.customer_id = cs.customer_id;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Use meaningful aliases</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH customer_orders AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-31" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SUM(total_amount) as total_spent</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 21–31: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Additional Real-World Scenarios
 
 ### 1. E-commerce Funnel Analysis
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH user_journey AS (
     SELECT 
         u.user_id,
@@ -315,11 +590,36 @@ SELECT
         2
     ) as cart_to_purchase_rate
 FROM user_journey;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH user_journey AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ROUND(AVG(products_viewed)::numeric, 2) as av…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Supply Chain Analysis
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH supplier_performance AS (
     SELECT 
         s.supplier_id,
@@ -353,11 +653,45 @@ SELECT
     END as performance_rating
 FROM supplier_performance
 ORDER BY orders_fulfilled DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH supplier_performance AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">FROM suppliers s</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">2</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 23–33: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Customer Service Integration
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH ticket_metrics AS (
     SELECT 
         t.ticket_id,
@@ -394,13 +728,47 @@ ORDER BY
         WHEN 'medium' THEN 2
         WHEN 'low' THEN 3
     END;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH ticket_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">EXTRACT(EPOCH FROM (t.resolved_at - t.created…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">2</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Performance Optimization Examples
 
 ### 1. Hash Join vs. Merge Join
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Force hash join for large tables with no useful indexes
 SELECT /*+ HASHJOIN(o c) */
     c.customer_name,
@@ -416,11 +784,36 @@ SELECT /*+ MERGEJOIN(o c) */
 FROM orders o
 JOIN customers c ON o.customer_id = c.customer_id
 GROUP BY c.customer_name;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Force hash join for large tables with no usef…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Force merge join for indexed columns</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 8–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Partitioned Joins
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Join with partitioned tables
 CREATE TABLE orders (
     order_id INT,
@@ -449,11 +842,36 @@ SELECT
 FROM orders_2023_q1 o
 JOIN order_items_2023_q1 oi ON o.order_id = oi.order_id
 GROUP BY o.order_id;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Join with partitioned tables</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create corresponding partitions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Materialized Views for Complex Joins
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Create materialized view for frequently joined data
 CREATE MATERIALIZED VIEW order_summary AS
 SELECT 
@@ -486,13 +904,47 @@ CREATE TRIGGER refresh_order_summary_trigger
 AFTER INSERT OR UPDATE OR DELETE ON orders
 FOR EACH STATEMENT
 EXECUTE FUNCTION refresh_order_summary();
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create materialized view for frequently joine…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">JOIN customers c ON o.customer_id = c.custome…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–21: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-32" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">RETURNS trigger AS $$</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 22–32: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Interactive Examples with Sample Data
 
 ### 1. Generate Sample Data
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Create sample customers
 INSERT INTO customers (customer_name, email, join_date)
 SELECT 
@@ -516,11 +968,36 @@ SELECT
     (random() * 10 + 1)::integer,
     (random() * 100 + 10)::numeric(10,2)
 FROM generate_series(1, 100);
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create sample customers</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">(random() * 1000)::integer,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Analysis Queries
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Customer purchase patterns
 WITH customer_patterns AS (
     SELECT 
@@ -554,7 +1031,38 @@ GROUP BY
         WHEN order_count > 1 THEN 'Returning'
     END
 ORDER BY avg_total_spent DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Customer purchase patterns</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GROUP BY c.customer_id, c.customer_name</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ROUND(AVG(total_spent)::numeric, 2) as avg_to…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 23–33: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Remember: "Efficient joins are the key to unlocking insights from your data!"
 

@@ -1,6 +1,14 @@
 # Visual Storytelling: A Beginner's Guide to Data Visualization
 
+**After this lesson:** you can explain the core ideas in “Visual Storytelling: A Beginner's Guide to Data Visualization” and reproduce the examples here in your own notebook or environment.
+
 > **Note:** This lesson focuses on **structure and communication** (titles, flow, emphasis). You can practice with any charting tool you already use from earlier in Module 3.
+
+## Helpful video
+
+Framing insights for others—related context for storytelling.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction: The Power of Visual Communication
 

@@ -1,5 +1,13 @@
 # Advanced Topics in Naive Bayes
 
+**After this lesson:** you can explain the core ideas in “Advanced Topics in Naive Bayes” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Welcome to Advanced Naive Bayes
 
 Now that you've mastered the basics, let's explore some advanced techniques that will make your Naive Bayes models even better. Think of this as adding special tools to your machine learning toolbox!
@@ -14,46 +22,58 @@ Feature engineering is like being a chef who transforms basic ingredients into a
 
 Let's say you're building a spam detector. Instead of just using raw words, you can create smarter features:
 
+#### TF-IDF pipeline with custom preprocessing
+
+**Purpose:** Show a `Pipeline` of `TfidfVectorizer` (with a callable `preprocessor` for cleaning) plus `MultinomialNB`, without extra NLP dependencies.
+
+**Walkthrough:**
+- `normalize_text` lowercases and strips non-letters (keeping `!?.`).
+- `TfidfVectorizer(preprocessor=..., ngram_range=(1, 3), max_features=1000)` feeds `MultinomialNB`.
+
 ```python
+import re
+
 from sklearn.feature_extraction.text import TfidfVectorizer
-import nltk
-from nltk.stem import WordNetLemmatizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import Pipeline
 
-class SmartTextPreprocessor:
-    def __init__(self):
-        self.lemmatizer = WordNetLemmatizer()
-        
-    def preprocess(self, text):
-        """Transform text into better features"""
-        # Convert to lowercase
-        text = text.lower()
-        
-        # Keep important punctuation (! ? .)
-        text = re.sub(r'[^a-zA-Z\s!?.]', '', text)
-        
-        # Convert words to their base form
-        words = text.split()
-        words = [self.lemmatizer.lemmatize(word) for word in words]
-        
-        return ' '.join(words)
 
-# Use in your pipeline
-pipeline = Pipeline([
-    ('preprocessor', SmartTextPreprocessor()),
-    ('vectorizer', TfidfVectorizer(
-        ngram_range=(1, 3),  # Look at words, pairs, and triplets
-        max_features=1000    # Keep the most important words
-    )),
-    ('classifier', MultinomialNB())
-])
+def normalize_text(text):
+    """Lightweight cleaning before tokenization."""
+    text = text.lower()
+    return re.sub(r"[^a-zA-Z\s!?.]", "", text)
+
+
+pipeline = Pipeline(
+    [
+        (
+            "vectorizer",
+            TfidfVectorizer(
+                preprocessor=normalize_text,
+                ngram_range=(1, 3),
+                max_features=1000,
+            ),
+        ),
+        ("classifier", MultinomialNB()),
+    ]
+)
 ```
 
 ### Numerical Feature Engineering
 
 When working with numbers (like age or income), you can transform them to better fit the Gaussian distribution:
 
+#### Power transform + Gaussian NB
+
+**Purpose:** Pipeline `PowerTransformer` (Yeo–Johnson) before `GaussianNB` when features are skewed.
+
+**Walkthrough:**
+- `PowerTransformer(method='yeo-johnson')` learns a per-feature transform; `GaussianNB` then fits on the transformed space.
+
 ```python
 from sklearn.preprocessing import PowerTransformer
+from sklearn.naive_bayes import GaussianNB
+from sklearn.pipeline import Pipeline
 
 def transform_numerical_features():
     """Create better numerical features"""
@@ -73,8 +93,19 @@ Imagine you're a doctor with incomplete patient records. You can't just ignore m
 
 ### Smart Ways to Handle Missing Data
 
+#### KNN imputer + scaler + Gaussian NB (sketch)
+
+**Purpose:** Illustrate plugging `KNNImputer` (or `IterativeImputer`) ahead of scaling and `GaussianNB` in a `Pipeline`.
+
+**Walkthrough:**
+- `KNNImputer(n_neighbors=5)` fills missing numeric cells; `StandardScaler` then `GaussianNB` for the final classifier.
+
 ```python
-from sklearn.impute import KNNImputer
+from sklearn.experimental import enable_iterative_imputer  # noqa: F401
+from sklearn.impute import KNNImputer, IterativeImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.naive_bayes import GaussianNB
+from sklearn.pipeline import Pipeline
 
 class SmartDataImputer:
     def __init__(self, strategy='knn'):
@@ -86,14 +117,14 @@ class SmartDataImputer:
             # Use similar patients to fill in missing values
             imputer = KNNImputer(n_neighbors=5)
         else:
-            # Use iterative approach
+            # Use iterative approach (enable experimental import in sklearn if required)
             imputer = IterativeImputer(max_iter=10)
             
         return imputer.fit_transform(data)
 
-# Use in your pipeline
+# Prefer sklearn imputers directly inside Pipeline (SmartDataImputer is illustrative)
 pipeline = Pipeline([
-    ('imputer', SmartDataImputer(strategy='knn')),
+    ('imputer', KNNImputer(n_neighbors=5)),
     ('scaler', StandardScaler()),
     ('classifier', GaussianNB())
 ])
@@ -107,8 +138,16 @@ An ensemble is like a team of experts working together. Instead of relying on on
 
 ### Voting Classifier
 
+#### VotingClassifier with multiple NB variants (illustrative)
+
+**Purpose:** Show how `VotingClassifier` combines estimators; in practice each base learner must see compatible features (often separate pipelines per modality).
+
+**Walkthrough:**
+- List named steps (`multinomial`, `gaussian`, `bernoulli`); `voting='soft'` averages predicted probabilities.
+
 ```python
 from sklearn.ensemble import VotingClassifier
+from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 
 def create_naive_bayes_team():
     """Create a team of Naive Bayes models"""
@@ -126,9 +165,17 @@ def create_naive_bayes_team():
 
 ### Stacking Classifier
 
+#### StackingClassifier with logistic meta-learner
+
+**Purpose:** Stack several Naive Bayes variants with `LogisticRegression` as the final estimator (conceptual; feature alignment across bases is required in real use).
+
+**Walkthrough:**
+- `StackingClassifier(estimators=..., final_estimator=LogisticRegression(), cv=5)`.
+
 ```python
 from sklearn.ensemble import StackingClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 
 def create_stacked_model():
     """Create a stacked model with Naive Bayes"""
@@ -149,9 +196,17 @@ def create_stacked_model():
 
 ### Saving Your Model
 
+#### Persist estimator with joblib and sidecar JSON
+
+**Purpose:** Save a fitted model to disk with `joblib` and optional metadata for deployment.
+
+**Walkthrough:**
+- `joblib.dump` the estimator; write `model_info.json`; `load` reverses the steps.
+
 ```python
-import joblib
 import json
+
+import joblib
 
 class ModelSaver:
     def __init__(self, model, info=None):
@@ -178,7 +233,16 @@ class ModelSaver:
 
 ### Monitoring Your Model
 
+#### Track predictions for simple drift-style checks
+
+**Purpose:** Keep a lightweight log of predictions (and optional labels) to compute rolling accuracy offline.
+
+**Walkthrough:**
+- Append dicts with `features`, `prediction`, optional `actual`, and `datetime.now()`.
+
 ```python
+from datetime import datetime
+
 class ModelMonitor:
     def __init__(self):
         self.predictions = []
@@ -211,9 +275,19 @@ Hyperparameters are like the settings on your camera. You need to adjust them to
 
 ### Finding the Best Settings
 
+#### RandomizedSearchCV over vectorizer + MultinomialNB
+
+**Purpose:** Search `max_features`, `ngram_range`, and `alpha` on a text pipeline with cross-validation.
+
+**Walkthrough:**
+- `param_options` uses `randint` / `uniform` distributions; `RandomizedSearchCV(..., n_iter=20, cv=3)`; return `best_params_`.
+
 ```python
 from sklearn.model_selection import RandomizedSearchCV
 from scipy.stats import uniform, randint
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import Pipeline
 
 def find_best_settings(X, y):
     """Find the best hyperparameters"""
@@ -234,13 +308,30 @@ def find_best_settings(X, y):
     search = RandomizedSearchCV(
         model, param_options,
         n_iter=20,  # Try 20 different combinations
-        cv=5,       # Use 5-fold cross-validation
+        cv=3,       # Use 3-fold CV (needs enough samples vs n_splits)
         scoring='accuracy'
     )
     
     # Find the best settings
     search.fit(X, y)
     return search.best_params_
+
+
+# Example: small text corpus (enough rows for cv=3)
+X_text = [
+    "sports team wins game",
+    "stock market news today",
+    "team scores in final quarter",
+    "finance report earnings beat",
+    "championship final overtime",
+    "investors buy tech shares",
+    "roster injury update",
+    "quarterly revenue growth",
+    "playoff bracket announced",
+    "dividend yield increases",
+]
+y_text = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+best = find_best_settings(X_text, y_text)
 ```
 
 ## Common Advanced Challenges and Solutions
@@ -249,25 +340,42 @@ def find_best_settings(X, y):
 
 When one class is much more common than others:
 
+#### Normalize balanced weights to `class_prior`
+
+**Purpose:** Turn `compute_class_weight` outputs into a proper prior vector summing to 1 for `MultinomialNB`.
+
 ```python
-# Use class weights
-class_weights = compute_class_weight(
-    'balanced',
-    classes=np.unique(y),
-    y=y
-)
-model = MultinomialNB(class_prior=class_weights)
+import numpy as np
+from sklearn.utils.class_weight import compute_class_weight
+from sklearn.naive_bayes import MultinomialNB
+
+y = np.array([0] * 90 + [1] * 10)
+class_weights = compute_class_weight("balanced", classes=np.unique(y), y=y)
+priors = class_weights / class_weights.sum()
+model = MultinomialNB(class_prior=priors)
 ```
 
 ### 2. Handling High-Dimensional Data
 
 When you have too many features:
 
-```python
-# Use feature selection
-from sklearn.feature_selection import SelectKBest, chi2
+#### Chi-squared feature selection before NB
 
-selector = SelectKBest(chi2, k=1000)  # Keep top 1000 features
+**Purpose:** Reduce dimensionality with `SelectKBest` and `chi2` (non-negative counts required).
+
+**Walkthrough:**
+- `SelectKBest(chi2, k=1000).fit_transform(X, y)` returns a reduced sparse or dense matrix.
+
+```python
+import numpy as np
+from sklearn.feature_selection import SelectKBest, chi2
+from scipy.sparse import csr_matrix
+
+rng = np.random.default_rng(0)
+X = csr_matrix(rng.integers(1, 10, size=(50, 200)))
+y = rng.integers(0, 2, size=50)
+
+selector = SelectKBest(chi2, k=100)  # keep top features for this toy size
 X_new = selector.fit_transform(X, y)
 ```
 
@@ -275,8 +383,21 @@ X_new = selector.fit_transform(X, y)
 
 When dealing with very small probabilities:
 
+#### Argmax on `predict_log_proba`
+
+**Purpose:** Use log-probabilities for numerical stability when comparing classes (equivalent argmax to `predict` for many models).
+
+**Walkthrough:**
+- Fit `BernoulliNB` on a tiny binary matrix; `predict_log_proba` then `np.argmax` along classes.
+
 ```python
-# Use log probabilities
+import numpy as np
+from sklearn.naive_bayes import BernoulliNB
+
+X = np.array([[1, 0, 1], [0, 1, 0], [1, 1, 0]])
+y = np.array([0, 1, 0])
+model = BernoulliNB().fit(X, y)
+
 log_probs = model.predict_log_proba(X)
 predictions = np.argmax(log_probs, axis=1)
 ```

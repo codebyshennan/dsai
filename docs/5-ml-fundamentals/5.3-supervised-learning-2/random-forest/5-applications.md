@@ -1,6 +1,14 @@
 # Real-World Applications of Random Forest
 
+**After this lesson:** you can explain the core ideas in “Real-World Applications of Random Forest” and reproduce the examples here in your own notebook or environment.
+
 Let's explore how Random Forests are used to solve real-world problems across different industries!
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 1. Financial Applications
 
@@ -75,6 +83,16 @@ def calculate_risk_score(model, scaler, data):
 risk_scores = calculate_risk_score(rf, scaler, X_test)
 print("Risk Score Distribution:")
 print(pd.qcut(risk_scores, q=5).value_counts())
+```
+
+```
+Risk Score Distribution:
+(0.947, 8.496]      40
+(8.496, 82.808]     40
+(82.808, 93.794]    40
+(93.794, 96.665]    40
+(96.665, 99.376]    40
+Name: count, dtype: int64
 ```
 
 ### Stock Price Prediction

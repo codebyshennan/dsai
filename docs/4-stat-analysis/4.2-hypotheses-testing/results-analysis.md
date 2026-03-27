@@ -1,5 +1,7 @@
 # Results Analysis: From Numbers to Insights
 
+**After this lesson:** you can explain the core ideas in “Results Analysis: From Numbers to Insights” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - You will move from **p-values** to decisions using effect sizes, intervals, and plain-language stakes.
@@ -18,11 +20,15 @@ Think of results analysis as being a detective with data - it's not just about f
 
 ### Video Tutorial: Results Analysis and Statistical Significance
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UFhJefdVCjE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: P-values, Clearly Explained by Josh Starmer*
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TqOeMYtOc1w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Confidence Intervals, Clearly Explained!!! by Josh Starmer*
 
@@ -31,6 +37,12 @@ Think of results analysis as being a detective with data - it's not just about f
 ### 1. P-values and Statistical Significance
 
 Like a metal detector beeping - it tells you something's there, but you need to dig to understand what!
+
+**`SignificanceAnalyzer`: interpret and visualize a p-value**
+
+**Purpose:** Show how to wrap a p-value into plain-language “strength of evidence” bands and sketch the t null density with the observed statistic and two-sided rejection regions—useful for teaching, not a substitute for reporting raw numbers.
+
+**Walkthrough:** `interpret_p_value` buckets evidence by thresholds; `visualize_significance` uses `stats.t.pdf` / `ppf` and `fill_between` for rejection tails; figure saves to the repo path beside this lesson (run from a context where that path is writable).
 
 ```python
 import numpy as np
@@ -122,6 +134,12 @@ where:
 
 - \( \bar{X}_1, \bar{X}_2 \): means of the two groups
 - \( s_p \): pooled standard deviation
+
+**`EffectSizeAnalyzer`: label Cohen-style magnitude**
+
+**Purpose:** Map a numeric effect size to “small / medium / large” language and separate *statistical* rarity from *practical* impact—mirroring how you should report results to stakeholders.
+
+**Walkthrough:** `_get_magnitude` compares |effect| to literature thresholds by `type`; `_get_practical_significance` turns magnitude into narrative; plotting hooks are stubbed—extend `_plot_*` if you wire this class end-to-end.
 
 ```python
 class EffectSizeAnalyzer:

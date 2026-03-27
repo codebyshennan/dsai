@@ -1,6 +1,16 @@
 # Interactive Python Notebooks
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Interactive Python Notebooks** in your course schedule.
+
 Welcome to your interactive Python learning journey! These Jupyter notebooks are designed to be used in Google Colab for hands-on practice.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YYXdXT2l-Gg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Corey Schafer — Python environment setup (before running notebooks locally)*
 
 ## Quick Start
 

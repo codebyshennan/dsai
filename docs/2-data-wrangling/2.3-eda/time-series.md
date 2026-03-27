@@ -1,8 +1,14 @@
 # Time Series Analysis: Understanding Temporal Patterns
 
-## Overview
+**After this lesson:** You can parse datetime indexes, decompose a series into **trend**, **seasonal**, and **residual** parts at a conceptual level, and spot obvious anomalies or non-stationarity before modeling.
 
-**Primary outcome:** You can parse datetime indexes, decompose a series into **trend**, **seasonal**, and **residual** parts at a conceptual level, and spot obvious anomalies or non-stationarity before modeling.
+## Helpful video
+
+Summarizing distributions with percentiles—common in exploratory analysis.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IFKQLDmRK0Y" title="Quantiles and Percentiles, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Distributions](distributions.md) and [Pandas datetime](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) basics.
 
@@ -107,7 +113,10 @@ Different smoothing techniques serve different purposes:
 
 This framework helps you systematically analyze temporal patterns:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -262,7 +271,65 @@ class TimeSeriesAnalyzer:
         plt.show()
         
         return anomalies.dropna()
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-25" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import pandas as pd</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-51" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Self.value_column = value_column</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–51: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="52-77" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plt.title(&#x27;Original Time Series&#x27;)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 52–77: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="78-102" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;yearly&#x27;: self.data[self.value_column].groupb…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 78–102: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="103-128" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return patterns</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 103–128: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="129-154" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def detect_anomalies(self, window=30, thresho…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 129–154: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **Figure (add screenshot or diagram):** Seasonal decomposition panels—see **assets/seasonal_decomposition.png** when available.
 
@@ -292,9 +359,12 @@ Let's analyze sales data to understand temporal patterns:
    - Lead time analysis
    - Safety stock calculation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Load sample sales data
-sales_data = pd.read_csv('sales_data.csv')
+sales_data = pd.read_csv('../_data/sales_data.csv')
 analyzer = TimeSeriesAnalyzer(sales_data, 'date', 'sales')
 
 # 1. Analyze Components
@@ -354,7 +424,56 @@ def create_sales_dashboard(data, decomposition):
     fig3.show()
 
 create_sales_dashboard(sales_data, decomposition)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load sample sales data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">4. Detect Anomalies</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Name=&#x27;Sales&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37-48" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 37–48: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="49-61" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Name=&#x27;Sales&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 49–61: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Performance Optimization Tips: Handling Large Time Series
 
@@ -380,7 +499,10 @@ Optimize your analysis for large temporal datasets:
 
 ### 1. Efficient Data Storage
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def optimize_time_series(df):
     """Optimize time series data storage"""
     # Convert to efficient dtypes
@@ -395,11 +517,36 @@ def optimize_time_series(df):
     df[numeric_cols] = df[numeric_cols].astype(np.float32)
     
     return df
-```
+{% endhighlight %}
+
+![time-series](assets/time-series_fig_1.png)
+
+![time-series](assets/time-series_fig_2.png)
+
+![time-series](assets/time-series_fig_3.png)
+
+![time-series](assets/time-series_fig_4.png)
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def optimize_time_series(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Chunked Processing
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def process_large_timeseries(file_path, chunksize=10000):
     """Process large time series in chunks"""
     chunks = []
@@ -410,7 +557,29 @@ def process_large_timeseries(file_path, chunksize=10000):
         chunks.append(processed_chunk)
     
     return pd.concat(chunks)
-```
+{% endhighlight %}
+
+![time-series](assets/time-series_fig_1.png)
+
+![time-series](assets/time-series_fig_2.png)
+
+![time-series](assets/time-series_fig_3.png)
+
+![time-series](assets/time-series_fig_4.png)
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def process_large_timeseries(file_path, chunk…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Pitfalls and Solutions: Learning from Experience
 
@@ -436,55 +605,103 @@ Avoid these common mistakes in time series analysis:
 
 1. **Irregular Time Intervals**
 
-   ```python
-   def handle_irregular_intervals(df):
-       """Handle irregular time intervals"""
-       # Resample to regular intervals
-       df = df.resample('D').mean()
-       
-       # Forward fill small gaps
-       df = df.fillna(method='ffill', limit=3)
-       
-       # Interpolate remaining gaps
-       df = df.interpolate(method='time')
-       
-       return df
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      def handle_irregular_intervals(df):
+          """Handle irregular time intervals"""
+          # Resample to regular intervals
+          df = df.resample('D').mean()
+          
+          # Forward fill small gaps
+          df = df.fillna(method='ffill', limit=3)
+          
+          # Interpolate remaining gaps
+          df = df.interpolate(method='time')
+          
+          return df
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-12" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Def handle_irregular_intervals(df):</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–12: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **Seasonality Detection**
 
-   ```python
-   def detect_seasonality(data, max_lag=365):
-       """Detect seasonality period"""
-       # Calculate ACF
-       acf_values = acf(data, nlags=max_lag)
-       
-       # Find peaks
-       from scipy.signal import find_peaks
-       peaks, _ = find_peaks(acf_values)
-       
-       # Get strongest peak
-       if len(peaks) > 0:
-           return peaks[np.argmax(acf_values[peaks])]
-       return None
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      def detect_seasonality(data, max_lag=365):
+          """Detect seasonality period"""
+          # Calculate ACF
+          acf_values = acf(data, nlags=max_lag)
+          
+          # Find peaks
+          from scipy.signal import find_peaks
+          peaks, _ = find_peaks(acf_values)
+          
+          # Get strongest peak
+          if len(peaks) > 0:
+              return peaks[np.argmax(acf_values[peaks])]
+          return None
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-13" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Def detect_seasonality(data, max_lag=365):</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–13: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **Trend-Seasonality Confusion**
 
-   ```python
-   def analyze_trend_seasonality(data):
-       """Separate trend from seasonality"""
-       # Smooth for trend
-       trend = data.rolling(window=30).mean()
-       
-       # Remove trend for seasonality
-       detrended = data - trend
-       
-       # Analyze seasonal pattern
-       seasonal = detrended.groupby(detrended.index.month).mean()
-       
-       return trend, seasonal
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      def analyze_trend_seasonality(data):
+          """Separate trend from seasonality"""
+          # Smooth for trend
+          trend = data.rolling(window=30).mean()
+          
+          # Remove trend for seasonality
+          detrended = data - trend
+          
+          # Analyze seasonal pattern
+          seasonal = detrended.groupby(detrended.index.month).mean()
+          
+          return trend, seasonal
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-12" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Def analyze_trend_seasonality(data):</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–12: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 Remember: "Time series analysis requires careful consideration of temporal dependencies and patterns!"
 

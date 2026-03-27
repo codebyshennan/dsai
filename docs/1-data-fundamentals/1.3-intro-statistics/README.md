@@ -1,14 +1,22 @@
 # Introduction to Statistics
 
+**After this submodule:** You can describe uncertainty with probability, summarize data with common statistics, and connect those ideas to plots and simple Python examples.
+
 > **Time needed:** 5-6 hours to complete this module
 
 ## Overview
 
-**Primary outcome:** You can describe uncertainty with probability, summarize data with common statistics, and connect those ideas to plots and simple Python examples.
-
 Have you ever wondered how Netflix predicts what shows you might like? Or how weather forecasts are made? Welcome to the world of statistics — your key to understanding data and making informed decisions.
 
 > **Note:** Statistics might sound intimidating, but it's really just about making sense of numbers. We'll start with simple concepts and build up gradually. You don't need to be a math whiz to succeed here!
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zPs3aVB9VzQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*CrashCourse Statistics — What is statistics?*
 
 > **Contributors:** Authoring standards: `docs/meta/DOCUMENTATION_GUIDELINES.md` (`meta/` is excluded from the Jekyll build).
 

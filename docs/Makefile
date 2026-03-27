@@ -1,4 +1,8 @@
-.PHONY: clean build build-all-slides prep all data-fundamentals python stats linear-algebra pandas regenerate clean-module
+.PHONY: clean build build-all-slides prep all data-fundamentals python stats linear-algebra pandas regenerate clean-module jekyll-serve jekyll-build bundle-install
+
+# Homebrew ruby@3.3 (keg-only) — avoids using default Homebrew ruby 4.x with this Gemfile
+RUBY_33_PREFIX := $(shell brew --prefix ruby@3.3 2>/dev/null)
+RUBY_33 := $(RUBY_33_PREFIX)/bin/ruby
 
 # Build slides for 0-prep + module 1 (data fundamentals) only
 build: prep data-fundamentals
@@ -66,4 +70,19 @@ regenerate:
 	@node slides/build.js $(MODULE)
 
 # Default target
-all: build 
+all: build
+
+# Jekyll: require Homebrew ruby@3.3 (same major as GitHub Pages / Gemfile.lock)
+bundle-install:
+	@if [ ! -x "$(RUBY_33)" ]; then \
+		echo "Install Ruby 3.3: brew install ruby@3.3"; \
+		exit 1; \
+	fi
+	PATH="$(RUBY_33_PREFIX)/bin:$$PATH" bundle install
+
+jekyll-serve jekyll-build:
+	@if [ ! -x "$(RUBY_33)" ]; then \
+		echo "Install Ruby 3.3: brew install ruby@3.3"; \
+		exit 1; \
+	fi
+	@PATH="$(RUBY_33_PREFIX)/bin:$$PATH" bundle exec jekyll $(subst jekyll-,,$@)

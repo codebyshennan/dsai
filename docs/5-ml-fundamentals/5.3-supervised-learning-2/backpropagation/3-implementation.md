@@ -1,5 +1,13 @@
 # Implementing Backpropagation
 
+**After this lesson:** you can explain the core ideas in “Implementing Backpropagation” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Getting Started
 
 Before we dive into the code, let's understand what we're building. We'll create a simple neural network that can learn from data. Think of it like teaching a computer to recognize patterns, similar to how you might teach a child to recognize different animals.
@@ -304,6 +312,19 @@ network.train(X, y, learning_rate=0.01, epochs=1000)
 predictions = network.forward(X)['a' + str(len(network.weights))]
 ```
 
+```
+Epoch 0, Loss: 1.2398897398986224
+Epoch 100, Loss: 0.9784079619497448
+Epoch 200, Loss: 0.978407981338456
+Epoch 300, Loss: 0.9784079813400142
+Epoch 400, Loss: 0.9784079813400143
+Epoch 500, Loss: 0.9784079813400143
+Epoch 600, Loss: 0.9784079813400143
+Epoch 700, Loss: 0.9784079813400143
+Epoch 800, Loss: 0.9784079813400143
+Epoch 900, Loss: 0.9784079813400143
+```
+
 ## Visualizing the Training Process
 
 Let's add some visualization to help understand what's happening:
@@ -346,6 +367,9 @@ X = np.random.randn(2, 1000)
 y = np.random.randn(1, 1000)
 plot_training_process(network, X, y)
 ```
+
+
+![3-implementation](assets/3-implementation_fig_1.png)
 
 ## Best Practices
 

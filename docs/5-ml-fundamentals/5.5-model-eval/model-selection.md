@@ -1,5 +1,13 @@
 # Model Selection
 
+**After this lesson:** you can explain the core ideas in “Model Selection” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## What is Model Selection?
 
 Think of model selection like choosing the right tool for a job. Just as you wouldn't use a hammer to screw in a bolt, you need to choose the right machine learning model for your specific problem. Model selection helps us find the best model that balances performance, complexity, and practical considerations.
@@ -104,6 +112,13 @@ def plot_decision_boundary(model, X, y):
 plot_decision_boundary(linear_model, X, y)
 ```
 
+
+![model-selection](assets/model-selection_fig_1.png)
+
+```
+Linear Model Accuracy: 0.825
+```
+
 **Output:**
 ![Linear Decision Boundary](assets/linear_decision_boundary.png)
 
@@ -141,6 +156,13 @@ def plot_feature_importance(model, feature_names):
     plt.show()
 
 plot_feature_importance(tree_model, [f'Feature {i+1}' for i in range(X.shape[1])])
+```
+
+
+![model-selection](assets/model-selection_fig_2.png)
+
+```
+Tree Model Accuracy: 0.910
 ```
 
 **Output:**
@@ -194,6 +216,13 @@ def plot_learning_curve(model, X, y):
 plot_learning_curve(nn_model, X, y)
 ```
 
+
+![model-selection](assets/model-selection_fig_3.png)
+
+```
+Neural Network Accuracy: 0.950
+```
+
 **Output:**
 ![Learning Curve](assets/learning_curve.png)
 
@@ -234,6 +263,9 @@ models = {
 
 results = compare_models(models, X_train, X_test, y_train, y_test)
 ```
+
+
+![model-selection](assets/model-selection_fig_4.png)
 
 **Output:**
 ```
@@ -304,6 +336,9 @@ pipelines = {
 results = compare_models(pipelines, X_train, X_test, y_train, y_test)
 ```
 
+
+![model-selection](assets/model-selection_fig_5.png)
+
 **Output:**
 ```
 Linear Accuracy: 0.990
@@ -343,6 +378,16 @@ def model_selection_process(X, y):
     return results
 
 model_selection_process(X, y)
+```
+
+
+![model-selection](assets/model-selection_fig_6.png)
+
+
+![model-selection](assets/model-selection_fig_7.png)
+
+```
+{'Linear': 0.995, 'Tree': 0.98, 'Neural Network': 0.455}
 ```
 
 **Output:**

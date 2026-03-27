@@ -1,6 +1,14 @@
 # Introduction to Gradient Boosting
 
+**After this lesson:** you can explain the core ideas in “Introduction to Gradient Boosting” and reproduce the examples here in your own notebook or environment.
+
 Imagine you're learning to play a musical instrument. At first, you make many mistakes, but with each practice session, you focus on correcting your previous errors. Gradient Boosting works similarly - it's a smart way of learning from mistakes to create a powerful prediction model.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is Gradient Boosting?
 

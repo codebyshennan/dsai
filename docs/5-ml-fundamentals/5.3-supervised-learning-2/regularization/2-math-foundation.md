@@ -1,6 +1,14 @@
 # Mathematical Foundation of Regularization
 
+**After this lesson:** you can explain the core ideas in “Mathematical Foundation of Regularization” and reproduce the examples here in your own notebook or environment.
+
 Think of regularization as a set of rules that help keep your model in check, just like how traffic rules help keep roads safe. Let's break down the mathematical concepts in a way that's easier to understand!
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Loss Function with Regularization
 

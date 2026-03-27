@@ -1,8 +1,14 @@
 # Data Integration
 
-## Overview
+**After this lesson:** You can compare **batch** and **near–real-time** integration patterns, list common failure modes (schema drift, duplicates, partial loads), and see how monitoring fits the pipeline.
 
-**Primary outcome:** You can compare **batch** and **near–real-time** integration patterns, list common failure modes (schema drift, duplicates, partial loads), and see how monitoring fits the pipeline.
+## Helpful video
+
+DAGs, tasks, and scheduling—conceptual background for ETL-style pipelines.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eeSLDdz-aLg" title="Apache Airflow Tutorial for Beginners" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [ETL fundamentals](etl-fundamentals.md) and [data storage](data-storage.md). REST and file-based patterns make more sense after [SQL](../2.1-sql/README.md).
 
@@ -139,7 +145,10 @@ graph TD
 
 ### 1. API Integration
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import requests
 import pandas as pd
 from typing import Dict, Any
@@ -178,7 +187,47 @@ class APIIntegrator:
             
         except requests.exceptions.RequestException as e:
             raise Exception(f"API request failed: {str(e)}")
-```
+{% endhighlight %}
+
+![data-integration](assets/data-integration_fig_1.png)
+
+![data-integration](assets/data-integration_fig_2.png)
+
+![data-integration](assets/data-integration_fig_3.png)
+
+![data-integration](assets/data-integration_fig_4.png)
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import requests</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">If auth_token:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data = response.json()</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–38: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. File Integration
 
@@ -218,7 +267,10 @@ File integration is a fundamental aspect of data engineering, dealing with vario
 
 Here's a robust implementation:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class FileIntegrator:
     """
     Handle file data integration
@@ -255,11 +307,45 @@ class FileIntegrator:
             df.to_parquet(file_path, index=False)
         else:
             raise ValueError(f"Unsupported file format: {file_path}")
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class FileIntegrator:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return pd.read_csv(file_path)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">File_path = f&quot;{self.base_path}/{file_path}&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Database Integration
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sqlalchemy import create_engine, text
 from typing import List
 
@@ -282,7 +368,29 @@ class DatabaseIntegrator:
         """Execute SQL query"""
         with self.engine.connect() as conn:
             conn.execute(text(query))
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From sqlalchemy import create_engine, text</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&quot;&quot;&quot;Read data using SQL query&quot;&quot;&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Data Transformation
 
@@ -342,7 +450,10 @@ Schema mapping is the process of creating relationships between source and targe
 
 Here's a comprehensive implementation:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from typing import Dict, List
 
 class SchemaMapper:
@@ -364,11 +475,36 @@ class SchemaMapper:
         """Apply reverse mapping to DataFrame"""
         reverse_map = {v: k for k, v in self.mapping.items()}
         return df.rename(columns=reverse_map)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From typing import Dict, List</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&quot;&quot;&quot;Apply column mapping to DataFrame&quot;&quot;&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–21: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Data Type Conversion
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataTypeConverter:
     """
     Handle data type conversions
@@ -389,11 +525,36 @@ class DataTypeConverter:
                     raise ValueError(f"Failed to convert {column} to {dtype}: {str(e)}")
         
         return df
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DataTypeConverter:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">If column in df.columns:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Data Validation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from typing import Callable, Dict
 
 class DataValidator:
@@ -422,11 +583,36 @@ class DataValidator:
         
         # Check if all validations passed
         return all(result.all() for result in validation_results)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From typing import Callable, Dict</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def validate(self, df: pd.DataFrame) -&gt; bool:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Data Integration Pipeline
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataIntegrationPipeline:
     """
     Orchestrate data integration process
@@ -454,13 +640,38 @@ class DataIntegrationPipeline:
                 raise Exception(f"Step '{step['name']}' failed: {str(e)}")
         
         return result
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DataIntegrationPipeline:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">})</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–27: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Integration Patterns
 
 ### 1. Extract and Load
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def extract_and_load(source_integrator, target_integrator, 
                     source_params: Dict, target_params: Dict):
     """
@@ -473,11 +684,27 @@ def extract_and_load(source_integrator, target_integrator,
     target_integrator.write_data(data, **target_params)
     
     return data
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def extract_and_load(source_integrator, targe…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Transform and Load
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def transform_and_load(data: pd.DataFrame, transformations: List[Callable],
                       target_integrator, target_params: Dict):
     """
@@ -491,11 +718,27 @@ def transform_and_load(data: pd.DataFrame, transformations: List[Callable],
     target_integrator.write_data(data, **target_params)
     
     return data
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def transform_and_load(data: pd.DataFrame, tr…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Incremental Load
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def incremental_load(source_integrator, target_integrator,
                     key_column: str, last_value: Any,
                     source_params: Dict, target_params: Dict):
@@ -516,7 +759,29 @@ def incremental_load(source_integrator, target_integrator,
         last_value = data[key_column].max()
     
     return data, last_value
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def incremental_load(source_integrator, targe…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data = source_integrator.fetch_data(**source_…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices
 
@@ -556,7 +821,10 @@ Build a data integration pipeline that:
 
 ## Solution Template
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Configuration
 config = {
     'source_api': {
@@ -633,7 +901,65 @@ try:
     print("Integration completed successfully")
 except Exception as e:
     print(f"Integration failed: {str(e)}")
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Configuration</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;value&#x27;: &#x27;purchase_amount&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–38: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="39-50" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 39–50: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="51-63" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Schema_mapper.apply_mapping</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 51–63: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="64-76" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline.add_step(</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 64–76: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Remember: Effective data integration requires careful planning and robust error handling!
 

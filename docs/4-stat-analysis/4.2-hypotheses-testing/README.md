@@ -1,6 +1,14 @@
 # Testing Hypotheses: From Questions to Answers
 
+**After this submodule:** you can use the lessons linked below and complete the exercises that match **Testing Hypotheses: From Questions to Answers** in your course schedule.
+
 See the [Module 4 overview](../README.md) for prerequisites and how this unit connects to inference and regression.
+
+## Helpful video
+
+Core ideas behind hypothesis tests and the null hypothesis.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0oc49DyA3hU" title="Hypothesis Testing and The Null Hypothesis, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction: The Scientific Method in Action
 
@@ -93,6 +101,12 @@ Before diving in, you should be comfortable with:
 
 ### E-commerce Example
 
+**Two-proportion style table → chi-square**
+
+**Purpose:** Sketch how conversion data become a 2×2 contingency table and a single chi-square test—mirroring click/conversion experiments (the toy draws random counts each run).
+
+**Walkthrough:** `np.random.binomial` yields total successes per arm; `chi2_contingency` returns \(\chi^2\) and p-value for independence of arm vs outcome.
+
 ```python
 import numpy as np
 from scipy import stats
@@ -125,6 +139,12 @@ ab_test_demo()
 
 ### Medical Research Example
 
+**Two-sample t-test on continuous endpoints**
+
+**Purpose:** Contrast the e-commerce example: Gaussian outcomes (e.g., days to recovery) use `ttest_ind` rather than chi-square—same hypothesis-testing workflow, different likelihood.
+
+**Walkthrough:** Independent draws for control vs treatment; `ttest_ind` tests equal means; prints means and a yes/no “improvement” flag at \(\alpha = 0.05\).
+
 ```python
 def clinical_trial_demo():
     # Control group (standard treatment)
@@ -144,6 +164,19 @@ def clinical_trial_demo():
 
 # Run demonstration
 clinical_trial_demo()
+```
+
+![README](assets/README_fig_1.png)
+
+**Captured output (clinical trial demo; stochastic):** One representative run from `inject-python-outputs` is saved as the figure above; console text below matches that run.
+
+```
+
+Clinical Trial Analysis
+Control Mean: 10.4 days
+Treatment Mean: 9.1 days
+P-value: 0.0000
+Improvement: Yes
 ```
 
 ## Best Practices

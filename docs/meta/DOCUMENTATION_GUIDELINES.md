@@ -22,6 +22,20 @@ This document provides comprehensive guidelines for creating, maintaining, and o
 - **Prerequisites** - Clearly state what's needed before starting
 - **Expected outcomes** - Describe what success looks like
 
+### Learner outcome line (first screen)
+
+For every **lesson page** and **module/submodule README** under `docs/` (modules 1–6), put a single outcome line **immediately under the H1**:
+
+- Lessons: `**After this lesson:** …`
+- Submodule `README.md`: `**After this submodule:** …`
+- Module root `README.md` (e.g. `1-data-fundamentals/README.md`): `**After this module:** …`
+
+Prefer moving an existing `**Primary outcome:**` from the Overview section up to this position (and delete the duplicate under Overview) so success criteria appear before scrolling.
+
+**Maintainer script:** `scripts/add_after_outcomes.py` migrates `**Primary outcome:**` and fills missing pages with a short generic line. It skips `0-prep/`, `_assignments/`, `slides/`, `meta/`, `.venv/`, `TODO.md`, and similar. Re-run after bulk adds:
+
+`uv run python scripts/add_after_outcomes.py` (from `docs/`).
+
 ### Jekyll / GFM (lists and inline code)
 
 The site uses **`markdown: GFM`** (GitHub Flavored Markdown). **Inline backticks** (`` `like this` ``) inside **list items** can still be parsed oddly in some edge cases (Rouge, broken sentences). Inside bullets or numbered lists, use **bold** for short tokens (commands, paths) or raw HTML `<code>...</code>` when you need monospace. Outside lists, ordinary backticks are usually fine.
@@ -29,6 +43,10 @@ The site uses **`markdown: GFM`** (GitHub Flavored Markdown). **Inline backticks
 **Figures:** Prefer a blockquote callout instead of an empty `![alt]()` image:
 
 `> **Figure (add screenshot or diagram):** Short description of what to capture.`
+
+**Embedded videos (YouTube):** Prefer **standalone clips of about 15 minutes or less** for on-page `<iframe>` embeds. Longer or multi-hour courses belong in **Additional resources** as normal links, not as the primary embedded video.
+
+**Bulk insert (maintainers):** `scripts/add_helpful_videos.py` adds a `## Helpful video` block (iframe + short blurb) to lesson `.md` files that do not already contain `youtube.com/embed`, using longest-prefix path rules under `docs/`. It skips `0-prep/` (hand-curated), `meta/`, root `index.md`, assignments/TODO-style names, `slides/`, and directories such as `.venv`, `_site`, and `node_modules`. From `docs/`: `pnpm run helpful-videos` (use `pnpm run helpful-videos -- --dry-run` to list targets without writing).
 
 ## Content Structure
 
@@ -248,7 +266,7 @@ Each row is one **reference file** sampled for structure, tone, and recurring el
 - **Diagrams:** `mermaid` for workflows (EDA, ETL, missing-data mechanisms); keep diagrams readable on GitHub Pages.
 - **SQL:** Fenced blocks with `sql` and short comments.
 - **BI / tools:** Numbered or YAML-style steps plus screenshot placeholders under `./assets/` as appropriate.
-- **Media:** Optional `<iframe>` embeds (e.g. YouTube) with a one-line caption; images use descriptive alt text (what the figure teaches, not only the filename).
+- **Media:** YouTube embeds: wrap the `<iframe>` in `<div class="video-embed">...</div>` (responsive, full width of the lesson column via `assets/css/style.css`), or use `{% include youtube.html id="VIDEO_ID" %}`. Add a one-line caption after the block; images use descriptive alt text (what the figure teaches, not only the filename).
 
 ### Reusable section patterns
 
@@ -308,6 +326,7 @@ Remove sections that do not apply.
 
 ### Module-specific notes
 
+- **Module 1 (all submodules):** For substantive fenced code, use a short title plus **Purpose** and optional **Walkthrough** before the block; avoid back-to-back runnable snippets with no intervening prose. Template and checklist: [`docs/1-data-fundamentals/CODE-BLOCK-PATTERN.md`](../1-data-fundamentals/CODE-BLOCK-PATTERN.md).
 - **1.1 (data analytics):** Balance definitions with one runnable or skimmable example; avoid many production-style class stubs in one file unless the README marks it advanced.
 - **1.2 (Python):** Encourage running code and reading errors; one main concept per section before stacking libraries.
 - **1.3–1.4 and 4.x (stats):** Intuition and simulation/plots before heavy algebra; one main idea per lesson file; cross-link instead of merging topics (e.g. CIs vs tests).

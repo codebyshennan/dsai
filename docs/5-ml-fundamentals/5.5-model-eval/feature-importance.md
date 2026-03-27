@@ -1,5 +1,13 @@
 # Feature Importance
 
+**After this lesson:** you can explain the core ideas in “Feature Importance” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+StatQuest: why cross-validation matters for model evaluation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fSytzGwwBVw" title="Machine Learning Fundamentals: Cross Validation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Introduction
 
 Feature importance is a crucial concept in machine learning that helps us understand which features contribute most to our model's predictions. This understanding is essential for model interpretability, feature selection, and domain knowledge validation.
@@ -45,6 +53,9 @@ plt.tight_layout()
 plt.show()
 ```
 
+
+![feature-importance](assets/feature-importance_fig_1.png)
+
 ### 2. Permutation Importance
 
 ```python
@@ -61,6 +72,9 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
 ```
+
+
+![feature-importance](assets/feature-importance_fig_2.png)
 
 ### 3. SHAP Values
 

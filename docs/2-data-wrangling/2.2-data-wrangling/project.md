@@ -1,8 +1,14 @@
 # E-commerce Data Wrangling Project: From Raw Data to Actionable Insights
 
-## Overview
+**After this lesson:** You deliver a cleaned, documented dataset (or notebook) that shows how you assessed quality, handled **missing values** and **outliers**, and validated results—aligned with the [wrangling lessons](README.md).
 
-**Primary outcome:** You deliver a cleaned, documented dataset (or notebook) that shows how you assessed quality, handled **missing values** and **outliers**, and validated results—aligned with the [wrangling lessons](README.md).
+## Helpful video
+
+Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m1_33jhhiLE" title="Learn PANDAS in 5 minutes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** Complete [data quality](data-quality.md), [missing values](missing-values.md), and [transformations](transformations.md) (or equivalent experience). Same Python stack as the [module README](README.md).
 
@@ -46,7 +52,10 @@ graph TD
 
 ### Data Schema
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Customer Information
 CREATE TABLE customers (
     customer_id INT PRIMARY KEY,
@@ -79,13 +88,47 @@ CREATE TABLE products (
     stock_level INT,
     supplier_id INT
 );
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Customer Information</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Transaction Records</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–21: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-32" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Product Catalog</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 22–32: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Implementation Guide
 
 ### 1. Data Quality Assessment (20%)
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def assess_data_quality(df):
     """Comprehensive data quality assessment"""
     
@@ -122,11 +165,48 @@ def assess_data_quality(df):
     }
     
     return quality_report
-```
+{% endhighlight %}
+
+![project](assets/project_fig_1.png)
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def assess_data_quality(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;missing_values&#x27;: df.isnull().sum(),</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">If &#x27;registration_date&#x27; in df.columns and &#x27;las…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–36: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Data Cleaning Implementation (30%)
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataCleaner:
     """Data cleaning pipeline for e-commerce data"""
     
@@ -171,11 +251,48 @@ class DataCleaner:
         df['payment_method'] = df['payment_method'].str.lower()
         
         return df
-```
+{% endhighlight %}
+
+![project](assets/project_fig_1.png)
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DataCleaner:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Handle missing values</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–29: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="30-44" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def clean_transaction_data(self, transactions…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 30–44: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Feature Engineering (30%)
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class FeatureEngineer:
     """Feature engineering for e-commerce data"""
     
@@ -226,11 +343,54 @@ class FeatureEngineer:
         })
         
         return features
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class FeatureEngineer:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Average order value</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-37" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">})</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–37: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="38-50" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Price_pct_change = group[&#x27;price&#x27;].pct_change()</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 38–50: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 4. Data Validation (20%)
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def validate_final_dataset(df, validation_rules):
     """Validate the final dataset"""
     
@@ -264,7 +424,38 @@ def validate_final_dataset(df, validation_rules):
     }
     
     return validation_results
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def validate_final_dataset(df, validation_rul…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Validation_results[&#x27;completeness&#x27;] = {</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–22: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Validation_results[&#x27;statistical_validity&#x27;] = {</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 23–33: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Project Deliverables
 

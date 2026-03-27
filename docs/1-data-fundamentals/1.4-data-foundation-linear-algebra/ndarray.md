@@ -1,5 +1,15 @@
 # NumPy Arrays: Your Data Superhero
 
+**After this lesson:** you can explain the core ideas in “NumPy Arrays: Your Data Superhero” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QUT1VHiLmmI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*freeCodeCamp — Python NumPy tutorial for beginners*
+
 ## What is an ndarray?
 
 Think of a NumPy array (ndarray) as a super-powered list that can work with numbers at lightning speed! It's like having a spreadsheet where every cell can do math instantly. The 'nd' in ndarray stands for 'N-dimensional', meaning it can handle data in multiple dimensions:
@@ -146,6 +156,13 @@ zeros_2d = np.zeros((3, 6))  # 3 rows, 6 columns
 print(zeros_2d)
 ```
 
+```
+[0. 0. 0. 0. 0.]
+[[0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0.]]
+```
+
 ---
 
 ### Controlling Data Types
@@ -158,6 +175,11 @@ print(floats)  # [1. 2. 3.]
 # Integers
 ints = np.array([1, 2, 3], dtype=np.int32)
 print(ints)    # [1 2 3]
+```
+
+```
+[1. 2. 3.]
+[1 2 3]
 ```
 
 **Pro Tips**:
@@ -193,13 +215,25 @@ arr = np.array([1, 2, 3, 4, 5])
 arr.dtype
 ```
 
+```
+int64
+```
+
 ```python
 float_arr = arr.astype(np.float64)
 float_arr
 ```
 
+```
+[1. 2. 3. 4. 5.]
+```
+
 ```python
 float_arr.dtype
+```
+
+```
+float64
 ```
 
 If you cast some floating-point numbers to be of integer dtype, the decimal part will be truncated.
@@ -207,6 +241,10 @@ If you cast some floating-point numbers to be of integer dtype, the decimal part
 ```python
 arr = np.array([3.7, -1.2, -2.6, 0.5, 12.9, 10.1])
 arr.astype(np.int32)
+```
+
+```
+[ 3 -1 -2  0 12 10]
 ```
 
 You can also convert strings representing numbers to numeric form.

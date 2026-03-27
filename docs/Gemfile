@@ -2,5 +2,9 @@
 
 source "https://rubygems.org"
 
+# Match https://pages.github.com/versions/ and Gemfile.lock. Do not use Ruby 4.x here:
+# Bundler will resolve to ancient github-pages/jekyll and native gems (e.g. posix-spawn) will fail.
+ruby "~> 3.3.0"
+
 # Versions match https://pages.github.com/versions/ — use Ruby 3.1+ locally (`ruby -v`).
 gem "github-pages", group: :jekyll_plugins

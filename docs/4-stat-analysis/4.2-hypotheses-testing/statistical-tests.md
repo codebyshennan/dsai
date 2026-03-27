@@ -1,5 +1,7 @@
 # Statistical Tests: Your Data Analysis Toolkit
 
+**After this lesson:** you can explain the core ideas in “Statistical Tests: Your Data Analysis Toolkit” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - Choosing the **wrong test** wastes time and can mislead stakeholders.
@@ -18,11 +20,15 @@ Statistical tests are essential tools for analyzing data. They help you determin
 
 ### Video Tutorial: Statistical Tests Explained
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/NF5_btOaCig" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Using Linear Models for t-tests and ANOVA, Clearly Explained!!! by Josh Starmer*
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7_cs1YlZoug" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Chi-Square Tests: Crash Course Statistics #29*
 
@@ -59,6 +65,12 @@ Choosing the correct test depends on your research question, the type of data yo
 
 **Example:**
 
+**Independent two-sample t-test with effect size**
+
+**Purpose:** Run a classic independent-groups t-test on small numeric arrays, compute a simple standardized mean difference (using the control SD), and return a single human-readable verdict at \(\alpha = 0.05\).
+
+**Walkthrough:** `stats.ttest_ind` produces `t_stat` and `p_value`; the effect size line mirrors Cohen-style scaling; the returned dict keeps statistics and a printable `explanation` string.
+
 ```python
 # Self-contained example: Independent t-test
 import numpy as np
@@ -92,6 +104,12 @@ print(result['explanation'])
 # T-statistic: -4.47, P-value: 0.002. Effect size: 3.00. Significant difference between group means at alpha=0.05.
 ```
 
+**Captured output (example):** Exact numbers can differ slightly by SciPy version; you should still see a negative t-statistic, a small p-value, and a “significant difference” message for these toy groups.
+
+```
+T-statistic: -5.27, P-value: 0.001. Effect size: 3.73. Significant difference between group means at alpha=0.05.
+```
+
 ### 2. ANOVA: Comparing More Than Two Groups
 
 **When to use:**
@@ -106,6 +124,12 @@ print(result['explanation'])
 - Observations are independent.
 
 **Example:**
+
+**One-way ANOVA with eta-squared**
+
+**Purpose:** Compare means of three or more groups with `f_oneway`, summarize how much variance sits between groups (\(\eta^2\)), and state whether any mean differs at the chosen \(\alpha\).
+
+**Walkthrough:** `stats.f_oneway(*groups)` for F and p; \(\eta^2\) uses between-group and total sum of squares; the function mirrors the t-test helper pattern (stats + explanation string).
 
 ```python
 # Self-contained example: One-way ANOVA
@@ -145,6 +169,12 @@ print(result['explanation'])
 # F-statistic: 44.00, P-value: 0.000. Effect size (eta-squared): 0.88. At least one group mean is significantly different at alpha=0.05.
 ```
 
+**Captured output (example):** F should be large and p near zero for these clearly separated toy groups; \(\eta^2\) stays high because most variation is between groups.
+
+```
+F-statistic: 44.67, P-value: 0.000. Effect size (eta-squared): 0.88. At least one group mean is significantly different at alpha=0.05.
+```
+
 ### 3. Chi-Square Tests: Analyzing Categorical Data
 
 **When to use:**
@@ -159,6 +189,12 @@ print(result['explanation'])
 - Expected frequency in each cell should be at least 5.
 
 **Example:**
+
+**Chi-square: goodness-of-fit vs independence**
+
+**Purpose:** See how one function can dispatch to `chisquare` (goodness of fit) or `chi2_contingency` (tables), and attach a simple effect-size label (Cramer’s V is computed here for illustration).
+
+**Walkthrough:** When `expected` is passed, the contingency path runs; `chisquare` is used when testing counts against a uniform or custom expected pattern; the returned dict includes `test_type` for reporting.
 
 ```python
 # Self-contained example: Chi-square test (goodness of fit)
@@ -204,6 +240,12 @@ print(result['explanation'])
 # Chi-square: 1.18, P-value: 0.946. Effect size (Cramer's V): 0.20. No significant association at alpha=0.05.
 ```
 
+**Captured output (example):** With observed counts close to uniform expected counts, chi-square is small and p is large—no evidence against the “fair die” style null.
+
+```
+Chi-square: 0.00, P-value: 1.000. Effect size (Cramer's V): 0.00. No significant association at alpha=0.05.
+```
+
 ### 4. Correlation Tests: Measuring Relationships
 
 **When to use:**
@@ -222,6 +264,12 @@ print(result['explanation'])
 - Relationship is linear (for Pearson).
 
 **Example:**
+
+**Pearson and Spearman correlation with significance**
+
+**Purpose:** Compare a parametric linear association (`pearsonr`) with a rank-based monotonic measure (`spearmanr`) on the same pairs, and interpret each against \(\alpha\).
+
+**Walkthrough:** The `method` flag switches APIs; both return correlation and two-sided p-value; two calls illustrate that strength and significance can differ slightly by metric.
 
 ```python
 # Self-contained example: Correlation test (Pearson and Spearman)
@@ -262,6 +310,13 @@ print(result['explanation'])
 # Sample output:
 # Pearson correlation: 0.89, P-value: 0.018. Significant correlation at alpha=0.05.
 # Spearman correlation: 0.94, P-value: 0.005. Significant correlation at alpha=0.05.
+```
+
+**Captured output (example):** Both correlations should be strongly positive with p-values below 0.05 for this nearly monotonic toy data.
+
+```
+Pearson correlation: 0.88, P-value: 0.021. Significant correlation at alpha=0.05.
+Spearman correlation: 0.85, P-value: 0.031. Significant correlation at alpha=0.05.
 ```
 
 ## Effect Size, Power, and Confidence Intervals

@@ -1,5 +1,13 @@
 # Feature Engineering in Machine Learning: A Beginner's Guide
 
+**After this lesson:** you can explain the core ideas in “Feature Engineering in Machine Learning: A Beginner's Guide” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: how supervised learning fits into ML workflows.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Introduction: What is Feature Engineering?
 
 Imagine you're a chef preparing a meal. The raw ingredients (your data) need to be properly prepared (feature engineering) before they can be cooked (used in a machine learning model). Just as a chef might chop, marinate, or season ingredients to bring out their best flavors, feature engineering helps prepare your data to bring out its most useful patterns.
@@ -104,6 +112,12 @@ Where:
 
 **Real-world analogy**: It's like converting everyone's height to "how many standard deviations they are from the average height"
 
+#### Standardize numeric columns with `StandardScaler`
+
+**Purpose:** See how z-score scaling shifts features to mean 0 and variance 1, and how scatter plots change relative spread (not the relationship shape).
+
+**Walkthrough:** `fit_transform` on `df` learns $\mu$ and $\sigma$ per column; `pd.DataFrame` restores column names for plotting.
+
 ```python
 # Before running this code, make sure you have pandas and sklearn installed
 # You can install them using: pip install pandas scikit-learn
@@ -156,6 +170,29 @@ plt.tight_layout()
 plt.show()
 ```
 
+
+![feature-engineering](assets/feature-engineering_fig_1.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Original Data:
+   height_cm  weight_kg
+0        150         45
+1        160         55
+2        170         65
+3        180         75
+4        190         85
+
+Scaled Data:
+   height_cm  weight_kg
+0  -1.414214  -1.414214
+1  -0.707107  -0.707107
+2   0.000000   0.000000
+3   0.707107   0.707107
+4   1.414214   1.414214
+```
+
 #### Min-Max Scaling
 
 This is like converting a temperature range to a 0-1 scale. It's useful when you need all values to be between 0 and 1.
@@ -170,6 +207,12 @@ Where:
 - $x_{max}$ is the largest value in your data
 
 **Real-world analogy**: It's like converting a test score to a percentage (0-100%)
+
+#### Map features into the `[0, 1]` range with `MinMaxScaler`
+
+**Purpose:** Compare standard scaling with min–max scaling when you need bounded inputs (e.g., neural nets) or interpretable 0–1 magnitudes.
+
+**Walkthrough:** Same `df` as before; `MinMaxScaler` squeezes each column between min and max of the training set.
 
 ```python
 from sklearn.preprocessing import MinMaxScaler
@@ -206,6 +249,22 @@ plt.tight_layout()
 plt.show()
 ```
 
+
+![feature-engineering](assets/feature-engineering_fig_2.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+
+Min-Max Scaled Data:
+   height_cm  weight_kg
+0       0.00       0.00
+1       0.25       0.25
+2       0.50       0.50
+3       0.75       0.75
+4       1.00       1.00
+```
+
 ### When to Use Which Scaling Method?
 
 | Method | Best For | Not Good For |
@@ -236,6 +295,12 @@ Imagine you're organizing a clothing store. You have different categories of ite
 Think of this like creating separate sections in your store for each category. Instead of having one "category" column, we create a new column for each category.
 
 **Real-world analogy**: It's like having separate checkboxes for each size (S, M, L) instead of one dropdown menu
+
+#### One-hot encode nominal columns with `pd.get_dummies`
+
+**Purpose:** Turn categorical columns into binary columns so linear models and tree ensembles can consume them without assuming a fake ordering.
+
+**Walkthrough:** `get_dummies` expands `product` and `size`; the bar chart compares category counts before vs summed indicator columns after.
 
 ```python
 import pandas as pd
@@ -279,11 +344,40 @@ plt.tight_layout()
 plt.show()
 ```
 
+
+![feature-engineering](assets/feature-engineering_fig_3.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Original Data:
+  product size
+0   shirt    S
+1   pants    M
+2   shoes    L
+3   shirt    M
+4   pants    S
+
+One-Hot Encoded Data:
+   product_pants  product_shirt  product_shoes  size_L  size_M  size_S
+0          False           True          False   False   False    True
+1           True          False          False   False    True   False
+2          False          False           True    True   False   False
+3          False           True          False   False    True   False
+4           True          False          False   False   False    True
+```
+
 #### Label Encoding: Assigning Numbers to Categories
 
 This is like giving each category a unique number. It's simpler than one-hot encoding but works best when categories have a natural order.
 
 **Real-world analogy**: It's like assigning numbers to race positions (1st, 2nd, 3rd)
+
+#### Integer codes for categories with `LabelEncoder`
+
+**Purpose:** Use when order is meaningful or tree models will split on integer codes; know that ordinals can be misused for nominal data (false ordering).
+
+**Walkthrough:** Separate `LabelEncoder` per column; `fit_transform` maps each string category to an integer in arbitrary order—check `classes_` when interpreting.
 
 ```python
 from sklearn.preprocessing import LabelEncoder
@@ -315,6 +409,22 @@ plt.title('Label Encoded Sizes')
 
 plt.tight_layout()
 plt.show()
+```
+
+
+![feature-engineering](assets/feature-engineering_fig_4.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+
+Label Encoded Data:
+  product  product_encoded size  size_encoded
+0   shirt                1    S             2
+1   pants                0    M             1
+2   shoes                2    L             0
+3   shirt                1    M             1
+4   pants                0    S             2
 ```
 
 ### When to Use Which Encoding Method?

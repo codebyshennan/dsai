@@ -1,6 +1,14 @@
 # Data Visualization Glossary
 
+**After this lesson:** you can explain the core ideas in “Data Visualization Glossary” and reproduce the examples here in your own notebook or environment.
+
 A simple guide to common terms you'll encounter in data visualization. Use it when a lesson uses a word you have not seen yet; definitions stay short on purpose.
+
+## Helpful video
+
+Orientation for the course visualization materials.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Basic Terms
 

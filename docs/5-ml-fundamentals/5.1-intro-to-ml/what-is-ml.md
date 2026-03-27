@@ -1,6 +1,14 @@
 # Introduction to Machine Learning
 
+**After this lesson:** you can explain the core ideas in “Introduction to Machine Learning” and reproduce the examples here in your own notebook or environment.
+
 Welcome to the exciting world of Machine Learning! This guide is designed to help you understand the fundamentals of machine learning in a clear and approachable way.
+
+## Helpful video
+
+Crash Course AI: how supervised learning fits into ML workflows.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is Machine Learning?
 
@@ -98,6 +106,12 @@ To get started with machine learning, you should have:
 
 ### Essential Python Libraries
 
+#### Core imports used across ML notebooks
+
+**Purpose:** Recognize the usual Python stack for numeric data, modeling, and plots so you can read later lessons without getting stuck on imports.
+
+**Walkthrough:** `numpy` / `pandas` for arrays and tables; `sklearn` for estimators and metrics; `matplotlib.pyplot` for quick plots.
+
 ```python
 import numpy as np        # For numerical computations
 import pandas as pd       # For data manipulation
@@ -105,7 +119,16 @@ import sklearn           # For machine learning algorithms
 import matplotlib.pyplot as plt  # For visualization
 ```
 
+
+![what-is-ml](assets/what-is-ml_fig_1.png)
+
 ### Simple Example: Predicting House Prices
+
+#### Fit a linear model on toy house data
+
+**Purpose:** See the full supervised-learning loop in miniature: features `X`, target `y`, `fit`, then `predict` for a new input.
+
+**Walkthrough:** `LinearRegression` learns coefficients from `sizes` → `prices`; `predict` extrapolates to 1750 sq ft.
 
 ```python
 from sklearn.linear_model import LinearRegression
@@ -122,6 +145,12 @@ model.fit(sizes, prices)
 new_size = [[1750]]
 predicted_price = model.predict(new_size)
 print(f"Predicted price for {new_size[0][0]} sq ft: ${predicted_price[0]:,.2f}")
+```
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Predicted price for 1750 sq ft: $350,000.00
 ```
 
 ## Next Steps

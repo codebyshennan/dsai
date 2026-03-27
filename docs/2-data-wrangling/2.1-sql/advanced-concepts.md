@@ -1,8 +1,14 @@
 # Advanced SQL Concepts: Beyond the Basics
 
-## Overview
+**After this lesson:** You can use **CTEs** (Common Table Expressions) to structure complex queries, apply **window functions** for rankings and running metrics, and read **EXPLAIN** output to spot expensive scans.
 
-**Primary outcome:** You can use **CTEs** (Common Table Expressions) to structure complex queries, apply **window functions** for rankings and running metrics, and read **EXPLAIN** output to spot expensive scans.
+## Helpful video
+
+High-level introduction to SQL and relational databases.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/27axs9dO7AE" title="What is SQL?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** Solid comfort with [Joins](joins.md) and [Aggregations](aggregations.md). This lesson goes deeper than day-one analyst SQL—take breaks and run examples in your own database.
 
@@ -23,7 +29,10 @@ SQL mastery goes beyond basic CRUD operations. Advanced SQL concepts enable you 
 
 ### 1. JSON Operations
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- JSON creation and manipulation
 SELECT 
     order_id,
@@ -55,11 +64,45 @@ SELECT
         '$.items[*].price'
     ) as prices
 FROM order_details_json;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">JSON creation and manipulation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;price&#x27;, price</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-31" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">JSON querying</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 21–31: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Full-Text Search
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Create search vectors
 CREATE INDEX idx_products_search ON products USING gin(
     to_tsvector('english', 
@@ -88,11 +131,36 @@ WHERE to_tsvector('english',
     coalesce(category,'')
 ) @@ plainto_tsquery('english', 'search term')
 ORDER BY relevance DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create search vectors</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">To_tsvector(&#x27;english&#x27;,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Recursive Queries
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Employee hierarchy
 WITH RECURSIVE employee_hierarchy AS (
     -- Base case: top-level employees
@@ -123,13 +191,38 @@ SELECT
     array_to_string(path, ' -> ') as hierarchy_path
 FROM employee_hierarchy
 ORDER BY path;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Employee hierarchy</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-30" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 16–30: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Window Functions Deep Dive
 
 ### 1. Advanced Framing
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 SELECT 
     date,
     amount,
@@ -155,11 +248,36 @@ SELECT
             AND CURRENT ROW
     ) as rolling_monthly_sum
 FROM transactions;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ORDER BY date</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Multiple Window Functions
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 SELECT 
     category,
     product_name,
@@ -180,13 +298,38 @@ FROM products
 WINDOW 
     w1 as (PARTITION BY category ORDER BY price DESC),
     w2 as (PARTITION BY category);
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">AVG(price) OVER w2 as avg_price,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Advanced Joins and Set Operations
 
 ### 1. Lateral Joins
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 SELECT 
     c.customer_name,
     recent_orders.order_id,
@@ -203,11 +346,36 @@ CROSS JOIN LATERAL (
     ORDER BY order_date DESC
     LIMIT 3
 ) recent_orders;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Order_id,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–16: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Set Operations with Ordering
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Complex set operations
 (
     SELECT 
@@ -233,13 +401,38 @@ UNION ALL
 ORDER BY 
     category,
     period DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Complex set operations</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SELECT</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Error Handling and Transactions
 
 ### 1. Transaction Management
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Complex transaction with savepoints
 BEGIN;
 
@@ -277,11 +470,45 @@ EXCEPTION
 END;
 
 COMMIT;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Complex transaction with savepoints</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SET stock_quantity = stock_quantity - order_q…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–24: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-37" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">BEGIN</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 25–37: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Error Handling
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 CREATE OR REPLACE FUNCTION process_order(
     p_customer_id INT,
     p_items JSONB
@@ -347,13 +574,65 @@ BEGIN
     END;
 END;
 $$ LANGUAGE plpgsql;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CREATE OR REPLACE FUNCTION process_order(</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Start transaction</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–26: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-39" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">INSERT INTO order_items (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 27–39: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="40-52" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHEN foreign_key_violation THEN</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 40–52: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="53-65" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Update order total</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 53–65: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Additional Real-World Scenarios
 
 ### 1. E-commerce Funnel Analysis
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH user_journey AS (
     SELECT 
         u.user_id,
@@ -382,11 +661,36 @@ SELECT
         2
     ) as cart_to_purchase_rate
 FROM user_journey;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH user_journey AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ROUND(AVG(products_viewed)::numeric, 2) as av…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Fraud Detection System
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH transaction_metrics AS (
     SELECT 
         t.transaction_id,
@@ -441,11 +745,54 @@ WHERE
     OR amount_vs_avg > 3 
     OR txns_last_hour > 10 
     OR locations_24h > 3;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH transaction_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">))/60 as minutes_since_last_txn,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–27: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-40" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">PARTITION BY t.user_id</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 28–40: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="41-54" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHEN minutes_since_last_txn &lt; 1</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 41–54: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Inventory Optimization
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 WITH inventory_metrics AS (
     SELECT 
         p.product_id,
@@ -518,13 +865,65 @@ ORDER BY
         ELSE 4
     END,
     avg_daily_sales DESC;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WITH inventory_metrics AS (</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHERE p.stock_quantity = 0</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 15–28: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-43" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">FROM products p</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 29–43: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="44-57" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHEN stock_quantity = 0 THEN &#x27;Out of Stock&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 44–57: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="58-72" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Reorder_point - stock_quantity,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 58–72: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Performance Optimization Tips
 
 ### 1. Query Plan Analysis
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Analyze and explain complex queries
 EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON)
 SELECT 
@@ -545,11 +944,36 @@ ORDER BY total_spent DESC;
 -- 2. Execution Time
 -- 3. Actual vs. Planned Rows
 -- 4. Buffer Usage (shared_blks_hit vs. shared_blks_read)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Analyze and explain complex queries</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">AND o.total_amount &gt; 100</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Index Design Patterns
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Composite indexes for range + equality
 CREATE INDEX idx_orders_customer_date 
 ON orders(customer_id, order_date DESC);
@@ -567,11 +991,36 @@ ON orders(DATE_TRUNC('month', order_date));
 CREATE INDEX idx_orders_customer_details 
 ON orders(customer_id)
 INCLUDE (order_date, total_amount, status);
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Composite indexes for range + equality</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Expression indexes for function calls</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–17: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Materialized Views with Refresh Strategies
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Create materialized view
 CREATE MATERIALIZED VIEW sales_summary AS
 SELECT 
@@ -607,13 +1056,47 @@ CREATE TRIGGER refresh_sales_summary_trigger
 AFTER INSERT OR UPDATE OR DELETE ON orders
 FOR EACH STATEMENT
 EXECUTE FUNCTION refresh_sales_summary();
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create materialized view</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">DATE_TRUNC(&#x27;day&#x27;, order_date),</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-35" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">RETURNS trigger AS $$</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 24–35: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Pitfalls and Solutions
 
 ### 1. N+1 Query Problem
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Bad: Separate query for each order
 SELECT 
     o.order_id,
@@ -637,11 +1120,36 @@ SELECT
 FROM orders o
 JOIN customers c ON o.customer_id = c.id
 JOIN order_items oi ON o.order_id = oi.order_id;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: Separate query for each order</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">WHERE oi.order_id = o.order_id</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Inefficient Date Handling
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Bad: Function on column prevents index use
 SELECT * 
 FROM orders 
@@ -652,11 +1160,27 @@ SELECT *
 FROM orders 
 WHERE order_date >= '2023-01-01' 
 AND order_date < '2024-01-01';
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: Function on column prevents index use</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Subquery Performance
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Bad: Correlated subquery runs for each row
 SELECT 
     product_name,
@@ -675,7 +1199,29 @@ SELECT
     ) as avg_quantity
 FROM products p
 LEFT JOIN order_items oi ON p.product_id = oi.product_id;
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: Correlated subquery runs for each row</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Good: Use window functions or JOIN</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 10–18: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Remember: "Performance optimization is an iterative process - measure, analyze, improve!"
 

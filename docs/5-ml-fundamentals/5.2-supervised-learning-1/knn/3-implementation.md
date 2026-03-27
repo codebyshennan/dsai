@@ -1,9 +1,17 @@
 # Implementing KNN: A Step-by-Step Guide
 
+**After this lesson:** you can explain the core ideas in “Implementing KNN: A Step-by-Step Guide” and reproduce the examples here in your own notebook or environment.
+
 Welcome to the practical side of KNN! In this section, we'll learn how to implement KNN both from scratch (to understand how it works) and using scikit-learn (for real-world applications).
 
 ![Effect of Different k Values](assets/knn_different_k.png)
 *Figure: How different values of k affect the decision boundary in KNN*
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Understanding k in KNN
 
@@ -40,6 +48,13 @@ Let's build a simple KNN classifier step by step. Think of it like building a re
 
 ### Step 1: Create the Basic Structure
 
+#### SimpleKNN class skeleton
+
+**Purpose:** Defines a minimal `SimpleKNN` that stores `k` and memorizes training examples in `fit`—the lazy-learning pattern (no iterative training).
+
+**Walkthrough:**
+- `__init__` keeps `k`; `fit` only assigns `X_train` and `y_train`.
+
 ```python
 import numpy as np
 from collections import Counter
@@ -62,6 +77,13 @@ class SimpleKNN:
 - The <code>fit</code> method just stores our training data (unlike other algorithms, KNN doesn't need training!)
 
 ### Step 2: Add Prediction Logic
+
+#### Predict with Euclidean distance and majority vote
+
+**Purpose:** For each query row, computes distances to all training points, selects the `k` smallest, and returns the most common class label among those neighbors.
+
+**Walkthrough:**
+- Euclidean distance via `np.sqrt(np.sum((x - x_train)**2))`; `np.argsort` + slice for top-`k`; `Counter` for the mode.
 
 ```python
     def predict(self, X):
@@ -93,6 +115,13 @@ class SimpleKNN:
 
 ### Step 3: Try it Out
 
+#### Demo: synthetic movie genres with `SimpleKNN(k=3)`
+
+**Purpose:** Builds toy training data with action vs romance feature scores, fits the scratch classifier, and predicts a label for a new mixed-genre point.
+
+**Walkthrough:**
+- `np.array` for `X_train` / `y_train`; `fit` then `predict([new_movie])`; `print` shows the predicted genre.
+
 ```python
 # Example: Movie Genre Classification
 # Features: [Action Score, Romance Score]
@@ -121,6 +150,13 @@ print(f"Predicted genre: {prediction[0]}")
 While implementing from scratch is educational, scikit-learn provides a robust, optimized version of KNN. Let's see how to use it for a real-world problem.
 
 ### Example: Iris Flower Classification
+
+#### Iris pipeline: split, scale, `KNeighborsClassifier`, metrics
+
+**Purpose:** Loads the Iris dataset, holds out a test set, applies `StandardScaler` so all features contribute equally to distances, fits a 5-neighbor KNN, and prints accuracy plus a classification report.
+
+**Walkthrough:**
+- `load_iris`, `train_test_split`, `StandardScaler.fit_transform` / `transform`, `KNeighborsClassifier` with `metric='euclidean'`, `accuracy_score`, `classification_report` with `target_names`.
 
 ```python
 from sklearn.neighbors import KNeighborsClassifier
@@ -168,9 +204,33 @@ def classify_iris_flowers():
 model, scaler = classify_iris_flowers()
 ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Accuracy: 1.0
+
+Detailed Report:
+              precision    recall  f1-score   support
+
+      setosa       1.00      1.00      1.00        10
+  versicolor       1.00      1.00      1.00         9
+   virginica       1.00      1.00      1.00        11
+
+    accuracy                           1.00        30
+   macro avg       1.00      1.00      1.00        30
+weighted avg       1.00      1.00      1.00        30
+```
+
 ## Common Mistakes to Avoid
 
 1. **Forgetting to Scale Features**
+
+   #### Wrong vs right: scale features before `KNeighborsClassifier`
+
+   **Purpose:** Contrasts fitting KNN on raw `X_train` (distances dominated by large-scale columns) with fitting after `StandardScaler` so every feature is comparable.
+
+   **Walkthrough:**
+   - `StandardScaler().fit_transform(X_train)` then `knn.fit` on the scaled matrix.
 
    ```python
    #  Wrong way
@@ -183,7 +243,20 @@ model, scaler = classify_iris_flowers()
    knn.fit(X_train_scaled, y_train)
    ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+KNeighborsClassifier()
+```
+
 2. **Choosing the Wrong k Value**
+
+   #### Grid search `n_neighbors` instead of fixing `k=1`
+
+   **Purpose:** Replaces a noise-sensitive `k=1` model with a `GridSearchCV` sweep over several odd `k` values using 5-fold CV on the training data.
+
+   **Walkthrough:**
+   - `param_grid = {'n_neighbors': [...]}`; `GridSearchCV(knn, param_grid, cv=5)` and `fit`.
 
    ```python
    #  Using k=1 (too sensitive to noise)
@@ -197,6 +270,13 @@ model, scaler = classify_iris_flowers()
    ```
 
 3. **Not Handling Categorical Features**
+
+   #### Encode categories before distance-based fitting
+
+   **Purpose:** Shows that string or categorical columns cannot be subtracted in distance formulas—`OneHotEncoder` (or similar) turns them into numeric columns KNN can use.
+
+   **Walkthrough:**
+   - `OneHotEncoder().fit_transform(X_with_categories)` then `knn.fit` on `X_encoded`.
 
    ```python
    #  Using categorical features directly
@@ -213,6 +293,13 @@ model, scaler = classify_iris_flowers()
 
 1. **Always Scale Your Features**
 
+   #### Apply `StandardScaler` to the full feature matrix
+
+   **Purpose:** Fits the scaler on `X` and returns `X_scaled` with zero mean and unit variance per feature—a default preprocessing step for KNN.
+
+   **Walkthrough:**
+   - `StandardScaler().fit_transform(X)`.
+
    ```python
    from sklearn.preprocessing import StandardScaler
    scaler = StandardScaler()
@@ -221,6 +308,13 @@ model, scaler = classify_iris_flowers()
 
 2. **Use Cross-Validation**
 
+   #### Mean CV accuracy with `cross_val_score`
+
+   **Purpose:** Estimates how well the current KNN configuration generalizes by averaging accuracy across five folds on `X_scaled` and `y`.
+
+   **Walkthrough:**
+   - `cross_val_score(knn, X_scaled, y, cv=5)` and `scores.mean()`.
+
    ```python
    from sklearn.model_selection import cross_val_score
    scores = cross_val_score(knn, X_scaled, y, cv=5)
@@ -228,6 +322,13 @@ model, scaler = classify_iris_flowers()
    ```
 
 3. **Optimize Hyperparameters**
+
+   #### Joint grid over `n_neighbors`, `weights`, and `metric`
+
+   **Purpose:** Uses `GridSearchCV` to pick the combination of neighbor count, neighbor weighting, and distance metric that maximizes CV accuracy on the scaled data.
+
+   **Walkthrough:**
+   - `param_grid` with three keys; `grid_search.fit(X_scaled, y)`; `best_params_`.
 
    ```python
    from sklearn.model_selection import GridSearchCV
@@ -253,6 +354,13 @@ model, scaler = classify_iris_flowers()
      - Features with larger scales (e.g., income: 0-1000000) dominate distance calculations
      - Features with smaller scales (e.g., age: 0-100) become less influential
    - **Solution Details**:
+
+     #### Fit scaler on train only; transform test with the same stats
+
+     **Purpose:** Prevents information leakage by learning mean and scale from `X_train`, then applying that same transformation to `X_test`.
+
+     **Walkthrough:**
+     - `fit_transform(X_train)` vs `transform(X_test)`.
 
      ```python
      # 1. Create the scaler
@@ -284,6 +392,13 @@ model, scaler = classify_iris_flowers()
      - Consider the balance between bias and variance
    - **Implementation with GridSearchCV**:
 
+     #### `GridSearchCV` setup for KNN (parallel, accuracy scoring)
+
+     **Purpose:** Declares a search space over `k`, weighting, and distance metric with 5-fold CV and all CPU cores—call `fit` on training data to get `best_params_`.
+
+     **Walkthrough:**
+     - `KNeighborsClassifier()` as estimator; `param_grid`; `cv=5`, `scoring='accuracy'`, `n_jobs=-1`.
+
      ```python
      from sklearn.model_selection import GridSearchCV
      
@@ -309,7 +424,14 @@ model, scaler = classify_iris_flowers()
      - KNN requires numerical features for distance calculations
      - Categorical variables need proper encoding to preserve their meaning
    - **Encoding Strategies**:
-     - **One-Hot Encoding**: For nominal categories (no inherent order)
+       - **One-Hot Encoding**: For nominal categories (no inherent order)
+
+       #### One-hot encode nominal columns (`sparse=False`)
+
+       **Purpose:** Expands each category into binary columns so distances treat distinct categories as separate directions, not ordered numbers.
+
+       **Walkthrough:**
+       - `OneHotEncoder(sparse=False)`; `fit_transform(X_categorical)`.
 
        ```python
        from sklearn.preprocessing import OneHotEncoder
@@ -318,6 +440,13 @@ model, scaler = classify_iris_flowers()
        ```
 
      - **Label Encoding**: For ordinal categories (has inherent order)
+
+       #### Integer encode ordered categories
+
+       **Purpose:** Maps ordered categories to consecutive integers when a single numeric feature is appropriate (unlike one-hot for nominal data).
+
+       **Walkthrough:**
+       - `LabelEncoder().fit_transform(X_ordinal)`.
 
        ```python
        from sklearn.preprocessing import LabelEncoder
@@ -339,9 +468,15 @@ model, scaler = classify_iris_flowers()
      - Early detection of overfitting
    - **Implementation with Detailed Metrics**:
 
+     #### Multi-metric `cross_validate` with train scores
+
+     **Purpose:** Runs 5-fold CV with both accuracy and weighted F1, optionally exposing train-fold scores to spot overfitting.
+
+     **Walkthrough:**
+     - `cross_validate` with `scoring` dict and `return_train_score=True`; prints mean train vs test accuracy.
+
      ```python
-     from sklearn.model_selection import cross_val_score
-     from sklearn.metrics import make_scorer, accuracy_score, f1_score
+     from sklearn.model_selection import cross_validate
      
      # Define multiple scoring metrics
      scoring = {
@@ -375,6 +510,13 @@ model, scaler = classify_iris_flowers()
        - 'manhattan': City-block distance
        - 'minkowski': Generalization of both
    - **Comprehensive Grid Search**:
+
+     #### Wide grid: `n_neighbors`, weights, Minkowski `metric` and `p`
+
+     **Purpose:** Searches a larger hyperparameter space including Minkowski order `p`, uses parallel workers and verbosity, then reads `best_params_` and `best_score_`.
+
+     **Walkthrough:**
+     - `param_grid` includes `'p'` for `metric='minkowski'`; `GridSearchCV(..., n_jobs=-1, verbose=1)`; `fit` on `X_scaled`, `y`.
 
      ```python
      from sklearn.model_selection import GridSearchCV
@@ -410,6 +552,13 @@ model, scaler = classify_iris_flowers()
      - Recall: Ability to find all positive cases
      - F1-score: Harmonic mean of precision and recall
    - **Implementation**:
+
+     #### Classification report and confusion matrix on held-out data
+
+     **Purpose:** Summarizes per-class precision/recall/F1 and shows the confusion matrix for the KNN’s test predictions.
+
+     **Walkthrough:**
+     - `knn.predict(X_test_scaled)`; `classification_report`; `confusion_matrix`.
 
      ```python
      from sklearn.metrics import classification_report, confusion_matrix

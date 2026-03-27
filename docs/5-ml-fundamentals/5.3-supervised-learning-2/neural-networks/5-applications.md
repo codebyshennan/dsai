@@ -1,5 +1,13 @@
 # Real-World Applications of Neural Networks
 
+**After this lesson:** you can explain the core ideas in “Real-World Applications of Neural Networks” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Welcome to Neural Network Applications
 
 Neural networks are transforming industries and solving real-world problems every day. In this guide, we'll explore practical applications that you can implement and understand. Think of it like learning to cook different types of cuisine - each application has its own unique flavor and techniques!

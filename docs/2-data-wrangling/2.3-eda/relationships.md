@@ -1,8 +1,14 @@
 # Understanding Data Relationships: A Comprehensive Guide
 
-## Overview
+**After this lesson:** You can choose sensible analyses for numeric–numeric, categorical–categorical, and mixed pairs, interpret correlation and effect size with caution, and avoid claiming causation from association alone.
 
-**Primary outcome:** You can choose sensible analyses for numeric–numeric, categorical–categorical, and mixed pairs, interpret correlation and effect size with caution, and avoid claiming causation from association alone.
+## Helpful video
+
+Summarizing distributions with percentiles—common in exploratory analysis.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IFKQLDmRK0Y" title="Quantiles and Percentiles, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Distributions](distributions.md) and [two-variable statistics](../../1-data-fundamentals/1.3-intro-statistics/two-variable-statistics.md). [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) for plotting.
 
@@ -101,7 +107,10 @@ Methods for understanding relationships between categorical variables:
 
 This framework helps you systematically analyze relationships in your data:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -263,7 +272,65 @@ class RelationshipAnalyzer:
             'anova': {'f_statistic': f_stat, 'p_value': p_value},
             'eta_squared': eta_squared
         }
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-26" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import pandas as pd</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–26: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-53" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def analyze_numeric_relationship(self, x, y):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 27–53: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="54-80" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sns.kdeplot(data=self.data, x=x, y=y)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 54–80: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="81-107" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Le = LabelEncoder()</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 81–107: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="108-134" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plt.show()</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 108–134: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="135-161" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fig = plt.figure(figsize=(15, 5))</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 135–161: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 > **Figure (add screenshot or diagram):** Scatter with regression line—see **assets/scatter_regression.png** when available.
 
@@ -290,9 +357,12 @@ Let's analyze customer behavior to understand key relationships:
    - Channel preferences
    - Conversion drivers
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Load sample customer data
-df = pd.read_csv('customer_data.csv')
+df = pd.read_csv('../_data/customer_data.csv')
 analyzer = RelationshipAnalyzer(df)
 
 # 1. Analyze spending vs age relationship
@@ -309,7 +379,52 @@ print(f"Cramer's V: {category_loyalty['cramers_v']:.3f}")
 segment_spending = analyzer.analyze_mixed_relationship('spending', 'customer_segment')
 print("\nSpending by Segment Analysis:")
 print(f"Effect Size (): {segment_spending['eta_squared']:.3f}")
+{% endhighlight %}
+
+![relationships](assets/relationships_fig_1.png)
+
+![relationships](assets/relationships_fig_2.png)
+
+![relationships](assets/relationships_fig_3.png)
+
+![relationships](assets/relationships_fig_4.png)
+
+![relationships](assets/relationships_fig_5.png)
+
 ```
+
+Spending vs Age Analysis:
+Correlation: 0.119 (p=0.465)
+
+Category vs Loyalty Analysis:
+Cramer's V: 0.313
+
+Spending by Segment Analysis:
+Effect Size (): 0.006
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load sample customer data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">2. Analyze category vs loyalty relationship</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 10–18: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Performance Optimization Tips: Handling Large-Scale Relationship Analysis
 
@@ -335,7 +450,10 @@ Optimize your analysis for large datasets:
 
 ### 1. Efficient Correlation Computation
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def compute_correlations_efficiently(df, method='pearson'):
     """Compute correlations efficiently for large datasets"""
     # Use numpy for faster computation
@@ -350,11 +468,27 @@ def compute_correlations_efficiently(df, method='pearson'):
         index=df.columns,
         columns=df.columns
     )
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def compute_correlations_efficiently(df, meth…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–14: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Memory-Efficient Categorical Analysis
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def analyze_categories_efficiently(df, cat1, cat2, max_categories=50):
     """Memory-efficient categorical analysis"""
     # Check cardinality
@@ -370,7 +504,29 @@ def analyze_categories_efficiently(df, cat1, cat2, max_categories=50):
         contingency = pd.crosstab(df[cat1], df[cat2])
     
     return contingency
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def analyze_categories_efficiently(df, cat1,…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Use sampling for high cardinality</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 8–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Pitfalls and Solutions: Learning from Experience
 
@@ -396,63 +552,129 @@ Avoid these common mistakes in relationship analysis:
 
 1. **Correlation  Causation**
 
-   ```python
-   def check_confounding(df, x, y, potential_confounders):
-       """Check for confounding variables"""
-       # Original correlation
-       original_corr = df[x].corr(df[y])
-       
-       # Partial correlations
-       partial_corrs = {}
-       for conf in potential_confounders:
-           # Calculate partial correlation
-           partial_corr = partial_correlation(df[x], df[y], df[conf])
-           partial_corrs[conf] = partial_corr
-       
-       return {
-           'original': original_corr,
-           'partial': partial_corrs
-       }
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      def check_confounding(df, x, y, potential_confounders):
+          """Check for confounding variables"""
+          # Original correlation
+          original_corr = df[x].corr(df[y])
+          
+          # Partial correlations
+          partial_corrs = {}
+          for conf in potential_confounders:
+              # Calculate partial correlation
+              partial_corr = partial_correlation(df[x], df[y], df[conf])
+              partial_corrs[conf] = partial_corr
+          
+          return {
+              'original': original_corr,
+              'partial': partial_corrs
+          }
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Def check_confounding(df, x, y, potential_con…</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–8: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="9-16" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Calculate partial correlation</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 9–16: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **Non-linear Relationships**
 
-   ```python
-   def check_nonlinearity(df, x, y):
-       """Check for non-linear relationships"""
-       # Linear correlation
-       linear_corr = df[x].corr(df[y])
-       
-       # Spearman correlation
-       monotonic_corr = df[x].corr(df[y], method='spearman')
-       
-       # Difference indicates non-linearity
-       nonlinearity = abs(linear_corr - monotonic_corr)
-       
-       return {
-           'linear_corr': linear_corr,
-           'monotonic_corr': monotonic_corr,
-           'nonlinearity': nonlinearity
-       }
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      def check_nonlinearity(df, x, y):
+          """Check for non-linear relationships"""
+          # Linear correlation
+          linear_corr = df[x].corr(df[y])
+          
+          # Spearman correlation
+          monotonic_corr = df[x].corr(df[y], method='spearman')
+          
+          # Difference indicates non-linearity
+          nonlinearity = abs(linear_corr - monotonic_corr)
+          
+          return {
+              'linear_corr': linear_corr,
+              'monotonic_corr': monotonic_corr,
+              'nonlinearity': nonlinearity
+          }
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Def check_nonlinearity(df, x, y):</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–8: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="9-16" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Difference indicates non-linearity</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 9–16: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **Sample Size Considerations**
 
-   ```python
-   def adjust_for_sample_size(statistic, n, type='correlation'):
-       """Adjust statistics for sample size"""
-       if type == 'correlation':
-           # Fisher transformation
-           z = np.arctanh(statistic)
-           se = 1 / np.sqrt(n - 3)
-           ci = (np.tanh(z - 1.96*se), np.tanh(z + 1.96*se))
-           return {'adjusted': z, 'ci': ci}
-       elif type == 'chi_square':
-           # Yates correction for small samples
-           if n < 30:
-               return statistic - ((n > 1) / 2)
-           return statistic
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      def adjust_for_sample_size(statistic, n, type='correlation'):
+          """Adjust statistics for sample size"""
+          if type == 'correlation':
+              # Fisher transformation
+              z = np.arctanh(statistic)
+              se = 1 / np.sqrt(n - 3)
+              ci = (np.tanh(z - 1.96*se), np.tanh(z + 1.96*se))
+              return {'adjusted': z, 'ci': ci}
+          elif type == 'chi_square':
+              # Yates correction for small samples
+              if n < 30:
+                  return statistic - ((n > 1) / 2)
+              return statistic
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-13" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Def adjust_for_sample_size(statistic, n, type…</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–13: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 Remember: "Correlation is not causation, but it's a good place to start looking!"
 

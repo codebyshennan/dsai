@@ -1,5 +1,13 @@
 # Advanced SVM Techniques
 
+**After this lesson:** you can explain the core ideas in “Advanced SVM Techniques” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Learning Objectives
 
 By the end of this section, you will be able to:
@@ -34,6 +42,9 @@ The C parameter controls the trade-off between having a wide margin and correctl
 *Figure: Effect of C parameter on decision boundary. Left: Low C (more regularization), Middle: Balanced C, Right: High C (less regularization).*
 
 Here's a complete example showing the impact of different C values:
+
+#### Effect of C on RBF SVC (and optional early stopping sketch)
+**Purpose:** Plot decision regions for several `C` values and include a toy loop that stops when the training score stabilizes.
 
 ```python
 import numpy as np
@@ -91,7 +102,8 @@ def plot_different_c_values(X, y, scaler):
         
         # Highlight support vectors
         axes[i].scatter(
-            X[svm.support_], y[svm.support_],
+            X[svm.support_, 0], X[svm.support_, 1],
+            c=y[svm.support_],
             s=100, linewidth=1, facecolors='none',
             edgecolors='r', label='Support Vectors'
         )
@@ -180,6 +192,9 @@ def train_svm_with_early_stopping(X, y, max_iter=100, tolerance=1e-3):
 ### Custom Kernel Implementation
 
 Sometimes you need a special kernel for your specific problem. Here's a complete example with a custom kernel:
+
+#### Hybrid RBF + polynomial kernel via `kernel='precomputed'`
+**Purpose:** Build a custom Gram matrix, train `SVC(kernel='precomputed')`, and compare test accuracy to standard kernels.
 
 ```python
 import numpy as np
@@ -331,6 +346,9 @@ def compare_kernels():
 
 Visualizing decision boundaries helps understand how SVM works:
 
+#### Decision surface, margins, and support vectors on two moons
+**Purpose:** Plot regions, `decision_function` contours at ±1 and 0, and highlight support vectors on scaled data.
+
 ```python
 import numpy as np
 from sklearn.svm import SVC
@@ -403,7 +421,10 @@ def visualize_svm_details(X, y, model, scaler):
     )
     
     # Add information about the model
-    plt.title(f'SVM Decision Boundary (kernel={model.kernel}, C={model.C}, gamma={model._gamma})')
+    plt.title(
+        f"SVM Decision Boundary (kernel={model.kernel}, C={model.C}, "
+        f"gamma={getattr(model, 'gamma_', getattr(model, '_gamma', None))})"
+    )
     plt.xlabel('Feature 1')
     plt.ylabel('Feature 2')
     plt.legend()
@@ -437,6 +458,9 @@ def visualize_svm_details(X, y, model, scaler):
 ### Memory-Efficient Implementation
 
 For large datasets, memory efficiency is crucial:
+
+#### Chunked scaling sketch and `LinearSVC(dual=False)`
+**Purpose:** Illustrate processing chunks (for huge matrices you would extend this pattern) and fitting a linear SVM with the primal formulation.
 
 ```python
 import numpy as np
@@ -528,6 +552,9 @@ def predict_efficiently(model, scaler, new_data):
 ### Parallel Processing for Parameter Tuning
 
 Speed up training with parallel processing:
+
+#### Parallel evaluation of SVC hyperparameter tuples
+**Purpose:** Run `cross_val_score` for each grid point with `joblib.Parallel` instead of nested CV inside `GridSearchCV`.
 
 ```python
 import numpy as np
@@ -674,6 +701,9 @@ def train_final_model(X, y, best_params):
 
 Select the most important features with SVM-based feature selection:
 
+#### L1 `LinearSVC` + `SelectFromModel`
+**Purpose:** Sparse linear SVM coefficients drive feature selection; print how many features remain and compare train/test accuracy.
+
 ```python
 import numpy as np
 from sklearn.svm import LinearSVC
@@ -786,6 +816,13 @@ def evaluate_feature_selection():
 
 # Uncomment to evaluate feature selection
 # evaluate_feature_selection()
+```
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Original dataset shape: (569, 30)
+Number of features selected: 4 out of 30
 ```
 
 **Explanation:**

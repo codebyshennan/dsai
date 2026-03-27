@@ -1,5 +1,13 @@
 # Backpropagation in Neural Networks
 
+**After this lesson:** you can explain the core ideas in “Backpropagation in Neural Networks” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Introduction
 
 Backpropagation is the fundamental algorithm that enables neural networks to learn from data. It's how neural networks adjust their weights to minimize the error between their predictions and the actual values. Think of it like learning to ride a bike - you make mistakes, learn from them, and adjust your movements accordingly.

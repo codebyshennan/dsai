@@ -1,170 +1,78 @@
-# Teaching Pedagogy
+# How this course works
 
-## How This Course Works
+**After reading this:** you know how to use your time before and during live sessions, what to bring to office hours, and where grading rules live (your syllabus—not this page).
 
-Welcome! This bootcamp uses a **flipped classroom** approach combined with weekly office hours. This means you'll learn at your own pace, and we'll use class time for hands-on practice and getting help.
+This bootcamp uses a **flipped classroom** model: you absorb new ideas on your own time from the written lessons and videos, then use live sessions to **practice**, **debug**, and **ask questions**. That only works if you show up having already skimmed the material—otherwise class feels like a first lecture instead of a lab.
 
-**What does this mean for you?**
-- 📚 You'll review materials **before** class (at your own pace)
-- 💻 Class time is for **practical work** and **getting help**
-- 🎯 You can **ask questions** during weekly office hours
-- ⏰ **Flexible schedule** - learn when it works for you
+## Helpful video
 
-> **Don't worry if this is new to you!** This approach actually makes learning easier because you can review materials as many times as you need, and class time is focused on actually doing the work.
+What “flipped” means in practice: learn the content on your own schedule, then use class for practice and questions.
 
-## Flipped Classroom Model
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qdKzSq_t8k8" title="The Flipped Classroom Model" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### What is a Flipped Classroom?
+## Flipped classroom in plain language
 
-**Traditional Classroom:**
-- Teacher lectures in class
-- Students do homework alone at home
-- Limited time for questions
+| Typical “traditional” course | This course |
+|------------------------------|-------------|
+| Instructor explains everything in the room; you do hard work alone later | You read or watch first; the room is for doing and fixing |
+| One pace for everyone | You can re-read and pause videos until it clicks |
+| Few chances to ask questions | Live time is reserved for questions and hands-on help |
 
-**Flipped Classroom (Our Approach):**
-- You watch/read materials at home (your pace!)
-- Class time is for hands-on practice and help
-- More time for questions and collaboration
-- Learn at your own speed
+**What you should do before each live session:** open the module’s pages for that week, run through the headings, and try at least one short exercise or code cell so you know *where* you are stuck (environment, syntax, or concept). “I didn’t have time to look” is harder to fix in an hour than “I tried this and got this error.”
 
-**In simple terms:** Instead of listening to lectures in class and struggling with homework alone, you'll review materials on your own time, then come to class ready to practice and get help!
+## A concrete example week
 
-### How it Works
+This is illustrative—your instructor may adjust pacing. Use it as a template for how to split your time.
 
-1. **Before Class**
-   - Students review prepared materials:
-     - Reading assignments
-     - Pre-recorded video lectures
-     - Interactive tutorials
-     - Setup guides and documentation
-   - Complete initial exercises to identify areas needing clarification
+| When | What to do |
+|------|------------|
+| **Early in the week** | Finish [environment setup](./README.md) if you have not already. Skim the next module’s `README` and one lesson page. |
+| **Mid-week** | Work through one lesson end-to-end at your own speed. Note every error message and the line that triggered it. |
+| **Before live session** | Re-run your notebook or script from a clean kernel or fresh terminal so you know it still works. Write down 1–3 specific questions (e.g. “why does this join duplicate rows?” not “I don’t get SQL”). |
+| **Live session** | Bring those questions, share your screen if asked, and work the in-class exercises. |
+| **After** | Finish the assignment draft, then use office hours for blockers—not for first exposure to the topic. |
 
-2. **During Class**
-   - Focus on hands-on activities:
-     - Practical coding exercises
-     - Group projects
-     - Problem-solving sessions
-     - Code reviews
-   - Direct application of concepts
-   - Collaborative learning opportunities
+## Before, during, and after class
 
-3. **After Class**
-   - Work on assignments
-   - Review additional resources
-   - Prepare questions for office hours
-   - Engage in self-paced learning
+**Before class**
 
-## Weekly Office Hours
+- Read or watch the assigned materials so you recognize terms when they appear in live demos.
+- Run the code yourself; copy-pasting without running leaves gaps that show up under time pressure.
+- Keep a small log: date, what you tried, exact error text. That log is gold for office hours.
 
-### Schedule
-- 1.5 hours per week
-- Fixed time slot for consistency
-- Virtual format for accessibility
+**During class**
 
-### Purpose
-- Address specific questions
-- Provide individualized support
-- Clarify complex concepts
-- Review challenging assignments
-- Offer additional examples
-- Discuss real-world applications
+- Expect demonstrations, short exercises, and time to work while teaching staff circulate. It is not a long lecture block.
+- Ask early. Silence often means “everyone is stuck on the same install issue”—say it out loud.
 
-### Format
-1. **Open Q&A** (45 minutes)
-   - Students can ask any course-related questions
-   - Share screens for code review
-   - Demonstrate solutions to common problems
+**After class**
 
-2. **Topic Deep Dive** (45 minutes)
-   - Focus on challenging concepts
-   - Work through complex examples
-   - Explore advanced topics
-   - Share industry insights
+- Turn notes into a working example in your own repo or folder.
+- If something still fails at home, compare your environment to the [setup guides](./README.md) (Python version, conda env active, correct interpreter in the editor).
 
-## Benefits of This Approach
+## Office hours
 
-### For Students
-- Learn at their own pace
-- More time for hands-on practice
-- Immediate application of concepts
-- Regular access to instructor support
-- Flexible learning schedule
-- Enhanced problem-solving skills
+Your instructor shares the **time**, **link**, and **rules** (drop-in vs sign-up sheet). In general:
 
-### For Instructors
-- More time for individual attention
-- Better insight into student progress
-- Ability to address specific challenges
-- Opportunity to cover advanced topics
-- Efficient use of contact time
-- Improved student engagement
+- **Bring:** your error message or a minimal notebook that reproduces the problem, and say what you already tried.
+- **Good use of time:** “Here is my traceback and the three lines I changed.”
+- **Harder to fix in a few minutes:** “Explain the whole of statistics from scratch”—book that as a study-plan conversation, not a single office hour.
 
-## Success Strategies
+If your cohort uses a forum or chat, use the same discipline: paste errors and code snippets, not only “it doesn’t work.”
 
-### For Students
-1. **Preparation**
-   - Review materials before class
-   - Note questions and challenges
-   - Complete preliminary exercises
-   - Test setup and tools
+## When you are stuck
 
-2. **Participation**
-   - Attend all sessions
-   - Engage in discussions
-   - Work collaboratively
-   - Ask questions early
+1. Re-read the lesson section you skipped.
+2. Check the troubleshooting section in the relevant [setup guide](./README.md).
+3. Search the exact error text—often someone else hit the same conda or path issue.
+4. Ask in office hours or your class channel with **steps to reproduce** and **full error output**.
 
-3. **Practice**
-   - Complete assignments promptly
-   - Work on additional exercises
-   - Apply concepts to personal projects
-   - Review and revise regularly
+## Grades and milestones
 
-### For Maximum Benefit
-- Stay current with pre-class materials
-- Participate actively in discussions
-- Utilize office hours effectively
-- Form study groups
-- Practice regularly
-- Seek help when needed
+How you are graded—assignments, projects, attendance expectations, late policy—comes from **your instructor and syllabus**, not from this site. If anything here conflicts with what you were told in class, follow your syllabus.
 
-## Support Resources
+## Summary
 
-1. **Learning Materials**
-   - Course documentation
-   - Video tutorials
-   - Code examples
-   - Practice exercises
-   - Reference guides
-
-2. **Communication Channels**
-   - Office hours
-   - Discussion forums
-   - Email support
-   - Peer collaboration platforms
-
-3. **Additional Help**
-   - Supplementary resources
-   - Practice problems
-   - Review sessions
-   - Recorded sessions
-
-## Assessment Methods
-
-1. **Continuous Assessment**
-   - Regular assignments
-   - Project work
-   - Class participation
-   - Practical exercises
-
-2. **Project-Based Evaluation**
-   - Individual projects
-   - Group assignments
-   - Portfolio development
-   - Real-world applications
-
-3. **Final Assessment**
-   - Capstone project
-   - Technical implementation
-   - Documentation
-   - Presentation
+- **You** preview and practice on your schedule.
+- **Live time** is for application, debugging, and targeted questions.
+- **Setup** must be solid early; almost every mysterious bug later traces back to environment or paths—use the prep guides until your toolchain is boringly reliable.

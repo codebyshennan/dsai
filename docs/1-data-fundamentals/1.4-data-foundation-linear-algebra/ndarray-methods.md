@@ -1,5 +1,15 @@
 # NumPy Array Methods: Shape-Shifting Magic
 
+**After this lesson:** you can explain the core ideas in “NumPy Array Methods: Shape-Shifting Magic” and reproduce the examples here in your own notebook or environment.
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kYB8IZa5AuE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*3Blue1Brown — Linear transformations and matrices (Essence of linear algebra)*
+
 ## Reshaping Arrays: The Transformer
 
 ---
@@ -253,6 +263,11 @@ print("Any True?", bools.any())  # True
 print("All True?", bools.all())  # False
 ```
 
+```
+Any True? True
+All True? False
+```
+
 ---
 
 ### Sorting Arrays
@@ -265,6 +280,11 @@ print("Before:", arr)
 # Sort in place
 arr.sort()
 print("After:", arr)
+```
+
+```
+Before: [3 1 4 1 5 9 2 6]
+After: [1 1 2 3 4 5 6 9]
 ```
 
 **Pro Tips**:

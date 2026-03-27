@@ -1,5 +1,13 @@
 # Introduction to Neural Networks
 
+**After this lesson:** you can explain the core ideas in “Introduction to Neural Networks” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Welcome to Neural Networks
 
 Imagine you're teaching a child to recognize different types of fruits. At first, they might make mistakes, but with practice and feedback, they get better. Neural networks learn in a similar way! They're computer systems inspired by how our brains work, designed to learn from examples and improve over time.

@@ -1,5 +1,15 @@
 # Video Resources for Python Learning
 
+**After this lesson:** you can explain the core ideas in “Video Resources for Python Learning” and reproduce the examples here in your own notebook or environment.
+
+### Featured walkthrough
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YYXdXT2l-Gg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*Corey Schafer — Python tutorial for beginners: install and setup*
+
 > **How to Use This Guide:** Each section includes curated videos with specific timestamps. Watch at 1.25x-1.5x speed for efficiency!
 
 > **Pro Tip:** Have Python Tutor open alongside videos - pause and visualize examples!

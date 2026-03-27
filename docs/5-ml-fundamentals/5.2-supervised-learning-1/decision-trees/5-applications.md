@@ -1,10 +1,24 @@
 # Real-World Applications of Decision Trees
 
+**After this lesson:** you can explain the core ideas in “Real-World Applications of Decision Trees” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## 1. Medical Diagnosis System
 
 Imagine you're building a system to help doctors diagnose patients. Decision trees are perfect for this because they're easy to understand and explain.
 
 ### Step-by-Step Implementation
+
+#### Toy multi-class diagnosis with `class_weight` and path trace
+
+**Purpose:** Show explainable prediction: `predict_proba`, human-readable path reasoning—**not** a clinical system; labels are illustrative only.
+
+**Walkthrough:** Ordinal symptom encodings feed `DecisionTreeClassifier`; `decision_path` walks internal nodes for narrative output.
 
 ```python
 import numpy as np
@@ -91,6 +105,28 @@ for node_idx in node_indices:
         print(f"- Patient has {severity_text} {symptom.lower()}, which is {comparison} {threshold_text}")
 ```
 
+
+![5-applications](assets/5-applications_fig_1.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Diagnosis: flu
+Confidence levels:
+  allergies: 0.00
+  cold: 0.00
+  covid: 0.00
+  flu: 1.00
+  healthy: 0.00
+  pneumonia: 0.00
+
+Diagnosis reasoning:
+- Patient has moderate cough, which is > mild
+- Patient has normal blood pressure, which is <= normal
+- Patient has normal blood pressure, which is > low
+- Patient has mild breathing difficulty, which is > moderate
+```
+
 In this example, we:
 
 1. Create a simple dataset of patients with different symptoms and diagnoses
@@ -104,6 +140,12 @@ The decision tree makes medical diagnosis transparent, which is crucial for heal
 ## 2. Credit Risk Assessment
 
 Banks use decision trees to evaluate loan applications and assess credit risk. Let's build a simple credit scoring model:
+
+#### Credit approval: train/test report + importances + new applicant risk band
+
+**Purpose:** Tie interpretable splits to business outputs: confusion matrix, `classification_report`, feature ranking, and probability-based risk tier.
+
+**Walkthrough:** Small synthetic $X$—real lending needs more rows, fairness review, and calibration.
 
 ```python
 import numpy as np
@@ -198,6 +240,41 @@ else:
 print(f"Risk assessment: {risk}")
 ```
 
+
+![5-applications](assets/5-applications_fig_2.png)
+
+
+![5-applications](assets/5-applications_fig_3.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Confusion Matrix:
+[[4 0]
+ [1 0]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.80      1.00      0.89         4
+           1       0.00      0.00      0.00         1
+
+    accuracy                           0.80         5
+   macro avg       0.40      0.50      0.44         5
+weighted avg       0.64      0.80      0.71         5
+
+
+Feature ranking:
+1. Income (k$): 1.0000
+2. Previous Defaults: 0.0000
+3. Debt to Income Ratio: 0.0000
+4. Employment Years: 0.0000
+5. Credit Score: 0.0000
+
+New applicant approval probability: 1.00
+Risk assessment: Low Risk
+```
+
 This example demonstrates:
 
 1. How to build a credit risk model using decision trees
@@ -210,6 +287,12 @@ This approach provides transparency in lending decisions, which is important for
 ## 3. Customer Churn Prediction
 
 Businesses use decision trees to predict which customers might leave. Let's build a simple churn prediction system:
+
+#### Churn model with retention rules from churn probability
+
+**Purpose:** Map churn probability tiers to retention actions; feature ranking shows which contract/usage signals dominate on this toy data.
+
+**Walkthrough:** Imports include `roc_curve`/`auc` but this block focuses on reports + `predict_proba` for two new profiles.
 
 ```python
 import numpy as np
@@ -311,6 +394,43 @@ for i, prob in enumerate(churn_probs):
         print("  Low risk - Maintain regular engagement")
 ```
 
+
+![5-applications](assets/5-applications_fig_4.png)
+
+
+![5-applications](assets/5-applications_fig_5.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Confusion Matrix:
+[[1 0]
+ [0 4]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00         1
+           1       1.00      1.00      1.00         4
+
+    accuracy                           1.00         5
+   macro avg       1.00      1.00      1.00         5
+weighted avg       1.00      1.00      1.00         5
+
+
+Feature ranking for churn prediction:
+1. Contract Length: 1.0000
+2. Service Issues: 0.0000
+3. Support Calls: 0.0000
+4. Total Charges: 0.0000
+5. Monthly Charges: 0.0000
+6. Tenure (months): 0.0000
+Customer 1 churn probability: 1.00
+  High risk - Immediate contact needed, offer special retention package
+Customer 2 churn probability: 0.00
+  Low risk - Maintain regular engagement
+```
+
 This example demonstrates:
 
 1. How to build a customer churn prediction model
@@ -323,6 +443,12 @@ By predicting which customers are at risk of leaving, businesses can take proact
 ## 4. Fraud Detection
 
 Let's create a simple fraud detection model using decision trees:
+
+#### Fraud: `class_weight`, precision–recall curve, and threshold tuning
+
+**Purpose:** Stress precision/recall for rare fraud; use `precision_recall_curve` and an F1-based threshold pick (not accuracy alone).
+
+**Walkthrough:** `stratify=y` keeps fraud rate; `class_weight={0:1, 1:5}` upsamples fraud importance; `best_threshold` drives alert logic.
 
 ```python
 import numpy as np
@@ -434,6 +560,38 @@ for i, prob in enumerate(fraud_probs):
             print("  Note: Some unusual characteristics - flag for review")
 ```
 
+
+![5-applications](assets/5-applications_fig_6.png)
+
+
+![5-applications](assets/5-applications_fig_7.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Confusion Matrix:
+[[3 0]
+ [0 2]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00         3
+           1       1.00      1.00      1.00         2
+
+    accuracy                           1.00         5
+   macro avg       1.00      1.00      1.00         5
+weighted avg       1.00      1.00      1.00         5
+
+Optimal threshold: 1.000
+At this threshold - Precision: 1.000, Recall: 1.000
+Transaction 1 fraud probability: 1.000
+  ALERT: Likely fraudulent transaction
+  Action: Block transaction and contact customer
+Transaction 2 fraud probability: 0.000
+  Status: Transaction appears legitimate
+```
+
 This example shows:
 
 1. How to build a fraud detection model that handles the imbalanced nature of fraud data
@@ -446,6 +604,12 @@ The decision tree approach allows analysts to understand exactly why a transacti
 ## 5. Equipment Maintenance Predictor
 
 Manufacturing companies use decision trees to predict when machines need maintenance:
+
+#### Multiclass maintenance states from sensor vectors
+
+**Purpose:** Classify {ok, soon, urgent} with interpretable importances and action scripts per predicted class.
+
+**Walkthrough:** Fit on full toy table (no holdout—illustrative); `predict_proba` drives per-machine recommendations and optional percentile checks.
 
 ```python
 import numpy as np
@@ -543,6 +707,34 @@ for i, (pred, probs) in enumerate(zip(maintenance_preds, maintenance_probs)):
     else:  # pred == 2
         print("  Recommendation: URGENT - Schedule maintenance immediately!")
         print("  Alert: Potential failure imminent if operation continues")
+```
+
+
+![5-applications](assets/5-applications_fig_8.png)
+
+
+![5-applications](assets/5-applications_fig_9.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Feature ranking for maintenance prediction:
+1. Power Consumption (kW): 0.6691
+2. Temperature (°C): 0.3309
+3. Sound Level (dB): 0.0000
+4. Runtime Hours: 0.0000
+5. Pressure (psi): 0.0000
+6. Vibration (mm/s): 0.0000
+Machine A status: No Maintenance
+  Probability breakdown: No Maintenance: 1.00, Soon: 0.00, Urgent: 0.00
+  Recommendation: Continue normal operation, next check in 30 days
+Machine B status: Maintenance Soon
+  Probability breakdown: No Maintenance: 0.00, Soon: 1.00, Urgent: 0.00
+  Recommendation: Schedule maintenance within 2 weeks, order parts now
+Machine C status: Urgent Maintenance
+  Probability breakdown: No Maintenance: 0.00, Soon: 0.00, Urgent: 1.00
+  Recommendation: URGENT - Schedule maintenance immediately!
+  Alert: Potential failure imminent if operation continues
 ```
 
 This example shows:

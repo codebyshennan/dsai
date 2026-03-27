@@ -1,8 +1,14 @@
 # Data Wrangling: From Raw Data to Reliable Insights
 
-## Overview
+**After this submodule:** You can assess quality, handle **missing values** and **outliers**, and **transform** columns so downstream analysis (EDA or modeling) is trustworthy.
 
-**Primary outcome:** You can assess quality, handle **missing values** and **outliers**, and **transform** columns so downstream analysis (EDA or modeling) is trustworthy.
+## Helpful video
+
+Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m1_33jhhiLE" title="Learn PANDAS in 5 minutes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) and [NumPy](../../1-data-fundamentals/1.4-data-foundation-linear-algebra/README.md) basics. [SQL (Module 2.1)](../2.1-sql/README.md) is useful when your raw data comes from databases.
 
@@ -77,13 +83,16 @@ After completing this module, you will be able to:
 
 Let's walk through a comprehensive example of wrangling e-commerce data. This example demonstrates common challenges and solutions you'll encounter in real-world data science projects:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 # Load messy e-commerce data
-df = pd.read_csv('sales_data.csv')
+df = pd.read_csv('../_data/sales_data.csv')
 
 # 1. Data Quality Assessment
 print("Data Quality Report")
@@ -124,7 +133,66 @@ def validate_data(df):
     print("Data validation passed!")
 
 validate_data(df)
+{% endhighlight %}
 ```
+Data Quality Report
+--------------------------------------------------
+Total Records: 120
+Missing Values:
+date          0
+order_date    0
+sales         0
+revenue       0
+price         1
+quantity      1
+category      0
+email         1
+dtype: int64
+
+Duplicate Records: 0
+Data validation passed!
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import pandas as pd</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Print(f&quot;Missing Values:\n{df.isnull().sum()}&quot;)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">3. Handle Outliers</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 24–34: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="35-46" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create new features</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 35–46: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Data Quality Issues and Solutions
 
@@ -145,7 +213,13 @@ Here's a comprehensive guide to handling common data quality challenges:
 
 ### 1. Scaling Methods
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import pandas as pd
+
+df = pd.read_csv('../_data/sales_data.csv')
 # Standardization (Z-score normalization)
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
@@ -155,11 +229,41 @@ df['scaled_price'] = scaler.fit_transform(df[['price']])
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
 df['normalized_price'] = scaler.fit_transform(df[['price']])
+
+print(df[['price', 'scaled_price', 'normalized_price']].head())
+{% endhighlight %}
 ```
+        price  scaled_price  normalized_price
+0  445.942283      1.371460          0.908062
+1  447.256087      1.380197          0.910811
+2  261.834888      0.147135          0.522892
+3  161.384881     -0.520863          0.312740
+4         NaN           NaN               NaN
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Standardization (Z-score normalization)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Encoding Categorical Variables
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import pandas as pd
+
+df = pd.read_csv('../_data/sales_data.csv')
 # One-Hot Encoding
 df_encoded = pd.get_dummies(df, columns=['category'])
 
@@ -167,87 +271,218 @@ df_encoded = pd.get_dummies(df, columns=['category'])
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
 df['encoded_category'] = le.fit_transform(df['category'])
+
+print(df[['category', 'encoded_category']].head())
+print('encoded shape:', df_encoded.shape)
+{% endhighlight %}
 ```
+      category  encoded_category
+0  Electronics                 1
+1         Home                 2
+2         Home                 2
+3  Electronics                 1
+4         Home                 2
+encoded shape: (120, 10)
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">One-Hot Encoding</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices for Data Wrangling
 
 1. **Document Everything**
 
-   ```python
-   # Data cleaning log
-   cleaning_log = {
-       'original_rows': len(df),
-       'missing_values_handled': True,
-       'outliers_removed': 15,
-       'features_added': ['total_value', 'order_month']
-   }
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      # Data cleaning log
+      cleaning_log = {
+          'original_rows': len(df),
+          'missing_values_handled': True,
+          'outliers_removed': 15,
+          'features_added': ['total_value', 'order_month']
+      }
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-7" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Data cleaning log</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–7: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **Create Reusable Functions**
 
-   ```python
-   def clean_dataset(df):
-       """
-       Clean dataset using standard procedures
-       
-       Parameters:
-       df (pandas.DataFrame): Input dataframe
-       
-       Returns:
-       pandas.DataFrame: Cleaned dataframe
-       """
-       df = handle_missing_values(df)
-       df = remove_outliers(df)
-       df = create_features(df)
-       validate_data(df)
-       return df
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      def clean_dataset(df):
+          """
+          Clean dataset using standard procedures
+          
+          Parameters:
+          df (pandas.DataFrame): Input dataframe
+          
+          Returns:
+          pandas.DataFrame: Cleaned dataframe
+          """
+          df = handle_missing_values(df)
+          df = remove_outliers(df)
+          df = create_features(df)
+          validate_data(df)
+          return df
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-7" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Def clean_dataset(df):</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–7: follow this band in the snippet.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="8-15" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Returns:</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 8–15: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **Validate Transformations**
 
-   ```python
-   def validate_transformation(original_df, transformed_df):
-       """Validate data transformation results"""
-       assert len(transformed_df) > 0, "Empty dataframe"
-       assert transformed_df.isnull().sum().sum() == 0, "Missing values found"
-       print("Transformation validated successfully!")
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      def validate_transformation(original_df, transformed_df):
+          """Validate data transformation results"""
+          assert len(transformed_df) > 0, "Empty dataframe"
+          assert transformed_df.isnull().sum().sum() == 0, "Missing values found"
+          print("Transformation validated successfully!")
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-5" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Def validate_transformation(original_df, tran…</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–5: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 ## Performance Considerations
 
 1. **Memory Efficiency**
 
-   ```python
-   # Optimize datatypes
-   def optimize_dtypes(df):
-       for col in df.columns:
-           if df[col].dtype == 'float64':
-               df[col] = pd.to_numeric(df[col], downcast='float')
-           elif df[col].dtype == 'int64':
-               df[col] = pd.to_numeric(df[col], downcast='integer')
-       return df
-   ```
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+   
+   {% highlight python %}
+      # Optimize datatypes
+      def optimize_dtypes(df):
+          for col in df.columns:
+              if df[col].dtype == 'float64':
+                  df[col] = pd.to_numeric(df[col], downcast='float')
+              elif df[col].dtype == 'int64':
+                  df[col] = pd.to_numeric(df[col], downcast='integer')
+          return df
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Optimize datatypes</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–8: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **Processing Speed**
 
-   ```python
-   # Use vectorized operations
-   # Good:
-   df['total'] = df['price'] * df['quantity']
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
    
-   # Avoid:
-   # for i in range(len(df)):
-   #     df.loc[i, 'total'] = df.loc[i, 'price'] * df.loc[i, 'quantity']
-   ```
+   {% highlight python %}
+      # Use vectorized operations
+      # Good:
+      df['total'] = df['price'] * df['quantity']
+      
+      # Avoid:
+      # for i in range(len(df)):
+      #     df.loc[i, 'total'] = df.loc[i, 'price'] * df.loc[i, 'quantity']
+   {% endhighlight %}
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-7" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Use vectorized operations</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Lines 1–7: follow this band in the snippet.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 ## Prerequisites
 
 - Python 3.x
 - Key libraries:
 
-  ```bash
-  pip install pandas numpy scikit-learn matplotlib seaborn
-  ```
+  <div class="code-explainer" data-code-explainer>
+  <div class="code-explainer__code">
+  
+  {% highlight bash %}
+    pip install pandas numpy scikit-learn matplotlib seaborn
+  {% endhighlight %}
+  </div>
+  <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+    <div class="code-callout" data-lines="1-1" data-tint="1">
+      <div class="code-callout__meta">
+        <span class="code-callout__lines"></span>
+        <span class="code-callout__title">Pip install pandas numpy scikit-learn matplot…</span>
+      </div>
+      <div class="code-callout__body">
+        <p>Lines 1–1: follow this band in the snippet.</p>
+      </div>
+    </div>
+  </aside>
+  </div>
 
 ## Tools and Resources
 

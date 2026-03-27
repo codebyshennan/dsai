@@ -1,5 +1,7 @@
 # Python for Data Science
 
+**After this guide:** your active environment can `import` NumPy, pandas, matplotlib, scikit-learn, and the other packages listed in the verification step, with no `ModuleNotFoundError`.
+
 ## What is the Python Data Science Stack?
 
 The "Python Data Science Stack" refers to a collection of essential libraries (pre-written code) that data scientists use every day. Instead of writing everything from scratch, these libraries provide powerful tools for:
@@ -17,7 +19,13 @@ The "Python Data Science Stack" refers to a collection of essential libraries (p
 - ✅ **Well-documented** - Great learning resources available
 - ✅ **Active community** - Lots of help available online
 
-> **Figure (add screenshot or diagram):** Overview of the core libraries (NumPy, Pandas, visualization, sklearn, etc.).
+> **On screen:** Overview of the core libraries (NumPy, Pandas, visualization, sklearn, etc.).
+
+## Helpful video
+
+Ultra-quick **pandas** warm-up (under 7 minutes): DataFrames, a few operations, and a tiny exercise—enough to see why the stack matters after you install it.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m1_33jhhiLE" title="Learn PANDAS in 5 minutes | Pandas Ultraquick Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Prerequisites
 
@@ -92,7 +100,7 @@ conda install jupyter notebook
 
 > **Note:** Each `conda install` command will ask for confirmation. Type `y` and press Enter each time. The installation may take 5-10 minutes total.
 
-> **Figure (add screenshot or diagram):** Terminal showing **conda install** progress.
+> **On screen:** Terminal showing **conda install** progress.
 
 ### Step 4: Verify Installation
 
@@ -121,13 +129,23 @@ print(f"Seaborn version: {sns.__version__}")
 print(f"Scikit-learn version: {sklearn.__version__}")
 print(f"Statsmodels version: {sm.__version__}")
 ```
+```
+All libraries installed successfully.
+NumPy version: 2.4.3
+Pandas version: 3.0.1
+Matplotlib version: 3.10.8
+Seaborn version: 0.13.2
+Scikit-learn version: 1.8.0
+Statsmodels version: 0.14.6
+```
+
 
 4. You should see version numbers for each library
 5. Type **exit()** to leave Python
 
 > **Troubleshooting:** If you see an error like "ModuleNotFoundError", that library didn't install correctly. Try installing it again with `conda install library_name`.
 
-> **Figure (add screenshot or diagram):** Python REPL printing library versions after successful imports.
+> **On screen:** Python REPL printing library versions after successful imports.
 
 ## Option 2: Using uv
 
@@ -161,7 +179,7 @@ uv pip install numpy pandas matplotlib seaborn scikit-learn statsmodels jupyter 
 
 > **Tip:** `uv` handles dependency conflicts automatically, so you don't need to worry about package versions!
 
-> **Figure (add screenshot or diagram):** **uv pip install** finishing quickly in the terminal.
+> **On screen:** **uv pip install** finishing quickly in the terminal.
 
 ## Common Issues & Troubleshooting
 

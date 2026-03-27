@@ -1,12 +1,16 @@
 # Confusion Matrix
 
+**After this lesson:** you can explain the core ideas in “Confusion Matrix” and reproduce the examples here in your own notebook or environment.
+
 ## Introduction
 
 A confusion matrix is a fundamental tool in machine learning for evaluating classification models. It provides a detailed breakdown of model predictions versus actual values, helping to understand model performance across different classes.
 
 ### Video Tutorial: Confusion Matrix Explained
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Kdsp6soqA7o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *StatQuest: Machine Learning Fundamentals: The Confusion Matrix by Josh Starmer*
 
@@ -73,6 +77,9 @@ plt.xlabel('Predicted Label')
 plt.show()
 ```
 
+
+![confusion-matrix](assets/confusion-matrix_fig_1.png)
+
 ### 2. Multi-class Classification
 
 ```python
@@ -102,6 +109,9 @@ plt.ylabel('True Label')
 plt.xlabel('Predicted Label')
 plt.show()
 ```
+
+
+![confusion-matrix](assets/confusion-matrix_fig_2.png)
 
 ## Interpreting Confusion Matrices
 
@@ -218,6 +228,9 @@ plt.ylabel('True Label')
 plt.xlabel('Predicted Label')
 plt.show()
 ```
+
+
+![confusion-matrix](assets/confusion-matrix_fig_3.png)
 
 ## Additional Resources
 

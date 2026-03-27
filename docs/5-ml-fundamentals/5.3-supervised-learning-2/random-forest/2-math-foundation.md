@@ -1,6 +1,14 @@
 # Mathematical Foundation of Random Forest
 
+**After this lesson:** you can explain the core ideas in “Mathematical Foundation of Random Forest” and reproduce the examples here in your own notebook or environment.
+
 Let's break down the mathematical concepts behind Random Forests in a way that's easy to understand. Think of this as learning the rules of a game - once you understand the basic principles, everything else makes more sense!
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Bootstrap Aggregating (Bagging)
 

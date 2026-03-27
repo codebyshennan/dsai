@@ -1,5 +1,7 @@
 # Getting Started with Snowflake Trial Account
 
+**After this guide:** you have a trial login, can open **Snowsight**, choose role and warehouse, run SQL in a worksheet, and see query history—enough to follow Snowflake-specific lessons.
+
 ## What is Snowflake?
 
 Snowflake is a cloud-based data warehouse - think of it as a super-powered database that lives in the cloud and can handle massive amounts of data. The best part? You can try it for **free for 30 days**!
@@ -17,7 +19,13 @@ Snowflake is a cloud-based data warehouse - think of it as a super-powered datab
 - ✅ **Fast queries** - Optimized for speed
 - ✅ **Easy to use** - Uses standard SQL (the language you'll learn in this course!)
 
-> **Figure (add screenshot or diagram):** Snowsight / Worksheets main UI.
+> **On screen:** Snowsight / Worksheets main UI.
+
+## Helpful video
+
+UI orientation: worksheets, warehouses, databases, roles, and query history—useful right after you activate a trial account.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QDUAvwBt2a0" title="Getting started with Snowflake - UI overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## System Requirements
 
@@ -42,7 +50,7 @@ Snowflake is a cloud-based data warehouse - think of it as a super-powered datab
 1. Visit [Snowflake Trial Sign Up](https://signup.snowflake.com/)
 2. Click **"Start for Free"** or **"Try Snowflake Free"**
 
-> **Figure (add screenshot or diagram):** Trial sign-up form.
+> **On screen:** Trial sign-up form.
 
 **Step 2: Fill Out Registration Form**
 - **Email:** Use your business or school email (personal emails work too!)
@@ -88,7 +96,7 @@ When you first log in, you'll see different "roles" you can use:
 
 For now, just use **ACCOUNTADMIN** - it gives you access to everything.
 
-> **Figure (add screenshot or diagram):** Role / warehouse context selector.
+> **On screen:** Role / warehouse context selector.
 
 **Step 2: Create a Warehouse**
 
@@ -98,7 +106,7 @@ A "warehouse" in Snowflake is like a computer that runs your SQL queries. You ne
 2. Click **"Warehouses"** (or look for the warehouse icon)
 3. Click the **"Create"** button (usually a "+" or "Create Warehouse" button)
 
-> **Figure (add screenshot or diagram):** Warehouse size / auto-suspend settings.
+> **On screen:** Warehouse size / auto-suspend settings.
 
 4. Fill in the details:
    - **Name:** Something like "LEARNING_WH" or "MY_WAREHOUSE"

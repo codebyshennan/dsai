@@ -1,5 +1,13 @@
 # Data Visualization: A Beginner's Guide
 
+**After this lesson:** you can explain the core ideas in “Data Visualization: A Beginner's Guide” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Orientation for the course visualization materials.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Prerequisites
 
 - You can run short Python snippets or read charts in a slide deck; no advanced statistics required.
@@ -43,6 +51,10 @@ Think of charts like different types of maps:
 
 ### 1. Line Chart
 
+**Purpose:** Plot an ordered category (weekday) against a numeric measure (steps) to see day-to-day variation.
+
+**Walkthrough:** `plot` with `marker='o'` emphasizes discrete days; grid and title explain units.
+
 ```python
 # The simplest line chart - like tracking your daily steps
 import matplotlib.pyplot as plt
@@ -61,6 +73,9 @@ plt.grid(True, linestyle='--', alpha=0.7)
 plt.show()
 ```
 
+
+![beginners-guide](assets/beginners-guide_fig_1.png)
+
 **When to use:**
 
 - Tracking daily activities
@@ -68,6 +83,10 @@ plt.show()
 - Comparing trends
 
 ### 2. Bar Chart
+
+**Purpose:** Compare counts across unordered categories (flavors) with bar height as the encoding.
+
+**Walkthrough:** `bar` takes parallel lists of labels and values; per-bar `color` is optional; `xticks(rotation=45)` avoids label overlap.
 
 ```python
 # A simple bar chart - like comparing favorite ice cream flavors
@@ -87,6 +106,9 @@ plt.xticks(rotation=45)
 plt.show()
 ```
 
+
+![beginners-guide](assets/beginners-guide_fig_2.png)
+
 **When to use:**
 
 - Comparing quantities
@@ -94,6 +116,10 @@ plt.show()
 - Displaying survey results
 
 ### 3. Pie Chart
+
+**Purpose:** Show how a day divides into parts that sum to 100%—appropriate when “share of total” is the question.
+
+**Walkthrough:** `pie` takes magnitudes (hours); `autopct` prints percentages; `colors` overrides default palette.
 
 ```python
 # A basic pie chart - like showing how you spend your day
@@ -110,6 +136,9 @@ plt.pie(hours, labels=activities, autopct='%1.1f%%',
 plt.title('How I Spend My Day', fontsize=14, pad=20)
 plt.show()
 ```
+
+
+![beginners-guide](assets/beginners-guide_fig_3.png)
 
 **When to use:**
 
@@ -139,12 +168,20 @@ plt.show()
 
 ### 1. Add Colors
 
+**Purpose:** Differentiate bars with fill and outline color instead of relying on the default single color.
+
+**Walkthrough:** `edgecolor` outlines each bar; assumes `months` and `expenses` exist like earlier examples.
+
 ```python
 # Instead of plain bars
 plt.bar(months, expenses, color='skyblue', edgecolor='navy')
 ```
 
 ### 2. Add Some Style
+
+**Purpose:** Apply a bundled Matplotlib style sheet so typography and colors stay consistent across figures.
+
+**Walkthrough:** `plt.style.use('seaborn')` selects a named style; run once per session or notebook.
 
 ```python
 # Make it look nicer
@@ -153,11 +190,20 @@ plt.style.use('seaborn')  # Uses a pre-made style
 
 ### 3. Add Explanations
 
+**Purpose:** Anchor the chart with a small data-source note in figure coordinates—common in reports.
+
+**Walkthrough:** `figtext` uses 0–1 figure coordinates; `ha='right'` aligns the caption to the bottom-right margin.
+
 ```python
 # Add a note about the data
 plt.figtext(0.99, 0.01, 'Data source: My Budget App',
             ha='right', va='bottom', fontsize=8)
 ```
+
+
+![beginners-guide](assets/beginners-guide_fig_4.png)
+
+**Captured output (notebook):** The last line may print the `Text` artist returned by `figtext`—that is normal; the annotation still appears on the figure.
 
 ## Tips for Beginners
 

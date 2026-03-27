@@ -1,8 +1,14 @@
 # Data Engineering Assignment
 
-## Overview
+**After this lesson:** You design or prototype an **ETL**-style pipeline (code or diagram plus narrative) with extract, transform, and load steps, basic quality checks, and a plausible failure-handling story.
 
-**Primary outcome:** You design or prototype an **ETL**-style pipeline (code or diagram plus narrative) with extract, transform, and load steps, basic quality checks, and a plausible failure-handling story.
+## Helpful video
+
+DAGs, tasks, and scheduling—conceptual background for ETL-style pipelines.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eeSLDdz-aLg" title="Apache Airflow Tutorial for Beginners" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [ETL fundamentals](etl-fundamentals.md), [data storage](data-storage.md), and [data integration](data-integration.md). Comfortable Python; optional [Airflow](../../0-prep/airflow.md) if you orchestrate with it.
 
@@ -57,7 +63,10 @@ You'll be building an enterprise-grade data pipeline for an e-commerce company t
 
 ## Setup
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Required libraries
 import pandas as pd
 import numpy as np
@@ -73,7 +82,29 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Required libraries</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From typing import Dict, List, Any</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 8–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Tasks
 
@@ -86,7 +117,10 @@ a) API Integration (10 points)
 - Implement error handling and retries
 - Add rate limiting
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class SalesAPIClient:
     """
     Implement API client for sales data
@@ -104,7 +138,29 @@ class SalesAPIClient:
         """Implement rate limiting"""
         # Your code here
         pass
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class SalesAPIClient:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def fetch_sales(self, start_date: str, end_da…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–17: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 b) Database Integration (10 points)
 
@@ -124,7 +180,10 @@ c) File Integration (5 points)
 
 a) Data Cleaning (10 points)
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataCleaner:
     """
     Implement data cleaning operations
@@ -146,7 +205,29 @@ class DataCleaner:
         """
         # Your code here
         pass
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DataCleaner:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">- Validate data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–21: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 b) Data Enrichment (10 points)
 
@@ -166,7 +247,10 @@ c) Data Quality (5 points)
 
 a) Schema Design (10 points)
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class WarehouseSchema:
     """
     Define data warehouse schema
@@ -205,7 +289,38 @@ class WarehouseSchema:
         with engine.connect() as conn:
             conn.execute(dim_date)
             conn.execute(fact_sales)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class WarehouseSchema:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Customer_id INTEGER,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Date DATE,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–38: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 b) Data Loading (10 points)
 
@@ -225,7 +340,10 @@ c) Performance Optimization (5 points)
 
 a) Pipeline Implementation (10 points)
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataPipeline:
     """
     Implement data pipeline
@@ -257,7 +375,38 @@ class DataPipeline:
         except Exception as e:
             logger.error(f"Pipeline failed: {str(e)}")
             raise
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DataPipeline:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&quot;&quot;&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-31" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Raw_data = self.api_client.fetch_sales(start_…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 21–31: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 b) Monitoring and Logging (5 points)
 
@@ -312,7 +461,10 @@ b) Testing
 
 ## Solution Template
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Configuration
 config = {
     'api': {
@@ -394,7 +546,65 @@ if __name__ == "__main__":
         
     except Exception as e:
         logger.error(f"Pipeline failed: {str(e)}")
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Configuration</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;failed_path&#x27;: &#x27;data/failed&#x27;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–27: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-40" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&quot;&quot;&quot;Initialize pipeline components&quot;&quot;&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 28–40: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="41-54" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Self.cleaner = DataCleaner()</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 41–54: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="55-67" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Logger.info(&quot;Daily load completed successfully&quot;)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 55–67: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="68-81" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Your code here</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 68–81: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Bonus Challenges
 

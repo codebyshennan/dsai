@@ -1,5 +1,7 @@
 # Two-Variable Statistics
 
+**After this lesson:** you can explain the core ideas in “Two-Variable Statistics” and reproduce the examples here in your own notebook or environment.
+
 ## Understanding Relationships Between Variables
 
 Have you ever wondered:
@@ -9,6 +11,14 @@ Have you ever wondered:
 - Does ice cream sales affect sunburn cases?
 
 Let's learn how to understand relationships between different variables!
+
+### Video
+
+<div class="video-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xZ_z8KWkhXE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+*StatQuest with Josh Starmer — Correlation and covariance, clearly explained*
 
 ## Correlation vs. Causation
 

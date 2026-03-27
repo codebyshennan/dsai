@@ -1,5 +1,7 @@
 # Code Execution Output: logistic-regression.md
 
+**After this lesson:** you can explain the core ideas in “Code Execution Output: logistic-regression.md” and reproduce the examples here in your own notebook or environment.
+
 This file contains the output from running the code blocks in `logistic-regression.md`.
 
 

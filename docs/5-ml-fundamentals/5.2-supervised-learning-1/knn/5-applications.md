@@ -1,9 +1,17 @@
 # Real-World Applications of KNN: From Theory to Practice
 
+**After this lesson:** you can explain the core ideas in “Real-World Applications of KNN: From Theory to Practice” and reproduce the examples here in your own notebook or environment.
+
 Welcome to the applications section! Here we'll explore how KNN is used in real-world scenarios. Each example will show you how to apply KNN to solve practical problems.
 
 ![Movie Ratings Matrix](assets/movie_ratings.png)
 *Figure: Example of a movie ratings matrix used in recommendation systems*
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Why Applications Matter
 
@@ -19,6 +27,13 @@ Understanding real-world applications helps you:
 Imagine you're building a movie streaming service. You want to recommend movies to users based on what they've watched before.
 
 ### How It Works
+
+#### Item–item `NearestNeighbors` on a ratings matrix
+
+**Purpose:** Scales user-rating vectors per movie, indexes them with `NearestNeighbors`, and returns the closest movies (excluding self) with a simple similarity score.
+
+**Walkthrough:**
+- `MovieRecommender` stores `StandardScaler` and `NearestNeighbors(k+1)`; `recommend` uses `kneighbors` on the query row and strips the first neighbor (self).
 
 ```python
 import pandas as pd
@@ -84,7 +99,15 @@ KNN can help doctors make better diagnoses by comparing new patients with simila
 
 ### Building a Diagnosis System
 
+#### `Pipeline` with scaling and distance-weighted KNN + `predict_proba`
+
+**Purpose:** Wraps `StandardScaler` and `KNeighborsClassifier(weights='distance')` so vitals are scaled before neighbors are found; exposes diagnosis labels and confidence from max class probability.
+
+**Walkthrough:**
+- `Pipeline([('scaler', ...), ('classifier', ...)])`; `predict_proba` / `predict` on new patient rows.
+
 ```python
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
@@ -140,6 +163,13 @@ print(f"Diagnosis: {diagnosis[0]} (confidence: {confidence[0]:.2f})")
 KNN can help find similar images, useful for photo organization or product search.
 
 ### Building an Image Finder
+
+#### Pixel-vector index with `NearestNeighbors`
+
+**Purpose:** Loads images, resizes to 64×64 grayscale, flattens pixels to vectors, and uses `NearestNeighbors` to retrieve the nearest stored images by distance.
+
+**Walkthrough:**
+- `Image.open`, `resize`, `convert('L')`, `np.array(...).flatten()`; `model.fit(features)`; `kneighbors` on query features; similarity as `1 - distance`.
 
 ```python
 from PIL import Image
@@ -208,7 +238,15 @@ KNN can help identify unusual patterns that might indicate fraud.
 
 ### Building a Fraud Detector
 
+#### `LocalOutlierFactor` for anomaly scores and ranked fraud cases
+
+**Purpose:** Fits LOF on transaction features to label inliers vs outliers (`-1`) and ranks negative-outlier-factor scores for inspection.
+
+**Walkthrough:**
+- `LocalOutlierFactor(n_neighbors=20, contamination=...)`; `fit_predict`; `negative_outlier_factor_`; `np.where` for anomaly indices.
+
 ```python
+import numpy as np
 from sklearn.neighbors import LocalOutlierFactor
 
 class FraudDetector:
@@ -261,9 +299,23 @@ for case in fraud_cases:
     print(f"Transaction {case['transaction_id']}: Score {case['fraud_score']:.2f}")
 ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Potential fraud cases:
+Transaction 1: Score 1.01
+```
+
 ## Common Challenges and Solutions
 
 1. **Handling Large Datasets**
+
+   #### `algorithm='ball_tree'` for faster neighbor queries
+
+   **Purpose:** Uses scikit-learn’s ball-tree backend (with tunable `leaf_size`) to accelerate neighbor search on large dense training sets.
+
+   **Walkthrough:**
+   - `KNeighborsClassifier(..., algorithm='ball_tree', leaf_size=30)`.
 
    ```python
    # Use ball tree for faster searches
@@ -276,6 +328,13 @@ for case in fraud_cases:
 
 2. **Dealing with Imbalanced Data**
 
+   #### SMOTE oversampling before fitting KNN
+
+   **Purpose:** Synthesizes minority-class examples so `X_balanced` / `y_balanced` have more balanced class counts for distance-based learning.
+
+   **Walkthrough:**
+   - `SMOTE().fit_resample(X, y)`.
+
    ```python
    from imblearn.over_sampling import SMOTE
    
@@ -285,6 +344,13 @@ for case in fraud_cases:
    ```
 
 3. **Choosing the Right Distance Metric**
+
+   #### Cosine vs Euclidean for different feature types
+
+   **Purpose:** Illustrates picking `cosine` when vectors are sparse or direction matters (e.g. text) and `euclidean` for dense numeric magnitude features.
+
+   **Walkthrough:**
+   - `KNeighborsClassifier(metric='cosine')` vs `metric='euclidean'`.
 
    ```python
    # For text data
@@ -298,6 +364,13 @@ for case in fraud_cases:
 
 1. **Always Preprocess Your Data**
 
+   #### Standardize `X` before KNN
+
+   **Purpose:** Applies zero-mean unit-variance scaling across columns so no single feature dominates distance.
+
+   **Walkthrough:**
+   - `StandardScaler().fit_transform(X)`.
+
    ```python
    from sklearn.preprocessing import StandardScaler
    scaler = StandardScaler()
@@ -306,6 +379,13 @@ for case in fraud_cases:
 
 2. **Validate Your Model**
 
+   #### 5-fold CV mean accuracy
+
+   **Purpose:** Estimates generalization of the KNN on scaled features with stratified (default) k-fold CV.
+
+   **Walkthrough:**
+   - `cross_val_score(knn, X_scaled, y, cv=5)`; `scores.mean()`.
+
    ```python
    from sklearn.model_selection import cross_val_score
    scores = cross_val_score(knn, X_scaled, y, cv=5)
@@ -313,6 +393,13 @@ for case in fraud_cases:
    ```
 
 3. **Monitor Performance**
+
+   #### Per-class metrics from `classification_report`
+
+   **Purpose:** Prints precision, recall, and F1 per class and aggregates for the test predictions vs `y_test`.
+
+   **Walkthrough:**
+   - `knn.predict(X_test)`; `classification_report(y_test, y_pred)`.
 
    ```python
    from sklearn.metrics import classification_report

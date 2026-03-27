@@ -1,5 +1,7 @@
 # Model Check-Ups: Making Sure Your Predictions Are Trustworthy
 
+**After this lesson:** you can explain the core ideas in “Model Check-Ups: Making Sure Your Predictions Are Trustworthy” and reproduce the examples here in your own notebook or environment.
+
 ## Why this matters
 
 - **Residuals** and diagnostic plots turn “the model ran” into “the model fits the problem.”
@@ -15,7 +17,9 @@ Welcome to the world of model diagnostics! Think of this guide as a "health chec
 
 ### Video Tutorial: Model Diagnostics and Residual Analysis
 
+<div class="video-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/U1sISt-vsTA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 *Model Adequacy Checking - Regression Assumptions and Residuals*
 
@@ -41,6 +45,12 @@ To make sure your model is healthy, we need to check four main assumptions. Thin
 **Everyday analogy**: Imagine measuring a child's growth. Growth is usually linear for a few years, but not over an entire lifetime - babies grow quickly, teens grow in spurts, and adults stop growing. If you try to use a straight line to predict height based on age from birth to adulthood, it won't work well.
 
 **How to check it**: Look at a "residual plot" - a graph showing the difference between our predictions and the actual values.
+
+**Residuals vs fitted for the linear mean structure**
+
+**Purpose:** Plot residuals against fitted values and draw a zero reference line so you can see curvature, heteroscedasticity, or other patterns that violate linearity.
+
+**Walkthrough:** `model.predict(X)` gives fitted values; subtracting from `y` yields residuals; `plt.axhline(0, ...)` marks the ideal random-scatter band.
 
 ```python
 import numpy as np
@@ -81,6 +91,12 @@ def check_if_relationship_is_straight(model, X, y):
 
 **How to check it**: For time-based data, we can use a test called the Durbin-Watson test to check for patterns over time.
 
+**Durbin–Watson statistic on a residual series**
+
+**Purpose:** Summarize first-order autocorrelation in ordered residuals (often time-ordered) with a single statistic near 2 when errors are uncorrelated.
+
+**Walkthrough:** `durbin_watson(errors)` from statsmodels expects a 1D residual array; values far below or above 2 suggest positive or negative serial correlation.
+
 ```python
 from statsmodels.stats.stattools import durbin_watson
 
@@ -106,6 +122,12 @@ def check_if_points_are_independent(errors):
 **Everyday analogy**: Imagine a weather forecast. A good forecasting system should be equally accurate whether predicting for summer or winter, not more accurate in one season than another.
 
 **How to check it**: We look at how the size of errors changes across different predicted values.
+
+**Absolute residuals vs fitted (scale-location style)**
+
+**Purpose:** Plot `|residual|` against fitted values to spot funnels or trends that indicate non-constant variance (heteroscedasticity).
+
+**Walkthrough:** Same fitted values and residuals as the linearity plot; taking `np.abs` emphasizes magnitude of error rather than sign.
 
 ```python
 def check_if_error_spread_is_even(model, X, y):
@@ -138,6 +160,12 @@ def check_if_error_spread_is_even(model, X, y):
 **Everyday analogy**: Think of archery. If you aim at a target many times, most arrows will land close to the bullseye, with fewer and fewer landing as you move further away, creating a bell curve pattern around your target.
 
 **How to check it**: We look at the distribution of errors with histograms and what's called a "Q-Q plot."
+
+**Histogram, Q-Q plot, and Shapiro–Wilk on residuals**
+
+**Purpose:** Compare the residual distribution to a normal reference both visually (histogram and Q-Q) and with a formal normality test p-value.
+
+**Walkthrough:** `stats.probplot(..., dist="norm", plot=ax)` overlays theoretical normal quantiles; `stats.shapiro` returns a test statistic and p-value for small-to-moderate sample sizes.
 
 ```python
 def check_if_errors_follow_bell_curve(errors):
@@ -175,6 +203,12 @@ Sometimes, just a few unusual data points can have an outsized impact on your mo
 **What it means**: Cook's Distance helps us find data points that, if removed, would significantly change our model.
 
 **Everyday analogy**: In a classroom discussion, some students might significantly change the direction of the conversation if they were absent. Cook's Distance helps us identify those influential "conversation changers."
+
+**Cook’s distance from residuals, leverage, and MSE**
+
+**Purpose:** Compute Cook’s \(D_i\) for each observation and plot it against index with a simple rule-of-thumb cutoff to flag high-influence points.
+
+**Walkthrough:** Leverage comes from the hat matrix diagonal; `mse` uses residual sum of squares divided by `n - p`; the stem plot compares each \(D_i\) to `4/n`.
 
 ```python
 def find_all_around_troublemakers(model, X, y):
@@ -214,6 +248,12 @@ def find_all_around_troublemakers(model, X, y):
 
 **Everyday analogy**: In a study about the relationship between age and height among children, a 45-year-old would have high leverage because their age is unusual compared to the other subjects.
 
+**Leverage (hat values) for each row of X**
+
+**Purpose:** Show how extreme each observation’s predictors are in predictor space via the diagonal of the hat matrix, with a common \(2p/n\) reference line.
+
+**Walkthrough:** Same hat-matrix construction as Cook’s distance; `np.diagonal` extracts leverage \(h_{ii}\) for plotting.
+
 ```python
 def find_unusual_x_values(X):
     """Find data points with unusual X values."""
@@ -239,6 +279,12 @@ def find_unusual_x_values(X):
 ## Let's Put It All Together: A Complete Check-Up
 
 Here's a function that performs all these checks at once:
+
+**End-to-end diagnostic runner**
+
+**Purpose:** Chain the helper plots and prints—linearity, Durbin–Watson, spread, normality, Cook’s distance, and leverage—and return residuals plus influence summaries.
+
+**Walkthrough:** The function calls the previously defined helpers in order, then prints counts of points above simple leverage and Cook thresholds.
 
 ```python
 def give_model_complete_checkup(model, X, y):
@@ -293,6 +339,12 @@ def give_model_complete_checkup(model, X, y):
 
 Let's see how this works with some example data:
 
+**Synthetic data with an outlier and heteroscedastic noise, then full check-up**
+
+**Purpose:** Build a two-predictor design with one extreme row, fit `LinearRegression`, and run `give_model_complete_checkup` to see diagnostics and printed guidance together.
+
+**Walkthrough:** `np.abs(X[:, 0])` scales the noise to create heteroscedastic-like behavior; `model.fit` then feeds the same `X` into the check-up pipeline.
+
 ```python
 # Create some example data
 np.random.seed(42)  # This makes the "random" numbers the same each time
@@ -315,6 +367,8 @@ results = give_model_complete_checkup(model, X, y)
 ```
 
 ![model-diagnostics_fig_8](assets/model-diagnostics_fig_8.png)
+
+**Captured output (example):** Section order and wording come from the helper `print` calls; Durbin–Watson, Shapiro p-value, and counts depend on the synthetic data and may differ slightly if you change `X`, `y`, or the seed.
 
 ```
 === MODEL CHECK-UP RESULTS ===

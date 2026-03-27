@@ -1,5 +1,13 @@
 # Real-World Applications of SVM
 
+**After this lesson:** you can explain the core ideas in “Real-World Applications of SVM” and reproduce the examples here in your own notebook or environment.
+
+## Helpful video
+
+Crash Course AI: supervised learning for classical algorithms.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Learning Objectives
 
 By the end of this section, you will be able to:
@@ -22,6 +30,9 @@ SVM can be applied to various real-world problems, each requiring different conf
 ### Spam Detection System
 
 Let's build a simple spam detector that can classify emails:
+
+#### TF-IDF + linear SVC spam classifier
+**Purpose:** Train on a tiny email corpus, report accuracy, and classify a new message with probability and uncertainty flags.
 
 ```python
 import numpy as np
@@ -116,6 +127,14 @@ if result['uncertain']:
     print("This email requires manual review (uncertain classification)")
 ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Accuracy: 0.33
+Email classified as: NOT SPAM
+Confidence: 0.16
+```
+
 **Explanation:**
 - This example demonstrates a complete spam detection system using SVM
 - We use TF-IDF vectorization to convert email text into numerical features
@@ -129,6 +148,9 @@ if result['uncertain']:
 ### Simple Image Classifier
 
 Let's create a simple image classifier using SVM:
+
+#### Synthetic 2D features and RBF SVC for two classes
+**Purpose:** Stand in for image feature vectors; evaluate accuracy and `predict_proba` for a new point.
 
 ```python
 import numpy as np
@@ -257,6 +279,14 @@ def plot_classifier():
 # plot_classifier()
 ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Accuracy: 1.00
+Classified as: Dog
+Confidence: 0.99
+```
+
 **Explanation:**
 - This example demonstrates an image classifier using SVM with an RBF kernel
 - We use synthetic data to represent extracted features from cat and dog images
@@ -271,6 +301,9 @@ def plot_classifier():
 ### Disease Classifier
 
 Here's how SVM can be used for medical diagnosis:
+
+#### Synthetic vitals + ROC-AUC, sensitivity, and specificity
+**Purpose:** Cross-validate on the training fold, then fit and report clinical-style metrics and a `diagnose_patient` helper.
 
 ```python
 import numpy as np
@@ -392,6 +425,21 @@ print(f"Risk Level: {diagnosis_result['risk_level']}")
 print(f"Recommendation: {diagnosis_result['recommendation']}")
 ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Cross-validation ROC-AUC: 1.00 ± 0.00
+Test ROC-AUC: 1.00
+Sensitivity: 1.00
+Specificity: 1.00
+
+Patient Diagnosis:
+Diagnosis: POSITIVE
+Disease Probability: 0.92
+Risk Level: Very High Risk
+Recommendation: Refer to specialist
+```
+
 **Explanation:**
 - This example shows how SVM can be used to create a medical diagnosis system
 - We use synthetic data representing medical measurements like blood glucose, blood pressure, etc.
@@ -412,6 +460,9 @@ print(f"Recommendation: {diagnosis_result['recommendation']}")
 ### Credit Risk Assessment
 
 Here's how SVM can be used for credit risk assessment:
+
+#### Credit risk labels and `assess_credit_risk` helper
+**Purpose:** Train on synthetic applicant features, print `classification_report` and confusion matrix, then score a new applicant.
 
 ```python
 import numpy as np
@@ -529,6 +580,31 @@ if risk_assessment['manual_review_required']:
     print("This application requires manual review by a credit officer")
 ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Credit Risk Model Evaluation:
+              precision    recall  f1-score   support
+
+    Low Risk       1.00      1.00      1.00        50
+   High Risk       1.00      1.00      1.00        25
+
+    accuracy                           1.00        75
+   macro avg       1.00      1.00      1.00        75
+weighted avg       1.00      1.00      1.00        75
+
+
+Confusion Matrix:
+[[50  0]
+ [ 0 25]]
+
+New Applicant Risk Assessment:
+Risk Level: Very Low Risk
+Risk Probability: 0.12
+Recommendation: Approve
+Suggested Interest Rate: Low
+```
+
 **Explanation:**
 - This example demonstrates using SVM for credit risk assessment
 - We use synthetic data with features like income, credit score, employment history, and debt ratio
@@ -549,6 +625,9 @@ if risk_assessment['manual_review_required']:
 ### 1. Data Quality Issues
 
 Here's a simple solution for handling missing values:
+
+#### Mean imputation before modeling
+**Purpose:** `SimpleImputer` fills NaNs so downstream SVM pipelines receive dense arrays.
 
 ```python
 import numpy as np
@@ -590,6 +669,22 @@ def handle_missing_data(X):
 X_clean = handle_missing_data(X_with_missing)
 ```
 
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Original data with missing values:
+[[ 1.  2. nan  4.]
+ [ 5. nan nan  8.]
+ [ 9. 10. 11. 12.]
+ [nan 14. 15. 16.]]
+
+Data after imputation:
+[[ 1.          2.         13.          4.        ]
+ [ 5.          8.66666667 13.          8.        ]
+ [ 9.         10.         11.         12.        ]
+ [ 5.         14.         15.         16.        ]]
+```
+
 **Explanation:**
 - Missing data is common in real-world applications and must be handled before using SVM
 - The SimpleImputer replaces missing values with statistical measures like mean, median, or most frequent value
@@ -600,6 +695,9 @@ X_clean = handle_missing_data(X_with_missing)
 ### 2. Feature Scaling
 
 Proper feature scaling is essential for SVM:
+
+#### StandardScaler vs MinMaxScaler on mixed-scale features
+**Purpose:** Print descriptive stats before/after each scaler and plot three scatter panels (runs `plt.show()`).
 
 ```python
 import numpy as np
@@ -683,6 +781,30 @@ def compare_scaling_methods(X):
 scaled_data = compare_scaling_methods(X_unscaled)
 ```
 
+![5-applications](assets/5-applications_fig_1.png)
+
+**Captured stdout** (from running the snippet above; may be auto-injected on build):
+
+```
+Original data statistics:
+Mean: [-1.15564255e+02  3.40223244e-03]
+Std: [8.52020887e+02 9.93851716e-02]
+Min: [-2.61974510e+03 -1.98756891e-01]
+Max: [1.88618590e+03 2.72016917e-01]
+
+StandardScaler statistics:
+Mean: [ 6.57807142e-17 -2.44249065e-17]
+Std: [1. 1.]
+Min: [-2.93910735 -2.03409745]
+Max: [2.34941442 2.7027642 ]
+
+MinMaxScaler statistics:
+Mean: [0.55575215 0.4294188 ]
+Std: [0.18908876 0.21111024]
+Min: [0. 0.]
+Max: [1. 1.]
+```
+
 **Explanation:**
 - Feature scaling is crucial for SVM performance as it's sensitive to the scale of input features
 - Two common scaling methods:
@@ -696,6 +818,9 @@ scaled_data = compare_scaling_methods(X_unscaled)
 ### 3. Class Imbalance
 
 Handling imbalanced classes in SVM:
+
+#### Standard SVM vs `class_weight` vs SMOTE
+**Purpose:** Compare three training strategies on the same held-out test split.
 
 ```python
 import numpy as np

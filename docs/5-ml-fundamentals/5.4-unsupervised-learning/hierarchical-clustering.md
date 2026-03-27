@@ -1,5 +1,7 @@
 # Hierarchical Clustering
 
+**After this lesson:** you can explain the core ideas in “Hierarchical Clustering” and reproduce the examples here in your own notebook or environment.
+
 > **Note**: This content has been consolidated into the main clustering guide for a better learning experience.
 
 Hierarchical clustering is covered comprehensively in:
@@ -14,6 +16,12 @@ This guide includes:
 - Practical examples and visualizations
 
 ---
+
+## Helpful video
+
+StatQuest overview of K-means clustering.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4b5d3muPQmA" title="K-means Clustering, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Quick Reference
 

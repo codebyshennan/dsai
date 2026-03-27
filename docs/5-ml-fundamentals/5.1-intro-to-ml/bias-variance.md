@@ -1,6 +1,14 @@
 # Understanding Bias and Variance in Machine Learning
 
+**After this lesson:** you can explain the core ideas in “Understanding Bias and Variance in Machine Learning” and reproduce the examples here in your own notebook or environment.
+
 Welcome to the world of machine learning! If you're just starting out, you might have heard terms like "bias" and "variance" thrown around. Don't worry - we're going to break these concepts down in a way that makes sense, even if you're completely new to the field.
+
+## Helpful video
+
+Crash Course AI: how supervised learning fits into ML workflows.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Why Should You Care About Bias and Variance?
 
@@ -117,6 +125,10 @@ Think of high bias like trying to predict the weather using only temperature. Yo
 
 1. **Increase Model Complexity**
 
+   **Purpose:** Reduce underfitting by letting the decision boundary bend (polynomial features) when the relationship is nonlinear.
+
+   **Walkthrough:** `PolynomialFeatures` expands inputs; `LinearRegression` on `X_poly` fits a curve; swap in your real `X` / `y` from the notebook.
+
    ```python
    # Let's say we're trying to predict house prices
    # First, let's see what our data looks like
@@ -151,6 +163,10 @@ Think of high bias like trying to predict the weather using only temperature. Yo
 
 2. **Add More Features**
 
+   **Purpose:** Inject domain knowledge via interactions and derived columns so a linear or additive model can represent more than one raw input.
+
+   **Walkthrough:** `add_interactions` is illustrative—`calculate_distance` must be defined elsewhere or replaced with a real geo feature.
+
    ```python
    # Let's add some meaningful combinations of features
    def add_interactions(df):
@@ -170,6 +186,10 @@ Think of high bias like trying to predict the weather using only temperature. Yo
    ```
 
 3. **Reduce Regularization**
+
+   **Purpose:** When Ridge/Lasso penalty is too strong, sweep smaller `alpha` values to let coefficients grow and reduce bias.
+
+   **Walkthrough:** Loop prints validation `score` per `alpha`; pick the best without peeking at the test set.
 
    ```python
    # Regularization is like putting training wheels on your model
@@ -194,6 +214,10 @@ Think of high variance like a student who memorizes every detail of their notes 
    - Like showing more examples of cats to help someone learn what makes a cat a cat
 
 2. **Reduce Model Complexity**
+
+   **Purpose:** Constrain tree depth and leaf size to lower variance when the forest memorizes noise.
+
+   **Walkthrough:** Compare `max_depth`, `min_samples_leaf`, and `n_estimators` settings side by side on the same split.
 
    ```python
    # Let's say we're using a random forest that's overfitting
@@ -224,6 +248,10 @@ Think of high variance like a student who memorizes every detail of their notes 
 
 3. **Add Regularization**
 
+   **Purpose:** Use L1 (`Lasso`) to shrink some coefficients to zero—automatic feature selection plus variance control.
+
+   **Walkthrough:** Nonzero entries in `model.coef_` after `fit` show which columns survived at this `alpha`.
+
    ```python
    # Regularization helps prevent overfitting
    from sklearn.linear_model import Lasso
@@ -238,6 +266,10 @@ Think of high variance like a student who memorizes every detail of their notes 
    ```
 
 4. **Feature Selection**
+
+   **Purpose:** Drop weak inputs so the model cannot fit spurious patterns in irrelevant columns.
+
+   **Walkthrough:** `SelectKBest` scores features against `y`; `get_support` maps back to original column names.
 
    ```python
    # Sometimes less is more
@@ -259,6 +291,12 @@ Think of model tuning like tuning a guitar - you need to adjust each string (par
 ### 1. Cross-Validation: Testing Your Model's True Performance
 
 Cross-validation is like taking multiple practice tests before the real exam. It helps ensure your model's performance is reliable.
+
+#### Cross-validate and plot fold scores
+
+**Purpose:** Estimate mean performance and variability across folds—wider spread suggests higher variance or unstable data splits.
+
+**Walkthrough:** `cross_val_score` returns one score per fold; the horizontal red line marks the mean for quick eyeballing.
 
 ```python
 from sklearn.model_selection import cross_val_score
@@ -294,6 +332,12 @@ scores = evaluate_model(model, X, y)
 ### 2. Grid Search: Finding the Best Parameters
 
 Grid search is like trying different combinations of ingredients to find the perfect recipe. It systematically tries different parameter combinations to find the best one.
+
+#### Grid-search hyperparameters with nested CV scoring
+
+**Purpose:** Jointly tune forest depth, tree count, and split thresholds while guarding against lucky single splits via `cv=5`.
+
+**Walkthrough:** `best_params_` / `best_score_` come from inner CV; the heatmap pivots `cv_results_`—requires `pandas` and `seaborn` in the environment.
 
 ```python
 from sklearn.model_selection import GridSearchCV
@@ -339,6 +383,12 @@ plt.show()
 ### 3. Validation Curves: Understanding Your Model's Behavior
 
 Validation curves help you understand how your model behaves as you change a single parameter. It's like testing how a car performs at different speeds.
+
+#### Validation curve for one hyperparameter
+
+**Purpose:** Separate bias and variance contributions of a single knob (here `max_depth`): training vs CV gap shows overfitting onset.
+
+**Walkthrough:** `validation_curve` fixes other params on `model`; shaded bands are $\pm$1 std across folds.
 
 ```python
 from sklearn.model_selection import validation_curve
@@ -450,4 +500,4 @@ Remember: Finding the right balance between bias and variance is an iterative pr
    - Yellowbrick for visualization
    - Optuna for hyperparameter optimization
 
-Happy modeling! 🚀
+Happy modeling!

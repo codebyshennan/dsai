@@ -1,6 +1,14 @@
 # Implementing Regularization
 
+**After this lesson:** you can explain the core ideas in “Implementing Regularization” and reproduce the examples here in your own notebook or environment.
+
 Think of implementing regularization like learning to ride a bicycle - we'll start with the basics and gradually build up to more advanced techniques. Let's make this journey as smooth as possible!
+
+## Helpful video
+
+Crash Course AI: supervised learning framing (~15 min).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Basic Implementation
 
@@ -143,6 +151,24 @@ for name, result in results.items():
     print(f"RMSE: ${result['RMSE']:,.2f}")  # Lower is better
 ```
 
+
+![3-implementation](assets/3-implementation_fig_1.png)
+
+```
+
+Lasso:
+R Score: 0.849
+RMSE: $57,759.84
+
+Ridge:
+R Score: 0.849
+RMSE: $57,761.15
+
+ElasticNet:
+R Score: 0.845
+RMSE: $58,572.77
+```
+
 ## Hyperparameter Tuning
 
 Finding the right regularization strength (alpha) is like finding the right amount of seasoning for a dish - too little and it's bland, too much and it's overwhelming.
@@ -164,6 +190,10 @@ grid_search = GridSearchCV(
 grid_search.fit(X_train, y_train)
 
 print("Best alpha:", grid_search.best_params_['alpha'])
+```
+
+```
+Best alpha: 1
 ```
 
 ## Feature Selection with Lasso
@@ -193,6 +223,16 @@ selected = select_features_lasso(
     pd.DataFrame(X_train, columns=X.columns), 
     y_train
 )
+```
+
+```
+Selected features: 6
+size: 97603.1853
+bedrooms: 68149.6454
+age: -13579.6658
+location_score: 57494.9345
+noise_feature1: -215.6718
+noise_feature2: 2136.7192
 ```
 
 ## Cross-Validation Implementation
@@ -234,6 +274,15 @@ def compare_alphas(X, y, alphas=[0.001, 0.01, 0.1, 1, 10]):
 # Compare alphas
 results_df = compare_alphas(X_scaled, y)
 print(results_df)
+```
+
+```
+    alpha    ridge_rmse    lasso_rmse   elastic_rmse
+0   0.001  52068.418223  52068.418348   52068.402573
+1   0.010  52068.416936  52068.418164   52072.058727
+2   0.100  52068.406433  52068.416387   52448.489489
+3   1.000  52068.538348  52068.398518   68525.490301
+4  10.000  52092.969096  52068.225701  124140.292139
 ```
 
 ## Model Evaluation Functions

@@ -1,8 +1,14 @@
 # Data Quality Assessment: Building Trust in Your Data
 
-## Overview
+**After this lesson:** You can evaluate data along dimensions like **accuracy**, **completeness**, **consistency**, and **timeliness**, and document issues before modeling or reporting.
 
-**Primary outcome:** You can evaluate data along dimensions like **accuracy**, **completeness**, **consistency**, and **timeliness**, and document issues before modeling or reporting.
+## Helpful video
+
+Pandas DataFrames in a quick walkthrough—useful for cleaning and wrangling.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m1_33jhhiLE" title="Learn PANDAS in 5 minutes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 **Prerequisites:** [Pandas](../../1-data-fundamentals/1.5-data-analysis-pandas/README.md) (**describe**, **info**, **value_counts**). [SQL (Module 2.1)](../2.1-sql/README.md) helps if your source data lives in a database.
 
@@ -72,7 +78,15 @@ Let's explore key metrics for measuring data quality with practical examples:
 
 ### 1. Completeness Score
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv('../_data/sales_data.csv')
+
 def calculate_completeness(df):
     """
     Calculate completeness score for each column
@@ -98,11 +112,49 @@ completeness_scores = calculate_completeness(df)
 print("\nCompleteness Scores (%):")
 for col, score in completeness_scores.items():
     print(f"{col}: {score}%")
+{% endhighlight %}
 ```
+
+Completeness Scores (%):
+date: 100.0%
+order_date: 100.0%
+sales: 100.0%
+revenue: 100.0%
+price: 99.17%
+quantity: 99.17%
+category: 100.0%
+email: 99.17%
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def calculate_completeness(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">For column in df.columns:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Accuracy Score
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def check_accuracy(df, rules):
     """
     Check accuracy against business rules
@@ -130,11 +182,36 @@ rules = {
     'price': lambda x: x > 0
 }
 accuracy_scores = check_accuracy(df, rules)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def check_accuracy(df, rules):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–13: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">For column, rule in rules.items():</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 14–27: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Consistency Score
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def check_consistency(df, consistency_rules):
     """
     Check data consistency across columns
@@ -165,8 +242,34 @@ def check_price_consistency(row):
 
 consistency_rules = [check_date_consistency, check_price_consistency]
 consistency_scores = check_consistency(df, consistency_rules)
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def check_consistency(df, consistency_rules):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-30" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Consistent_rows = df.apply(rule, axis=1)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 16–30: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def calculate_completeness(df):
     """Calculate completeness score for each column"""
     total_rows = len(df)
@@ -184,13 +287,50 @@ completeness_scores = calculate_completeness(df)
 print("Completeness Scores (%):")
 for col, score in completeness_scores.items():
     print(f"{col}: {score}%")
+{% endhighlight %}
 ```
+Completeness Scores (%):
+date: 100.0%
+order_date: 100.0%
+sales: 100.0%
+revenue: 100.0%
+price: 99.17%
+quantity: 99.17%
+category: 100.0%
+email: 99.17%
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def calculate_completeness(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Completeness_scores[column] = round(completen…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–17: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Accuracy Score
 
 $Accuracy = \frac{Correct\space Values}{Total\space Values} \times 100$
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def check_accuracy(df, rules):
     """Check accuracy against business rules"""
     accuracy_scores = {}
@@ -208,20 +348,45 @@ rules = {
     'email': lambda x: isinstance(x, str) and '@' in x
 }
 accuracy_scores = check_accuracy(df, rules)
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def check_accuracy(df, rules):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return accuracy_scores</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 9–17: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Real-World Example: E-commerce Data Quality
 
 ### Loading and Initial Assessment
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load sample e-commerce data
-df = pd.read_csv('sales_data.csv')
+df = pd.read_csv('../_data/sales_data.csv')
 
 # Quick overview
 print("Dataset Overview")
@@ -233,11 +398,50 @@ print("\nMemory Usage:", df.memory_usage().sum() / 1024**2, "MB")
 # Data types summary
 print("\nData Types:")
 print(df.dtypes.value_counts())
+{% endhighlight %}
 ```
+Dataset Overview
+==================================================
+Total Records: 120
+Total Features: 8
+
+Memory Usage: 0.007450103759765625 MB
+
+Data Types:
+str        4
+float64    4
+Name: count, dtype: int64
+```
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import pandas as pd</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–9: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Print(&quot;Dataset Overview&quot;)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 10–18: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Comprehensive Quality Assessment
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataQualityAssessment:
     def __init__(self, df):
         self.df = df
@@ -302,13 +506,68 @@ quality_assessment.check_validity(validation_rules)
 
 # Get report
 report = quality_assessment.generate_report()
-```
+{% endhighlight %}
+
+![data-quality](assets/data-quality_fig_1.png)
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class DataQualityAssessment:</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–12: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sns.heatmap(self.df.isnull(), yticklabels=Fal…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 13–25: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&quot;&quot;&quot;Check data validity against rules&quot;&quot;&quot;</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 26–38: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="39-51" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;record_count&#x27;: len(self.df),</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 39–51: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="52-64" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;price&#x27;: lambda x: x &gt; 0,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 52–64: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Advanced Quality Metrics
 
 ### 1. Statistical Quality Control
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def statistical_quality_check(df, column, n_std=3):
     """Perform statistical quality control"""
     mean = df[column].mean()
@@ -329,11 +588,36 @@ def statistical_quality_check(df, column, n_std=3):
         'outliers_count': len(outliers),
         'outliers_percentage': (len(outliers) / len(df)) * 100
     }
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def statistical_quality_check(df, column, n_s…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">(df[column] &gt; upper_bound)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Pattern Analysis
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def analyze_patterns(df, column):
     """Analyze patterns in data"""
     patterns = {
@@ -344,13 +628,29 @@ def analyze_patterns(df, column):
     }
     
     return patterns
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def analyze_patterns(df, column):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Performance Optimization Tips
 
 1. **Memory Efficiency**
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def optimize_datatypes(df):
     """Optimize dataframe memory usage"""
     for col in df.columns:
@@ -359,11 +659,27 @@ def optimize_datatypes(df):
         elif df[col].dtype == 'int64':
             df[col] = pd.to_numeric(df[col], downcast='integer')
     return df
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def optimize_datatypes(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–8: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 2. **Parallel Processing**
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from multiprocessing import Pool
 
 def parallel_quality_check(df_split):
@@ -379,13 +695,38 @@ def parallel_assessment(df, n_processes=4):
     with Pool(n_processes) as pool:
         results = pool.map(parallel_quality_check, splits)
     return results
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">From multiprocessing import Pool</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–7: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return quality_assessment.quality_scores</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 8–15: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Pitfalls and Solutions
 
 1. **Missing Value Interpretation**
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Bad: Dropping all missing values
 df.dropna()
 
@@ -407,11 +748,36 @@ def handle_missing_values(df):
     )
     
     return df
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bad: Dropping all missing values</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Handle numeric columns</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–21: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 2. **Data Type Mismatches**
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def standardize_datatypes(df):
     """Standardize data types across columns"""
     type_mapping = {
@@ -433,11 +799,36 @@ def standardize_datatypes(df):
         df[col] = df[col].astype('category')
     
     return df
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Def standardize_datatypes(df):</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Df[col] = pd.to_datetime(df[col], errors=&#x27;coe…</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–21: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Interactive Quality Dashboard
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -461,7 +852,29 @@ def create_quality_dashboard(df):
     # Show plots
     fig1.show()
     fig2.show()
-```
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import plotly.express as px</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–11: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 12–23: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Practice Exercise: E-commerce Data Quality Assessment
 
@@ -472,7 +885,10 @@ def create_quality_dashboard(df):
 5. Generate quality report
 6. Visualize results
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Sample solution structure
 def assess_ecommerce_data(file_path):
     # Load data
@@ -503,8 +919,42 @@ def assess_ecommerce_data(file_path):
     return report
 
 # Run assessment
-report = assess_ecommerce_data('sales_data.csv')
-```
+report = assess_ecommerce_data('../_data/sales_data.csv')
+{% endhighlight %}
+
+![data-quality](assets/data-quality_fig_2.png)
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sample solution structure</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 1–10: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">&#x27;price&#x27;: lambda x: x &gt; 0,</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 11–20: follow this band in the snippet.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-31" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Generate report</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lines 21–31: follow this band in the snippet.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Remember: "Data quality is not a destination, but a continuous journey of improvement!"
 
