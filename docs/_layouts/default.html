@@ -13,6 +13,7 @@
 
 <body>
   <main class="container-lg markdown-body">
+    {% include breadcrumbs.html %}
     {{ content }}
 
     {% if site.github.private != true and site.github.license %}
@@ -24,6 +25,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"
     integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
   <script>anchors.add();</script>
+  <script src="{{ "/assets/js/code-explainer.js" | relative_url }}" defer></script>
+  <script src="{{ "/assets/js/code-blocks.js" | relative_url }}" defer></script>
 </body>
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
 </script>
@@ -38,40 +41,6 @@
   };
   mermaid.initialize(config);
   window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-</script>
-
-<script>
-  // Add copy buttons to code blocks
-  document.addEventListener('DOMContentLoaded', function () {
-    const codeBlocks = document.querySelectorAll('pre code');
-
-    codeBlocks.forEach(function (codeBlock) {
-      const pre = codeBlock.parentNode;
-      /* Primer / GitHub markdown CSS can reset `pre` positioning; without `relative`,
-         the absolute copy button drops into normal flow (e.g. bottom-left). */
-      pre.style.position = 'relative';
-      const copyButton = document.createElement('button');
-      copyButton.type = 'button';
-      copyButton.className = 'copy-button';
-      copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-      copyButton.textContent = 'Copy';
-
-      copyButton.addEventListener('click', function () {
-        const code = codeBlock.textContent;
-        navigator.clipboard.writeText(code).then(function () {
-          copyButton.textContent = 'Copied!';
-          copyButton.classList.add('copied');
-
-          setTimeout(function () {
-            copyButton.textContent = 'Copy';
-            copyButton.classList.remove('copied');
-          }, 2000);
-        });
-      });
-
-      pre.appendChild(copyButton);
-    });
-  });
 </script>
 
 </html>

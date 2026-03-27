@@ -1,0 +1,61 @@
+{% comment %}
+  Path-based trail: Home > each folder README title > current page (or folder README as current).
+  Set breadcrumb: false in front matter to hide. Hidden on site home (index.md).
+{% endcomment %}
+{% unless page.breadcrumb == false %}
+{% unless page.path == 'index.md' %}
+{% assign dir_key = page.dir | remove_first: '/' | remove_last: '/' %}
+<nav class="breadcrumb-nav" aria-label="Breadcrumb">
+  <ol class="breadcrumb-nav__list">
+    <li><a href="{{ '/' | relative_url }}">Home</a></li>
+    {% if dir_key != '' %}
+      {% assign segs = dir_key | split: '/' %}
+      {% assign prefix = '' %}
+      {% for seg in segs %}
+        {% if forloop.first %}
+          {% assign prefix = seg %}
+        {% else %}
+          {% assign prefix = prefix | append: '/' | append: seg %}
+        {% endif %}
+        {% assign readme_path = prefix | append: '/README.md' %}
+        {% assign crumb_page = site.pages | where: 'path', readme_path | first %}
+        {% unless crumb_page %}
+          {% assign crumb_page = site.docs | where: 'path', readme_path | first %}
+        {% endunless %}
+        {% if seg == '_assignments' %}
+          {% assign crumb_label = 'Assignments' %}
+        {% elsif crumb_page %}
+          {% assign crumb_label = crumb_page.title %}
+        {% else %}
+          {% assign crumb_label = seg | replace: '-', ' ' | replace: '_', ' ' %}
+        {% endif %}
+        {% unless forloop.last %}
+          <li>
+            {% if crumb_page %}
+              <a href="{{ crumb_page.url | relative_url }}">{{ crumb_label | escape }}</a>
+            {% else %}
+              <span class="breadcrumb-nav__muted">{{ crumb_label | escape }}</span>
+            {% endif %}
+          </li>
+        {% else %}
+          {% if page.name == 'README.md' %}
+            <li><span class="breadcrumb-nav__current" aria-current="page">{{ page.title | default: crumb_label | escape }}</span></li>
+          {% else %}
+            <li>
+              {% if crumb_page %}
+                <a href="{{ crumb_page.url | relative_url }}">{{ crumb_label | escape }}</a>
+              {% else %}
+                <span class="breadcrumb-nav__muted">{{ crumb_label | escape }}</span>
+              {% endif %}
+            </li>
+            <li><span class="breadcrumb-nav__current" aria-current="page">{{ page.title | escape }}</span></li>
+          {% endif %}
+        {% endunless %}
+      {% endfor %}
+    {% else %}
+      <li><span class="breadcrumb-nav__current" aria-current="page">{{ page.title | escape }}</span></li>
+    {% endif %}
+  </ol>
+</nav>
+{% endunless %}
+{% endunless %}
