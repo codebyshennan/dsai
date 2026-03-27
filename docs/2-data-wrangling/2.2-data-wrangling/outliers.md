@@ -103,7 +103,7 @@ def detect_outliers_zscore(data, threshold=3):
       <span class="code-callout__title">Def detect_outliers_zscore(data, threshold=3):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p><strong>Def detect_outliers_zscore(data, threshold=3):</strong> — lines 1-10. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="11-20" data-tint="2">
@@ -112,7 +112,7 @@ def detect_outliers_zscore(data, threshold=3):
       <span class="code-callout__title">&quot;&quot;&quot;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 11–20: follow this band in the snippet.</p>
+      <p><strong>&quot;&quot;&quot;</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -157,7 +157,7 @@ def detect_outliers_iqr(data, k=1.5):
       <span class="code-callout__title">Def detect_outliers_iqr(data, k=1.5):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Def detect_outliers_iqr(data, k=1.5):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -166,7 +166,7 @@ def detect_outliers_iqr(data, k=1.5):
       <span class="code-callout__title">Q3 = np.percentile(data, 75)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>Q3 = np.percentile(data, 75)</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -206,7 +206,7 @@ def detect_outliers_mad(data, threshold=3.5):
       <span class="code-callout__title">Def detect_outliers_mad(data, threshold=3.5):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–9: follow this band in the snippet.</p>
+      <p><strong>Def detect_outliers_mad(data, threshold=3.5):</strong> — lines 1-9. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="10-19" data-tint="2">
@@ -215,7 +215,7 @@ def detect_outliers_mad(data, threshold=3.5):
       <span class="code-callout__title">Array: Boolean mask of outliers</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 10–19: follow this band in the snippet.</p>
+      <p><strong>Array: Boolean mask of outliers</strong> — lines 10-19 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -256,7 +256,7 @@ def detect_outliers_iforest(data, contamination=0.1):
       <span class="code-callout__title">From sklearn.ensemble import IsolationForest</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–9: follow this band in the snippet.</p>
+      <p><strong>From sklearn.ensemble import IsolationForest</strong> — lines 1-9. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="10-18" data-tint="2">
@@ -265,7 +265,7 @@ def detect_outliers_iforest(data, contamination=0.1):
       <span class="code-callout__title">Returns:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 10–18: follow this band in the snippet.</p>
+      <p><strong>Returns:</strong> — lines 10-18 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -301,7 +301,7 @@ def detect_outliers_lof(data, contamination=0.1):
       <span class="code-callout__title">From sklearn.neighbors import LocalOutlierFactor</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–7: follow this band in the snippet.</p>
+      <p><strong>From sklearn.neighbors import LocalOutlierFactor</strong> — lines 1-7. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="8-15" data-tint="2">
@@ -310,7 +310,7 @@ def detect_outliers_lof(data, contamination=0.1):
       <span class="code-callout__title">Data (array-like): Input data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 8–15: follow this band in the snippet.</p>
+      <p><strong>Data (array-like): Input data</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -426,7 +426,7 @@ class OutlierDetector:
       <span class="code-callout__title">Import pandas as pd</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–15: follow this band in the snippet.</p>
+      <p><strong>Import pandas as pd</strong> — lines 1-15. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="16-31" data-tint="2">
@@ -435,7 +435,7 @@ class OutlierDetector:
       <span class="code-callout__title">Def detect_statistical_outliers(self):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 16–31: follow this band in the snippet.</p>
+      <p><strong>Def detect_statistical_outliers(self):</strong> — lines 16-31. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="32-47" data-tint="3">
@@ -444,7 +444,7 @@ class OutlierDetector:
       <span class="code-callout__title">Modified Z-score method</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 32–47: follow this band in the snippet.</p>
+      <p><strong>Modified Z-score method</strong> — lines 32-47 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="48-63" data-tint="4">
@@ -453,7 +453,7 @@ class OutlierDetector:
       <span class="code-callout__title">Local Outlier Factor</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 48–63: follow this band in the snippet.</p>
+      <p><strong>Local Outlier Factor</strong> — lines 48-63 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="64-79" data-tint="1">
@@ -462,7 +462,7 @@ class OutlierDetector:
       <span class="code-callout__title">Histogram</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 64–79: follow this band in the snippet.</p>
+      <p><strong>Histogram</strong> — lines 64-79 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="80-95" data-tint="2">
@@ -471,7 +471,7 @@ class OutlierDetector:
       <span class="code-callout__title">Outlier_counts.plot(kind=&#x27;bar&#x27;)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 80–95: follow this band in the snippet.</p>
+      <p><strong>Outlier_counts.plot(kind=&#x27;bar&#x27;)</strong> — lines 80-95. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
 </aside>
@@ -502,7 +502,7 @@ def calculate_robust_statistics(data):
       <span class="code-callout__title">Def calculate_robust_statistics(data):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–8: follow this band in the snippet.</p>
+      <p><strong>Def calculate_robust_statistics(data):</strong> — lines 1-8. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -534,7 +534,7 @@ def adaptive_capping(data, sensitivity=1.5):
       <span class="code-callout__title">Def adaptive_capping(data, sensitivity=1.5):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>Def adaptive_capping(data, sensitivity=1.5):</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -573,7 +573,7 @@ def engineer_outlier_features(data):
       <span class="code-callout__title">Def engineer_outlier_features(data):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–9: follow this band in the snippet.</p>
+      <p><strong>Def engineer_outlier_features(data):</strong> — lines 1-9. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="10-18" data-tint="2">
@@ -582,7 +582,7 @@ def engineer_outlier_features(data):
       <span class="code-callout__title">Median_dist = np.abs(data - np.median(data))</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 10–18: follow this band in the snippet.</p>
+      <p><strong>Median_dist = np.abs(data - np.median(data))</strong> — lines 10-18 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -650,7 +650,7 @@ def analyze_transaction_outliers(transactions_df):
       <span class="code-callout__title">Def analyze_transaction_outliers(transactions…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>Def analyze_transaction_outliers(transactions…</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-23" data-tint="2">
@@ -659,7 +659,7 @@ def analyze_transaction_outliers(transactions_df):
       <span class="code-callout__title">Time_patterns = transactions_df[</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–23: follow this band in the snippet.</p>
+      <p><strong>Time_patterns = transactions_df[</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="24-35" data-tint="3">
@@ -668,7 +668,7 @@ def analyze_transaction_outliers(transactions_df):
       <span class="code-callout__title">Time_patterns.plot(kind=&#x27;bar&#x27;)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 24–35: follow this band in the snippet.</p>
+      <p><strong>Time_patterns.plot(kind=&#x27;bar&#x27;)</strong> — lines 24-35 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="36-47" data-tint="4">
@@ -677,7 +677,7 @@ def analyze_transaction_outliers(transactions_df):
       <span class="code-callout__title">Hue=statistical_outliers[&#x27;zscore&#x27;]</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 36–47: follow this band in the snippet.</p>
+      <p><strong>Hue=statistical_outliers[&#x27;zscore&#x27;]</strong> — lines 36-47 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -726,7 +726,7 @@ def analyze_outlier_impact(data, target, outlier_mask):
       <span class="code-callout__title">Def analyze_outlier_impact(data, target, outl…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>Def analyze_outlier_impact(data, target, outl…</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
@@ -735,7 +735,7 @@ def analyze_outlier_impact(data, target, outlier_mask):
       <span class="code-callout__title">X[mask], y[mask], test_size=0.2, random_state=42</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–28: follow this band in the snippet.</p>
+      <p><strong>X[mask], y[mask], test_size=0.2, random_state=42</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -771,7 +771,7 @@ def select_outlier_strategy(data):
       <span class="code-callout__title">Def select_outlier_strategy(data):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–13: follow this band in the snippet.</p>
+      <p><strong>Def select_outlier_strategy(data):</strong> — lines 1-13. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -816,7 +816,7 @@ def validate_outlier_treatment(original, treated):
       <span class="code-callout__title">Def validate_outlier_treatment(original, trea…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Def validate_outlier_treatment(original, trea…</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -825,7 +825,7 @@ def validate_outlier_treatment(original, treated):
       <span class="code-callout__title">Validation[&#x27;range&#x27;] = {</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>Validation[&#x27;range&#x27;] = {</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -875,7 +875,7 @@ report = {
       <span class="code-callout__title">Load and prepare data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–13: follow this band in the snippet.</p>
+      <p><strong>Load and prepare data</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="14-26" data-tint="2">
@@ -884,7 +884,7 @@ report = {
       <span class="code-callout__title">4. Validate treatment</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 14–26: follow this band in the snippet.</p>
+      <p><strong>4. Validate treatment</strong> — lines 14-26 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>

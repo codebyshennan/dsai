@@ -173,7 +173,7 @@ Data validation passed!
       <span class="code-callout__title">Import pandas as pd</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>Import pandas as pd</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-23" data-tint="2">
@@ -182,7 +182,7 @@ Data validation passed!
       <span class="code-callout__title">Print(f&quot;Missing Values:\n{df.isnull().sum()}&quot;)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–23: follow this band in the snippet.</p>
+      <p><strong>Print(f&quot;Missing Values:\n{df.isnull().sum()}&quot;)</strong> — lines 12-23. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="24-34" data-tint="3">
@@ -191,7 +191,7 @@ Data validation passed!
       <span class="code-callout__title">3. Handle Outliers</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 24–34: follow this band in the snippet.</p>
+      <p><strong>3. Handle Outliers</strong> — lines 24-34 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="35-46" data-tint="4">
@@ -200,7 +200,7 @@ Data validation passed!
       <span class="code-callout__title">Create new features</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 35–46: follow this band in the snippet.</p>
+      <p><strong>Create new features</strong> — lines 35-46 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -261,7 +261,7 @@ print(df[['price', 'scaled_price', 'normalized_price']].head())
       <span class="code-callout__title">Standardization (Z-score normalization)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–9: follow this band in the snippet.</p>
+      <p><strong>Standardization (Z-score normalization)</strong> — lines 1-9 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -305,7 +305,7 @@ encoded shape: (120, 10)
       <span class="code-callout__title">One-Hot Encoding</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–7: follow this band in the snippet.</p>
+      <p><strong>One-Hot Encoding</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -335,7 +335,7 @@ encoded shape: (120, 10)
          <span class="code-callout__title">Data cleaning log</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–7: follow this band in the snippet.</p>
+         <p><strong>Data cleaning log</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
        </div>
      </div>
    </aside>
@@ -371,7 +371,7 @@ encoded shape: (120, 10)
          <span class="code-callout__title">Def clean_dataset(df):</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–7: follow this band in the snippet.</p>
+         <p><strong>Def clean_dataset(df):</strong> — lines 1-7. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
        </div>
      </div>
      <div class="code-callout" data-lines="8-15" data-tint="2">
@@ -380,7 +380,7 @@ encoded shape: (120, 10)
          <span class="code-callout__title">Returns:</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 8–15: follow this band in the snippet.</p>
+         <p><strong>Returns:</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
        </div>
      </div>
    </aside>
@@ -406,7 +406,7 @@ encoded shape: (120, 10)
          <span class="code-callout__title">Def validate_transformation(original_df, tran…</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–5: follow this band in the snippet.</p>
+         <p><strong>Def validate_transformation(original_df, tran…</strong> — lines 1-5. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
        </div>
      </div>
    </aside>
@@ -437,7 +437,7 @@ encoded shape: (120, 10)
          <span class="code-callout__title">Optimize datatypes</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–8: follow this band in the snippet.</p>
+         <p><strong>Optimize datatypes</strong> — lines 1-8 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
        </div>
      </div>
    </aside>
@@ -465,7 +465,7 @@ encoded shape: (120, 10)
          <span class="code-callout__title">Use vectorized operations</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–7: follow this band in the snippet.</p>
+         <p><strong>Use vectorized operations</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
        </div>
      </div>
    </aside>
@@ -490,7 +490,7 @@ encoded shape: (120, 10)
         <span class="code-callout__title">Pip install pandas numpy scikit-learn matplot…</span>
       </div>
       <div class="code-callout__body">
-        <p>Lines 1–1: follow this band in the snippet.</p>
+        <p><strong>Pip install pandas numpy scikit-learn matplot…</strong> — lines 1-1. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
       </div>
     </div>
   </aside>

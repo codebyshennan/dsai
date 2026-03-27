@@ -275,7 +275,7 @@ def setup_database(connection_string):
       <span class="code-callout__title">From sqlalchemy import create_engine, Column,…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>From sqlalchemy import create_engine, Column,…</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-25" data-tint="2">
@@ -284,7 +284,7 @@ def setup_database(connection_string):
       <span class="code-callout__title">__tablename__ = &#x27;sales&#x27;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–25: follow this band in the snippet.</p>
+      <p><strong>__tablename__ = &#x27;sales&#x27;</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="26-38" data-tint="3">
@@ -293,7 +293,7 @@ def setup_database(connection_string):
       <span class="code-callout__title">&quot;&quot;&quot;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 26–38: follow this band in the snippet.</p>
+      <p><strong>&quot;&quot;&quot;</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -411,7 +411,7 @@ mongo.insert_document('sales_db', 'transactions', document)
       <span class="code-callout__title">From pymongo import MongoClient</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>From pymongo import MongoClient</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -420,7 +420,7 @@ mongo.insert_document('sales_db', 'transactions', document)
       <span class="code-callout__title">Db = self.client[database]</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>Db = self.client[database]</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="25-37" data-tint="3">
@@ -429,7 +429,7 @@ mongo.insert_document('sales_db', 'transactions', document)
       <span class="code-callout__title">Db = self.client[database]</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 25–37: follow this band in the snippet.</p>
+      <p><strong>Db = self.client[database]</strong> — lines 25-37 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -500,7 +500,7 @@ class DataLakeHandler:
       <span class="code-callout__title">Import boto3</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Import boto3</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-25" data-tint="2">
@@ -509,7 +509,7 @@ class DataLakeHandler:
       <span class="code-callout__title">Def upload_dataframe(self, df, key, partition…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–25: follow this band in the snippet.</p>
+      <p><strong>Def upload_dataframe(self, df, key, partition…</strong> — lines 13-25. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="26-37" data-tint="3">
@@ -518,7 +518,7 @@ class DataLakeHandler:
       <span class="code-callout__title">Self.s3.put_object(</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 26–37: follow this band in the snippet.</p>
+      <p><strong>Self.s3.put_object(</strong> — lines 26-37 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="38-50" data-tint="4">
@@ -527,7 +527,7 @@ class DataLakeHandler:
       <span class="code-callout__title">Read CSV data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 38–50: follow this band in the snippet.</p>
+      <p><strong>Read CSV data</strong> — lines 38-50 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -632,7 +632,7 @@ class DataWarehouseHandler:
       <span class="code-callout__title">From snowflake.connector import connect</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p><strong>From snowflake.connector import connect</strong> — lines 1-10. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="11-21" data-tint="2">
@@ -641,7 +641,7 @@ class DataWarehouseHandler:
       <span class="code-callout__title">Def execute_query(self, query):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 11–21: follow this band in the snippet.</p>
+      <p><strong>Def execute_query(self, query):</strong> — lines 11-21. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="22-32" data-tint="3">
@@ -650,7 +650,7 @@ class DataWarehouseHandler:
       <span class="code-callout__title">Write data to stage</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 22–32: follow this band in the snippet.</p>
+      <p><strong>Write data to stage</strong> — lines 22-32 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -698,7 +698,7 @@ def partition_data(df, partition_columns):
       <span class="code-callout__title">Def partition_data(df, partition_columns):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Def partition_data(df, partition_columns):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-25" data-tint="2">
@@ -707,7 +707,7 @@ def partition_data(df, partition_columns):
       <span class="code-callout__title">Partition_path = &#x27;/&#x27;.join([</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–25: follow this band in the snippet.</p>
+      <p><strong>Partition_path = &#x27;/&#x27;.join([</strong> — lines 13-25. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
     </div>
   </div>
 </aside>
@@ -756,7 +756,7 @@ def decompress_data(compressed_data, compression='gzip'):
       <span class="code-callout__title">Import gzip</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>Import gzip</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
@@ -765,7 +765,7 @@ def decompress_data(compressed_data, compression='gzip'):
       <span class="code-callout__title">Raise ValueError(f&quot;Unsupported compression: {…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–28: follow this band in the snippet.</p>
+      <p><strong>Raise ValueError(f&quot;Unsupported compression: {…</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -828,7 +828,7 @@ class DataVersioning:
       <span class="code-callout__title">From datetime import datetime</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>From datetime import datetime</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
@@ -837,7 +837,7 @@ class DataVersioning:
       <span class="code-callout__title">Create version metadata</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–28: follow this band in the snippet.</p>
+      <p><strong>Create version metadata</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="29-42" data-tint="3">
@@ -846,7 +846,7 @@ class DataVersioning:
       <span class="code-callout__title">Def _generate_version_id(self, data):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 29–42: follow this band in the snippet.</p>
+      <p><strong>Def _generate_version_id(self, data):</strong> — lines 29-42. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -1030,7 +1030,7 @@ storage.store_data(
       <span class="code-callout__title">Class DataStorage:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–21: follow this band in the snippet.</p>
+      <p><strong>Class DataStorage:</strong> — lines 1-21 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="22-42" data-tint="2">
@@ -1039,7 +1039,7 @@ storage.store_data(
       <span class="code-callout__title">Backends[&#x27;mongodb&#x27;] = MongoDBHandler(</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 22–42: follow this band in the snippet.</p>
+      <p><strong>Backends[&#x27;mongodb&#x27;] = MongoDBHandler(</strong> — lines 22-42 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="43-63" data-tint="3">
@@ -1048,7 +1048,7 @@ storage.store_data(
       <span class="code-callout__title">)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 43–63: follow this band in the snippet.</p>
+      <p><strong>)</strong> — lines 43-63 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="64-84" data-tint="4">
@@ -1057,7 +1057,7 @@ storage.store_data(
       <span class="code-callout__title">Session.add_all(records)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 64–84: follow this band in the snippet.</p>
+      <p><strong>Session.add_all(records)</strong> — lines 64-84 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="85-105" data-tint="1">
@@ -1066,7 +1066,7 @@ storage.store_data(
       <span class="code-callout__title">Partition=kwargs.get(&#x27;partition&#x27;)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 85–105: follow this band in the snippet.</p>
+      <p><strong>Partition=kwargs.get(&#x27;partition&#x27;)</strong> — lines 85-105 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="106-127" data-tint="2">
@@ -1075,7 +1075,7 @@ storage.store_data(
       <span class="code-callout__title">&#x27;product_id&#x27;: [1, 2, 3],</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 106–127: follow this band in the snippet.</p>
+      <p><strong>&#x27;product_id&#x27;: [1, 2, 3],</strong> — lines 106-127 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>

@@ -87,7 +87,7 @@ graph TD
         <span class="code-callout__title">Z = (x - μ) / σ</span>
       </div>
       <div class="code-callout__body">
-        <p>Lines 1–5: follow this band in the snippet.</p>
+        <p><strong>Z = (x - μ) / σ</strong> — lines 1-5 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
       </div>
     </div>
   </aside>
@@ -110,7 +110,7 @@ graph TD
         <span class="code-callout__title">X_scaled = (x - x_min) / (x_max - x_min)</span>
       </div>
       <div class="code-callout__body">
-        <p>Lines 1–2: follow this band in the snippet.</p>
+        <p><strong>X_scaled = (x - x_min) / (x_max - x_min)</strong> — lines 1-2 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
       </div>
     </div>
   </aside>
@@ -136,7 +136,7 @@ graph TD
         <span class="code-callout__title">X_robust = (x - Q2) / (Q3 - Q1)</span>
       </div>
       <div class="code-callout__body">
-        <p>Lines 1–5: follow this band in the snippet.</p>
+        <p><strong>X_robust = (x - Q2) / (Q3 - Q1)</strong> — lines 1-5 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
       </div>
     </div>
   </aside>
@@ -160,7 +160,7 @@ graph TD
         <span class="code-callout__title">X_log = log(x + c)  # c is a constant to hand…</span>
       </div>
       <div class="code-callout__body">
-        <p>Lines 1–1: follow this band in the snippet.</p>
+        <p><strong>X_log = log(x + c)  # c is a constant to hand…</strong> — lines 1-1 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
       </div>
     </div>
   </aside>
@@ -185,7 +185,7 @@ graph TD
         <span class="code-callout__title">X_boxcox = {</span>
       </div>
       <div class="code-callout__body">
-        <p>Lines 1–4: follow this band in the snippet.</p>
+        <p><strong>X_boxcox = {</strong> — lines 1-4 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
       </div>
     </div>
   </aside>
@@ -213,7 +213,7 @@ graph TD
         <span class="code-callout__title">Handles negative values unlike Box-Cox</span>
       </div>
       <div class="code-callout__body">
-        <p>Lines 1–7: follow this band in the snippet.</p>
+        <p><strong>Handles negative values unlike Box-Cox</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
       </div>
     </div>
   </aside>
@@ -271,7 +271,7 @@ def create_transformation_pipeline(numeric_features, categorical_features):
       <span class="code-callout__title">From sklearn.compose import ColumnTransformer</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–15: follow this band in the snippet.</p>
+      <p><strong>From sklearn.compose import ColumnTransformer</strong> — lines 1-15. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="16-30" data-tint="2">
@@ -280,7 +280,7 @@ def create_transformation_pipeline(numeric_features, categorical_features):
       <span class="code-callout__title">Numeric_transformer = Pipeline(steps=[</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 16–30: follow this band in the snippet.</p>
+      <p><strong>Numeric_transformer = Pipeline(steps=[</strong> — lines 16-30 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -350,7 +350,7 @@ class DistributionTransformer:
       <span class="code-callout__title">Class DistributionTransformer:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Class DistributionTransformer:</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -359,7 +359,7 @@ class DistributionTransformer:
       <span class="code-callout__title">Parameters:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>Parameters:</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="25-36" data-tint="3">
@@ -368,7 +368,7 @@ class DistributionTransformer:
       <span class="code-callout__title">Self.transformer = pt</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 25–36: follow this band in the snippet.</p>
+      <p><strong>Self.transformer = pt</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="37-49" data-tint="4">
@@ -377,7 +377,7 @@ class DistributionTransformer:
       <span class="code-callout__title">&quot;&quot;&quot;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 37–49: follow this band in the snippet.</p>
+      <p><strong>&quot;&quot;&quot;</strong> — lines 37-49 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -433,7 +433,7 @@ def engineer_time_features(df, datetime_column):
       <span class="code-callout__title">Def engineer_time_features(df, datetime_column):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>Def engineer_time_features(df, datetime_column):</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-23" data-tint="2">
@@ -442,7 +442,7 @@ def engineer_time_features(df, datetime_column):
       <span class="code-callout__title">Dt = pd.to_datetime(df[datetime_column])</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–23: follow this band in the snippet.</p>
+      <p><strong>Dt = pd.to_datetime(df[datetime_column])</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="24-35" data-tint="3">
@@ -451,7 +451,7 @@ def engineer_time_features(df, datetime_column):
       <span class="code-callout__title">Cyclical features</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 24–35: follow this band in the snippet.</p>
+      <p><strong>Cyclical features</strong> — lines 24-35 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -499,7 +499,7 @@ def transform_ecommerce_data(df):
       <span class="code-callout__title">Def transform_ecommerce_data(df):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Def transform_ecommerce_data(df):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-25" data-tint="2">
@@ -508,7 +508,7 @@ def transform_ecommerce_data(df):
       <span class="code-callout__title">Encoded_categories = cat_encoder.fit_transform(</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–25: follow this band in the snippet.</p>
+      <p><strong>Encoded_categories = cat_encoder.fit_transform(</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -553,7 +553,7 @@ def transform_financial_data(df):
       <span class="code-callout__title">Def transform_financial_data(df):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Def transform_financial_data(df):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -562,7 +562,7 @@ def transform_financial_data(df):
       <span class="code-callout__title">Df[f&#x27;rolling_mean_{window}&#x27;] = df[&#x27;price&#x27;].ro…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>Df[f&#x27;rolling_mean_{window}&#x27;] = df[&#x27;price&#x27;].ro…</strong> — lines 13-24. Window functions compute per-row values using a frame without collapsing groups—check <code>PARTITION BY</code> and <code>ORDER BY</code> inside <code>OVER</code>.</p>
     </div>
   </div>
 </aside>
@@ -633,7 +633,7 @@ def validate_transformation(original, transformed):
       <span class="code-callout__title">Def validate_transformation(original, transfo…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–13: follow this band in the snippet.</p>
+      <p><strong>Def validate_transformation(original, transfo…</strong> — lines 1-13. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="14-27" data-tint="2">
@@ -642,7 +642,7 @@ def validate_transformation(original, transformed):
       <span class="code-callout__title">&#x27;original_skew&#x27;: stats.skew(original),</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 14–27: follow this band in the snippet.</p>
+      <p><strong>&#x27;original_skew&#x27;: stats.skew(original),</strong> — lines 14-27 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="28-41" data-tint="3">
@@ -651,7 +651,7 @@ def validate_transformation(original, transformed):
       <span class="code-callout__title">Visualize comparison</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 28–41: follow this band in the snippet.</p>
+      <p><strong>Visualize comparison</strong> — lines 28-41 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -695,7 +695,7 @@ def optimize_transformation_pipeline(df, pipeline):
       <span class="code-callout__title">Def optimize_transformation_pipeline(df, pipe…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>Def optimize_transformation_pipeline(df, pipe…</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-23" data-tint="2">
@@ -704,7 +704,7 @@ def optimize_transformation_pipeline(df, pipeline):
       <span class="code-callout__title">Memory optimization</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–23: follow this band in the snippet.</p>
+      <p><strong>Memory optimization</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -789,7 +789,7 @@ Validation results for tenure:
       <span class="code-callout__title">Load data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>Load data</strong> — lines 1-14 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
@@ -798,7 +798,7 @@ Validation results for tenure:
       <span class="code-callout__title">Categorical_features</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–28: follow this band in the snippet.</p>
+      <p><strong>Categorical_features</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>

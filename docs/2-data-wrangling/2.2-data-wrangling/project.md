@@ -101,7 +101,7 @@ CREATE TABLE products (
       <span class="code-callout__title">Customer Information</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p><strong>Customer Information</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="11-21" data-tint="2">
@@ -110,7 +110,7 @@ CREATE TABLE products (
       <span class="code-callout__title">Transaction Records</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 11–21: follow this band in the snippet.</p>
+      <p><strong>Transaction Records</strong> — lines 11-21 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="22-32" data-tint="3">
@@ -119,7 +119,7 @@ CREATE TABLE products (
       <span class="code-callout__title">Product Catalog</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 22–32: follow this band in the snippet.</p>
+      <p><strong>Product Catalog</strong> — lines 22-32 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -181,7 +181,7 @@ def assess_data_quality(df):
       <span class="code-callout__title">Def assess_data_quality(df):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Def assess_data_quality(df):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -190,7 +190,7 @@ def assess_data_quality(df):
       <span class="code-callout__title">&#x27;missing_values&#x27;: df.isnull().sum(),</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>&#x27;missing_values&#x27;: df.isnull().sum(),</strong> — lines 13-24. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="25-36" data-tint="3">
@@ -199,7 +199,7 @@ def assess_data_quality(df):
       <span class="code-callout__title">If &#x27;registration_date&#x27; in df.columns and &#x27;las…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 25–36: follow this band in the snippet.</p>
+      <p><strong>If &#x27;registration_date&#x27; in df.columns and &#x27;las…</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -267,7 +267,7 @@ class DataCleaner:
       <span class="code-callout__title">Class DataCleaner:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>Class DataCleaner:</strong> — lines 1-14 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-29" data-tint="2">
@@ -276,7 +276,7 @@ class DataCleaner:
       <span class="code-callout__title">Handle missing values</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–29: follow this band in the snippet.</p>
+      <p><strong>Handle missing values</strong> — lines 15-29 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="30-44" data-tint="3">
@@ -285,7 +285,7 @@ class DataCleaner:
       <span class="code-callout__title">Def clean_transaction_data(self, transactions…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 30–44: follow this band in the snippet.</p>
+      <p><strong>Def clean_transaction_data(self, transactions…</strong> — lines 30-44. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -356,7 +356,7 @@ class FeatureEngineer:
       <span class="code-callout__title">Class FeatureEngineer:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Class FeatureEngineer:</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-25" data-tint="2">
@@ -365,7 +365,7 @@ class FeatureEngineer:
       <span class="code-callout__title">Average order value</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–25: follow this band in the snippet.</p>
+      <p><strong>Average order value</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="26-37" data-tint="3">
@@ -374,7 +374,7 @@ class FeatureEngineer:
       <span class="code-callout__title">})</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 26–37: follow this band in the snippet.</p>
+      <p><strong>})</strong> — lines 26-37 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="38-50" data-tint="4">
@@ -383,7 +383,7 @@ class FeatureEngineer:
       <span class="code-callout__title">Price_pct_change = group[&#x27;price&#x27;].pct_change()</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 38–50: follow this band in the snippet.</p>
+      <p><strong>Price_pct_change = group[&#x27;price&#x27;].pct_change()</strong> — lines 38-50. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
 </aside>
@@ -437,7 +437,7 @@ def validate_final_dataset(df, validation_rules):
       <span class="code-callout__title">Def validate_final_dataset(df, validation_rul…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>Def validate_final_dataset(df, validation_rul…</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-22" data-tint="2">
@@ -446,7 +446,7 @@ def validate_final_dataset(df, validation_rules):
       <span class="code-callout__title">Validation_results[&#x27;completeness&#x27;] = {</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–22: follow this band in the snippet.</p>
+      <p><strong>Validation_results[&#x27;completeness&#x27;] = {</strong> — lines 12-22 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="23-33" data-tint="3">
@@ -455,7 +455,7 @@ def validate_final_dataset(df, validation_rules):
       <span class="code-callout__title">Validation_results[&#x27;statistical_validity&#x27;] = {</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 23–33: follow this band in the snippet.</p>
+      <p><strong>Validation_results[&#x27;statistical_validity&#x27;] = {</strong> — lines 23-33 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>

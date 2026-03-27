@@ -284,7 +284,7 @@ class TimeSeriesAnalyzer:
       <span class="code-callout__title">Import pandas as pd</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–25: follow this band in the snippet.</p>
+      <p><strong>Import pandas as pd</strong> — lines 1-25. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="26-51" data-tint="2">
@@ -293,7 +293,7 @@ class TimeSeriesAnalyzer:
       <span class="code-callout__title">Self.value_column = value_column</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 26–51: follow this band in the snippet.</p>
+      <p><strong>Self.value_column = value_column</strong> — lines 26-51 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="52-77" data-tint="3">
@@ -302,7 +302,7 @@ class TimeSeriesAnalyzer:
       <span class="code-callout__title">Plt.title(&#x27;Original Time Series&#x27;)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 52–77: follow this band in the snippet.</p>
+      <p><strong>Plt.title(&#x27;Original Time Series&#x27;)</strong> — lines 52-77 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="78-102" data-tint="4">
@@ -311,7 +311,7 @@ class TimeSeriesAnalyzer:
       <span class="code-callout__title">&#x27;yearly&#x27;: self.data[self.value_column].groupb…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 78–102: follow this band in the snippet.</p>
+      <p><strong>&#x27;yearly&#x27;: self.data[self.value_column].groupb…</strong> — lines 78-102. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="103-128" data-tint="1">
@@ -320,7 +320,7 @@ class TimeSeriesAnalyzer:
       <span class="code-callout__title">Return patterns</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 103–128: follow this band in the snippet.</p>
+      <p><strong>Return patterns</strong> — lines 103-128 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="129-154" data-tint="2">
@@ -329,7 +329,7 @@ class TimeSeriesAnalyzer:
       <span class="code-callout__title">Def detect_anomalies(self, window=30, thresho…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 129–154: follow this band in the snippet.</p>
+      <p><strong>Def detect_anomalies(self, window=30, thresho…</strong> — lines 129-154. Window functions compute per-row values using a frame without collapsing groups—check <code>PARTITION BY</code> and <code>ORDER BY</code> inside <code>OVER</code>.</p>
     </div>
   </div>
 </aside>
@@ -437,7 +437,7 @@ create_sales_dashboard(sales_data, decomposition)
       <span class="code-callout__title">Load sample sales data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Load sample sales data</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -446,7 +446,7 @@ create_sales_dashboard(sales_data, decomposition)
       <span class="code-callout__title">4. Detect Anomalies</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>4. Detect Anomalies</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="25-36" data-tint="3">
@@ -455,7 +455,7 @@ create_sales_dashboard(sales_data, decomposition)
       <span class="code-callout__title">Name=&#x27;Sales&#x27;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 25–36: follow this band in the snippet.</p>
+      <p><strong>Name=&#x27;Sales&#x27;</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="37-48" data-tint="4">
@@ -464,7 +464,7 @@ create_sales_dashboard(sales_data, decomposition)
       <span class="code-callout__title">Data,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 37–48: follow this band in the snippet.</p>
+      <p><strong>Data,</strong> — lines 37-48 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="49-61" data-tint="1">
@@ -473,7 +473,7 @@ create_sales_dashboard(sales_data, decomposition)
       <span class="code-callout__title">Name=&#x27;Sales&#x27;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 49–61: follow this band in the snippet.</p>
+      <p><strong>Name=&#x27;Sales&#x27;</strong> — lines 49-61 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -539,7 +539,7 @@ def optimize_time_series(df):
       <span class="code-callout__title">Def optimize_time_series(df):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>Def optimize_time_series(df):</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -579,7 +579,7 @@ def process_large_timeseries(file_path, chunksize=10000):
       <span class="code-callout__title">Def process_large_timeseries(file_path, chunk…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p><strong>Def process_large_timeseries(file_path, chunk…</strong> — lines 1-10. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -634,7 +634,7 @@ Avoid these common mistakes in time series analysis:
          <span class="code-callout__title">Def handle_irregular_intervals(df):</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–12: follow this band in the snippet.</p>
+         <p><strong>Def handle_irregular_intervals(df):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
        </div>
      </div>
    </aside>
@@ -668,7 +668,7 @@ Avoid these common mistakes in time series analysis:
          <span class="code-callout__title">Def detect_seasonality(data, max_lag=365):</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–13: follow this band in the snippet.</p>
+         <p><strong>Def detect_seasonality(data, max_lag=365):</strong> — lines 1-13. Window functions compute per-row values using a frame without collapsing groups—check <code>PARTITION BY</code> and <code>ORDER BY</code> inside <code>OVER</code>.</p>
        </div>
      </div>
    </aside>
@@ -701,7 +701,7 @@ Avoid these common mistakes in time series analysis:
          <span class="code-callout__title">Def analyze_trend_seasonality(data):</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–12: follow this band in the snippet.</p>
+         <p><strong>Def analyze_trend_seasonality(data):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
        </div>
      </div>
    </aside>

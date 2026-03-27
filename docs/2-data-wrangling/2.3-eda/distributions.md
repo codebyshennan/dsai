@@ -271,7 +271,7 @@ class DistributionAnalyzer:
       <span class="code-callout__title">Import pandas as pd</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–23: follow this band in the snippet.</p>
+      <p><strong>Import pandas as pd</strong> — lines 1-23. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="24-47" data-tint="2">
@@ -280,7 +280,7 @@ class DistributionAnalyzer:
       <span class="code-callout__title">Self.tests = {}</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 24–47: follow this band in the snippet.</p>
+      <p><strong>Self.tests = {}</strong> — lines 24-47 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="48-71" data-tint="3">
@@ -289,7 +289,7 @@ class DistributionAnalyzer:
       <span class="code-callout__title">&#x27;iqr&#x27;: self.data.quantile(0.75) - self.data.q…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 48–71: follow this band in the snippet.</p>
+      <p><strong>&#x27;iqr&#x27;: self.data.quantile(0.75) - self.data.q…</strong> — lines 48-71 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="72-94" data-tint="4">
@@ -298,7 +298,7 @@ class DistributionAnalyzer:
       <span class="code-callout__title">&#x27;critical_values&#x27;: anderson_test.critical_values</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 72–94: follow this band in the snippet.</p>
+      <p><strong>&#x27;critical_values&#x27;: anderson_test.critical_values</strong> — lines 72-94 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="95-118" data-tint="1">
@@ -307,7 +307,7 @@ class DistributionAnalyzer:
       <span class="code-callout__title">Plt.title(&#x27;Violin Plot&#x27;)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 95–118: follow this band in the snippet.</p>
+      <p><strong>Plt.title(&#x27;Violin Plot&#x27;)</strong> — lines 95-118 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="119-142" data-tint="2">
@@ -316,7 +316,7 @@ class DistributionAnalyzer:
       <span class="code-callout__title">Def create_interactive_plots(self):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 119–142: follow this band in the snippet.</p>
+      <p><strong>Def create_interactive_plots(self):</strong> — lines 119-142. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -371,7 +371,7 @@ if stats['skew'] > 1:
       <span class="code-callout__title">Load sample sales data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–13: follow this band in the snippet.</p>
+      <p><strong>Load sample sales data</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="14-26" data-tint="2">
@@ -380,7 +380,7 @@ if stats['skew'] > 1:
       <span class="code-callout__title">Print(&quot;\nDistribution Analysis:&quot;)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 14–26: follow this band in the snippet.</p>
+      <p><strong>Print(&quot;\nDistribution Analysis:&quot;)</strong> — lines 14-26 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -455,7 +455,7 @@ def analyze_normality(data, alpha=0.05):
       <span class="code-callout__title">Def analyze_normality(data, alpha=0.05):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>Def analyze_normality(data, alpha=0.05):</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-22" data-tint="2">
@@ -464,7 +464,7 @@ def analyze_normality(data, alpha=0.05):
       <span class="code-callout__title">}</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–22: follow this band in the snippet.</p>
+      <p><strong>}</strong> — lines 12-22 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -500,7 +500,7 @@ def analyze_tail_behavior(data):
       <span class="code-callout__title">Def analyze_tail_behavior(data):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–7: follow this band in the snippet.</p>
+      <p><strong>Def analyze_tail_behavior(data):</strong> — lines 1-7. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="8-15" data-tint="2">
@@ -509,7 +509,7 @@ def analyze_tail_behavior(data):
       <span class="code-callout__title">&#x27;left_tail&#x27;: (percentiles[1] - percentiles[0]…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 8–15: follow this band in the snippet.</p>
+      <p><strong>&#x27;left_tail&#x27;: (percentiles[1] - percentiles[0]…</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -547,7 +547,7 @@ def detect_multimodality(data, bandwidth=None):
       <span class="code-callout__title">Def detect_multimodality(data, bandwidth=None):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–8: follow this band in the snippet.</p>
+      <p><strong>Def detect_multimodality(data, bandwidth=None):</strong> — lines 1-8. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="9-17" data-tint="2">
@@ -556,7 +556,7 @@ def detect_multimodality(data, bandwidth=None):
       <span class="code-callout__title">Find peaks</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 9–17: follow this band in the snippet.</p>
+      <p><strong>Find peaks</strong> — lines 9-17 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -598,7 +598,7 @@ def optimize_numeric_analysis(data):
       <span class="code-callout__title">Def optimize_numeric_analysis(data):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–9: follow this band in the snippet.</p>
+      <p><strong>Def optimize_numeric_analysis(data):</strong> — lines 1-9. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="10-19" data-tint="2">
@@ -607,7 +607,7 @@ def optimize_numeric_analysis(data):
       <span class="code-callout__title">Var = np.sum(diff**2) / n</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 10–19: follow this band in the snippet.</p>
+      <p><strong>Var = np.sum(diff**2) / n</strong> — lines 10-19. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
 </aside>
@@ -650,7 +650,7 @@ def create_efficient_plots(data, max_points=10000):
       <span class="code-callout__title">Def create_efficient_plots(data, max_points=1…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>Def create_efficient_plots(data, max_points=1…</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-22" data-tint="2">
@@ -659,7 +659,7 @@ def create_efficient_plots(data, max_points=10000):
       <span class="code-callout__title">Histogram (using bins)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–22: follow this band in the snippet.</p>
+      <p><strong>Histogram (using bins)</strong> — lines 12-22 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -694,7 +694,7 @@ Avoid these common mistakes in distribution analysis:
          <span class="code-callout__title">Bad: Always using mean and std</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–10: follow this band in the snippet.</p>
+         <p><strong>Bad: Always using mean and std</strong> — lines 1-10 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
        </div>
      </div>
    </aside>
@@ -732,7 +732,7 @@ Avoid these common mistakes in distribution analysis:
          <span class="code-callout__title">Def adjust_for_sample_size(data):</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–8: follow this band in the snippet.</p>
+         <p><strong>Def adjust_for_sample_size(data):</strong> — lines 1-8. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
        </div>
      </div>
      <div class="code-callout" data-lines="9-17" data-tint="2">
@@ -741,7 +741,7 @@ Avoid these common mistakes in distribution analysis:
          <span class="code-callout__title">&#x27;spread&#x27;: stats.iqr(data),</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 9–17: follow this band in the snippet.</p>
+         <p><strong>&#x27;spread&#x27;: stats.iqr(data),</strong> — lines 9-17 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
        </div>
      </div>
    </aside>
@@ -773,7 +773,7 @@ Avoid these common mistakes in distribution analysis:
          <span class="code-callout__title">Def analyze_with_outliers(data):</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–11: follow this band in the snippet.</p>
+         <p><strong>Def analyze_with_outliers(data):</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
        </div>
      </div>
    </aside>

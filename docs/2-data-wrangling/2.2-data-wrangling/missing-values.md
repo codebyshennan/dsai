@@ -117,7 +117,7 @@ def analyze_missing_mechanism(df):
       <span class="code-callout__title">Def analyze_missing_mechanism(df):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Def analyze_missing_mechanism(df):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-25" data-tint="2">
@@ -126,7 +126,7 @@ def analyze_missing_mechanism(df):
       <span class="code-callout__title">Results = {</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–25: follow this band in the snippet.</p>
+      <p><strong>Results = {</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="26-38" data-tint="3">
@@ -135,7 +135,7 @@ def analyze_missing_mechanism(df):
       <span class="code-callout__title">Perform Little&#x27;s MCAR test</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 26–38: follow this band in the snippet.</p>
+      <p><strong>Perform Little&#x27;s MCAR test</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -229,7 +229,7 @@ rating                   5                10.0   float64
       <span class="code-callout__title">Import pandas as pd</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Import pandas as pd</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -238,7 +238,7 @@ rating                   5                10.0   float64
       <span class="code-callout__title">&#x27;Missing Percentage&#x27;: (df.isnull().sum() / le…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>&#x27;Missing Percentage&#x27;: (df.isnull().sum() / le…</strong> — lines 13-24. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="25-36" data-tint="3">
@@ -247,7 +247,7 @@ rating                   5                10.0   float64
       <span class="code-callout__title">2. Missing value correlation</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 25–36: follow this band in the snippet.</p>
+      <p><strong>2. Missing value correlation</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="37-49" data-tint="4">
@@ -256,7 +256,7 @@ rating                   5                10.0   float64
       <span class="code-callout__title">Plt.subplot(2, 2, 4)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 37–49: follow this band in the snippet.</p>
+      <p><strong>Plt.subplot(2, 2, 4)</strong> — lines 37-49 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -322,7 +322,7 @@ class StatisticalImputer:
       <span class="code-callout__title">Class StatisticalImputer:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–13: follow this band in the snippet.</p>
+      <p><strong>Class StatisticalImputer:</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="14-26" data-tint="2">
@@ -331,7 +331,7 @@ class StatisticalImputer:
       <span class="code-callout__title">Self.statistics[column] = df[column].median()</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 14–26: follow this band in the snippet.</p>
+      <p><strong>Self.statistics[column] = df[column].median()</strong> — lines 14-26 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -396,7 +396,7 @@ class MLImputer:
       <span class="code-callout__title">From sklearn.ensemble import RandomForestRegr…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>From sklearn.ensemble import RandomForestRegr…</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-29" data-tint="2">
@@ -405,7 +405,7 @@ class MLImputer:
       <span class="code-callout__title">Prepare training data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–29: follow this band in the snippet.</p>
+      <p><strong>Prepare training data</strong> — lines 15-29 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="30-44" data-tint="3">
@@ -414,7 +414,7 @@ class MLImputer:
       <span class="code-callout__title">Known_data[features].fillna(0),</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 30–44: follow this band in the snippet.</p>
+      <p><strong>Known_data[features].fillna(0),</strong> — lines 30-44 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -467,7 +467,7 @@ def multiple_imputation(df, n_imputations=5):
       <span class="code-callout__title">Def multiple_imputation(df, n_imputations=5):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p><strong>Def multiple_imputation(df, n_imputations=5):</strong> — lines 1-10. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="11-20" data-tint="2">
@@ -476,7 +476,7 @@ def multiple_imputation(df, n_imputations=5):
       <span class="code-callout__title">Max_iter=10</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 11–20: follow this band in the snippet.</p>
+      <p><strong>Max_iter=10</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="21-31" data-tint="3">
@@ -485,7 +485,7 @@ def multiple_imputation(df, n_imputations=5):
       <span class="code-callout__title">Combined_stats = {}</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 21–31: follow this band in the snippet.</p>
+      <p><strong>Combined_stats = {}</strong> — lines 21-31 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -544,7 +544,7 @@ def analyze_imputation_impact(original_df, imputed_df, target_col):
       <span class="code-callout__title">Def analyze_imputation_impact(original_df, im…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Def analyze_imputation_impact(original_df, im…</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-25" data-tint="2">
@@ -553,7 +553,7 @@ def analyze_imputation_impact(original_df, imputed_df, target_col):
       <span class="code-callout__title">X_imp = imputed_df.drop(columns=[target_col])</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–25: follow this band in the snippet.</p>
+      <p><strong>X_imp = imputed_df.drop(columns=[target_col])</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="26-38" data-tint="3">
@@ -562,7 +562,7 @@ def analyze_imputation_impact(original_df, imputed_df, target_col):
       <span class="code-callout__title">X_train, X_test, y_train, y_test = train_test…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 26–38: follow this band in the snippet.</p>
+      <p><strong>X_train, X_test, y_train, y_test = train_test…</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -614,7 +614,7 @@ def select_imputation_method(df, column):
       <span class="code-callout__title">Def select_imputation_method(df, column):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>Def select_imputation_method(df, column):</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-23" data-tint="2">
@@ -623,7 +623,7 @@ def select_imputation_method(df, column):
       <span class="code-callout__title">If missing_rate &lt; 0.1:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–23: follow this band in the snippet.</p>
+      <p><strong>If missing_rate &lt; 0.1:</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -673,7 +673,7 @@ def validate_imputation(original_df, imputed_df):
       <span class="code-callout__title">Def validate_imputation(original_df, imputed_…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>Def validate_imputation(original_df, imputed_…</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-29" data-tint="2">
@@ -682,7 +682,7 @@ def validate_imputation(original_df, imputed_df):
       <span class="code-callout__title">&#x27;original&#x27;: [orig_range[&#x27;min&#x27;], orig_range[&#x27;m…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–29: follow this band in the snippet.</p>
+      <p><strong>&#x27;original&#x27;: [orig_range[&#x27;min&#x27;], orig_range[&#x27;m…</strong> — lines 15-29 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -730,7 +730,7 @@ imputation_report = {
       <span class="code-callout__title">Load and prepare data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Load and prepare data</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -739,7 +739,7 @@ imputation_report = {
       <span class="code-callout__title">3. Validate results</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>3. Validate results</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>

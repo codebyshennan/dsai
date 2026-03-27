@@ -70,7 +70,12 @@ def patch_ordered(path: Path, bodies: list[str]) -> int:
 
 
 def main() -> None:
+    """One-time ordered patch for intro-databases (already applied in repo)."""
     p = DOCS / "2-data-wrangling/2.1-sql/intro-databases.md"
+    text = p.read_text(encoding="utf-8")
+    if "follow this band in the snippet" not in text:
+        print("intro-databases.md: already patched; nothing to do.")
+        return
     n = patch_ordered(p, INTRO_DATABASES_BODIES)
     print(f"Patched {n} callouts in {p.relative_to(DOCS)}")
 

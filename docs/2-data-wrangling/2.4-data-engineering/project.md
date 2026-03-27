@@ -95,7 +95,7 @@ logger = logging.getLogger(__name__)
       <span class="code-callout__title">Required libraries</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–7: follow this band in the snippet.</p>
+      <p><strong>Required libraries</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="8-15" data-tint="2">
@@ -104,7 +104,7 @@ logger = logging.getLogger(__name__)
       <span class="code-callout__title">From typing import Dict, List, Any</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 8–15: follow this band in the snippet.</p>
+      <p><strong>From typing import Dict, List, Any</strong> — lines 8-15. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -151,7 +151,7 @@ class SalesAPIClient:
       <span class="code-callout__title">Class SalesAPIClient:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–8: follow this band in the snippet.</p>
+      <p><strong>Class SalesAPIClient:</strong> — lines 1-8 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="9-17" data-tint="2">
@@ -160,7 +160,7 @@ class SalesAPIClient:
       <span class="code-callout__title">Def fetch_sales(self, start_date: str, end_da…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 9–17: follow this band in the snippet.</p>
+      <p><strong>Def fetch_sales(self, start_date: str, end_da…</strong> — lines 9-17. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -218,7 +218,7 @@ class DataCleaner:
       <span class="code-callout__title">Class DataCleaner:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p><strong>Class DataCleaner:</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="11-21" data-tint="2">
@@ -227,7 +227,7 @@ class DataCleaner:
       <span class="code-callout__title">- Validate data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 11–21: follow this band in the snippet.</p>
+      <p><strong>- Validate data</strong> — lines 11-21 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -302,7 +302,7 @@ class WarehouseSchema:
       <span class="code-callout__title">Class WarehouseSchema:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Class WarehouseSchema:</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-25" data-tint="2">
@@ -311,7 +311,7 @@ class WarehouseSchema:
       <span class="code-callout__title">Customer_id INTEGER,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–25: follow this band in the snippet.</p>
+      <p><strong>Customer_id INTEGER,</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="26-38" data-tint="3">
@@ -320,7 +320,7 @@ class WarehouseSchema:
       <span class="code-callout__title">Date DATE,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 26–38: follow this band in the snippet.</p>
+      <p><strong>Date DATE,</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -388,7 +388,7 @@ class DataPipeline:
       <span class="code-callout__title">Class DataPipeline:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p><strong>Class DataPipeline:</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="11-20" data-tint="2">
@@ -397,7 +397,7 @@ class DataPipeline:
       <span class="code-callout__title">&quot;&quot;&quot;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 11–20: follow this band in the snippet.</p>
+      <p><strong>&quot;&quot;&quot;</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="21-31" data-tint="3">
@@ -406,7 +406,7 @@ class DataPipeline:
       <span class="code-callout__title">Raw_data = self.api_client.fetch_sales(start_…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 21–31: follow this band in the snippet.</p>
+      <p><strong>Raw_data = self.api_client.fetch_sales(start_…</strong> — lines 21-31 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -559,7 +559,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">Configuration</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–13: follow this band in the snippet.</p>
+      <p><strong>Configuration</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="14-27" data-tint="2">
@@ -568,7 +568,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">&#x27;failed_path&#x27;: &#x27;data/failed&#x27;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 14–27: follow this band in the snippet.</p>
+      <p><strong>&#x27;failed_path&#x27;: &#x27;data/failed&#x27;</strong> — lines 14-27 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="28-40" data-tint="3">
@@ -577,7 +577,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">&quot;&quot;&quot;Initialize pipeline components&quot;&quot;&quot;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 28–40: follow this band in the snippet.</p>
+      <p><strong>&quot;&quot;&quot;Initialize pipeline components&quot;&quot;&quot;</strong> — lines 28-40 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="41-54" data-tint="4">
@@ -586,7 +586,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">Self.cleaner = DataCleaner()</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 41–54: follow this band in the snippet.</p>
+      <p><strong>Self.cleaner = DataCleaner()</strong> — lines 41-54 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="55-67" data-tint="1">
@@ -595,7 +595,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">Logger.info(&quot;Daily load completed successfully&quot;)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 55–67: follow this band in the snippet.</p>
+      <p><strong>Logger.info(&quot;Daily load completed successfully&quot;)</strong> — lines 55-67 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="68-81" data-tint="2">
@@ -604,7 +604,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">Your code here</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 68–81: follow this band in the snippet.</p>
+      <p><strong>Your code here</strong> — lines 68-81 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>

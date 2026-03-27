@@ -285,7 +285,7 @@ class RelationshipAnalyzer:
       <span class="code-callout__title">Import pandas as pd</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–26: follow this band in the snippet.</p>
+      <p><strong>Import pandas as pd</strong> — lines 1-26. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="27-53" data-tint="2">
@@ -294,7 +294,7 @@ class RelationshipAnalyzer:
       <span class="code-callout__title">Def analyze_numeric_relationship(self, x, y):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 27–53: follow this band in the snippet.</p>
+      <p><strong>Def analyze_numeric_relationship(self, x, y):</strong> — lines 27-53. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="54-80" data-tint="3">
@@ -303,7 +303,7 @@ class RelationshipAnalyzer:
       <span class="code-callout__title">Sns.kdeplot(data=self.data, x=x, y=y)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 54–80: follow this band in the snippet.</p>
+      <p><strong>Sns.kdeplot(data=self.data, x=x, y=y)</strong> — lines 54-80 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="81-107" data-tint="4">
@@ -312,7 +312,7 @@ class RelationshipAnalyzer:
       <span class="code-callout__title">Le = LabelEncoder()</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 81–107: follow this band in the snippet.</p>
+      <p><strong>Le = LabelEncoder()</strong> — lines 81-107 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="108-134" data-tint="1">
@@ -321,7 +321,7 @@ class RelationshipAnalyzer:
       <span class="code-callout__title">Plt.show()</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 108–134: follow this band in the snippet.</p>
+      <p><strong>Plt.show()</strong> — lines 108-134 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="135-161" data-tint="2">
@@ -330,7 +330,7 @@ class RelationshipAnalyzer:
       <span class="code-callout__title">Fig = plt.figure(figsize=(15, 5))</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 135–161: follow this band in the snippet.</p>
+      <p><strong>Fig = plt.figure(figsize=(15, 5))</strong> — lines 135-161 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -415,7 +415,7 @@ Effect Size (): 0.006
       <span class="code-callout__title">Load sample customer data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–9: follow this band in the snippet.</p>
+      <p><strong>Load sample customer data</strong> — lines 1-9 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="10-18" data-tint="2">
@@ -424,7 +424,7 @@ Effect Size (): 0.006
       <span class="code-callout__title">2. Analyze category vs loyalty relationship</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 10–18: follow this band in the snippet.</p>
+      <p><strong>2. Analyze category vs loyalty relationship</strong> — lines 10-18 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -481,7 +481,7 @@ def compute_correlations_efficiently(df, method='pearson'):
       <span class="code-callout__title">Def compute_correlations_efficiently(df, meth…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>Def compute_correlations_efficiently(df, meth…</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -517,7 +517,7 @@ def analyze_categories_efficiently(df, cat1, cat2, max_categories=50):
       <span class="code-callout__title">Def analyze_categories_efficiently(df, cat1,…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–7: follow this band in the snippet.</p>
+      <p><strong>Def analyze_categories_efficiently(df, cat1,…</strong> — lines 1-7. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="8-15" data-tint="2">
@@ -526,7 +526,7 @@ def analyze_categories_efficiently(df, cat1, cat2, max_categories=50):
       <span class="code-callout__title">Use sampling for high cardinality</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 8–15: follow this band in the snippet.</p>
+      <p><strong>Use sampling for high cardinality</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -585,7 +585,7 @@ Avoid these common mistakes in relationship analysis:
          <span class="code-callout__title">Def check_confounding(df, x, y, potential_con…</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–8: follow this band in the snippet.</p>
+         <p><strong>Def check_confounding(df, x, y, potential_con…</strong> — lines 1-8. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
        </div>
      </div>
      <div class="code-callout" data-lines="9-16" data-tint="2">
@@ -594,7 +594,7 @@ Avoid these common mistakes in relationship analysis:
          <span class="code-callout__title">Calculate partial correlation</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 9–16: follow this band in the snippet.</p>
+         <p><strong>Calculate partial correlation</strong> — lines 9-16 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
        </div>
      </div>
    </aside>
@@ -631,7 +631,7 @@ Avoid these common mistakes in relationship analysis:
          <span class="code-callout__title">Def check_nonlinearity(df, x, y):</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–8: follow this band in the snippet.</p>
+         <p><strong>Def check_nonlinearity(df, x, y):</strong> — lines 1-8. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
        </div>
      </div>
      <div class="code-callout" data-lines="9-16" data-tint="2">
@@ -640,7 +640,7 @@ Avoid these common mistakes in relationship analysis:
          <span class="code-callout__title">Difference indicates non-linearity</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 9–16: follow this band in the snippet.</p>
+         <p><strong>Difference indicates non-linearity</strong> — lines 9-16 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
        </div>
      </div>
    </aside>
@@ -674,7 +674,7 @@ Avoid these common mistakes in relationship analysis:
          <span class="code-callout__title">Def adjust_for_sample_size(statistic, n, type…</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–13: follow this band in the snippet.</p>
+         <p><strong>Def adjust_for_sample_size(statistic, n, type…</strong> — lines 1-13. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
        </div>
      </div>
    </aside>

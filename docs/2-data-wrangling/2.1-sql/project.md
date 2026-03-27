@@ -91,7 +91,7 @@ ORDER BY total_spent DESC;
       <span class="code-callout__title">WITH customer_metrics AS (</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>WITH customer_metrics AS (</strong> — lines 1-12. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -100,7 +100,7 @@ ORDER BY total_spent DESC;
       <span class="code-callout__title">WHERE o.order_date &gt;= CURRENT_DATE - INTERVAL…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>WHERE o.order_date &gt;= CURRENT_DATE - INTERVAL…</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="25-36" data-tint="3">
@@ -109,7 +109,7 @@ ORDER BY total_spent DESC;
       <span class="code-callout__title">SELECT</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 25–36: follow this band in the snippet.</p>
+      <p><strong>SELECT</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="37-48" data-tint="4">
@@ -118,7 +118,7 @@ ORDER BY total_spent DESC;
       <span class="code-callout__title">WHEN days_since_last_order &lt;= 30 THEN &#x27; Active&#x27;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 37–48: follow this band in the snippet.</p>
+      <p><strong>WHEN days_since_last_order &lt;= 30 THEN &#x27; Active&#x27;</strong> — lines 37-48 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -184,7 +184,7 @@ ORDER BY cohort_month DESC, months_since_join;
       <span class="code-callout__title">WITH cohort_dates AS (</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>WITH cohort_dates AS (</strong> — lines 1-11. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-22" data-tint="2">
@@ -193,7 +193,7 @@ ORDER BY cohort_month DESC, months_since_join;
       <span class="code-callout__title">COUNT(DISTINCT customer_id) as num_customers</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–22: follow this band in the snippet.</p>
+      <p><strong>COUNT(DISTINCT customer_id) as num_customers</strong> — lines 12-22. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="23-33" data-tint="3">
@@ -202,7 +202,7 @@ ORDER BY cohort_month DESC, months_since_join;
       <span class="code-callout__title">FROM cohort_dates c</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 23–33: follow this band in the snippet.</p>
+      <p><strong>FROM cohort_dates c</strong> — lines 23-33 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="34-45" data-tint="4">
@@ -211,7 +211,7 @@ ORDER BY cohort_month DESC, months_since_join;
       <span class="code-callout__title">(active_customers::float / cohort_size * 100)…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 34–45: follow this band in the snippet.</p>
+      <p><strong>(active_customers::float / cohort_size * 100)…</strong> — lines 34-45 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -295,7 +295,7 @@ ORDER BY gross_revenue DESC;
       <span class="code-callout__title">WITH product_metrics AS (</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>WITH product_metrics AS (</strong> — lines 1-12. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-24" data-tint="2">
@@ -304,7 +304,7 @@ ORDER BY gross_revenue DESC;
       <span class="code-callout__title">COUNT(r.review_id) as review_count</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–24: follow this band in the snippet.</p>
+      <p><strong>COUNT(r.review_id) as review_count</strong> — lines 13-24. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="25-36" data-tint="3">
@@ -313,7 +313,7 @@ ORDER BY gross_revenue DESC;
       <span class="code-callout__title">ROUND((gross_profit / NULLIF(gross_revenue, 0…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 25–36: follow this band in the snippet.</p>
+      <p><strong>ROUND((gross_profit / NULLIF(gross_revenue, 0…</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="37-48" data-tint="4">
@@ -322,7 +322,7 @@ ORDER BY gross_revenue DESC;
       <span class="code-callout__title">Profit_margin,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 37–48: follow this band in the snippet.</p>
+      <p><strong>Profit_margin,</strong> — lines 37-48 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="49-61" data-tint="1">
@@ -331,7 +331,7 @@ ORDER BY gross_revenue DESC;
       <span class="code-callout__title">WHEN profit_margin &gt;= 25 THEN &#x27; Good Margin&#x27;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 49–61: follow this band in the snippet.</p>
+      <p><strong>WHEN profit_margin &gt;= 25 THEN &#x27; Good Margin&#x27;</strong> — lines 49-61 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -411,7 +411,7 @@ ORDER BY inventory_value DESC;
       <span class="code-callout__title">WITH inventory_metrics AS (</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–11: follow this band in the snippet.</p>
+      <p><strong>WITH inventory_metrics AS (</strong> — lines 1-11. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-23" data-tint="2">
@@ -420,7 +420,7 @@ ORDER BY inventory_value DESC;
       <span class="code-callout__title">FROM products p</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 12–23: follow this band in the snippet.</p>
+      <p><strong>FROM products p</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="24-35" data-tint="3">
@@ -429,7 +429,7 @@ ORDER BY inventory_value DESC;
       <span class="code-callout__title">CASE</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 24–35: follow this band in the snippet.</p>
+      <p><strong>CASE</strong> — lines 24-35 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="36-47" data-tint="4">
@@ -438,7 +438,7 @@ ORDER BY inventory_value DESC;
       <span class="code-callout__title">Days_of_inventory,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 36–47: follow this band in the snippet.</p>
+      <p><strong>Days_of_inventory,</strong> — lines 36-47 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="48-59" data-tint="1">
@@ -447,7 +447,7 @@ ORDER BY inventory_value DESC;
       <span class="code-callout__title">WHEN inventory_turnover &gt;= 25 THEN &#x27; Good Tur…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 48–59: follow this band in the snippet.</p>
+      <p><strong>WHEN inventory_turnover &gt;= 25 THEN &#x27; Good Tur…</strong> — lines 48-59 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -556,7 +556,7 @@ ORDER BY sale_date DESC;
       <span class="code-callout__title">WITH daily_sales AS (</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>WITH daily_sales AS (</strong> — lines 1-14. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
@@ -565,7 +565,7 @@ ORDER BY sale_date DESC;
       <span class="code-callout__title">WHERE o.order_date &gt;= CURRENT_DATE - INTERVAL…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–28: follow this band in the snippet.</p>
+      <p><strong>WHERE o.order_date &gt;= CURRENT_DATE - INTERVAL…</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="29-43" data-tint="3">
@@ -574,7 +574,7 @@ ORDER BY sale_date DESC;
       <span class="code-callout__title">),</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 29–43: follow this band in the snippet.</p>
+      <p><strong>),</strong> — lines 29-43 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="44-57" data-tint="4">
@@ -583,7 +583,7 @@ ORDER BY sale_date DESC;
       <span class="code-callout__title">((num_customers - prev_day_customers)::float /</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 44–57: follow this band in the snippet.</p>
+      <p><strong>((num_customers - prev_day_customers)::float /</strong> — lines 44-57 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="58-71" data-tint="1">
@@ -592,7 +592,7 @@ ORDER BY sale_date DESC;
       <span class="code-callout__title">SELECT</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 58–71: follow this band in the snippet.</p>
+      <p><strong>SELECT</strong> — lines 58-71 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="72-86" data-tint="2">
@@ -601,7 +601,7 @@ ORDER BY sale_date DESC;
       <span class="code-callout__title">Customer_growth,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 72–86: follow this band in the snippet.</p>
+      <p><strong>Customer_growth,</strong> — lines 72-86 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -713,7 +713,7 @@ ORDER BY roi DESC;
       <span class="code-callout__title">WITH campaign_metrics AS (</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–15: follow this band in the snippet.</p>
+      <p><strong>WITH campaign_metrics AS (</strong> — lines 1-15. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="16-30" data-tint="2">
@@ -722,7 +722,7 @@ ORDER BY roi DESC;
       <span class="code-callout__title">FROM marketing_campaigns mc</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 16–30: follow this band in the snippet.</p>
+      <p><strong>FROM marketing_campaigns mc</strong> — lines 16-30 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="31-45" data-tint="3">
@@ -731,7 +731,7 @@ ORDER BY roi DESC;
       <span class="code-callout__title">WHEN total_clicks &gt; 0</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 31–45: follow this band in the snippet.</p>
+      <p><strong>WHEN total_clicks &gt; 0</strong> — lines 31-45 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="46-60" data-tint="4">
@@ -740,7 +740,7 @@ ORDER BY roi DESC;
       <span class="code-callout__title">ROUND((total_spend / NULLIF(total_conversions…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 46–60: follow this band in the snippet.</p>
+      <p><strong>ROUND((total_spend / NULLIF(total_conversions…</strong> — lines 46-60 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="61-75" data-tint="1">
@@ -749,7 +749,7 @@ ORDER BY roi DESC;
       <span class="code-callout__title">Campaign_days,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 61–75: follow this band in the snippet.</p>
+      <p><strong>Campaign_days,</strong> — lines 61-75 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="76-91" data-tint="2">
@@ -758,7 +758,7 @@ ORDER BY roi DESC;
       <span class="code-callout__title">CASE</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 76–91: follow this band in the snippet.</p>
+      <p><strong>CASE</strong> — lines 76-91 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -848,7 +848,7 @@ ORDER BY inventory_value DESC;
       <span class="code-callout__title">WITH supplier_metrics AS (</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–13: follow this band in the snippet.</p>
+      <p><strong>WITH supplier_metrics AS (</strong> — lines 1-13. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="14-27" data-tint="2">
@@ -857,7 +857,7 @@ ORDER BY inventory_value DESC;
       <span class="code-callout__title">THEN sh.shipment_id</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 14–27: follow this band in the snippet.</p>
+      <p><strong>THEN sh.shipment_id</strong> — lines 14-27 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="28-41" data-tint="3">
@@ -866,7 +866,7 @@ ORDER BY inventory_value DESC;
       <span class="code-callout__title">NTILE(4) OVER (ORDER BY inventory_value DESC)…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 28–41: follow this band in the snippet.</p>
+      <p><strong>NTILE(4) OVER (ORDER BY inventory_value DESC)…</strong> — lines 28-41. Window functions compute per-row values using a frame without collapsing groups—check <code>PARTITION BY</code> and <code>ORDER BY</code> inside <code>OVER</code>.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="42-55" data-tint="4">
@@ -875,7 +875,7 @@ ORDER BY inventory_value DESC;
       <span class="code-callout__title">WHEN reliability_quartile = 1 THEN &#x27;High Risk&#x27;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 42–55: follow this band in the snippet.</p>
+      <p><strong>WHEN reliability_quartile = 1 THEN &#x27;High Risk&#x27;</strong> — lines 42-55 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="56-69" data-tint="1">
@@ -884,7 +884,7 @@ ORDER BY inventory_value DESC;
       <span class="code-callout__title">WHEN value_quartile = 3 THEN &#x27;Medium&#x27;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 56–69: follow this band in the snippet.</p>
+      <p><strong>WHEN value_quartile = 3 THEN &#x27;Medium&#x27;</strong> — lines 56-69 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -934,7 +934,7 @@ ORDER BY inventory_value DESC;
          <span class="code-callout__title">Indexes for frequent joins</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–11: follow this band in the snippet.</p>
+         <p><strong>Indexes for frequent joins</strong> — lines 1-11. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
        </div>
      </div>
    </aside>
@@ -970,7 +970,7 @@ ORDER BY inventory_value DESC;
          <span class="code-callout__title">Regular statistics update</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–9: follow this band in the snippet.</p>
+         <p><strong>Regular statistics update</strong> — lines 1-9 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
        </div>
      </div>
    </aside>

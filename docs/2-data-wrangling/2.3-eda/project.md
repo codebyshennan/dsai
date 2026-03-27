@@ -55,7 +55,7 @@ df = pd.read_csv('../_data/ecommerce_data.csv')
       <span class="code-callout__title">Required libraries</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–10: follow this band in the snippet.</p>
+      <p><strong>Required libraries</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -104,7 +104,7 @@ def analyze_numeric_relationships(data):
       <span class="code-callout__title">Example structure</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–7: follow this band in the snippet.</p>
+      <p><strong>Example structure</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -175,7 +175,7 @@ def segment_customers(data):
       <span class="code-callout__title">Def segment_customers(data):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–13: follow this band in the snippet.</p>
+      <p><strong>Def segment_customers(data):</strong> — lines 1-13. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -369,7 +369,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">1. Initial Setup</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–19: follow this band in the snippet.</p>
+      <p><strong>1. Initial Setup</strong> — lines 1-19 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="20-39" data-tint="2">
@@ -378,7 +378,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">Your code here</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 20–39: follow this band in the snippet.</p>
+      <p><strong>Your code here</strong> — lines 20-39 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="40-59" data-tint="3">
@@ -387,7 +387,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">Categorical distributions</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 40–59: follow this band in the snippet.</p>
+      <p><strong>Categorical distributions</strong> — lines 40-59 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="60-78" data-tint="4">
@@ -396,7 +396,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">Sns.heatmap(correlation_matrix, annot=True, c…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 60–78: follow this band in the snippet.</p>
+      <p><strong>Sns.heatmap(correlation_matrix, annot=True, c…</strong> — lines 60-78 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="79-98" data-tint="1">
@@ -405,7 +405,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">Plt.figure(figsize=(15, 5))</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 79–98: follow this band in the snippet.</p>
+      <p><strong>Plt.figure(figsize=(15, 5))</strong> — lines 79-98 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="99-118" data-tint="2">
@@ -414,7 +414,7 @@ if __name__ == "__main__":
       <span class="code-callout__title">Return report</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 99–118: follow this band in the snippet.</p>
+      <p><strong>Return report</strong> — lines 99-118 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>

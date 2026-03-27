@@ -195,7 +195,7 @@ class DataExplorer:
       <span class="code-callout__title">Import pandas as pd</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–19: follow this band in the snippet.</p>
+      <p><strong>Import pandas as pd</strong> — lines 1-19. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="20-39" data-tint="2">
@@ -204,7 +204,7 @@ class DataExplorer:
       <span class="code-callout__title">- Relationship exploration</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 20–39: follow this band in the snippet.</p>
+      <p><strong>- Relationship exploration</strong> — lines 20-39 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="40-59" data-tint="3">
@@ -213,7 +213,7 @@ class DataExplorer:
       <span class="code-callout__title">&quot;&quot;&quot;</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 40–59: follow this band in the snippet.</p>
+      <p><strong>&quot;&quot;&quot;</strong> — lines 40-59 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="60-78" data-tint="4">
@@ -222,7 +222,7 @@ class DataExplorer:
       <span class="code-callout__title">Return missing[missing[&#x27;count&#x27;] &gt; 0]</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 60–78: follow this band in the snippet.</p>
+      <p><strong>Return missing[missing[&#x27;count&#x27;] &gt; 0]</strong> — lines 60-78. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="79-98" data-tint="1">
@@ -231,7 +231,7 @@ class DataExplorer:
       <span class="code-callout__title">Plt.tight_layout()</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 79–98: follow this band in the snippet.</p>
+      <p><strong>Plt.tight_layout()</strong> — lines 79-98 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="99-118" data-tint="2">
@@ -240,7 +240,7 @@ class DataExplorer:
       <span class="code-callout__title">Def analyze_categorical(self):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 99–118: follow this band in the snippet.</p>
+      <p><strong>Def analyze_categorical(self):</strong> — lines 99-118. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
 </aside>
@@ -324,7 +324,7 @@ class AdvancedAnalyzer:
       <span class="code-callout__title">Class AdvancedAnalyzer:</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–12: follow this band in the snippet.</p>
+      <p><strong>Class AdvancedAnalyzer:</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="13-25" data-tint="2">
@@ -333,7 +333,7 @@ class AdvancedAnalyzer:
       <span class="code-callout__title">Def __init__(self, df):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 13–25: follow this band in the snippet.</p>
+      <p><strong>Def __init__(self, df):</strong> — lines 13-25. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="26-37" data-tint="3">
@@ -342,7 +342,7 @@ class AdvancedAnalyzer:
       <span class="code-callout__title">Return (self.df[column] &lt; (Q1 - 1.5 * IQR)) |…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 26–37: follow this band in the snippet.</p>
+      <p><strong>Return (self.df[column] &lt; (Q1 - 1.5 * IQR)) |…</strong> — lines 26-37 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="38-50" data-tint="4">
@@ -351,7 +351,7 @@ class AdvancedAnalyzer:
       <span class="code-callout__title">&#x27;skew&#x27;: stats.skew(self.df[column]),</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 38–50: follow this band in the snippet.</p>
+      <p><strong>&#x27;skew&#x27;: stats.skew(self.df[column]),</strong> — lines 38-50 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="51-63" data-tint="1">
@@ -360,7 +360,7 @@ class AdvancedAnalyzer:
       <span class="code-callout__title">&#x27;weekly&#x27;: self.df.resample(&#x27;W&#x27;, on=date_colum…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 51–63: follow this band in the snippet.</p>
+      <p><strong>&#x27;weekly&#x27;: self.df.resample(&#x27;W&#x27;, on=date_colum…</strong> — lines 51-63 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -456,7 +456,7 @@ dtype: object, 'memory_usage': np.float64(0.003177642822265625)}
       <span class="code-callout__title">Load sample e-commerce data</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>Load sample e-commerce data</strong> — lines 1-14 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
@@ -465,7 +465,7 @@ dtype: object, 'memory_usage': np.float64(0.003177642822265625)}
       <span class="code-callout__title">3. Sales Analysis</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–28: follow this band in the snippet.</p>
+      <p><strong>3. Sales Analysis</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="29-42" data-tint="3">
@@ -474,7 +474,7 @@ dtype: object, 'memory_usage': np.float64(0.003177642822265625)}
       <span class="code-callout__title">Plt.subplot(413)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 29–42: follow this band in the snippet.</p>
+      <p><strong>Plt.subplot(413)</strong> — lines 29-42 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="43-57" data-tint="4">
@@ -483,7 +483,7 @@ dtype: object, 'memory_usage': np.float64(0.003177642822265625)}
       <span class="code-callout__title">&#x27;total_spent&#x27;: df.groupby(&#x27;customer_id&#x27;)[&#x27;amo…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 43–57: follow this band in the snippet.</p>
+      <p><strong>&#x27;total_spent&#x27;: df.groupby(&#x27;customer_id&#x27;)[&#x27;amo…</strong> — lines 43-57. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
     </div>
   </div>
 </aside>
@@ -539,7 +539,7 @@ def optimize_dataframe(df):
       <span class="code-callout__title">Def optimize_dataframe(df):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>Def optimize_dataframe(df):</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
@@ -548,7 +548,7 @@ def optimize_dataframe(df):
       <span class="code-callout__title">Df[col] = df[col].astype(np.int16)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–28: follow this band in the snippet.</p>
+      <p><strong>Df[col] = df[col].astype(np.int16)</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -584,7 +584,7 @@ def analyze_large_dataset(file_path, chunk_size=10000):
       <span class="code-callout__title">Def analyze_large_dataset(file_path, chunk_si…</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–7: follow this band in the snippet.</p>
+      <p><strong>Def analyze_large_dataset(file_path, chunk_si…</strong> — lines 1-7. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="8-15" data-tint="2">
@@ -593,7 +593,7 @@ def analyze_large_dataset(file_path, chunk_size=10000):
       <span class="code-callout__title">Chunk = optimize_dataframe(chunk)</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 8–15: follow this band in the snippet.</p>
+      <p><strong>Chunk = optimize_dataframe(chunk)</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
@@ -630,7 +630,7 @@ mad = stats.median_abs_deviation(df['amount'])
          <span class="code-callout__title">Bad: Assuming normal distribution</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–7: follow this band in the snippet.</p>
+         <p><strong>Bad: Assuming normal distribution</strong> — lines 1-7 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
        </div>
      </div>
    </aside>
@@ -658,7 +658,7 @@ mad = stats.median_abs_deviation(df['amount'])
          <span class="code-callout__title">Correlation analysis</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–7: follow this band in the snippet.</p>
+         <p><strong>Correlation analysis</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
        </div>
      </div>
    </aside>
@@ -688,7 +688,7 @@ mad = stats.median_abs_deviation(df['amount'])
          <span class="code-callout__title">Bad: Drop all missing values</span>
        </div>
        <div class="code-callout__body">
-         <p>Lines 1–9: follow this band in the snippet.</p>
+         <p><strong>Bad: Drop all missing values</strong> — lines 1-9 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
        </div>
      </div>
    </aside>
@@ -739,7 +739,7 @@ def create_interactive_dashboard(df):
       <span class="code-callout__title">Def create_interactive_dashboard(df):</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 1–14: follow this band in the snippet.</p>
+      <p><strong>Def create_interactive_dashboard(df):</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
@@ -748,7 +748,7 @@ def create_interactive_dashboard(df):
       <span class="code-callout__title">Size=&#x27;monetary&#x27;,</span>
     </div>
     <div class="code-callout__body">
-      <p>Lines 15–28: follow this band in the snippet.</p>
+      <p><strong>Size=&#x27;monetary&#x27;,</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
     </div>
   </div>
 </aside>
