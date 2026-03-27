@@ -1,0 +1,140 @@
+{% comment %}
+  Prev / module root / next navigation. Primary order: _data/lesson_nav_order.yml
+  (pnpm run lesson-nav-order). Fallback: all pages in the same directory, sorted by path.
+  Set lesson_nav: false to hide.
+{% endcomment %}
+{% unless page.lesson_nav == false %}
+{% assign show_lesson_nav = true %}
+{% if page.path == 'README.md' or page.path == 'index.md' %}
+  {% assign show_lesson_nav = false %}
+{% endif %}
+
+{% if show_lesson_nav %}
+  {% assign dir_key = page.dir | remove_first: '/' | remove_last: '/' %}
+  {% assign order = site.data.lesson_nav_order[dir_key] %}
+
+  {% assign idx = -1 %}
+  {% if order %}
+    {% for f in order %}
+      {% if f == page.name %}
+        {% assign idx = forloop.index0 %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if idx > -1 %}
+    {% assign order_len = order | size %}
+    {% assign max_i = order_len | minus: 1 %}
+
+    {% assign prev_name = '' %}
+    {% assign next_name = '' %}
+    {% if idx > 0 %}
+      {% assign prev_i = idx | minus: 1 %}
+      {% for f in order %}
+        {% if forloop.index0 == prev_i %}
+          {% assign prev_name = f %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if idx < max_i %}
+      {% assign next_i = idx | plus: 1 %}
+      {% for f in order %}
+        {% if forloop.index0 == next_i %}
+          {% assign next_name = f %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% assign prev_path = '' %}
+    {% if prev_name != '' %}
+      {% assign prev_path = dir_key | append: '/' | append: prev_name %}
+    {% endif %}
+    {% assign next_path = '' %}
+    {% if next_name != '' %}
+      {% assign next_path = dir_key | append: '/' | append: next_name %}
+    {% endif %}
+
+    {% if prev_path != '' %}
+      {% assign prev_page = site.pages | where: 'path', prev_path | first %}
+    {% endif %}
+    {% if next_path != '' %}
+      {% assign next_page = site.pages | where: 'path', next_path | first %}
+    {% endif %}
+  {% endif %}
+
+  {% comment %} Not in lesson_nav_order.yml (or no data for this dir): order by path within the folder. {% endcomment %}
+  {% if idx == -1 %}
+    {% assign sibs = site.pages | where_exp: "p", "p.dir == page.dir" | sort: "path" %}
+    {% assign sidx = -1 %}
+    {% for p in sibs %}
+      {% if p.name == page.name %}
+        {% assign sidx = forloop.index0 %}
+      {% endif %}
+    {% endfor %}
+    {% if sidx > -1 %}
+      {% if sidx > 0 %}
+        {% assign spi = sidx | minus: 1 %}
+        {% for p in sibs %}
+          {% if forloop.index0 == spi %}
+            {% assign prev_page = p %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% assign smax = sibs | size | minus: 1 %}
+      {% if sidx < smax %}
+        {% assign sni = sidx | plus: 1 %}
+        {% for p in sibs %}
+          {% if forloop.index0 == sni %}
+            {% assign next_page = p %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if page.name == 'README.md' %}
+    {% if dir_key contains '/' %}
+      {% assign root_seg = dir_key | split: '/' | first %}
+      {% assign root_href = '/' | append: root_seg | append: '/README.html' %}
+      {% assign root_label = 'Back to module root' %}
+    {% else %}
+      {% assign root_href = '/README.html' %}
+      {% assign root_label = 'Course index' %}
+    {% endif %}
+  {% else %}
+    {% if dir_key contains '/_assignments' %}
+      {% assign mod_root = dir_key | split: '/_assignments' | first %}
+      {% assign root_href = '/' | append: mod_root | append: '/README.html' %}
+      {% assign root_label = 'Back to module root' %}
+    {% else %}
+      {% assign readme_path = dir_key | append: '/README.md' %}
+      {% assign readme_index = site.pages | where: 'path', readme_path | first %}
+      {% if readme_index %}
+        {% assign root_href = readme_index.url %}
+        {% assign root_label = 'Back to module root' %}
+      {% else %}
+        {% assign root_href = '/README.html' %}
+        {% assign root_label = 'Course index' %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+<nav class="lesson-nav" aria-label="Lesson navigation">
+  <div class="lesson-nav__inner">
+    {% if prev_page %}
+      <a class="lesson-nav__btn lesson-nav__btn--prev" href="{{ prev_page.url | relative_url }}"{% if prev_page.title %} title="{{ prev_page.title | escape }}"{% endif %}>← Previous</a>
+    {% else %}
+      <span class="lesson-nav__btn lesson-nav__btn--disabled" aria-disabled="true">← Previous</span>
+    {% endif %}
+
+    <a class="lesson-nav__btn lesson-nav__btn--root" href="{{ root_href | relative_url }}">{{ root_label }}</a>
+
+    {% if next_page %}
+      <a class="lesson-nav__btn lesson-nav__btn--next" href="{{ next_page.url | relative_url }}"{% if next_page.title %} title="{{ next_page.title | escape }}"{% endif %}>Next →</a>
+    {% else %}
+      <span class="lesson-nav__btn lesson-nav__btn--disabled" aria-disabled="true">Next →</span>
+    {% endif %}
+  </div>
+</nav>
+{% endif %}
+{% endunless %}
