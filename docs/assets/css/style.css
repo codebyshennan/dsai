@@ -1095,6 +1095,16 @@ body {
 
 /* Mobile (≤ 768px): icon-only prev/next buttons */
 @media (max-width: 768px) {
+    /* Use left/right instead of left+transform to avoid 100vw expanding
+       when the page has horizontal overflow content (e.g. wide tables). */
+    .lesson-nav__inner {
+        left: 0;
+        right: 0;
+        transform: none;
+        width: auto;
+        max-width: none;
+    }
+
     .lesson-nav__btn--prev,
     .lesson-nav__btn--next {
         flex: 0 0 40px;
