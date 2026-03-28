@@ -134,13 +134,16 @@
   {% if prog_cur != '' %}
   <div class="lesson-nav__meta">
     <span class="lesson-nav__progress">Lesson {{ prog_cur }} of {{ prog_tot }}</span>
-    <select class="lesson-nav__jump" aria-label="Jump to lesson" onchange="if(this.value)location.href=this.value">
+    <label for="lesson-jump-select" class="lesson-nav__jump-label">Jump to lesson</label>
+    <select id="lesson-jump-select" class="lesson-nav__jump" onchange="if(this.value)location.href=this.value">
       {% if idx > -1 %}
         {% for f in order %}
           {% assign _jpath = dir_key | append: '/' | append: f %}
           {% assign _jpage = site.pages | where: 'path', _jpath | first %}
           {% if _jpage %}
             <option value="{{ _jpage.url | relative_url }}"{% if f == page.name %} selected{% endif %}>{{ _jpage.title | default: f | replace: '-', ' ' | replace: '.md', '' }}</option>
+          {% else %}
+            <option value="" disabled>{{ f | replace: '-', ' ' | replace: '.md', '' }}</option>
           {% endif %}
         {% endfor %}
       {% elsif sidx > -1 %}

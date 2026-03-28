@@ -9,6 +9,15 @@
     --header-bg: #ffffff;
     --code-bg: #f6f8fa;
     --shadow: rgba(0, 0, 0, 0.1);
+    /* Lesson callouts (aside.lesson-callout): accent bar + optional tints */
+    --lesson-callout-accent: #0969da;
+    --lesson-callout-accent-rgb: 9, 105, 218;
+    --lesson-callout-surface: #f6f8fa;
+    /* Markdown tables */
+    --table-border: #d0d7de;
+    --table-header-bg: #f6f8fa;
+    --table-row-alt: rgba(175, 184, 193, 0.12);
+    --table-row-hover: rgba(9, 105, 218, 0.06);
 }
 
 :root[data-theme="dark"] {
@@ -21,6 +30,13 @@
     --header-bg: #161b22;
     --code-bg: #0d1117;
     --shadow: rgba(0, 0, 0, 0.45);
+    --lesson-callout-accent: #58a6ff;
+    --lesson-callout-accent-rgb: 88, 166, 255;
+    --lesson-callout-surface: #161b22;
+    --table-border: #30363d;
+    --table-header-bg: #21262d;
+    --table-row-alt: rgba(110, 118, 129, 0.14);
+    --table-row-hover: rgba(88, 166, 255, 0.08);
 }
 
 body {
@@ -75,6 +91,8 @@ body {
     font-size: 14px;
     line-height: 1.45;
     margin: 1em 0;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 /* --- Enhanced code blocks (header + copy + optional terminal / output) --- */
@@ -146,6 +164,51 @@ body {
 
 .markdown-body .code-block__body {
     position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-width: 0;
+}
+
+/* Line gutter (injected by code-blocks.js); output blocks omit this column */
+.markdown-body .code-block__line-numbers {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 14px 0 14px 12px;
+    border-right: 1px solid #d8dee4;
+    background: #eceff2;
+    user-select: none;
+    font-family: "JetBrains Mono", SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #656d76;
+    box-sizing: border-box;
+}
+
+.markdown-body .code-block__line-number {
+    display: block;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+/* Rouge wraps as .highlighter-rouge > .highlight > pre — flex child is the outer div */
+.markdown-body .code-block__body > .highlight,
+.markdown-body .code-block__body > .highlighter-rouge,
+.markdown-body .code-block__body > pre {
+    flex: 1 1 0%;
+    min-width: 0;
+}
+
+/* Outer Rouge wrapper stretches on the row cross-axis; inner .highlight/pre stay content-height.
+   Paint the wrapper so flex “slack” isn’t the card’s white (#fff). */
+.markdown-body .code-block__body > .highlighter-rouge {
+    background-color: #f6f8fa;
+}
+
+.markdown-body .code-block__body .highlighter-rouge > .highlight {
+    width: 100%;
 }
 
 .markdown-body .code-block__body .highlight {
@@ -163,6 +226,8 @@ body {
     font-size: 13px;
     line-height: 1.55;
     tab-size: 4;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 /* Terminal-style shell blocks (```bash, ```zsh, ```console, …) */
@@ -178,14 +243,16 @@ body {
 
 .markdown-body .code-block--terminal .code-block__title {
     color: #8b949e;
+    flex-shrink: 0;
 }
 
+/* Box-shadow dots do not expand layout; extra margin-right reserves space so the label clears them. */
 .markdown-body .code-block--terminal .code-block__title::before {
     content: "";
     display: inline-block;
     width: 8px;
     height: 8px;
-    margin-right: 8px;
+    margin-right: 36px;
     border-radius: 50%;
     background: #3fb950;
     box-shadow: 14px 0 0 #d29922, 28px 0 0 #f85149;
@@ -209,6 +276,10 @@ body {
     color: #fff;
 }
 
+.markdown-body .code-block--terminal .code-block__body > .highlighter-rouge {
+    background-color: #0d1117;
+}
+
 .markdown-body .code-block--terminal .highlight {
     background-color: #0d1117;
 }
@@ -216,6 +287,12 @@ body {
 .markdown-body .code-block--terminal pre {
     background-color: #0d1117 !important;
     color: #e6edf3;
+}
+
+.markdown-body .code-block--terminal .code-block__line-numbers {
+    background: #0d1117;
+    border-right-color: #30363d;
+    color: #6e7681;
 }
 
 /* Rouge — dark (terminal blocks) */
@@ -278,6 +355,10 @@ body {
     border-color: #30363d;
 }
 
+.markdown-body .code-block--output .code-block__body > .highlighter-rouge {
+    background-color: #010409;
+}
+
 .markdown-body .code-block--output .highlight,
 .markdown-body .code-block--output pre {
     background-color: #010409 !important;
@@ -303,7 +384,12 @@ body {
     margin: 0;
 }
 
-.highlight .c1 { color: #6a737d; } /* Comment */
+.highlight .c,
+.highlight .c1,
+.highlight .cm,
+.highlight .cs,
+.highlight .cp,
+.highlight .cd { color: #999; font-style: italic; } /* Comments — all types */
 .highlight .s { color: #032f62; } /* String */
 .highlight .s2 { color: #032f62; } /* String.Double */
 .highlight .s1 { color: #032f62; } /* String.Single */
@@ -396,6 +482,50 @@ body {
     color: #57606a;
 }
 
+/* Slides link above lesson body (see _includes/lesson-slides-top.html) */
+.lesson-slides-top {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 0.85rem;
+}
+
+.lesson-slides-top__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--link, #0969da);
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--link, #0969da) 28%, transparent);
+    background: color-mix(in srgb, var(--link, #0969da) 9%, var(--bg-page, #fff));
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.lesson-slides-top__link:hover {
+    text-decoration: none;
+    background: color-mix(in srgb, var(--link, #0969da) 16%, var(--bg-page, #fff));
+    border-color: color-mix(in srgb, var(--link, #0969da) 40%, transparent);
+}
+
+.lesson-slides-top__link:focus-visible {
+    outline: 2px solid var(--link, #0969da);
+    outline-offset: 2px;
+}
+
+.lesson-slides-top__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+.lesson-slides-top__label {
+    white-space: nowrap;
+}
+
 /* Ensure content doesn't overflow */
 .markdown-body img {
     max-width: 100%;
@@ -430,20 +560,77 @@ body {
     border: 0;
 }
 
-/* Adjust table width for better readability */
+/* Markdown tables: typography, grid, header band, zebra (wrapper from table-wrap.js) */
+.markdown-body .table-scroll {
+    margin: 1.25em 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+    border-radius: 10px;
+    border: 1px solid var(--table-border);
+    box-shadow: 0 1px 3px var(--shadow);
+    background: var(--bg-card);
+}
+
+.markdown-body .table-scroll table {
+    margin: 0;
+}
+
 .markdown-body table {
     display: table;
     width: 100%;
     max-width: 100%;
-    overflow-x: auto;
     border-collapse: collapse;
-    margin: 1em 0;
+    margin: 1.25em 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--text);
+}
+
+.markdown-body .table-scroll table {
+    width: max-content;
+    min-width: 100%;
+}
+
+.markdown-body table caption {
+    caption-side: top;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--text);
+    padding: 0.5rem 0.75rem 0.65rem;
+    border-bottom: 1px solid var(--table-border);
 }
 
 .markdown-body table th,
 .markdown-body table td {
-    padding: 8px;
-    border: 1px solid #dfe2e5;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--table-border);
+    vertical-align: top;
+}
+
+.markdown-body table thead th {
+    background: var(--table-header-bg);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    border-bottom-color: var(--table-border);
+    text-align: left;
+}
+
+.markdown-body table tbody tr:nth-child(even) {
+    background: var(--table-row-alt);
+}
+
+.markdown-body table tbody tr:hover {
+    background: var(--table-row-hover);
+}
+
+.markdown-body table tbody th {
+    font-weight: 600;
 }
 
 /* Add some spacing between sections */
@@ -478,14 +665,98 @@ body {
     vertical-align: -0.12em;
 }
 
-/* Add some breathing room for blockquotes */
+/*
+ * Blockquotes (`>` in Markdown) use the same “inline callout” chrome repo-wide.
+ * Optional HTML: aside.lesson-callout--titled / --qa for different layouts.
+ */
 .markdown-body blockquote {
-    margin: 1em 0;
-    padding: 0.5em 1em;
-    border-left: 4px solid #0366d6;
-    background-color: #f6f8fa;
-    border-radius: 0 6px 6px 0;
-    color: #6a737d;
+    --callout-accent: var(--lesson-callout-accent);
+    margin: 1.25em 0;
+    padding: 0.65em 1em 0.75em 1.15em;
+    border-left: 5px solid var(--callout-accent);
+    background-color: var(--lesson-callout-surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-muted);
+    box-sizing: border-box;
+}
+
+.markdown-body blockquote p {
+    margin: 0 0 0.65em;
+}
+
+.markdown-body blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.markdown-body blockquote strong {
+    color: var(--text);
+    font-weight: 700;
+}
+
+/* --- Lesson callouts / quotes (distinct from code-explainer .code-callout) --- */
+.markdown-body .lesson-callout {
+    --callout-accent: var(--lesson-callout-accent);
+    --callout-surface: var(--lesson-callout-surface);
+    margin: 1.25em 0;
+    box-sizing: border-box;
+}
+
+.markdown-body .lesson-callout p {
+    margin: 0 0 0.65em;
+}
+
+.markdown-body .lesson-callout p:last-child {
+    margin-bottom: 0;
+}
+
+/* Optional data-accent tints + icons: see assets/css/callouts.css */
+
+/* 1) Inline label: same chrome as blockquote; use for raw HTML if needed */
+.markdown-body .lesson-callout--inline {
+    border-left: 5px solid var(--callout-accent);
+    padding: 0.65em 1em 0.75em 1.15em;
+    background-color: var(--callout-surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-muted);
+}
+
+.markdown-body .lesson-callout--inline strong {
+    color: var(--text);
+    font-weight: 700;
+}
+
+/* 2) External title: heading row full width; only body has the accent bar */
+.markdown-body .lesson-callout--titled {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.markdown-body .lesson-callout__label {
+    margin: 0;
+    font-size: inherit;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+.markdown-body .lesson-callout--titled .lesson-callout__body {
+    border-left: 5px solid var(--callout-accent);
+    padding: 0.65em 1em 0.75em 1.15em;
+    background-color: var(--callout-surface);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-muted);
+}
+
+/* 3) Q&A: italic prompt line + answer (use inside .lesson-callout__body) */
+.markdown-body .lesson-callout--qa .lesson-callout__question {
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 0.5em;
+}
+
+.markdown-body .lesson-callout--qa .lesson-callout__body > p:not(.lesson-callout__question) {
+    color: var(--text-muted);
 }
 
 /* --- Code explainer: long blocks + side callouts (line-range highlights) --- */
@@ -509,7 +780,8 @@ body {
 .markdown-body .code-explainer__code .code-block {
     margin-top: 0;
     width: 100%;
-    flex: 1 1 auto;
+    /* Don’t grow vertically: flex-1 was leaving the card’s white bg as a “footer” below the snippet */
+    flex: 0 1 auto;
     min-height: 0;
     display: flex;
     flex-direction: column;
@@ -520,7 +792,7 @@ body {
 }
 
 .markdown-body .code-explainer__code .code-block__body {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     min-height: 0;
 }
 
@@ -538,7 +810,8 @@ body {
 }
 
 /* Rouge block paints first; overlay must sit above so tints are visible */
-.markdown-body .code-explainer .code-block__body > .highlight {
+.markdown-body .code-explainer .code-block__body > .highlight,
+.markdown-body .code-explainer .code-block__body > .highlighter-rouge {
     position: relative;
     z-index: 0;
 }
@@ -918,6 +1191,11 @@ body.site-search-open {
         grid-template-columns: 220px minmax(0, 1fr);
     }
 
+    /* TOC slot is [hidden] when empty: without this, the lone main column sits in the 220px track */
+    .page-toc[hidden] ~ .page-layout__main {
+        grid-column: 1 / -1;
+    }
+
     .page-toc:not([hidden]) {
         position: sticky;
         top: 5rem;
@@ -1033,14 +1311,16 @@ body.site-search-open {
     color: var(--text);
 }
 
-.lesson-nav__slides {
-    font-weight: 600;
-    color: var(--link);
-    text-decoration: none;
-}
-
-.lesson-nav__slides:hover {
-    text-decoration: underline;
+.lesson-nav__jump-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .lesson-nav__inner {
@@ -1116,17 +1396,6 @@ body.site-search-open {
     color: var(--link);
 }
 
-:root[data-theme="dark"] .markdown-body table th,
-:root[data-theme="dark"] .markdown-body table td {
-    border-color: var(--border);
-}
-
-:root[data-theme="dark"] .markdown-body blockquote {
-    background: var(--code-bg);
-    border-left-color: var(--link);
-    color: var(--text-muted);
-}
-
 :root[data-theme="dark"] .markdown-body pre {
     background-color: var(--code-bg);
 }
@@ -1135,13 +1404,230 @@ body.site-search-open {
     background-color: var(--code-bg);
 }
 
+:root[data-theme="dark"] .markdown-body .code-block__body > .highlighter-rouge {
+    background-color: var(--code-bg);
+}
+
+:root[data-theme="dark"] .markdown-body .code-block--output .code-block__body > .highlighter-rouge {
+    background-color: #010409;
+}
+
 :root[data-theme="dark"] .markdown-body .code-block {
     border-color: var(--border);
     background: var(--bg-card);
 }
 
+:root[data-theme="dark"] .markdown-body .code-block__line-numbers {
+    background: rgba(110, 118, 129, 0.14);
+    border-right-color: var(--border);
+    color: var(--text-muted);
+}
+
+:root[data-theme="dark"] .markdown-body .code-block--terminal .code-block__line-numbers {
+    background: #0d1117;
+    border-right-color: #30363d;
+    color: #6e7681;
+}
+
 :root[data-theme="dark"] .katex {
     color: var(--text);
+}
+
+/* --- Home page (module cards) --- */
+.home-page .home-hero {
+    margin: 0 0 2rem;
+    padding: 1.75rem 1.5rem 1.85rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-page) 100%);
+    box-shadow: 0 1px 3px var(--shadow);
+}
+
+.home-page .home-hero h1 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.home-page .home-hero__lead {
+    margin: 0 0 0.75rem;
+    font-size: 1.05rem;
+    color: var(--text);
+    max-width: min(42rem, 100%);
+}
+
+.home-page .home-hero__meta {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    max-width: min(44rem, 100%);
+}
+
+.home-page h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.home-page .module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 1rem 1.25rem;
+    margin: 0 0 2rem;
+}
+
+.home-page .module-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 1rem 1.1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 1px 2px var(--shadow);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.home-page .module-card:hover {
+    border-color: var(--link);
+    box-shadow: 0 4px 14px var(--shadow);
+    transform: translateY(-2px);
+}
+
+.home-page .module-card:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+}
+
+.home-page .module-card__badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--link);
+    background: rgba(var(--lesson-callout-accent-rgb), 0.12);
+    border: 1px solid rgba(var(--lesson-callout-accent-rgb), 0.25);
+}
+
+.home-page .module-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+}
+
+.home-page .module-card__title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text);
+}
+
+.home-page .module-card__desc {
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+}
+
+/* --- Full curriculum page (long outline) --- */
+.curriculum-page h1 {
+    margin-bottom: 0.75rem;
+}
+
+.curriculum-page > p:first-of-type {
+    margin-top: 0;
+}
+
+.curriculum-page h2 {
+    margin-top: 2.25rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.35rem;
+}
+
+.curriculum-page h3 {
+    margin: 1.5rem 0 0.65rem;
+    padding: 0.55rem 0.85rem 0.55rem 0.95rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    border-left: 4px solid var(--link);
+    box-shadow: 0 1px 2px var(--shadow);
+}
+
+.curriculum-page h3 + ul {
+    margin-top: 0.5rem;
+}
+
+.curriculum-page ul {
+    padding-left: 1.35rem;
+}
+
+.curriculum-page ul ul {
+    margin-top: 0.35rem;
+    margin-bottom: 0.35rem;
+    padding-left: 1.25rem;
+    border-left: 2px solid rgba(var(--lesson-callout-accent-rgb), 0.2);
+}
+
+.curriculum-page li {
+    margin: 0.2rem 0;
+}
+
+.curriculum-page li li {
+    margin: 0.15rem 0;
+}
+
+/* Inline code (backtick spans, not fenced blocks) */
+.markdown-body code:not(pre code) {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.15em 0.4em;
+    font-family: "JetBrains Mono", SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.875em;
+    color: var(--text);
+}
+
+/* Site header logo */
+.site-header__brand--logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.site-header__logo-icon {
+    display: block;
+    flex-shrink: 0;
+    color: var(--text);
+}
+
+.site-header__logo-text {
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.site-header__brand--logo:hover .site-header__logo-text,
+.site-header__brand--logo:hover .site-header__logo-icon {
+    color: var(--link);
 }
 
 /* Focus visible (global) */
@@ -1177,5 +1663,11 @@ select:focus-visible {
 
     body {
         background: #fff;
+    }
+
+    .markdown-body .table-scroll {
+        overflow: visible;
+        box-shadow: none;
+        break-inside: avoid;
     }
 }
