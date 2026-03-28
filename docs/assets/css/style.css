@@ -590,8 +590,8 @@ body {
 }
 
 .markdown-body .table-scroll table {
-    width: max-content;
-    min-width: 100%;
+    width: 100%;
+    min-width: max-content;
 }
 
 .markdown-body table caption {
