@@ -114,6 +114,20 @@
     {% assign root_label = 'Course index' %}
   {% endif %}
 
+  {% comment %} Safety: if root_href directory has no README, fall back to course index {% endcomment %}
+  {% unless root_href == '/' %}
+    {% if dir_key contains '/_assignments' %}
+      {% assign _check_path = mod_root | append: '/README.md' %}
+    {% else %}
+      {% assign _check_path = dir_key | append: '/README.md' %}
+    {% endif %}
+    {% assign _check_page = site.pages | where: 'path', _check_path | first %}
+    {% unless _check_page %}
+      {% assign root_href = '/' %}
+      {% assign root_label = 'Course index' %}
+    {% endunless %}
+  {% endunless %}
+
   {% assign prog_cur = '' %}
   {% assign prog_tot = '' %}
   {% if idx > -1 %}
