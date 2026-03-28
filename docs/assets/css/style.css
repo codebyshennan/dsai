@@ -1313,15 +1313,8 @@ body.site-search-open {
 }
 
 .lesson-nav__jump {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text);
-    background: var(--code-bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.25rem 0.5rem;
     cursor: pointer;
-    max-width: 260px;
+    border: none;
 }
 
 .lesson-nav__jump:focus-visible {

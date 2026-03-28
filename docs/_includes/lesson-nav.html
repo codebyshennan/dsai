@@ -134,8 +134,18 @@
   {% if prog_cur != '' %}
   <div class="lesson-nav__meta">
     <span class="lesson-nav__progress">Lesson {{ prog_cur }} of {{ prog_tot }}</span>
+  </div>
+  {% endif %}
+  <div class="lesson-nav__inner">
+    {% if prev_page %}
+      <a class="lesson-nav__btn lesson-nav__btn--prev" href="{{ prev_page.url | relative_url }}"{% if prev_page.title %} title="{{ prev_page.title | escape }}"{% endif %}>← Previous</a>
+    {% else %}
+      <span class="lesson-nav__btn lesson-nav__btn--disabled" aria-disabled="true">← Previous</span>
+    {% endif %}
+
     <label for="lesson-jump-select" class="lesson-nav__jump-label">Jump to lesson</label>
-    <select id="lesson-jump-select" class="lesson-nav__jump" onchange="if(this.value)location.href=this.value">
+    <select id="lesson-jump-select" class="lesson-nav__btn lesson-nav__btn--root lesson-nav__jump" onchange="if(this.value)location.href=this.value">
+      <option value="{{ root_href | replace: '//', '/' | relative_url }}">{{ root_label }}</option>
       {% if idx > -1 %}
         {% for f in order %}
           {% assign _jpath = dir_key | append: '/' | append: f %}
@@ -152,16 +162,6 @@
         {% endfor %}
       {% endif %}
     </select>
-  </div>
-  {% endif %}
-  <div class="lesson-nav__inner">
-    {% if prev_page %}
-      <a class="lesson-nav__btn lesson-nav__btn--prev" href="{{ prev_page.url | relative_url }}"{% if prev_page.title %} title="{{ prev_page.title | escape }}"{% endif %}>← Previous</a>
-    {% else %}
-      <span class="lesson-nav__btn lesson-nav__btn--disabled" aria-disabled="true">← Previous</span>
-    {% endif %}
-
-    <a class="lesson-nav__btn lesson-nav__btn--root" href="{{ root_href | replace: '//', '/' | relative_url }}">{{ root_label }}</a>
 
     {% if next_page %}
       <a class="lesson-nav__btn lesson-nav__btn--next" href="{{ next_page.url | relative_url }}"{% if next_page.title %} title="{{ next_page.title | escape }}"{% endif %}>Next →</a>
