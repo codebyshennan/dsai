@@ -28,6 +28,17 @@ const SKIP_DIR_NAMES = new Set([
   ".git",
 ]);
 
+/** Files that should never appear in learner nav (maintainer/internal files). */
+const SKIP_FILES = new Set([
+  "TODO.md",
+  "CODE-BLOCK-PATTERN.md",
+  "CODE_BLOCK_ANNOTATION.md",
+  "IMPROVEMENTS.md",
+  "REVIEW-ENHANCEMENTS.md",
+  "GENERATED_RESOURCES_SUMMARY.md",
+  "improvement-plan.md",
+]);
+
 
 /** Curriculum order overrides: dir key -> ordered filenames (relative to that dir). */
 const OVERRIDES = {
@@ -44,6 +55,14 @@ const OVERRIDES = {
     "databricks.md",
     "airflow.md",
     "pedagogy.md",
+  ],
+  "1-data-fundamentals": [
+    "README.md",
+    "1.1-intro-data-analytics/README.md",
+    "1.2-intro-python/README.md",
+    "1.3-intro-statistics/README.md",
+    "1.4-data-foundation-linear-algebra/README.md",
+    "1.5-data-analysis-pandas/README.md",
   ],
   "1-data-fundamentals/1.1-intro-data-analytics": [
     "README.md",
@@ -145,8 +164,10 @@ const OVERRIDES = {
   "4-stat-analysis/4.1-inferential-stats": [
     "README.md",
     "population-sample.md",
-    "confidence-intervals.md",
+    "parameters-statistics.md",
     "sampling-distributions.md",
+    "confidence-intervals.md",
+    "p-values.md",
   ],
   "4-stat-analysis/4.2-hypotheses-testing": [
     "README.md",
@@ -172,11 +193,49 @@ const OVERRIDES = {
     "regularization.md",
     "model-interpretation.md",
   ],
+  "1-data-fundamentals": ["README.md"],
   "1-data-fundamentals/_assignments": ["module-assignment.md", "module-assignment-key.md"],
   "2-data-wrangling/_assignments": ["module-assignment-student.md", "module-assignment-key.md"],
   "3-data-visualization/_assignments": ["module-assignment.md", "module-assignment-key.md"],
   "4-stat-analysis/_assignments": ["module-assignment.md", "module-assignment-key.md"],
   "5-ml-fundamentals/_assignments": ["module-assignment.md", "module-assignment-key.md"],
+  "5-ml-fundamentals/5.1-intro-to-ml": [
+    "README.md",
+    "what-is-ml.md",
+    "ml-workflow.md",
+    "feature-engineering.md",
+    "bias-variance.md",
+  ],
+  "5-ml-fundamentals/5.4-unsupervised-learning": [
+    "README.md",
+    "clustering.md",
+    "k-means-clustering.md",
+    "dbscan.md",
+    "hierarchical-clustering.md",
+    "advanced-clustering.md",
+    "pca.md",
+    "t-sne.md",
+    "tsne-umap.md",
+  ],
+  "5-ml-fundamentals/5.5-model-eval": [
+    "README.md",
+    "overfitting-underfitting.md",
+    "bias-variance.md",
+    "metrics.md",
+    "accuracy.md",
+    "confusion-matrix.md",
+    "precision-recall.md",
+    "roc-and-auc.md",
+    "cross-validation.md",
+    "validation-curves.md",
+    "learning-curves.md",
+    "early-stopping.md",
+    "regularization.md",
+    "model-selection.md",
+    "hyperparameter-tuning.md",
+    "feature-importance.md",
+    "sklearn-pipelines.md",
+  ],
 };
 
 function collectMdFiles(dirAbs) {
@@ -184,6 +243,7 @@ function collectMdFiles(dirAbs) {
   const md = [];
   for (const ent of names) {
     if (!ent.isFile() || !ent.name.endsWith(".md")) continue;
+    if (SKIP_FILES.has(ent.name)) continue;
     md.push(ent.name);
   }
   return md;

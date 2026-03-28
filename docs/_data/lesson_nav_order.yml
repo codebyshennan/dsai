@@ -17,6 +17,11 @@
 
 "1-data-fundamentals":
   - "README.md"
+  - "1.1-intro-data-analytics/README.md"
+  - "1.2-intro-python/README.md"
+  - "1.3-intro-statistics/README.md"
+  - "1.4-data-foundation-linear-algebra/README.md"
+  - "1.5-data-analysis-pandas/README.md"
 
 "1-data-fundamentals/_assignments":
   - "module-assignment.md"
@@ -38,7 +43,6 @@
   - "classes-objects.md"
   - "modules.md"
   - "video-resources.md"
-  - "REVIEW-ENHANCEMENTS.md"
 
 "1-data-fundamentals/1.2-intro-python/notebooks":
   - "README.md"
@@ -69,9 +73,6 @@
   - "sorting-ranking.md"
   - "arithmetic-alignment.md"
   - "function-mapping.md"
-
-"2-data-wrangling":
-  - "TODO.md"
 
 "2-data-wrangling/_assignments":
   - "module-assignment-student.md"
@@ -110,7 +111,6 @@
 
 "3-data-visualization":
   - "README.md"
-  - "_assignments.md"
   - "beginners-guide.md"
   - "best-practices-guide.md"
   - "choosing-the-right-visualization.md"
@@ -118,7 +118,6 @@
   - "FAQ.md"
   - "glossary.md"
   - "quick-start.md"
-  - "TODO.md"
 
 "3-data-visualization/_assignments":
   - "module-assignment.md"
@@ -154,7 +153,6 @@
 
 "4-stat-analysis":
   - "README.md"
-  - "_assignments.md"
 
 "4-stat-analysis/_assignments":
   - "module-assignment.md"
@@ -163,10 +161,10 @@
 "4-stat-analysis/4.1-inferential-stats":
   - "README.md"
   - "population-sample.md"
-  - "confidence-intervals.md"
-  - "sampling-distributions.md"
-  - "p-values.md"
   - "parameters-statistics.md"
+  - "sampling-distributions.md"
+  - "confidence-intervals.md"
+  - "p-values.md"
 
 "4-stat-analysis/4.2-hypotheses-testing":
   - "README.md"
@@ -191,17 +189,6 @@
   - "model-selection.md"
   - "regularization.md"
   - "model-interpretation.md"
-  - "IMPROVEMENTS.md"
-  - "logistic-regression_output.md"
-  - "model-interpretation_output.md"
-  - "model-selection_output.md"
-  - "polynomial-regression_output.md"
-  - "regularization_output.md"
-  - "TODO.md"
-
-"5-ml-fundamentals":
-  - "_assignments.md"
-  - "TODO.md"
 
 "5-ml-fundamentals/_assignments":
   - "module-assignment.md"
@@ -209,15 +196,13 @@
 
 "5-ml-fundamentals/5.1-intro-to-ml":
   - "README.md"
-  - "bias-variance.md"
-  - "feature-engineering-new.md"
-  - "feature-engineering.md"
-  - "ml-workflow.md"
   - "what-is-ml.md"
+  - "ml-workflow.md"
+  - "feature-engineering.md"
+  - "bias-variance.md"
 
 "5-ml-fundamentals/5.2-supervised-learning-1":
   - "README.md"
-  - "svm.md"
 
 "5-ml-fundamentals/5.2-supervised-learning-1/decision-trees":
   - "1-introduction.md"
@@ -270,7 +255,6 @@
   - "3-implementation.md"
   - "4-advanced.md"
   - "5-applications.md"
-  - "backpropagation.md"
 
 "5-ml-fundamentals/5.3-supervised-learning-2/random-forest":
   - "1-introduction.md"
@@ -291,35 +275,33 @@
 
 "5-ml-fundamentals/5.4-unsupervised-learning":
   - "README.md"
-  - "advanced-clustering.md"
   - "clustering.md"
+  - "k-means-clustering.md"
   - "dbscan.md"
   - "hierarchical-clustering.md"
-  - "k-means-clustering.md"
+  - "advanced-clustering.md"
   - "pca.md"
   - "t-sne.md"
   - "tsne-umap.md"
 
 "5-ml-fundamentals/5.5-model-eval":
   - "README.md"
-  - "accuracy.md"
-  - "bias-variance.md"
-  - "confusion-matrix.md"
-  - "cross-validation.md"
-  - "early-stopping.md"
-  - "feature-importance.md"
-  - "GENERATED_RESOURCES_SUMMARY.md"
-  - "hyperparameter-tuning.md"
-  - "improvement-plan.md"
-  - "learning-curves.md"
-  - "metrics.md"
-  - "model-selection.md"
   - "overfitting-underfitting.md"
+  - "bias-variance.md"
+  - "metrics.md"
+  - "accuracy.md"
+  - "confusion-matrix.md"
   - "precision-recall.md"
-  - "regularization.md"
   - "roc-and-auc.md"
-  - "sklearn-pipelines.md"
+  - "cross-validation.md"
   - "validation-curves.md"
+  - "learning-curves.md"
+  - "early-stopping.md"
+  - "regularization.md"
+  - "model-selection.md"
+  - "hyperparameter-tuning.md"
+  - "feature-importance.md"
+  - "sklearn-pipelines.md"
 
 "5-ml-fundamentals/5.5-model-eval/exercises":
   - "README.md"
