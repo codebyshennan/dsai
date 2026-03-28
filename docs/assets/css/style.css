@@ -1312,6 +1312,23 @@ body.site-search-open {
     color: var(--text);
 }
 
+.lesson-nav__jump {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    max-width: 260px;
+}
+
+.lesson-nav__jump:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+}
+
 .lesson-nav__jump-label {
     position: absolute;
     width: 1px;
