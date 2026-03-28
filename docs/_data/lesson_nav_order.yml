@@ -111,13 +111,10 @@
 
 "3-data-visualization":
   - "README.md"
-  - "beginners-guide.md"
-  - "best-practices-guide.md"
-  - "choosing-the-right-visualization.md"
-  - "common-mistakes.md"
-  - "FAQ.md"
-  - "glossary.md"
-  - "quick-start.md"
+  - "3.1-intro-data-viz/README.md"
+  - "3.2-adv-data-viz/README.md"
+  - "3.3-bi-with-tableau/README.md"
+  - "3.4-data-storytelling/README.md"
 
 "3-data-visualization/_assignments":
   - "module-assignment.md"
@@ -151,8 +148,19 @@
   - "narrative-techniques.md"
   - "case-studies.md"
 
+"2-data-wrangling":
+  - "README.md"
+  - "2.1-sql/README.md"
+  - "2.2-data-wrangling/README.md"
+  - "2.3-eda/README.md"
+  - "2.4-data-engineering/README.md"
+
 "4-stat-analysis":
   - "README.md"
+  - "4.1-inferential-stats/README.md"
+  - "4.2-hypotheses-testing/README.md"
+  - "4.3-rship-in-data/README.md"
+  - "4.4-stat-modelling/README.md"
 
 "4-stat-analysis/_assignments":
   - "module-assignment.md"
@@ -189,6 +197,14 @@
   - "model-selection.md"
   - "regularization.md"
   - "model-interpretation.md"
+
+"5-ml-fundamentals":
+  - "README.md"
+  - "5.1-intro-to-ml/README.md"
+  - "5.2-supervised-learning-1/README.md"
+  - "5.3-supervised-learning-2/README.md"
+  - "5.4-unsupervised-learning/README.md"
+  - "5.5-model-eval/README.md"
 
 "5-ml-fundamentals/_assignments":
   - "module-assignment.md"
