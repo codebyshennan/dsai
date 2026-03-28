@@ -1,0 +1,109 @@
+{% comment %}
+  Submodule resource bar — top-of-page links for Slides, Notebook, and any
+  lesson_resources defined in front matter.
+
+  Slides: shown when this folder is listed in _data/slide_index.yml.
+  Notebook: shown when this folder is listed in _data/notebook_index.yml.
+    Links to Google Colab. Override URL per-page with `notebook_url` front matter.
+  Extra resources: add `lesson_resources` array to page front matter, e.g.:
+    lesson_resources:
+      - label: "Dataset"
+        url: "https://..."
+        icon: "download"   # optional: download | data | link (default)
+      - label: "Starter code"
+        url: "https://..."
+
+  Keep dir_key logic in sync with _includes/lesson-nav.html.
+{% endcomment %}
+
+{% assign _res_dir_key = page.dir | remove_first: '/' | remove_last: '/' %}
+{% assign _res_dir_key = _res_dir_key | split: '/' | compact | join: '/' %}
+
+{% comment %} ---- Slides ---- {% endcomment %}
+{% assign _slides_dirs = site.data.slide_index.dirs %}
+{% assign _has_slides = false %}
+{% if _slides_dirs and _slides_dirs contains _res_dir_key %}
+  {% assign _has_slides = true %}
+{% endif %}
+
+{% comment %} ---- Notebook ---- {% endcomment %}
+{% assign _notebook_map = site.data.notebook_index.notebooks %}
+{% assign _has_notebook = false %}
+{% assign _notebook_href = '' %}
+{% if page.notebook_url %}
+  {% assign _has_notebook = true %}
+  {% assign _notebook_href = page.notebook_url %}
+{% elsif _notebook_map %}
+  {% assign _notebook_file = _notebook_map[_res_dir_key] %}
+  {% if _notebook_file %}
+    {% assign _has_notebook = true %}
+    {% assign _notebook_colab_path = 'codebyshennan/tamkeen-data/blob/main/docs/' | append: _res_dir_key | append: '/' | append: _notebook_file %}
+    {% assign _notebook_href = 'https://colab.research.google.com/github/' | append: _notebook_colab_path %}
+  {% endif %}
+{% endif %}
+
+{% comment %} ---- Extra resources from front matter ---- {% endcomment %}
+{% assign _has_resources = false %}
+{% if page.lesson_resources and page.lesson_resources.size > 0 %}
+  {% assign _has_resources = true %}
+{% endif %}
+
+{% comment %} ---- Render ---- {% endcomment %}
+{% if _has_slides or _has_notebook or _has_resources %}
+<div class="lesson-resources-bar">
+
+  {% if _has_slides %}
+  {% assign _slides_href = '/' | append: _res_dir_key | append: '/slides/' %}
+  <a class="lesson-resource-btn lesson-resource-btn--slides"
+     href="{{ _slides_href | relative_url }}"
+     target="_blank" rel="noopener">
+    <span class="lesson-resource-btn__icon" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" focusable="false">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+      </svg>
+    </span>
+    <span class="lesson-resource-btn__label">Slides</span>
+  </a>
+  {% endif %}
+
+  {% if _has_notebook %}
+  <a class="lesson-resource-btn lesson-resource-btn--notebook"
+     href="{{ _notebook_href }}"
+     target="_blank" rel="noopener">
+    <span class="lesson-resource-btn__icon" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" focusable="false">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+      </svg>
+    </span>
+    <span class="lesson-resource-btn__label">Notebook</span>
+  </a>
+  {% endif %}
+
+  {% if _has_resources %}
+    {% for _res in page.lesson_resources %}
+      {% assign _icon_type = _res.icon | default: 'link' %}
+      <a class="lesson-resource-btn lesson-resource-btn--resource"
+         href="{{ _res.url }}"
+         target="_blank" rel="noopener">
+        <span class="lesson-resource-btn__icon" aria-hidden="true">
+          {% if _icon_type == 'download' %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" focusable="false">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+          </svg>
+          {% elsif _icon_type == 'data' %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" focusable="false">
+            <path d="M12 3C7.58 3 4 4.79 4 7v10c0 2.21 3.58 4 8 4s8-1.79 8-4V7c0-2.21-3.58-4-8-4zm0 2c3.87 0 6 1.5 6 2s-2.13 2-6 2-6-1.5-6-2 2.13-2 6-2zm0 14c-3.87 0-6-1.5-6-2v-2.23C7.61 15.55 9.72 16 12 16s4.39-.45 6-1.23V17c0 .5-2.13 2-6 2zm0-4c-3.87 0-6-1.5-6-2v-2.23C7.61 11.55 9.72 12 12 12s4.39-.45 6-1.23V13c0 .5-2.13 2-6 2zm0-4c-3.87 0-6-1.5-6-2V9c0-.18.07-.35.19-.52C7.5 9.29 9.64 10 12 10s4.5-.71 5.81-1.52c.12.17.19.34.19.52v.77C18 10.5 15.87 11 12 11z"/>
+          </svg>
+          {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" focusable="false">
+            <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+          </svg>
+          {% endif %}
+        </span>
+        <span class="lesson-resource-btn__label">{{ _res.label }}</span>
+      </a>
+    {% endfor %}
+  {% endif %}
+
+</div>
+{% endif %}

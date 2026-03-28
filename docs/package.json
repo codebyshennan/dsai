@@ -6,8 +6,9 @@
   "main": "index.js",
   "scripts": {
     "slide-index": "node scripts/generate-slide-index.mjs",
+    "notebook-index": "node scripts/generate-notebook-index.mjs",
     "lesson-nav-order": "node scripts/generate-lesson-nav-order.mjs",
-    "site-data": "node scripts/generate-slide-index.mjs && node scripts/generate-lesson-nav-order.mjs",
+    "site-data": "node scripts/generate-slide-index.mjs && node scripts/generate-notebook-index.mjs && node scripts/generate-lesson-nav-order.mjs",
     "pagefind": "pagefind --site _site --output-path _site/pagefind",
     "build:jekyll": "bundle exec jekyll build",
     "build:jekyll-with-search": "bundle exec jekyll build && pnpm run pagefind",
