@@ -1,3 +1,10 @@
+---
+lesson_resources:
+  - label: "DAG Examples"
+    url: "https://github.com/codebyshennan/tamkeen-data/tree/main/docs/2-data-wrangling/2.4-data-engineering/dags"
+    icon: "download"
+---
+
 # ETL Fundamentals
 
 **After this lesson:** You can explain **ETL** (**Extract**, **Transform**, **Load**) as an ordered pipeline—pull data from sources, clean and reshape it, then load it into a target—and connect that idea to orchestration sketches (for example **DAG**-based schedulers).
