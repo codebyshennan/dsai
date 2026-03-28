@@ -13,7 +13,22 @@
         }
 
         .reveal {
-            font-size: 1.5em;
+            font-size: 1.45em;
+        }
+
+        /* Dense slides: smaller type so more bullets fit without overflow */
+        .reveal .box.box--compact {
+            font-size: 0.88em;
+            max-width: 92%;
+        }
+
+        .reveal .box.box--compact h3 {
+            font-size: 1.15em;
+        }
+
+        .reveal .box.box--compact li {
+            margin-bottom: 0.35em;
+            line-height: 1.35;
         }
 
         .reveal h1,
@@ -50,6 +65,8 @@
 
         .reveal li {
             margin-bottom: 0.5em;
+            overflow-wrap: anywhere;
+            word-wrap: break-word;
         }
 
         .reveal code {
@@ -80,23 +97,99 @@
             padding: 1em;
             border-radius: 8px;
             margin: 1em auto;
-            max-width: 80%;
+            max-width: 88%;
         }
 
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1.25em 2em;
+            max-width: 92%;
             margin: 0 auto;
+            align-items: start;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1em 1.25em;
+            max-width: 96%;
             margin: 0 auto;
+            align-items: start;
+        }
+
+        .reveal .two-column .list-container,
+        .reveal .three-column .list-container {
+            max-width: 100%;
+        }
+
+        .reveal .two-column ul,
+        .reveal .two-column ol,
+        .reveal .three-column ul,
+        .reveal .three-column ol {
+            max-width: 100%;
+        }
+
+        .slide-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.78em;
+            color: #555;
+            z-index: 2000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(4px);
+            padding: 0.4em 1em;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 0.75em;
+        }
+
+        .slide-nav a {
+            color: #555;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav a:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
+        }
+
+        .slide-nav__title {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+            color: #444;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .slide-nav__btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav__btn:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
         }
 
         .slide-footer {
@@ -115,6 +208,7 @@
 
         section {
             padding: 2em;
+            padding-top: 3.5em;
             padding-bottom: 4em;
             display: flex;
             flex-direction: column;
@@ -133,6 +227,16 @@
 </head>
 
 <body>
+    <nav class="slide-nav" id="slide-nav">
+        <a href="../" title="Back to lesson">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back
+        </a>
+        <span class="slide-nav__title">Testing Hypotheses: From Questions to Answers</span>
+        <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        </button>
+    </nav>
     <div class="reveal">
         <div class="slides">
             
@@ -147,10 +251,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Ab Testing</h2>
-                        <div class="box">
+                        <h2>Ab Testing (1/2)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>Website optimization</li>
@@ -158,12 +264,37 @@
 <li>Mobile app features</li>
 <li>Pricing strategies</li>
 <li>UI/UX design choices</li>
-<li>[A/B Testing Calculator](https://www.abtestguide.com/calc/)</li>
-<li>[Sample Size Calculator](https://www.optimizely.com/sample-size-calculator/)</li>
-<li>[A/B Testing Best Practices](https://www.optimizely.com/optimization-glossary/ab-testing/)</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><a href="https://www.abtestguide.com/calc/" target="_blank" rel="noopener">A/B Testing Calculator</a></li>
+<li><a href="https://www.optimizely.com/sample-size-calculator/" target="_blank" rel="noopener">Sample Size Calculator</a></li>
+<li><a href="https://www.optimizely.com/optimization-glossary/ab-testing/" target="_blank" rel="noopener">A/B Testing Best Practices</a></li>
 <li>Relevant to your goals</li>
 <li>Measurable</li>
-<li>Sensitive to changes</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Ab Testing (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Sensitive to changes</li>
                         </ul>
                     </div>
                 
@@ -197,23 +328,50 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Hypothesis Formulation</h2>
+                        <h2>Hypothesis Formulation (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Simple: Tests exact value</li>
+<li>Composite: Tests range of values</li>
+<li><a href="https://www.statisticshowto.com/probability-and-statistics/hypothesis-testing/" target="_blank" rel="noopener">Statistical Hypothesis Testing Guide</a></li>
+<li><a href="https://www.statstest.com/bonferroni/" target="_blank" rel="noopener">Multiple Testing Calculator</a></li>
+<li><a href="https://www.nature.com/articles/nmeth.3288" target="_blank" rel="noopener">P-value Misconceptions</a></li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>No difference between groups</li>
+<li>No relationship between variables</li>
+<li>No effect of treatment</li>
+<li>There is a difference between groups</li>
+<li>There is a relationship between variables</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Hypothesis Formulation (2/2)</h2>
                         <div class="box">
                             
                             
                     <div class="list-container">
                         <ul>
-                            <li>Simple: Tests exact value</li>
-<li>Composite: Tests range of values</li>
-<li>[Statistical Hypothesis Testing Guide](https://www.statisticshowto.com/probability-and-statistics/hypothesis-testing/)</li>
-<li>[Multiple Testing Calculator](https://www.statstest.com/bonferroni/)</li>
-<li>[P-value Misconceptions](https://www.nature.com/articles/nmeth.3288)</li>
-<li>No difference between groups</li>
-<li>No relationship between variables</li>
-<li>No effect of treatment</li>
-<li>There is a difference between groups</li>
-<li>There is a relationship between variables</li>
-<li>The treatment has an effect</li>
+                            <li>The treatment has an effect</li>
 <li>Simple: Specifies exact values</li>
 <li>Composite: Specifies ranges or inequalities</li>
 <li>Directional: Specifies the direction of effect</li>
@@ -235,9 +393,9 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>[Effect Size Calculator](https://www.psychometrica.de/effect_size.html)</li>
-<li>[Decision Making Framework](https://hbr.org/2019/09/the-abcs-of-data-driven-decisions)</li>
-<li>[Results Communication Guide](https://www.nature.com/articles/s41467-020-17896-w)</li>
+                            <li><a href="https://www.psychometrica.de/effect_size.html" target="_blank" rel="noopener">Effect Size Calculator</a></li>
+<li><a href="https://hbr.org/2019/09/the-abcs-of-data-driven-decisions" target="_blank" rel="noopener">Decision Making Framework</a></li>
+<li><a href="https://www.nature.com/articles/s41467-020-17896-w" target="_blank" rel="noopener">Results Communication Guide</a></li>
                         </ul>
                     </div>
                 
@@ -255,9 +413,9 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>[Statistical Tests Guide](https://www.statisticshowto.com/probability-and-statistics/statistical-tests/)</li>
-<li>[Effect Size Calculator](https://www.statstest.com/effect-size/)</li>
-<li>[Multiple Testing Correction](https://www.statstest.com/bonferroni/)</li>
+                            <li><a href="https://www.statisticshowto.com/probability-and-statistics/statistical-tests/" target="_blank" rel="noopener">Statistical Tests Guide</a></li>
+<li><a href="https://www.statstest.com/effect-size/" target="_blank" rel="noopener">Effect Size Calculator</a></li>
+<li><a href="https://www.statstest.com/bonferroni/" target="_blank" rel="noopener">Multiple Testing Correction</a></li>
                         </ul>
                     </div>
                 
@@ -277,6 +435,24 @@
             transition: 'slide',
             slideNumber: true,
             plugins: []
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Swap fullscreen icon when state changes
+        document.addEventListener('fullscreenchange', function () {
+            var icon = document.getElementById('fs-icon');
+            if (document.fullscreenElement) {
+                icon.innerHTML = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
+            } else {
+                icon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
+            }
         });
     </script>
 </body>

@@ -29,7 +29,29 @@ In machine learning, we face similar challenges. Understanding bias and variance
 
 ## What are Bias and Variance?
 
-![Bias-Variance Tradeoff](./images/bias_variance.png)
+```mermaid
+graph LR
+    subgraph HB["High Bias  (Underfitting)"]
+        B1["Too-simple model\nCan't capture real patterns"]
+        B2["Train error HIGH\nVal error HIGH\nGap SMALL"]
+        B3["Fix: more features\nmore model complexity\nless regularisation"]
+    end
+    subgraph SWEET["Sweet spot"]
+        G1["Right complexity\nfor the data"]
+        G2["Train LOW\nVal LOW\nSmall gap"]
+    end
+    subgraph HV["High Variance  (Overfitting)"]
+        V1["Too-complex model\nMemorises noise"]
+        V2["Train error LOW\nVal error HIGH\nGap LARGE"]
+        V3["Fix: more data\nregularisation\nsimpler model"]
+    end
+    HB -->|"increase capacity"| SWEET
+    SWEET -->|"too much capacity"| HV
+```
+
+> **Figure (add screenshot or diagram):** The classic dart-board analogy — four panels: low bias/low variance (tight cluster on bullseye), low bias/high variance (spread around bullseye), high bias/low variance (tight cluster off-centre), high bias/high variance (spread and off-centre).
+
+> **Figure (add screenshot or diagram):** The classic bias-variance tradeoff U-curve — x-axis is model complexity, y-axis is error; training error decreases monotonically while test error forms a U-shape, with the sweet spot labeled at the minimum test error and the underfitting/overfitting zones annotated on each side.
 
 ### Bias: The Consistent Mistake
 
@@ -97,7 +119,7 @@ The image above shows three scenarios:
 
 Learning curves are like progress reports for your model. They show how well your model is learning and whether it's learning the right things.
 
-![Learning Curves](./images/learning_curves.png)
+> **Figure (add screenshot or diagram):** Three learning curve plots side by side: (1) High Bias — both training and CV scores are low and converge near each other at a low value; (2) Good Fit — scores converge near a high value with a small gap; (3) High Variance — training score is high but CV score is much lower, with a persistent gap even at large training set sizes.
 
 - **Training Score**: How well the model performs on the data it's seen (like a student's performance on practice tests)
 - **Cross-validation Score**: How well the model performs on new data (like a student's performance on the actual exam)
@@ -137,37 +159,63 @@ Think of high bias like trying to predict the weather using only temperature. Yo
 
    **Walkthrough:** `PolynomialFeatures` expands inputs; `LinearRegression` on `X_poly` fits a curve; swap in your real `X` / `y` from the notebook.
 
-   ```python
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+
+   {% highlight python %}
    # Let's say we're trying to predict house prices
    # First, let's see what our data looks like
    import pandas as pd
    import matplotlib.pyplot as plt
-   
+
    # Load and visualize the data
    df = pd.read_csv('house_prices.csv')
    plt.scatter(df['sqft_living'], df['price'])
    plt.xlabel('Square Feet')
    plt.ylabel('Price')
    plt.show()
-   
+
    # If the relationship looks curved, we need a more complex model
    from sklearn.preprocessing import PolynomialFeatures
    from sklearn.linear_model import LinearRegression
-   
+
    # Create polynomial features (like x², x³, etc.)
    # This helps capture curved relationships
    poly = PolynomialFeatures(degree=2)  # Try different degrees
    X_poly = poly.fit_transform(X)
-   
+
    # Fit the model
    model = LinearRegression()
    model.fit(X_poly, y)
-   
+
    # Visualize the results
    plt.scatter(X, y)
    plt.plot(X, model.predict(X_poly), color='red')
    plt.show()
-   ```
+   {% endhighlight %}
+
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-13" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Load and Visualize</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Load house price data and scatter-plot size vs price to visually check whether the relationship is linear or curved before choosing a model.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="15-31" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Polynomial Features</span>
+       </div>
+       <div class="code-callout__body">
+         <p><code>PolynomialFeatures(degree=2)</code> expands inputs to include x² terms; fitting <code>LinearRegression</code> on the expanded matrix lets the model follow a curved trend.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 2. **Add More Features**
 
@@ -175,23 +223,49 @@ Think of high bias like trying to predict the weather using only temperature. Yo
 
    **Walkthrough:** `add_interactions` is illustrative—`calculate_distance` must be defined elsewhere or replaced with a real geo feature.
 
-   ```python
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+
+   {% highlight python %}
    # Let's add some meaningful combinations of features
    def add_interactions(df):
        # Size per room might be important
        df['size_rooms'] = df['sqft_living'] / df['bedrooms']
-       
+
        # Age and condition together might matter
        df['age_condition'] = df['age'] * df['condition']
-       
+
        # Location might be important
        df['distance_to_city'] = calculate_distance(df['latitude'], df['longitude'])
-       
+
        return df
-   
+
    # Apply the transformations
    df = add_interactions(df)
-   ```
+   {% endhighlight %}
+
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-12" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Interaction Features</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Derive size-per-room (efficiency ratio), age × condition (combined wear metric), and distance to city — each encodes domain knowledge that a linear model cannot capture from raw columns alone.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="14-16" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Apply Transform</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Call <code>add_interactions</code> on the dataframe to expand the feature matrix in-place; note that <code>calculate_distance</code> must be defined in the environment or replaced with a real geo utility.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **Reduce Regularization**
 
@@ -227,32 +301,58 @@ Think of high variance like a student who memorizes every detail of their notes 
 
    **Walkthrough:** Compare `max_depth`, `min_samples_leaf`, and `n_estimators` settings side by side on the same split.
 
-   ```python
+   <div class="code-explainer" data-code-explainer>
+   <div class="code-explainer__code">
+
+   {% highlight python %}
    # Let's say we're using a random forest that's overfitting
    from sklearn.ensemble import RandomForestRegressor
-   
+
    # Start with a simpler model
    model = RandomForestRegressor(
        n_estimators=100,    # Fewer trees
        max_depth=5,         # Shorter trees
        min_samples_leaf=5   # More samples per leaf
    )
-   
+
    # Compare with the complex model
    complex_model = RandomForestRegressor(
        n_estimators=500,
        max_depth=None,
        min_samples_leaf=1
    )
-   
+
    # Train both models
    model.fit(X_train, y_train)
    complex_model.fit(X_train, y_train)
-   
+
    # Compare their performance
    print(f"Simple model score: {model.score(X_val, y_val)}")
    print(f"Complex model score: {complex_model.score(X_val, y_val)}")
-   ```
+   {% endhighlight %}
+
+   </div>
+   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
+     <div class="code-callout" data-lines="1-17" data-tint="1">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Simple vs Complex Forest</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Two <code>RandomForestRegressor</code> instances differ in depth, tree count, and leaf size — the constrained model reduces variance while the unconstrained one is prone to overfitting.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="19-25" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Fit and Compare</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Both models train on the same data; comparing validation scores reveals whether the extra complexity buys real predictive power or just memorizes the training set.</p>
+       </div>
+     </div>
+   </aside>
+   </div>
 
 3. **Add Regularization**
 
@@ -306,7 +406,10 @@ Cross-validation is like taking multiple practice tests before the real exam. It
 
 **Walkthrough:** `cross_val_score` returns one score per fold; the horizontal red line marks the mean for quick eyeballing.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.model_selection import cross_val_score
 import numpy as np
 
@@ -317,11 +420,11 @@ def evaluate_model(model, X, y, cv=5):
     """
     # Get scores from cross-validation
     scores = cross_val_score(model, X, y, cv=cv)
-    
+
     # Print the results in a readable format
     print(f"Mean Score: {scores.mean():.3f} (+/- {scores.std() * 2:.3f})")
     print(f"Individual scores: {scores}")
-    
+
     # Visualize the scores
     plt.figure(figsize=(10, 4))
     plt.bar(range(1, cv+1), scores)
@@ -330,12 +433,44 @@ def evaluate_model(model, X, y, cv=5):
     plt.xlabel('Fold')
     plt.ylabel('Score')
     plt.show()
-    
+
     return scores
 
 # Example usage
 scores = evaluate_model(model, X, y)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import <code>cross_val_score</code> and numpy to run k-fold evaluation and summarize results.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Function and CV</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>cross_val_score</code> returns one accuracy per fold; mean and ±2 std give a reliable performance interval.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-25" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bar Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Bar chart per fold with a red horizontal mean line makes it easy to spot unusually high or low folds at a glance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Grid Search: Finding the Best Parameters
 
@@ -347,7 +482,10 @@ Grid search is like trying different combinations of ingredients to find the per
 
 **Walkthrough:** `best_params_` / `best_score_` come from inner CV; the heatmap pivots `cv_results_`—requires `pandas` and `seaborn` in the environment.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
 
@@ -386,7 +524,48 @@ sns.heatmap(results.pivot_table(index='param_max_depth',
            annot=True, fmt='.3f')
 plt.title('Grid Search Results')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Parameter Grid</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define a dict of hyperparameter lists; <code>GridSearchCV</code> will try every combination—here 3×3×3 = 27 configurations.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GridSearchCV Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Wrap the estimator with the grid; <code>cv=5</code> gives inner cross-validation per combination; <code>n_jobs=-1</code> parallelizes across CPU cores.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Report</span>
+    </div>
+    <div class="code-callout__body">
+      <p>After <code>fit</code>, <code>best_params_</code> and <code>best_score_</code> expose the winning combination; negate the score to recover positive MSE.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="31-38" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Heatmap</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Pivot the <code>cv_results_</code> DataFrame and plot as a heatmap to compare score by depth vs tree count at a glance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Validation Curves: Understanding Your Model's Behavior
 
@@ -398,7 +577,10 @@ Validation curves help you understand how your model behaves as you change a sin
 
 **Walkthrough:** `validation_curve` fixes other params on `model`; shaded bands are $\pm$1 std across folds.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.model_selection import validation_curve
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -415,22 +597,22 @@ def plot_validation_curve(model, X, y, param_name, param_range):
         param_range=param_range,
         cv=5
     )
-    
+
     # Calculate mean and standard deviation
     train_mean = np.mean(train_scores, axis=1)
     train_std = np.std(train_scores, axis=1)
     val_mean = np.mean(val_scores, axis=1)
     val_std = np.std(val_scores, axis=1)
-    
+
     # Plot the results
     plt.figure(figsize=(10, 6))
     plt.plot(param_range, train_mean, 'o-', color='blue', label='Training score')
     plt.plot(param_range, val_mean, 'o-', color='red', label='Cross-validation score')
-    
+
     # Add error bands
     plt.fill_between(param_range, train_mean - train_std, train_mean + train_std, alpha=0.1, color='blue')
     plt.fill_between(param_range, val_mean - val_std, val_mean + val_std, alpha=0.1, color='red')
-    
+
     plt.xlabel(param_name)
     plt.ylabel('Score')
     plt.legend()
@@ -445,7 +627,39 @@ plot_validation_curve(
     param_name='max_depth',
     param_range=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-16" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Validation Curve</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>validation_curve</code> sweeps <code>param_range</code> values for a single hyperparameter and returns train/val score arrays; rows are param values, columns are CV folds.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Means and Stds</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Averaging across folds (axis=1) gives one mean score per param value; standard deviation quantifies instability across folds.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot with Bands</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Shaded ±1 std bands around train and CV curves visually separate the bias (both low) and variance (train high, CV low) regions.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Pitfalls to Avoid
 

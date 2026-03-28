@@ -38,6 +38,18 @@ Imagine you're wondering if there's a connection between two things in your life
 
 When we talk about "relationships in data," we're simply asking: "When one thing changes, does another thing tend to change too?" It's like being a detective looking for patterns in everyday life!
 
+```mermaid
+graph TD
+    OBS["You observe:\nX and Y move together"] --> Q1{Does X\ncause Y?}
+    Q1 -->|"Yes (established\nby experiment)"| CAUSAL["Causal relationship\nChange X → Change Y\nExample: drug → recovery"]
+    Q1 -->|"Can't tell yet"| Q2{Is there a\nthird variable Z?}
+    Q2 -->|"Yes — Z drives both"| CONF["Confounded\nExample: ice cream sales & drownings\n(both driven by hot weather)"]
+    Q2 -->|"No obvious Z"| ASSOC["Association only\nCorrelation ≠ causation\nExample: shoe size & reading level\n(driven by age)"]
+    Q1 -->|No| SPUR["Spurious correlation\nCoincidence in the data\nExample: Nicolas Cage films\n& pool drownings"]
+```
+
+*Always ask: could a third variable explain this pattern? That question separates useful insight from misleading coincidence.*
+
 ### An Everyday Example: Rain and Umbrellas
 
 Think about rain and umbrellas. When it rains, you probably see more umbrellas on the street. When it's sunny, fewer umbrellas appear. There's a clear relationship between these two things - rain and umbrella use are connected! This is exactly the kind of pattern we look for in data.

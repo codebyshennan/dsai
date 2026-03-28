@@ -20,8 +20,8 @@ Short Tableau Public install; pair with the written guides in this folder.
    - Path: `Documents/My Tableau Repository/Datasources/`
 3. Click "Connect" to load the dataset
 
-> **Figure (add screenshot or diagram):** Tableau Start Page
-*Caption: The Tableau start page showing the Sample Superstore connection option.*
+> **Figure (add screenshot or diagram):** Tableau Desktop start page — Connect pane on the left listing recent and saved data sources, with "Sample - Superstore" highlighted under Saved Data Sources.
+
 
 ### 2. Understanding the Tableau Workspace
 
@@ -43,8 +43,8 @@ The Tableau interface consists of several key areas:
    - **Canvas**: Main area where charts appear
    - **Show Me**: Panel for chart suggestions
 
-> **Figure (add screenshot or diagram):** Tableau Workspace
-*Caption: The Tableau workspace showing key areas and their functions.*
+> **Figure (add screenshot or diagram):** The Tableau worksheet interface with key areas annotated: Data pane (left, Dimensions in blue / Measures in green), Rows and Columns shelves (top), Marks card (left-center), Show Me panel (right), and empty canvas in the center.
+
 
 ## Project Overview
 
@@ -55,8 +55,8 @@ In this comprehensive case study, we'll analyze retail data to drive business de
 - A product profitability analysis
 - Interactive filters and drill-downs
 
-> **Figure (add screenshot or diagram):** Final Dashboard Preview
-*Caption: The complete dashboard we'll build, showing sales trends, geographical distribution, and product performance.*
+> **Figure (add screenshot or diagram):** The completed SuperStore analysis dashboard — a Sales by Category bar chart (top-left), a US state choropleth map colored by Sales (top-right), and a Profit by Sub-Category heat map (bottom) — all with matching color scheme and interactive filter controls.
+
 
 ## Dataset Introduction
 
@@ -67,8 +67,8 @@ We'll utilize the "Sample - Superstore" dataset included with Tableau. This data
 - It's readily available in Tableau
 - It covers multiple analysis dimensions
 
-> **Figure (add screenshot or diagram):** Sample Superstore Data
-*Caption: The Sample Superstore dataset in Tableau, showing the tables and their relationships.*
+> **Figure (add screenshot or diagram):** Tableau's Data Source tab with the Sample Superstore connection — three table icons (Orders, People, Returns) shown on the left with join lines between them, and a row-count preview at the bottom of the data grid.
+
 
 ### Data Structure Overview
 
@@ -127,8 +127,8 @@ Data Structure:
    - Tracking Period: Full dataset
 ```
 
-> **Figure (add screenshot or diagram):** Data Source Page
-*Caption: The Data Source page showing table relationships and field properties.*
+> **Figure (add screenshot or diagram):** Tableau Data Source page with the Orders table selected — the field list on the left showing data types (string, date, integer, decimal) for fields like Order ID, Order Date, Ship Mode, Sales, and Profit; the data grid preview on the right.
+
 
 ## Step-by-Step Visualization Guide
 
@@ -144,8 +144,8 @@ Data Structure:
    - Edit the sheet title (double-click the title above the chart)
    - Add labels by dragging "Sales" to the Label mark
 
-> **Figure (add screenshot or diagram):** First Chart Creation
-*Caption: Creating a basic bar chart showing sales by category.*
+> **Figure (add screenshot or diagram):** Tableau worksheet with Category on the Rows shelf and Sales on the Columns shelf — a horizontal bar chart of three bars (Furniture, Office Supplies, Technology) on the canvas, with the Show Me panel on the right and chart type icons visible.
+
 
 ### 2. Time Series Analysis
 
@@ -163,8 +163,8 @@ Data Structure:
    - Configure dual axis synchronization
    - Add reference lines for averages
 
-> **Figure (add screenshot or diagram):** Line Chart Setup
-*Caption: Setting up a line chart with dual axes for sales and profit.*
+> **Figure (add screenshot or diagram):** Tableau dual-axis line chart — Order Date (Month/Year) on Columns and both Sales and Profit on Rows; two lines with different colors, markers at each data point, synchronized dual y-axes, and a right-click "Synchronize Axis" option highlighted.
+
 
 ### 3. Geographic Analysis
 
@@ -181,8 +181,8 @@ Data Structure:
    - Configure tooltips
    - Add reference lines
 
-> **Figure (add screenshot or diagram):** Map Creation
-*Caption: Creating a filled map showing sales by state.*
+> **Figure (add screenshot or diagram):** Tableau filled map of the United States — State field recognized as a geographic dimension, each state shaded by Sales using a sequential blue gradient; a tooltip open on Texas showing state name and total Sales value.
+
 
 ### 4. Building a Dashboard
 
@@ -197,8 +197,8 @@ Data Structure:
    - Configure actions
    - Set up parameters
 
-> **Figure (add screenshot or diagram):** Dashboard Building
-*Caption: Building a dashboard with multiple visualizations and interactive elements.*
+> **Figure (add screenshot or diagram):** Tableau dashboard canvas in edit mode — three worksheets tiled (bar chart top-left, map top-right, line chart bottom), the Dashboard pane on the left showing the Sheets list, a Text object added as a title banner, and filter controls on the right.
+
 
 ## Advanced Features
 
@@ -211,8 +211,8 @@ Data Structure:
    - Enter formula: `SUM([Profit])/SUM([Sales])`
    - Click OK
 
-> **Figure (add screenshot or diagram):** Calculated Field Creation
-*Caption: Creating a calculated field for profit ratio.*
+> **Figure (add screenshot or diagram):** Tableau's Create Calculated Field dialog — field name "Profit Ratio" entered at the top, formula `SUM([Profit])/SUM([Sales])` in the formula bar, and a green checkmark in the bottom-left confirming valid syntax before clicking OK.
+
 
 ### 2. Parameters
 
@@ -225,8 +225,8 @@ Data Structure:
    - Add parameter control to dashboard
    - Use in calculations or filters
 
-> **Figure (add screenshot or diagram):** Parameter Creation
-*Caption: Setting up a parameter for dynamic filtering.*
+> **Figure (add screenshot or diagram):** Tableau's Create Parameter dialog for a dynamic filter — data type String, "List" selected, allowed values table showing region names (East, West, North, South), and "Show Parameter Control" checkbox visible at the bottom.
+
 
 ## Tips and Best Practices
 
@@ -257,8 +257,8 @@ Data Structure:
    - Export as PDF/image
    - Share on Tableau Server
 
-> **Figure (add screenshot or diagram):** Save and Share Options
-*Caption: Various options for saving and sharing your Tableau workbook.*
+> **Figure (add screenshot or diagram):** Tableau's File > Save As dialog alongside the Publish to Tableau Public dialog — showing the two sharing paths: saving locally as .twb or .twbx and publishing online with a public profile URL.
+
 
 ## Tableau Prep Builder
 
@@ -277,8 +277,8 @@ Data Structure:
    - Handle null values
    - Pivot/unpivot data
 
-> **Figure (add screenshot or diagram):** Tableau Prep Interface
-*Caption: The Tableau Prep interface showing data preparation options.*
+> **Figure (add screenshot or diagram):** Tableau Prep Builder's Flow canvas — a data source Input step on the left connected by an arrow to a Clean step in the center (showing profile bars and null counts per column), connected to an Output step on the right.
+
 
 ### 2. Flow Management
 
@@ -294,8 +294,8 @@ Data Structure:
    - Handle errors
    - Create reusable flows
 
-> **Figure (add screenshot or diagram):** Flow Management
-*Caption: Managing data flows in Tableau Prep.*
+> **Figure (add screenshot or diagram):** Tableau Prep Builder's scheduled flow configuration screen — run frequency options (daily/weekly), a mini-diagram of the flow's steps, and a green "Last run succeeded" status badge with timestamp.
+
 
 ## Advanced Calculations
 
@@ -345,8 +345,8 @@ RANK(SUM([Sales]), 'desc')
    - Bullet graphs
    - Radar charts
 
-> **Figure (add screenshot or diagram):** Custom Visualizations
-*Caption: Creating and using custom visualizations in Tableau.*
+> **Figure (add screenshot or diagram):** Tableau advanced chart gallery — a waterfall chart (top-left), a bullet graph showing actual vs target (top-right), a box and whisker plot (bottom-left), and a Gantt chart for scheduling (bottom-right), all built using standard Tableau shelves.
+
 
 ### 2. Advanced Mapping
 
@@ -362,8 +362,8 @@ RANK(SUM([Sales]), 'desc')
    - Perform spatial joins
    - Create density maps
 
-> **Figure (add screenshot or diagram):** Advanced Mapping
-*Caption: Advanced mapping features in Tableau.*
+> **Figure (add screenshot or diagram):** Tableau map with advanced geographic layers — a density heatmap overlay showing order concentration by ZIP code, a custom sales territory polygon drawn in orange, and a distance buffer circle around a distribution center.
+
 
 ## Tableau Server Features
 
@@ -381,8 +381,8 @@ RANK(SUM([Sales]), 'desc')
    - Configure permissions
    - Manage subscriptions
 
-> **Figure (add screenshot or diagram):** Content Management
-*Caption: Managing content on Tableau Server.*
+> **Figure (add screenshot or diagram):** Tableau Server / Tableau Cloud content management UI — Projects pane on the left with a folder hierarchy, workbooks listed in the center grid with thumbnail previews, and a Permissions settings panel open on the right.
+
 
 ### 2. Collaboration Features
 
@@ -398,8 +398,8 @@ RANK(SUM([Sales]), 'desc')
    - Compare versions
    - Manage conflicts
 
-> **Figure (add screenshot or diagram):** Collaboration Features
-*Caption: Collaboration features in Tableau Server.*
+> **Figure (add screenshot or diagram):** Tableau Server subscription setup dialog — recipient email addresses entered, schedule frequency set to "Weekly on Monday 8 AM", and the attachment format toggle showing PDF or image options.
+
 
 ## Performance Optimization
 
@@ -417,8 +417,8 @@ RANK(SUM([Sales]), 'desc')
    - Use appropriate data types
    - Monitor performance
 
-> **Figure (add screenshot or diagram):** Extract Configuration
-*Caption: Configuring and optimizing extracts in Tableau.*
+> **Figure (add screenshot or diagram):** Tableau's Extract refresh configuration dialog — Full vs Incremental refresh toggle, schedule frequency options (daily/weekly), estimated extract size shown in MB, and last refresh timestamp.
+
 
 ### 2. Dashboard Optimization
 
@@ -434,8 +434,8 @@ RANK(SUM([Sales]), 'desc')
    - Monitor resource usage
    - Analyze bottlenecks
 
-> **Figure (add screenshot or diagram):** Performance Tools
-*Caption: Using Tableau's performance monitoring tools.*
+> **Figure (add screenshot or diagram):** Tableau Performance Recorder results view — a flame chart of timed events (query execution, rendering, layout) with the slowest steps highlighted in red and a total load time summary at the top.
+
 
 ## Security and Governance
 
@@ -453,8 +453,8 @@ RANK(SUM([Sales]), 'desc')
    - Time-based restrictions
    - Custom security rules
 
-> **Figure (add screenshot or diagram):** Security Configuration
-*Caption: Setting up row-level security in Tableau.*
+> **Figure (add screenshot or diagram):** Tableau's User Filters dialog for row-level security — a mapping table listing usernames in the left column and their allowed Region values in the right column; a "Match to current user" checkbox at the bottom.
+
 
 ### 2. Data Governance
 
@@ -470,8 +470,8 @@ RANK(SUM([Sales]), 'desc')
    - Security logs
    - Compliance tracking
 
-> **Figure (add screenshot or diagram):** Governance Tools
-*Caption: Tableau's governance and compliance features.*
+> **Figure (add screenshot or diagram):** Tableau Server Admin's Activity Log view — a table of usage events (view, publish, download) with columns for timestamp, username, action type, and content name; filterable by date range and event type.
+
 
 ## Tableau Mobile
 
@@ -489,8 +489,8 @@ RANK(SUM([Sales]), 'desc')
    - Mobile-specific filters
    - Touch interactions
 
-> **Figure (add screenshot or diagram):** Mobile Features
-*Caption: Optimizing dashboards for mobile devices.*
+> **Figure (add screenshot or diagram):** Tableau dashboard in mobile layout mode — a single KPI card (Sales total) at the top, a compact bar chart below, and touch-friendly filter buttons at the bottom; the Device Preview dropdown at the top showing "Phone" selected.
+
 
 ### 2. Mobile App Features
 
@@ -506,8 +506,8 @@ RANK(SUM([Sales]), 'desc')
    - Simplify interactions
    - Test thoroughly
 
-> **Figure (add screenshot or diagram):** Mobile App
-*Caption: Using Tableau Mobile app features.*
+> **Figure (add screenshot or diagram):** Side-by-side comparison of a Tableau dashboard in desktop layout (left, wide multi-column) and the auto-optimized mobile layout (right, narrow single-column with stacked charts), showing how Tableau reflows tiles for the phone screen.
+
 
 ## Next Steps
 

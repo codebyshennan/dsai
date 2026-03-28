@@ -49,7 +49,10 @@ Imagine you're building a spam filter for your email. You want to automatically 
 
 **Walkthrough:**
 - Parallel `emails` and `labels` (1=spam, 0=ham); `train_test_split(..., test_size=0.2, random_state=42)`.
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Sample dataset - in real life, you'd have many more emails!
 emails = [
     "Get rich quick! Buy now!",
@@ -65,7 +68,30 @@ labels = [1, 0, 1, 0, 1, 0]  # 1 for spam, 0 for not spam
 X_train, X_test, y_train, y_test = train_test_split(
     emails, labels, test_size=0.2, random_state=42
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sample Emails</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Six raw email strings are labelled 1 (spam) or 0 (ham); the alternating pattern makes the class balance easy to check visually before passing to a classifier.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train/Test Split</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>train_test_split</code> with <code>test_size=0.2</code> and a fixed seed reserves one or two emails for evaluation, ensuring reproducible results on the toy dataset.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Step 2: Create a Text Processing Pipeline
 
@@ -75,7 +101,10 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 **Walkthrough:**
 - `TfidfVectorizer` with lowercase, English stop words, bigrams, `min_df=2`; `MultinomialNB(alpha=1.0)`.
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
 
@@ -84,17 +113,40 @@ def create_spam_classifier():
     return Pipeline([
         # Convert text to numbers
         ('vectorizer', TfidfVectorizer(
-            lowercase=True,      # Convert to lowercase
-            stop_words='english', # Remove common words
-            ngram_range=(1, 2),  # Look at single words and pairs
-            min_df=2            # Ignore very rare words
+            lowercase=True,
+            stop_words='english',
+            ngram_range=(1, 2),  # Unigrams and bigrams
+            min_df=2             # Ignore very rare words
         )),
         # Use Multinomial NB for text classification
         ('classifier', MultinomialNB(
-            alpha=1.0  # Smoothing parameter
+            alpha=1.0  # Laplace smoothing
         ))
     ])
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>TfidfVectorizer converts raw strings to weighted term-frequency features; Pipeline chains it with the classifier so both steps fit and transform in one call.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline Configuration</span>
+    </div>
+    <div class="code-callout__body">
+      <p>TF-IDF is configured for case-folding, stop-word removal, unigram+bigram tokens, and a minimum document frequency of 2; MultinomialNB with alpha=1.0 adds Laplace smoothing to prevent zero-probability word issues.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Step 3: Train and Evaluate the Model
 
@@ -145,7 +197,10 @@ weighted avg       0.25      0.50      0.33         2
 
 **Walkthrough:**
 - Loop `zip(new_emails, predictions, probabilities)`; map 1/0 to Spam/Not Spam; `max(prob)` as confidence.
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # skip-output
 # Test with new emails
 new_emails = [
@@ -162,7 +217,30 @@ for email, pred, prob in zip(new_emails, predictions, probabilities):
     print(f"\nEmail: {email}")
     print(f"Prediction: {'Spam' if pred == 1 else 'Not Spam'}")
     print(f"Confidence: {max(prob):.2%}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">New Emails</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Two test strings are chosen to contrast a promotional message with a legitimate meeting invite, letting us see whether the classifier's learned vocabulary captures the spam signal.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Predict and Report</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>predict_proba</code> returns class probabilities; <code>max(prob)</code> gives the winning class's confidence score, printed alongside the human-readable Spam/Not Spam label.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -192,7 +270,10 @@ Let's build a system that helps doctors predict whether a patient has a certain 
 
 **Walkthrough:**
 - `patient_data` rows match `conditions` (1=sick, 0=healthy); `train_test_split` with `random_state=42`.
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Sample patient data
 # Features: [temperature, heart_rate, blood_pressure, age]
 patient_data = [
@@ -208,7 +289,30 @@ conditions = [1, 0, 1, 0]
 X_train, X_test, y_train, y_test = train_test_split(
     patient_data, conditions, test_size=0.2, random_state=42
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Patient Records</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Four patients are described by temperature, heart rate, blood pressure, and age; alternating sick/healthy labels create a balanced toy set for the Gaussian NB example.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Split</span>
+    </div>
+    <div class="code-callout__body">
+      <p>20% of the data is held out for evaluation; with only four samples this is one patient — enough to demonstrate the evaluation pattern even if statistical significance is limited.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Step 2: Create a Medical Diagnosis Pipeline
 
@@ -424,6 +528,8 @@ print(f"Predicted Category: {prediction[0]}")
 Predicted Category: Clothing
 
 ```
+
+![Gaussian NB decision boundary on 2D data](assets/nb_decision_boundary.png)
 
 ## Best Practices and Tips
 

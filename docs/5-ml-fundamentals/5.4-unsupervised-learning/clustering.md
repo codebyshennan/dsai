@@ -23,6 +23,19 @@ Clustering is like having a smart assistant who can look at a pile of items and 
 
 ## Types of Clustering Algorithms
 
+```mermaid
+graph TD
+    A{What do you know\nabout the data?} -->|Number of clusters known| B[K-Means]
+    A -->|Unknown clusters,\nno noise assumption| C[Hierarchical]
+    A -->|Arbitrary shapes,\nnoise expected| D[DBSCAN]
+    A -->|Need probability\nof membership| E[Gaussian Mixture]
+
+    B --> B1["Fast, scalable\nAssumes spherical clusters\nSensitive to k choice"]
+    C --> C1["No k needed upfront\nDendrogram shows structure\nSlower on large data"]
+    D --> D1["Finds outliers naturally\nHandles odd shapes\nNeeds ε and minPts tuning"]
+    E --> E1["Soft assignments\nMore flexible shapes\nExpectation-Maximization"]
+```
+
 ### 1. K-Means Clustering
 
 Think of K-Means as a smart organizer who:
@@ -31,7 +44,10 @@ Think of K-Means as a smart organizer who:
 - Places items in the group they're closest to
 - Keeps adjusting until everything is in the right place
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
@@ -68,7 +84,30 @@ plt.legend()
 plt.tight_layout()
 plt.savefig('assets/kmeans_example.png')
 plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and K-Means Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate four synthetic Gaussian blobs, then fit <code>KMeans(n_clusters=4)</code>; <code>predict</code> assigns each point to the nearest centroid, producing integer cluster labels.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-36" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Side-by-side Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Left subplot shows true labels from <code>make_blobs</code>; right shows K-Means assignments with red X markers at <code>cluster_centers_</code> — comparing the two reveals how well the algorithm recovered the true groups.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Hierarchical Clustering
 
@@ -78,7 +117,10 @@ Think of Hierarchical Clustering as building a family tree of your data:
 - Gradually combines similar groups
 - Creates a tree-like structure of relationships
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.cluster import AgglomerativeClustering
 from scipy.cluster.hierarchy import dendrogram, linkage
 
@@ -114,7 +156,30 @@ plt.ylabel('Distance')
 plt.tight_layout()
 plt.savefig('assets/hierarchical_clustering.png')
 plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Agglomerative Clustering</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit <code>AgglomerativeClustering(n_clusters=4)</code> on the same blob data as K-Means; <code>fit_predict</code> returns integer labels assigned by bottom-up merging.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three-panel Figure</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Left: original labels; middle: hierarchical assignments; right: <code>dendrogram</code> from scipy's <code>linkage</code> (Ward method) — the dendrogram's branch heights show at what distances clusters merged.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
 
@@ -124,7 +189,10 @@ Think of DBSCAN as a smart city planner who:
 - Marks sparse areas as noise
 - Doesn't need to know how many neighborhoods to look for
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.cluster import DBSCAN
 
 # Apply DBSCAN
@@ -151,7 +219,30 @@ plt.ylabel('Feature 2')
 plt.tight_layout()
 plt.savefig('assets/dbscan_example.png')
 plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">DBSCAN Parameters</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>eps=0.3</code> sets the neighborhood radius; <code>min_samples=5</code> sets the density threshold; points labeled -1 by <code>fit_predict</code> are noise (outliers not in any cluster).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize Results</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Side-by-side comparison with true blob labels; DBSCAN may find different cluster boundaries or label some points as noise (-1), shown as a distinct color in the right subplot.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## How to Choose the Right Algorithm
 
@@ -191,7 +282,10 @@ def preprocess_for_clustering(X):
 
 2. **Finding the Right Number of Clusters**:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def find_optimal_clusters(X, max_clusters=10):
     # Calculate inertia for different numbers of clusters
     inertias = []
@@ -199,7 +293,7 @@ def find_optimal_clusters(X, max_clusters=10):
         kmeans = KMeans(n_clusters=k, random_state=42)
         kmeans.fit(X)
         inertias.append(kmeans.inertia_)
-    
+
     # Plot the elbow curve
     plt.figure(figsize=(10, 5))
     plt.plot(range(1, max_clusters + 1), inertias, 'bo-')
@@ -209,7 +303,30 @@ def find_optimal_clusters(X, max_clusters=10):
     plt.grid(True)
     plt.savefig('assets/elbow_method.png')
     plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Inertia Sweep</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit K-Means for each k from 1 to <code>max_clusters</code> and collect <code>inertia_</code> (sum of squared distances to centroids); inertia always decreases as k grows but the rate of decrease slows past the true cluster count.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Elbow Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot inertia vs k; the "elbow" — where the curve bends sharply — is the heuristic choice for the optimal number of clusters.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Mistakes to Avoid
 

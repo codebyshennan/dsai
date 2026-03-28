@@ -22,7 +22,7 @@ Data distributions are fundamental to understanding your dataset's characteristi
 
 ## Why Study Distributions?
 
-> **Figure (add screenshot or diagram):** Typical distribution shapes (normal, skewed, bimodal) in a teaching slide or notebook—replace **assets/distribution_types.png** when assets are generated.
+![Common distribution shapes: normal, left-skewed, right-skewed, and bimodal](assets/distribution_types.png)
 
 Understanding distributions helps you:
 
@@ -265,68 +265,68 @@ class DistributionAnalyzer:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-23" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Import pandas as pd</span>
+      <span class="code-callout__title">Imports</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Import pandas as pd</strong> — lines 1-23. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Seven imports: pandas and numpy for data, matplotlib and seaborn for static charts, scipy for statistical tests, and plotly (express + graph_objects) for interactive plots.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="24-47" data-tint="2">
+  <div class="code-callout" data-lines="9-25" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Self.tests = {}</span>
+      <span class="code-callout__title">DistributionAnalyzer class and constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Self.tests = {}</strong> — lines 24-47 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The constructor accepts a DataFrame and a column name, storing the series and initialising empty <code>stats</code> and <code>tests</code> dicts that the other methods populate.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="48-71" data-tint="3">
+  <div class="code-callout" data-lines="26-52" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;iqr&#x27;: self.data.quantile(0.75) - self.data.q…</span>
+      <span class="code-callout__title">analyze_basic_stats</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;iqr&#x27;: self.data.quantile(0.75) - self.data.q…</strong> — lines 48-71 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Computes eleven summary statistics: count, missing count, mean, median, mode, std, variance, skewness, kurtosis, IQR, and range—returning them in a single dict.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="72-94" data-tint="4">
+  <div class="code-callout" data-lines="53-77" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;critical_values&#x27;: anderson_test.critical_values</span>
+      <span class="code-callout__title">analyze_distribution_type</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;critical_values&#x27;: anderson_test.critical_values</strong> — lines 72-94 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Estimates continuous vs discrete via unique-value ratio, then runs Shapiro–Wilk and Anderson–Darling normality tests, storing results in <code>self.tests</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="95-118" data-tint="1">
+  <div class="code-callout" data-lines="78-117" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Plt.title(&#x27;Violin Plot&#x27;)</span>
+      <span class="code-callout__title">plot_distribution_suite</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Plt.title(&#x27;Violin Plot&#x27;)</strong> — lines 95-118 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Creates a 2×3 subplot grid: histogram+KDE, box plot, violin plot, Q-Q plot, empirical CDF, and jittered scatter—giving six complementary views of the same column.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="119-142" data-tint="2">
+  <div class="code-callout" data-lines="118-142" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def create_interactive_plots(self):</span>
+      <span class="code-callout__title">create_interactive_plots</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def create_interactive_plots(self):</strong> — lines 119-142. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Builds two Plotly figures: a combined histogram+violin trace and an interactive box plot with all data points overlaid (<code>points='all'</code>).</p>
     </div>
   </div>
 </aside>
 </div>
 
-> **Figure (add screenshot or diagram):** Histogram with overlaid mean or median—see **assets/histogram_with_stats.png** when available.
+![Histogram with overlaid mean and median lines](assets/histogram_with_stats.png)
 
-> **Figure (add screenshot or diagram):** Q–Q plots for normality checks—see **assets/qq_plots.png** when available.
+![Q-Q plots for normality checking](assets/qq_plots.png)
 
-> **Figure (add screenshot or diagram):** Outlier markers on a box plot or residual view—see **assets/outlier_detection.png** when available.
+![Outlier detection using box plots](assets/outlier_detection.png)
 
 ## Real-World Case Study: Sales Data Analysis
 
@@ -365,22 +365,22 @@ if stats['skew'] > 1:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-13" data-tint="1">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Load sample sales data</span>
+      <span class="code-callout__title">Load data and run statistics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Load sample sales data</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Loads the CSV, creates an analyser instance, then calls <code>analyze_basic_stats()</code> and <code>analyze_distribution_type()</code>, printing each result as a transposed DataFrame.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="14-26" data-tint="2">
+  <div class="code-callout" data-lines="16-26" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Print(&quot;\nDistribution Analysis:&quot;)</span>
+      <span class="code-callout__title">Visualise and interpret</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Print(&quot;\nDistribution Analysis:&quot;)</strong> — lines 14-26 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Calls both plotting methods, then checks whether skewness exceeds 1 and prints three targeted recommendations for right-skewed revenue data.</p>
     </div>
   </div>
 </aside>
@@ -449,22 +449,22 @@ def analyze_normality(data, alpha=0.05):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def analyze_normality(data, alpha=0.05):</span>
+      <span class="code-callout__title">Collect test results and shape metrics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def analyze_normality(data, alpha=0.05):</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Runs three normality tests (Shapiro–Wilk, D'Agostino, Anderson–Darling) and records skewness and kurtosis in a single <code>results</code> dict.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-22" data-tint="2">
+  <div class="code-callout" data-lines="14-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">}</span>
+      <span class="code-callout__title">Combined normality verdict</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>}</strong> — lines 12-22 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Sets <code>is_normal</code> to <code>True</code> only when all three conditions hold: skewness and kurtosis both below 0.5, and Shapiro p-value above alpha.</p>
     </div>
   </div>
 </aside>
@@ -494,22 +494,22 @@ def analyze_tail_behavior(data):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-7" data-tint="1">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def analyze_tail_behavior(data):</span>
+      <span class="code-callout__title">Compute key percentiles and IQR</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def analyze_tail_behavior(data):</strong> — lines 1-7. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Grabs the 1st, 5th, 95th, and 99th percentiles plus the IQR—these four extremes anchor the tail-ratio calculation.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="8-15" data-tint="2">
+  <div class="code-callout" data-lines="5-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;left_tail&#x27;: (percentiles[1] - percentiles[0]…</span>
+      <span class="code-callout__title">Tail ratios and heavy-tail flags</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;left_tail&#x27;: (percentiles[1] - percentiles[0]…</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Divides the span of each tail by the IQR. Ratios above 1.5 are flagged as heavy tails, indicating the distribution has more extreme values than a normal distribution.</p>
     </div>
   </div>
 </aside>
@@ -544,19 +544,19 @@ def detect_multimodality(data, bandwidth=None):
   <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def detect_multimodality(data, bandwidth=None):</span>
+      <span class="code-callout__title">KDE estimation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def detect_multimodality(data, bandwidth=None):</strong> — lines 1-8. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Fits a Gaussian kernel density estimate over 1 000 evenly-spaced x values to produce a smooth density curve <code>y</code> used for peak detection.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="9-17" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Find peaks</span>
+      <span class="code-callout__title">Peak detection and result</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Find peaks</strong> — lines 9-17 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>find_peaks</code> identifies local maxima in the KDE curve. The function returns the count of peaks, their x positions, and a boolean <code>is_multimodal</code> flag.</p>
     </div>
   </div>
 </aside>
@@ -595,19 +595,19 @@ def optimize_numeric_analysis(data):
   <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def optimize_numeric_analysis(data):</span>
+      <span class="code-callout__title">Single-pass setup</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def optimize_numeric_analysis(data):</strong> — lines 1-9. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Converts to a NumPy array once, computes n and mean, then subtracts the mean once into <code>diff</code>—reusing this array for all higher moments avoids repeated passes.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="10-19" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Var = np.sum(diff**2) / n</span>
+      <span class="code-callout__title">Variance, skewness, and kurtosis</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Var = np.sum(diff**2) / n</strong> — lines 10-19. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p>Variance uses squared deviations, skewness uses cubed deviations divided by var<sup>1.5</sup>, and excess kurtosis uses fourth-power deviations divided by var<sup>2</sup> minus 3.</p>
     </div>
   </div>
 </aside>
@@ -644,22 +644,22 @@ def create_efficient_plots(data, max_points=10000):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def create_efficient_plots(data, max_points=1…</span>
+      <span class="code-callout__title">Systematic sampling for large data</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def create_efficient_plots(data, max_points=1…</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>If the series exceeds <code>max_points</code>, evenly-spaced integer indices are computed with <code>np.linspace</code> to draw a representative systematic sample—preserving the shape without random variance.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-22" data-tint="2">
+  <div class="code-callout" data-lines="9-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Histogram (using bins)</span>
+      <span class="code-callout__title">Histogram and box plot</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Histogram (using bins)</strong> — lines 12-22 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Plots the sample in a side-by-side layout: left is a histogram with automatic binning, right is a box plot. Both use the same sampled data for visual consistency.</p>
     </div>
   </div>
 </aside>
@@ -688,13 +688,22 @@ Avoid these common mistakes in distribution analysis:
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-10" data-tint="1">
+     <div class="code-callout" data-lines="1-2" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Bad: Always using mean and std</span>
+         <span class="code-callout__title">Fragile: mean and std</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Bad: Always using mean and std</strong> — lines 1-10 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
+         <p>Always using mean and std assumes normality—they become misleading when data is skewed or has heavy tails.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="3-10" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Robust summary statistics</span>
+       </div>
+       <div class="code-callout__body">
+         <p><code>robust_summary</code> returns median, MAD, and IQR—all outlier-resistant and valid regardless of distribution shape.</p>
        </div>
      </div>
    </aside>
@@ -726,22 +735,22 @@ Avoid these common mistakes in distribution analysis:
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-8" data-tint="1">
+     <div class="code-callout" data-lines="1-6" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Def adjust_for_sample_size(data):</span>
+         <span class="code-callout__title">Small-sample branch (n &lt; 30)</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Def adjust_for_sample_size(data):</strong> — lines 1-8. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+         <p>For fewer than 30 observations, parametric assumptions are unreliable. The function falls back to non-parametric statistics: median, IQR, and Shapiro–Wilk.</p>
        </div>
      </div>
-     <div class="code-callout" data-lines="9-17" data-tint="2">
+     <div class="code-callout" data-lines="7-17" data-tint="2">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">&#x27;spread&#x27;: stats.iqr(data),</span>
+         <span class="code-callout__title">Large-sample branch (n ≥ 30)</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>&#x27;spread&#x27;: stats.iqr(data),</strong> — lines 9-17 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p>With enough data, parametric methods are appropriate: mean, std, and D'Agostino's normality test are more powerful than their non-parametric counterparts.</p>
        </div>
      </div>
    </aside>
@@ -767,13 +776,22 @@ Avoid these common mistakes in distribution analysis:
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-11" data-tint="1">
+     <div class="code-callout" data-lines="1-4" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Def analyze_with_outliers(data):</span>
+         <span class="code-callout__title">IQR outlier mask</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Def analyze_with_outliers(data):</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+         <p>Computes Q1, Q3, and IQR, then creates a boolean mask for values outside the 1.5×IQR fence.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="5-11" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Compare distributions with and without outliers</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Returns <code>describe()</code> for the full series and for the outlier-filtered series side by side, plus the count of outliers—making the impact visible before deciding how to handle them.</p>
        </div>
      </div>
    </aside>

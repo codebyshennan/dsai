@@ -44,6 +44,27 @@ Think of this as your brain's "careful look" processing:
 - Processes complex information
 - Interprets meaning and relationships
 
+```mermaid
+graph LR
+    subgraph PA["Pre-attentive  (< 250 ms)"]
+        P1["Color / Hue"]
+        P2["Shape"]
+        P3["Size"]
+        P4["Orientation"]
+        P5["Motion"]
+    end
+    subgraph AT["Attentive  (> 250 ms)"]
+        A1["Reading labels"]
+        A2["Comparing small\nlength differences"]
+        A3["Counting items"]
+        A4["Tracing overlapping\nlines"]
+    end
+    PA -->|Encode high-priority\ninsights here| highlight["Highlight key\ndata point"]
+    AT -->|Reserve for\nexploration| detail["Supporting\ndetails"]
+```
+
+*Design tip: if the insight you want viewers to notice is not pre-attentive (e.g. a length difference), use color or size to reinforce it.*
+
 ## Visual Elements
 
 ### 1. Form Attributes
@@ -126,6 +147,30 @@ Think of these as the rules of visual organization:
 - Like seeing a person standing in front of a wall
 
 ## Chart Selection Framework
+
+```mermaid
+flowchart TD
+    Q1{What do you\nwant to show?} --> CMP[Comparison]
+    Q1 --> DST[Distribution]
+    Q1 --> REL[Relationship]
+    Q1 --> COM[Composition]
+    Q1 --> CHG[Change over time]
+
+    CMP --> CMP2{How many\ncategories?}
+    CMP2 -->|Few ≤ 7| BAR[Bar chart]
+    CMP2 -->|Many| LOL[Lollipop / Dot plot]
+
+    DST --> DST2{One variable\nor many?}
+    DST2 -->|One| HIST[Histogram / Box plot]
+    DST2 -->|Many groups| VIO[Violin / Ridge plot]
+
+    REL --> REL2{Two or\nmore variables?}
+    REL2 -->|Two continuous| SCA[Scatter plot]
+    REL2 -->|Many| HEAT[Heat map / Pair plot]
+
+    COM --> PIE[Stacked bar\nor Treemap]
+    CHG --> LINE[Line chart]
+```
 
 ### 1. Comparison
 

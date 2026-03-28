@@ -107,7 +107,10 @@ Think of this as having gaps in your story:
 
 **Walkthrough:** List comprehension drops NaNs; `np.interp` fills gaps using neighboring valid points along the index.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 #  Problem: NaN values breaking plot - like missing pages in a book
 data = [1, 2, np.nan, 4, 5]
 
@@ -120,12 +123,44 @@ def handle_missing(data):
     data = np.array(data)
     mask = np.isnan(data)
     data[mask] = np.interp(
-        np.flatnonzero(mask), 
-        np.flatnonzero(~mask), 
+        np.flatnonzero(mask),
+        np.flatnonzero(~mask),
         data[~mask]
     )
     return data
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Problem Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A list with a <code>np.nan</code> in position 3—plotting this directly breaks line continuity.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-5" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Filter Approach</span>
+    </div>
+    <div class="code-callout__body">
+      <p>List comprehension drops NaN values entirely—fast but loses the original index positions.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-17" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Interpolation Approach</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>np.interp</code> fills each NaN using neighboring valid values, preserving the original array length and index alignment.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 #### Scale Issues
 
@@ -135,7 +170,10 @@ Think of this as trying to compare very different things:
 
 **Walkthrough:** `twinx()` shares x but draws a second y-axis; normalization maps each series to [0, 1] for overlay comparison.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 #  Problem: Different scales making plot unreadable - like comparing inches and miles
 x = np.linspace(0, 1, 100)
 y1 = x
@@ -151,7 +189,39 @@ ax2.plot(x, y2, 'r-', label='y2')
 def normalize(data):
     """Normalize data to [0, 1] range"""
     return (data - np.min(data)) / (np.max(data) - np.min(data))
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Mismatched Scales</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>y2</code> is 1000× larger than <code>y1</code>—on a single axis, <code>y1</code> would appear flat against the bottom.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Twin Axis</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>twinx()</code> creates a second y-axis that shares the x-axis, each series keeping its own scale.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-15" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Normalization</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Min-max normalization maps any series to [0, 1], enabling direct overlay without a dual axis.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 4. Memory Management
 
@@ -163,7 +233,10 @@ Think of this as leaving too many windows open on your computer:
 
 **Walkthrough:** `plt.close('all')` after `show()` releases figures; the `try`/`finally` pattern ensures cleanup even if plotting errors.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 #  Problem: Memory growing with multiple plots - like leaving windows open
 for i in range(100):
     plt.figure()
@@ -179,7 +252,30 @@ def plot_with_cleanup(data):
         plt.show()
     finally:
         plt.close('all')
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Memory Leak Pattern</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Each loop iteration creates a figure object but never closes it—100 figures accumulate in memory.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Try/Finally Cleanup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Wrapping in <code>try/finally</code> ensures <code>plt.close('all')</code> runs even if plotting raises an exception.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 #### Large Dataset Handling
 
@@ -189,7 +285,10 @@ Think of this as trying to show too many stars in the sky:
 
 **Walkthrough:** Random subset caps point count; `alpha` and `rasterized=True` help when exporting dense scatters to vector formats.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 #  Problem: Slow with large datasets - like trying to show every star
 x = np.random.randn(1_000_000)
 y = np.random.randn(1_000_000)
@@ -200,16 +299,48 @@ def plot_large_dataset(x, y, max_points=10_000):
     if len(x) > max_points:
         # Random sampling - like choosing representative stars
         idx = np.random.choice(
-            len(x), 
-            max_points, 
+            len(x),
+            max_points,
             replace=False
         )
         x = x[idx]
         y = y[idx]
-    
+
     # Use scatter with transparency - like showing star density
     plt.scatter(x, y, alpha=0.1, rasterized=True)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Large Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>One million random points—rendering all of them makes the scatter slow and the output visually saturated.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Random Sampling</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>np.random.choice</code> picks <code>max_points</code> indices without replacement, slicing both <code>x</code> and <code>y</code> to match.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-18" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Raster Rendering</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>alpha=0.1</code> reveals density through overlap; <code>rasterized=True</code> converts the scatter to a bitmap for smaller PDF exports.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 5. Style and Formatting
 
@@ -291,12 +422,15 @@ Think of this as checking your car's dashboard:
 
 **Walkthrough:** `gcf()`/`gca()` grab the active figure and axes; `psutil` is optional and only valid if you import it elsewhere.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def print_plot_info():
     """Print current plot information"""
     fig = plt.gcf()
     ax = plt.gca()
-    
+
     info = {
         'Figure Size': fig.get_size_inches(),
         'DPI': fig.dpi,
@@ -306,14 +440,46 @@ def print_plot_info():
         },
         'Number of Artists': len(ax.get_children()),
         'Memory Usage (MB)': (
-            psutil.Process().memory_info().rss / 
-            1024 / 
+            psutil.Process().memory_info().rss /
+            1024 /
             1024
         )
     }
-    
+
     return info
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Active Figure/Axes</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>gcf()</code> and <code>gca()</code> grab the currently active figure and axes without needing explicit references.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Figure Properties</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The dict collects size, DPI, axis limits, and child artist count—useful for diagnosing layout or clipping issues.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-18" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Memory Check</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>psutil.Process().memory_info().rss</code> reads resident set size in bytes; dividing twice by 1024 converts to megabytes.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Performance Monitoring
 
@@ -323,7 +489,10 @@ Think of this as timing how long something takes:
 
 **Walkthrough:** The decorator wraps any callable; `functools.wraps` preserves metadata for introspection.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import time
 import functools
 
@@ -337,7 +506,39 @@ def plot_timer(func):
         print(f'{func.__name__} took {end-start:.2f} seconds')
         return result
     return wrapper
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>time</code> provides wall-clock measurement; <code>functools</code> enables proper decorator metadata preservation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-6" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Decorator Definition</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>@functools.wraps(func)</code> copies the original function's name and docstring onto <code>wrapper</code> for clean introspection.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-13" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Timing Wrapper</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Records <code>start</code> before and <code>end</code> after the call, then prints elapsed seconds before returning the original result.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices
 
@@ -349,24 +550,68 @@ Think of this as having a checklist before starting:
 
 **Walkthrough:** `plt.style.use` sets a named style; `rcParams` fine-tunes fonts and grids; returns current figure/axes for further drawing.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def setup_professional_plot():
     """Setup template for professional plots"""
     plt.style.use('seaborn')
-    
+
     # Figure size and DPI
     plt.figure(figsize=(10, 6), dpi=100)
-    
+
     # Font settings
     plt.rcParams['font.family'] = 'sans-serif'
     plt.rcParams['font.size'] = 12
-    
+
     # Grid settings
     plt.grid(True, linestyle=':', alpha=0.7)
-    
+
     # Return figure and axes
     return plt.gcf(), plt.gca()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Style Application</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plt.style.use('seaborn')</code> applies a complete pre-built theme—clean backgrounds, muted palette, and subtle grid.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-6" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Canvas Size</span>
+    </div>
+    <div class="code-callout__body">
+      <p>10×6 inches at 100 DPI produces a clear figure for both notebook display and slide export.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-12" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Font and Grid Defaults</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>rcParams</code> sets global font family and size; <code>linestyle=':'</code> and <code>alpha=0.7</code> keep the grid subtle and non-distracting.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-16" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return Handles</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Returning the figure and axes lets callers add plot-specific elements directly without calling <code>gcf()</code>/<code>gca()</code> again.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Common Mistakes to Avoid
 

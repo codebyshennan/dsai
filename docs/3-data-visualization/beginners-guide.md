@@ -55,7 +55,10 @@ Think of charts like different types of maps:
 
 **Walkthrough:** `plot` with `marker='o'` emphasizes discrete days; grid and title explain units.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # The simplest line chart - like tracking your daily steps
 import matplotlib.pyplot as plt
 
@@ -71,7 +74,39 @@ plt.title('My Daily Steps This Week', fontsize=14, pad=20)
 plt.ylabel('Steps', fontsize=12)
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>matplotlib.pyplot</code> is the only dependency for this basic chart—no additional libraries needed.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-7" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Parallel lists for weekday labels and step counts—the simplest way to define x/y data for Matplotlib.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-15" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Styled Line Chart</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>marker='o'</code> adds dots at each day; hex color and <code>linewidth=2</code> improve readability over the default thin grey line.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![beginners-guide](assets/beginners-guide_fig_1.png)
@@ -88,7 +123,10 @@ plt.show()
 
 **Walkthrough:** `bar` takes parallel lists of labels and values; per-bar `color` is optional; `xticks(rotation=45)` avoids label overlap.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # A simple bar chart - like comparing favorite ice cream flavors
 import matplotlib.pyplot as plt
 
@@ -104,7 +142,39 @@ plt.title('Favorite Ice Cream Flavors', fontsize=14, pad=20)
 plt.ylabel('Number of People', fontsize=12)
 plt.xticks(rotation=45)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Only <code>matplotlib.pyplot</code> is required for basic categorical bar charts.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-7" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Category Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Parallel lists of flavor names and preference counts—<code>plt.bar</code> maps each name to a bar height.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-15" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Colored Bars</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A list of hex colors assigns a distinct hue to each bar; <code>xticks(rotation=45)</code> prevents label overlap on narrow charts.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![beginners-guide](assets/beginners-guide_fig_2.png)

@@ -1,3 +1,6 @@
+---
+published: false
+---
 # Enhanced Data Structures - Review Document
 
 ## Overview

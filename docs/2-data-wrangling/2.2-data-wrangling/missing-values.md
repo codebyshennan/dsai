@@ -29,16 +29,13 @@ Missing data can occur through different mechanisms, each requiring different ha
 ```mermaid
 graph TD
     A[Missing Data] --> B[MCAR]
-    A --> C[MAR]
-    A --> D[MNAR]
-    
-    B[Missing Completely at Random] --> B1[No systematic pattern]
+    B --> B1[No systematic pattern]
     B --> B2[True randomness]
-    
-    C[Missing at Random] --> C1[Pattern exists]
+    A --> C[MAR]
+    C --> C1[Pattern exists]
     C --> C2[Explainable by other variables]
-    
-    D[Missing Not at Random] --> D1[Systematic pattern]
+    A --> D[MNAR]
+    D --> D1[Systematic pattern]
     D --> D2[Related to missing value itself]
 ```
 
@@ -111,31 +108,31 @@ def analyze_missing_mechanism(df):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def analyze_missing_mechanism(df):</span>
+      <span class="code-callout__title">Function signature and docstring</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def analyze_missing_mechanism(df):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Defines <code>analyze_missing_mechanism</code> and documents its parameters and return value—a dict of analysis results.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="12-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Results = {</span>
+      <span class="code-callout__title">Analyze missing patterns and correlations</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Results = {</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Calculates per-column missing rates (as percentages) and the correlation matrix between missing indicators—high correlation suggests MAR rather than MCAR.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="26-38" data-tint="3">
+  <div class="code-callout" data-lines="27-39" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Perform Little&#x27;s MCAR test</span>
+      <span class="code-callout__title">Little's MCAR test</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Perform Little&#x27;s MCAR test</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Runs a simplified chi-squared test on the null indicators. A p-value &gt; 0.05 is consistent with MCAR; lower values suggest a systematic pattern.</p>
     </div>
   </div>
 </aside>
@@ -223,40 +220,40 @@ rating                   5                10.0   float64
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Import pandas as pd</span>
+      <span class="code-callout__title">Imports and data loading</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Import pandas as pd</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports five libraries (pandas, NumPy, seaborn, matplotlib, missingno) and reads the e-commerce CSV into a DataFrame.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="9-17" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;Missing Percentage&#x27;: (df.isnull().sum() / le…</span>
+      <span class="code-callout__title">Compute missing-value statistics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;Missing Percentage&#x27;: (df.isnull().sum() / le…</strong> — lines 13-24. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p>Builds a summary DataFrame showing missing count, missing percentage, and data type for every column.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="25-36" data-tint="3">
+  <div class="code-callout" data-lines="19-36" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">2. Missing value correlation</span>
+      <span class="code-callout__title">Four-panel visualization</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>2. Missing value correlation</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Creates a 2×2 figure: a heatmap of null positions, a missingno matrix, a bar chart of missing percentages, and a missingno correlation heatmap.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="37-49" data-tint="4">
+  <div class="code-callout" data-lines="43-51" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Plt.subplot(2, 2, 4)</span>
+      <span class="code-callout__title">Display and return results</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Plt.subplot(2, 2, 4)</strong> — lines 37-49 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Calls <code>tight_layout</code> and shows the figure, then returns the statistics DataFrame. The final two lines call the function and print its output.</p>
     </div>
   </div>
 </aside>
@@ -316,22 +313,31 @@ class StatisticalImputer:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-13" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class StatisticalImputer:</span>
+      <span class="code-callout__title">Class definition and __init__</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class StatisticalImputer:</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines the class with a <code>strategy</code> parameter ('mean', 'median', or 'weighted_mean') and an empty <code>statistics</code> dict that will store computed fill values.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="14-26" data-tint="2">
+  <div class="code-callout" data-lines="8-19" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Self.statistics[column] = df[column].median()</span>
+      <span class="code-callout__title">fit: compute fill statistics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Self.statistics[column] = df[column].median()</strong> — lines 14-26 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Loops over numeric columns and computes mean, median, or a correlation-weighted mean—whichever strategy was chosen—storing results in <code>self.statistics</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-26" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">transform: apply imputation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Copies the DataFrame and fills each column's nulls with the value stored in <code>self.statistics</code>, leaving the original untouched.</p>
     </div>
   </div>
 </aside>
@@ -390,31 +396,40 @@ class MLImputer:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From sklearn.ensemble import RandomForestRegr…</span>
+      <span class="code-callout__title">Imports, class definition, and __init__</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From sklearn.ensemble import RandomForestRegr…</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports both Random Forest variants and defines the class; <code>__init__</code> stores which columns are categorical and initializes an empty <code>models</code> dict.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-29" data-tint="2">
+  <div class="code-callout" data-lines="10-20" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Prepare training data</span>
+      <span class="code-callout__title">Prepare training and missing subsets</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Prepare training data</strong> — lines 15-29 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>For each column with nulls, splits the data into rows where the value is known (for training) and rows where it is missing (for prediction).</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="30-44" data-tint="3">
+  <div class="code-callout" data-lines="22-32" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Known_data[features].fillna(0),</span>
+      <span class="code-callout__title">Choose model type and train</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Known_data[features].fillna(0),</strong> — lines 30-44 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Selects a classifier for categorical columns or a regressor for numeric ones, then fits it on the known rows (zero-filling any remaining nulls in the features).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="34-44" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Predict, fill, and return</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Predicts values for the missing rows, writes them back into the copied DataFrame, stores the fitted model, and returns the imputed result.</p>
     </div>
   </div>
 </aside>
@@ -461,31 +476,31 @@ def multiple_imputation(df, n_imputations=5):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def multiple_imputation(df, n_imputations=5):</span>
+      <span class="code-callout__title">Function definition</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def multiple_imputation(df, n_imputations=5):</strong> — lines 1-10. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Defines <code>multiple_imputation</code> with a default of 5 runs; <code>imputed_datasets</code> will collect one completed DataFrame per iteration.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-20" data-tint="2">
+  <div class="code-callout" data-lines="7-19" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Max_iter=10</span>
+      <span class="code-callout__title">Run multiple imputations</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Max_iter=10</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Loops <code>n_imputations</code> times, each time creating an <code>IterativeImputer</code> with a different random seed, fitting+transforming the data, and appending the result.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="21-31" data-tint="3">
+  <div class="code-callout" data-lines="21-32" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Combined_stats = {}</span>
+      <span class="code-callout__title">Aggregate statistics across imputations</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Combined_stats = {}</strong> — lines 21-31 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Stacks the imputed values into an array and computes mean, standard deviation, and 95% confidence intervals per column—capturing uncertainty from the multiple runs.</p>
     </div>
   </div>
 </aside>
@@ -538,31 +553,31 @@ def analyze_imputation_impact(original_df, imputed_df, target_col):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def analyze_imputation_impact(original_df, im…</span>
+      <span class="code-callout__title">Function definition and imports</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def analyze_imputation_impact(original_df, im…</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Defines the function and imports train/test split and regression metrics inside the function scope.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="9-20" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">X_imp = imputed_df.drop(columns=[target_col])</span>
+      <span class="code-callout__title">Prepare feature/target pairs</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>X_imp = imputed_df.drop(columns=[target_col])</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Separates features and target for both the original (with nulls) and imputed DataFrames, then instantiates two Random Forest models keyed by name.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="26-38" data-tint="3">
+  <div class="code-callout" data-lines="22-38" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">X_train, X_test, y_train, y_test = train_test…</span>
+      <span class="code-callout__title">Train and evaluate both models</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>X_train, X_test, y_train, y_test = train_test…</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Loops over the two models, splits each into train/test, fits and predicts, then stores MSE and R² in the results dict before returning it.</p>
     </div>
   </div>
 </aside>
@@ -608,22 +623,22 @@ def select_imputation_method(df, column):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def select_imputation_method(df, column):</span>
+      <span class="code-callout__title">Compute column characteristics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def select_imputation_method(df, column):</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Calculates missing rate, data type, and cardinality ratio for the column. If &gt;50% is missing, recommends dropping the column outright.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-23" data-tint="2">
+  <div class="code-callout" data-lines="11-23" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">If missing_rate &lt; 0.1:</span>
+      <span class="code-callout__title">Select strategy by type and missing rate</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>If missing_rate &lt; 0.1:</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Routes to mean/median for low-missing numeric columns, KNN/MICE for higher missingness, mode or ML-based for categoricals, and a custom fallback otherwise.</p>
     </div>
   </div>
 </aside>
@@ -667,22 +682,22 @@ def validate_imputation(original_df, imputed_df):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-17" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def validate_imputation(original_df, imputed_…</span>
+      <span class="code-callout__title">Check value ranges</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def validate_imputation(original_df, imputed_…</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>For each numeric column, records the min/max of the original and imputed DataFrames side by side so you can spot any imputed values outside the original range.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-29" data-tint="2">
+  <div class="code-callout" data-lines="19-29" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;original&#x27;: [orig_range[&#x27;min&#x27;], orig_range[&#x27;m…</span>
+      <span class="code-callout__title">Check correlation preservation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;original&#x27;: [orig_range[&#x27;min&#x27;], orig_range[&#x27;m…</strong> — lines 15-29 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Computes the max absolute difference between original and imputed correlation matrices—large differences indicate imputation may have distorted relationships between columns.</p>
     </div>
   </div>
 </aside>
@@ -727,19 +742,19 @@ imputation_report = {
   <div class="code-callout" data-lines="1-12" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Load and prepare data</span>
+      <span class="code-callout__title">Load, analyse, and impute</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Load and prepare data</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Reads the e-commerce CSV, calls <code>analyze_missing_values</code>, then sets up a weighted-mean imputer for numeric columns and an ML-based imputer for categoricals.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="13-25" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">3. Validate results</span>
+      <span class="code-callout__title">Validate and document findings</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>3. Validate results</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Validates the imputed result, then assembles a report dictionary recording the analysis results, chosen methods, and validation outcomes for traceability.</p>
     </div>
   </div>
 </aside>

@@ -73,31 +73,22 @@ FROM order_details_json;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-21" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">JSON creation and manipulation</span>
+      <span class="code-callout__title">Build a nested JSON object from relational data</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>JSON creation and manipulation</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>jsonb_build_object</code> assembles key-value pairs into a JSONB object. The nested <code>jsonb_agg(jsonb_build_object(…))</code> correlated subquery aggregates all line items for each order into a JSON array under the <code>'items'</code> key—turning a 1:many relationship into a single document per order.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-20" data-tint="2">
+  <div class="code-callout" data-lines="23-32" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;price&#x27;, price</span>
+      <span class="code-callout__title">Query into stored JSON with path operators</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;price&#x27;, price</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="21-31" data-tint="3">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">JSON querying</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>JSON querying</strong> — lines 21-31 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>-&gt;</code> extracts a JSON key as JSONB. <code>jsonb_array_length</code> counts elements in a JSON array. <code>jsonb_path_query_array</code> with a JSONPath expression (<code>$.items[*].price</code>) extracts all price values from the nested array into a new array column.</p>
     </div>
   </div>
 </aside>
@@ -140,22 +131,22 @@ ORDER BY relevance DESC;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Create search vectors</span>
+      <span class="code-callout__title">GIN index on a combined tsvector for fast full-text search</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Create search vectors</strong> — lines 1-14 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>to_tsvector('english', …)</code> converts text to a lexeme vector (stemmed, stop-words removed). Concatenating name + description + category into one vector means a single GIN index covers searches across all three fields. <code>COALESCE</code> prevents NULL columns from breaking the concatenation.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="11-29" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">To_tsvector(&#x27;english&#x27;,</span>
+      <span class="code-callout__title">Search with relevance ranking using ts_rank</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>To_tsvector(&#x27;english&#x27;,</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>plainto_tsquery</code> turns a plain search string into a tsquery. The <code>@@</code> operator filters rows whose tsvector matches the query. <code>ts_rank</code> scores each match by how many times terms appear and how prominently—results are ordered by relevance descending.</p>
     </div>
   </div>
 </aside>
@@ -200,22 +191,22 @@ ORDER BY path;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-15" data-tint="1">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Employee hierarchy</span>
+      <span class="code-callout__title">Recursive CTE: base case + recursive step</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Employee hierarchy</strong> — lines 1-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The base case seeds the recursion with top-level employees (<code>manager_id IS NULL</code>) at level 1 with an array path containing just their name. The recursive step joins <code>employees</code> back to the CTE on <code>manager_id = employee_id</code>, incrementing level and appending each employee's name to the path array.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="16-30" data-tint="2">
+  <div class="code-callout" data-lines="24-29" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SELECT</span>
+      <span class="code-callout__title">Outer query: format the hierarchy as indented text</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SELECT</strong> — lines 16-30 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>lpad(' ', (level-1)*2) || name</code> indents each name by two spaces per level. <code>array_to_string(path, ' -&gt; ')</code> renders the ancestry chain from root to current employee. <code>ORDER BY path</code> keeps employees grouped under their manager in tree order.</p>
     </div>
   </div>
 </aside>
@@ -260,19 +251,19 @@ FROM transactions;
   <div class="code-callout" data-lines="1-12" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SELECT</span>
+      <span class="code-callout__title">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW: cumulative sum</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SELECT</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</code> expands the frame from the first row up to and including the current row—a standard running total. Every new row adds to the previous cumulative sum.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="14-25" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">ORDER BY date</span>
+      <span class="code-callout__title">Centered average and rolling monthly sum with different frame modes</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>ORDER BY date</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>ROWS BETWEEN 3 PRECEDING AND 1 FOLLOWING</code> averages the 3 rows before and 1 row after the current row—a centered moving average. <code>RANGE BETWEEN INTERVAL '1 month' PRECEDING</code> uses value-based framing on date rather than row counts, summing all transactions within the past calendar month.</p>
     </div>
   </div>
 </aside>
@@ -307,22 +298,22 @@ WINDOW
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SELECT</span>
+      <span class="code-callout__title">Ranking functions share a named window w1</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SELECT</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>RANK()</code>, <code>DENSE_RANK()</code>, and <code>ROW_NUMBER()</code> all reference the named window <code>w1</code> (partitioned by category, ordered by price descending). Using a <code>WINDOW</code> clause defines it once and avoids repeating the full <code>OVER (PARTITION BY … ORDER BY …)</code> for every function.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="11-20" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">AVG(price) OVER w2 as avg_price,</span>
+      <span class="code-callout__title">Statistics and percentile functions use a second window w2</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>AVG(price) OVER w2 as avg_price,</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>w2</code> partitions by category without an ORDER BY—it aggregates over the entire category group rather than a cumulative frame. <code>price - AVG(price) OVER w2</code> shows each product's deviation from its category average. <code>NTILE(4)</code> and <code>PERCENT_RANK()</code> use <code>w1</code> to assign price quartiles and percentile positions within category.</p>
     </div>
   </div>
 </aside>
@@ -355,22 +346,22 @@ CROSS JOIN LATERAL (
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-8" data-tint="1">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SELECT</span>
+      <span class="code-callout__title">Outer query selects columns from both the main table and the lateral subquery</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SELECT</strong> — lines 1-8 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Columns from the <code>recent_orders</code> lateral subquery are referenced directly in the outer SELECT, just like columns from a regular joined table. The alias <code>recent_orders</code> is what makes them available.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="9-16" data-tint="2">
+  <div class="code-callout" data-lines="5-14" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Order_id,</span>
+      <span class="code-callout__title">LATERAL subquery: top-3 orders per customer</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Order_id,</strong> — lines 9-16 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The subquery references <code>c.customer_id</code> from the outer <code>FROM customers c</code>—that's what makes it a lateral join. It runs once per customer row, returning that customer's 3 most recent orders. This is cleaner and often faster than a window-function approach when a hard per-group row limit is needed.</p>
     </div>
   </div>
 </aside>
@@ -410,22 +401,22 @@ ORDER BY
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Complex set operations</span>
+      <span class="code-callout__title">First branch: current month's sales by category</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Complex set operations</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The first SELECT adds a literal <code>'Current'</code> period label, filters to the last month, and aggregates sales by category. Parentheses are required when combining set operations with individual ORDER BY or LIMIT clauses on each branch.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="11-24" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SELECT</span>
+      <span class="code-callout__title">UNION ALL + ORDER BY: stack periods and sort together</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SELECT</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>UNION ALL</code> stacks both result sets (retaining duplicates, faster than <code>UNION</code>). The trailing <code>ORDER BY category, period DESC</code> sorts the combined result so current and previous figures appear together per category for easy comparison.</p>
     </div>
   </div>
 </aside>
@@ -479,31 +470,31 @@ COMMIT;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Complex transaction with savepoints</span>
+      <span class="code-callout__title">BEGIN + SAVEPOINT: create a partial rollback point</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Complex transaction with savepoints</strong> — lines 1-12. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p><code>BEGIN</code> starts the transaction. <code>SAVEPOINT order_start</code> marks a point within the transaction that can be rolled back to without abandoning the entire transaction. The INSERT creates the order and returns its generated ID via <code>RETURNING … INTO</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="12-21" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SET stock_quantity = stock_quantity - order_q…</span>
+      <span class="code-callout__title">Deduct stock and roll back to savepoint on failure</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SET stock_quantity = stock_quantity - order_q…</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The UPDATE deducts quantity but only if stock is sufficient (<code>stock_quantity &gt;= order_quantity</code> in the WHERE). <code>IF NOT FOUND</code> detects that no row was updated—meaning insufficient stock—and rolls back to <code>order_start</code> before raising an exception.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="25-37" data-tint="3">
+  <div class="code-callout" data-lines="23-37" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">BEGIN</span>
+      <span class="code-callout__title">Nested savepoint for payment; commit everything on success</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>BEGIN</strong> — lines 25-37 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>A second <code>SAVEPOINT payment</code> scopes the payment step. If the payment logic raises an exception, <code>ROLLBACK TO payment</code> undoes only the payment attempt, preserving the order and inventory changes. <code>COMMIT</code> at the end persists the entire transaction atomically.</p>
     </div>
   </div>
 </aside>
@@ -586,46 +577,37 @@ $$ LANGUAGE plpgsql;
   <div class="code-callout" data-lines="1-13" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">CREATE OR REPLACE FUNCTION process_order(</span>
+      <span class="code-callout__title">Function signature, variables, and input validation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>CREATE OR REPLACE FUNCTION process_order(</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The function accepts a customer ID and a JSONB array of items and returns the new order ID. The DECLARE block initializes loop and total variables. An early guard raises an exception immediately if the items array is NULL or empty—fail fast before any writes.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="14-26" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Start transaction</span>
+      <span class="code-callout__title">Create the order and iterate over JSON items</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Start transaction</strong> — lines 14-26 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The inner BEGIN wraps everything in a subtransaction. The INSERT creates the order row and captures its generated ID via <code>RETURNING … INTO v_order_id</code>. <code>FOR v_item IN SELECT * FROM jsonb_array_elements(p_items)</code> iterates over each JSON object in the array.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="27-39" data-tint="3">
+  <div class="code-callout" data-lines="27-51" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">INSERT INTO order_items (</span>
+      <span class="code-callout__title">Insert each line item with per-item exception handling</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>INSERT INTO order_items (</strong> — lines 27-39 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Each order item is inserted inside its own BEGIN…EXCEPTION block. <code>WHEN foreign_key_violation</code> catches invalid product IDs; <code>WHEN numeric_value_out_of_range</code> catches bad quantity or price. Catching specific exception codes gives actionable error messages rather than a generic failure.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="40-52" data-tint="4">
+  <div class="code-callout" data-lines="53-65" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHEN foreign_key_violation THEN</span>
+      <span class="code-callout__title">Accumulate total, update order, and handle outer exceptions</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WHEN foreign_key_violation THEN</strong> — lines 40-52 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="53-65" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Update order total</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Update order total</strong> — lines 53-65 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>After each item is inserted the running total is accumulated. After the loop, the order is updated with the final total and status <code>'confirmed'</code>. The outer <code>WHEN OTHERS</code> handler wraps all remaining errors—converting any unexpected exception into a clear <code>'Order processing failed: …'</code> message.</p>
     </div>
   </div>
 </aside>
@@ -670,22 +652,22 @@ FROM user_journey;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH user_journey AS (</span>
+      <span class="code-callout__title">CTE: per-user funnel event counts</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH user_journey AS (</strong> — lines 1-14. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>LEFT JOIN keeps all users, including those with no events. <code>COUNT(DISTINCT CASE WHEN event_type = '…' THEN product_id END)</code> counts unique products at each funnel stage (view → cart → purchase) per user in a single pass—no self-joins needed.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">ROUND(AVG(products_viewed)::numeric, 2) as av…</span>
+      <span class="code-callout__title">Outer query: funnel conversion rates across all users</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>ROUND(AVG(products_viewed)::numeric, 2) as av…</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Averages each per-user count, then computes view-to-cart and cart-to-purchase rates. <code>NULLIF(…, 0)</code> in the denominator prevents division-by-zero when no users reached a prior stage. The cast to <code>::numeric</code> is needed because <code>ROUND</code> requires a numeric type.</p>
     </div>
   </div>
 </aside>
@@ -757,37 +739,28 @@ WHERE
   <div class="code-callout" data-lines="1-13" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH transaction_metrics AS (</span>
+      <span class="code-callout__title">CTE: compute time-since-last and amount-vs-average per transaction</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH transaction_metrics AS (</strong> — lines 1-13. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p><code>LAG(created_at) OVER (PARTITION BY user_id ORDER BY created_at)</code> gets the previous transaction time for the same user. Dividing the epoch difference by 60 converts seconds to minutes. <code>amount / AVG(amount) OVER (PARTITION BY user_id)</code> normalizes each transaction against the user's own historical average—values well above 1 flag unusually large amounts.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="14-27" data-tint="2">
+  <div class="code-callout" data-lines="14-33" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">))/60 as minutes_since_last_txn,</span>
+      <span class="code-callout__title">CTE: transaction frequency and location diversity window functions</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>))/60 as minutes_since_last_txn,</strong> — lines 14-27 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>COUNT(*) OVER (… RANGE BETWEEN INTERVAL '1 hour' PRECEDING …)</code> counts all of the user's transactions in the last hour using value-based framing on the timestamp. Similarly, <code>COUNT(DISTINCT location_id)</code> counts unique locations in 24 hours—sudden multi-location activity is a classic fraud signal.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="28-40" data-tint="3">
+  <div class="code-callout" data-lines="35-54" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">PARTITION BY t.user_id</span>
+      <span class="code-callout__title">Outer query: classify each suspicious transaction by risk tier</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>PARTITION BY t.user_id</strong> — lines 28-40 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="41-54" data-tint="4">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHEN minutes_since_last_txn &lt; 1</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>WHEN minutes_since_last_txn &lt; 1</strong> — lines 41-54 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The CASE expression maps combinations of computed signals to risk labels. The WHERE clause filters to only transactions that triggered at least one signal threshold—excluding low-risk transactions from the result set keeps the output focused on actionable alerts.</p>
     </div>
   </div>
 </aside>
@@ -874,55 +847,39 @@ ORDER BY
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-35" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH inventory_metrics AS (</span>
+      <span class="code-callout__title">CTE: compute sales velocity, stockouts, and safety stock</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH inventory_metrics AS (</strong> — lines 1-14. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>LEFT JOINs keep all products even with no sales history. <code>SUM(oi.quantity) FILTER (WHERE …)</code> restricts the aggregation to a time window without a subquery. The safety stock formula (<code>SQRT(POWER(…) + POWER(…))</code>) combines lead-time variability and demand variability into a statistical buffer quantity.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="37-57" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHERE p.stock_quantity = 0</span>
+      <span class="code-callout__title">Outer query: stock status labels and days-of-inventory</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WHERE p.stock_quantity = 0</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The CASE expression classifies each product's stock level against safety stock and reorder point thresholds. <code>CEIL(stock_quantity / avg_daily_sales)</code> estimates how many days remain before stockout; the outer CASE guards against NULL when daily sales are zero.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="29-43" data-tint="3">
+  <div class="code-callout" data-lines="59-73" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">FROM products p</span>
+      <span class="code-callout__title">Suggested order quantity and priority sort</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>FROM products p</strong> — lines 29-43 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="44-57" data-tint="4">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHEN stock_quantity = 0 THEN &#x27;Out of Stock&#x27;</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>WHEN stock_quantity = 0 THEN &#x27;Out of Stock&#x27;</strong> — lines 44-57 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="58-72" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Reorder_point - stock_quantity,</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Reorder_point - stock_quantity,</strong> — lines 58-72 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>GREATEST(reorder_point - stock, lead_time_demand - stock, 0)</code> picks the larger of the two replenishment signals and clamps at zero. The ORDER BY CASE assigns urgency ranks (out-of-stock first, then below safety stock, etc.) so buyers see the most critical items at the top.</p>
     </div>
   </div>
 </aside>
 </div>
 
 ## Performance Optimization Tips
+
+![Sequential scan vs index scan: O(n) full-table read vs O(log n) index lookup](assets/index_scan_vs_seq.png)
 
 ### 1. Query Plan Analysis
 
@@ -953,22 +910,22 @@ ORDER BY total_spent DESC;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Analyze and explain complex queries</span>
+      <span class="code-callout__title">EXPLAIN with ANALYZE, BUFFERS, and FORMAT JSON</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Analyze and explain complex queries</strong> — lines 1-10. <code>EXPLAIN</code> (or <code>EXPLAIN ANALYZE</code>) shows the plan: scan types, join order, and cost estimates.</p>
+      <p><code>EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON)</code> actually executes the query and returns the plan with real row counts, timing, and buffer statistics in JSON format. This is the most informative form: you can compare actual vs. estimated rows to spot bad cardinality estimates that mislead the planner.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-20" data-tint="2">
+  <div class="code-callout" data-lines="15-20" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">AND o.total_amount &gt; 100</span>
+      <span class="code-callout__title">Key metrics to look for in the output</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>AND o.total_amount &gt; 100</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Focus on planning time vs. execution time (high planning time suggests many possible plans), actual vs. planned row counts (large discrepancies indicate stale statistics), and buffer usage (<code>shared_blks_hit</code> vs. <code>shared_blks_read</code>—cache misses drive I/O).</p>
     </div>
   </div>
 </aside>
@@ -1000,22 +957,22 @@ INCLUDE (order_date, total_amount, status);
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-8" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Composite indexes for range + equality</span>
+      <span class="code-callout__title">Composite and partial indexes for common query patterns</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Composite indexes for range + equality</strong> — lines 1-8 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The composite index <code>(customer_id, order_date DESC)</code> supports queries that filter on customer and sort by date—the leading equality column is most selective. The partial index on <code>total_amount &gt; 1000</code> covers a common high-value-order filter with a much smaller index than a full-table index.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="9-17" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Expression indexes for function calls</span>
+      <span class="code-callout__title">Expression and covering indexes</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Expression indexes for function calls</strong> — lines 9-17 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>An expression index on <code>DATE_TRUNC('month', order_date)</code> lets the planner use an index scan for <code>WHERE DATE_TRUNC('month', order_date) = …</code> instead of a sequential scan. The INCLUDE index stores extra columns in the leaf pages so queries can be satisfied from the index alone without a heap lookup.</p>
     </div>
   </div>
 </aside>
@@ -1065,31 +1022,31 @@ EXECUTE FUNCTION refresh_sales_summary();
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Create materialized view</span>
+      <span class="code-callout__title">Materialize a daily sales summary across three joined tables</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Create materialized view</strong> — lines 1-11 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The view pre-computes daily revenue and order count by category. Storing the result on disk means dashboards read from a single aggregated table instead of re-joining and re-aggregating millions of rows on every request.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-23" data-tint="2">
+  <div class="code-callout" data-lines="16-21" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">DATE_TRUNC(&#x27;day&#x27;, order_date),</span>
+      <span class="code-callout__title">Index the materialized view for fast date and category queries</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>DATE_TRUNC(&#x27;day&#x27;, order_date),</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The descending date index accelerates recent-first queries; the composite <code>(category, sale_date DESC)</code> index supports filtering by category and sorting by date together without a sort step.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="24-35" data-tint="3">
+  <div class="code-callout" data-lines="23-36" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">RETURNS trigger AS $$</span>
+      <span class="code-callout__title">Trigger-based auto-refresh on order changes</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>RETURNS trigger AS $$</strong> — lines 24-35 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>A statement-level trigger fires after any INSERT, UPDATE, or DELETE on <code>orders</code> and calls <code>REFRESH MATERIALIZED VIEW CONCURRENTLY</code>—which updates the view without locking readers. This keeps the summary current automatically after every order write.</p>
     </div>
   </div>
 </aside>
@@ -1132,19 +1089,19 @@ JOIN order_items oi ON o.order_id = oi.order_id;
   <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Bad: Separate query for each order</span>
+      <span class="code-callout__title">Bad: two correlated subqueries run once per order row</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Bad: Separate query for each order</strong> — lines 1-11 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
+      <p>One scalar subquery fetches the customer name and another counts order items—both are correlated, meaning they re-execute for every row in <code>orders</code>. With 10,000 orders that's 20,001 queries total instead of one.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-23" data-tint="2">
+  <div class="code-callout" data-lines="13-23" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHERE oi.order_id = o.order_id</span>
+      <span class="code-callout__title">Good: single query with JOINs and a window function</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WHERE oi.order_id = o.order_id</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Replacing both subqueries with JOINs and <code>COUNT(*) OVER (PARTITION BY o.order_id)</code> resolves everything in a single query plan execution. The window function counts items per order without a GROUP BY, so all original columns remain available.</p>
     </div>
   </div>
 </aside>
@@ -1169,13 +1126,22 @@ AND order_date < '2024-01-01';
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Bad: Function on column prevents index use</span>
+      <span class="code-callout__title">Bad: wrapping a column in a function forces a full table scan</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Bad: Function on column prevents index use</strong> — lines 1-10 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
+      <p><code>EXTRACT(YEAR FROM order_date) = 2023</code> applies a function to every row before comparing—no index on <code>order_date</code> can be used. This is called a non-sargable predicate.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Good: range predicate on the raw column uses the index</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Rewriting as <code>order_date &gt;= '2023-01-01' AND order_date &lt; '2024-01-01'</code> keeps the column unmodified—the planner can use an index range scan instead of reading every row.</p>
     </div>
   </div>
 </aside>
@@ -1211,19 +1177,19 @@ LEFT JOIN order_items oi ON p.product_id = oi.product_id;
   <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Bad: Correlated subquery runs for each row</span>
+      <span class="code-callout__title">Bad: correlated subquery re-aggregates for every product row</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Bad: Correlated subquery runs for each row</strong> — lines 1-9 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
+      <p>The scalar subquery inside SELECT references <code>p.product_id</code> from the outer query—it's correlated. The planner must run a separate aggregation over <code>order_items</code> for each product row, which doesn't scale with large catalogs.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="10-18" data-tint="2">
+  <div class="code-callout" data-lines="11-18" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Good: Use window functions or JOIN</span>
+      <span class="code-callout__title">Good: window function over a single join pass</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Good: Use window functions or JOIN</strong> — lines 10-18. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p><code>AVG(oi.quantity) OVER (PARTITION BY p.product_id)</code> computes the average in a single pass over the joined rows. LEFT JOIN preserves products with no order items (returning NULL for the average) rather than dropping them.</p>
     </div>
   </div>
 </aside>

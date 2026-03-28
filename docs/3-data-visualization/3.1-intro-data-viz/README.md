@@ -52,7 +52,7 @@ Think of chart selection like choosing the right tool for a job:
 - **Scatter Plots**: Like plotting stars in the night sky
 - **Pie Charts**: Like slicing a pizza into portions
 
-> **Figure (add screenshot or diagram):** Chart Selection Guide
+![Chart selection guide: which chart type fits which question](assets/chart_selection_guide.png)
 ### 2. Visual Hierarchy
 
 Imagine a newspaper:
@@ -61,7 +61,7 @@ Imagine a newspaper:
 - **Subheadings**: Supporting information
 - **Body Text**: Detailed context
 
-> **Figure (add screenshot or diagram):** Visual Hierarchy Example
+![Visual hierarchy in chart design](assets/visual_hierarchy.png)
 ### 3. Color Strategy
 
 Think of colors like a language:
@@ -70,7 +70,7 @@ Think of colors like a language:
 - **Diverging**: Like a weather map (hot to cold)
 - **Qualitative**: Like different types of fruit (distinct colors)
 
-> **Figure (add screenshot or diagram):** Color Schemes
+![Color scheme examples for data visualization](assets/color_schemes.png)
 ## Getting Started with Matplotlib
 
 ### Your First Plot
@@ -79,7 +79,10 @@ Think of colors like a language:
 
 **Walkthrough:** `linspace` builds x; `plot` with `'b-'` sets color and linestyle; `show()` displays in scripts.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Import the necessary libraries
 import matplotlib.pyplot as plt
 import numpy as np
@@ -97,7 +100,39 @@ plt.ylabel('Y Axis')
 plt.legend()
 plt.grid(True)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>matplotlib.pyplot</code> provides the plotting API; <code>numpy</code> generates the sample data points.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-7" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sample Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>np.linspace(0, 10, 100)</code> creates 100 evenly spaced x values; <code>np.sin(x)</code> computes the y values for a sine curve.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot Anatomy</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>figure</code> sets canvas size; <code>plot</code> draws the line; <code>title</code>, <code>xlabel</code>, <code>ylabel</code>, <code>legend</code>, and <code>grid</code> add context before <code>show()</code> renders.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![README](assets/README_fig_1.png)
@@ -106,7 +141,7 @@ plt.show()
 
 See how a basic plot can be enhanced with proper styling and annotations:
 
-> **Figure (add screenshot or diagram):** Before and After Example
+![Before and after: cluttered vs. clean chart](assets/before_after.png)
 ## Learning Path
 
 ### Week 1: Foundations

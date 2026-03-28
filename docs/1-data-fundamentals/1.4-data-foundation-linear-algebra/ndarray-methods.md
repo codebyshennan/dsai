@@ -24,6 +24,17 @@
 
 Think of reshaping like rearranging chairs in a room - same number of chairs, different arrangement! It's useful when you need to:
 
+```mermaid
+graph LR
+    A["[1,2,3,4,5,6]\nshape: (6,)  — 1D"] -->|"reshape(2,3)"| B["[[1,2,3],\n [4,5,6]]\nshape: (2,3)  — 2D"]
+    B -->|"reshape(3,2)"| C["[[1,2],\n [3,4],\n [5,6]]\nshape: (3,2)"]
+    B -->|"flatten()"| A
+    B -->|"reshape(1,-1)"| D["shape: (1,6)\n(row vector)"]
+    B -->|"reshape(-1,1)"| E["shape: (6,1)\n(column vector)"]
+```
+
+*`-1` in `reshape` means "infer this dimension". `reshape(1,-1)` is the most common fix when sklearn complains about a 1D input that needs to be 2D.*
+
 - Convert 1D data into a 2D table format
 - Restructure data to match another array's shape
 - Transform image data (e.g., flattening for ML models)

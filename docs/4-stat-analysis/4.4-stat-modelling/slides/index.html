@@ -13,7 +13,22 @@
         }
 
         .reveal {
-            font-size: 1.5em;
+            font-size: 1.45em;
+        }
+
+        /* Dense slides: smaller type so more bullets fit without overflow */
+        .reveal .box.box--compact {
+            font-size: 0.88em;
+            max-width: 92%;
+        }
+
+        .reveal .box.box--compact h3 {
+            font-size: 1.15em;
+        }
+
+        .reveal .box.box--compact li {
+            margin-bottom: 0.35em;
+            line-height: 1.35;
         }
 
         .reveal h1,
@@ -50,6 +65,8 @@
 
         .reveal li {
             margin-bottom: 0.5em;
+            overflow-wrap: anywhere;
+            word-wrap: break-word;
         }
 
         .reveal code {
@@ -80,23 +97,99 @@
             padding: 1em;
             border-radius: 8px;
             margin: 1em auto;
-            max-width: 80%;
+            max-width: 88%;
         }
 
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1.25em 2em;
+            max-width: 92%;
             margin: 0 auto;
+            align-items: start;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1em 1.25em;
+            max-width: 96%;
             margin: 0 auto;
+            align-items: start;
+        }
+
+        .reveal .two-column .list-container,
+        .reveal .three-column .list-container {
+            max-width: 100%;
+        }
+
+        .reveal .two-column ul,
+        .reveal .two-column ol,
+        .reveal .three-column ul,
+        .reveal .three-column ol {
+            max-width: 100%;
+        }
+
+        .slide-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.78em;
+            color: #555;
+            z-index: 2000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(4px);
+            padding: 0.4em 1em;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 0.75em;
+        }
+
+        .slide-nav a {
+            color: #555;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav a:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
+        }
+
+        .slide-nav__title {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+            color: #444;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .slide-nav__btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav__btn:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
         }
 
         .slide-footer {
@@ -115,6 +208,7 @@
 
         section {
             padding: 2em;
+            padding-top: 3.5em;
             padding-bottom: 4em;
             display: flex;
             flex-direction: column;
@@ -133,6 +227,16 @@
 </head>
 
 <body>
+    <nav class="slide-nav" id="slide-nav">
+        <a href="../" title="Back to lesson">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back
+        </a>
+        <span class="slide-nav__title">Statistical Modeling with Python</span>
+        <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        </button>
+    </nav>
     <div class="reveal">
         <div class="slides">
             
@@ -148,7 +252,7 @@
                 <section>
                     <div class="content-wrapper">
                         <h2>Logistic Regression</h2>
-                        <div class="box">
+                        <div class="box box--compact">
                             
                             
                     <div class="list-container">
@@ -157,9 +261,9 @@
 <li>$\beta_0$ is the intercept (bias)</li>
 <li>$\beta_1, ..., \beta_p$ are the coefficients for each feature</li>
 <li>$X_1, ..., X_p$ are the input features</li>
-<li>[Scikit-learn Logistic Regression Documentation](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)</li>
-<li>[Statsmodels Logistic Regression Documentation](https://www.statsmodels.org/stable/generated/statsmodels.discrete.discrete_model.Logit.html)</li>
-<li>[Introduction to Statistical Learning](https://www.statlearning.com/) (Chapter 4)</li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html" target="_blank" rel="noopener">Scikit-learn Logistic Regression Documentation</a></li>
+<li><a href="https://www.statsmodels.org/stable/generated/statsmodels.discrete.discrete_model.Logit.html" target="_blank" rel="noopener">Statsmodels Logistic Regression Documentation</a></li>
+<li><a href="https://www.statlearning.com/" target="_blank" rel="noopener">Introduction to Statistical Learning</a> (Chapter 4)</li>
                         </ul>
                     </div>
                 
@@ -171,10 +275,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Model Interpretation</h2>
-                        <div class="box">
+                        <h2>Model Interpretation (1/2)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>Building trust in your model</li>
@@ -182,12 +288,37 @@
 <li>Identifying potential biases</li>
 <li>Communicating results effectively</li>
 <li>You can't explain why loans are approved or denied</li>
-<li>You might miss important patterns or biases</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>You might miss important patterns or biases</li>
 <li>Stakeholders won't trust your model</li>
 <li>You can't improve the model effectively</li>
-<li>[Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)</li>
-<li>[SHAP Documentation](https://shap.readthedocs.io/)</li>
-<li>[Scikit-learn Model Interpretation](https://scikit-learn.org/stable/modules/partial_dependence.html)</li>
+<li><a href="https://christophm.github.io/interpretable-ml-book/" target="_blank" rel="noopener">Interpretable Machine Learning</a></li>
+<li><a href="https://shap.readthedocs.io/" target="_blank" rel="noopener">SHAP Documentation</a></li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Model Interpretation (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><a href="https://scikit-learn.org/stable/modules/partial_dependence.html" target="_blank" rel="noopener">Scikit-learn Model Interpretation</a></li>
                         </ul>
                     </div>
                 
@@ -205,9 +336,9 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>[Scikit-learn Model Selection](https://scikit-learn.org/stable/model_selection.html)</li>
-<li>[Introduction to Statistical Learning](https://www.statlearning.com/) (Chapter 6)</li>
-<li>[Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/) (Chapter 7)</li>
+                            <li><a href="https://scikit-learn.org/stable/model_selection.html" target="_blank" rel="noopener">Scikit-learn Model Selection</a></li>
+<li><a href="https://www.statlearning.com/" target="_blank" rel="noopener">Introduction to Statistical Learning</a> (Chapter 6)</li>
+<li><a href="https://web.stanford.edu/~hastie/ElemStatLearn/" target="_blank" rel="noopener">Elements of Statistical Learning</a> (Chapter 7)</li>
                         </ul>
                     </div>
                 
@@ -220,7 +351,7 @@
                 <section>
                     <div class="content-wrapper">
                         <h2>Polynomial Regression</h2>
-                        <div class="box">
+                        <div class="box box--compact">
                             
                             
                     <div class="list-container">
@@ -229,9 +360,9 @@
 <li>$x$ is the independent variable</li>
 <li>$\beta_0, \beta_1, ..., \beta_n$ are the coefficients</li>
 <li>$\epsilon$ is the error term</li>
-<li>[Scikit-learn Polynomial Features](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html)</li>
-<li>[Introduction to Statistical Learning](https://www.statlearning.com/) (Chapter 7)</li>
-<li>[Polynomial Regression in Python](https://www.statsmodels.org/stable/examples/notebooks/generated/polynomial-regression.html)</li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html" target="_blank" rel="noopener">Scikit-learn Polynomial Features</a></li>
+<li><a href="https://www.statlearning.com/" target="_blank" rel="noopener">Introduction to Statistical Learning</a> (Chapter 7)</li>
+<li><a href="https://www.statsmodels.org/stable/examples/notebooks/generated/polynomial-regression.html" target="_blank" rel="noopener">Polynomial Regression in Python</a></li>
                         </ul>
                     </div>
                 
@@ -244,9 +375,11 @@
                 <section>
                     <div class="content-wrapper">
                         <h2>Regularization</h2>
-                        <div class="box">
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>Your model might focus too much on specific features</li>
@@ -254,11 +387,19 @@
 <li>It might perform poorly on new, unseen data</li>
 <li>First term is the usual least squares loss</li>
 <li>Second term is the regularization penalty</li>
-<li>$\lambda$ controls the strength of regularization</li>
-<li>[Scikit-learn Regularization](https://scikit-learn.org/stable/modules/linear_model.html)</li>
-<li>[Introduction to Statistical Learning](https://www.statlearning.com/) (Chapter 6)</li>
-<li>[Elements of Statistical Learning](https://web.stanford.edu/~hastie/ElemStatLearn/) (Chapter 3)</li>
                         </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>$\lambda$ controls the strength of regularization</li>
+<li><a href="https://scikit-learn.org/stable/modules/linear_model.html" target="_blank" rel="noopener">Scikit-learn Regularization</a></li>
+<li><a href="https://www.statlearning.com/" target="_blank" rel="noopener">Introduction to Statistical Learning</a> (Chapter 6)</li>
+<li><a href="https://web.stanford.edu/~hastie/ElemStatLearn/" target="_blank" rel="noopener">Elements of Statistical Learning</a> (Chapter 3)</li>
+                        </ul>
+                    </div>
+                
                     </div>
                 
                         </div>
@@ -277,6 +418,24 @@
             transition: 'slide',
             slideNumber: true,
             plugins: []
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Swap fullscreen icon when state changes
+        document.addEventListener('fullscreenchange', function () {
+            var icon = document.getElementById('fs-icon');
+            if (document.fullscreenElement) {
+                icon.innerHTML = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
+            } else {
+                icon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
+            }
         });
     </script>
 </body>

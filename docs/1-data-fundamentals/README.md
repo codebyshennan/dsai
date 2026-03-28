@@ -42,4 +42,4 @@ Work through these in order; each README lists its own lessons and time estimate
 
 ## Module-level next steps
 
-After you finish Module 1, continue to Module 2: start with [SQL fundamentals](../2-data-wrangling/2.1-sql/README.md), or use the [course index](../README.md) for the full path.
+After you finish Module 1, continue to Module 2: start with [SQL fundamentals](../2-data-wrangling/2.1-sql/README.md), or use the [full curriculum](../curriculum.md) for the full path.

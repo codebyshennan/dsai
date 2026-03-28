@@ -8,7 +8,7 @@
 
 > **Time needed:** Several hours across readings, the tutorial notebook, and practice.
 
-> **Figure (add screenshot or diagram):** Example EDA dashboard or notebook summary—replace **assets/eda_dashboard.png** when assets are generated.
+![Example EDA dashboard showing distributions, correlations, and summary statistics](assets/eda_dashboard.png)
 
 ## Lesson path (site order)
 
@@ -189,58 +189,58 @@ class DataExplorer:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-19" data-tint="1">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Import pandas as pd</span>
+      <span class="code-callout__title">Imports</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Import pandas as pd</strong> — lines 1-19. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Six standard imports: pandas and numpy for data, matplotlib and seaborn for static plots, plotly for interactive charts, and scipy for statistical tests.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="20-39" data-tint="2">
+  <div class="code-callout" data-lines="8-27" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">- Relationship exploration</span>
+      <span class="code-callout__title">DataExplorer class definition</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>- Relationship exploration</strong> — lines 20-39 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The class docstring lists its six key features. <code>__init__</code> receives a DataFrame and immediately splits columns into <code>numeric_cols</code> and <code>categorical_cols</code> for later use.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="40-59" data-tint="3">
+  <div class="code-callout" data-lines="28-53" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&quot;&quot;&quot;</span>
+      <span class="code-callout__title">generate_summary</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&quot;&quot;&quot;</strong> — lines 40-59 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Builds a dict with <code>basic_info</code> (shape, dtypes, memory), numeric and categorical <code>describe()</code> outputs, missing-data counts, and the correlation matrix—all in one call.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="60-78" data-tint="4">
+  <div class="code-callout" data-lines="54-65" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Return missing[missing[&#x27;count&#x27;] &gt; 0]</span>
+      <span class="code-callout__title">analyze_missing_data and analyze_correlations</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Return missing[missing[&#x27;count&#x27;] &gt; 0]</strong> — lines 60-78. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p><code>analyze_missing_data</code> returns only columns that have at least one null. <code>analyze_correlations</code> calls <code>.corr()</code> on numeric columns and returns the full matrix.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="79-98" data-tint="1">
+  <div class="code-callout" data-lines="66-82" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Plt.tight_layout()</span>
+      <span class="code-callout__title">plot_distributions</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Plt.tight_layout()</strong> — lines 79-98 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Loops over every numeric column, placing a histogram+KDE in the left subplot and a box plot in the right. <code>tight_layout</code> prevents label overlap before <code>plt.show()</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="99-118" data-tint="2">
+  <div class="code-callout" data-lines="83-118" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def analyze_categorical(self):</span>
+      <span class="code-callout__title">plot_relationships and analyze_categorical</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def analyze_categorical(self):</strong> — lines 99-118. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p><code>plot_relationships</code> draws a heatmap and an optional scatter matrix. <code>analyze_categorical</code> plots value counts for each categorical column and cross-tabulates against every numeric column via box plots.</p>
     </div>
   </div>
 </aside>
@@ -318,49 +318,40 @@ class AdvancedAnalyzer:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-16" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class AdvancedAnalyzer:</span>
+      <span class="code-callout__title">AdvancedAnalyzer class and constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class AdvancedAnalyzer:</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The class docstring names four capability areas. <code>__init__</code> simply stores the DataFrame; column splitting happens in each method as needed.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="17-27" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def __init__(self, df):</span>
+      <span class="code-callout__title">detect_outliers</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def __init__(self, df):</strong> — lines 13-25. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Supports two strategies: <strong>z-score</strong> (flags rows more than 3 standard deviations from the mean) and <strong>IQR</strong> (flags rows outside 1.5×IQR below Q1 or above Q3).</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="26-37" data-tint="3">
+  <div class="code-callout" data-lines="28-43" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Return (self.df[column] &lt; (Q1 - 1.5 * IQR)) |…</span>
+      <span class="code-callout__title">analyze_distributions</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Return (self.df[column] &lt; (Q1 - 1.5 * IQR)) |…</strong> — lines 26-37 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Runs Shapiro–Wilk and D'Agostino normality tests, then computes the four distribution moments: mean, std, skewness, and excess kurtosis.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="38-50" data-tint="4">
+  <div class="code-callout" data-lines="44-63" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;skew&#x27;: stats.skew(self.df[column]),</span>
+      <span class="code-callout__title">analyze_time_patterns</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;skew&#x27;: stats.skew(self.df[column]),</strong> — lines 38-50 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="51-63" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;weekly&#x27;: self.df.resample(&#x27;W&#x27;, on=date_colum…</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>&#x27;weekly&#x27;: self.df.resample(&#x27;W&#x27;, on=date_colum…</strong> — lines 51-63 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Resamples to daily, weekly, and monthly averages, then calls <code>seasonal_decompose</code> on the daily series (period=7, extrapolated trend) to separate trend, seasonality, and residuals.</p>
     </div>
   </div>
 </aside>
@@ -450,40 +441,40 @@ dtype: object, 'memory_usage': np.float64(0.003177642822265625)}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Load sample e-commerce data</span>
+      <span class="code-callout__title">Setup</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Load sample e-commerce data</strong> — lines 1-14 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Loads the CSV and initialises both explorer objects—<code>DataExplorer</code> for summaries and plots, <code>AdvancedAnalyzer</code> for outlier and time-pattern work.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="8-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">3. Sales Analysis</span>
+      <span class="code-callout__title">Basic exploration</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>3. Sales Analysis</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Calls <code>generate_summary()</code> and prints <code>basic_info</code>, then calls <code>plot_distributions()</code> to get a first visual read on the data.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="29-42" data-tint="3">
+  <div class="code-callout" data-lines="16-40" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Plt.subplot(413)</span>
+      <span class="code-callout__title">Sales decomposition plot</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Plt.subplot(413)</strong> — lines 29-42 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Calls <code>analyze_time_patterns</code> on the order-date column, then creates a 4-subplot figure showing observed, trend, seasonal, and residual components using <code>plt.subplot(41x)</code> layout.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="43-57" data-tint="4">
+  <div class="code-callout" data-lines="41-57" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;total_spent&#x27;: df.groupby(&#x27;customer_id&#x27;)[&#x27;amo…</span>
+      <span class="code-callout__title">Customer segmentation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;total_spent&#x27;: df.groupby(&#x27;customer_id&#x27;)[&#x27;amo…</strong> — lines 43-57. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p>Aggregates per customer into total spend, order count, and average order value, then visualises in a 3-D interactive scatter coloured by <code>total_spent</code>.</p>
     </div>
   </div>
 </aside>
@@ -533,22 +524,22 @@ def optimize_dataframe(df):
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-18" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def optimize_dataframe(df):</span>
+      <span class="code-callout__title">Integer downcast</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def optimize_dataframe(df):</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>For each numeric column the function checks min/max against int8, int16, and int32 bounds, picking the smallest integer type that fits.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="19-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Df[col] = df[col].astype(np.int16)</span>
+      <span class="code-callout__title">Float downcast and categorical conversion</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Df[col] = df[col].astype(np.int16)</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Float columns are passed to <code>pd.to_numeric(downcast='float')</code>. Object columns with fewer than 50% unique values are converted to the memory-efficient <code>category</code> dtype.</p>
     </div>
   </div>
 </aside>
@@ -578,22 +569,22 @@ def analyze_large_dataset(file_path, chunk_size=10000):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-7" data-tint="1">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def analyze_large_dataset(file_path, chunk_si…</span>
+      <span class="code-callout__title">Function signature and setup</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def analyze_large_dataset(file_path, chunk_si…</strong> — lines 1-7. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Opens an empty list to collect per-chunk results; the <code>chunksize</code> parameter controls how many rows are held in memory at once.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="8-15" data-tint="2">
+  <div class="code-callout" data-lines="5-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Chunk = optimize_dataframe(chunk)</span>
+      <span class="code-callout__title">Chunk loop and combine</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Chunk = optimize_dataframe(chunk)</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Each chunk is memory-optimised with <code>optimize_dataframe</code>, processed via <code>process_chunk</code>, and appended to the list. <code>pd.concat</code> merges all results at the end.</p>
     </div>
   </div>
 </aside>
@@ -624,13 +615,22 @@ mad = stats.median_abs_deviation(df['amount'])
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-7" data-tint="1">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Bad: Assuming normal distribution</span>
+         <span class="code-callout__title">Fragile approach: mean and std</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Bad: Assuming normal distribution</strong> — lines 1-7 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
+         <p>Using mean and std assumes a normal distribution. For right-skewed data (e.g. revenue) these statistics misrepresent the typical value.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="9-12" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Robust approach: median and MAD</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Median and median absolute deviation (MAD) are resistant to outliers and make no normality assumption—prefer them for skewed distributions.</p>
        </div>
      </div>
    </aside>
@@ -652,13 +652,22 @@ mad = stats.median_abs_deviation(df['amount'])
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-7" data-tint="1">
+     <div class="code-callout" data-lines="1-2" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Correlation analysis</span>
+         <span class="code-callout__title">Pearson correlation</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Correlation analysis</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p>A single correlation number tells you direction and strength, but not causation—confounding variables or reversed causality can produce the same value.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="3-7" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Follow-up analyses needed</span>
+       </div>
+       <div class="code-callout__body">
+         <p>The comment block lists three next steps—time-series analysis, A/B testing, and controlling for confounders—that must follow before any causal claim.</p>
        </div>
      </div>
    </aside>
@@ -682,13 +691,22 @@ mad = stats.median_abs_deviation(df['amount'])
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-9" data-tint="1">
+     <div class="code-callout" data-lines="1-2" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Bad: Drop all missing values</span>
+         <span class="code-callout__title">Fragile approach: dropna</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Bad: Drop all missing values</strong> — lines 1-9 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
+         <p>Blindly dropping all rows with nulls can silently discard non-random missingness, biasing the remaining dataset.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="3-9" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Better approach: profile missing patterns</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Building a DataFrame of missing count, percentage, and cross-column correlation reveals whether nulls are random (MAR) or systematic (MNAR) before deciding how to handle them.</p>
        </div>
      </div>
    </aside>
@@ -733,22 +751,22 @@ def create_interactive_dashboard(df):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-18" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def create_interactive_dashboard(df):</span>
+      <span class="code-callout__title">Sales trend and RFM scatter</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def create_interactive_dashboard(df):</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p><code>fig1</code> shows a daily sales line resampled from the raw data. <code>fig2</code> is an RFM scatter where bubble size encodes monetary value and colour encodes customer segment.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="19-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Size=&#x27;monetary&#x27;,</span>
+      <span class="code-callout__title">Category treemap and return</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Size=&#x27;monetary&#x27;,</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>fig3</code> uses a treemap to show revenue share by product category—each tile area is proportional to total sales amount. The function returns all three figures for embedding in a notebook or app.</p>
     </div>
   </div>
 </aside>

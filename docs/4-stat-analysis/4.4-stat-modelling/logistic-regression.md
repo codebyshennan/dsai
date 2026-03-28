@@ -4,7 +4,7 @@
 
 ## Overview
 
-When the outcome is a **label** (often two classes), ordinary least squares is the wrong tool: predictions can fall outside \([0,1]\), and error assumptions do not match counts or Bernoulli trials. Logistic regression uses a **sigmoid** link so a linear score maps to a probability; from there you get the same coefficient intuition as linear models, plus classification metrics (confusion matrix, ROC). Later lessons add curvature ([polynomial regression](./polynomial-regression.md)) and complexity control.
+When the outcome is a **label** (often two classes), ordinary least squares is the wrong tool: predictions can fall outside \\([0,1]\\), and error assumptions do not match counts or Bernoulli trials. Logistic regression uses a **sigmoid** link so a linear score maps to a probability; from there you get the same coefficient intuition as linear models, plus classification metrics (confusion matrix, ROC). Later lessons add curvature ([polynomial regression](./polynomial-regression.md)) and complexity control.
 
 ## Why this matters
 
@@ -28,6 +28,22 @@ Logistic regression is one of the most fundamental and widely used classificatio
 </div>
 
 *StatQuest: Logistic Regression by Josh Starmer*
+
+```mermaid
+graph LR
+    subgraph FLOW["Logistic Regression pipeline"]
+        INPUT["Features\nX₁, X₂, … Xₙ"]
+        INPUT --> LINEAR["Linear score\nz = β₀ + β₁X₁ + … + βₙXₙ"]
+        LINEAR --> SIGMOID["Sigmoid function\np = 1 / (1 + e^{-z})\nmaps z → probability (0, 1)"]
+        SIGMOID --> THRESH["Threshold (default 0.5)\np ≥ 0.5 → class 1\np < 0.5 → class 0"]
+    end
+    subgraph COEFF["Coefficient interpretation"]
+        C1["β > 0: feature increases probability\nβ < 0: feature decreases probability\nOdds ratio = e^β"]
+    end
+    SIGMOID --> COEFF
+```
+
+> **Figure (add screenshot or diagram):** Sigmoid curve — x-axis is the linear score z (−6 to +6), y-axis is probability (0 to 1), showing the characteristic S-shape with p=0.5 at z=0 and the decision boundary marked.
 
 ### What is Logistic Regression?
 
@@ -177,7 +193,7 @@ Let's visualize this function:
 
 **Annotated plot of the standard logistic (sigmoid) curve**
 
-**Purpose:** Plot \(p(z)=1/(1+e^{-z})\) over a grid with reference lines at \(z=0\) and \(p=0.5\) and text annotations for interpretation.
+**Purpose:** Plot \\(p(z)=1/(1+e^{-z})\\) over a grid with reference lines at \\(z=0\\) and \\(p=0.5\\) and text annotations for interpretation.
 
 **Walkthrough:** Pure NumPy and matplotlib; `plt.annotate`, `axhline`, `axvline`; `savefig` as `logistic_curve_annotated.png`.
 
@@ -262,9 +278,9 @@ Interpreting coefficients in logistic regression is slightly different than in l
 
 Let's visualize how different coefficients affect the probability curve:
 
-**Overlay logistic curves for different linear predictors \(z=\beta x\)**
+**Overlay logistic curves for different linear predictors \\(z=\beta x\\)**
 
-**Purpose:** On the same axes, plot sigmoid curves for several \(\beta\) values to show steep vs gradual separation and sign effects.
+**Purpose:** On the same axes, plot sigmoid curves for several \\(\beta\\) values to show steep vs gradual separation and sign effects.
 
 **Walkthrough:** Loop over scenario dict mapping label → `z` array; `1/(1+np.exp(-z))`; shared horizontal line at 0.5.
 

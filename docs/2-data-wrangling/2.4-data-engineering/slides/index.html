@@ -13,7 +13,22 @@
         }
 
         .reveal {
-            font-size: 1.5em;
+            font-size: 1.45em;
+        }
+
+        /* Dense slides: smaller type so more bullets fit without overflow */
+        .reveal .box.box--compact {
+            font-size: 0.88em;
+            max-width: 92%;
+        }
+
+        .reveal .box.box--compact h3 {
+            font-size: 1.15em;
+        }
+
+        .reveal .box.box--compact li {
+            margin-bottom: 0.35em;
+            line-height: 1.35;
         }
 
         .reveal h1,
@@ -50,6 +65,8 @@
 
         .reveal li {
             margin-bottom: 0.5em;
+            overflow-wrap: anywhere;
+            word-wrap: break-word;
         }
 
         .reveal code {
@@ -80,23 +97,99 @@
             padding: 1em;
             border-radius: 8px;
             margin: 1em auto;
-            max-width: 80%;
+            max-width: 88%;
         }
 
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1.25em 2em;
+            max-width: 92%;
             margin: 0 auto;
+            align-items: start;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1em 1.25em;
+            max-width: 96%;
             margin: 0 auto;
+            align-items: start;
+        }
+
+        .reveal .two-column .list-container,
+        .reveal .three-column .list-container {
+            max-width: 100%;
+        }
+
+        .reveal .two-column ul,
+        .reveal .two-column ol,
+        .reveal .three-column ul,
+        .reveal .three-column ol {
+            max-width: 100%;
+        }
+
+        .slide-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.78em;
+            color: #555;
+            z-index: 2000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(4px);
+            padding: 0.4em 1em;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 0.75em;
+        }
+
+        .slide-nav a {
+            color: #555;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav a:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
+        }
+
+        .slide-nav__title {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+            color: #444;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .slide-nav__btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav__btn:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
         }
 
         .slide-footer {
@@ -115,6 +208,7 @@
 
         section {
             padding: 2em;
+            padding-top: 3.5em;
             padding-bottom: 4em;
             display: flex;
             flex-direction: column;
@@ -133,6 +227,16 @@
 </head>
 
 <body>
+    <nav class="slide-nav" id="slide-nav">
+        <a href="../" title="Back to lesson">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back
+        </a>
+        <span class="slide-nav__title">Data Engineering Essentials</span>
+        <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        </button>
+    </nav>
     <div class="reveal">
         <div class="slides">
             
@@ -147,10 +251,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Data Integration</h2>
-                        <div class="box">
+                        <h2>Data Integration (1/2)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Data Consolidation</strong>:</li>
@@ -158,21 +264,20 @@
 <li><strong>Decision Making</strong>:</li>
 <li><strong>Performance</strong>:</li>
 <li><strong>Batch Processing</strong>:</li>
-<li><strong>Real-time Processing</strong>:</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Real-time Processing</strong>:</li>
 <li><strong>Data Validation</strong>:</li>
 <li><strong>System Health</strong>:</li>
 <li><strong>Structured</strong>:</li>
 <li><strong>File Size</strong>:</li>
-<li><strong>Format Validation</strong>:</li>
-<li><strong>Error Handling</strong>:</li>
-<li><strong>Structure Transformations</strong>:</li>
-<li><strong>Content Transformations</strong>:</li>
-<li><strong>Semantic Transformations</strong>:</li>
-<li><strong>One-to-One</strong>:</li>
-<li><strong>One-to-Many</strong>:</li>
-<li><strong>Many-to-One</strong>:</li>
-<li><strong>Documentation</strong>:</li>
                         </ul>
+                    </div>
+                
                     </div>
                 
                         </div>
@@ -183,10 +288,48 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Data Storage</h2>
-                        <div class="box">
+                        <h2>Data Integration (2/2)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Format Validation</strong>:</li>
+<li><strong>Error Handling</strong>:</li>
+<li><strong>Structure Transformations</strong>:</li>
+<li><strong>Content Transformations</strong>:</li>
+<li><strong>Semantic Transformations</strong>:</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>One-to-One</strong>:</li>
+<li><strong>One-to-Many</strong>:</li>
+<li><strong>Many-to-One</strong>:</li>
+<li><strong>Documentation</strong>:</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Data Storage (1/3)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Volume</strong>:</li>
@@ -194,30 +337,20 @@
 <li><strong>Variety</strong>:</li>
 <li><strong>Access Patterns</strong>:</li>
 <li><strong>Scalability</strong>:</li>
-<li><strong>Security</strong>:</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Security</strong>:</li>
 <li><strong>Data Quality</strong>:</li>
 <li><strong>Maintenance</strong>:</li>
 <li><strong>Cost Management</strong>:</li>
 <li><strong>Use Cases</strong>:</li>
-<li><strong>SLA Requirements</strong>:</li>
-<li><strong>Data Model</strong>:</li>
-<li><strong>Integration</strong>:</li>
-<li><strong>Document Stores</strong>:</li>
-<li><strong>Key-Value Stores</strong>:</li>
-<li><strong>Column-Family Stores</strong>:</li>
-<li><strong>Graph Databases</strong>:</li>
-<li><strong>Document Stores</strong>:</li>
-<li><strong>Key-Value Stores</strong>:</li>
-<li><strong>Column-Family</strong>:</li>
-<li><strong>Graph Databases</strong>:</li>
-<li><strong>Staging Area</strong>:</li>
-<li><strong>Core Warehouse</strong>:</li>
-<li><strong>Data Marts</strong>:</li>
-<li><strong>Star Schema</strong>:</li>
-<li><strong>Snowflake Schema</strong>:</li>
-<li><strong>Columnar Storage</strong>:</li>
-<li><strong>Materialized Views</strong>:</li>
                         </ul>
+                    </div>
+                
                     </div>
                 
                         </div>
@@ -228,10 +361,84 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Etl Fundamentals</h2>
-                        <div class="box">
+                        <h2>Data Storage (2/3)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>SLA Requirements</strong>:</li>
+<li><strong>Data Model</strong>:</li>
+<li><strong>Integration</strong>:</li>
+<li><strong>Document Stores</strong>:</li>
+<li><strong>Key-Value Stores</strong>:</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Column-Family Stores</strong>:</li>
+<li><strong>Graph Databases</strong>:</li>
+<li><strong>Document Stores</strong>:</li>
+<li><strong>Key-Value Stores</strong>:</li>
+<li><strong>Column-Family</strong>:</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Data Storage (3/3)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Graph Databases</strong>:</li>
+<li><strong>Staging Area</strong>:</li>
+<li><strong>Core Warehouse</strong>:</li>
+<li><strong>Data Marts</strong>:</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Star Schema</strong>:</li>
+<li><strong>Snowflake Schema</strong>:</li>
+<li><strong>Columnar Storage</strong>:</li>
+<li><strong>Materialized Views</strong>:</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Etl Fundamentals (1/5)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Data Sources</strong>:</li>
@@ -239,42 +446,148 @@
 <li><strong>Data Cleaning</strong>:</li>
 <li><strong>Data Enhancement</strong>:</li>
 <li><strong>Loading Types</strong>:</li>
-<li><strong>Target Systems</strong>:</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Target Systems</strong>:</li>
 <li><strong>Decision Making</strong>:</li>
 <li><strong>Operational Efficiency</strong>:</li>
 <li><strong>Performance</strong>:</li>
 <li><strong>Quality</strong>:</li>
-<li><strong>Source Systems</strong>:</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Etl Fundamentals (2/5)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Source Systems</strong>:</li>
 <li><strong>Data Volume</strong>:</li>
 <li><strong>Reliability</strong>:</li>
 <li><strong>Relational Databases</strong>:</li>
 <li><strong>NoSQL Databases</strong>:</li>
-<li><strong>Local Files</strong>:</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Local Files</strong>:</li>
 <li><strong>Cloud Storage</strong>:</li>
 <li><strong>REST APIs</strong>:</li>
 <li><strong>Streaming APIs</strong>:</li>
 <li><strong>Data Cleansing</strong>:</li>
-<li><strong>Data Enrichment</strong>:</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Etl Fundamentals (3/5)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Data Enrichment</strong>:</li>
 <li><strong>Data Restructuring</strong>:</li>
 <li><strong>Data Quality</strong>:</li>
 <li><strong>Performance</strong>:</li>
 <li><strong>Maintainability</strong>:</li>
-<li><strong>Missing Values</strong>:</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Missing Values</strong>:</li>
 <li><strong>Duplicates</strong>:</li>
 <li><strong>Data Types</strong>:</li>
 <li><strong>Batch Loading</strong>:</li>
 <li><strong>Real-time Loading</strong>:</li>
-<li><strong>Hybrid Loading</strong>:</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Etl Fundamentals (4/5)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Hybrid Loading</strong>:</li>
 <li><strong>Performance</strong>:</li>
 <li><strong>Data Integrity</strong>:</li>
 <li><strong>Target Systems</strong>:</li>
 <li><strong>Bulk Loading</strong>:</li>
-<li><strong>Incremental Loading</strong>:</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Incremental Loading</strong>:</li>
 <li><strong>File Management</strong>:</li>
 <li><strong>Workflow Management</strong>:</li>
 <li><strong>Pipeline Patterns</strong>:</li>
 <li><strong>State Management</strong>:</li>
-<li><strong>Scheduling</strong>:</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Etl Fundamentals (5/5)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Scheduling</strong>:</li>
 <li><strong>Monitoring</strong>:</li>
 <li><strong>Error Handling</strong>:</li>
 <li><strong>Source Config</strong>:</li>
@@ -291,10 +604,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Project</h2>
-                        <div class="box">
+                        <h2>Project (1/6)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>Master ETL pipeline development</li>
@@ -302,52 +617,185 @@
 <li>Handle complex transformations</li>
 <li>Ensure system reliability</li>
 <li>Optimize performance</li>
-<li>Monitor pipeline health</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Monitor pipeline health</li>
 <li><strong>Sales Data</strong>:</li>
 <li><strong>Transformation</strong>:</li>
 <li><strong>Warehouse Design</strong>:</li>
 <li><strong>Analytics Support</strong>:</li>
-<li>Implement API client for sales data</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Project (2/6)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Implement API client for sales data</li>
 <li>Handle authentication</li>
 <li>Implement error handling and retries</li>
 <li>Add rate limiting</li>
 <li>Connect to source database</li>
-<li>Implement efficient query patterns</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Implement efficient query patterns</li>
 <li>Handle large data volumes</li>
 <li>Implement connection pooling</li>
 <li>Handle different file formats</li>
 <li>Implement file validation</li>
-<li>Process files in batches</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Project (3/6)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Process files in batches</li>
 <li>Track processed files</li>
 <li>Add derived columns</li>
 <li>Calculate aggregations</li>
 <li>Join with reference data</li>
-<li>Apply business rules</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Apply business rules</li>
 <li>Implement data quality checks</li>
 <li>Generate quality metrics</li>
 <li>Handle validation failures</li>
 <li>Log quality issues</li>
-<li>Implement efficient load patterns</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Project (4/6)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Implement efficient load patterns</li>
 <li>Handle incremental loads</li>
 <li>Manage transactions</li>
 <li>Implement error recovery</li>
 <li>Implement indexing strategy</li>
-<li>Optimize query performance</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Optimize query performance</li>
 <li>Manage data partitioning</li>
 <li>Monitor performance</li>
 <li>Implement logging</li>
 <li>Track metrics</li>
-<li>Monitor performance</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Project (5/6)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Monitor performance</li>
 <li>Generate alerts</li>
 <li>Code documentation</li>
 <li>Architecture diagram</li>
 <li>Setup instructions</li>
-<li>Maintenance guide</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Maintenance guide</li>
 <li>Unit tests</li>
 <li>Integration tests</li>
 <li>Performance tests</li>
 <li>Error handling tests</li>
-<li>Code quality and organization (20%)</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Project (6/6)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Code quality and organization (20%)</li>
 <li>Implementation completeness (30%)</li>
 <li>Error handling and resilience (20%)</li>
 <li>Documentation quality (15%)</li>
@@ -371,6 +819,24 @@
             transition: 'slide',
             slideNumber: true,
             plugins: []
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Swap fullscreen icon when state changes
+        document.addEventListener('fullscreenchange', function () {
+            var icon = document.getElementById('fs-icon');
+            if (document.fullscreenElement) {
+                icon.innerHTML = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
+            } else {
+                icon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
+            }
         });
     </script>
 </body>

@@ -23,6 +23,29 @@ By the end of this section, you will be able to:
 - Choose the right kernel for different problems
 - Implement and tune kernel parameters
 
+```mermaid
+graph TD
+    subgraph MARGIN["Maximum margin hyperplane"]
+        H["Decision boundary: w·x + b = 0"]
+        P["Positive support vector: w·x + b = +1"]
+        N["Negative support vector: w·x + b = −1"]
+        MARGIN_W["Margin width = 2 / ||w||\nObjective: maximise this\n= minimise ||w||²"]
+        H & P & N --> MARGIN_W
+    end
+    subgraph KERNEL["Kernel trick  (non-linear SVM)"]
+        LIN["Linear kernel\nK(x,z) = x·z\nFast, good for text/high-dim"]
+        POLY["Polynomial kernel\nK(x,z) = (x·z + c)^d\nSuitable for image features"]
+        RBF["RBF / Gaussian kernel\nK(x,z) = exp(-γ||x−z||²)\nMost flexible, default choice\nTune γ and C together"]
+        SIG["Sigmoid kernel\nK(x,z) = tanh(κx·z + c)\nNeural-net-like (rarely needed)"]
+    end
+    MARGIN_W --> KERNEL
+    subgraph TUNE["Hyperparameter effects"]
+        C_PARAM["C (regularisation)\nSmall C → wide margin, more misclassifications\nLarge C → narrow margin, fewer mistakes on train"]
+        GAMMA["γ (RBF only)\nSmall γ → smooth boundary (global)\nLarge γ → complex boundary (local, overfits)"]
+    end
+    KERNEL --> TUNE
+```
+
 ## The Maximum Margin Concept
 
 ### Understanding the Optimal Hyperplane
@@ -120,7 +143,7 @@ Sometimes data isn't linearly separable, and we need to transform it into a high
 3. **Polynomial Kernel**
 
    #### Polynomial kernel
-   **Purpose:** Encode polynomial interactions between features via \((x_1^\top x_2 + r)^d\).
+   **Purpose:** Encode polynomial interactions between features via \\((x_1^\top x_2 + r)^d\\).
 
    ```python
    import numpy as np
@@ -140,7 +163,10 @@ Sometimes data isn't linearly separable, and we need to transform it into a high
 
 **Walkthrough:** Same data and mesh grid; only the kernel string changes so you can compare boundaries.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC
@@ -149,30 +175,53 @@ def plot_kernel_effects(X, y):
     """Show how different kernels transform data"""
     kernels = ['linear', 'rbf', 'poly']
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-    
+
     for ax, kernel in zip(axes, kernels):
         # Create and fit SVM
         svm = SVC(kernel=kernel)
         svm.fit(X, y)
-        
+
         # Create mesh grid
         x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
         y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
         xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
                             np.arange(y_min, y_max, 0.02))
-        
+
         # Get predictions
         Z = svm.predict(np.c_[xx.ravel(), yy.ravel()])
         Z = Z.reshape(xx.shape)
-        
+
         # Plot
         ax.contourf(xx, yy, Z, alpha=0.4)
         ax.scatter(X[:, 0], X[:, 1], c=y, alpha=0.8)
         ax.set_title(f'{kernel.upper()} Kernel Decision Boundary')
-    
+
     plt.tight_layout()
     plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Setup and Kernels List</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define three kernel strings (linear, RBF, polynomial) and create a 1×3 subplot grid — one panel per kernel for direct visual comparison.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-32" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Mesh Grid and Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each kernel, fit an SVC, build a fine meshgrid over the feature space, predict class at every point, then fill contour regions — axis-aligned regions for linear vs curved regions for RBF/poly.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Soft Margin SVM
 

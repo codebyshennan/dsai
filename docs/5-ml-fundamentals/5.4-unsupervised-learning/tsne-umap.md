@@ -34,9 +34,34 @@ UMAP is like a more efficient version of t-SNE - it's like having a GPS that can
 
 ## How Do They Work?
 
+```mermaid
+graph TD
+    subgraph PCA_COL["PCA (start here)"]
+        P1["Linear projection\nPreserves global variance\nFast, deterministic"]
+        P1 --> P2["Good for: preprocessing,\ndenoising, interpretable axes"]
+    end
+    subgraph TSNE_COL["t-SNE"]
+        T1["Models pairwise\nsimilarities as probabilities\nMinimizes KL divergence"]
+        T1 --> T2["Good for: revealing\ntight clusters\nSlow on large data"]
+        T2 --> T3["⚠ Distances between\nclusters not meaningful\nRun multiple times"]
+    end
+    subgraph UMAP_COL["UMAP"]
+        U1["Graph-based manifold\napproximation\nFaster than t-SNE"]
+        U1 --> U2["Good for: large datasets,\nbetter global structure\nthan t-SNE"]
+        U2 --> U3["⚠ Still non-linear —\naxes are not interpretable"]
+    end
+    PCA_COL -->|"reduce dims first\nthen visualize"| TSNE_COL
+    PCA_COL --> UMAP_COL
+```
+
+*Always run PCA first to reduce to ~50 dimensions before feeding into t-SNE — it speeds up computation significantly and removes noise.*
+
 Let's break it down with a simple example:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_blobs
@@ -81,13 +106,39 @@ plt.ylabel('UMAP 2')
 plt.tight_layout()
 plt.savefig('assets/tsne_umap_comparison.png')
 plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-16" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data, t-SNE, and UMAP Fits</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate four well-separated blobs then project with both t-SNE and UMAP; <code>random_state=42</code> makes results reproducible — t-SNE especially varies across runs without fixing the seed.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-44" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three-panel Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Left shows original 2D space; middle is t-SNE; right is UMAP — comparing all three side by side lets you see how each method transforms the cluster structure.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Real-World Example: Visualizing Handwritten Digits
 
 Let's see how these tools can help us visualize complex data:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.datasets import load_digits
 import numpy as np
 import matplotlib.pyplot as plt
@@ -127,7 +178,30 @@ plt.ylabel('UMAP 2')
 plt.tight_layout()
 plt.savefig('assets/tsne_umap_digits.png')
 plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load Digits and Embed</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Load the 64-feature digit pixel dataset and project to 2D with both t-SNE and UMAP; the 10-class target <code>y</code> provides color labels to assess how well each method separates digit classes.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-38" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Side-by-side Digit Maps</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Use <code>tab10</code> colormap for 10 distinct digit classes; the colorbar maps colors to digit values — clean separation of color clusters indicates the embedding preserved class structure.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Key Differences Between t-SNE and UMAP
 
@@ -169,24 +243,50 @@ def preprocess_for_visualization(X):
 
 2. **Parameter Tuning**:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def find_best_parameters(X, y):
     # Try different perplexity values for t-SNE
     perplexities = [5, 30, 50, 100]
     plt.figure(figsize=(15, 10))
-    
+
     for i, perplexity in enumerate(perplexities):
         tsne = TSNE(n_components=2, perplexity=perplexity, random_state=42)
         X_tsne = tsne.fit_transform(X)
-        
+
         plt.subplot(2, 2, i+1)
         plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=y, cmap='viridis')
         plt.title(f't-SNE with perplexity={perplexity}')
-    
+
     plt.tight_layout()
     plt.savefig('assets/tsne_parameter_tuning.png')
     plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Perplexity Grid</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Test four perplexity values from 5 to 100; low perplexity focuses on very local neighbors (fragmented clusters) while high perplexity captures more global structure.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Four-subplot Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Each subplot runs a fresh t-SNE with a different perplexity; the 2×2 grid lets you visually pick the perplexity that produces the clearest and most stable cluster structure for your data.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Mistakes to Avoid
 

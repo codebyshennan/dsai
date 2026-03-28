@@ -35,6 +35,35 @@ Before choosing a visualization, identify what type of data you're working with:
 
 - Data points collected over time (e.g., daily temperature, monthly sales)
 
+```mermaid
+flowchart TD
+    START["What do you\nwant to show?"] --> C[Compare values]
+    START --> D[Show distribution]
+    START --> R[Show relationship]
+    START --> K[Show composition]
+    START --> T[Show change over time]
+
+    C --> C1{How many\ncategories?}
+    C1 -->|≤ 7| BAR[Bar / Column chart]
+    C1 -->|Many| DOT[Dot plot / Lollipop]
+    C --> C2{Ranking\nmatter?} -->|Yes| RANK[Horizontal bar,\nsorted]
+
+    D --> D1{One variable?} -->|Yes| HIST[Histogram\nor Box plot]
+    D1 -->|Multiple groups| VIO[Violin\nor Ridge plot]
+
+    R --> R1{How many variables?}
+    R1 -->|2| SCAT[Scatter plot]
+    R1 -->|Many| PAIR[Pair plot\nor Heat map]
+
+    K --> PIE{Few\ncategories?} -->|Yes| WPIE[Pie / Donut\n(use sparingly)]
+    PIE -->|No| STACKED[Stacked bar\nor Treemap]
+
+    T --> LINE[Line chart]
+    T --> AREA[Area chart\n(for cumulative)]
+```
+
+*When in doubt, start with a bar chart or scatter plot — they work for most business questions and are the easiest to read correctly.*
+
 ## Matching Data Types to Visualizations
 
 ### For Numerical Data

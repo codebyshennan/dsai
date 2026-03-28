@@ -44,6 +44,23 @@ The rest of the module reuses these words constantly. Memorize the definitions, 
 
 Imagine you're a detective trying to understand a city's crime patterns. You can't investigate every single crime (population), but you can study a carefully selected set of cases (sample) to make informed conclusions about the whole city. This is the essence of sampling in statistics!
 
+```mermaid
+graph TD
+    POP["Population\nEverything we want to learn about\n(often impossible to fully measure)"]
+    POP --> SAMP["Sampling method\nSimple random / Stratified\nCluster / Systematic"]
+    SAMP --> SAM["Sample\nSubset actually measured\n(n observations)"]
+    SAM --> STAT["Sample statistics\nx̄, s, p …"]
+    STAT --> INFER["Statistical inference\nEstimate population parameters\nμ, σ, π …"]
+    INFER -->|"Generalize — if sample is representative"| POP
+
+    subgraph BIAS["Sampling bias risks"]
+        B1["Non-random selection\n→ sample not representative"]
+        B2["Non-response bias\n→ missing a systematic subgroup"]
+        B3["Convenience sampling\n→ easy to collect, hard to generalise"]
+    end
+    SAMP --> BIAS
+```
+
 ## What is a Population?
 
 ### Definition
@@ -98,11 +115,14 @@ A sample is a carefully selected **subset** of the population that we actually m
 
 **Finite population vs one SRS**
 
-**Purpose:** Show side-by-side histograms for “everything produced” versus `replace=False` draw of 100 units and compare \(\mu\) vs \(\bar x\)—the core idea behind inspection without full enumeration.
+**Purpose:** Show side-by-side histograms for “everything produced” versus `replace=False` draw of 100 units and compare \\(\mu\\) vs \\(\bar x\\)—the core idea behind inspection without full enumeration.
 
 **Walkthrough:** `np.random.choice(..., replace=False)` mimics sampling without replacement from a finite batch; twin subplots emphasize mean alignment, not equality on every draw.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -139,7 +159,39 @@ print("\nQuality Control Analysis")
 print(f"Population mean: {np.mean(population):.2f}")
 print(f"Sample mean: {np.mean(sample):.2f}")
 print(f"Difference: {abs(np.mean(population) - np.mean(sample)):.2f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Population and sample</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a production population of 10,000 items with mean 100, then draw a without-replacement sample of 100 items.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Side-by-side histograms</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot population and sample distributions in two subplots, each with a dashed red line marking the respective mean.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="32-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Mean comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print population mean, sample mean, and the absolute difference to illustrate how close a well-drawn sample can be to the truth.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Population and Sample Distributions](assets/population_sample_dist.png)
 *Figure 3: Comparison of population and sample distributions in a quality control example. The red dashed lines indicate the means, showing how well the sample represents the population.*
@@ -156,7 +208,10 @@ The statistical equivalent of drawing names from a hat - every member has an equ
 
 **Walkthrough:** `np.arange(1000)` stands in for labeled units; `choice(..., replace=False)` enforces no duplicates; first five IDs printed for sanity checks.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def simple_random_sample(population, sample_size):
     """Generate a simple random sample"""
     return np.random.choice(population, size=sample_size, replace=False)
@@ -177,7 +232,30 @@ plt.savefig('assets/simple_random_sampling.png')
 plt.close()
 
 print(f"Random sample IDs: {sample[:5]}...")  # Show first 5 IDs
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SRS function</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Use <code>np.random.choice(..., replace=False)</code> to draw IDs without replacement, ensuring each unit appears at most once in the sample.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Strip plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scatter all 1,000 IDs at y=0 and the 100 selected IDs slightly above at y=0.1 in red to show how SRS spreads draws evenly across the frame.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Simple Random Sampling](assets/simple_random_sampling.png)
 *Figure 4: Visualization of simple random sampling. Each point represents a member of the population, with red points indicating selected sample members.*
@@ -192,36 +270,39 @@ Like organizing a party where you ensure representation from different departmen
 
 **Walkthrough:** Loop advances `start_idx`; each stratum uses `choice` without replacement; y-offset separates strata on the scatter for clarity.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def stratified_sample(population, strata_sizes, sample_sizes):
     """Generate a stratified sample"""
     samples = []
     start_idx = 0
-    
+
     # Visualize the strata
     plt.figure(figsize=(12, 6))
     colors = ['blue', 'green', 'red']
-    
+
     for i, (stratum_size, sample_size) in enumerate(zip(strata_sizes, sample_sizes)):
         stratum = population[start_idx:start_idx + stratum_size]
         sample = np.random.choice(stratum, size=sample_size, replace=False)
         samples.extend(sample)
-        
+
         # Plot stratum
-        plt.scatter(stratum, [i]*len(stratum), alpha=0.3, color=colors[i], 
+        plt.scatter(stratum, [i]*len(stratum), alpha=0.3, color=colors[i],
                    label=f'Stratum {i+1}')
-        plt.scatter(sample, [i+0.1]*len(sample), color=colors[i], 
+        plt.scatter(sample, [i+0.1]*len(sample), color=colors[i],
                    label=f'Sample {i+1}' if i==0 else "")
-        
+
         start_idx += stratum_size
-    
+
     plt.title('Stratified Sampling')
     plt.xlabel('Population ID')
     plt.yticks(range(len(strata_sizes)), [f'Stratum {i+1}' for i in range(len(strata_sizes))])
     plt.legend()
     plt.savefig('assets/stratified_sampling.png')
     plt.close()
-    
+
     return np.array(samples)
 
 # Example: Sampling by age groups
@@ -229,7 +310,39 @@ population = np.arange(3000)  # 3000 people
 strata_sizes = [1000, 1000, 1000]  # Equal size strata
 sample_sizes = [50, 50, 50]  # Equal size samples
 sample = stratified_sample(population, strata_sizes, sample_sizes)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Function signature</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Accept a population array, a list of stratum sizes, and a list of per-stratum sample counts to build a stratified draw.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Per-stratum loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Slice each stratum from the population, sample without replacement, and plot both stratum members and selected units at staggered y-positions.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="31-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Usage example</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Demonstrate with 3,000 people split into three equal strata of 1,000, drawing 50 from each to guarantee representation.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Stratified Sampling](assets/stratified_sampling.png)
 *Figure 5: Visualization of stratified sampling. The population is divided into three strata (blue, green, red), and samples are taken from each stratum.*
@@ -244,12 +357,15 @@ Like picking every 10th person who walks into a store.
 
 **Walkthrough:** `population[start::interval]` performs the stride; works cleanly when frame order is unrelated to outcome (otherwise risk of periodic bias).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def systematic_sample(population, interval):
     """Generate a systematic sample"""
     start = np.random.randint(0, interval)
     sample = population[start::interval]
-    
+
     # Visualize the sampling process
     plt.figure(figsize=(10, 6))
     plt.scatter(population, [0]*len(population), alpha=0.3, label='Population')
@@ -260,13 +376,36 @@ def systematic_sample(population, interval):
     plt.legend()
     plt.savefig('assets/systematic_sampling.png')
     plt.close()
-    
+
     return sample
 
 # Example: Select every 10th customer
 population = np.arange(1000)
 sample = systematic_sample(population, 10)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Random start and stride</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Pick a random offset in [0, interval) and use Python slice notation <code>start::interval</code> to select every kth element, giving equal spacing throughout the frame.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Strip plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Visualise population and selected IDs on a 1D strip to show the regular spacing pattern that distinguishes systematic from random selection.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Systematic Sampling](assets/systematic_sampling.png)
 *Figure 6: Visualization of systematic sampling. The red points show how every 10th member is selected from the population.*
@@ -281,39 +420,74 @@ Like studying a few neighborhoods to understand a city.
 
 **Walkthrough:** `clusters` draws which block indices to keep; inner slice `population[start:end]` takes everyone in that block; colors distinguish clusters on the strip plot.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def cluster_sample(population, n_clusters, cluster_size):
     """Generate a cluster sample"""
     clusters = np.random.choice(len(population) // cluster_size, size=n_clusters, replace=False)
     samples = []
-    
+
     # Visualize the clusters
     plt.figure(figsize=(12, 6))
     plt.scatter(population, [0]*len(population), alpha=0.3, label='Population')
-    
+
     for i, cluster in enumerate(clusters):
         start = cluster * cluster_size
         end = start + cluster_size
         cluster_members = population[start:end]
         samples.extend(cluster_members)
-        
+
         # Plot cluster
-        plt.scatter(cluster_members, [0.1]*len(cluster_members), 
+        plt.scatter(cluster_members, [0.1]*len(cluster_members),
                    color=f'C{i}', label=f'Cluster {i+1}' if i==0 else "")
-    
+
     plt.title(f'Cluster Sampling ({n_clusters} clusters of size {cluster_size})')
     plt.xlabel('Population ID')
     plt.yticks([])
     plt.legend()
     plt.savefig('assets/cluster_sampling.png')
     plt.close()
-    
+
     return np.array(samples)
 
 # Example: Sample 5 clusters of 20 people each
 population = np.arange(1000)
 sample = cluster_sample(population, 5, 20)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Select clusters</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Randomly choose which cluster blocks to include; all units within selected blocks enter the sample.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Per-cluster loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each selected block, take all units in the contiguous slice and plot them at a raised y-position with a distinct colour.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Usage example</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Sample 5 clusters of 20 people each from a population of 1,000 to demonstrate the whole-block selection pattern.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Cluster Sampling](assets/cluster_sampling.png)
 *Figure 7: Visualization of cluster sampling. The colored points show how entire clusters are selected from the population.*
@@ -340,11 +514,14 @@ Even with a perfect design, **random samples differ** from each other and from t
 
 **SE curve vs sample size**
 
-**Purpose:** Plot \(\sigma/\sqrt{n}\) for a few `n` values to reinforce the square-root law driving precision gains.
+**Purpose:** Plot \\(\sigma/\sqrt{n}\\) for a few `n` values to reinforce the square-root law driving precision gains.
 
-**Walkthrough:** `calculate_sampling_error` is the mean’s standard error when \(\sigma\) is known; loop prints the numeric sequence feeding the line plot.
+**Walkthrough:** `calculate_sampling_error` is the mean’s standard error when \\(\sigma\\) is known; loop prints the numeric sequence feeding the line plot.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def calculate_sampling_error(population_std, sample_size):
     """Calculate standard error of the mean"""
     return population_std / np.sqrt(sample_size)
@@ -367,7 +544,30 @@ plt.title('Effect of Sample Size on Standard Error')
 plt.grid(True)
 plt.savefig('assets/sampling_error_effect.png')
 plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SE formula</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Implement σ/√n as a one-liner to compute the standard error of the mean when the population standard deviation is known.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SE curve</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Evaluate SE at sizes 10, 100, and 1,000; print each result and plot the curve to show the square-root law driving diminishing returns from larger samples.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Sampling Error Effect](assets/sampling_error_effect.png)
 *Figure 9: Effect of sample size on standard error. As sample size increases, the standard error decreases, showing improved precision.*
@@ -389,22 +589,25 @@ For estimating a proportion with specified margin of error:
 
 **Normal-approx sample size for a proportion**
 
-**Purpose:** Connect desired MOE and confidence level to a closed-form `n`, and plot how tightening MOE explodes required size when \(p(1-p)\) is fixed at 0.25.
+**Purpose:** Connect desired MOE and confidence level to a closed-form `n`, and plot how tightening MOE explodes required size when \\(p(1-p)\\) is fixed at 0.25.
 
-**Walkthrough:** `norm.ppf` supplies \(z_{\alpha/2}\); formula is the standard Wald-style planning equation; curve plots `n` vs a grid of margins.
+**Walkthrough:** `norm.ppf` supplies \\(z_{\alpha/2}\\); formula is the standard Wald-style planning equation; curve plots `n` vs a grid of margins.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def calculate_sample_size(confidence_level=0.95, margin_of_error=0.05, p=0.5):
     """Calculate required sample size for proportion estimation"""
     from scipy.stats import norm
-    
+
     z_score = norm.ppf(1 - (1 - confidence_level) / 2)
     n = (z_score**2 * p * (1-p)) / margin_of_error**2
-    
+
     # Visualize the relationship
     margins = np.linspace(0.01, 0.1, 100)
     sizes = [(z_score**2 * p * (1-p)) / m**2 for m in margins]
-    
+
     plt.figure(figsize=(10, 6))
     plt.plot(margins, sizes)
     plt.xlabel('Margin of Error')
@@ -413,13 +616,45 @@ def calculate_sample_size(confidence_level=0.95, margin_of_error=0.05, p=0.5):
     plt.grid(True)
     plt.savefig('assets/sample_size_relationship.png')
     plt.close()
-    
+
     return int(n)
 
 # Example usage
 n = calculate_sample_size()
 print(f"\nRequired sample size: {n}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Wald formula</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute the z critical value then apply the standard sample-size formula: n = z²·p(1-p) / MOE².</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Curve of n vs MOE</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot required n against a range of margins from 1% to 10% to visualise the hyperbolic trade-off between precision and cost.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-23" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Example call</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Call with defaults (95% confidence, 5% MOE, p=0.5) and print the recommended sample size.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Sample Size Relationship](assets/sample_size_relationship.png)
 *Figure 10: Relationship between margin of error and required sample size. As the desired margin of error decreases, the required sample size increases.*

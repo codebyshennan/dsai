@@ -25,20 +25,52 @@ Feature importance measures how much each feature contributes to the model's pre
 3. Understand model behavior
 4. Validate domain knowledge
 
+```mermaid
+graph LR
+    subgraph TREE["Tree / MDI importance  (fast)"]
+        T1["Sum mean impurity decrease\nacross all trees and splits"]
+        T1 --> T2["Built-in: rf.feature_importances_\nFast — no extra fit"]
+        T2 --> T3["Caveat: biased toward\nhigh-cardinality features\nCorrelated features split importance"]
+    end
+    subgraph PERM["Permutation importance  (reliable)"]
+        P1["1. Evaluate baseline score"]
+        P1 --> P2["2. Shuffle one feature column"]
+        P2 --> P3["3. Score drop = importance"]
+        P3 --> P4["Repeat for each feature\nn_repeats times"]
+        P4 --> P5["Model-agnostic\nWorks on any fitted estimator"]
+    end
+    subgraph SHAP["SHAP values  (most interpretable)"]
+        S1["Shapley values from game theory\nEach feature gets a fair credit share"]
+        S1 --> S2["Local (per prediction)\n+ Global (aggregated)\nBest for stakeholder explanations"]
+    end
+    CHOOSE{"Which to use?"}
+    CHOOSE -->|"Quick baseline"| TREE
+    CHOOSE -->|"Correlated features or need reliability"| PERM
+    CHOOSE -->|"Production / regulatory explanation"| SHAP
+```
+
 ## Types of Feature Importance
 
 ### 1. Tree-Based Methods
 
-```python
+#### Gini-based `feature_importances_`
+
+- **Purpose:** **Mean impurity decrease** (Gini) aggregated over trees—fast, but **biased** toward high-cardinality features.
+- **Walkthrough:** Fit `RandomForestClassifier`, read `feature_importances_`, sort indices descending, bar plot.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
 
 # Create sample dataset
-X, y = make_classification(n_samples=1000, n_features=10, 
-                         n_informative=5, n_redundant=2,
-                         random_state=42)
+X, y = make_classification(n_samples=1000, n_features=10,
+                           n_informative=5, n_redundant=2,
+                           random_state=42)
 
 # Train random forest
 rf = RandomForestClassifier(n_estimators=100, random_state=42)
@@ -55,12 +87,49 @@ plt.bar(range(X.shape[1]), importances[indices])
 plt.xticks(range(X.shape[1]), [f'Feature {i}' for i in indices], rotation=45)
 plt.tight_layout()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Model</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a 10-feature dataset with only 5 truly informative features; the Random Forest should rank those 5 higher than the redundant and noise features.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Extract and Sort Importances</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>feature_importances_</code> gives mean impurity-decrease per feature summed to 1; <code>argsort[::-1]</code> ranks them highest to lowest for a sorted bar chart.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-25" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bar Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot bars in sorted order using original feature-index labels; <code>rotation=45</code> prevents label overlap for 10 features.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![feature-importance](assets/feature-importance_fig_1.png)
 
 ### 2. Permutation Importance
+
+#### Model-agnostic drop in score
+
+- **Purpose:** Shuffle each feature, measure **score drop**—works for any fitted estimator and reflects **held-out** behavior better than impurity alone.
+- **Walkthrough:** Uses the same `rf`, `X`, `y` as above; `n_repeats` gives a distribution per feature (boxplot).
 
 ```python
 from sklearn.inspection import permutation_importance
@@ -81,6 +150,11 @@ plt.show()
 ![feature-importance](assets/feature-importance_fig_2.png)
 
 ### 3. SHAP Values
+
+#### TreeExplainer + summary plot
+
+- **Purpose:** **SHAP** attributes each prediction to features with consistency properties—useful for debugging and stakeholder explanations (install **`shap`**).
+- **Walkthrough:** `TreeExplainer` is exact for tree ensembles; summary plot shows magnitude and direction of impact.
 
 ```python
 import shap
@@ -139,10 +213,22 @@ plt.show()
 
 Let's analyze feature importance in a credit risk prediction task:
 
-```python
+#### Pipeline importances + SHAP on the forest
+
+- **Purpose:** Read **`classifier__`** step importances from a **Pipeline**, then explain the **underlying** `RandomForestClassifier` with SHAP.
+- **Walkthrough:** Same synthetic credit table as other 5.5 examples; `TreeExplainer` is fit on the forest, not the scaler.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import shap
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestClassifier
 
 # Create credit risk dataset
 np.random.seed(42)
@@ -189,7 +275,48 @@ plt.figure(figsize=(10, 6))
 shap.summary_plot(shap_values, X)
 plt.tight_layout()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Synthetic Credit Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Five financial features with realistic distributions; the binary label is a threshold on credit score, income, and age — meaning those three should dominate importance.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-32" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scale then classify in a single pipeline; access the fitted forest through <code>pipeline.named_steps['classifier']</code> to extract importances and build the SHAP explainer.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="34-44" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Ranked Bar Chart</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Extract importances from the classifier step, sort descending, and plot with real column names so stakeholders can read which financial factors drive the model.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="46-52" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SHAP Summary Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>TreeExplainer</code> is applied to the inner forest (not the scaler); the summary plot shows both magnitude and direction of each feature's impact on the output.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Additional Resources
 

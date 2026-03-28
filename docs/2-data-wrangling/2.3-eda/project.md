@@ -49,13 +49,13 @@ df = pd.read_csv('../_data/ecommerce_data.csv')
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
       <span class="code-callout__title">Required libraries</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Required libraries</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Six imports covering data manipulation (pandas, numpy), visualisation (matplotlib, seaborn), statistical tests (scipy), and time-series decomposition (statsmodels). The last line loads the assignment dataset.</p>
     </div>
   </div>
 </aside>
@@ -101,10 +101,10 @@ def analyze_numeric_relationships(data):
   <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Example structure</span>
+      <span class="code-callout__title">Scaffold for numeric relationship analysis</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Example structure</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>A stub function to fill in: compute Pearson/Spearman correlations and create scatter plots or a heatmap, then return the results dict.</p>
     </div>
   </div>
 </aside>
@@ -169,13 +169,22 @@ def segment_customers(data):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-13" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def segment_customers(data):</span>
+      <span class="code-callout__title">RFM metric stubs</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def segment_customers(data):</strong> — lines 1-13. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>The three comment placeholders mark where you compute Recency (days since last purchase), Frequency (order count), and Monetary value (total spend) per customer.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Clustering stub</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A placeholder for the clustering step—e.g. KMeans on the scaled RFM matrix—that assigns each customer a segment label returned as <code>segments</code>.</p>
     </div>
   </div>
 </aside>
@@ -363,58 +372,58 @@ if __name__ == "__main__":
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-19" data-tint="1">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">1. Initial Setup</span>
+      <span class="code-callout__title">Setup and data loading</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>1. Initial Setup</strong> — lines 1-19 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Imports and <code>load_and_prepare_data</code>: loads the CSV, parses the date column, and provides a stub for missing-value handling.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="20-39" data-tint="2">
+  <div class="code-callout" data-lines="24-48" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Your code here</span>
+      <span class="code-callout__title">Distribution analysis (numeric and categorical)</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Your code here</strong> — lines 20-39 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Loops over numeric columns to plot histograms+KDE and print describe stats, then loops over categorical columns to plot bar charts of value counts.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="40-59" data-tint="3">
+  <div class="code-callout" data-lines="50-65" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Categorical distributions</span>
+      <span class="code-callout__title">Relationship analysis</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Categorical distributions</strong> — lines 40-59 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Computes a numeric correlation matrix and visualises it as an annotated heatmap. A stub comment marks where categorical relationship code should go.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="60-78" data-tint="4">
+  <div class="code-callout" data-lines="67-85" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Sns.heatmap(correlation_matrix, annot=True, c…</span>
+      <span class="code-callout__title">Time series analysis</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Sns.heatmap(correlation_matrix, annot=True, c…</strong> — lines 60-78 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Sets the date as index, resamples to daily totals, and plots the trend. A stub comment marks where seasonal decomposition should be added.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="79-98" data-tint="1">
+  <div class="code-callout" data-lines="87-99" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Plt.figure(figsize=(15, 5))</span>
+      <span class="code-callout__title">Report generation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Plt.figure(figsize=(15, 5))</strong> — lines 79-98 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Bundles summary statistics, correlation analysis, temporal patterns, and key findings into a single report dict—the deliverable for stakeholders.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="99-118" data-tint="2">
+  <div class="code-callout" data-lines="101-118" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Return report</span>
+      <span class="code-callout__title">Main execution block</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Return report</strong> — lines 99-118 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Runs the full pipeline end to end: load → analyse distributions → analyse relationships → analyse time series → generate report, with stub result placeholders to fill in.</p>
     </div>
   </div>
 </aside>

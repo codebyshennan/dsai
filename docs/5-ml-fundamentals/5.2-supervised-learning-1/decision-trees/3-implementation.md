@@ -42,7 +42,10 @@ Let's build a simple system that helps diagnose whether someone might be sick ba
 
 **Walkthrough:** Rows are patients; columns are temperature, cough, fatigue (0/1 except temperature).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 import matplotlib.pyplot as plt
@@ -61,7 +64,39 @@ X = np.array([
 
 # Labels: 'sick' or 'healthy'
 y = ['sick', 'healthy', 'sick', 'healthy', 'healthy']
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>NumPy for the matrix, <code>DecisionTreeClassifier</code> and <code>plot_tree</code> for fitting and visualization, and matplotlib for rendering.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Patient Feature Matrix</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Each row is a patient; columns are temperature (numeric), cough (0/1), and fatigue (0/1)—a small supervised dataset with five examples.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-19" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">String Labels</span>
+    </div>
+    <div class="code-callout__body">
+      <p>scikit-learn's classifier accepts string targets directly; internally it encodes them numerically.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 This code sets up our sample patient data with three features: body temperature, presence of cough, and fatigue level. We also create corresponding labels indicating whether each patient is sick or healthy.
 
@@ -73,7 +108,10 @@ This code sets up our sample patient data with three features: body temperature,
 
 **Walkthrough:** `class_names` order should match alphabetical or `np.unique` order—here `['healthy','sick']` matches sklearn’s internal encoding.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Create the model with specific settings
 clf = DecisionTreeClassifier(
     max_depth=3,          # Don't let the tree get too deep
@@ -95,7 +133,39 @@ plot_tree(
 )
 plt.title('Disease Diagnosis Decision Tree')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Hyperparameters</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>max_depth=3</code> caps depth to prevent memorization; <code>min_samples_split</code> and <code>min_samples_leaf</code> control the minimum data required at each node.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit Model</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A single <code>fit</code> call finds the best splits using Gini impurity on the five training patients.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-21" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plot_tree</code> renders each node with the split condition, Gini score, sample count, and class distribution; <code>filled=True</code> colors nodes by majority class.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![3-implementation](assets/3-implementation_fig_1.png)
@@ -153,7 +223,10 @@ Let's try another example with the famous Iris dataset, which is built into scik
 
 **Walkthrough:** `train_test_split` with `random_state=42`; `score` is mean accuracy on `X_test`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 
@@ -188,7 +261,48 @@ plot_tree(
 )
 plt.title('Iris Classification Tree')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load Iris Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>sklearn's built-in Iris dataset provides 150 samples across 3 classes with real feature names and target names for the plot.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Split and Train</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A 70/30 train/test split with a fixed seed ensures reproducibility; the classifier is fit only on training data.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-23" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Evaluate Accuracy</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>score</code> returns mean accuracy on the held-out test set—a quick sanity check before deeper evaluation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-34" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Passes real feature names and class names to <code>plot_tree</code> so each split condition and leaf label is human-readable.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![3-implementation](assets/3-implementation_fig_2.png)
@@ -216,7 +330,10 @@ Now let's try a regression problem - predicting house prices:
 
 **Walkthrough:** Uses `train_test_split` from the Iris section if run top-to-bottom; in isolation add `from sklearn.model_selection import train_test_split`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.tree import DecisionTreeRegressor
 import numpy as np
 import matplotlib.pyplot as plt
@@ -269,7 +386,48 @@ plt.title('Feature Importance for House Price Prediction')
 plt.xlabel('Features')
 plt.ylabel('Importance')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-21" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">House Data Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Ten houses described by three numeric features (size, bedrooms, age) with prices in thousands — a minimal regression dataset.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-31" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Split and Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>30% held out for testing; <code>DecisionTreeRegressor</code> at <code>max_depth=3</code> predicts by averaging the target values in each leaf.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="33-41" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Evaluate and Predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p>R² on train vs test reveals overfitting; then a single new house is scored to show the inference API.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="43-51" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Feature Importances</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>feature_importances_</code> sums to 1 across features; a bar chart shows which column drove the most impurity reduction during training.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![3-implementation](assets/3-implementation_fig_3.png)
@@ -298,7 +456,10 @@ For a better understanding, let's create a simple 2D visualization of how decisi
 
 **Walkthrough:** Labels derive from $x_0+x_1>1$ with random flips; mesh predictions illustrate rectangles.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
@@ -339,7 +500,48 @@ plt.title('Decision Tree Decision Boundary')
 plt.xlabel('Feature 1')
 plt.ylabel('Feature 2')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Synthetic Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>100 random 2D points are labeled by the rule <code>x₀ + x₁ > 1</code>, then ~10% of labels are flipped to introduce realistic noise.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit Classifier</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A depth-3 tree is trained on the noisy data; it will carve the space into at most 8 rectangular regions.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-28" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Meshgrid Predictions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A fine grid covers the feature space; predicting every grid point reveals the full decision boundary as a 2D surface.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="30-40" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot Boundaries</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>contourf</code> fills the background with the predicted class color; individual training points are overlaid to show where the boundary cuts through the data.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![3-implementation](assets/3-implementation_fig_4.png)
@@ -394,7 +596,10 @@ Decision trees don't require feature scaling, which is a benefit compared to man
 
 **Walkthrough:** Fit scaler on train only; same `max_depth` on raw vs scaled matrices.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.preprocessing import StandardScaler
 
 # Decision trees work fine without scaling
@@ -410,7 +615,30 @@ X_test_scaled = scaler.transform(X_test)
 tree_with_scaling = DecisionTreeClassifier(max_depth=3)
 tree_with_scaling.fit(X_train_scaled, y_train)
 print(f"With scaling: {tree_with_scaling.score(X_test_scaled, y_test):.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Tree Without Scaling</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A depth-3 tree is fit directly on unscaled features and scored on the test set — decision trees use threshold comparisons, so feature magnitude doesn't change the splits.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Tree With Scaling</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>StandardScaler</code> is fit on training data only, then applied to both splits; the identical accuracy confirms that axis-aligned tree splits are invariant to affine feature rescaling.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 

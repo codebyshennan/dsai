@@ -4,7 +4,7 @@
 
 ## Overview
 
-If you drew another sample tomorrow, your mean would change slightly. A **sampling distribution** describes how a statistic (like \(\bar x\)) would vary under repeated sampling. That distribution is what makes [confidence intervals](./confidence-intervals.md) and, later, p-values and tests behave the way they do—including the famous **Central Limit Theorem** for means.
+If you drew another sample tomorrow, your mean would change slightly. A **sampling distribution** describes how a statistic (like \\(\bar x\\)) would vary under repeated sampling. That distribution is what makes [confidence intervals](./confidence-intervals.md) and, later, p-values and tests behave the way they do—including the famous **Central Limit Theorem** for means.
 
 ## Helpful video
 
@@ -59,13 +59,16 @@ The Central Limit Theorem states that for sufficiently large samples:
 
 Let's see it in action!
 
-**CLT simulation: population → one sample → distribution of \(\bar x\)**
+**CLT simulation: population → one sample → distribution of \\(\bar x\\)**
 
 **Purpose:** Visualize three panels—population shape, a single sample, and the histogram of many sample means—with an overlaid normal curve so the sampling distribution looks approximately Gaussian even when the population is not.
 
 **Walkthrough:** `np.random.choice` with replacement builds bootstrap-style means; subplot 133 compares empirical spread to `stats.norm.pdf` matched to the simulated mean and SD of `sample_means`; PNGs write under `assets/clt_*.png`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
@@ -75,7 +78,7 @@ def demonstrate_clt(distribution='exponential', sample_size=30, n_samples=1000):
     Demonstrate CLT with different distributions
     """
     plt.figure(figsize=(15, 5))
-    
+
     # Generate population
     if distribution == 'exponential':
         population = np.random.exponential(scale=1.0, size=10000)
@@ -89,26 +92,26 @@ def demonstrate_clt(distribution='exponential', sample_size=30, n_samples=1000):
             np.random.normal(3, 0.5, 3000)
         ])
         title = 'Skewed Distribution'
-    
+
     # Take many samples and calculate their means
     sample_means = [
         np.mean(np.random.choice(population, size=sample_size))
         for _ in range(n_samples)
     ]
-    
+
     # Plot results
     plt.subplot(131)
     plt.hist(population, bins=50, density=True, alpha=0.7, color='skyblue')
     plt.title(f'Population Distribution\n({title})')
     plt.xlabel('Value')
     plt.ylabel('Density')
-    
+
     plt.subplot(132)
     sample = np.random.choice(population, size=sample_size)
     plt.hist(sample, bins=20, density=True, alpha=0.7, color='lightgreen')
     plt.title(f'One Sample Distribution\n(n={sample_size})')
     plt.xlabel('Value')
-    
+
     plt.subplot(133)
     plt.hist(sample_means, bins=30, density=True, alpha=0.7, color='salmon')
     x = np.linspace(min(sample_means), max(sample_means), 100)
@@ -117,7 +120,7 @@ def demonstrate_clt(distribution='exponential', sample_size=30, n_samples=1000):
     plt.title(f'Sampling Distribution\nof the Mean')
     plt.xlabel('Sample Mean')
     plt.legend()
-    
+
     plt.tight_layout()
     return plt
 
@@ -127,7 +130,57 @@ for dist in distributions:
     plt = demonstrate_clt(distribution=dist)
     plt.savefig(f'docs/4-stat-analysis/4.1-inferential-stats/assets/clt_{dist}.png')
     plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import NumPy, Matplotlib, and SciPy stats for population generation and curve fitting.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Build population</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Switch on <code>distribution</code> to build an exponential, uniform, or bimodal skewed population of 10,000 values.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sampling distribution</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Collect 1,000 sample means; this list is the empirical sampling distribution shown in subplot 3.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="31-51" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three-panel figure</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Panel 1: raw population. Panel 2: one sample. Panel 3: histogram of many means with an overlaid normal curve to illustrate CLT convergence.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="55-59" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Save all variants</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Loop over three population shapes and save each three-panel figure as a PNG for the lesson assets.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 *Note: The visualization shows how the sampling distribution of the mean becomes approximately normal regardless of the population distribution. This is the essence of the Central Limit Theorem.*
 
@@ -145,11 +198,14 @@ Let's see how sample size affects SE:
 
 **Empirical vs theoretical standard error across n**
 
-**Purpose:** Tie the \(1/\sqrt{n}\) formula to a Monte Carlo: for each `n`, estimate the spread of \(\bar x\) and compare to \(\sigma/\sqrt{n}\) from the fixed synthetic population.
+**Purpose:** Tie the \\(1/\sqrt{n}\\) formula to a Monte Carlo: for each `n`, estimate the spread of \\(\bar x\\) and compare to \\(\sigma/\sqrt{n}\\) from the fixed synthetic population.
 
 **Walkthrough:** Nested list comprehensions draw repeated means; subplot titles print empirical SE (`np.std(sample_means)`); bottom loop prints a table aligning theoretical and empirical columns.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def demonstrate_standard_error():
     """
     Show how SE changes with sample size
@@ -157,57 +213,57 @@ def demonstrate_standard_error():
     # Generate population
     np.random.seed(42)
     population = np.random.normal(100, 15, 10000)
-    
+
     # Test different sample sizes
     sizes = [10, 30, 100, 300, 1000]
     results = []
-    
+
     # Visualize the effect of sample size on SE
     plt.figure(figsize=(12, 8))
     for i, n in enumerate(sizes):
         plt.subplot(2, 3, i+1)
-        
+
         # Take multiple samples
         sample_means = [
             np.mean(np.random.choice(population, size=n))
             for _ in range(1000)
         ]
-        
+
         # Plot sampling distribution
         plt.hist(sample_means, bins=30, density=True, alpha=0.7)
-        plt.axvline(np.mean(population), color='red', linestyle='--', 
+        plt.axvline(np.mean(population), color='red', linestyle='--',
                    label='Population Mean')
-        
+
         # Add normal curve
         x = np.linspace(min(sample_means), max(sample_means), 100)
         plt.plot(x, stats.norm.pdf(x, np.mean(sample_means), np.std(sample_means)),
                 'k--', label='Normal Curve')
-        
+
         plt.title(f'Sample Size: {n}\nSE: {np.std(sample_means):.2f}')
         plt.legend()
-    
+
     plt.tight_layout()
     plt.savefig('docs/4-stat-analysis/4.1-inferential-stats/assets/standard_error_effect.png')
     plt.close()
-    
+
     # Calculate theoretical and empirical SE
     for n in sizes:
         # Theoretical SE
         theoretical_se = np.std(population) / np.sqrt(n)
-        
+
         # Empirical SE (from sampling distribution)
         sample_means = [
             np.mean(np.random.choice(population, size=n))
             for _ in range(1000)
         ]
         empirical_se = np.std(sample_means)
-        
+
         results.append({
             'size': n,
             'theoretical': theoretical_se,
             'empirical': empirical_se
         })
-    
+
     return results
 
 # Run demonstration
@@ -217,7 +273,48 @@ print("Sample Size | Theoretical SE | Empirical SE")
 print("-" * 45)
 for r in se_results:
     print(f"{r['size']:^10d} | {r['theoretical']:^13.3f} | {r['empirical']:^11.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="5-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Population setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create a synthetic normal population of 10,000 values with mean 100 and SD 15 as the reference distribution.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-36" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Subplot grid</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each n, simulate 1,000 sample means, plot the sampling distribution as a histogram with a normal curve overlay and the SE in the title.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="41-56" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Theoretical vs empirical</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute both the formula-based SE (σ/√n) and the Monte Carlo SE for each sample size and store them for the table printout.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="60-65" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Comparison table</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print a formatted table comparing theoretical and empirical SE values so students can verify the formula against simulation.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 *Note: The visualization shows how the sampling distribution becomes narrower (smaller standard error) as sample size increases. This demonstrates the relationship between sample size and estimation precision.*
 
@@ -231,7 +328,10 @@ for r in se_results:
 
 **Walkthrough:** One draw of `n=30` measurements; `fill_between` shades the spec window; status compares |sample mean − target| to `tolerance` (coarse rule).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def quality_control_demo():
     """
     Simulate quality control in manufacturing
@@ -239,12 +339,12 @@ def quality_control_demo():
     # Target specification: 100 ± 2 units
     target = 100
     tolerance = 2
-    
+
     # Production line measurements (30 samples per hour)
     measurements = np.random.normal(100.5, 1.5, 30)
     mean = np.mean(measurements)
     se = stats.sem(measurements)
-    
+
     # Visualize the results
     plt.figure(figsize=(10, 6))
     plt.hist(measurements, bins=15, alpha=0.7, label='Measurements')
@@ -252,7 +352,7 @@ def quality_control_demo():
     plt.axvline(target, color='green', linestyle=':', label='Target')
     plt.axvline(target + tolerance, color='orange', linestyle=':', label='Tolerance')
     plt.axvline(target - tolerance, color='orange', linestyle=':')
-    plt.fill_between([target-tolerance, target+tolerance], [0, 0], [10, 10], 
+    plt.fill_between([target-tolerance, target+tolerance], [0, 0], [10, 10],
                      color='orange', alpha=0.2)
     plt.title('Quality Control Measurements')
     plt.xlabel('Measurement Value')
@@ -260,7 +360,7 @@ def quality_control_demo():
     plt.legend()
     plt.savefig('docs/4-stat-analysis/4.1-inferential-stats/assets/quality_control.png')
     plt.close()
-    
+
     print("\nQuality Control Report")
     print(f"Specification: {target} ± {tolerance}")
     print(f"Sample Mean: {mean:.2f}")
@@ -268,19 +368,63 @@ def quality_control_demo():
     print(f"Status: {'In Control' if abs(mean - target) <= tolerance else 'Out of Control'}")
 
 quality_control_demo()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="5-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Spec limits</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define the nominal target (100) and acceptable tolerance band (±2 units) for the production specification.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-11" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Hourly sample</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Simulate 30 production measurements drawn from a slightly off-target normal and compute the mean and standard error.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-28" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Control chart</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot the histogram with lines for the sample mean, nominal target, and tolerance bounds shaded in orange.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="30-34" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Status report</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print mean, SE, and a simple "In Control / Out of Control" status based on whether the mean falls within tolerance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 *Note: The visualization shows the distribution of quality control measurements with the target value and tolerance limits. This helps us understand if the production process is in control.*
 
 ### 2. Political Polling
 
-**Monte Carlo distribution of \(\hat p\) and one poll’s MOE**
+**Monte Carlo distribution of \\(\hat p\\) and one poll’s MOE**
 
-**Purpose:** Show how repeated polls of the same size vary around the true support, then compute \(\hat p\) and a normal-approx margin \(\pm 1.96 \times SE\) for a single survey.
+**Purpose:** Show how repeated polls of the same size vary around the true support, then compute \\(\hat p\\) and a normal-approx margin \\(\pm 1.96 \times SE\\) for a single survey.
 
-**Walkthrough:** `poll_results` lists means of Bernoulli draws; second block uses \(\sqrt{\hat p(1-\hat p)/n}\) for SE; figure saved as `polling_results.png`.
+**Walkthrough:** `poll_results` lists means of Bernoulli draws; second block uses \\(\sqrt{\hat p(1-\hat p)/n}\\) for SE; figure saved as `polling_results.png`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def polling_demo():
     """
     Simulate political polling
@@ -288,14 +432,14 @@ def polling_demo():
     # True population support: 52%
     true_support = 0.52
     sample_size = 1000
-    
+
     # Simulate multiple polls
     n_polls = 100
     poll_results = [
         np.mean(np.random.binomial(1, true_support, sample_size))
         for _ in range(n_polls)
     ]
-    
+
     # Visualize the results
     plt.figure(figsize=(10, 6))
     plt.hist(poll_results, bins=20, alpha=0.7, label='Poll Results')
@@ -307,17 +451,58 @@ def polling_demo():
     plt.legend()
     plt.savefig('docs/4-stat-analysis/4.1-inferential-stats/assets/polling_results.png')
     plt.close()
-    
+
     # Calculate statistics for a single poll
     poll = np.random.binomial(1, true_support, sample_size)
     p_hat = np.mean(poll)
     se = np.sqrt(p_hat * (1-p_hat) / sample_size)
-    
+
     print("\nPolitical Poll Results")
     print(f"Support: {p_hat:.1%}")
     print(f"Margin of Error (95% CI): ±{1.96*se:.1%}")
     print(f"Sample Size: {sample_size:,}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="5-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Poll parameters</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Set the true support level at 52% and simulate 100 independent polls of 1,000 voters each.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sampling distribution of p̂</span>
+    </div>
+    <div class="code-callout__body">
+      <p>List comprehension builds 100 Bernoulli-draw means, creating an empirical sampling distribution of the proportion.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-27" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Poll histogram</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Visualize the spread of poll results with vertical lines marking the true support and the mean of simulated polls.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-36" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Single poll margin</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute p̂ and the normal-approximation SE for one poll, then print the margin of error (±1.96·SE) as a percentage.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![sampling-distributions](assets/sampling-distributions_fig_1.png)
@@ -358,9 +543,12 @@ def polling_demo():
 
 **Purpose:** Let learners see sampling variability in one shot: overlay population, single sample, and a rough CI using sample-derived SE (pedagogical; for inference you’d use t).
 
-**Walkthrough:** `se = np.std(sample)/sqrt(n)` uses sample SD; shaded band is \(\bar x \pm 1.96\cdot SE\); the “contains true mean?” printout is a single-check narrative exercise.
+**Walkthrough:** `se = np.std(sample)/sqrt(n)` uses sample SD; shaded band is \\(\bar x \pm 1.96\cdot SE\\); the “contains true mean?” printout is a single-check narrative exercise.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def sampling_game(true_mean=100, true_std=15, sample_size=30):
     """
     Interactive demonstration of sampling variability
@@ -369,14 +557,14 @@ def sampling_game(true_mean=100, true_std=15, sample_size=30):
     sample = np.random.choice(population, size=sample_size)
     sample_mean = np.mean(sample)
     se = np.std(sample) / np.sqrt(sample_size)
-    
+
     # Visualize the results
     plt.figure(figsize=(10, 6))
     plt.hist(population, bins=50, alpha=0.3, label='Population')
     plt.hist(sample, bins=15, alpha=0.7, label='Sample')
     plt.axvline(true_mean, color='red', linestyle='--', label='True Mean')
     plt.axvline(sample_mean, color='blue', linestyle=':', label='Sample Mean')
-    plt.fill_between([sample_mean-1.96*se, sample_mean+1.96*se], [0, 0], [100, 100], 
+    plt.fill_between([sample_mean-1.96*se, sample_mean+1.96*se], [0, 0], [100, 100],
                      color='blue', alpha=0.2, label='95% CI')
     plt.title('The Sampling Game')
     plt.xlabel('Value')
@@ -384,7 +572,7 @@ def sampling_game(true_mean=100, true_std=15, sample_size=30):
     plt.legend()
     plt.savefig('docs/4-stat-analysis/4.1-inferential-stats/assets/sampling_game.png')
     plt.close()
-    
+
     print("\nThe Sampling Game")
     print(f"Sample Mean: {sample_mean:.1f}")
     print(f"Standard Error: {se:.2f}")
@@ -392,7 +580,39 @@ def sampling_game(true_mean=100, true_std=15, sample_size=30):
     print(f"Contains true mean? {'Yes' if true_mean-1.96*se <= sample_mean <= true_mean+1.96*se else 'No'}")
 
 sampling_game()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="4-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">One draw</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a population and take one random sample; compute the sample mean and approximate SE using the sample SD.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Overlaid histograms</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot the population (transparent) and sample (opaque) with vertical lines for both means and a shaded approximate 95% CI band.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Coverage check</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print the CI and check whether the true mean falls inside it—a simple illustration of what "95% confidence" means in one run.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 *Note: The visualization shows how a single sample relates to the population distribution. The confidence interval helps us understand the uncertainty in our sample mean estimate.*
 

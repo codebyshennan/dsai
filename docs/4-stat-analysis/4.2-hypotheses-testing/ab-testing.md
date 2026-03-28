@@ -30,6 +30,27 @@ Imagine you're a chef trying to improve a recipe. Instead of guessing what chang
 
 ## The Basics: Control vs Treatment
 
+```mermaid
+graph TD
+    subgraph DESIGN["A/B Test Design"]
+        Q["Business question:\nDoes variant B improve metric M?"]
+        Q --> HYPO["H₀: μ_B = μ_A\nH₁: μ_B ≠ μ_A  (or > for one-sided)"]
+        HYPO --> POWER["Power analysis\nChoose α, power (1-β)\nCompute required sample size n"]
+    end
+    subgraph RUN["Running the test"]
+        RAND["Random assignment\nControl A ← 50%\nTreatment B ← 50%"]
+        RAND --> COLLECT["Collect data\nuntil n reached\n(no peeking!)"]
+        COLLECT --> ANALYSE["t-test / z-test / chi-squared\nCompute p-value and CI"]
+    end
+    subgraph INTERPRET["Interpreting results"]
+        ANALYSE --> DEC{p < α\nAND CI excludes 0?}
+        DEC -->|"Yes"| SHIP["Ship variant B\n(statistical AND practical significance)"]
+        DEC -->|"No"| HOLD["Keep A\nor redesign experiment"]
+    end
+    DESIGN --> RUN
+    RUN --> INTERPRET
+```
+
 ### What is A/B Testing?
 
 A/B testing (or split testing) is like running a scientific experiment where you:
@@ -52,7 +73,10 @@ A/B testing (or split testing) is like running a scientific experiment where you
 
 **Walkthrough:** `_calculate_stats` uses `stats.sem` for the standard error passed to `t.interval`; `visualize` builds three `subplot`s and saves to `assets/ab_test_results.png` next to this module.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -115,9 +139,59 @@ class ABTest:
         plt.tight_layout()
         plt.savefig('docs/4-stat-analysis/4.2-hypotheses-testing/assets/ab_test_results.png')
         plt.close()
-        
+
         return self
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and class definition</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import NumPy, pandas, scipy stats, Matplotlib, and Seaborn — the standard stack for statistical analysis and visualization. The <code>ABTest</code> class wraps both arms of the experiment and the methods that operate on them, keeping the analysis self-contained.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Store both arms, compute stats immediately</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The constructor stores control and treatment data, then immediately computes summary statistics for both. Doing this in <code>__init__</code> means every method can access <code>self.control_stats</code> without recomputing.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-32" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">95% confidence interval</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>stats.t.interval(0.95, ...)</code> returns a (lower, upper) interval using the t-distribution with <code>n-1</code> degrees of freedom. <code>stats.sem</code> computes the standard error of the mean — the CI shows the range where the true mean likely falls.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="34-50" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Distribution &amp; box plot views</span>
+    </div>
+    <div class="code-callout__body">
+      <p>KDE plots reveal distributional shape (skew, bimodality) that summary stats hide. The box plot shows median, IQR, and outliers side by side — together they give a fuller picture than just comparing means.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="52-64" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Effect size, save, and return</span>
+    </div>
+    <div class="code-callout__body">
+      <p>(Treatment mean − Control mean) ÷ Control std is a Cohen's d–style effect size. Unlike a p-value, it tells you <em>how large</em> the difference is in standard deviation units. <code>savefig</code> writes the three-panel figure to disk; returning <code>self</code> allows method chaining.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Setting Up Your A/B Test
 
@@ -127,7 +201,7 @@ Don't start without knowing how many samples you need!
 
 **Approximate per-arm sample size (normal approximation)**
 
-**Purpose:** Translate baseline rate, minimum detectable effect, \(\alpha\), and power into a rounded per-group `n`—the kind of back-of-envelope planning step used before you trust a full statsmodels power routine.
+**Purpose:** Translate baseline rate, minimum detectable effect, \\(\alpha\\), and power into a rounded per-group `n`—the kind of back-of-envelope planning step used before you trust a full statsmodels power routine.
 
 **Walkthrough:** Uses normal critical values `norm.ppf`; the pooled variance line is a simplified prop-of-variance setup; result returns both per-group and total `2n`.
 
@@ -344,7 +418,7 @@ Don't just look at the numbers - understand them:
 
 **Purpose:** Package the numbers stakeholders ask for—lift, p-value, and an interval on the difference—plus a toy `recommendation` flag (you would replace business rules in production).
 
-**Walkthrough:** `relative_change` divides by control mean; `ttest_ind` on raw arrays; `stats.t.interval` targets the sampling distribution of \(\bar B - \bar A\) with a large-sample style scale (illustrative).
+**Walkthrough:** `relative_change` divides by control mean; `ttest_ind` on raw arrays; `stats.t.interval` targets the sampling distribution of \\(\bar B - \bar A\\) with a large-sample style scale (illustrative).
 
 ```python
 def analyze_results(control_data, treatment_data, alpha=0.05):
@@ -401,7 +475,7 @@ Don't keep checking results - it increases false positives!
 
 **Bonferroni-style peeking adjustment (illustrative)**
 
-**Purpose:** Show how `multipletests` can shrink effective \(\alpha\) when you peek repeatedly—real A/B platforms often use spending functions instead, but Bonferroni is the didactic baseline.
+**Purpose:** Show how `multipletests` can shrink effective \\(\alpha\\) when you peek repeatedly—real A/B platforms often use spending functions instead, but Bonferroni is the didactic baseline.
 
 **Walkthrough:** `alpha_per_peek = 0.05 / total_looks` is strict; `multipletests(..., method='bonferroni')` returns adjusted p-values and rejection flags.
 

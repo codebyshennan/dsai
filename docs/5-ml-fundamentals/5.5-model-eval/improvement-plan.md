@@ -1,3 +1,6 @@
+---
+published: false
+---
 # Model Evaluation Learning Materials - Improvement Plan
 
 **After this lesson:** you can explain the core ideas in “Model Evaluation Learning Materials - Improvement Plan” and reproduce the examples here in your own notebook or environment.

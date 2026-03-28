@@ -34,6 +34,31 @@ Just as a good student balances studying and following rules, a good model balan
 
 ## Types of Regularization Terms
 
+```mermaid
+graph LR
+    subgraph L1["L1 (Lasso) — Σ|βⱼ|"]
+        L1A["Penalty shape:\nDiamond (sharp corners)"]
+        L1B["Effect:\nShrinks small weights → exactly 0"]
+        L1C["Produces:\nSparse model\n(automatic feature selection)"]
+        L1D["Use when:\nFew features actually matter"]
+    end
+    subgraph L2["L2 (Ridge) — Σβⱼ²"]
+        L2A["Penalty shape:\nCircle (smooth)"]
+        L2B["Effect:\nShrinks all weights proportionally"]
+        L2C["Produces:\nSmall but non-zero weights\n(keeps all features)"]
+        L2D["Use when:\nMany features each contribute\na little"]
+    end
+    subgraph EN["Elastic Net — αL1 + (1-α)L2"]
+        ENA["Mix of both\nα controls the balance"]
+        ENB["Use when:\nMany correlated features"]
+    end
+    L1 --- LAMBDA["λ (lambda)\nControls strength for all three"]
+    L2 --- LAMBDA
+    EN --- LAMBDA
+```
+
+*The key geometric intuition: L1's diamond corners sit on the axes, so the optimal solution often lands exactly at zero for some weights — that's sparse. L2's smooth circle never quite reaches the axes.*
+
 ### 1. L1 Regularization (Lasso)
 
 $$R(\beta) = \sum_{j=1}^p |\beta_j|$$

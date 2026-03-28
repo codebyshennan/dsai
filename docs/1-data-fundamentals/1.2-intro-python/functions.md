@@ -28,6 +28,19 @@ Think of each function as a reusable **input → process → output** pipeline:
 - Process: Data transformation, analysis, or modeling
 - Output: Processed data, statistics, or visualizations
 
+```mermaid
+flowchart LR
+    subgraph DEF["def analyze_numeric_column(data)"]
+        direction TB
+        P["Parameters\n(data: pd.Series)"] --> BODY["Function body\nmean, median, std…"]
+        BODY --> RET["return { stats }"]
+    end
+    CALL["Call site\nanalyze_numeric_column(df['age'])"] --> DEF
+    DEF --> OUT["Return value\n{'mean': 35.2, …}"]
+```
+
+*Once defined, the same function can be called on any column — that's the reusability win.*
+
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -1120,22 +1133,49 @@ results = (analyzer
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Fluent DataAnalyzer chain">
-  <div class="code-callout" data-lines="1-32" data-tint="1">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class API</span>
+      <span class="code-callout__title">Class header and constructor</span>
     </div>
     <div class="code-callout__body">
-      <p>Copy df, chain clean → stats → corr, store in results.</p>
+      <p><code>df.copy()</code> prevents accidental mutation of the caller's DataFrame. <code>self.results</code> is a shared dict that each method populates — returned at the end of the chain.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="34-40" data-tint="2">
+  <div class="code-callout" data-lines="8-11" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">clean_data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Drops rows with any missing value. Returning <code>self</code> is what makes method chaining possible — the next method call goes on the same object.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">calculate_statistics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A dict comprehension builds one <code>{mean, std}</code> entry per numeric column. <code>select_dtypes(include=[np.number])</code> automatically skips text columns — the result is stored in <code>self.results['statistics']</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-32" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">analyze_correlations and get_results</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>numeric_cols.corr()</code> returns a pairwise correlation matrix. <code>get_results()</code> terminates the chain and hands back the accumulated <code>self.results</code> dict for printing or further analysis.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="34-40" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
       <span class="code-callout__title">Fluent usage</span>
     </div>
     <div class="code-callout__body">
-      <p>Method chaining then get_results().</p>
+      <p>Method chaining calls each step left-to-right in a single expression. Parentheses wrap the chain for readability across multiple lines.</p>
     </div>
   </div>
 </aside>

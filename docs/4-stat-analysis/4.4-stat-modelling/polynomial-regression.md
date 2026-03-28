@@ -83,7 +83,10 @@ Imagine you're studying how study time affects exam scores. The relationship mig
 
 **Walkthrough:** `np.linspace`; polynomial in `study_hours`; `plt.scatter`; `savefig` as `nonlinear_relationship.png`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -117,7 +120,39 @@ plt.grid(True)
 plt.legend()
 plt.savefig('nonlinear_relationship.png')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import NumPy, Matplotlib, pandas, and scikit-learn utilities needed for generating, transforming, and fitting polynomial models.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Quadratic relationship</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate scores from a concave quadratic (10h − 0.5h²) plus noise, producing diminishing returns for extra study hours.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scatter plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Visualise the non-linear study-time vs. score relationship to motivate polynomial regression over a straight line.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 When you run this code, you'll see a scatter plot that looks something like this (saved as `nonlinear_relationship.png`):
 
@@ -149,33 +184,36 @@ Let's compare linear and polynomial fits to see the difference:
 
 **Walkthrough:** `PolynomialFeatures.fit_transform`; two `LinearRegression` fits; `mean_squared_error` in legend strings.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def compare_linear_polynomial():
     """Compare linear and polynomial fits on the same data"""
     # Generate data with a cubic pattern
     x = np.linspace(-3, 3, 100)
     # Creating a cubic function with noise
     y = x**3 - 2*x**2 + x + np.random.normal(0, 0.5, 100)
-    
+
     # Create DataFrame
     df = pd.DataFrame({'x': x, 'y': y})
-    
+
     # Plot raw data
     plt.figure(figsize=(12, 6))
     plt.scatter(x, y, alpha=0.5, label='Data')
-    
+
     # Fit linear regression
     lin_reg = LinearRegression()
     lin_reg.fit(x.reshape(-1, 1), y)
     y_lin = lin_reg.predict(x.reshape(-1, 1))
-    
+
     # Fit polynomial regression
     poly = PolynomialFeatures(degree=3)
     X_poly = poly.fit_transform(x.reshape(-1, 1))
     poly_reg = LinearRegression()
     poly_reg.fit(X_poly, y)
     y_poly = poly_reg.predict(X_poly)
-    
+
     # Plot both fits
     plt.plot(x, y_lin, 'r-', label=f'Linear Fit (MSE: {mean_squared_error(y, y_lin):.2f})')
     plt.plot(x, y_poly, 'g-', label=f'Polynomial Fit (degree=3) (MSE: {mean_squared_error(y, y_poly):.2f})')
@@ -189,7 +227,48 @@ def compare_linear_polynomial():
 
 # Run the function
 compare_linear_polynomial()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="3-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Cubic data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate y from a cubic function (x³ − 2x² + x) plus Gaussian noise to create a clearly non-linear pattern.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Linear fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit a plain <code>LinearRegression</code> on the raw x values and predict—this will miss the curvature and show a higher MSE.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-27" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Polynomial fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Expand x to degree-3 features with <code>PolynomialFeatures</code>, fit another <code>LinearRegression</code>, and overlay its predictions in green.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-38" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">MSE comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Embed live MSE values in each legend label so the plot immediately shows how much better the polynomial fit is.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 When you run this code, you'll see a comparison like this (saved as `linear_vs_polynomial.png`):
 
@@ -218,40 +297,43 @@ Let's visualize this transformation process:
 
 **Walkthrough:** `PolynomialFeatures(degree=2, include_bias=False)`; `fit_transform` on column vector; three subplots.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def visualize_polynomial_transformation():
     """Visualize how polynomial transformation creates new features"""
     # Create simple data
     x = np.array([1, 2, 3, 4, 5]).reshape(-1, 1)
-    
+
     # Transform to polynomial features (degree=2)
     poly = PolynomialFeatures(degree=2, include_bias=False)
     x_poly = poly.fit_transform(x)
-    
+
     # Create DataFrame to display the transformation
     feature_names = ['x', 'x^2']
     transformed_df = pd.DataFrame(x_poly, columns=feature_names)
     transformed_df.insert(0, 'Original x', x)
-    
+
     # Display the transformation
     print("Polynomial Feature Transformation (degree=2):")
     print(transformed_df)
-    
+
     # Visualize the transformation
     plt.figure(figsize=(10, 6))
-    
+
     # Original feature
     plt.subplot(1, 3, 1)
     plt.scatter(range(len(x)), x, color='blue')
     plt.title('Original Feature (x)')
     plt.grid(True)
-    
+
     # x^2 feature
     plt.subplot(1, 3, 2)
     plt.scatter(range(len(x)), x_poly[:, 1], color='red')
     plt.title('Transformed Feature (x^2)')
     plt.grid(True)
-    
+
     # Combined visualization
     plt.subplot(1, 3, 3)
     plt.plot(x.flatten(), x.flatten(), label='x', marker='o')
@@ -259,14 +341,46 @@ def visualize_polynomial_transformation():
     plt.title('Original vs Transformed Features')
     plt.grid(True)
     plt.legend()
-    
+
     plt.tight_layout()
     plt.savefig('feature_transformation.png')
     plt.show()
 
 # Run the function
 visualize_polynomial_transformation()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="3-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create and transform</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Build a small column vector [1–5] and use <code>PolynomialFeatures(degree=2, include_bias=False)</code> to produce the [x, x²] feature matrix.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Tabular inspection</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Wrap the transformed matrix in a DataFrame with named columns and print it so the numeric expansion is visible before plotting.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-46" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three-panel comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot the original x, the squared x², and an overlay of both side by side to show how the squared term grows much faster than the linear term.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 When you run this code, you'll see both a table and visualization like this (saved as `feature_transformation.png`):
 
@@ -317,7 +431,10 @@ The degree of the polynomial is crucial. Too low, and you underfit the data. Too
 
 **Walkthrough:** Loop `degrees`; in-sample `predict`; `mean_squared_error`; `plt.subplot(2,2,i)`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def plot_different_degrees():
     """Show effect of different polynomial degrees"""
     # Generate data
@@ -326,24 +443,24 @@ def plot_different_degrees():
     # True function is a cubic (degree 3) polynomial with noise
     y_true = x**3 - 2*x**2 + x
     y = y_true + np.random.normal(0, 1, 100)
-    
+
     # Plot data and true function
     plt.figure(figsize=(15, 10))
-    
+
     degrees = [1, 2, 3, 10]
     for i, degree in enumerate(degrees, 1):
         plt.subplot(2, 2, i)
-        
+
         # Fit polynomial
         poly = PolynomialFeatures(degree=degree)
         X_poly = poly.fit_transform(x.reshape(-1, 1))
         model = LinearRegression()
         model.fit(X_poly, y)
         y_pred = model.predict(X_poly)
-        
+
         # Calculate error
         mse = mean_squared_error(y, y_pred)
-        
+
         # Plot
         plt.scatter(x, y, alpha=0.3, label='Data')
         plt.plot(x, y_true, 'b--', label='True function')
@@ -351,14 +468,46 @@ def plot_different_degrees():
         plt.title(f'Degree {degree} Polynomial (MSE: {mse:.2f})')
         plt.legend()
         plt.grid(True)
-    
+
     plt.tight_layout()
     plt.savefig('polynomial_degrees.png')
     plt.show()
 
 # Run the function
 plot_different_degrees()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="3-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">True cubic target</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define a known cubic function as ground truth and add noise to create the observed training data.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-33" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Grid of degree fits</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For degrees 1, 2, 3, and 10, expand features, fit a linear model on the polynomial expansion, compute MSE, and plot data, true function, and fitted curve.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="35-40" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Save and show</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Tight-layout the 2×2 grid and save it so degree-1 underfitting and degree-10 overfitting are visible side by side.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 When you run this code, you'll see a comparison like this (saved as `polynomial_degrees.png`):
 
@@ -398,27 +547,30 @@ First, we need to prepare our data, which includes:
 
 **Walkthrough:** `train_test_split`; `poly.fit_transform` / `transform`; `StandardScaler` fit on train only.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def prepare_polynomial_data(X, y, degree=2):
     """Transform data for polynomial regression"""
     from sklearn.preprocessing import PolynomialFeatures, StandardScaler
     from sklearn.model_selection import train_test_split
-    
+
     # Split into training and test sets
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
-    
+
     # Create polynomial features
     poly = PolynomialFeatures(degree=degree, include_bias=False)
     X_train_poly = poly.fit_transform(X_train)
     X_test_poly = poly.transform(X_test)
-    
+
     # Scale features
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train_poly)
     X_test_scaled = scaler.transform(X_test_poly)
-    
+
     # Print transformation information
     print(f"Original feature shape: {X_train.shape}")
     print(f"Polynomial feature shape: {X_train_poly.shape}")
@@ -427,9 +579,50 @@ def prepare_polynomial_data(X, y, degree=2):
         print([f"x^{i}" for i in range(1, degree+1)])
     else:
         print("Multiple features with polynomial terms")
-    
+
     return X_train_scaled, X_test_scaled, y_train, y_test, poly, scaler
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train/test split</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import helpers and split the data 80/20 before any feature transformation to prevent data leakage.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Polynomial expansion</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit <code>PolynomialFeatures</code> on the training set only, then transform both train and test to avoid leaking test statistics.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-20" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scaling</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Apply <code>StandardScaler</code> fitted on training polynomials only; higher-degree terms grow very fast and must be normalized for stable optimization.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-30" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Shape report</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print original vs. expanded feature shapes and the generated feature names so the column-count increase is transparent.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 #### Why Scaling Matters
 
@@ -457,19 +650,22 @@ Now we can train our polynomial regression model:
 
 **Walkthrough:** `LinearRegression.fit`; scatter raw data; chain `prepare_polynomial_data` then `train_polynomial_model`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def train_polynomial_model(X, y):
     """Train and return a polynomial regression model"""
     from sklearn.linear_model import LinearRegression
-    
+
     model = LinearRegression()
     model.fit(X, y)
-    
+
     print("Model trained successfully!")
     print(f"Intercept (β₀): {model.intercept_:.4f}")
     print(f"Number of coefficients: {len(model.coef_)}")
     print(f"First few coefficients: {model.coef_[:3]}")
-    
+
     return model
 
 # Let's create an example dataset and train a model
@@ -499,7 +695,39 @@ plt.show()
 degree = 3
 X_train, X_test, y_train, y_test, poly, scaler = prepare_polynomial_data(X_example, y_example, degree)
 model = train_polynomial_model(X_train, y_train)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train helper</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit <code>LinearRegression</code> on the scaled polynomial features and print intercept, coefficient count, and first three coefficients.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Example dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate 200 points from a degree-3 polynomial with noise; this mimics real data with a known ground truth for evaluation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize and fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scatter-plot the raw data, then pipe it through <code>prepare_polynomial_data</code> and <code>train_polynomial_model</code> to produce the fitted degree-3 model.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 When you run this code, you'll see a plot like this (saved as `example_polynomial_data.png`):
 
@@ -528,29 +756,32 @@ After training, we need to evaluate the model's performance:
 
 **Walkthrough:** `mean_squared_error`, `r2_score`; `poly.transform` + `scaler.transform` on linspace; note `X_original` slice for scatter x-axis.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def evaluate_polynomial_model(model, X, y, poly, scaler, X_original):
     """Evaluate model performance and visualize results"""
     # Make predictions
     y_pred = model.predict(X)
-    
+
     # Calculate metrics
     from sklearn.metrics import mean_squared_error, r2_score
     mse = mean_squared_error(y, y_pred)
     r2 = r2_score(y, y_pred)
     rmse = np.sqrt(mse)
-    
+
     print(f"Model Evaluation:")
     print(f"Mean Squared Error (MSE): {mse:.4f}")
     print(f"Root Mean Squared Error (RMSE): {rmse:.4f}")
     print(f"R² Score: {r2:.4f}")
-    
+
     # Generate smooth predictions for plotting
     x_smooth = np.linspace(min(X_original), max(X_original), 1000).reshape(-1, 1)
     x_smooth_poly = poly.transform(x_smooth)
     x_smooth_scaled = scaler.transform(x_smooth_poly)
     y_smooth = model.predict(x_smooth_scaled)
-    
+
     # Plot results
     plt.figure(figsize=(10, 6))
     plt.scatter(X_original, y, alpha=0.5, label='Actual data')
@@ -562,7 +793,7 @@ def evaluate_polynomial_model(model, X, y, poly, scaler, X_original):
     plt.grid(True)
     plt.savefig('polynomial_prediction.png')
     plt.show()
-    
+
     # Plot actual vs predicted
     plt.figure(figsize=(8, 8))
     plt.scatter(y, y_pred, alpha=0.5)
@@ -574,7 +805,7 @@ def evaluate_polynomial_model(model, X, y, poly, scaler, X_original):
     plt.axis('equal')
     plt.savefig('polynomial_actual_vs_predicted.png')
     plt.show()
-    
+
     return {
         'mse': mse,
         'rmse': rmse,
@@ -584,7 +815,48 @@ def evaluate_polynomial_model(model, X, y, poly, scaler, X_original):
 
 # Evaluate our model
 evaluation = evaluate_polynomial_model(model, X_test, y_test, poly, scaler, X_example[40:])
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="3-16" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compute metrics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Predict on the scaled test features, then compute MSE, RMSE (square root of MSE), and R² to quantify fit quality.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Smooth prediction curve</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a dense grid of 1000 x values, pipe through <code>poly.transform</code> and <code>scaler.transform</code> (not fit), and predict to draw a smooth fitted curve.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Overlay the smooth prediction curve on the raw data scatter with R² and RMSE in the title for an at-a-glance quality check.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="35-52" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Calibration plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot actual vs. predicted values with a 45° identity line; points close to the line indicate good calibration without systematic bias.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 When you run this code, you'll see two plots like these (saved as `polynomial_prediction.png` and `polynomial_actual_vs_predicted.png`):
 
@@ -616,16 +888,19 @@ One of the most important steps in polynomial regression is selecting the right 
 
 **Walkthrough:** `make_pipeline(PolynomialFeatures, StandardScaler, LinearRegression)`; `cross_val_score(..., scoring='neg_mean_squared_error')`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def find_optimal_degree(X, y, max_degree=10):
     """Find the optimal polynomial degree using cross-validation"""
     from sklearn.model_selection import cross_val_score
     from sklearn.pipeline import make_pipeline
     from sklearn.preprocessing import PolynomialFeatures, StandardScaler
-    
+
     degrees = range(1, max_degree + 1)
     scores = []
-    
+
     for degree in degrees:
         # Create pipeline with polynomial features, scaling, and linear regression
         pipeline = make_pipeline(
@@ -633,22 +908,22 @@ def find_optimal_degree(X, y, max_degree=10):
             StandardScaler(),
             LinearRegression()
         )
-        
+
         # Perform 5-fold cross-validation
         cv_scores = cross_val_score(
             pipeline, X, y, cv=5, scoring='neg_mean_squared_error'
         )
-        
+
         # Store the average negative MSE
         scores.append(-cv_scores.mean())
-    
+
     # Find the best degree
     best_degree = degrees[np.argmin(scores)]
-    
+
     # Plot results
     plt.figure(figsize=(10, 6))
     plt.plot(degrees, scores, marker='o')
-    plt.axvline(x=best_degree, color='r', linestyle='--', 
+    plt.axvline(x=best_degree, color='r', linestyle='--',
                 label=f'Best degree: {best_degree}')
     plt.title('Cross-Validation Error for Different Polynomial Degrees')
     plt.xlabel('Polynomial Degree')
@@ -658,13 +933,54 @@ def find_optimal_degree(X, y, max_degree=10):
     plt.legend()
     plt.savefig('optimal_degree_selection.png')
     plt.show()
-    
+
     print(f"The optimal polynomial degree is: {best_degree}")
     return best_degree, scores
 
 # Find the optimal degree for our example dataset
 optimal_degree, cv_errors = find_optimal_degree(X_example, y_example)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Setup and imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import cross-validation helpers and build a degree range from 1 to <code>max_degree</code> to sweep over candidate polynomial complexities.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline per degree</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each degree, build a <code>make_pipeline</code> of <code>PolynomialFeatures</code>, <code>StandardScaler</code>, and <code>LinearRegression</code>, run 5-fold CV with neg-MSE scoring, and collect the mean positive MSE.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-27" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Find best degree</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Use <code>np.argmin</code> on the collected CV scores to identify the degree with the lowest cross-validated MSE.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-44" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot and return</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot MSE vs. degree with a vertical line at the best degree, then return both the optimal degree and the full scores list for further inspection.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 When you run this code, you'll see a plot like this (saved as `optimal_degree_selection.png`):
 
@@ -692,49 +1008,52 @@ Polynomial regression comes with several challenges. Let's explore these and dis
 
 **Walkthrough:** `make_pipeline(PolynomialFeatures, LinearRegression)`; dense `x_smooth` for plotting; MSE on train and test sets.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def demonstrate_overfitting():
     """Visualize overfitting with polynomial regression"""
     np.random.seed(42)
-    
+
     # Generate data
     x = np.linspace(0, 1, 30)
     y = np.sin(2 * np.pi * x) + np.random.normal(0, 0.2, 30)
-    
+
     # Prepare data
     X = x.reshape(-1, 1)
-    
+
     # Split into train and test
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.3, random_state=42
     )
-    
+
     # Try different degrees
     degrees = [1, 3, 15]
-    
+
     plt.figure(figsize=(15, 10))
     for i, degree in enumerate(degrees):
         plt.subplot(2, 2, i+1)
-        
+
         # Create and train model
         model = make_pipeline(
             PolynomialFeatures(degree),
             LinearRegression()
         )
         model.fit(X_train, y_train)
-        
+
         # Make predictions
         y_train_pred = model.predict(X_train)
         y_test_pred = model.predict(X_test)
-        
+
         # Calculate errors
         train_error = mean_squared_error(y_train, y_train_pred)
         test_error = mean_squared_error(y_test, y_test_pred)
-        
+
         # Plot
         x_smooth = np.linspace(0, 1, 100).reshape(-1, 1)
         y_smooth = model.predict(x_smooth)
-        
+
         plt.scatter(X_train, y_train, color='blue', alpha=0.5, label='Training data')
         plt.scatter(X_test, y_test, color='red', alpha=0.5, label='Testing data')
         plt.plot(x_smooth, y_smooth, 'g-', label=f'Polynomial fit')
@@ -742,14 +1061,46 @@ def demonstrate_overfitting():
         plt.title(f'Degree {degree}\nTrain MSE: {train_error:.4f}, Test MSE: {test_error:.4f}')
         plt.legend()
         plt.grid(True)
-    
+
     plt.tight_layout()
     plt.savefig('polynomial_overfitting.png')
     plt.show()
 
 # Demonstrate overfitting
 demonstrate_overfitting()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="3-16" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Noisy sine data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate 30 points from sin(2πx) with Gaussian noise and split 70/30 into train and test sets.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-32" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline per degree</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each of degrees 1, 3, and 15, build a <code>make_pipeline</code> of <code>PolynomialFeatures</code> and <code>LinearRegression</code>, fit on training data, and compute both train and test MSE.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="34-49" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Overlay plots</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each degree, overlay train data (blue), test data (red), the smooth fitted curve (green), and the true sine function (dashed black) with train/test MSE in the title.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 When you run this code, you'll see a visualization like this (saved as `polynomial_overfitting.png`):
 
@@ -777,64 +1128,99 @@ This clearly shows how:
 
 **Walkthrough:** Shared `poly.fit_transform`; three models; `mean_squared_error` on test; 1×3 subplot layout.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def demonstrate_regularization():
     """Show how regularization helps with polynomial regression"""
     np.random.seed(42)
-    
+
     # Generate data
     x = np.linspace(-3, 3, 100)
     y_true = x**3 - x**2 + x
     y = y_true + np.random.normal(0, 3, 100)
-    
+
     # Prepare data
     X = x.reshape(-1, 1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
-    
+
     # Create polynomial features
     degree = 10
     poly = PolynomialFeatures(degree)
     X_train_poly = poly.fit_transform(X_train)
     X_test_poly = poly.transform(X_test)
-    
+
     # Train models with different regularization
     from sklearn.linear_model import Ridge, Lasso
-    
+
     models = {
         'No Regularization': LinearRegression(),
         'Ridge (L2)': Ridge(alpha=1.0),
         'Lasso (L1)': Lasso(alpha=0.01)
     }
-    
+
     plt.figure(figsize=(15, 5))
     for i, (name, model) in enumerate(models.items(), 1):
         model.fit(X_train_poly, y_train)
         y_test_pred = model.predict(X_test_poly)
         test_mse = mean_squared_error(y_test, y_test_pred)
-        
+
         # Plot
         plt.subplot(1, 3, i)
         plt.scatter(X_test, y_test, alpha=0.5, label='Test data')
-        
+
         # Generate smooth predictions for plotting
         x_smooth = np.linspace(-3, 3, 1000).reshape(-1, 1)
         X_smooth_poly = poly.transform(x_smooth)
         y_smooth = model.predict(X_smooth_poly)
-        
+
         plt.plot(x_smooth, y_smooth, 'r-', label=f'Prediction')
-        plt.plot(x_smooth, x_smooth**3 - x_smooth**2 + x_smooth, 'g--', 
+        plt.plot(x_smooth, x_smooth**3 - x_smooth**2 + x_smooth, 'g--',
                 label='True function')
         plt.title(f'{name}\nMSE: {test_mse:.2f}')
         plt.legend()
         plt.grid(True)
-    
+
     plt.tight_layout()
     plt.savefig('polynomial_regularization.png')
     plt.show()
 
 # Demonstrate regularization
 demonstrate_regularization()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="3-18" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and degree-10 expansion</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate noisy cubic data, split train/test, and expand to degree-10 polynomial features—deliberately high to create an over-parameterised setting.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three regularization strategies</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define a dict of <code>LinearRegression</code>, <code>Ridge(alpha=1.0)</code>, and <code>Lasso(alpha=0.01)</code> to compare unpenalised, L2-penalised, and L1-penalised fits on the same data.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-50" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Side-by-side comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit each model on training polynomial features, predict on the test set, and plot test scatter, fitted curve, and true cubic function with test MSE in each subplot title.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 When you run this code, you'll see a comparison like this (saved as `polynomial_regularization.png`):
 

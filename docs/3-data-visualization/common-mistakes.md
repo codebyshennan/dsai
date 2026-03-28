@@ -33,7 +33,7 @@ Match your chart type to your data and goal:
 
 ### Example
 
-> **Figure (add screenshot or diagram):** Before and After Transformation
+![Before vs after: fixing a cluttered chart](3.4-data-storytelling/assets/before_after_example.png)
 *Left: Raw scattered data points. Right: Same data with a trend line that helps tell the story.*
 
 ## 2. Overwhelming Your Audience
@@ -54,8 +54,7 @@ Match your chart type to your data and goal:
 
 ### Example
 
-> **Figure (add screenshot or diagram):** Daily Steps
-*A clean, focused visualization showing just what's needed: the trend of steps over time.*
+> **Figure (add screenshot or diagram):** A clean line chart of daily step counts over 30 days — one trend line, no gridlines, a single clear title "Daily Steps (March)", and a minimalist y-axis with rounded tick labels; illustrating the "less is more" principle.
 
 ## 3. Poor Color Choices
 
@@ -75,8 +74,7 @@ Match your chart type to your data and goal:
 
 ### Example
 
-> **Figure (add screenshot or diagram):** Ice Cream Preferences
-*Using distinct but harmonious colors to differentiate categories.*
+> **Figure (add screenshot or diagram):** A pie chart of ice cream flavor preferences using a colorblind-friendly palette (5 distinct colors from the Okabe-Ito or ColorBrewer set) — each slice clearly differentiated with no jarring clashes, demonstrating purposeful color use.
 
 ## 4. Missing Context
 
@@ -96,8 +94,7 @@ Match your chart type to your data and goal:
 
 ### Example
 
-> **Figure (add screenshot or diagram):** Daily Activities
-*Clear title, labeled segments with percentages, and a straightforward presentation.*
+> **Figure (add screenshot or diagram):** A donut chart of daily activities (Sleep, Work, Exercise, Leisure) with a descriptive title "How I Spend My Day", each segment labeled with activity name and percentage, and a subtitle citing the data source — demonstrating proper chart context.
 
 ## 5. Misleading Scales
 
@@ -117,8 +114,7 @@ Match your chart type to your data and goal:
 
 ### Example
 
-> **Figure (add screenshot or diagram):** Study vs Grades
-*Using appropriate scales and clearly labeled axes.*
+> **Figure (add screenshot or diagram):** Side-by-side bar charts of "Study Hours vs Grade" — left chart with y-axis starting at 60 (misleading, exaggerating differences) and right chart with y-axis starting at 0 (honest scale); illustrating how axis manipulation distorts perception.
 
 ## 6. Poor Data-to-Ink Ratio
 

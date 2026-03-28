@@ -16,6 +16,8 @@ High-level introduction to SQL and relational databases.
 
 ## Why this matters
 
+![SQL query execution order: FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT](assets/query_execution_order.png)
+
 Reports and dashboards almost never show raw rows—they show **counts**, **sums**, **averages**, and **breakdowns by group**. `GROUP BY` and `HAVING` are how you express “per region,” “per month,” or “top ten” directly in SQL instead of exporting everything to a spreadsheet.
 
 ## Understanding Aggregations
@@ -32,7 +34,7 @@ graph TD
     C --> D[Summary Results]
     C --> E[Statistical Insights]
     
-    subgraph "Aggregation Process"
+    subgraph agg_proc ["Aggregation Process"]
     F[Individual Records] --> G[Grouping]
     G --> H[Calculation]
     H --> I[Final Results]
@@ -43,7 +45,9 @@ graph TD
 
 ### Basic Statistical Functions
 
-1. **COUNT**: Row Counter
+<ol>
+<li>
+<p><strong>COUNT</strong>: Row Counter</p>
 
    <div class="code-explainer" data-code-explainer>
    <div class="code-explainer__code">
@@ -68,28 +72,30 @@ graph TD
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-8" data-tint="1">
+     <div class="code-callout" data-lines="1-6" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Different COUNT variations</span>
+         <span class="code-callout__title">COUNT variations</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Different COUNT variations</strong> — lines 1-8. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+         <p><code>COUNT(*)</code> and <code>COUNT(1)</code> count every row including NULLs. <code>COUNT(column)</code> skips NULLs. <code>COUNT(DISTINCT column)</code> counts unique non-null values — useful for unique buyer counts.</p>
        </div>
      </div>
-     <div class="code-callout" data-lines="9-16" data-tint="2">
+     <div class="code-callout" data-lines="8-16" data-tint="2">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Example: Customer order analysis</span>
+         <span class="code-callout__title">Per-customer order analysis</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Example: Customer order analysis</strong> — lines 9-16 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p>Groups by <code>customer_id</code> to produce one row per buyer. <code>COUNT(DISTINCT product_id)</code> tracks unique items purchased; <code>COUNT(DISTINCT DATE_TRUNC(...))</code> counts distinct calendar months the customer placed orders.</p>
        </div>
      </div>
    </aside>
    </div>
 
-2. **SUM**: Numerical Addition
+</li>
+<li>
+<p><strong>SUM</strong>: Numerical Addition</p>
 
    <div class="code-explainer" data-code-explainer>
    <div class="code-explainer__code">
@@ -122,25 +128,27 @@ graph TD
      <div class="code-callout" data-lines="1-10" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Sales Analysis</span>
+         <span class="code-callout__title">Grouped sales totals</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Sales Analysis</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p><code>SUM(amount)</code> totals all sales per category. <code>FILTER (WHERE status = 'completed')</code> is a modern alternative to a <code>CASE</code> expression—it restricts the aggregate to completed rows only while keeping the full row set for the outer group.</p>
        </div>
      </div>
-     <div class="code-callout" data-lines="11-21" data-tint="2">
+     <div class="code-callout" data-lines="12-21" data-tint="2">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">GROUP BY category;</span>
+         <span class="code-callout__title">Running total with window frame</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>GROUP BY category;</strong> — lines 11-21. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+         <p><code>SUM(amount) OVER (ORDER BY order_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)</code> keeps every row in the result and adds a cumulative total column—unlike <code>GROUP BY</code>, which would collapse rows.</p>
        </div>
      </div>
    </aside>
    </div>
 
-3. **AVG**: Mean Calculator
+</li>
+<li>
+<p><strong>AVG</strong>: Mean Calculator</p>
 
    <div class="code-explainer" data-code-explainer>
    <div class="code-explainer__code">
@@ -172,25 +180,27 @@ graph TD
      <div class="code-callout" data-lines="1-10" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Price Analysis with Standard Error</span>
+         <span class="code-callout__title">Price statistics with confidence interval</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Price Analysis with Standard Error</strong> — lines 1-10. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+         <p><code>STDDEV(price) / SQRT(COUNT(*))</code> is the standard error of the mean. Multiplying by 1.96 and adding/subtracting from <code>AVG</code> gives an approximate 95% confidence interval around the mean price per category.</p>
        </div>
      </div>
-     <div class="code-callout" data-lines="11-20" data-tint="2">
+     <div class="code-callout" data-lines="12-20" data-tint="2">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Moving averages</span>
+         <span class="code-callout__title">7-day moving average</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Moving averages</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p><code>AVG(amount) OVER (ORDER BY sale_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)</code> computes a rolling 7-day average for each row. The frame shrinks at the start of the series where fewer than 7 prior rows exist.</p>
        </div>
      </div>
    </aside>
    </div>
 
-4. **MIN/MAX**: Range Identifiers
+</li>
+<li>
+<p><strong>MIN/MAX</strong>: Range Identifiers</p>
 
    <div class="code-explainer" data-code-explainer>
    <div class="code-explainer__code">
@@ -220,26 +230,29 @@ graph TD
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-10" data-tint="1">
+     <div class="code-callout" data-lines="1-11" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Price Range Analysis</span>
+         <span class="code-callout__title">Price range and spread per category</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Price Range Analysis</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p><code>MAX - MIN</code> is the raw price range. Dividing by <code>AVG</code> (guarded with <code>NULLIF</code> to avoid division by zero) gives the coefficient of variation as a percentage—useful for comparing price dispersion across categories of different scales.</p>
        </div>
      </div>
-     <div class="code-callout" data-lines="11-21" data-tint="2">
+     <div class="code-callout" data-lines="13-21" data-tint="2">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">FROM products</span>
+         <span class="code-callout__title">Customer lifespan via first and last order</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>FROM products</strong> — lines 11-21 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p><code>MIN(order_date)</code> and <code>MAX(order_date)</code> return the first and most-recent order per customer. Subtracting them yields the customer lifespan as an interval—a simple retention signal before cohort analysis.</p>
        </div>
      </div>
    </aside>
    </div>
+
+</li>
+</ol>
 
 ## Advanced Aggregation Concepts
 
@@ -291,31 +304,31 @@ FROM sales;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-17" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Employee salary analysis by department</span>
+      <span class="code-callout__title">Salary rankings and stats per department</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Employee salary analysis by department</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>All window functions here use <code>PARTITION BY department</code> so each calculation resets per department. <code>AVG</code> gives the department mean; subtracting it shows each employee's distance from average. <code>RANK</code>, <code>DENSE_RANK</code>, <code>ROW_NUMBER</code>, and <code>NTILE(4)</code> all rank by descending salary within each partition.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="18-19" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">PARTITION BY department</span>
+      <span class="code-callout__title">Highest salary and department share</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>PARTITION BY department</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>FIRST_VALUE</code> with <code>ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</code> reads the entire partition to return the top salary on every row. Dividing individual salary by <code>SUM(salary) OVER (PARTITION BY department)</code> expresses each employee's share of total department payroll.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="25-37" data-tint="3">
+  <div class="code-callout" data-lines="21-37" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SUM(amount) OVER (ORDER BY sale_date) as runn…</span>
+      <span class="code-callout__title">Running and rolling window totals</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SUM(amount) OVER (ORDER BY sale_date) as runn…</strong> — lines 25-37. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p>Three frame specifications on the same column: a cumulative running total (default frame), a 7-row rolling window (<code>ROWS BETWEEN 6 PRECEDING AND CURRENT ROW</code>), and a calendar-based 3-month window using <code>RANGE BETWEEN INTERVAL</code>—showing how frame type controls which rows contribute.</p>
     </div>
   </div>
 </aside>
@@ -366,28 +379,28 @@ HAVING AVG(price) > 100;  -- Correct! Filters after aggregation
   <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHERE filters individual rows before grouping</span>
+      <span class="code-callout__title">Correct: WHERE then HAVING</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WHERE filters individual rows before grouping</strong> — lines 1-11. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p><strong>WHERE status = 'active'</strong> filters individual rows before grouping—only active employees enter the aggregate. <strong>HAVING</strong> then filters the grouped result: departments need 5+ employees and above-average sales to appear.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-22" data-tint="2">
+  <div class="code-callout" data-lines="13-21" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">GROUP BY department</span>
+      <span class="code-callout__title">Wrong: aggregate in WHERE clause</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>GROUP BY department</strong> — lines 12-22. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p><code>WHERE AVG(price) &gt; 100</code> causes an error because aggregates are not allowed in a <strong>WHERE</strong> clause—the engine hasn't grouped yet at that point in execution.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="23-33" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHERE AVG(price) &gt; 100  -- Wrong! Will cause…</span>
+      <span class="code-callout__title">Correct fix: move aggregate to HAVING</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WHERE AVG(price) &gt; 100  -- Wrong! Will cause…</strong> — lines 23-33 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The corrected version removes the <code>WHERE AVG</code> and replaces it with <code>HAVING AVG(price) &gt; 100</code>—which runs after grouping and can reference aggregate results.</p>
     </div>
   </div>
 </aside>
@@ -436,31 +449,31 @@ JOIN dept_stats ds ON e.department = ds.department;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">GROUP BY: Reduces rows, one row per group</span>
+      <span class="code-callout__title">GROUP BY collapses to one row per group</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>GROUP BY: Reduces rows, one row per group</strong> — lines 1-11. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p><strong>GROUP BY department</strong> reduces the result to one row per department. Individual employee rows are gone—only the aggregated count and average survive in the output.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-22" data-tint="2">
+  <div class="code-callout" data-lines="10-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Employee_name,</span>
+      <span class="code-callout__title">PARTITION BY keeps all rows</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Employee_name,</strong> — lines 12-22 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><strong>PARTITION BY department</strong> inside <code>OVER</code> computes the department average without collapsing rows. Every employee row is retained; the window columns add the department average and each employee's salary difference alongside the original data.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="23-34" data-tint="3">
+  <div class="code-callout" data-lines="24-34" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">AVG(salary) as avg_salary</span>
+      <span class="code-callout__title">Combining GROUP BY and PARTITION BY with a CTE</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>AVG(salary) as avg_salary</strong> — lines 23-34 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The CTE uses <code>GROUP BY</code> to produce one summary row per department. The outer query joins back to the original <code>employees</code> table and adds a <code>RANK()</code> window to rank each employee within their department—combining both techniques.</p>
     </div>
   </div>
 </aside>
@@ -488,13 +501,22 @@ FROM employees;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Bad: Ignoring NULLs</span>
+      <span class="code-callout__title">Misleading AVG when salary has NULLs</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Bad: Ignoring NULLs</strong> — lines 1-11 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
+      <p><code>AVG(salary)</code> automatically ignores <code>NULL</code> rows, so the result is the average of employees who <em>have</em> a salary on record—not of all employees. If many salaries are missing, the figure can be significantly inflated.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-11" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Explicit NULL awareness</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>COUNT(*) - COUNT(salary)</code> surfaces the count of missing salaries. <code>AVG(COALESCE(salary, 0))</code> treats NULLs as zero—useful for payroll totals. Both figures together let you understand the gap and choose the right interpretation.</p>
     </div>
   </div>
 </aside>
@@ -522,13 +544,22 @@ FROM employees;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-13" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Bad: Unnecessary subquery</span>
+      <span class="code-callout__title">Slow: correlated subquery per group</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Bad: Unnecessary subquery</strong> — lines 1-13 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
+      <p>The correlated subquery inside <code>SELECT</code> reruns <code>AVG(salary)</code> once per department row—<em>N</em> extra scans for <em>N</em> departments. Combined with <code>GROUP BY</code> this is redundant work.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fast: window function in a single pass</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>AVG(salary) OVER (PARTITION BY department)</code> computes department averages in one pass. <code>SELECT DISTINCT</code> collapses duplicate rows so the result is still one row per department—faster and no subquery.</p>
     </div>
   </div>
 </aside>
@@ -561,19 +592,19 @@ GROUP BY department;
   <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Bad: Inconsistent decimal places</span>
+      <span class="code-callout__title">Inconsistent output precision</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Bad: Inconsistent decimal places</strong> — lines 1-7 in the snippet. Contrast this with the alternative below; the goal is to avoid accidental cartesian products, non-sargable predicates, or silent data loss.</p>
+      <p>Without explicit rounding, <code>AVG</code> and <code>SUM</code> return floating-point values whose precision varies by engine and column type—output like <code>75.333333...</code> looks unprofessional in reports.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="8-15" data-tint="2">
+  <div class="code-callout" data-lines="9-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Good: Consistent decimal handling</span>
+      <span class="code-callout__title">Consistent 2-decimal-place output</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Good: Consistent decimal handling</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>ROUND(expr::numeric, 2)</code> casts to <code>NUMERIC</code> first (required in PostgreSQL for <code>ROUND</code> to accept a precision argument) then rounds to 2 decimal places—giving clean, consistent output for both average and total salary.</p>
     </div>
   </div>
 </aside>
@@ -581,7 +612,9 @@ GROUP BY department;
 
 ## Practice Exercises
 
-1. **Basic Aggregation**
+<ol>
+<li>
+<p><strong>Basic Aggregation</strong></p>
 
    <div class="code-explainer" data-code-explainer>
    <div class="code-explainer__code">
@@ -597,16 +630,18 @@ GROUP BY department;
      <div class="code-callout" data-lines="1-4" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Calculate monthly sales metrics</span>
+         <span class="code-callout__title">Exercise: monthly sales metrics</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Calculate monthly sales metrics</strong> — lines 1-4 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p>Write a query that aggregates <code>total sales</code>, <code>average order value</code>, and <code>order count</code> per calendar year-month, sorted newest first. Use <code>DATE_TRUNC</code> or <code>EXTRACT</code> to bucket by month.</p>
        </div>
      </div>
    </aside>
    </div>
 
-2. **Window Functions**
+</li>
+<li>
+<p><strong>Window Functions</strong></p>
 
    <div class="code-explainer" data-code-explainer>
    <div class="code-explainer__code">
@@ -623,16 +658,18 @@ GROUP BY department;
      <div class="code-callout" data-lines="1-5" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">For each order:</span>
+         <span class="code-callout__title">Exercise: per-order window functions</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>For each order:</strong> — lines 1-5 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p>For each order, compute a running total of the customer's spend (<code>SUM OVER</code>), the previous order amount (<code>LAG</code>), average order value (<code>AVG OVER</code>), and a rank by amount within customer (<code>RANK OVER PARTITION BY</code>).</p>
        </div>
      </div>
    </aside>
    </div>
 
-3. **Complex Grouping**
+</li>
+<li>
+<p><strong>Complex Grouping</strong></p>
 
    <div class="code-explainer" data-code-explainer>
    <div class="code-explainer__code">
@@ -649,16 +686,18 @@ GROUP BY department;
      <div class="code-callout" data-lines="1-5" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Create a sales summary with:</span>
+         <span class="code-callout__title">Exercise: multi-granularity sales summary</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Create a sales summary with:</strong> — lines 1-5. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+         <p>Build a single query producing daily, weekly, and monthly totals alongside a year-over-year comparison, a rolling average, and each period's percentage of the grand total. Use <code>ROLLUP</code> or multiple <code>GROUP BY</code> levels plus window frames.</p>
        </div>
      </div>
    </aside>
    </div>
 
-4. **Advanced Analytics**
+</li>
+<li>
+<p><strong>Advanced Analytics</strong></p>
 
    <div class="code-explainer" data-code-explainer>
    <div class="code-explainer__code">
@@ -674,14 +713,17 @@ GROUP BY department;
      <div class="code-callout" data-lines="1-4" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Customer cohort analysis</span>
+         <span class="code-callout__title">Exercise: advanced customer analytics</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Customer cohort analysis</strong> — lines 1-4 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p>Write queries for: (1) cohort retention by first-order month, (2) product affinity pairs bought together, (3) customer lifetime value using historical order totals, and (4) a churn risk score based on recency and frequency.</p>
        </div>
      </div>
    </aside>
    </div>
+
+</li>
+</ol>
 
 ## Additional Resources
 
@@ -692,7 +734,9 @@ GROUP BY department;
 
 ## Statistical Functions
 
-1. **STDDEV**: Standard Deviation
+<ol>
+<li>
+<p><strong>STDDEV</strong>: Standard Deviation</p>
 
    <div class="code-explainer" data-code-explainer>
    <div class="code-explainer__code">
@@ -717,16 +761,18 @@ GROUP BY department;
      <div class="code-callout" data-lines="1-13" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Product price variation analysis</span>
+         <span class="code-callout__title">Standard deviation and coefficient of variation</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Product price variation analysis</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p><code>STDDEV(price)</code> measures absolute price spread. Dividing by <code>AVG</code> (guarded with <code>NULLIF</code>) and multiplying by 100 gives the coefficient of variation—a relative measure useful for comparing spread across categories at very different price levels. <strong>HAVING COUNT(*) >= 5</strong> excludes categories with too few products for meaningful statistics.</p>
        </div>
      </div>
    </aside>
    </div>
 
-2. **PERCENTILE**: Distribution Analysis
+</li>
+<li>
+<p><strong>PERCENTILE</strong>: Distribution Analysis</p>
 
    <div class="code-explainer" data-code-explainer>
    <div class="code-explainer__code">
@@ -776,32 +822,26 @@ GROUP BY department;
      <div class="code-callout" data-lines="1-12" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Price distribution by category</span>
+         <span class="code-callout__title">IQR per category</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Price distribution by category</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p><code>PERCENTILE_CONT(0.25/0.50/0.75) WITHIN GROUP (ORDER BY price)</code> computes exact percentiles using linear interpolation. Subtracting P25 from P75 gives the interquartile range (IQR)—a robust spread measure that ignores extreme prices at each end.</p>
        </div>
      </div>
-     <div class="code-callout" data-lines="13-25" data-tint="2">
+     <div class="code-callout" data-lines="14-38" data-tint="2">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">SELECT</span>
+         <span class="code-callout__title">Customer spending percentiles via subquery</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>SELECT</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-       </div>
-     </div>
-     <div class="code-callout" data-lines="26-38" data-tint="3">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">ROUND(</span>
-       </div>
-       <div class="code-callout__body">
-         <p><strong>ROUND(</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p>The inline subquery aggregates total spend per customer first. The outer <code>SELECT</code> then calls <code>PERCENTILE_CONT</code> on those totals to find P25, median, and P75 spending thresholds across all customers—useful for defining low/mid/high spender tiers.</p>
        </div>
      </div>
    </aside>
    </div>
+
+</li>
+</ol>
 
 ## Real-World Business Analytics
 
@@ -860,40 +900,31 @@ ORDER BY
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH customer_metrics AS (</span>
+      <span class="code-callout__title">CTE 1: raw customer metrics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH customer_metrics AS (</strong> — lines 1-11. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p><code>customer_metrics</code> joins customers to orders and groups by customer to compute order count, total and average spend, first/last order dates, active months, and average monthly spend. <code>LEFT JOIN</code> keeps customers with no orders.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-23" data-tint="2">
+  <div class="code-callout" data-lines="16-27" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">FROM customers c</span>
+      <span class="code-callout__title">CTE 2: quartile and recency labels</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>FROM customers c</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>customer_segments</code> adds <code>NTILE(4)</code> spend quartile and a <code>CASE</code> recency label (Active / At Risk / Churned / Lost) based on days since last order.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="24-34" data-tint="3">
+  <div class="code-callout" data-lines="29-46" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">ELSE &#x27;Lost&#x27;</span>
+      <span class="code-callout__title">Outer query: segment summary</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>ELSE &#x27;Lost&#x27;</strong> — lines 24-34 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="35-46" data-tint="4">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">ROUND(AVG(active_months)::numeric, 1) as avg_…</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>ROUND(AVG(active_months)::numeric, 1) as avg_…</strong> — lines 35-46 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Groups by <code>recency_segment</code> and <code>spend_quartile</code> to produce one row per combination. Rounded averages for orders, spend, order value, and monthly spend give a clean summary of each segment's behavior. <code>ORDER BY CASE</code> puts segments in business-priority order.</p>
     </div>
   </div>
 </aside>
@@ -953,40 +984,31 @@ ORDER BY
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH product_metrics AS (</span>
+      <span class="code-callout__title">CTE 1: core product metrics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH product_metrics AS (</strong> — lines 1-11. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p><code>product_metrics</code> joins products → order items → orders with <code>LEFT JOIN</code> to keep un-ordered products. Aggregates compute order count, units sold, revenue, average price, unique customers, and the number of active months the product saw sales.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-22" data-tint="2">
+  <div class="code-callout" data-lines="16-25" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">FROM products p</span>
+      <span class="code-callout__title">CTE 2: rankings and velocity metrics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>FROM products p</strong> — lines 12-22 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>product_rankings</code> adds window-based rankings: <code>RANK() OVER (PARTITION BY category ORDER BY revenue DESC)</code> for category rank and <code>PERCENT_RANK()</code> for overall percentile. Monthly revenue and unit velocity use <code>NULLIF</code> to guard against products with zero active months.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="23-33" data-tint="3">
+  <div class="code-callout" data-lines="27-45" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Units_sold / NULLIF(active_months, 0) as mont…</span>
+      <span class="code-callout__title">Outer query: performance tier labels</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Units_sold / NULLIF(active_months, 0) as mont…</strong> — lines 23-33 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="34-45" data-tint="4">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Unique_customers,</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Unique_customers,</strong> — lines 34-45 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The final <code>SELECT</code> shapes the output: rounded numeric columns for reporting, and a <code>CASE</code> expression that maps category rank and overall percentile to a plain-language performance tier (Best Seller → Top 3 → Top 25% → Standard Performer).</p>
     </div>
   </div>
 </aside>
@@ -1053,37 +1075,28 @@ ORDER BY sale_date DESC;
   <div class="code-callout" data-lines="1-12" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH daily_sales AS (</span>
+      <span class="code-callout__title">CTE 1: daily order and revenue totals</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH daily_sales AS (</strong> — lines 1-12. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p><code>daily_sales</code> buckets rows by day with <code>DATE_TRUNC</code>, restricted to the last 90 days. It counts orders, unique customers, and revenue, plus computes average order value per day.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="14-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SELECT</span>
+      <span class="code-callout__title">CTE 2: prior-day comparison and rolling averages</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SELECT</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>sales_stats</code> adds <code>LAG</code> for day-over-day comparison, a 7-day rolling <code>AVG</code>, and a 30-day rolling <code>PERCENTILE_CONT(0.5)</code> median—all as window functions over <code>daily_sales</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="25-36" data-tint="3">
+  <div class="code-callout" data-lines="30-49" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">ORDER BY sale_date</span>
+      <span class="code-callout__title">Outer query: daily performance report</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>ORDER BY sale_date</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="37-49" data-tint="4">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">((revenue - prev_day_revenue) / NULLIF(prev_d…</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>((revenue - prev_day_revenue) / NULLIF(prev_d…</strong> — lines 37-49 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Formats all columns with <code>ROUND</code> for clean output. A <code>CASE</code> expression compares revenue to the 30-day rolling median to classify each day as Exceptional, Strong, Weak, or Normal—giving an at-a-glance performance label.</p>
     </div>
   </div>
 </aside>

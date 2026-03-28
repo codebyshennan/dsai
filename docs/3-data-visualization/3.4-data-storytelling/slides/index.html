@@ -13,7 +13,22 @@
         }
 
         .reveal {
-            font-size: 1.5em;
+            font-size: 1.45em;
+        }
+
+        /* Dense slides: smaller type so more bullets fit without overflow */
+        .reveal .box.box--compact {
+            font-size: 0.88em;
+            max-width: 92%;
+        }
+
+        .reveal .box.box--compact h3 {
+            font-size: 1.15em;
+        }
+
+        .reveal .box.box--compact li {
+            margin-bottom: 0.35em;
+            line-height: 1.35;
         }
 
         .reveal h1,
@@ -50,6 +65,8 @@
 
         .reveal li {
             margin-bottom: 0.5em;
+            overflow-wrap: anywhere;
+            word-wrap: break-word;
         }
 
         .reveal code {
@@ -80,23 +97,99 @@
             padding: 1em;
             border-radius: 8px;
             margin: 1em auto;
-            max-width: 80%;
+            max-width: 88%;
         }
 
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1.25em 2em;
+            max-width: 92%;
             margin: 0 auto;
+            align-items: start;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1em 1.25em;
+            max-width: 96%;
             margin: 0 auto;
+            align-items: start;
+        }
+
+        .reveal .two-column .list-container,
+        .reveal .three-column .list-container {
+            max-width: 100%;
+        }
+
+        .reveal .two-column ul,
+        .reveal .two-column ol,
+        .reveal .three-column ul,
+        .reveal .three-column ol {
+            max-width: 100%;
+        }
+
+        .slide-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.78em;
+            color: #555;
+            z-index: 2000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(4px);
+            padding: 0.4em 1em;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 0.75em;
+        }
+
+        .slide-nav a {
+            color: #555;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav a:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
+        }
+
+        .slide-nav__title {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+            color: #444;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .slide-nav__btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav__btn:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
         }
 
         .slide-footer {
@@ -115,6 +208,7 @@
 
         section {
             padding: 2em;
+            padding-top: 3.5em;
             padding-bottom: 4em;
             display: flex;
             flex-direction: column;
@@ -133,6 +227,16 @@
 </head>
 
 <body>
+    <nav class="slide-nav" id="slide-nav">
+        <a href="../" title="Back to lesson">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back
+        </a>
+        <span class="slide-nav__title">Mastering Data Storytelling: A Beginner's Guide 📊</span>
+        <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        </button>
+    </nav>
     <div class="reveal">
         <div class="slides">
             
@@ -147,10 +251,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Case Studies</h2>
-                        <div class="box">
+                        <h2>Case Studies (1/8)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Too many metrics at once</strong>: Managers were overwhelmed with 50+ KPIs, making it impossible to focus on what mattered most</li>
@@ -158,77 +264,272 @@
 <li><strong>No clear hierarchy</strong>: All metrics appeared equally important, with no visual cues for prioritization</li>
 <li><strong>Missing context</strong>: Numbers were presented without historical comparisons or industry benchmarks</li>
 <li><strong>Confusing layout</strong>: Related metrics were scattered across different sections, breaking natural data relationships</li>
-<li><strong>Focused on key metrics</strong>: Reduced to 5-7 critical KPIs that directly impact store performance</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Focused on key metrics</strong>: Reduced to 5-7 critical KPIs that directly impact store performance</li>
 <li><strong>Clear visual hierarchy</strong>: Used size, position, and color to guide attention to most important metrics</li>
 <li><strong>Consistent color scheme</strong>: Green for positive trends, red for negative, blue for neutral</li>
 <li><strong>Added context and comparisons</strong>: Included year-over-year changes and store performance rankings</li>
 <li><strong>Logical layout flow</strong>: Grouped related metrics together (sales, inventory, customer satisfaction)</li>
-<li><strong>Text-heavy explanation</strong>: Long paragraphs of text made it difficult to understand the flow</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Case Studies (2/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Text-heavy explanation</strong>: Long paragraphs of text made it difficult to understand the flow</li>
 <li><strong>No visual flow</strong>: Missing visual representation of the user journey</li>
 <li><strong>Missing key metrics</strong>: Critical drop-off points weren't clearly identified</li>
 <li><strong>Hard to identify bottlenecks</strong>: Couldn't quickly spot where users were getting stuck</li>
 <li><strong>No clear recommendations</strong>: Analysis didn't lead to actionable insights</li>
-<li><strong>Visual flow diagram</strong>: Created a clear path showing each step of the onboarding process</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Visual flow diagram</strong>: Created a clear path showing each step of the onboarding process</li>
 <li><strong>Color-coded stages</strong>: Used colors to indicate success (green), warning (yellow), and critical (red) stages</li>
 <li><strong>Clear metrics at each step</strong>: Added conversion rates and drop-off percentages</li>
 <li><strong>Highlighted pain points</strong>: Clearly marked where users were abandoning the process</li>
 <li><strong>Actionable insights</strong>: Included specific recommendations for each stage</li>
-<li><strong>Raw data dump</strong>: Presented all metrics without filtering or prioritization</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Case Studies (3/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Raw data dump</strong>: Presented all metrics without filtering or prioritization</li>
 <li><strong>No clear story</strong>: Failed to connect the data to business objectives</li>
 <li><strong>Missing context</strong>: Lacked comparison to previous campaigns and industry benchmarks</li>
 <li><strong>Hard to compare channels</strong>: Different metrics made it difficult to evaluate channel performance</li>
 <li><strong>No actionable insights</strong>: Data didn't lead to clear recommendations</li>
-<li><strong>Clear narrative structure</strong>: Started with objectives, showed results, ended with recommendations</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Clear narrative structure</strong>: Started with objectives, showed results, ended with recommendations</li>
 <li><strong>Channel comparisons</strong>: Used consistent metrics to compare performance across channels</li>
 <li><strong>Performance metrics</strong>: Focused on ROI and customer acquisition cost</li>
 <li><strong>ROI calculations</strong>: Showed return on investment for each channel</li>
 <li><strong>Actionable recommendations</strong>: Provided specific budget allocation suggestions</li>
-<li><strong>Too many numbers</strong>: Overwhelmed audience with raw financial data</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Case Studies (4/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Too many numbers</strong>: Overwhelmed audience with raw financial data</li>
 <li><strong>No visual aids</strong>: Relied solely on tables and text</li>
 <li><strong>Missing context</strong>: Failed to explain the significance of the numbers</li>
 <li><strong>Hard to understand trends</strong>: Made it difficult to see performance patterns</li>
 <li><strong>No clear message</strong>: Didn't highlight key achievements or challenges</li>
-<li><strong>Key metrics highlighted</strong>: Focused on revenue growth, profit margins, and cash flow</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Key metrics highlighted</strong>: Focused on revenue growth, profit margins, and cash flow</li>
 <li><strong>Visual trends</strong>: Used line charts to show performance over time</li>
 <li><strong>Year-over-year comparisons</strong>: Added context through historical data</li>
 <li><strong>Clear narrative</strong>: Connected financial results to business strategy</li>
 <li><strong>Actionable insights</strong>: Provided clear next steps and recommendations</li>
-<li><strong>Raw data tables</strong>: Presented unprocessed usage statistics</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Case Studies (5/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Raw data tables</strong>: Presented unprocessed usage statistics</li>
 <li><strong>No visualizations</strong>: Failed to show patterns and trends</li>
 <li><strong>Missing patterns</strong>: Couldn't identify user behavior patterns</li>
 <li><strong>Hard to identify issues</strong>: Made it difficult to spot engagement problems</li>
 <li><strong>No clear insights</strong>: Data didn't lead to actionable recommendations</li>
-<li><strong>User flow diagrams</strong>: Showed how users navigated through the platform</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>User flow diagrams</strong>: Showed how users navigated through the platform</li>
 <li><strong>Feature usage charts</strong>: Highlighted most and least used features</li>
 <li><strong>Time-based patterns</strong>: Revealed when and how users engaged with content</li>
 <li><strong>Clear insights</strong>: Identified key opportunities for improvement</li>
 <li><strong>Actionable recommendations</strong>: Provided specific suggestions for enhancing engagement</li>
-<li><strong>Show only what matters</strong>: Each company found that focusing on key metrics led to better decisions</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Case Studies (6/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Show only what matters</strong>: Each company found that focusing on key metrics led to better decisions</li>
 <li><strong>Create clear hierarchy</strong>: Using visual hierarchy helped guide attention to important information</li>
 <li><strong>Guide the audience</strong>: Clear storytelling helped stakeholders understand and act on insights</li>
 <li><strong>Add benchmarks</strong>: Companies like Walmart and Tesla used industry benchmarks to provide context</li>
 <li><strong>Show comparisons</strong>: Spotify and Netflix used historical data to show trends</li>
-<li><strong>Provide background</strong>: Airbnb and others explained the business context for their data</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Provide background</strong>: Airbnb and others explained the business context for their data</li>
 <li><strong>Clear insights</strong>: Each company focused on actionable insights rather than just data</li>
 <li><strong>Specific recommendations</strong>: Provided concrete next steps for improvement</li>
 <li><strong>Measurable impact</strong>: Showed the potential impact of recommended changes</li>
 <li><strong>What do they need to know?</strong>: Understand your audience's key concerns and questions</li>
-<li><strong>What decisions do they need to make?</strong>: Focus on data that supports decision-making</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Case Studies (7/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>What decisions do they need to make?</strong>: Focus on data that supports decision-making</li>
 <li><strong>How can you help them?</strong>: Provide clear, actionable insights</li>
 <li><strong>What's the main message?</strong>: Identify the key takeaway</li>
 <li><strong>What evidence supports it?</strong>: Use data to back up your story</li>
 <li><strong>What should happen next?</strong>: Provide clear next steps</li>
-<li><strong>Choose the right charts</strong>: Select visualizations that best represent your data</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Choose the right charts</strong>: Select visualizations that best represent your data</li>
 <li><strong>Use color purposefully</strong>: Use color to highlight important information</li>
 <li><strong>Create clear hierarchy</strong>: Guide your audience through the information</li>
 <li><strong>Clear recommendations</strong>: Provide specific, actionable suggestions</li>
 <li><strong>Measurable impact</strong>: Show the potential results of your recommendations</li>
-<li><strong>Next steps</strong>: Outline immediate actions needed</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Case Studies (8/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Next steps</strong>: Outline immediate actions needed</li>
 <li><strong>What's working well?</strong>: Identify successful elements</li>
 <li><strong>What could be improved?</strong>: Look for areas of confusion or clutter</li>
 <li><strong>What's missing?</strong>: Consider what additional context or insights would help</li>
 <li><strong>Focus on key messages</strong>: Reduce to the most important points</li>
-<li><strong>Add visual elements</strong>: Use charts and diagrams to illustrate key points</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Add visual elements</strong>: Use charts and diagrams to illustrate key points</li>
 <li><strong>Create clear hierarchy</strong>: Guide your audience through the information</li>
 <li><strong>Show to colleagues</strong>: Get input from different perspectives</li>
 <li><strong>Ask specific questions</strong>: Focus on clarity and actionability</li>
@@ -236,6 +537,8 @@
                         </ul>
                     </div>
                 
+                    </div>
+                
                         </div>
                     </div>
                     <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
@@ -244,10 +547,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Narrative Techniques</h2>
-                        <div class="box">
+                        <h2>Narrative Techniques (1/8)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Raw Data</strong> = Raw ingredients (flour, sugar, eggs)</li>
@@ -255,72 +560,259 @@
 <li><strong>Story</strong> = Finished dish (delicious and easy to consume)</li>
 <li><strong>Situation</strong>: Current state and context</li>
 <li><strong>Complication</strong>: Challenge or problem to solve</li>
-<li><strong>Resolution</strong>: Solution and next steps</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Resolution</strong>: Solution and next steps</li>
 <li>Primary Message: Your main insight or key finding</li>
 <li>Supporting Data: Evidence and data points that back up your message</li>
 <li>Additional Context: Background information that enriches understanding</li>
 <li>For comparisons between categories  Bar charts</li>
-<li>For trends over time  Line charts</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Narrative Techniques (2/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>For trends over time  Line charts</li>
 <li>For distributions and spread  Histograms or box plots</li>
 <li>For outlier analysis  Box plots</li>
 <li>Sequential: For ordered data (e.g., low to high values)</li>
 <li>Categorical: For distinct categories that need clear differentiation</li>
-<li>Diverging: For data that spans positive and negative values</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Diverging: For data that spans positive and negative values</li>
 <li>Accessible: Color-blind friendly options for inclusive design</li>
 <li>Clear main message: Is your key point immediately apparent?</li>
 <li>Logical flow: Does your story progress naturally?</li>
 <li>Appropriate visuals: Do your visualizations support your message?</li>
-<li>Consistent styling: Is your design cohesive throughout?</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Narrative Techniques (3/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Consistent styling: Is your design cohesive throughout?</li>
 <li>Accessible design: Can all audience members understand your content?</li>
 <li>Actionable insights: Are next steps clear?</li>
 <li>Engaging narrative: Does your story maintain interest?</li>
 <li>Proper context: Is necessary background provided?</li>
-<li>Clear call to action: Do people know what to do next?</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Clear call to action: Do people know what to do next?</li>
 <li>Impact measurement: Can results be tracked?</li>
 <li>No context or stakes</li>
 <li>No human element</li>
 <li>No clear action items</li>
-<li>Uses vivid analogy (stadium of fans)</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Narrative Techniques (4/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Uses vivid analogy (stadium of fans)</li>
 <li>Provides clear cause (response time)</li>
 <li>Offers specific solution</li>
 <li>Quantifies the impact</li>
 <li>States obvious fact</li>
-<li>No actionable insight</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>No actionable insight</li>
 <li>No compelling narrative</li>
 <li>Relates to personal experience</li>
 <li>Provides specific timing</li>
 <li>Quantifies the opportunity</li>
-<li>Offers clear solution</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Narrative Techniques (5/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Offers clear solution</li>
 <li>Vague problem statement</li>
 <li>No context or comparison</li>
 <li>No clear path forward</li>
 <li>Uses relatable analogy</li>
-<li>Provides clear metrics</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Provides clear metrics</li>
 <li>Shows potential value</li>
 <li>Offers specific solution</li>
 <li>What do they already know?</li>
 <li>What do they care about?</li>
-<li>What decisions do they need to make?</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Narrative Techniques (6/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>What decisions do they need to make?</li>
 <li>One main message per story</li>
 <li>3-5 supporting points</li>
 <li>Clear call to action</li>
 <li>Test your story on colleagues</li>
-<li>Get feedback early</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Get feedback early</li>
 <li>Refine based on reactions</li>
 <li>Choose appropriate charts</li>
 <li>Create clear diagrams</li>
 <li>Use consistent styling</li>
-<li>Track engagement metrics</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Narrative Techniques (7/8)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Track engagement metrics</li>
 <li>Collect feedback</li>
 <li>Monitor action taken</li>
 <li>&quot;Storytelling with Data&quot; by Cole Nussbaumer Knaflic</li>
 <li>&quot;Data Story&quot; by Nancy Duarte</li>
-<li>&quot;The Big Picture&quot; by Steve Wexler</li>
-<li>[Data Visualization Society](https://www.datavisualizationsociety.org/)</li>
-<li>[Storytelling with Data Blog](https://www.storytellingwithdata.com/blog)</li>
-<li>[Information is Beautiful](https://informationisbeautiful.net/)</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>&quot;The Big Picture&quot; by Steve Wexler</li>
+<li><a href="https://www.datavisualizationsociety.org/" target="_blank" rel="noopener">Data Visualization Society</a></li>
+<li><a href="https://www.storytellingwithdata.com/blog" target="_blank" rel="noopener">Storytelling with Data Blog</a></li>
+<li><a href="https://informationisbeautiful.net/" target="_blank" rel="noopener">Information is Beautiful</a></li>
 <li>Tableau Public (Free)</li>
-<li>Power BI (Free)</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Narrative Techniques (8/8)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Power BI (Free)</li>
 <li>Python (matplotlib, seaborn)</li>
 <li>R (ggplot2)</li>
                         </ul>
@@ -334,10 +826,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Visual Storytelling</h2>
-                        <div class="box">
+                        <h2>Visual Storytelling (1/7)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Words</strong> = One person speaking (linear, sequential)</li>
@@ -345,62 +839,222 @@
 <li><strong>Visuals</strong> = Universal language (instant understanding)</li>
 <li><strong>Bar Chart</strong> = Simple statement (comparing quantities)</li>
 <li><strong>Line Chart</strong> = Story over time (showing trends)</li>
-<li><strong>Pie Chart</strong> = Parts of a whole (showing proportions)</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Pie Chart</strong> = Parts of a whole (showing proportions)</li>
 <li><strong>Red</strong>: Stop and pay attention (key metrics)</li>
 <li><strong>Yellow</strong>: Caution and consider (supporting data)</li>
 <li><strong>Green</strong>: Go ahead and explore (background info)</li>
 <li><strong>Focal Point</strong>: The main piece (key insight)</li>
-<li><strong>Flow</strong>: How people move through the space (story progression)</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visual Storytelling (2/7)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Flow</strong>: How people move through the space (story progression)</li>
 <li><strong>Balance</strong>: Everything in its right place (visual harmony)</li>
 <li>Cluttered with too many charts</li>
 <li>Inconsistent colors</li>
 <li>No clear hierarchy</li>
-<li>Focused on key metrics</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Focused on key metrics</li>
 <li>Consistent color scheme</li>
 <li>Clear visual hierarchy</li>
 <li>Linear, text-heavy</li>
 <li>No visual cues</li>
-<li>Hard to follow</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visual Storytelling (3/7)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Hard to follow</li>
 <li>Visual flow diagram</li>
 <li>Color-coded stages</li>
 <li>Clear progression</li>
 <li>Raw numbers only</li>
-<li>No visual elements</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>No visual elements</li>
 <li>Hard to understand</li>
 <li>Key metrics highlighted</li>
 <li>Trend visualizations</li>
 <li>Clear comparisons</li>
-<li>One message per visualization</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visual Storytelling (4/7)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>One message per visualization</li>
 <li>Clear, readable fonts</li>
 <li>Adequate white space</li>
 <li>Show to colleagues</li>
 <li>Get feedback</li>
-<li>Iterate and improve</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Iterate and improve</li>
 <li>Technical vs. non-technical</li>
 <li>Color vision considerations</li>
 <li>Cultural context</li>
 <li>Tooltips for details</li>
-<li>Filters for exploration</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visual Storytelling (5/7)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Filters for exploration</li>
 <li>Drill-downs for depth</li>
 <li>Use templates</li>
 <li>Follow style guides</li>
 <li>Keep branding consistent</li>
-<li>&quot;The Visual Display of Quantitative Information&quot; by Edward Tufte</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>&quot;The Visual Display of Quantitative Information&quot; by Edward Tufte</li>
 <li>&quot;Information Dashboard Design&quot; by Stephen Few</li>
 <li>&quot;Visualize This&quot; by Nathan Yau</li>
 <li>Coursera: &quot;Data Visualization and Communication&quot;</li>
 <li>Udemy: &quot;Data Visualization with Python&quot;</li>
-<li>DataCamp: &quot;Data Visualization with Tableau&quot;</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visual Storytelling (6/7)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>DataCamp: &quot;Data Visualization with Tableau&quot;</li>
 <li>Tableau Public (Free)</li>
 <li>Power BI (Free)</li>
 <li>Python (matplotlib, seaborn)</li>
 <li>R (ggplot2)</li>
-<li>Pick a simple dataset</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Pick a simple dataset</li>
 <li>Identify key metrics</li>
 <li>Define your message</li>
 <li>Select appropriate chart type</li>
 <li>Choose color scheme</li>
-<li>Plan layout</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visual Storytelling (7/7)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Plan layout</li>
 <li>Build initial visualization</li>
 <li>Get feedback</li>
 <li>Make improvements</li>
@@ -423,6 +1077,24 @@
             transition: 'slide',
             slideNumber: true,
             plugins: []
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Swap fullscreen icon when state changes
+        document.addEventListener('fullscreenchange', function () {
+            var icon = document.getElementById('fs-icon');
+            if (document.fullscreenElement) {
+                icon.innerHTML = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
+            } else {
+                icon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
+            }
         });
     </script>
 </body>

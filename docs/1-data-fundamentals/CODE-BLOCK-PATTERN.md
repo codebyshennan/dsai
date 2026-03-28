@@ -1,3 +1,6 @@
+---
+published: false
+---
 # Code block pattern (Module 1)
 
 Use this template when adding or revising **substantive** fenced code in Module 1 lessons (Markdown, notebooks, or slides). It keeps **title → purpose → optional walkthrough** consistent and avoids **orphan** code (two runnable blocks back-to-back with no prose).

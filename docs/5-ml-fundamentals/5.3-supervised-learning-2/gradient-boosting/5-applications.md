@@ -12,13 +12,31 @@ Crash Course AI: supervised learning framing (~15 min).
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+```mermaid
+graph LR
+    subgraph APPS["Industry applications of Gradient Boosting"]
+        FIN["Finance\nCredit risk\nFraud detection\nAlgorithmic trading"]
+        HLTH["Healthcare\nDisease prediction\nPatient readmission\nDrug response"]
+        RET["Retail / E-commerce\nRecommendation ranking\nChurn prediction\nDemand forecasting"]
+        NLP["NLP (tabular features)\nSentiment + metadata\nSearch ranking\nAd click-through"]
+    end
+    subgraph DEPLOY["Deployment trade-offs"]
+        D1["XGBoost / LightGBM\nFast inference (<1 ms)\nSmall model size (MB)\nGood for APIs & batch"]
+        D2["Deep neural networks\nSlower, larger\nBetter for images/audio/text\nRequires GPU serving"]
+    end
+    APPS --> DEPLOY
+```
+
 ## 1. Financial Applications: Making Smart Money Decisions
 
 ### Credit Risk Assessment: Who Gets a Loan?
 
 Imagine you're a bank manager deciding who to give loans to. Gradient Boosting can help make these decisions smarter and fairer.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 from xgboost import XGBClassifier
@@ -43,159 +61,181 @@ data = pd.DataFrame({
 # Create target (default probability)
 # This is like marking which applicants actually defaulted
 data['default'] = (
-    (data['debt_ratio'] > 0.4) & 
+    (data['debt_ratio'] > 0.4) &
     (data['credit_score'] < 650) |
     (data['previous_defaults'] > 1)
 ).astype(int)
 
 # Train credit risk model
 def train_credit_model(data):
-    """Train a model to predict loan default risk
-    
-    Think of this as teaching the model to spot risky applicants
-    """
+    """Train a model to predict loan default risk"""
     # Prepare data
-    X = data.drop('default', axis=1)  # Features
-    y = data['default']               # Target (will they default?)
-    
-    # Split into training and testing sets
-    # Like dividing applicants into practice and test groups
+    X = data.drop('default', axis=1)
+    y = data['default']
+
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, 
-        test_size=0.2,  # 20% for testing
+        X, y,
+        test_size=0.2,
         random_state=42
     )
-    
-    # Scale features (put everything on the same scale)
+
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
-    
-    # Train model
+
     model = XGBClassifier(
-        max_depth=4,           # How complex the model can be
-        learning_rate=0.1,     # How fast it learns
-        n_estimators=100,      # Number of trees
-        scale_pos_weight=len(y_train[y_train==0])/len(y_train[y_train==1])  # Handle imbalanced data
+        max_depth=4,
+        learning_rate=0.1,
+        n_estimators=100,
+        scale_pos_weight=len(y_train[y_train==0])/len(y_train[y_train==1])
     )
     model.fit(X_train_scaled, y_train)
-    
     return model, scaler
 
 # Create risk scoring function
 def calculate_credit_risk(model, scaler, applicant_data):
-    """Calculate credit risk score and recommendations
-    
-    This is like a loan officer reviewing an application
-    """
-    # Scale the applicant's data
+    """Calculate credit risk score and recommendations"""
     scaled_data = scaler.transform(applicant_data)
-    
-    # Get probability of default
     default_prob = model.predict_proba(scaled_data)[:, 1]
-    
-    # Calculate credit score (inverse of default probability)
     credit_score = 100 * (1 - default_prob)
-    
-    # Get feature importance for this prediction
-    # Like understanding which factors most affect the decision
+
     feature_imp = pd.DataFrame({
         'feature': applicant_data.columns,
         'importance': model.feature_importances_
     }).sort_values('importance', ascending=False)
-    
-    # Generate recommendations
-    # Like giving advice to improve creditworthiness
+
     recommendations = []
     if default_prob > 0.3:
         if applicant_data['debt_ratio'].values[0] > 0.4:
             recommendations.append("Reduce debt ratio")
         if applicant_data['credit_score'].values[0] < 650:
             recommendations.append("Improve credit score")
-    
+
     return {
         'credit_score': credit_score[0],
         'default_probability': default_prob[0],
         'key_factors': feature_imp.head(3),
         'recommendations': recommendations
     }
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-30" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and Sample Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Seven applicant features are generated with realistic distributions; the default label is derived from a rule combining high debt ratio, low credit score, and prior defaults.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="32-52" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train Credit Model</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Features are standard-scaled before fitting an XGBClassifier; <code>scale_pos_weight</code> compensates for class imbalance by weighting the minority (default) class proportionally.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="54-78" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Risk Scoring Function</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scores a new applicant by transforming their features, extracting the default probability, inverting it to a 0–100 credit score, ranking feature importances, and appending targeted recommendations when risk exceeds 0.3.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Stock Market Prediction: Finding Patterns in Market Data
 
 Let's build a system that can help predict stock movements. Think of this as having a smart assistant for stock trading.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import yfinance as yf
 from lightgbm import LGBMRegressor
 
 def create_stock_features(data, lookback=30):
-    """Create technical indicators from stock data
-    
-    Think of this as creating a set of measurements
-    that help predict future prices
-    """
+    """Create technical indicators from stock data"""
     df = data.copy()
-    
+
     # Price-based indicators
-    df['SMA_20'] = df['Close'].rolling(window=20).mean()  # 20-day average
-    df['SMA_50'] = df['Close'].rolling(window=50).mean()  # 50-day average
-    df['RSI'] = calculate_rsi(df['Close'])                # Relative strength
-    
+    df['SMA_20'] = df['Close'].rolling(window=20).mean()
+    df['SMA_50'] = df['Close'].rolling(window=50).mean()
+    df['RSI'] = calculate_rsi(df['Close'])
+
     # Volume indicators
     df['Volume_SMA'] = df['Volume'].rolling(window=20).mean()
     df['Volume_Ratio'] = df['Volume'] / df['Volume_SMA']
-    
+
     # Volatility indicators
     df['Daily_Return'] = df['Close'].pct_change()
     df['Volatility'] = df['Daily_Return'].rolling(window=20).std()
-    
+
     # Target: Next day return
     df['Target'] = df['Close'].shift(-1) / df['Close'] - 1
-    
+
     return df.dropna()
 
 def train_stock_predictor(symbol='AAPL', lookback_days=30):
-    """Train a model to predict stock movements
-    
-    This is like teaching the model to recognize
-    patterns that might indicate future price changes
-    """
-    # Download historical data
+    """Train a model to predict stock movements"""
     stock = yf.Ticker(symbol)
     data = stock.history(period='2y')
-    
-    # Create features
+
     df = create_stock_features(data, lookback_days)
-    
-    # Train model
+
     model = LGBMRegressor(
-        n_estimators=100,    # Number of trees
-        learning_rate=0.05,  # Learning rate
-        max_depth=5          # Tree depth
+        n_estimators=100,
+        learning_rate=0.05,
+        max_depth=5
     )
-    
-    # Implement walk-forward optimization
-    # Like testing the model on new data as it becomes available
+
     predictions = []
     train_size = 252  # One year of trading days
-    
+
     for i in range(train_size, len(df)):
-        # Get training data
         train_data = df.iloc[i-train_size:i]
         X_train = train_data.drop(['Target'], axis=1)
         y_train = train_data['Target']
-        
-        # Train model
+
         model.fit(X_train, y_train)
-        
-        # Make prediction
+
         X_test = df.iloc[i:i+1].drop(['Target'], axis=1)
         pred = model.predict(X_test)
         predictions.append(pred[0])
-    
+
     return model, predictions
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-24" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Feature Engineering</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Computes SMA-20/50, RSI, volume ratio, daily return, and 20-day rolling volatility; the target is the next-day return, shifted by one row so the model predicts one step ahead.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-54" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Walk-forward Training</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Downloads two years of history, then slides a 252-day (one trading year) window forward: each iteration retrains LGBMRegressor on the preceding year and predicts the next day, simulating realistic out-of-sample evaluation.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 2. Healthcare Applications: Predicting Health Risks
 
@@ -203,68 +243,51 @@ def train_stock_predictor(symbol='AAPL', lookback_days=30):
 
 Imagine you're a doctor trying to predict which patients might develop certain conditions. Gradient Boosting can help identify at-risk patients early.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def train_disease_predictor(medical_data):
-    """Train a model to predict disease risk
-    
-    Think of this as creating a digital health assistant
-    that can spot potential health issues
-    """
-    # Prepare features
+    """Train a model to predict disease risk"""
     features = [
         'age', 'bmi', 'blood_pressure', 'cholesterol',
         'glucose', 'smoking', 'family_history'
     ]
-    
-    X = medical_data[features]  # Patient characteristics
-    y = medical_data['disease'] # Disease status
-    
-    # Train model with cross-validation
+
+    X = medical_data[features]
+    y = medical_data['disease']
+
     model = XGBClassifier(
-        max_depth=3,           # Keep model simple
-        learning_rate=0.1,     # Moderate learning rate
-        n_estimators=100       # Number of trees
+        max_depth=3,
+        learning_rate=0.1,
+        n_estimators=100
     )
-    
-    # Use stratified k-fold
-    # Like testing the model on different groups of patients
+
     cv_scores = cross_val_score(
         model, X, y,
         cv=StratifiedKFold(5),
         scoring='roc_auc'
     )
-    
-    # Train final model
+
     model.fit(X, y)
-    
     return model
 
 def assess_patient_risk(model, patient_data):
-    """Assess a patient's disease risk
-    
-    This is like a doctor reviewing a patient's
-    health profile and making recommendations
-    """
-    # Get probability
+    """Assess a patient's disease risk"""
     risk_prob = model.predict_proba(patient_data)[0, 1]
-    
-    # Risk category
+
     if risk_prob < 0.2:
         risk_level = "Low"
     elif risk_prob < 0.6:
         risk_level = "Moderate"
     else:
         risk_level = "High"
-    
-    # Get feature importance
-    # Like understanding which factors most affect risk
+
     importance = pd.DataFrame({
         'factor': patient_data.columns,
         'importance': model.feature_importances_
     }).sort_values('importance', ascending=False)
-    
-    # Generate recommendations
-    # Like giving personalized health advice
+
     recommendations = []
     if risk_prob > 0.3:
         if patient_data['smoking'].values[0] == 1:
@@ -273,14 +296,37 @@ def assess_patient_risk(model, patient_data):
             recommendations.append("Reduce BMI")
         if patient_data['blood_pressure'].values[0] > 140:
             recommendations.append("Control blood pressure")
-    
+
     return {
         'risk_probability': risk_prob,
         'risk_level': risk_level,
         'key_factors': importance.head(3),
         'recommendations': recommendations
     }
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-23" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train with Cross-validation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Seven clinical features feed an XGBClassifier with depth=3 (intentionally shallow to prevent overfitting on medical data); stratified 5-fold cross-validation measures ROC-AUC before the final model is fitted on all data.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-55" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Risk Assessment</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Maps the predicted probability to Low/Moderate/High risk tiers, ranks features by importance, then appends condition-specific recommendations (smoking, BMI, blood pressure) when risk exceeds 0.3.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 3. Marketing Applications: Understanding Customers
 
@@ -288,46 +334,64 @@ def assess_patient_risk(model, patient_data):
 
 Let's build a system that can predict which customers might leave a service. This is like having a crystal ball for customer retention.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from catboost import CatBoostClassifier
 
 def predict_customer_churn(customer_data):
-    """Predict which customers might leave
-    
-    Think of this as having a customer service
-    assistant that can spot unhappy customers
-    """
-    # Prepare features
+    """Predict which customers might leave"""
     features = [
         'tenure', 'monthly_charges', 'total_charges',
         'contract_type', 'payment_method', 'internet_service',
         'online_security', 'tech_support', 'streaming_tv'
     ]
-    
-    # Specify categorical features
+
     cat_features = [
         'contract_type', 'payment_method', 'internet_service',
         'online_security', 'tech_support', 'streaming_tv'
     ]
-    
-    # Train model
+
     model = CatBoostClassifier(
-        iterations=200,           # Number of trees
-        learning_rate=0.1,        # Learning rate
-        depth=6,                  # Tree depth
-        loss_function='Logloss',  # Loss function
-        verbose=False             # Don't show training progress
+        iterations=200,
+        learning_rate=0.1,
+        depth=6,
+        loss_function='Logloss',
+        verbose=False
     )
-    
-    # Train the model
+
     model.fit(
         customer_data[features],
         customer_data['churn'],
         cat_features=cat_features
     )
-    
+
     return model
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Feature Lists</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Nine customer features are enumerated; six of them are explicitly marked as categorical so CatBoost encodes them natively without manual one-hot encoding.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CatBoost Training</span>
+    </div>
+    <div class="code-callout__body">
+      <p>CatBoostClassifier is configured with 200 trees, depth=6, and Logloss; passing <code>cat_features</code> to <code>fit</code> tells the library which columns to handle with ordered target statistics instead of label encoding.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Mistakes to Avoid
 

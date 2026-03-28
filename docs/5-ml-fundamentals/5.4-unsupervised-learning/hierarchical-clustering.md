@@ -14,6 +14,30 @@ StatQuest overview of K-means clustering.
 
 ## Quick Reference
 
+```mermaid
+graph TD
+    subgraph AGG["Agglomerative (bottom-up)"]
+        A1["Start: each point\nis its own cluster"]
+        A1 --> A2["Merge two closest\nclusters at each step"]
+        A2 --> A3["Repeat until\none cluster remains"]
+        A3 --> A4["Cut dendrogram at\ndesired level → k clusters"]
+    end
+    subgraph LINK["Linkage criteria (how to measure 'closest')"]
+        L1["Ward\nMinimise within-cluster variance\n(most common; spherical clusters)"]
+        L2["Complete\nMax distance between points\n(compact, even clusters)"]
+        L3["Average\nMean pairwise distance\n(compromise)"]
+        L4["Single\nMin distance (chaining effect)"]
+    end
+    A2 --> LINK
+    subgraph DEND["Reading the dendrogram"]
+        D1["Height of merge = distance\nLong vertical lines → natural gap"]
+        D1 --> D2["Horizontal cut = chosen k\nCount branches below cut"]
+    end
+    A4 --> DEND
+```
+
+> **Figure (add screenshot or diagram):** A dendrogram with a horizontal dashed line showing where to cut to obtain 3 clusters, with the three resulting cluster branches coloured differently.
+
 Hierarchical clustering is ideal when:
 - You want to explore multiple cluster levels
 - The natural cluster hierarchy matters

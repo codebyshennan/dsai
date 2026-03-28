@@ -20,7 +20,10 @@ HDBSCAN improves on DBSCAN by:
 - Not requiring an epsilon parameter
 - Providing cluster membership probabilities
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_moons, make_blobs
@@ -44,12 +47,35 @@ plt.show()
 
 # Plot cluster probabilities
 plt.figure(figsize=(10, 8))
-scatter = plt.scatter(X[:, 0], X[:, 1], 
+scatter = plt.scatter(X[:, 0], X[:, 1],
                      c=clusterer.probabilities_, cmap='viridis')
 plt.title('HDBSCAN Cluster Membership Probabilities')
 plt.colorbar(scatter)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Mixed Dataset and HDBSCAN Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Stack a moon-shaped and a blob-shaped distribution to create a dataset with varying density; HDBSCAN finds clusters without requiring an epsilon radius by adapting to local density.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Labels and Probabilities</span>
+    </div>
+    <div class="code-callout__body">
+      <p>First plot shows hard cluster labels; second uses <code>clusterer.probabilities_</code> — HDBSCAN's unique membership confidence score that shows how "core" each point is to its cluster.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Gaussian Mixture Models (GMM)
 
@@ -59,7 +85,10 @@ GMM is like having multiple overlapping probability distributions:
 2. Points can belong partially to multiple clusters
 3. Model learns distribution parameters
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.mixture import GaussianMixture
 
 # Create sample data
@@ -87,7 +116,30 @@ plt.colorbar(scatter2, ax=ax2)
 
 plt.tight_layout()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GMM Fit with Varied Spreads</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create four blobs with different standard deviations; GMM handles unequal cluster sizes better than K-Means because each component has its own covariance; <code>predict_proba</code> gives soft membership scores.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Hard Labels vs Soft Membership</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Left subplot shows argmax cluster assignments; right uses <code>probs[:, 0]</code> to color by probability of belonging to cluster 0 — gradient color reveals the boundary uncertainty that hard labels hide.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![advanced-clustering](assets/advanced-clustering_fig_1.png)
@@ -100,7 +152,10 @@ Spectral clustering is like finding communities in a social network:
 2. Find graph Laplacian
 3. Use eigenvectors for clustering
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.cluster import SpectralClustering
 
 # Create interlocking circles
@@ -118,7 +173,30 @@ scatter = plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis')
 plt.title('Spectral Clustering')
 plt.colorbar(scatter)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Concentric Circles Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>make_circles</code> creates two interlocking rings that K-Means cannot separate; <code>affinity='nearest_neighbors'</code> builds a graph that captures the ring topology instead of Euclidean distance.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Spectral Fit and Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Spectral clustering maps points to a low-dimensional eigenspace before clustering; the result correctly separates inner and outer rings that would confuse centroid-based methods.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![advanced-clustering](assets/advanced-clustering_fig_2.png)
@@ -127,7 +205,10 @@ plt.show()
 
 ### 1. Topic Modeling with GMM
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Sample documents
@@ -153,7 +234,30 @@ for doc, label, probs in zip(documents, doc_labels, doc_probs):
     print(f"Document: {doc}")
     print(f"Topic: {label}")
     print(f"Topic Probabilities: {probs}\n")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">TF-IDF Vectorization</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Convert five short documents to TF-IDF feature vectors; <code>.toarray()</code> converts the sparse matrix to dense — required for GMM which expects a dense input array.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GMM Topic Assignments</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit GMM with 2 components to discover two topic groups; <code>predict_proba</code> shows the soft topic membership — documents about "deep learning" and "clustering" should land in different components.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Document: machine learning algorithms classification
@@ -179,7 +283,10 @@ Topic Probabilities: [0. 1.]
 
 ### 2. Image Segmentation with HDBSCAN
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from skimage import io
 from skimage.color import rgb2lab
 
@@ -200,13 +307,39 @@ ax1.set_title('Original Image')
 ax2.imshow(segmented, cmap='viridis')
 ax2.set_title('HDBSCAN Segmentation')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pixel Feature Extraction</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Convert to CIELAB color space (<code>rgb2lab</code>) where Euclidean distance matches perceptual color difference; reshape flattens the image to a (height×width, 3) pixel array for clustering.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Segment and Display</span>
+    </div>
+    <div class="code-callout__body">
+      <p>HDBSCAN groups pixels by color similarity; reshaping labels back to (height, width) creates a segmentation map where each color region gets a cluster index.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Advanced Techniques
 
 ### 1. Ensemble Clustering
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def ensemble_clustering(X, n_members=5):
     # Create ensemble members
     clusterers = [
@@ -214,18 +347,41 @@ def ensemble_clustering(X, n_members=5):
         GaussianMixture(n_components=3),
         SpectralClustering(n_clusters=3),
     ]
-    
+
     # Get predictions from each member
     predictions = np.zeros((X.shape[0], len(clusterers)))
     for i, clusterer in enumerate(clusterers):
         predictions[:, i] = clusterer.fit_predict(X)
-    
+
     # Combine predictions (simple majority voting)
     from scipy.stats import mode
     ensemble_pred = mode(predictions, axis=1)[0]
-    
+
     return ensemble_pred
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three Diverse Clusterers</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Combine HDBSCAN, GMM, and SpectralClustering — each with different inductive biases; diversity across methods reduces the chance that all three make the same mistakes.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Majority Vote Ensemble</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Collect per-clusterer predictions in a matrix, then <code>mode(axis=1)</code> picks the most common label per point — note that cluster label alignment across methods is a known challenge for real ensemble implementations.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Semi-Supervised Clustering
 
@@ -279,11 +435,14 @@ def select_best_model(X, models, n_splits=5):
 
 ### 2. Parameter Optimization
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def optimize_hdbscan(X):
     best_score = -1
     best_params = {}
-    
+
     for min_cluster_size in [5, 10, 15, 20]:
         for min_samples in [5, 10, 15]:
             clusterer = hdbscan.HDBSCAN(
@@ -291,7 +450,7 @@ def optimize_hdbscan(X):
                 min_samples=min_samples
             )
             labels = clusterer.fit_predict(X)
-            
+
             if len(np.unique(labels)) > 1:  # More than one cluster
                 score = silhouette_score(X, labels)
                 if score > best_score:
@@ -300,9 +459,32 @@ def optimize_hdbscan(X):
                         'min_cluster_size': min_cluster_size,
                         'min_samples': min_samples
                     }
-    
+
     return best_params
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Init Best Trackers</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Set up variables to track the best silhouette score and corresponding parameter combination found so far.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Grid Search Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Try every combination of <code>min_cluster_size</code> and <code>min_samples</code>, scoring each valid clustering with silhouette to find the best params.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Pitfalls and Solutions
 

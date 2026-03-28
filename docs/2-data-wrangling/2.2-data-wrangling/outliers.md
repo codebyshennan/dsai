@@ -97,22 +97,22 @@ def detect_outliers_zscore(data, threshold=3):
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def detect_outliers_zscore(data, threshold=3):</span>
+      <span class="code-callout__title">Function definition and computation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def detect_outliers_zscore(data, threshold=3):</strong> — lines 1-10. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Defines the function with its docstring, then computes the absolute z-score for each point and returns a boolean mask where True means the value exceeds the threshold.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-20" data-tint="2">
+  <div class="code-callout" data-lines="15-20" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&quot;&quot;&quot;</span>
+      <span class="code-callout__title">Mathematical representation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&quot;&quot;&quot;</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Shows the z-score formula in plain notation: subtract the mean (μ) and divide by standard deviation (σ) to standardise each observation.</p>
     </div>
   </div>
 </aside>
@@ -151,22 +151,22 @@ def detect_outliers_iqr(data, k=1.5):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def detect_outliers_iqr(data, k=1.5):</span>
+      <span class="code-callout__title">Function definition and docstring</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def detect_outliers_iqr(data, k=1.5):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Defines the function; <code>k=1.5</code> is the standard Tukey fence—larger values (e.g. 3.0) are more lenient and flag fewer points as outliers.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="12-24" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Q3 = np.percentile(data, 75)</span>
+      <span class="code-callout__title">IQR computation and fence bounds</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Q3 = np.percentile(data, 75)</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Computes Q1, Q3, and IQR, then sets lower and upper fences at Q1 − k·IQR and Q3 + k·IQR. Returns a boolean mask where True means outside the fences.</p>
     </div>
   </div>
 </aside>
@@ -200,22 +200,22 @@ def detect_outliers_mad(data, threshold=3.5):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-9" data-tint="1">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def detect_outliers_mad(data, threshold=3.5):</span>
+      <span class="code-callout__title">Function definition and computation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def detect_outliers_mad(data, threshold=3.5):</strong> — lines 1-9. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Computes the median absolute deviation (MAD), scales it by 0.6745 (the normal-distribution calibration factor), and returns a boolean mask for values above the threshold.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="10-19" data-tint="2">
+  <div class="code-callout" data-lines="17-19" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Array: Boolean mask of outliers</span>
+      <span class="code-callout__title">Mathematical representation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Array: Boolean mask of outliers</strong> — lines 10-19 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Summarises the MAD formula and the modified z-score Mi, showing how the 0.6745 factor makes it comparable to a standard z-score under normality.</p>
     </div>
   </div>
 </aside>
@@ -250,22 +250,22 @@ def detect_outliers_iforest(data, contamination=0.1):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-9" data-tint="1">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From sklearn.ensemble import IsolationForest</span>
+      <span class="code-callout__title">Import and function signature</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From sklearn.ensemble import IsolationForest</strong> — lines 1-9. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports IsolationForest and defines the function; <code>contamination</code> is the expected fraction of outliers—adjust it to your domain knowledge.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="10-18" data-tint="2">
+  <div class="code-callout" data-lines="14-18" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Returns:</span>
+      <span class="code-callout__title">Fit and predict outliers</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Returns:</strong> — lines 10-18 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Instantiates the forest with a fixed random seed for reproducibility, then returns True where the model assigns a score of −1 (anomaly).</p>
     </div>
   </div>
 </aside>
@@ -295,22 +295,22 @@ def detect_outliers_lof(data, contamination=0.1):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-7" data-tint="1">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From sklearn.neighbors import LocalOutlierFactor</span>
+      <span class="code-callout__title">Import and function signature</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From sklearn.neighbors import LocalOutlierFactor</strong> — lines 1-7. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports LocalOutlierFactor and defines the function with its docstring; LOF compares each point's density to its neighbours rather than using a global threshold.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="8-15" data-tint="2">
+  <div class="code-callout" data-lines="13-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Data (array-like): Input data</span>
+      <span class="code-callout__title">Fit and predict</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Data (array-like): Input data</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Fits the LOF model in one call and returns a boolean mask where −1 predictions (low-density points) are marked as outliers.</p>
     </div>
   </div>
 </aside>
@@ -423,55 +423,37 @@ class OutlierDetector:
   <div class="code-callout" data-lines="1-15" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Import pandas as pd</span>
+      <span class="code-callout__title">Imports and class initialisation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Import pandas as pd</strong> — lines 1-15. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports six libraries, then defines the class; <code>__init__</code> stores the target column's Series and initialises an empty <code>outliers</code> dict keyed by method name.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="16-31" data-tint="2">
+  <div class="code-callout" data-lines="17-38" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def detect_statistical_outliers(self):</span>
+      <span class="code-callout__title">Statistical outlier detection (z-score, IQR, MAD)</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def detect_statistical_outliers(self):</strong> — lines 16-31. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Applies three statistical rules in sequence—standard z-score, Tukey IQR fences, and modified z-score (MAD)—storing a boolean mask for each in <code>self.outliers</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="32-47" data-tint="3">
+  <div class="code-callout" data-lines="40-53" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Modified Z-score method</span>
+      <span class="code-callout__title">ML outlier detection (Isolation Forest and LOF)</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Modified Z-score method</strong> — lines 32-47 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Reshapes the data for sklearn, runs Isolation Forest and Local Outlier Factor, and adds their boolean masks to <code>self.outliers</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="48-63" data-tint="4">
+  <div class="code-callout" data-lines="55-95" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Local Outlier Factor</span>
+      <span class="code-callout__title">Five-panel outlier visualisation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Local Outlier Factor</strong> — lines 48-63 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="64-79" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Histogram</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Histogram</strong> — lines 64-79 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="80-95" data-tint="2">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Outlier_counts.plot(kind=&#x27;bar&#x27;)</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Outlier_counts.plot(kind=&#x27;bar&#x27;)</strong> — lines 80-95. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p>Produces a 2×3 figure: box plot, distribution histogram, Q-Q plot, per-method outlier counts bar chart, and a scatter plot coloured by z-score outlier status.</p>
     </div>
   </div>
 </aside>
@@ -499,10 +481,10 @@ def calculate_robust_statistics(data):
   <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def calculate_robust_statistics(data):</span>
+      <span class="code-callout__title">Four outlier-resistant summary statistics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def calculate_robust_statistics(data):</strong> — lines 1-8. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Returns median, MAD, 10%-trimmed mean, and Winsorised mean (5th–95th percentile)—all of which are far less influenced by extreme values than their standard counterparts.</p>
     </div>
   </div>
 </aside>
@@ -531,10 +513,10 @@ def adaptive_capping(data, sensitivity=1.5):
   <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def adaptive_capping(data, sensitivity=1.5):</span>
+      <span class="code-callout__title">Adaptive capping using local density</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def adaptive_capping(data, sensitivity=1.5):</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Computes rolling median and std over a 100-point window to derive local upper and lower bounds, then clips values to those dynamic limits rather than a single global threshold.</p>
     </div>
   </div>
 </aside>
@@ -567,22 +549,22 @@ def engineer_outlier_features(data):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-9" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def engineer_outlier_features(data):</span>
+      <span class="code-callout__title">Distance from mean (z-score)</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def engineer_outlier_features(data):</strong> — lines 1-9. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Computes absolute deviation from the mean, normalised by standard deviation—equivalent to an unsigned z-score stored as a feature.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="10-18" data-tint="2">
+  <div class="code-callout" data-lines="9-18" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Median_dist = np.abs(data - np.median(data))</span>
+      <span class="code-callout__title">Distance from median and local density</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Median_dist = np.abs(data - np.median(data))</strong> — lines 10-18 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Adds a MAD-normalised median distance for robustness, then uses a KDE to estimate each point's local probability density—low density indicates a potential outlier region.</p>
     </div>
   </div>
 </aside>
@@ -644,40 +626,40 @@ def analyze_transaction_outliers(transactions_df):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def analyze_transaction_outliers(transactions…</span>
+      <span class="code-callout__title">Detect outliers</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def analyze_transaction_outliers(transactions…</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Initialises an <code>OutlierDetector</code> on the <code>amount</code> column, then runs both statistical and ML detection methods to populate all outlier masks.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-23" data-tint="2">
+  <div class="code-callout" data-lines="11-19" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Time_patterns = transactions_df[</span>
+      <span class="code-callout__title">Analyse temporal and category patterns</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Time_patterns = transactions_df[</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Filters to z-score-flagged rows and counts them by hour-of-day and by product category, revealing whether outlier transactions cluster at specific times or in specific segments.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="24-35" data-tint="3">
+  <div class="code-callout" data-lines="20-41" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Time_patterns.plot(kind=&#x27;bar&#x27;)</span>
+      <span class="code-callout__title">Three-panel pattern visualisation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Time_patterns.plot(kind=&#x27;bar&#x27;)</strong> — lines 24-35 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Plots outlier counts by hour, outlier counts by category, and a scatter of amount vs frequency with outlier points coloured differently for quick visual inspection.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="36-47" data-tint="4">
+  <div class="code-callout" data-lines="43-47" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Hue=statistical_outliers[&#x27;zscore&#x27;]</span>
+      <span class="code-callout__title">Return results dict</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Hue=statistical_outliers[&#x27;zscore&#x27;]</strong> — lines 36-47 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Packages the outlier masks, temporal patterns, and category patterns into a single dictionary for downstream analysis or reporting.</p>
     </div>
   </div>
 </aside>
@@ -720,22 +702,22 @@ def analyze_outlier_impact(data, target, outlier_mask):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-16" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def analyze_outlier_impact(data, target, outl…</span>
+      <span class="code-callout__title">Set up features, targets, and models</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def analyze_outlier_impact(data, target, outl…</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports metrics, separates features and target, then defines two linear regression models keyed as 'all_data' and 'no_outliers' for side-by-side comparison.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="18-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">X[mask], y[mask], test_size=0.2, random_state=42</span>
+      <span class="code-callout__title">Train each model and record metrics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>X[mask], y[mask], test_size=0.2, random_state=42</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>For each model, applies the outlier mask or a full-data slice, splits into train/test, fits and predicts, then stores MSE, R², and coefficient std—showing the impact of outlier removal.</p>
     </div>
   </div>
 </aside>
@@ -768,10 +750,10 @@ def select_outlier_strategy(data):
   <div class="code-callout" data-lines="1-13" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def select_outlier_strategy(data):</span>
+      <span class="code-callout__title">Choose detection strategy by distribution shape</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def select_outlier_strategy(data):</strong> — lines 1-13. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Measures skewness, kurtosis, and sample size: highly non-normal data gets robust methods (MAD, IQR); small samples get IQR; everything else gets multi-method comparison.</p>
     </div>
   </div>
 </aside>
@@ -810,22 +792,22 @@ def validate_outlier_treatment(original, treated):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def validate_outlier_treatment(original, trea…</span>
+      <span class="code-callout__title">Distribution shape change</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def validate_outlier_treatment(original, trea…</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Computes the change in skewness and kurtosis after treatment—large reductions confirm the outliers were distorting the distribution.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="12-24" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Validation[&#x27;range&#x27;] = {</span>
+      <span class="code-callout__title">Range and correlation preservation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Validation[&#x27;range&#x27;] = {</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Records the original and treated min/max, then for multivariate data computes the max absolute correlation-matrix difference to check that relationships between columns were not distorted.</p>
     </div>
   </div>
 </aside>
@@ -872,19 +854,19 @@ report = {
   <div class="code-callout" data-lines="1-13" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Load and prepare data</span>
+      <span class="code-callout__title">Load, detect, and analyse patterns</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Load and prepare data</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Reads the financial CSV, detects and visualises outliers on the <code>returns</code> column, then analyses temporal and category patterns using the framework functions.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="14-26" data-tint="2">
+  <div class="code-callout" data-lines="15-29" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">4. Validate treatment</span>
+      <span class="code-callout__title">Treat, validate, assess impact, and report</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>4. Validate treatment</strong> — lines 14-26 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Applies adaptive capping, validates the treatment, measures model-performance impact with and without outliers, then assembles all findings into a report dictionary.</p>
     </div>
   </div>
 </aside>

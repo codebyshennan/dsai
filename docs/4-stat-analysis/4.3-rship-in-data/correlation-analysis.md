@@ -49,6 +49,8 @@ The result is a single number called a **correlation coefficient** that ranges f
 - **0**: No linear relationship (knowing one tells you nothing about the other)
 - **-1**: Perfect negative correlation (when one goes up, the other goes down by a proportional amount)
 
+> **Figure (add screenshot or diagram):** A row of six scatter plots showing correlations at r = +1.0, +0.7, +0.3, 0.0, −0.7, −1.0. Each plot should label the r value and briefly describe the pattern (e.g. "strong positive", "weak positive", "none", "strong negative"). This gives learners a visual anchor for what each number *looks* like in real data.
+
 ### Real-World Example: Height and Weight
 
 Let's say we measure the height and weight of 100 adults:
@@ -83,7 +85,7 @@ Just as you wouldn't use a hammer for every home repair job, we have different t
 
 **Pearson correlation for study time vs. exam scores**
 
-**Purpose:** Compute Pearson’s \(r\) and the two-sided p-value for two numeric arrays to quantify linear association and statistical significance.
+**Purpose:** Compute Pearson’s \\(r\\) and the two-sided p-value for two numeric arrays to quantify linear association and statistical significance.
 
 **Walkthrough:** `stats.pearsonr` returns `(r, p_value)`; the formatted prints match the example interpretation below.
 
@@ -101,7 +103,7 @@ print(f"Pearson correlation: {r:.2f}")
 print(f"P-value: {p_value:.4f}")
 ```
 
-**Captured output (example):** Exact floating-point formatting may differ slightly by SciPy version; you should still see \(r\) very close to 1 and a small p-value for this toy data.
+**Captured output (example):** Exact floating-point formatting may differ slightly by SciPy version; you should still see \\(r\\) very close to 1 and a small p-value for this toy data.
 
 ```
 Pearson correlation: 0.99
@@ -127,9 +129,9 @@ This tells us there's a very strong positive relationship (0.99 is very close to
 
 **Spearman rank correlation on the same study vs. score arrays**
 
-**Purpose:** Measure monotonic association via ranks (robust to outliers and mild nonlinearity) and print \(\rho\) and its p-value using the same `study_time` and `exam_scores` as Pearson.
+**Purpose:** Measure monotonic association via ranks (robust to outliers and mild nonlinearity) and print \\(\rho\\) and its p-value using the same `study_time` and `exam_scores` as Pearson.
 
-**Walkthrough:** `stats.spearmanr` returns Spearman’s \(\rho\) and a p-value; compare to Pearson when you suspect outliers or nonlinearity.
+**Walkthrough:** `stats.spearmanr` returns Spearman’s \\(\rho\\) and a p-value; compare to Pearson when you suspect outliers or nonlinearity.
 
 ```python
 # Calculate Spearman correlation
@@ -138,7 +140,7 @@ print(f"Spearman correlation: {rho:.2f}")
 print(f"P-value: {p_value:.4f}")
 ```
 
-**Captured output (example):** For strictly increasing paired data, Spearman \(\rho\) is often 1.0; p-value formatting may differ in the last decimal place.
+**Captured output (example):** For strictly increasing paired data, Spearman \\(\rho\\) is often 1.0; p-value formatting may differ in the last decimal place.
 
 ```
 Spearman correlation: 1.00
@@ -165,7 +167,7 @@ The Spearman correlation of 1.00 tells us there's a perfect rank correlation - a
 
 **Purpose:** Summarize agreement between ranks using concordant vs. discordant pairs, useful for small samples or many ties.
 
-**Walkthrough:** `stats.kendalltau` returns Kendall’s \(\tau\) and a p-value; interpret \(\tau\) on a similar \([-1, 1]\)-style scale as other correlations.
+**Walkthrough:** `stats.kendalltau` returns Kendall’s \\(\tau\\) and a p-value; interpret \\(\tau\\) on a similar \\([-1, 1]\\)-style scale as other correlations.
 
 ```python
 # Calculate Kendall correlation
@@ -174,7 +176,7 @@ print(f"Kendall correlation: {tau:.2f}")
 print(f"P-value: {p_value:.4f}")
 ```
 
-**Captured output (example):** With only five points, the exact p-value can differ slightly; perfect rank agreement should still yield \(\tau = 1\).
+**Captured output (example):** With only five points, the exact p-value can differ slightly; perfect rank agreement should still yield \\(\tau = 1\\).
 
 ```
 Kendall correlation: 1.00
@@ -240,7 +242,10 @@ When you have many variables, checking correlations between each pair individual
 
 **Walkthrough:** `df.corr()` defaults to Pearson; `sns.heatmap` with `vmin=-1` and `vmax=1` maps strength to color on a consistent scale.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -262,7 +267,39 @@ plt.figure(figsize=(10, 8))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
 plt.title('Correlation Matrix')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import pandas for the DataFrame, seaborn for the heatmap, and Matplotlib for rendering.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Build the DataFrame</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create a small four-variable table (study time, exam scores, sleep hours, stress level) to demonstrate multi-variable correlation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-21" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Correlation heatmap</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute pairwise Pearson correlations with <code>df.corr()</code> and visualise them as an annotated heatmap scaled from -1 (blue) to +1 (red).</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![correlation-analysis_fig_4](assets/correlation-analysis_fig_4.png)
 
@@ -326,7 +363,10 @@ Now let's apply what we've learned with a practical example:
 
 **Walkthrough:** `np.corrcoef` returns a 2×2 matrix; element `[0, 1]` is the correlation; `plt.text(..., transform=plt.gca().transAxes)` pins the label in axes coordinates.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Generate sample data
 np.random.seed(42)  # For reproducible results
 n_samples = 100
@@ -344,10 +384,42 @@ plt.ylabel('Ice Cream Sales (units)')
 
 # Calculate and add correlation coefficient
 r = np.corrcoef(temperature, ice_cream_sales)[0,1]
-plt.text(0.05, 0.95, f'Correlation: {r:.2f}', 
+plt.text(0.05, 0.95, f'Correlation: {r:.2f}',
          transform=plt.gca().transAxes)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Simulate data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate 100 temperature values and create ice cream sales as a noisy linear function of temperature to produce a realistic positive correlation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scatter plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw a scatter of temperature (x) vs. sales (y) with semi-transparency to reveal density in overlapping regions.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-20" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Annotate correlation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute Pearson r with <code>np.corrcoef</code> and pin the value as a text label in the upper-left corner of the axes.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![correlation-analysis_fig_5](assets/correlation-analysis_fig_5.png)
 

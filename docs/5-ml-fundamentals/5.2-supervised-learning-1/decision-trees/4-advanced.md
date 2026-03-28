@@ -42,10 +42,13 @@ This is like setting rules before the tree starts growing:
 
 **Walkthrough:** `cross_val_score(..., cv=5)` estimates accuracy; `plot_tree` shows the smaller resulting structure.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.model_selection import cross_val_score
 from sklearn.datasets import load_iris
 
@@ -72,7 +75,6 @@ print(f"Average accuracy: {scores.mean():.3f}")
 
 # Visualize the tree
 plt.figure(figsize=(15, 10))
-from sklearn.tree import plot_tree
 plot_tree(
     tree,
     feature_names=iris.feature_names,
@@ -82,7 +84,48 @@ plot_tree(
 )
 plt.title('Pre-pruned Decision Tree')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Iris is a clean 150-sample dataset; it gives reproducible results to demonstrate the effect of each pre-pruning hyperparameter.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Five Pruning Controls</span>
+    </div>
+    <div class="code-callout__body">
+      <p>All five constraints fire together: depth cap, minimum split size, minimum leaf size, feature subsampling, and minimum impurity gain per split.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-26" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Evaluate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>5-fold CV on the full dataset gives an honest accuracy estimate without a separate test split for this small demo.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-38" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plot_tree</code> renders the pruned result so you can visually confirm the tree is compact compared to an unconstrained version.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![4-advanced](assets/4-advanced_fig_1.png)
@@ -111,7 +154,10 @@ This is like trimming the tree after it's grown:
 
 **Walkthrough:** `cost_complexity_pruning_path` yields `ccp_alphas`; loop stores `train_scores`/`test_scores` and `node_counts`; `argmax(test_scores)` selects `best_alpha`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
@@ -148,7 +194,7 @@ for ccp_alpha in ccp_alphas:
     # Create a tree with this pruning parameter
     tree = DecisionTreeClassifier(ccp_alpha=ccp_alpha, random_state=42)
     tree.fit(X_train, y_train)
-    
+
     # Save the tree and scores
     trees.append(tree)
     train_scores.append(tree.score(X_train, y_train))
@@ -181,7 +227,48 @@ print(f"Best pruning parameter: {best_alpha:.6f}")
 print(f"Training accuracy: {train_scores[best_alpha_idx]:.3f}")
 print(f"Testing accuracy: {test_scores[best_alpha_idx]:.3f}")
 print(f"Tree size: {node_counts[best_alpha_idx]} nodes")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-24" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Get Pruning Path</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>cost_complexity_pruning_path</code> returns the sequence of <code>ccp_alphas</code> at which subtrees are removed; removing the last avoids a trivially pruned root.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-40" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sweep Alpha Values</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A new tree is refit at each alpha; higher alpha prunes more aggressively, trading training accuracy for smaller tree size and (usually) better generalization.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="42-56" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Dual Plots</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Accuracy vs alpha shows the sweet spot; node count vs alpha shows how aggressively the tree shrinks as pruning increases.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="58-66" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Best Alpha Summary</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>argmax(test_scores)</code> picks the pruning level with best held-out accuracy; the resulting node count shows how compact the optimal tree is.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![4-advanced](assets/4-advanced_fig_2.png)
@@ -216,7 +303,10 @@ This example shows how to implement and use a custom impurity function:
 
 **Walkthrough:** `calculate_custom_impurity` uses $1-\sum p_k^3$; loop fits full trees with `criterion='gini'|'entropy'` and reports in-sample accuracy and size.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.datasets import make_classification
@@ -236,7 +326,7 @@ def calculate_custom_impurity(y_classes):
     # Get class probabilities
     _, counts = np.unique(y_classes, return_counts=True)
     probabilities = counts / len(y_classes)
-    
+
     # Custom impurity (1 - sum of cubed probabilities)
     # Standard Gini would use squared probabilities
     return 1 - np.sum(probabilities ** 3)
@@ -258,7 +348,39 @@ for criterion in ['gini', 'entropy']:
     accuracy = tree.score(X, y)
     nodes = tree.tree_.node_count
     print(f"{criterion.capitalize()} criterion - Accuracy: {accuracy:.3f}, Nodes: {nodes}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Synthetic Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>1,000 samples with 10 features (5 informative, 2 redundant) give a realistic classification task to compare criterion choices.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Cubic Impurity</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Replaces the squared probabilities of Gini with cubed ones; this de-emphasizes moderate imbalance and focuses on near-pure vs very mixed nodes.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-42" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Criterion Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Gini and entropy trees are fit identically and compared on in-sample accuracy and node count to show how the criterion affects tree structure.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -287,7 +409,10 @@ Decision trees can help us identify which features are most important:
 
 **Walkthrough:** `argsort` descending; slice `X_train[:, top_features]`; same `max_depth` for fair comparison.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
@@ -341,7 +466,39 @@ top_accuracy = tree_top.score(X_test_top, y_test)
 print(f"Accuracy with all features: {full_accuracy:.3f}")
 print(f"Accuracy with top 5 features: {top_accuracy:.3f}")
 print(f"Top 5 features: {', '.join([feature_names[i] for i in top_features])}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-20" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train Full Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A depth-4 tree is fit on all 13 Wine features to generate importances from impurity-reduction accumulated across all splits.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-35" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Rank and Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Features are sorted descending by importance; the bar chart shows the relative contribution of each column at a glance.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37-53" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Reduced Feature Retrain</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The top-5 feature subset is used to refit the same tree; comparing accuracy before and after reveals whether the 8 dropped features added value.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![4-advanced](assets/4-advanced_fig_4.png)
@@ -373,7 +530,10 @@ Think of ensembles like a team of experts working together. Each expert (tree) m
 
 **Walkthrough:** Same `max_depth=3` cap on base learners; forest adds bootstrap + feature subsampling per split.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
@@ -401,7 +561,7 @@ forest_scores = cross_val_score(forest, X, y, cv=5)
 
 # Plot comparison
 plt.figure(figsize=(8, 6))
-plt.boxplot([tree_scores, forest_scores], 
+plt.boxplot([tree_scores, forest_scores],
             labels=['Single Tree', 'Random Forest'])
 plt.title('Which is Better: One Expert or Many?')
 plt.ylabel('Accuracy')
@@ -412,7 +572,39 @@ plt.show()
 # Print average scores
 print(f"Single Tree Average: {tree_scores.mean():.3f}")
 print(f"Random Forest Average: {forest_scores.mean():.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load Breast Cancer</span>
+    </div>
+    <div class="code-callout__body">
+      <p>569 samples with 30 features; binary classification makes the accuracy gap between tree and forest easy to see.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Single Tree vs Forest</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Both models use <code>max_depth=3</code> per tree so the only difference is bagging and feature subsampling inside the forest.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Boxplot Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A boxplot of 5-fold scores shows median accuracy and variance for each model; the forest typically has a higher median and narrower spread.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![4-advanced](assets/4-advanced_fig_5.png)
@@ -439,7 +631,10 @@ This diversity helps the ensemble overcome individual tree weaknesses and produc
 
 **Walkthrough:** Loop mutates `boosting.n_estimators` and refits from scratch each iteration—slower than staged_predict; picks best test score in the range.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.ensemble import GradientBoostingClassifier
@@ -491,7 +686,48 @@ plt.show()
 best_n_estimators = n_estimators_range[np.argmax(test_scores)]
 print(f"Optimal number of trees: {best_n_estimators}")
 print(f"Best accuracy: {max(test_scores):.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Circles Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>make_circles</code> creates a non-linear two-class problem; boosting handles it by stacking many shallow trees that each correct residual errors.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GBM Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>learning_rate=0.1</code> shrinks each tree's contribution; lower values require more trees but generalize better.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-35" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Stage-wise Scoring</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Resetting <code>n_estimators</code> and refitting at each step tracks how accuracy evolves as more trees are added to the ensemble.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37-49" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Learning Curve and Optimum</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The plot shows test accuracy stabilizing or declining after the optimal stage; <code>argmax</code> identifies the best tree count from the sweep.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![4-advanced](assets/4-advanced_fig_6.png)
@@ -521,7 +757,10 @@ This sequential learning process allows the model to focus on the difficult case
 
 **Walkthrough:** Sparse `decision_path` → `path.indices`; skip sentinel leaves; compare `sample[0, feature]` to `tree_.threshold`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier, plot_tree
@@ -569,17 +808,58 @@ for i, node_id in enumerate(path_indices):
         feature = tree_clf.tree_.feature[node_id]
         threshold = tree_clf.tree_.threshold[node_id]
         feature_name = iris.feature_names[feature]
-        
+
         if sample[0, feature] <= threshold:
             direction = "<="
         else:
             direction = ">"
-            
+
         print(f"Step {i+1}: Is {feature_name} {direction} {threshold:.2f}? {'Yes' if sample[0, feature] <= threshold else 'No'}")
 
 plt.title('Decision Tree with Highlighted Path')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-18" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Setup and Select Sample</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A depth-3 Iris tree is fit; sample index 42 is sliced as a single-row matrix (required by <code>decision_path</code>) and its true class is stored for comparison.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Get and Print Path</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>decision_path</code> returns a sparse matrix of node visits; <code>.indices</code> gives the ordered list of node IDs from root to leaf.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize Full Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plot_tree</code> shows the complete structure; in practice you would color the path nodes—here the printed trace explains each split rule verbally.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="38-55" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Trace Split Rules</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each visited node (excluding the leaf), the feature name, threshold, and direction are printed so you can follow the logic step by step.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![4-advanced](assets/4-advanced_fig_7.png)
@@ -613,7 +893,10 @@ This transparency is one of the major advantages of decision trees over black-bo
 
 **Walkthrough:** `stratify=y` preserves 90/10 in splits; compare `classification_report` rows for class 1.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.datasets import make_classification
@@ -654,7 +937,39 @@ print("\nWeighted Tree:")
 y_pred_weighted = weighted_tree.predict(X_test)
 print(confusion_matrix(y_test, y_pred_weighted))
 print(classification_report(y_test, y_pred_weighted))
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imbalanced Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The 90/10 class split simulates a realistic imbalance scenario (fraud, rare disease); <code>stratify=y</code> preserves this ratio in the test split.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-30" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two Trees</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The regular tree ignores class frequency; <code>class_weight='balanced'</code> upweights minority samples so the tree doesn't just predict the majority class.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="32-41" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compare Reports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The confusion matrix and classification report expose precision, recall, and F1 per class so you can see how weighting shifts the minority-class trade-off.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -700,7 +1015,10 @@ These techniques help ensure the model pays attention to minority classes instea
 
 **Walkthrough:** Same estimator and `cv=5`; print per-fold scores and mean/std—stratification often reduces variance in class balance per fold.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import cross_val_score, KFold, StratifiedKFold
@@ -725,7 +1043,39 @@ print(f"Average: {scores_kf.mean():.3f}, Std Dev: {scores_kf.std():.3f}")
 
 print("\nStratified K-Fold CV scores:", scores_skf)
 print(f"Average: {scores_skf.mean():.3f}, Std Dev: {scores_skf.std():.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load and Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Breast cancer is a binary dataset with ~63/37 class split — a realistic scenario where stratification matters for consistent fold class ratios.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two CV Strategies</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>KFold</code> shuffles randomly; <code>StratifiedKFold</code> ensures each fold mirrors the overall class distribution, reducing variance in fold-to-fold scores.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-25" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Mean and Std</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Printing per-fold scores plus mean and std lets you compare stability; stratified CV often shows a tighter std on imbalanced data.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 

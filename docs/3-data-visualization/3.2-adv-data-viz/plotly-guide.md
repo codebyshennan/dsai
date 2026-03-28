@@ -35,6 +35,27 @@ Key Features:
 
 ## Getting Started
 
+```mermaid
+graph LR
+    subgraph PX["Plotly Express  (px)  — start here"]
+        PX1["One-line charts\npx.scatter / px.line / px.bar / px.histogram"]
+        PX2["Auto colour, hover,\nlabels from column names"]
+        PX3["Returns a Figure\nyou can still update_layout"]
+    end
+    subgraph GO["Graph Objects  (go)  — fine-grained control"]
+        GO1["Build trace-by-trace\ngo.Scatter / go.Bar / go.Heatmap …"]
+        GO2["Full control of every\nmarker, axis, annotation"]
+        GO3["Required for subplots,\ncustom animations, mixed types"]
+    end
+    PX -->|"fig.update_layout / update_traces"| GO
+    DECIDE{"Need custom\nsubplots or mixed\ntrace types?"}
+    START["New chart"] --> DECIDE
+    DECIDE -->|"No"| PX
+    DECIDE -->|"Yes"| GO
+```
+
+*Rule of thumb: always try `px` first. Drop to `go` only when Express can't express what you need.*
+
 ### Professional Setup
 
 **Purpose:** Import Plotly Express and Graph Objects, set a default template and size, and initialize notebook mode for inline HTML.
@@ -102,8 +123,11 @@ df = load_and_prepare_data()
 
 **Walkthrough:** `px.scatter` handles encoding; `update_layout` sets paper/plot background and gridline colors.
 
-```python
-def create_interactive_scatter(data, x_col, y_col, 
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+def create_interactive_scatter(data, x_col, y_col,
                              size_col=None, color_col=None,
                              animation_col=None):
     """Create professional interactive scatter plot"""
@@ -166,10 +190,60 @@ scatter_fig = create_interactive_scatter(
     color_col='continent',
     animation_col='year'
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Function signature</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The function accepts a DataFrame plus column name strings for each visual channel. Default <code>None</code> for optional channels means they're skipped when not supplied — the same function works for a simple two-axis scatter or a fully-animated bubble chart.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Multiple encoding channels</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>px.scatter</code> maps data columns to visual channels: <code>x</code>/<code>y</code> for position, <code>size</code> for bubble area, <code>color</code> for hue, and <code>animation_frame</code> for a time slider. Each additional channel encodes another variable — <em>without</em> extra code.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-25" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Hover and axis labels</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>hover_data</code> controls which columns appear on hover and how they're formatted (<code>':.2f'</code> = two decimal places). <code>labels</code> renames columns for display — replacing underscores and title-casing so axes read cleanly without touching the data.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-51" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">update_layout: title + background + grid</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>update_layout</code> takes a dict for <code>title</code> (position, font) and separate <code>paper_bgcolor</code> (outer canvas) vs <code>plot_bgcolor</code> (inner axes area). Grid styling goes inside <code>xaxis=dict(...)</code> — Plotly's fine-grained axis control.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="52-63" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return and example call</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Returning the <code>fig</code> object lets callers save, display, or chain further <code>update_*</code> calls. The example call demonstrates the full parameter set: Gapminder GDP vs life expectancy with population size, continent color, and an animated year slider.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Output (Animation Frames):**
-> **Figure (add screenshot or diagram):** Animated Scatter Frames
+> **Figure (add screenshot or diagram):** Animated bubble chart — GDP per capita (x) vs life expectancy (y), bubble size = population, color = continent, with a year playback slider at the bottom; show frames for 1952, 1977, and 2002 side by side to illustrate the play button and animation controls.
 ### 2. Time Series Visualization
 
 **Purpose:** Interactive line chart with optional range slider and quick “YTD vs full range” relayout buttons.
@@ -235,7 +309,7 @@ time_fig = create_time_series_plot(
 ```
 
 **Output (with Range Slider):**
-> **Figure (add screenshot or diagram):** Time Series with Range Slider
+> **Figure (add screenshot or diagram):** Interactive line chart showing life expectancy over time by continent (1952–2007), with a compact range-slider navigator below the x-axis and "YTD" / "All" dropdown buttons in the upper left for quick zoom controls.
 
 ## Statistical Visualizations
 
@@ -327,19 +401,24 @@ dist_fig = create_distribution_dashboard(
 ```
 
 **Output:**
-> **Figure (add screenshot or diagram):** Distribution Dashboard
+> **Figure (add screenshot or diagram):** 2×2 dashboard of distribution charts for life expectancy: histogram with bar counts (top-left), box plot grouped by continent (top-right), violin plot with embedded box and mean line (bottom-left), and a normal QQ plot with points following the theoretical line (bottom-right).
+
 ### Additional Interactive Features
 
 **3D Scatter Plot:**
-> **Figure (add screenshot or diagram):** 3D Scatter
+> **Figure (add screenshot or diagram):** 3D scatter plot with x/y/z numeric axes, points colored by a categorical group, shown from an angled perspective — and the Plotly modebar in the top-right showing the orbit/pan/zoom buttons for 3D interaction.
+
 **Dashboard Layout:**
-> **Figure (add screenshot or diagram):** Dashboard Layout
+> **Figure (add screenshot or diagram):** Multi-panel Plotly dashboard combining a bar chart (top-left), scatter plot (top-right), and a choropleth map (bottom), all with a consistent white theme, matching color palette, and hover tooltips visible on one panel.
+
 **Interactive Hover Information:**
-> **Figure (add screenshot or diagram):** Hover Example
+> **Figure (add screenshot or diagram):** A scatter plot with one data point hovered — the tooltip popup showing formatted values for x, y, and two additional hover_data fields (e.g. country name and population), demonstrating the custom hover template.
+
 **Hierarchical Visualization (Sunburst-style):**
-> **Figure (add screenshot or diagram):** Sunburst Style
+> **Figure (add screenshot or diagram):** Sunburst chart with three levels of hierarchy — e.g. World → Continent → Country — inner rings for higher levels and outer arcs for countries, sized by population and colored by continent.
+
 **Theme Comparison:**
-> **Figure (add screenshot or diagram):** Theme Comparison
+> **Figure (add screenshot or diagram):** Two identical scatter plots side by side: left using the 'modern' white theme (white background, light-gray grid, black font) and right using the 'dark' theme (dark slate background, muted grid, light font) — same data, contrasting appearances.
 ## Advanced Features
 
 ### 1. Custom Themes

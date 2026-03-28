@@ -34,7 +34,10 @@ Imagine you're building a movie streaming service. You want to recommend movies 
 **Walkthrough:**
 - `MovieRecommender` stores `StandardScaler` and `NearestNeighbors(k+1)`; `recommend` uses `kneighbors` on the query row and strips the first neighbor (self).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
@@ -45,33 +48,33 @@ class MovieRecommender:
         """Initialize with k neighbors"""
         self.k = k
         self.model = NearestNeighbors(n_neighbors=k+1)  # +1 because we include the movie itself
-        
+
     def fit(self, ratings_matrix):
         """Train the recommender"""
         # Scale the ratings
         self.scaler = StandardScaler()
         ratings_scaled = self.scaler.fit_transform(ratings_matrix)
-        
+
         # Train the model
         self.model.fit(ratings_scaled)
         self.ratings_matrix = ratings_matrix
-        
+
     def recommend(self, movie_id, n_recommendations=5):
         """Get movie recommendations"""
         # Get the movie's features
         movie_features = self.ratings_matrix.iloc[movie_id].values.reshape(1, -1)
         movie_features_scaled = self.scaler.transform(movie_features)
-        
+
         # Find similar movies
         distances, indices = self.model.kneighbors(
             movie_features_scaled,
             n_neighbors=n_recommendations+1
         )
-        
+
         # Remove the movie itself and return recommendations
         similar_movies = indices[0][1:]
         similarity_scores = 1 - distances[0][1:]
-        
+
         return list(zip(similar_movies, similarity_scores))
 
 # Example: Building a Simple Recommender
@@ -90,7 +93,48 @@ recommendations = recommender.recommend(0)
 print("Recommended movies for movie_1:")
 for movie_id, similarity in recommendations:
     print(f"Movie {movie_id + 1} (similarity: {similarity:.2f})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Pandas for the ratings DataFrame, <code>NearestNeighbors</code> for item-item similarity, and <code>StandardScaler</code> to normalize user rating scales.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit the Index</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Ratings are scaled so heavy raters don't dominate; the <code>NearestNeighbors</code> index is built on movie vectors (rows = movies, cols = users).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-39" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Recommend Movies</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The query movie is transformed, neighbors are retrieved, the first result (itself) is stripped, and similarity is computed as <code>1 - distance</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="41-57" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Usage Demo</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A 4×3 ratings matrix is built as a DataFrame; recommendations for movie_1 are retrieved and printed with their similarity scores.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 2. Medical Diagnosis Assistant
 
@@ -105,7 +149,10 @@ KNN can help doctors make better diagnoses by comparing new patients with simila
 **Walkthrough:**
 - `Pipeline([('scaler', ...), ('classifier', ...)])`; `predict_proba` / `predict` on new patient rows.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
@@ -121,20 +168,20 @@ class MedicalDiagnosisSystem:
                 weights='distance'  # Closer cases matter more
             ))
         ])
-        
+
     def train(self, patient_data, diagnoses):
         """Train the system with past cases"""
         self.pipeline.fit(patient_data, diagnoses)
-        
+
     def diagnose(self, patient_data):
         """Make a diagnosis with confidence level"""
         # Get prediction probabilities
         probabilities = self.pipeline.predict_proba(patient_data)
-        
+
         # Get the diagnosis and confidence
         prediction = self.pipeline.predict(patient_data)
         confidence = np.max(probabilities, axis=1)
-        
+
         return prediction, confidence
 
 # Example: Diagnosing Patients
@@ -155,7 +202,48 @@ diagnosis_system.train(X, y)
 new_patient = np.array([[38.2, 85, 135, 12000]])
 diagnosis, confidence = diagnosis_system.diagnose(new_patient)
 print(f"Diagnosis: {diagnosis[0]} (confidence: {confidence[0]:.2f})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The sklearn Pipeline chains scaling then distance-weighted KNN; <code>weights='distance'</code> means clinically similar past cases carry more weight.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train on History</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A single <code>fit</code> call processes all historical patient records through the pipeline—scaling is fit on training vitals only.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-30" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Diagnose with Confidence</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>predict_proba</code> returns probabilities for each diagnosis; <code>np.max</code> gives the highest probability as a confidence score for the final prediction.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="32-48" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Demo Prediction</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three labeled patients train the system; a new patient with moderate vitals is diagnosed and the confidence level is printed.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 3. Image Similarity Search
 
@@ -170,7 +258,10 @@ KNN can help find similar images, useful for photo organization or product searc
 **Walkthrough:**
 - `Image.open`, `resize`, `convert('L')`, `np.array(...).flatten()`; `model.fit(features)`; `kneighbors` on query features; similarity as `1 - distance`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from PIL import Image
 from sklearn.neighbors import NearestNeighbors
 import numpy as np
@@ -180,7 +271,7 @@ class ImageSimilarityFinder:
         """Initialize the image finder"""
         self.k = k
         self.model = NearestNeighbors(n_neighbors=k)
-        
+
     def _preprocess_image(self, image):
         """Convert image to a feature vector"""
         # Resize for consistency
@@ -190,33 +281,33 @@ class ImageSimilarityFinder:
             image = image.convert('L')
         # Flatten to 1D array
         return np.array(image).flatten()
-        
+
     def fit(self, image_paths):
         """Build index of images"""
         self.image_paths = image_paths
         features = []
-        
+
         for path in image_paths:
             image = Image.open(path)
             features.append(self._preprocess_image(image))
-            
+
         self.model.fit(features)
-        
+
     def find_similar(self, query_image_path):
         """Find similar images"""
         # Process query image
         query_image = Image.open(query_image_path)
         query_features = self._preprocess_image(query_image)
-        
+
         # Find nearest neighbors
         distances, indices = self.model.kneighbors([query_features])
-        
+
         # Return similar images and their similarity scores
         similar_images = [
-            (self.image_paths[i], 1 - d) 
+            (self.image_paths[i], 1 - d)
             for i, d in zip(indices[0], distances[0])
         ]
-        
+
         return similar_images
 
 # Example usage
@@ -229,7 +320,48 @@ similar_images = finder.find_similar('query_image.jpg')
 print("Similar images found:")
 for path, similarity in similar_images:
     print(f"{path} (similarity: {similarity:.2f})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>PIL opens image files; <code>NearestNeighbors</code> stores and queries the pixel-vector index; NumPy handles array flattening.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Preprocess to Vector</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Each image is resized to 64×64 grayscale and flattened to a 4,096-element vector so all images have the same feature dimension.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-30" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Build Index</span>
+    </div>
+    <div class="code-callout__body">
+      <p>All image paths are opened, preprocessed, and fitted into the <code>NearestNeighbors</code> model; the index stores pixel-space vectors for fast lookup.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="32-57" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Query Similarity</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The query image is preprocessed the same way; <code>kneighbors</code> returns distances converted to similarity scores (<code>1 - distance</code>) paired with file paths.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 4. Fraud Detection System
 
@@ -244,7 +376,10 @@ KNN can help identify unusual patterns that might indicate fraud.
 **Walkthrough:**
 - `LocalOutlierFactor(n_neighbors=20, contamination=...)`; `fit_predict`; `negative_outlier_factor_`; `np.where` for anomaly indices.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.neighbors import LocalOutlierFactor
 
@@ -255,21 +390,21 @@ class FraudDetector:
             n_neighbors=20,
             contamination=contamination
         )
-        
+
     def detect(self, transaction_data):
         """Detect potential fraud"""
         # -1 for anomalies (potential fraud), 1 for normal transactions
         predictions = self.model.fit_predict(transaction_data)
-        
+
         # Get anomaly scores
         scores = -self.model.negative_outlier_factor_
-        
+
         return predictions, scores
-        
+
     def analyze_findings(self, transaction_data, predictions, scores):
         """Analyze detected anomalies"""
         fraud_indices = np.where(predictions == -1)[0]
-        
+
         results = []
         for idx in fraud_indices:
             results.append({
@@ -277,8 +412,8 @@ class FraudDetector:
                 'data': transaction_data[idx],
                 'fraud_score': scores[idx]
             })
-            
-        return sorted(results, key=lambda x: x['fraud_score'], 
+
+        return sorted(results, key=lambda x: x['fraud_score'],
                      reverse=True)
 
 # Example: Detecting Credit Card Fraud
@@ -296,7 +431,48 @@ fraud_cases = detector.analyze_findings(transactions, predictions, scores)
 print("Potential fraud cases:")
 for case in fraud_cases:
     print(f"Transaction {case['transaction_id']}: Score {case['fraud_score']:.2f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">LOF Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>LocalOutlierFactor</code> computes each point's local density relative to its 20 neighbors; <code>contamination</code> sets the expected fraud fraction.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Detect Anomalies</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>fit_predict</code> labels each transaction as +1 (normal) or -1 (anomaly); negating <code>negative_outlier_factor_</code> gives a positive fraud score where higher = more suspicious.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Rank Findings</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Anomalous indices are collected, packed with their data and score, and sorted descending by fraud score so the most suspicious cases surface first.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="36-51" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Usage Demo</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three transactions—two normal and one outlier—demonstrate the pipeline; the high-amount late-night transaction is flagged with a high fraud score.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 

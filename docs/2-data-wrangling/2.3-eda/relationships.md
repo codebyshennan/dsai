@@ -27,7 +27,7 @@ Understanding relationships between variables is crucial for:
 
 ## Why Study Relationships?
 
-> **Figure (add screenshot or diagram):** Correlation heatmap for numeric columns—see **assets/correlation_heatmap.png** when available.
+![Correlation heatmap for numeric columns](assets/correlation_heatmap.png)
 
 Relationship analysis helps you:
 
@@ -53,7 +53,7 @@ graph TD
     C --> C3[Non-linear]
     
     D --> D1[Chi-square]
-    D --> D2[Cramer's V]
+    D --> D2["Cramer's V"]
     D --> D3[Mutual Info]
     
     E --> E1[ANOVA]
@@ -282,65 +282,56 @@ class RelationshipAnalyzer:
   <div class="code-callout" data-lines="1-26" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Import pandas as pd</span>
+      <span class="code-callout__title">Imports and RelationshipAnalyzer class</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Import pandas as pd</strong> — lines 1-26. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Nine imports; the constructor splits columns into <code>numeric_cols</code> and <code>categorical_cols</code> upfront so each method knows which pairs to operate on.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="27-53" data-tint="2">
+  <div class="code-callout" data-lines="27-65" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def analyze_numeric_relationship(self, x, y):</span>
+      <span class="code-callout__title">analyze_numeric_relationship</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def analyze_numeric_relationship(self, x, y):</strong> — lines 27-53. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Computes Pearson, Spearman, and Kendall correlations, then creates four subplots: regression scatter, residual plot, joint KDE, and Q-Q plot of residuals to check linearity and normality of errors.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="54-80" data-tint="3">
+  <div class="code-callout" data-lines="66-114" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Sns.kdeplot(data=self.data, x=x, y=y)</span>
+      <span class="code-callout__title">analyze_categorical_relationship</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Sns.kdeplot(data=self.data, x=x, y=y)</strong> — lines 54-80 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Builds a contingency table, runs chi-square test, computes Cramér's V effect size and mutual information score, then visualises with heatmap, mosaic plot, and stacked proportions bar chart.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="81-107" data-tint="4">
+  <div class="code-callout" data-lines="115-132" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Le = LabelEncoder()</span>
+      <span class="code-callout__title">analyze_mixed_relationship — ANOVA and effect size</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Le = LabelEncoder()</strong> — lines 81-107 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Groups the numeric column by category, runs one-way ANOVA for the F-statistic and p-value, then computes eta-squared (SS_between / SS_total) as the effect size measure.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="108-134" data-tint="1">
+  <div class="code-callout" data-lines="133-161" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Plt.show()</span>
+      <span class="code-callout__title">Mixed-relationship visualisations</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Plt.show()</strong> — lines 108-134 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="135-161" data-tint="2">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Fig = plt.figure(figsize=(15, 5))</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Fig = plt.figure(figsize=(15, 5))</strong> — lines 135-161 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Three side-by-side plots per group: box plot for spread, violin plot for density shape, and point plot with confidence intervals for mean comparison across categories.</p>
     </div>
   </div>
 </aside>
 </div>
 
-> **Figure (add screenshot or diagram):** Scatter with regression line—see **assets/scatter_regression.png** when available.
+![Scatter plot with regression line](assets/scatter_regression.png)
 
-> **Figure (add screenshot or diagram):** Pair plot or scatter matrix—see **assets/pairplot.png** when available.
+![Pair plot / scatter matrix across multiple variables](assets/pairplot.png)
 
-> **Figure (add screenshot or diagram):** Grouped bar chart for category comparisons—see **assets/grouped_bar.png** when available.
+![Grouped bar chart comparing categories](assets/grouped_bar.png)
 
 ## Real-World Case Study: Customer Analysis
 
@@ -409,22 +400,31 @@ Effect Size (): 0.006
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-9" data-tint="1">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Load sample customer data</span>
+      <span class="code-callout__title">Load data and analyse numeric–numeric pair</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Load sample customer data</strong> — lines 1-9 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Loads the CSV, creates the analyser, then runs <code>analyze_numeric_relationship</code> on spending vs age, printing the Pearson correlation and its p-value.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="10-18" data-tint="2">
+  <div class="code-callout" data-lines="7-12" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">2. Analyze category vs loyalty relationship</span>
+      <span class="code-callout__title">Categorical–categorical pair</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>2. Analyze category vs loyalty relationship</strong> — lines 10-18 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Analyses category vs loyalty using chi-square and Cramér's V, printing the effect size to judge practical significance beyond the p-value.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-18" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Mixed pair: numeric by category</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Uses ANOVA to test whether spending differs significantly across customer segments, printing eta-squared to quantify what fraction of spending variance is explained by segment.</p>
     </div>
   </div>
 </aside>
@@ -475,13 +475,22 @@ def compute_correlations_efficiently(df, method='pearson'):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def compute_correlations_efficiently(df, meth…</span>
+      <span class="code-callout__title">Fast Pearson via NumPy</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def compute_correlations_efficiently(df, meth…</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>For Pearson, <code>np.corrcoef</code> on the transposed values array is faster than the pandas method for wide DataFrames.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Other methods and return</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For Spearman or Kendall, delegates to <code>df.corr(method=method)</code>. The result is always wrapped back into a labeled DataFrame with column names on both axes.</p>
     </div>
   </div>
 </aside>
@@ -511,22 +520,22 @@ def analyze_categories_efficiently(df, cat1, cat2, max_categories=50):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-7" data-tint="1">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def analyze_categories_efficiently(df, cat1,…</span>
+      <span class="code-callout__title">Cardinality check</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def analyze_categories_efficiently(df, cat1,…</strong> — lines 1-7. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Counts unique values in both columns. If either exceeds <code>max_categories</code>, a contingency table on the full dataset would be excessively sparse and slow.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="8-15" data-tint="2">
+  <div class="code-callout" data-lines="7-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Use sampling for high cardinality</span>
+      <span class="code-callout__title">Sampling and crosstab</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Use sampling for high cardinality</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>High-cardinality columns are sampled to at most 10 000 rows (reproducibly with seed 42) before building the contingency table. Low-cardinality columns use the full dataset.</p>
     </div>
   </div>
 </aside>
@@ -579,22 +588,22 @@ Avoid these common mistakes in relationship analysis:
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-8" data-tint="1">
+     <div class="code-callout" data-lines="1-6" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Def check_confounding(df, x, y, potential_con…</span>
+         <span class="code-callout__title">Original correlation</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Def check_confounding(df, x, y, potential_con…</strong> — lines 1-8. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+         <p>Records the raw Pearson correlation between x and y before controlling for anything—this is the number that looks causal but may not be.</p>
        </div>
      </div>
-     <div class="code-callout" data-lines="9-16" data-tint="2">
+     <div class="code-callout" data-lines="7-16" data-tint="2">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Calculate partial correlation</span>
+         <span class="code-callout__title">Partial correlations per confounder</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Calculate partial correlation</strong> — lines 9-16 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p>Loops over candidate confounders, computing the partial correlation between x and y after removing the linear effect of each confounder. Large drops reveal spurious associations.</p>
        </div>
      </div>
    </aside>
@@ -625,22 +634,22 @@ Avoid these common mistakes in relationship analysis:
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-8" data-tint="1">
+     <div class="code-callout" data-lines="1-7" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Def check_nonlinearity(df, x, y):</span>
+         <span class="code-callout__title">Linear and monotonic correlations</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Def check_nonlinearity(df, x, y):</strong> — lines 1-8. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+         <p>Computes Pearson (linear) and Spearman (monotonic) correlations. Spearman can capture any monotonic relationship, not just linear ones.</p>
        </div>
      </div>
-     <div class="code-callout" data-lines="9-16" data-tint="2">
+     <div class="code-callout" data-lines="8-16" data-tint="2">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Difference indicates non-linearity</span>
+         <span class="code-callout__title">Non-linearity score</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Difference indicates non-linearity</strong> — lines 9-16 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p>The absolute difference between the two correlations is the non-linearity estimate: large values suggest a monotonic-but-curved relationship that Pearson would understate.</p>
        </div>
      </div>
    </aside>
@@ -668,13 +677,22 @@ Avoid these common mistakes in relationship analysis:
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-13" data-tint="1">
+     <div class="code-callout" data-lines="1-8" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Def adjust_for_sample_size(statistic, n, type…</span>
+         <span class="code-callout__title">Fisher z-transform for correlation CI</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Def adjust_for_sample_size(statistic, n, type…</strong> — lines 1-13. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+         <p>Applies Fisher's r-to-z transformation, computes standard error (1/√(n-3)), and back-transforms a ±1.96 SE interval into the original correlation scale.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="9-13" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Yates correction for small chi-square samples</span>
+       </div>
+       <div class="code-callout__body">
+         <p>For chi-square statistics with n &lt; 30, applies a 0.5 continuity correction to reduce inflated test values from small expected cell counts.</p>
        </div>
      </div>
    </aside>

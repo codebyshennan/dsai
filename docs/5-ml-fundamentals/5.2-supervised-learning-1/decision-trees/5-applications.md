@@ -24,7 +24,10 @@ Imagine you're building a system to help doctors diagnose patients. Decision tre
 
 **Walkthrough:** Ordinal symptom encodings feed `DecisionTreeClassifier`; `decision_path` walks internal nodes for narrative output.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier, plot_tree
@@ -33,14 +36,14 @@ from sklearn.tree import DecisionTreeClassifier, plot_tree
 # Each row is a patient with symptoms: [fever, cough, fatigue, breathing_difficulty, blood_pressure]
 # Values: 0=none, 1=mild, 2=moderate, 3=severe, blood pressure: 0=low, 1=normal, 2=high
 patients = np.array([
-    [3, 2, 1, 0, 1],  # Patient 1: severe fever, moderate cough, mild fatigue, no breathing issues, normal BP
-    [0, 0, 0, 0, 1],  # Patient 2: no symptoms, normal BP
-    [3, 2, 3, 2, 0],  # Patient 3: severe fever, moderate cough, severe fatigue, moderate breathing issues, low BP
-    [1, 1, 2, 0, 1],  # Patient 4: mild fever, mild cough, moderate fatigue, no breathing issues, normal BP
-    [2, 3, 2, 1, 2],  # Patient 5: moderate fever, severe cough, moderate fatigue, mild breathing issues, high BP
-    [0, 1, 0, 0, 1],  # Patient 6: no fever, mild cough, no fatigue, no breathing issues, normal BP
-    [3, 3, 3, 3, 0],  # Patient 7: all severe symptoms, low BP
-    [1, 0, 1, 0, 1]   # Patient 8: mild fever, no cough, mild fatigue, no breathing issues, normal BP
+    [3, 2, 1, 0, 1],  # Patient 1
+    [0, 0, 0, 0, 1],  # Patient 2
+    [3, 2, 3, 2, 0],  # Patient 3
+    [1, 1, 2, 0, 1],  # Patient 4
+    [2, 3, 2, 1, 2],  # Patient 5
+    [0, 1, 0, 0, 1],  # Patient 6
+    [3, 3, 3, 3, 0],  # Patient 7
+    [1, 0, 1, 0, 1]   # Patient 8
 ])
 
 # Diagnoses: flu, healthy, pneumonia, cold, covid, allergies
@@ -89,25 +92,66 @@ for node_idx in node_indices:
     if node_idx != diagnosis_model.tree_.node_count - 1:  # Not a leaf node
         feature = diagnosis_model.tree_.feature[node_idx]
         threshold = diagnosis_model.tree_.threshold[node_idx]
-        
+
         # Format the explanation in a readable way
         symptom = feature_names[feature]
         severity = new_patient[0, feature]
-        
+
         if severity <= threshold:
             comparison = "<="
         else:
             comparison = ">"
-            
+
         # Convert numeric severity to text
         severity_text = ["none", "mild", "moderate", "severe"][int(severity)] if feature < 4 else \
                          ["low", "normal", "high"][int(severity)]
-        
+
         threshold_text = ["none", "mild", "moderate", "severe"][int(threshold)] if feature < 4 else \
                          ["low", "normal", "high"][int(threshold)]
-                
+
         print(f"- Patient has {severity_text} {symptom.lower()}, which is {comparison} {threshold_text}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-28" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Model</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Eight patients with five ordinal symptom columns; <code>class_weight='balanced'</code> equalizes learning across six diagnoses so rare conditions aren't ignored.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="30-44" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The wide figure displays the full multi-class tree with real feature and class names so every split rule is readable by a non-programmer.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="46-55" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Predict with Confidence</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>predict_proba</code> returns the probability for each of the six diagnoses; printing all scores reveals the tree's certainty and any runner-up conditions.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="57-78" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Explain Reasoning</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The decision path is walked node by node; severity values are mapped back to English labels so the printed output reads as natural-language reasoning steps.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![5-applications](assets/5-applications_fig_1.png)
@@ -151,7 +195,10 @@ Banks use decision trees to evaluate loan applications and assess credit risk. L
 
 **Walkthrough:** Small synthetic $X$—real lending needs more rows, fairness review, and calibration.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier, plot_tree
@@ -192,7 +239,7 @@ credit_model.fit(X_train, y_train)
 
 # Visualize the credit decision tree
 plt.figure(figsize=(15, 10))
-feature_names = ['Income (k$)', 'Credit Score', 'Employment Years', 
+feature_names = ['Income (k$)', 'Credit Score', 'Employment Years',
                  'Debt to Income Ratio', 'Previous Defaults']
 plot_tree(
     credit_model,
@@ -240,9 +287,50 @@ elif approval_prob >= 0.5:
     risk = "Medium Risk"
 else:
     risk = "High Risk"
-    
+
 print(f"Risk assessment: {risk}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-37" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data, Split, and Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fifteen applicants with five financial features; a 70/30 split trains and tests the depth-3 credit classifier.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="39-53" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The tree renders with business-friendly feature and class names; each node shows the financial threshold that drives the split.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="55-72" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Evaluate and Rank Features</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The confusion matrix and classification report show per-class performance; feature ranking reveals which factor (income, score, etc.) the tree relied on most.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="74-91" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Risk-Band Scoring</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Approval probability from <code>predict_proba</code> is mapped to Low/Medium/High risk tiers—a simple but auditable business rule.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![5-applications](assets/5-applications_fig_2.png)
@@ -298,7 +386,10 @@ Businesses use decision trees to predict which customers might leave. Let's buil
 
 **Walkthrough:** Imports include `roc_curve`/`auc` but this block focuses on reports + `predict_proba` for two new profiles.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier, plot_tree
@@ -340,7 +431,7 @@ churn_model.fit(X_train, y_train)
 
 # Visualize the churn decision tree
 plt.figure(figsize=(15, 10))
-feature_names = ['Tenure (months)', 'Monthly Charges', 'Total Charges', 
+feature_names = ['Tenure (months)', 'Monthly Charges', 'Total Charges',
                  'Contract Length', 'Support Calls', 'Service Issues']
 plot_tree(
     churn_model,
@@ -388,7 +479,7 @@ churn_probs = churn_model.predict_proba(new_customers)[:, 1]
 # Display results
 for i, prob in enumerate(churn_probs):
     print(f"Customer {i+1} churn probability: {prob:.2f}")
-    
+
     # Recommend retention actions based on risk
     if prob > 0.7:
         print("  High risk - Immediate contact needed, offer special retention package")
@@ -396,7 +487,39 @@ for i, prob in enumerate(churn_probs):
         print("  Medium risk - Proactive outreach, offer loyalty benefits")
     else:
         print("  Low risk - Maintain regular engagement")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-40" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Training</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fifteen customers with tenure, charges, contract type, and support signals; the tree learns which combination most strongly predicts cancellation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="42-68" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Evaluate and Rank</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Confusion matrix and report show precision/recall per class; feature ranking reveals whether contract length or support call volume dominates churn risk.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="70-99" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Retention Actions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Churn probability for two new customers is thresholded into three retention tiers (high/medium/low) with specific recommended actions per tier.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![5-applications](assets/5-applications_fig_4.png)
@@ -454,7 +577,10 @@ Let's create a simple fraud detection model using decision trees:
 
 **Walkthrough:** `stratify=y` keeps fraud rate; `class_weight={0:1, 1:5}` upsamples fraud importance; `best_threshold` drives alert logic.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier, plot_tree
@@ -463,8 +589,6 @@ from sklearn.metrics import classification_report, confusion_matrix, precision_r
 
 # Create a dataset of transactions
 # Columns: [amount, time_of_day, day_of_week, distance_from_home, frequency_last_24h]
-# time_of_day: hours in 24h format
-# day_of_week: 0=Monday through 6=Sunday
 X = np.array([
     [25.50, 14, 2, 0.5, 3],    # Transaction 1
     [1500, 2, 6, 300, 0],      # Transaction 2
@@ -492,17 +616,16 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # Create and train the fraud detection model
-# Note: Since fraud is rare, we use class_weight to give it more importance
 fraud_model = DecisionTreeClassifier(
-    max_depth=3, 
-    min_samples_leaf=2, 
+    max_depth=3,
+    min_samples_leaf=2,
     class_weight={0: 1, 1: 5}  # Give fraud class 5x more weight
 )
 fraud_model.fit(X_train, y_train)
 
 # Visualize the fraud detection tree
 plt.figure(figsize=(15, 10))
-feature_names = ['Amount', 'Time of Day', 'Day of Week', 
+feature_names = ['Amount', 'Time of Day', 'Day of Week',
                  'Distance from Home (miles)', 'Frequency Last 24h']
 plot_tree(
     fraud_model,
@@ -534,9 +657,7 @@ plt.title('Precision-Recall Curve for Fraud Detection')
 plt.grid(True)
 plt.show()
 
-# Find optimal threshold
-# In fraud detection, we often want high precision to avoid false alarms
-# but still need reasonable recall to catch fraud
+# Find optimal threshold via max F1
 f1_scores = 2 * precision * recall / (precision + recall + 1e-10)
 best_idx = np.argmax(f1_scores)
 best_threshold = thresholds[best_idx]
@@ -549,10 +670,8 @@ new_transactions = np.array([
     [45.75, 15, 2, 1.2, 3]       # Normal transaction
 ])
 
-# Get fraud probabilities
 fraud_probs = fraud_model.predict_proba(new_transactions)[:, 1]
 
-# Display results with custom threshold
 for i, prob in enumerate(fraud_probs):
     print(f"Transaction {i+1} fraud probability: {prob:.3f}")
     if prob >= best_threshold:
@@ -560,9 +679,50 @@ for i, prob in enumerate(fraud_probs):
         print("  Action: Block transaction and contact customer")
     else:
         print("  Status: Transaction appears legitimate")
-        if prob > 0.3:  # Secondary check
+        if prob > 0.3:
             print("  Note: Some unusual characteristics - flag for review")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-40" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fraud Data and Model</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>stratify=y</code> keeps the fraud rate equal in train/test; <code>class_weight={0:1,1:5}</code> penalizes missed fraud five times more than false alarms.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="42-62" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize and Evaluate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The tree shows which transaction features (amount, time, distance) drive the fraud split; the classification report exposes precision and recall for the minority fraud class.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="64-80" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Precision-Recall Curve</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The P-R curve is more informative than ROC for imbalanced data; maximizing F1 across thresholds picks the operating point that balances catching fraud vs raising false alarms.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="82-97" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Alert Logic</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Two new transactions are scored; the optimal threshold determines whether to block immediately, flag for review, or pass as legitimate.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![5-applications](assets/5-applications_fig_6.png)
@@ -615,7 +775,10 @@ Manufacturing companies use decision trees to predict when machines need mainten
 
 **Walkthrough:** Fit on full toy table (no holdout—illustrative); `predict_proba` drives per-machine recommendations and optional percentile checks.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier, plot_tree
@@ -649,7 +812,7 @@ maintenance_model.fit(X, y)
 
 # Visualize the maintenance decision tree
 plt.figure(figsize=(15, 10))
-feature_names = ['Temperature (°C)', 'Vibration (mm/s)', 'Pressure (psi)', 
+feature_names = ['Temperature (°C)', 'Vibration (mm/s)', 'Pressure (psi)',
                  'Runtime Hours', 'Sound Level (dB)', 'Power Consumption (kW)']
 class_names = ['No Maintenance', 'Maintenance Soon', 'Urgent Maintenance']
 plot_tree(
@@ -695,7 +858,7 @@ for i, (pred, probs) in enumerate(zip(maintenance_preds, maintenance_probs)):
     machine_label = chr(65 + i)  # A, B, C, etc.
     print(f"Machine {machine_label} status: {class_names[pred]}")
     print(f"  Probability breakdown: No Maintenance: {probs[0]:.2f}, Soon: {probs[1]:.2f}, Urgent: {probs[2]:.2f}")
-    
+
     # Recommend specific actions based on prediction
     if pred == 0:
         print("  Recommendation: Continue normal operation, next check in 30 days")
@@ -711,7 +874,39 @@ for i, (pred, probs) in enumerate(zip(maintenance_preds, maintenance_probs)):
     else:  # pred == 2
         print("  Recommendation: URGENT - Schedule maintenance immediately!")
         print("  Alert: Potential failure imminent if operation continues")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-31" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sensor Data and Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fifteen machines described by six sensor readings; three target classes (ok/soon/urgent) make this a multiclass classification problem fit on the full table.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="33-57" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize and Rank</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The tree shows which sensor thresholds (temperature or power consumption) drive the three-way classification; feature importance ranks them by total impurity reduction.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="59-96" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Predict and Act</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three new machines get predictions plus probability breakdowns; the action logic maps each predicted state to a specific maintenance timeline or alert level.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![5-applications](assets/5-applications_fig_8.png)

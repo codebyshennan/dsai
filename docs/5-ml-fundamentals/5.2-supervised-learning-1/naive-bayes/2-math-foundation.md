@@ -37,14 +37,16 @@ Imagine you're a detective trying to solve a case. You have some initial hunches
 
 Let's break down the formula step by step:
 
-\[P(y|X) = \frac{P(X|y)P(y)}{P(X)}\]
+\\[P(y|X) = \frac{P(X|y)P(y)}{P(X)}\\]
 
 Think of it like this:
 
-- \(P(y|X)\): "What's the probability of y given X?" (Your updated belief)
-- \(P(X|y)\): "How likely is X if y is true?" (The evidence)
-- \(P(y)\): "What was your initial belief about y?" (Your prior knowledge)
-- \(P(X)\): "How likely is X in general?" (The overall evidence)
+- \\(P(y|X)\\): "What's the probability of y given X?" (Your updated belief)
+- \\(P(X|y)\\): "How likely is X if y is true?" (The evidence)
+- \\(P(y)\\): "What was your initial belief about y?" (Your prior knowledge)
+- \\(P(X)\\): "How likely is X in general?" (The overall evidence)
+
+![Conditional probability of 'FREE' appearing in spam vs ham emails](assets/conditional_probability.png)
 
 ### Real-World Example: Email Spam Detection
 
@@ -52,7 +54,7 @@ Let's make this concrete with an email example:
 
 #### Spam posterior from counts
 
-**Purpose:** Compute \(P(\text{spam} \mid \text{"free"})\) using Bayes' rule from simple email/word counts (prior, likelihood, evidence, posterior).
+**Purpose:** Compute \\(P(\text{spam} \mid \text{"free"})\\) using Bayes' rule from simple email/word counts (prior, likelihood, evidence, posterior).
 
 **Walkthrough:**
 - Set `total_emails`, `spam_emails`, joint counts for "free", then `prior`, `likelihood`, `evidence`.
@@ -131,7 +133,10 @@ Let's classify a document as either tech or sports:
 - Set priors `P_tech`, `P_sports` and per-word conditional probabilities for each class.
 - Multiply (naive independence) to get `tech_score` and `sports_score`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Our document: "computer program code"
 words = ["computer", "program", "code"]
 
@@ -154,7 +159,39 @@ tech_score = P_tech * P_computer_tech * P_program_tech * P_code_tech
 sports_score = P_sports * P_computer_sports * P_program_sports * P_code_sports
 
 # tech_score is much higher than sports_score, so we classify as tech
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Priors</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Equal class priors (50/50) represent a balanced corpus; in a real classifier these would be estimated from training label frequencies.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Likelihoods</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Per-word conditional probabilities are set manually to illustrate that tech-domain words appear far less often in sports documents — the core assumption the Naive Bayes classifier exploits.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Score Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Each score multiplies the prior by the three word likelihoods (naive independence assumption); the much higher <code>tech_score</code> wins the argmax and the document is labelled "tech".</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Handling Different Types of Data
 
@@ -176,7 +213,10 @@ For example, if we're predicting gender based on height:
 - Define `gaussian_probability(x, mean, std)` using the normal PDF.
 - Evaluate at `x=168` for both groups and compare `male_prob` vs `female_prob`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import math
 
 # Example: Predicting gender based on height
@@ -196,7 +236,30 @@ female_prob = gaussian_probability(168, female_height_mean, female_height_std)
 
 # Compare to make prediction
 prediction = "male" if male_prob > female_prob else "female"
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Distribution Parameters</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Mean and standard deviation are specified for each class; these would normally be estimated from training data via maximum likelihood (sample mean and std).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Gaussian PDF and Classify</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The function implements the Gaussian PDF formula; calling it at height=168 for both classes gives two density values — the class with the higher value is predicted, demonstrating the Gaussian Naive Bayes decision rule.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Mistakes to Avoid
 

@@ -48,6 +48,30 @@ Neural networks power many of the technologies we use daily:
    - Weights: How important each connection is
    - Biases: Like adjusting the difficulty level
 
+```mermaid
+graph LR
+    subgraph Input["Input Layer"]
+        I1((x₁))
+        I2((x₂))
+        I3((x₃))
+    end
+    subgraph Hidden["Hidden Layer"]
+        H1((h₁))
+        H2((h₂))
+        H3((h₃))
+        H4((h₄))
+    end
+    subgraph Output["Output Layer"]
+        O1((ŷ))
+    end
+    I1 --> H1 & H2 & H3 & H4
+    I2 --> H1 & H2 & H3 & H4
+    I3 --> H1 & H2 & H3 & H4
+    H1 & H2 & H3 & H4 --> O1
+```
+
+*Each arrow carries a **weight**. During training, weights are adjusted so the output ŷ gets closer to the true label.*
+
 ## When to Use Neural Networks?
 
 ### Perfect For
@@ -92,6 +116,22 @@ Neural networks power many of the technologies we use daily:
 - Better at remembering important information
 - Used in: Language translation, weather forecasting
 
+```mermaid
+graph TD
+    A[Choose a Neural Network type] --> B{What kind of data?}
+    B -->|Tabular / structured| C[Feedforward NN]
+    B -->|Images / video| D[CNN]
+    B -->|Sequences / time-series / text| E{Memory needed?}
+    E -->|Short sequences| F[RNN]
+    E -->|Long-range dependencies| G[LSTM / GRU]
+    C --> C1["House prices, click-through rates"]
+    D --> D1["Face recognition, medical imaging"]
+    F --> F1["Next-word prediction"]
+    G --> G1["Translation, forecasting"]
+```
+
+*Use this as a starting heuristic—real projects often combine types (e.g. CNN + LSTM for video captioning).*
+
 ## Common Mistakes to Avoid
 
 1. **Using too complex models for simple problems**
@@ -114,7 +154,10 @@ Neural networks power many of the technologies we use daily:
 
 Let's build a simple neural network to recognize handwritten digits. This is like teaching a computer to read numbers!
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import tensorflow as tf
 from tensorflow import keras
 
@@ -149,7 +192,39 @@ model.fit(train_images, train_labels, epochs=5)
 # Evaluate the model
 test_loss, test_acc = model.evaluate(test_images, test_labels)
 print(f"Test accuracy: {test_acc:.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load and Normalize MNIST</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Load the 70,000 handwritten digit images from Keras; divide by 255 to scale pixel values from [0, 255] to [0, 1] — neural networks train faster and more stably on normalized inputs.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Build and Compile</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The <code>Sequential</code> model flattens each 28×28 image to 784 inputs, passes through a 128-unit ReLU hidden layer, then outputs 10 softmax probabilities (one per digit); Adam optimizer minimizes cross-entropy.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-35" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train and Evaluate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Train for 5 epochs then evaluate on the held-out test set; <code>test_acc</code> reflects how well the network generalizes to unseen digit images.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Additional Resources
 

@@ -21,13 +21,30 @@ Pipelines help us:
 3. Simplify model deployment
 4. Make code more maintainable
 
+```mermaid
+flowchart LR
+    subgraph PIPELINE["sklearn Pipeline"]
+        direction LR
+        S1["Step 1\nStandardScaler\n(fit on train only)"] --> S2["Step 2\nPCA / Selector\n(optional)"] --> S3["Step 3\nClassifier /\nRegressor"]
+    end
+    RAW["Raw X_train"] --> PIPELINE
+    PIPELINE -->|"pipeline.fit(X_train, y_train)"| MODEL["Fitted pipeline\n(all steps learned)"]
+    RAWTST["Raw X_test"] --> MODEL
+    MODEL -->|"pipeline.predict(X_test)"| PRED["Predictions\n(leakage-free)"]
+```
+
+*Without a pipeline, if you `StandardScaler.fit(X_all)` before splitting, test-set statistics leak into the scaler — the pipeline prevents this by fitting each step only on training data.*
+
 #### Minimal `Pipeline`: scale then classify
 
 **Purpose:** Show the canonical pattern: preprocessing steps run inside `fit`/`predict`, so the same transformations apply on train and test without leakage.
 
 **Walkthrough:** Steps are named tuples; `StandardScaler` learns on `X_train` only inside `pipeline.fit`; `score` evaluates held-out accuracy.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import pandas as pd
 from sklearn.pipeline import Pipeline
@@ -61,7 +78,39 @@ pipeline = Pipeline([
 # Fit and evaluate
 pipeline.fit(X_train, y_train)
 print(f"Pipeline score: {pipeline.score(X_test, y_test):.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Core sklearn components: <code>Pipeline</code> for chaining, <code>StandardScaler</code> for preprocessing, and <code>LogisticRegression</code> as the model.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Synthetic Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate 1000 samples with age, income, and credit score features; the binary label is derived from a linear threshold on those three features.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline Definition and Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A two-step pipeline: the scaler's <code>fit</code> is called only on <code>X_train</code> inside <code>pipeline.fit</code>, preventing test statistics from leaking into preprocessing.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -81,7 +130,10 @@ Combine multiple feature processing steps:
 
 **Walkthrough:** `FeatureUnion` runs `pca` and `select_best` on the same input and stacks columns; the final `LogisticRegression` consumes the combined matrix.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.pipeline import FeatureUnion
 from sklearn.decomposition import PCA
 from sklearn.feature_selection import SelectKBest
@@ -92,20 +144,52 @@ def create_feature_union_pipeline():
         ('pca', PCA(n_components=2)),
         ('select_best', SelectKBest(k=2))
     ])
-    
+
     # Create full pipeline
     pipeline = Pipeline([
         ('features', feature_processing),
         ('classifier', LogisticRegression())
     ])
-    
+
     return pipeline
 
 # Create and use pipeline
 union_pipeline = create_feature_union_pipeline()
 union_pipeline.fit(X_train, y_train)
 print(f"Feature union score: {union_pipeline.score(X_test, y_test):.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>FeatureUnion</code> runs multiple transformers in parallel and concatenates outputs; <code>PCA</code> reduces dimensions, <code>SelectKBest</code> picks the top univariate features.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Parallel Feature Branches</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The <code>FeatureUnion</code> applies PCA and SelectKBest on the same input concurrently, then stacks the resulting columns as a wider feature matrix for the classifier.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Build and Score</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Instantiate, fit on training data, and evaluate on the held-out test set in three lines — same API as a simple pipeline.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -123,19 +207,22 @@ Create your own preprocessing steps:
 
 **Walkthrough:** `fit` stores column means/stds; `transform` caps extreme z-scores by replacing masked cells—pair with `StandardScaler` + classifier as usual.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.base import BaseEstimator, TransformerMixin
 
 class OutlierHandler(BaseEstimator, TransformerMixin):
     def __init__(self, threshold=3):
         self.threshold = threshold
-    
+
     def fit(self, X, y=None):
         # Calculate z-scores for each feature
         self.mean_ = np.mean(X, axis=0)
         self.std_ = np.std(X, axis=0)
         return self
-    
+
     def transform(self, X):
         # Replace outliers with mean values
         z_scores = np.abs((X - self.mean_) / self.std_)
@@ -153,7 +240,39 @@ pipeline_with_custom = Pipeline([
 
 pipeline_with_custom.fit(X_train, y_train)
 print(f"Custom pipeline score: {pipeline_with_custom.score(X_test, y_test):.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Custom Transformer Class</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Inheriting <code>BaseEstimator</code> and <code>TransformerMixin</code> gives <code>get_params</code>, <code>set_params</code>, and <code>fit_transform</code> for free; <code>fit</code> stores per-column mean and std from training data.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Outlier Clipping Logic</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute z-scores using stored train statistics; values exceeding the threshold are replaced with column means, leaving normal values unchanged.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline Integration</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The custom step slots in as the first pipeline step; scaling and classification follow in the same <code>fit</code>/<code>predict</code> call.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Real-World Example: Text Classification
 
@@ -163,7 +282,10 @@ print(f"Custom pipeline score: {pipeline_with_custom.score(X_test, y_test):.3f}"
 
 **Walkthrough:** `FunctionTransformer` wraps list-wise `preprocess_text`; `TfidfVectorizer` builds sparse features; `train_test_split` on lists works like tabular splits.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import FunctionTransformer
 import re
@@ -202,7 +324,48 @@ text_pipeline.fit(X_train, y_train)
 
 # Make predictions
 predictions = text_pipeline.predict(X_test)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Text Data and Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Four toy sentences with positive labels; <code>TfidfVectorizer</code> and <code>FunctionTransformer</code> will handle text → numeric conversion inside the pipeline.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Text Preprocessor</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lowercase and strip non-alpha characters before vectorization — wrapped in a lambda so it processes the full list at once inside the pipeline step.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-27" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Text Pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three sequential steps: clean text → TF-IDF sparse matrix → logistic regression, all within one <code>Pipeline</code> so the vectorizer is only fit on training data.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-37" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Split and Predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Split raw string lists directly — sklearn handles list inputs — then fit and predict exactly as with numeric arrays.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Pipeline Persistence
 
@@ -240,9 +403,15 @@ loaded_pipeline = load_pipeline('model_pipeline.joblib')
 
 **Walkthrough:** Prefer `from joblib import Memory` on current sklearn; `memory=` attaches to the `Pipeline` so steps reuse cached transforms when possible.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+from joblib import Memory
 from sklearn.pipeline import Pipeline
-from sklearn.externals import Memory
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.linear_model import LogisticRegression
 
 # Set up caching
 memory = Memory(location='./cachedir', verbose=0)
@@ -253,7 +422,30 @@ cached_pipeline = Pipeline([
     ('pca', PCA(n_components=2)),
     ('classifier', LogisticRegression())
 ], memory=memory)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and Memory</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>joblib.Memory</code> writes transformer outputs to <code>./cachedir</code>; on subsequent fits with identical input, the cached result is reused instead of recomputing.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Cached Pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Pass <code>memory=memory</code> to <code>Pipeline</code>; this tells sklearn to serialize each fitted transformer step so repeated grid-search folds skip redundant transforms.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Parameter Grid Search
 
@@ -261,22 +453,67 @@ cached_pipeline = Pipeline([
 
 **Purpose:** Search preprocessing and model settings jointly while respecting pipeline ordering—no manual refits between steps.
 
-**Walkthrough:** Keys like `pca__n_components` target step attributes; `GridSearchCV` runs inner CV on the full `pipeline` object.
+**Walkthrough:** Keys use **`step__param`** to reach nested estimators; this example adds a **`PCA`** step so `pca__n_components` is valid. Uses `X_train` and `y_train` from the **minimal Pipeline** section at the top of this page.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+from sklearn.decomposition import PCA
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+
+grid_pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('pca', PCA()),
+    ('classifier', LogisticRegression(max_iter=1000)),
+])
 
 # Define parameters for multiple steps
 param_grid = {
     'scaler__with_mean': [True, False],
     'pca__n_components': [2, 3, 4],
-    'classifier__C': [0.1, 1.0, 10.0]
+    'classifier__C': [0.1, 1.0, 10.0],
 }
 
 # Perform grid search
-grid_search = GridSearchCV(pipeline, param_grid, cv=5)
+grid_search = GridSearchCV(grid_pipeline, param_grid, cv=5)
 grid_search.fit(X_train, y_train)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline Definition</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A three-step pipeline — scaler, PCA, and logistic regression — where step names will be used as keys in the parameter grid using the <code>step__param</code> convention.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Nested Parameter Grid</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Keys like <code>pca__n_components</code> reach inside the named step; <code>GridSearchCV</code> handles all combinations across both preprocessing and model hyperparameters.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Cross-validated Search</span>
+    </div>
+    <div class="code-callout__body">
+      <p>5-fold CV ensures preprocessing is re-fit each fold, so the selected hyperparameters reflect honest out-of-fold performance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Column Transformer
 
@@ -286,9 +523,14 @@ grid_search.fit(X_train, y_train)
 
 **Walkthrough:** Indices `[0,1]` / `[2]` are placeholders; replace with column names + `ColumnTransformer(..., remainder='drop')` in real projects.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.linear_model import LogisticRegression
 
 # Create column transformer
 preprocessor = ColumnTransformer(
@@ -302,7 +544,39 @@ column_pipeline = Pipeline([
     ('preprocessor', preprocessor),
     ('classifier', LogisticRegression())
 ])
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>ColumnTransformer</code> applies different preprocessing to different column subsets and concatenates the results into a single matrix.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Column-specific Transforms</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Columns <code>[0, 1]</code> get standard-scaled; column <code>[2]</code> gets one-hot encoded — both in parallel, then stacked as the output feature matrix.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-17" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Final Pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The preprocessor becomes a single named step; the classifier operates on the fully-transformed matrix from both numeric and categorical branches.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices
 
@@ -315,6 +589,12 @@ column_pipeline = Pipeline([
 **Walkthrough:** Order matches execution left-to-right; each name must be unique in the `Pipeline` list.
 
 ```python
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.linear_model import LogisticRegression
+
 # Use descriptive names for steps
 pipeline = Pipeline([
     ('missing_handler', SimpleImputer()),
@@ -333,11 +613,14 @@ pipeline = Pipeline([
 **Walkthrough:** `transformed_X` is not defined in the stub—replace with real logic; fallback returns `X` unchanged.
 
 ```python
+from sklearn.base import BaseEstimator, TransformerMixin
+
+
 class RobustTransformer(BaseEstimator, TransformerMixin):
     def transform(self, X):
         try:
             # Transformation logic
-            return transformed_X
+            return transformed_X  # replace with real output; illustrative only
         except Exception as e:
             print(f"Error in transformation: {e}")
             # Return safe fallback

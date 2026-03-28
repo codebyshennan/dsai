@@ -22,6 +22,8 @@ Tables and keys are not academic details—they are how organizations keep order
 
 ## Understanding Databases
 
+![Relational model: customers and orders tables linked by a foreign key](assets/relational_model.png)
+
 A **database** is software that stores and retrieves structured data reliably: many users, controlled updates, and rules that keep records consistent. You already think in **tables** if you have used spreadsheets or pandas; relational databases make relationships between those tables explicit with **keys** and **constraints**.
 
 The bullets below are not separate topics to memorize in isolation—they describe what “good” database design tries to protect: organized storage, trustworthy values, and safe access at scale.
@@ -110,6 +112,35 @@ These engines optimize for one workload—time-ordered metrics, full-text search
 
 ER modeling is a sketch before you write DDL: **entities** (things you store), **relationships** (how they connect), and **cardinality** (one-to-many, many-to-many). The SQL below shows a classic many-to-many bridge table (`product_categories`) between `products` and `categories`.
 
+```mermaid
+erDiagram
+    CUSTOMERS {
+        int customer_id PK
+        string name
+        string email
+    }
+    ORDERS {
+        int order_id PK
+        int customer_id FK
+        date order_date
+    }
+    PRODUCTS {
+        int product_id PK
+        string name
+        decimal price
+    }
+    ORDER_ITEMS {
+        int order_id FK
+        int product_id FK
+        int quantity
+    }
+    CUSTOMERS ||--o{ ORDERS : places
+    ORDERS ||--|{ ORDER_ITEMS : contains
+    PRODUCTS ||--o{ ORDER_ITEMS : "appears in"
+```
+
+*Read `||--o{` as "one customer places zero or more orders". The bridge table `ORDER_ITEMS` resolves the many-to-many between `ORDERS` and `PRODUCTS`.*
+
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -134,7 +165,7 @@ CREATE TABLE product_categories (
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-8" data-tint="1">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
       <span class="code-callout__title">Example of implementing entities and relation…</span>
@@ -493,13 +524,31 @@ WHERE last_login < CURRENT_TIMESTAMP - INTERVAL '1 year';
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
       <span class="code-callout__title">Insert data</span>
     </div>
     <div class="code-callout__body">
-      <p>Standard <code>INSERT</code>, conditional <code>UPDATE</code>, and scoped <code>DELETE</code>—always pair mutating statements with a selective <code>WHERE</code>.</p>
+      <p>Standard <code>INSERT</code>—specify the target columns, then provide matching values. Omitting the column list inserts into every column in declaration order.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-8" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Update data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Conditional <code>UPDATE</code>—<code>SET</code> assigns the new value; always pair with a <code>WHERE</code> clause to avoid updating every row in the table.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-12" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Delete data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scoped <code>DELETE</code>—the <code>WHERE</code> clause limits deletion to inactive users only. Without it the entire table is wiped.</p>
     </div>
   </div>
 </aside>

@@ -30,6 +30,33 @@ Variance refers to the model's sensitivity to fluctuations in the training data.
 
 Finding the right balance between bias and variance is key to creating effective models. Too much bias leads to underfitting, while too much variance leads to overfitting.
 
+```mermaid
+graph LR
+    subgraph HB["High Bias  (Underfitting)"]
+        B1["Model too simple\nCan't capture patterns"]
+        B2["High train error\nHigh val error\nSmall gap"]
+        B3["Fix: more complexity\nmore features\nless regularization"]
+    end
+    subgraph LBV["Sweet spot"]
+        G1["Balanced complexity"]
+        G2["Low train error\nLow val error\nSmall gap"]
+    end
+    subgraph HV["High Variance  (Overfitting)"]
+        V1["Model too complex\nMemorises noise"]
+        V2["Low train error\nHigh val error\nLarge gap"]
+        V3["Fix: more data\nregularization\ndropout / pruning"]
+    end
+
+    HB -->|"increase model\ncapacity"| LBV
+    LBV -->|"add too much\ncomplexity"| HV
+
+    subgraph ERR["Total error = Bias² + Variance + Irreducible noise"]
+        E["You can reduce Bias² and Variance\nbut not irreducible noise"]
+    end
+```
+
+> **Figure (add screenshot or diagram):** The classic bias-variance decomposition curve: x-axis = model complexity, two curves for bias² (decreasing) and variance (increasing), their sum forming a U-shape, with the minimum labelled "optimal complexity".
+
 ## Practical Examples
 
 Let's look at some real-world examples:

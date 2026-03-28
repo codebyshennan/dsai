@@ -24,6 +24,28 @@
 
 Sorting in Pandas helps you organize your data in a specific order. Think of it like:
 
+```mermaid
+graph LR
+    subgraph SORT["sort_values()"]
+        S1["Reorders rows\nby one or more columns"]
+        S2["ascending=True/False"]
+        S3["na_position='last'/'first'"]
+        S4["Result: new row order"]
+    end
+    subgraph RANK["rank()"]
+        R1["Assigns a position number\n(1 = smallest by default)"]
+        R2["method=\n'average','min','max','first','dense'"]
+        R3["pct=True → percentile (0–1)"]
+        R4["Result: new column of ranks"]
+    end
+    DF["DataFrame"] --> SORT
+    DF --> RANK
+    SORT --> EX1["df.sort_values('score',\nascending=False)"]
+    RANK --> EX2["df['score'].rank(\npct=True)"]
+```
+
+*Use `sort_values` to reorder rows for display or iteration. Use `rank` when you need a numeric position (e.g. leaderboard position, percentile) as a new column alongside the original data.*
+
 - Arranging books alphabetically on a shelf
 - Organizing test scores from highest to lowest
 - Arranging dates from oldest to newest
@@ -57,27 +79,24 @@ Let's explore sorting with practical examples:
 - **Purpose:** Use `sort_values` on a Series and on a derived `Total` column; use `sort_index` for alphabetical names.
 - **Walkthrough:** `ascending=False` puts largest totals first; `sort_index()` orders the **index** labels, not values.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 
 # Example 1: Student Performance
 scores = pd.Series({
-    'Alice': 85,
-    'Bob': 92,
-    'Charlie': 78,
-    'David': 95,
-    'Eve': 88
+    'Alice': 85, 'Bob': 92, 'Charlie': 78, 'David': 95, 'Eve': 88
 }, name='Test Scores')
 
 print("Original scores:")
 print(scores)
 
-# Sort by values (highest to lowest)
 print("\nTop performers:")
 print(scores.sort_values(ascending=False))
 
-# Sort by student names
 print("\nAlphabetical order:")
 print(scores.sort_index())
 
@@ -89,12 +108,33 @@ sales_data = pd.DataFrame({
     'Date': pd.date_range('2023-01-01', periods=5)
 })
 
-# Calculate total sales
 sales_data['Total'] = sales_data['Price'] * sales_data['Units']
-
 print("\nSales Data (sorted by total sales):")
 print(sales_data.sort_values('Total', ascending=False))
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Series Sorting</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates a named Series with student names as the index, then demonstrates <code>sort_values</code> for ranking by score and <code>sort_index</code> for alphabetical order.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">DataFrame Sort</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Builds a sales DataFrame, computes a Total column, then sorts descending by Total—showing how row order changes while all columns travel together.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Original scores:
@@ -381,7 +421,10 @@ Analyze student rankings across different subjects:
 - **Purpose:** Combine `mean(axis=1)` for an overall score with per-column `rank` to show strengths in each subject.
 - **Walkthrough:** `sort_values('OverallRank')` at the end orders by overall performance.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Create student data
 students = pd.DataFrame({
     'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eve'],
@@ -400,7 +443,39 @@ for subject in ['Math', 'Science', 'History']:
 
 print("Student rankings:")
 print(students.sort_values('OverallRank'))
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Student DataFrame</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates a five-student table with three subject scores—enough to show ties and rank differences across subjects.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-11" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Overall Rank</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Computes a row-wise mean across the three subjects then ranks descending—highest average gets rank 1.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-18" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Per-Subject Ranks</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Loops over the three subjects to add an individual rank column for each, then sorts by overall rank so the top student appears first.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Student rankings:

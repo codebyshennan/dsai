@@ -34,7 +34,10 @@ The chain rule is crucial because:
 
 ### Visual Example
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -42,7 +45,7 @@ def plot_chain_rule_example():
     x = np.linspace(-2, 2, 100)
     g = x**2  # g(x) = x^2
     f = np.sin(g)  # f(g(x)) = sin(x^2)
-    
+
     plt.figure(figsize=(10, 6))
     plt.plot(x, g, label='g(x) = x^2')
     plt.plot(x, f, label='f(g(x)) = sin(x^2)')
@@ -52,7 +55,39 @@ def plot_chain_rule_example():
     plt.show()
 
 plot_chain_rule_example()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Standard matplotlib and NumPy imports needed for all visualizations in this file.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-8" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Composed Functions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute both <code>g(x) = x²</code> and the composed <code>f(g(x)) = sin(x²)</code> over the same input range to visualize the chain relationship.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-17" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot and Call</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Overlay both curves so you can see how applying <code>sin</code> to the parabola output changes the shape — the chain rule governs how these slopes relate.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![2-math-foundation](assets/2-math-foundation_fig_1.png)
@@ -78,36 +113,71 @@ where:
 
 ### Visual Example
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def plot_forward_pass():
     # Create a simple network visualization
     plt.figure(figsize=(8, 6))
-    
+
     # Input layer
     plt.scatter([0, 0, 0], [0, 1, 2], label='Input Layer')
-    
+
     # Hidden layer
     plt.scatter([1, 1, 1], [0, 1, 2], label='Hidden Layer')
-    
+
     # Output layer
     plt.scatter([2, 2], [0.5, 1.5], label='Output Layer')
-    
+
     # Connect nodes
     for i in range(3):
         for j in range(3):
             plt.plot([0, 1], [i, j], 'gray', alpha=0.3)
-    
+
     for i in range(3):
         for j in range(2):
             plt.plot([1, 2], [i, j], 'gray', alpha=0.3)
-    
+
     plt.title('Forward Pass Visualization')
     plt.legend()
     plt.grid(True)
     plt.show()
 
 plot_forward_pass()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Layer Node Positions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Place three input nodes at x=0, three hidden nodes at x=1, and two output nodes at x=2 using <code>scatter</code> as proxy "neurons".</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Draw Connections</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Nested loops draw semi-transparent gray lines between every input–hidden pair and every hidden–output pair, mimicking a fully-connected forward pass.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-27" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Render and Call</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Add title, legend, and grid then invoke the function immediately to produce the diagram inline.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![2-math-foundation](assets/2-math-foundation_fig_2.png)
@@ -175,24 +245,27 @@ Activation functions are like filters that decide how much of a signal to pass t
 
 ### Visual Example
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def plot_activation_functions():
     x = np.linspace(-5, 5, 100)
-    
+
     # Sigmoid
     sigmoid = 1 / (1 + np.exp(-x))
     sigmoid_derivative = sigmoid * (1 - sigmoid)
-    
+
     # ReLU
     relu = np.maximum(0, x)
     relu_derivative = np.where(x > 0, 1, 0)
-    
+
     # Tanh
     tanh = np.tanh(x)
     tanh_derivative = 1 - np.tanh(x)**2
-    
+
     plt.figure(figsize=(12, 8))
-    
+
     # Plot functions
     plt.subplot(2, 1, 1)
     plt.plot(x, sigmoid, label='Sigmoid')
@@ -201,7 +274,7 @@ def plot_activation_functions():
     plt.title('Activation Functions')
     plt.legend()
     plt.grid(True)
-    
+
     # Plot derivatives
     plt.subplot(2, 1, 2)
     plt.plot(x, sigmoid_derivative, label='Sigmoid Derivative')
@@ -210,12 +283,44 @@ def plot_activation_functions():
     plt.title('Activation Function Derivatives')
     plt.legend()
     plt.grid(True)
-    
+
     plt.tight_layout()
     plt.show()
 
 plot_activation_functions()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compute Functions and Derivatives</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Calculate Sigmoid, ReLU, and Tanh — and their analytical derivatives — for 100 points between −5 and 5.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Top Panel: Functions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Overlay all three activation curves on a single subplot to compare their saturation behavior and value ranges.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bottom Panel: Derivatives</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot the matching derivative curves below — showing where each function saturates (near-zero gradients) and where backprop signals vanish.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![2-math-foundation](assets/2-math-foundation_fig_3.png)
@@ -242,20 +347,23 @@ Loss functions measure how wrong our predictions are. Think of them like a score
 
 ### Visual Example
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def plot_loss_functions():
     y_true = np.array([0, 1, 0, 1])
     y_pred = np.linspace(0.01, 0.99, 100)
-    
+
     # MSE
     mse = np.mean((y_true - y_pred)**2)
-    
+
     # BCE
     bce = -np.mean(
-        y_true * np.log(y_pred) + 
+        y_true * np.log(y_pred) +
         (1 - y_true) * np.log(1 - y_pred)
     )
-    
+
     plt.figure(figsize=(10, 6))
     plt.plot(y_pred, mse, label='MSE')
     plt.plot(y_pred, bce, label='BCE')
@@ -267,7 +375,39 @@ def plot_loss_functions():
     plt.show()
 
 plot_loss_functions()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Four fixed true labels and a sweep of predictions from 0.01 to 0.99 serve as the x-axis for both loss curves.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compute MSE and BCE</span>
+    </div>
+    <div class="code-callout__body">
+      <p>MSE averages squared differences; Binary Cross-Entropy penalizes confident wrong predictions logarithmically — both computed over the prediction sweep.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-23" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Overlay and Call</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot both loss values against the prediction range to show how each penalizes errors differently, then immediately render the figure.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Matrix Formulation
 

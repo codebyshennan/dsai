@@ -36,6 +36,29 @@ Regularization is a crucial technique in statistical modeling that helps prevent
 
 *StatQuest: Regularization Part 2: Lasso (L1) Regression by Josh Starmer*
 
+```mermaid
+graph LR
+    subgraph OLS["OLS  (no penalty)"]
+        O1["Minimise: Σ(y - ŷ)²\nNo constraint on β size"]
+        O1 --> O2["Large coefficients OK\nOverfits when p is high\nor features are correlated"]
+    end
+    subgraph RIDGE["Ridge  (L2)"]
+        R1["Minimise: Σ(y - ŷ)² + λΣβ²\nPenalise sum of SQUARED coefficients"]
+        R1 --> R2["Shrinks all β toward 0\nNone become exactly 0\nGood: correlated features"]
+    end
+    subgraph LASSO["Lasso  (L1)"]
+        L1["Minimise: Σ(y - ŷ)² + λΣ|β|\nPenalise sum of ABSOLUTE coefficients"]
+        L1 --> L2["Some β become exactly 0\nBuilt-in feature selection\nGood: sparse truth"]
+    end
+    subgraph EN["Elastic Net  (L1 + L2)"]
+        E1["λ₁Σ|β| + λ₂Σβ²\nBlend of both"]
+        E1 --> E2["Sparse AND stable\nHigh-dim correlated data"]
+    end
+    OLS --> RIDGE & LASSO & EN
+```
+
+> **Figure (add screenshot or diagram):** Geometric interpretation — L1 constraint region (diamond) vs L2 constraint region (circle) in 2D coefficient space, showing why L1 produces exact zeros at corners while L2 does not.
+
 ### Why Regularization Matters
 
 Imagine you're trying to predict house prices. Without regularization:
@@ -57,7 +80,7 @@ Before we dive into regularization techniques, let's understand the problem they
 
 **Noisy quadratic data: polynomial pipelines and train vs test MSE**
 
-**Purpose:** Simulate \(y \approx x^2\) with noise, compare degree 1/2/15 `PolynomialFeatures` + `LinearRegression` on a train split, and overlay predictions on a dense grid.
+**Purpose:** Simulate \\(y \approx x^2\\) with noise, compare degree 1/2/15 `PolynomialFeatures` + `LinearRegression` on a train split, and overlay predictions on a dense grid.
 
 **Walkthrough:** `train_test_split`; `make_pipeline(PolynomialFeatures(degree), LinearRegression())`; `mean_squared_error` train/test; multi-series line plot.
 

@@ -36,6 +36,23 @@ A hypothesis is your scientific roadmap—it guides your investigation and helps
 
 *StatQuest: Alternative Hypotheses: Main Ideas!!! by Josh Starmer*
 
+```mermaid
+graph TD
+    Q["Research question\n(formed before looking at data!)"] --> H0["Null hypothesis H₀\nDefault: no effect / no difference\nH₀: μ₁ = μ₂  or  β = 0"]
+    Q --> H1["Alternative hypothesis H₁\nWhat you want to detect\nTwo-sided: μ₁ ≠ μ₂\nOne-sided: μ₁ > μ₂  or  μ₁ < μ₂"]
+
+    subgraph ERRORS["Decision outcomes"]
+        OK1["Reject H₀, H₀ false → Correct decision"]
+        OK2["Fail to reject H₀, H₀ true → Correct decision"]
+        T1["Reject H₀, H₀ true → Type I error (α, false positive)"]
+        T2["Fail to reject H₀, H₀ false → Type II error (β, false negative)"]
+    end
+
+    H0 & H1 --> ERRORS
+```
+
+*Choose your hypotheses before you look at the data. Peeking (p-hacking) inflates Type I error.*
+
 ## 2. The Anatomy of a Hypothesis
 
 ### Null Hypothesis (H₀)
@@ -44,9 +61,9 @@ A hypothesis is your scientific roadmap—it guides your investigation and helps
 - Example: "There is no difference in recovery time between the new and old treatments."
 - Mathematical form:
 
-\[
+\\[
 H_0: \mu_1 = \mu_2
-\]
+\\]
 
 ### Alternative Hypothesis (H₁ or Hₐ)
 
@@ -54,9 +71,9 @@ H_0: \mu_1 = \mu_2
 - Example: "The new treatment reduces recovery time compared to the old treatment."
 - Mathematical form:
 
-\[
+\\[
 H_1: \mu_1 \neq \mu_2
-\]
+\\]
 
 ![Null vs Alternative Distribution](assets/null_vs_alternative.png)
 
@@ -76,7 +93,10 @@ A good hypothesis is precise and unambiguous.
 
 **Walkthrough:** Effect is `mean(control) - mean(treatment)`; `pooled_std` and `se` build a two-sample t standard error; `stats.t.cdf` with `1 -` gives a one-tailed p-value vs `min_improvement`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def test_specific_hypothesis(control_data, treatment_data, min_improvement=2):
     """
     H₀: treatment_effect ≤ min_improvement
@@ -99,7 +119,30 @@ result = test_specific_hypothesis(control, treatment, min_improvement=2)
 print(result)
 # Sample output:
 # {'effect_size': 3.0, 't_statistic': 2.683, 'p_value': 0.012, 'significant': True}
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">One-sided t-test</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute the observed effect, build a pooled standard error for a two-sample design, then shift the t-statistic by <code>min_improvement</code> to test a directional minimum-gain hypothesis.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Run the test</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Pass small control and treatment arrays to the function and print the result dict containing effect size, t-statistic, p-value, and significance flag.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** Numeric types may print as `np.float64`; check `significant` and that `effect_size` exceeds your stated minimum.
 
@@ -117,7 +160,10 @@ Your hypothesis should involve quantifiable variables.
 
 **Walkthrough:** `metrics` dict holds everything you might report in a dashboard; `ttest_1samp(ratings, target_score)` tests the mean against the reference value (two-sided by default).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def measure_customer_satisfaction(ratings, target_score=4.0):
     """
     H₀: Mean satisfaction ≤ target_score
@@ -144,7 +190,39 @@ result = measure_customer_satisfaction(ratings, target_score=4.0)
 print(result)
 # Sample output:
 # {'mean_score': 4.2, 'median_score': 4.0, 'std_dev': 0.748, 'satisfaction_rate': 0.8, 'sample_size': 10, 't_statistic': 0.845, 'p_value': 0.420}
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Descriptive metrics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute mean, median, std, proportion ≥ 4, and sample size into a single dict—these are the quantifiable measures that make the hypothesis testable.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">One-sample t-test</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Run <code>stats.ttest_1samp</code> against the target score and merge the t-statistic and p-value into the metrics dict for a unified return value.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-26" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Run the test</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Pass 10 ratings to the function and print the full result dict to see all metrics alongside the test statistics.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** With a mean only slightly above 4, the two-sided p-value may be large—failing to reject does *not* prove the mean equals the target.
 
@@ -162,7 +240,10 @@ A hypothesis must be testable and possible to prove wrong.
 
 **Walkthrough:** `test_mean_effect` uses `ttest_1samp` and an arbitrary threshold; `vague_statement` deliberately avoids quantitative rejection rules.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def demonstrate_falsifiability():
     """
     Show the importance of falsifiable hypotheses
@@ -187,7 +268,39 @@ result = demonstrate_falsifiability()
 print(result)
 # Sample output:
 # {'falsifiable_result': True, 'non_falsifiable': 'Statement too vague to test statistically'}
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="4-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Falsifiable inner function</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>test_mean_effect</code> uses <code>ttest_1samp</code> to produce a concrete Boolean—any dataset can in principle reject this claim, making it falsifiable.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Non-falsifiable contrast</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>vague_statement</code> returns a string regardless of the data—no statistical test can ever reject it, illustrating why vague hypotheses are scientifically useless.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Side-by-side comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate 100 normal samples, run both branches, and print the dict so the Boolean result from the statistical test stands in sharp contrast to the vague string.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** With these draws, the one-sided “mean > 9.5” check may or may not fire; the vague branch always returns the same string.
 
@@ -204,11 +317,14 @@ print(result)
 
 **Simple null vs composite range check**
 
-**Purpose:** Show one workflow that tests \(H_0: \mu = 100\) with `ttest_1samp`, and a separate *interval* check that implements “is the sample mean inside [95, 105]?” as a descriptive composite screen.
+**Purpose:** Show one workflow that tests \\(H_0: \mu = 100\\) with `ttest_1samp`, and a separate *interval* check that implements “is the sample mean inside [95, 105]?” as a descriptive composite screen.
 
-**Walkthrough:** `simple_test.pvalue` comes from SciPy’s two-sided t-test vs 100; `composite_result` is a plain Python range check on \(\bar x\), not a formal LRT.
+**Walkthrough:** `simple_test.pvalue` comes from SciPy’s two-sided t-test vs 100; `composite_result` is a plain Python range check on \\(\bar x\\), not a formal LRT.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def demonstrate_hypothesis_types(data):
     simple_test = stats.ttest_1samp(data, 100)
     mean = np.mean(data)
@@ -223,7 +339,30 @@ result = demonstrate_hypothesis_types(data)
 print(result)
 # Sample output:
 # {'simple_p_value': 0.682, 'composite_result': True}
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Simple vs composite</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Run <code>ttest_1samp</code> for an exact-value null (H₀: μ = 100), then separately check whether the sample mean falls inside the composite interval [95, 105].</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Example run</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Pass five values centered near 100 and print the result to see the p-value from the simple test alongside the Boolean composite flag.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** A p-value of 1.0 for the toy data means the sample mean equals the tested null exactly in this construction; interpret composite flags separately from the p-value.
 

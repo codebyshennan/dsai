@@ -74,7 +74,10 @@ Gini impurity measures how "mixed" a group is. A lower Gini value means the grou
 
 **Walkthrough:** `np.unique` with `return_counts` gets frequencies; probabilities are `counts / len(y)`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 
 def calculate_gini(y):
@@ -82,16 +85,16 @@ def calculate_gini(y):
     # If the array is empty, return 0
     if len(y) == 0:
         return 0
-        
+
     # Count how many of each class we have
     _, counts = np.unique(y, return_counts=True)
-    
+
     # Calculate the probability of each class
     probabilities = counts / len(y)
-    
+
     # Calculate Gini (1 - sum of squared probabilities)
     gini = 1 - np.sum(probabilities ** 2)
-    
+
     return gini
 
 # Let's try some examples
@@ -102,7 +105,30 @@ balanced_group = np.array(['A', 'A', 'B', 'B'])      # Perfectly balanced
 print(f"Perfect group Gini: {calculate_gini(perfect_group):.4f}")
 print(f"Mixed group Gini: {calculate_gini(mixed_group):.4f}")
 print(f"Balanced group Gini: {calculate_gini(balanced_group):.4f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-17" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Gini Function</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>np.unique</code> counts each class; dividing by length gives class probabilities; the formula <code>1 − Σp²</code> equals zero for a pure node and peaks at balanced classes.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Demo Groups</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three arrays test the extremes: a pure group (Gini=0), a balanced binary group (Gini=0.5), and a three-class mix (highest impurity).</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -127,30 +153,56 @@ Entropy measures "uncertainty" or "disorder" in a group. Lower entropy means mor
 
 **Walkthrough:** Same `perfect_group` / `mixed_group` / `balanced_group` as the Gini demo.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def calculate_entropy(y):
     """Calculate how uncertain we are about the group using entropy"""
     # If the array is empty, return 0
     if len(y) == 0:
         return 0
-        
+
     # Count how many of each class we have
     _, counts = np.unique(y, return_counts=True)
-    
+
     # Calculate the probability of each class
     probabilities = counts / len(y)
-    
+
     # Calculate entropy (-sum of p * log2(p))
     # Add a small value to avoid log(0)
     entropy = -np.sum(probabilities * np.log2(probabilities + 1e-10))
-    
+
     return entropy
 
 # Let's try the same examples
 print(f"Perfect group entropy: {calculate_entropy(perfect_group):.4f}")
 print(f"Mixed group entropy: {calculate_entropy(mixed_group):.4f}")
 print(f"Balanced group entropy: {calculate_entropy(balanced_group):.4f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-17" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Entropy Function</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Shannon entropy <code>−Σ p log₂p</code>; adding <code>1e-10</code> prevents <code>log(0)</code> when a class is absent without meaningfully affecting the result.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Same Group Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Reusing the three groups from the Gini demo lets you directly compare how the two measures score identical distributions.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -175,7 +227,10 @@ Let's visualize how these measures behave for different class distributions:
 
 **Walkthrough:** `gini_values` uses the two-class closed form; `entropy_values` uses the binary entropy formula along `p`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import matplotlib.pyplot as plt
 
 # Create a range of probabilities for a binary classification problem
@@ -198,7 +253,39 @@ plt.show()
 print("When the split is 50/50 (p=0.5), both measures show maximum impurity.")
 print("When the split is pure (p=0 or p=1), both measures show zero impurity.")
 print("Entropy penalizes highly imbalanced splits slightly more than Gini.")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Closed-Form Values</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Both curves are computed analytically over 100 probability values using the two-class formulas—no training required.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Overlay Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plotting both on the same axes shows that entropy has a slightly higher peak and penalizes near-balanced splits more than Gini does.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Key Takeaways</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Both measures peak at <code>p=0.5</code> and hit zero at pure nodes; entropy uses a logarithm so its scale differs from Gini's quadratic curve.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![2-tree-structure](assets/2-tree-structure_fig_1.png)
@@ -230,7 +317,10 @@ Let's implement a simple version of this search:
 
 **Walkthrough:** Nested loops over features and unique values; skip empty sides; `best_gain` picks the split with largest gain on this toy matrix.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 
 def find_best_split(X, y, feature_names):
@@ -240,42 +330,42 @@ def find_best_split(X, y, feature_names):
     best_feature = None
     best_threshold = None
     parent_impurity = calculate_gini(y)
-    
+
     # Try each feature
     for feature in range(n_features):
         # Get unique values for this feature
         values = np.unique(X[:, feature])
-        
+
         # Try each value as a threshold
         for val in values:
             # Split the data
             left_mask = X[:, feature] <= val
             right_mask = ~left_mask
-            
+
             # Skip if either group is empty
             if np.sum(left_mask) == 0 or np.sum(right_mask) == 0:
                 continue
-                
+
             # Calculate impurity for each group
             left_impurity = calculate_gini(y[left_mask])
             right_impurity = calculate_gini(y[right_mask])
-            
+
             # Weight the impurities by group size
             n_left = np.sum(left_mask)
             n_right = np.sum(right_mask)
             n_total = len(y)
-            
+
             weighted_impurity = (n_left/n_total) * left_impurity + (n_right/n_total) * right_impurity
-            
+
             # Calculate information gain
             gain = parent_impurity - weighted_impurity
-            
+
             # Update best split if this one is better
             if gain > best_gain:
                 best_gain = gain
                 best_feature = feature
                 best_threshold = val
-    
+
     if best_feature is not None:
         return best_feature, best_threshold, best_gain
     else:
@@ -298,21 +388,53 @@ best_feature, best_threshold, best_gain = find_best_split(X, y, feature_names)
 if best_feature is not None:
     print(f"Best split: {feature_names[best_feature]} <= {best_threshold}")
     print(f"Information gain: {best_gain:.4f}")
-    
+
     # Show the resulting split
     left_mask = X[:, best_feature] <= best_threshold
     right_mask = ~left_mask
-    
+
     print("\nLeft group (≤ threshold):")
     for i in range(len(X)):
         if left_mask[i]:
             print(f"  Sample {i+1}: {feature_names[best_feature]}={X[i, best_feature]}, class={y[i]}")
-    
+
     print("\nRight group (> threshold):")
     for i in range(len(X)):
         if right_mask[i]:
             print(f"  Sample {i+1}: {feature_names[best_feature]}={X[i, best_feature]}, class={y[i]}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-42" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Greedy Split Search</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Nested loops test every unique threshold for every feature; information gain = parent Gini minus weighted average child Gini; the best is tracked and returned.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="44-59" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Toy Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Five samples with temperature and humidity features give a small matrix where you can verify the winning split by hand.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="61-78" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Print Result</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Shows which feature and threshold won, the information gain, and the membership of the left and right child groups after the split.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -345,7 +467,10 @@ Let's visualize the splitting process on a 2D dataset:
 
 **Walkthrough:** `DecisionTreeClassifier(max_depth=1)` is a single split; vertical vs horizontal line uses `feature == 0` vs else.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_classification
@@ -381,7 +506,7 @@ plt.scatter(X[:, 0], X[:, 1], c=y, cmap='viridis', edgecolor='k', s=50)
 
 # Plot the decision boundary
 if feature == 0:
-    plt.axvline(x=threshold, color='red', linestyle='-', linewidth=2, 
+    plt.axvline(x=threshold, color='red', linestyle='-', linewidth=2,
                label=f'Split at feature 0 = {threshold:.2f}')
 else:
     plt.axhline(y=threshold, color='red', linestyle='-', linewidth=2,
@@ -406,7 +531,48 @@ right_gini = 1 - np.sum((np.bincount(y[right_mask]) / len(y[right_mask]))**2)
 
 print(f"Gini impurity of left child: {left_gini:.4f}")
 print(f"Gini impurity of right child: {right_gini:.4f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-18" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Generate and Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>make_classification</code> creates 100 two-feature samples; <code>max_depth=1</code> forces the tree to learn exactly one split (a "stump").</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Read Split from Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>tree_.feature[0]</code> and <code>tree_.threshold[0]</code> expose the root node's chosen feature index and threshold value.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="30-46" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize Boundary</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A vertical line for feature 0 or horizontal line for feature 1 overlays the data scatter, making the axis-aligned nature of tree boundaries clear.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="48-60" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Verify Gini Drop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Parent Gini and left/right child Gini values are printed; the difference (information gain) should be positive and confirms why this split was chosen.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![2-tree-structure](assets/2-tree-structure_fig_2.png)
@@ -438,7 +604,10 @@ Just like a tree in nature, we need to know when to stop growing our decision tr
 
 **Walkthrough:** Manual 70/30 shuffle; `tree_.node_count` and `n_leaves` quantify complexity; `argmax(test_scores)` picks a depth (use CV in practice).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.tree import DecisionTreeClassifier
@@ -455,36 +624,36 @@ def evaluate_tree_depths(X, y, max_depths):
     test_scores = []
     node_counts = []
     leaf_counts = []
-    
+
     # Split the data into training (70%) and testing (30%)
     np.random.seed(42)
     indices = np.random.permutation(len(X))
     train_size = int(len(X) * 0.7)
     train_indices = indices[:train_size]
     test_indices = indices[train_size:]
-    
+
     X_train, X_test = X[train_indices], X[test_indices]
     y_train, y_test = y[train_indices], y[test_indices]
-    
+
     for depth in max_depths:
         # Create and train tree with specific depth
         tree = DecisionTreeClassifier(max_depth=depth, random_state=42)
         tree.fit(X_train, y_train)
-        
+
         # Evaluate performance
         train_score = tree.score(X_train, y_train)
         test_score = tree.score(X_test, y_test)
-        
+
         # Count nodes and leaves
         node_count = tree.tree_.node_count
         leaf_count = tree.tree_.n_leaves
-        
+
         # Store results
         train_scores.append(train_score)
         test_scores.append(test_score)
         node_counts.append(node_count)
         leaf_counts.append(leaf_count)
-    
+
     return train_scores, test_scores, node_counts, leaf_counts
 
 # Evaluate trees with different maximum depths
@@ -522,7 +691,48 @@ print(f"Training accuracy at best depth: {train_scores[best_depth-1]:.4f}")
 print(f"Testing accuracy at best depth: {test_scores[best_depth-1]:.4f}")
 print(f"Number of nodes at best depth: {node_counts[best_depth-1]}")
 print(f"Number of leaves at best depth: {leaf_counts[best_depth-1]}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-46" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Depth Evaluation Helper</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fits a new tree at each depth on the same 70/30 split, recording accuracy and node/leaf counts so you can directly compare complexity vs generalization.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="48-49" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Run Sweep</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Depths 1–10 are evaluated in a single call, returning four parallel lists aligned by depth index.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="51-73" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Dual Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Left panel shows train vs test accuracy (reveals overfitting at high depth); right panel shows how node and leaf count grow as the tree deepens.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="75-81" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Best Depth Summary</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>argmax(test_scores)</code> picks the depth that maximized held-out accuracy; in practice use cross-validation rather than a single hold-out for stability.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![2-tree-structure](assets/2-tree-structure_fig_3.png)
@@ -556,21 +766,24 @@ Let's also explore other stopping criteria:
 
 **Walkthrough:** Uses same `X`/`y` Iris arrays; prints a table of train/test accuracy and tree size for each setting.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Demonstrate other stopping criteria
 def explore_stopping_criteria(X, y):
     results = {}
-    
+
     # Split data
     np.random.seed(42)
     indices = np.random.permutation(len(X))
     train_size = int(len(X) * 0.7)
     train_indices = indices[:train_size]
     test_indices = indices[train_size:]
-    
+
     X_train, X_test = X[train_indices], X[test_indices]
     y_train, y_test = y[train_indices], y[test_indices]
-    
+
     # Base case - unrestricted tree
     base_tree = DecisionTreeClassifier(random_state=42)
     base_tree.fit(X_train, y_train)
@@ -580,7 +793,7 @@ def explore_stopping_criteria(X, y):
         'nodes': base_tree.tree_.node_count,
         'leaves': base_tree.tree_.n_leaves
     }
-    
+
     # Min samples split
     for min_samples in [2, 5, 10, 20]:
         tree = DecisionTreeClassifier(min_samples_split=min_samples, random_state=42)
@@ -591,7 +804,7 @@ def explore_stopping_criteria(X, y):
             'nodes': tree.tree_.node_count,
             'leaves': tree.tree_.n_leaves
         }
-    
+
     # Min samples leaf
     for min_leaf in [1, 5, 10, 20]:
         tree = DecisionTreeClassifier(min_samples_leaf=min_leaf, random_state=42)
@@ -602,7 +815,7 @@ def explore_stopping_criteria(X, y):
             'nodes': tree.tree_.node_count,
             'leaves': tree.tree_.n_leaves
         }
-    
+
     return results
 
 # Run the experiment
@@ -614,7 +827,39 @@ print(f"{'Criterion':<25} {'Train Acc':<10} {'Test Acc':<10} {'Nodes':<10} {'Lea
 print('-' * 65)
 for name, stats in stopping_results.items():
     print(f"{name:<25} {stats['train_score']:.4f}     {stats['test_score']:.4f}     {stats['nodes']:<10} {stats['leaves']:<10}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Baseline Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p>An unrestricted tree fits until all leaves are pure; its node count and accuracy serve as the upper bound for complexity comparisons.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-47" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sweep Two Hyperparameters</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Four values each of <code>min_samples_split</code> and <code>min_samples_leaf</code> are tested; higher values force larger splits and limit leaf size, reducing tree complexity.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="49-57" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Tabular Summary</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A formatted table prints all configurations side by side so you can see the accuracy–complexity trade-off at a glance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -654,7 +899,10 @@ This demonstrates two additional stopping criteria:
 
 **Walkthrough:** `plot_decision_boundary` overlays train/test accuracy in the corner; depths 2, 4, 10 are compared side by side.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_moons
@@ -672,22 +920,22 @@ def plot_decision_boundary(ax, model, X, y, title):
     y_min, y_max = X[:, 1].min() - 0.1, X[:, 1].max() + 0.1
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
                          np.arange(y_min, y_max, h))
-    
+
     # Make predictions on the meshgrid
     Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
     Z = Z.reshape(xx.shape)
-    
+
     # Plot the decision boundary
     ax.contourf(xx, yy, Z, alpha=0.3)
     ax.scatter(X[:, 0], X[:, 1], c=y, edgecolor='k', s=30)
     ax.set_title(title)
     ax.set_xlabel('Feature 1')
     ax.set_ylabel('Feature 2')
-    
+
     # Print accuracy
     train_acc = model.score(X_train, y_train)
     test_acc = model.score(X_test, y_test)
-    ax.text(0.05, 0.95, f'Train: {train_acc:.2f}, Test: {test_acc:.2f}', 
+    ax.text(0.05, 0.95, f'Train: {train_acc:.2f}, Test: {test_acc:.2f}',
             transform=ax.transAxes, va='top')
 
 # Create and plot three trees with different depths
@@ -710,7 +958,39 @@ plot_decision_boundary(axes[2], deep_tree, X, y, 'Overfitting (max_depth=10)')
 
 plt.tight_layout()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Noisy Moons Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>make_moons</code> with <code>noise=0.2</code> creates a two-class dataset with non-linear boundaries and overlapping points — ideal for showing overfitting.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-33" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Boundary Plot Helper</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A meshgrid is predicted and rendered with <code>contourf</code>; train and test accuracy are embedded as text in the upper-left corner of each panel.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="35-53" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three Depth Comparisons</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Depths 2, 4, and 10 show under-, balanced, and overfitted boundaries side by side; the jagged regions at depth 10 are the hallmark of overfitting.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![2-tree-structure](assets/2-tree-structure_fig_4.png)
@@ -731,7 +1011,10 @@ Decision trees can help us identify which features are most important:
 
 **Walkthrough:** `argsort` descending; bar chart uses sorted feature names; top-5 print matches the figure.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.datasets import load_wine
 from sklearn.tree import DecisionTreeClassifier
 import numpy as np
@@ -765,7 +1048,39 @@ plt.show()
 print("Top 5 most important features:")
 for i in range(5):
     print(f"{i+1}. {feature_names[indices[i]]}: {importances[indices[i]]:.4f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load and Train</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Wine has 13 physicochemical features; a depth-5 tree is fit on all 178 samples to produce importances that reflect impurity reduction per feature.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sort Importances</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>argsort</code> with <code>[::-1]</code> gives descending rank; the indices array reorders both the bars and x-tick labels in the same pass.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bar Chart and Top 5</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The bar chart shows all features ranked; the loop below prints the top five with exact importance scores for quick reference.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![2-tree-structure](assets/2-tree-structure_fig_5.png)
@@ -798,7 +1113,10 @@ Try building a simple decision tree by hand:
 
 **Exercise:** `5.2-dt-2-structure-exercise` — compute Gini for each printed split and pick the best first split by hand or in code.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example dataset: Iris flower features
 # Let's simplify to just two features for easy visualization
 from sklearn.datasets import load_iris
@@ -834,17 +1152,49 @@ for feature_idx, feature_name in enumerate(feature_names):
     # Find a few potential thresholds
     values = sorted(set(X[:, feature_idx]))
     thresholds = [np.round((values[i] + values[i+1])/2, 1) for i in range(len(values)-1)][:5]
-    
+
     print(f"\nPotential thresholds for {feature_name}:")
     for threshold in thresholds:
         left_mask = X[:, feature_idx] <= threshold
         left_counts = np.bincount(y[left_mask], minlength=3)
         right_counts = np.bincount(y[~left_mask], minlength=3)
-        
+
         print(f"  Split at {threshold}:")
         print(f"    Left:  {left_counts} (total: {sum(left_counts)})")
         print(f"    Right: {right_counts} (total: {sum(right_counts)})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-23" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two-Feature Scatter</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Only sepal length and petal length are kept so the split space is 2D and easy to reason about by eye before writing any splitting code.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-30" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Exercise Prompt</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three guiding questions direct the learner to manually inspect the scatter, compute Gini, and sketch the tree before running any code.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="32-46" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Threshold Hints</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each feature, five midpoint thresholds are printed with left/right class counts so the learner can compute Gini for each candidate by hand.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![2-tree-structure](assets/2-tree-structure_fig_6.png)

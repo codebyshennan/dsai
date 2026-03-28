@@ -30,6 +30,25 @@ Imagine you're a detective trying to understand the average height of all trees 
 
 In statistical inference, we distinguish between parameters and statistics. Parameters are numerical characteristics of a population, while statistics are numerical characteristics of a sample. Understanding this distinction is crucial for making valid inferences about populations based on sample data.
 
+```mermaid
+graph LR
+    subgraph POP["Population  (usually unknown)"]
+        PARAM["Parameters\n(Greek letters)\nμ = population mean\nσ = population std dev\nπ = population proportion"]
+    end
+    subgraph SAM["Sample  (what you measure)"]
+        STAT["Statistics\n(Latin letters)\nx̄ = sample mean\ns = sample std dev\np = sample proportion"]
+    end
+    PARAM -->|"Sample from population"| STAT
+    STAT -->|"Estimate parameters\n(point estimate + CI)"| PARAM
+
+    subgraph PROPS["Good estimator properties"]
+        E1["Unbiased: E(statistic) = parameter"]
+        E2["Consistent: error → 0 as n → ∞"]
+        E3["Efficient: minimum variance"]
+    end
+    STAT --> PROPS
+```
+
 ## Definitions
 
 ### Parameters
@@ -91,13 +110,16 @@ A good estimator should possess the following properties:
 
 A point estimate is like taking your best shot at the true value:
 
-**Simulated forest: μ vs one \(\bar x\)**
+**Simulated forest: μ vs one \\(\bar x\\)**
 
 **Purpose:** Ground notation—population mean vs sample mean—on a synthetic finite “forest” and a single draw of 100 trees.
 
 **Walkthrough:** `population` is stand-in census; `choice` with replacement mimics IID sampling from a large population; prints report |μ̂ − μ| for one realization.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 np.random.seed(42)  # For reproducibility
 
@@ -113,7 +135,30 @@ print(f"Tree Height Analysis")
 print(f"Population mean (μ): {population_mean:.2f} feet")
 print(f"Sample mean (x̄): {sample_mean:.2f} feet")
 print(f"Difference: {abs(population_mean - sample_mean):.2f} feet")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Population setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Simulate 10,000 tree heights from N(100, 15²) to represent the population parameter μ—in practice this value would be unknown.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Point estimate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw 100 heights from the population and compare the sample mean to μ to show how close a single statistic gets to the true parameter.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Tree Height Analysis](assets/tree_height_analysis.png)
 *Figure 4: Comparison of population and sample distributions for tree heights. The red dashed lines indicate the means, and the blue shaded area shows the 95% confidence interval.*
@@ -124,11 +169,14 @@ Instead of a single guess, we provide a range where we believe the true value li
 
 **t-interval continuing the same sample**
 
-**Purpose:** Turn the previous lesson’s `sample` and `sample_mean` into a textbook t-based CI using sample SD and \(n-1\) degrees of freedom.
+**Purpose:** Turn the previous lesson’s `sample` and `sample_mean` into a textbook t-based CI using sample SD and \\(n-1\\) degrees of freedom.
 
-**Walkthrough:** `stats.t.ppf` at \((1+0.95)/2\) gives two-sided critical t; margin is \(t_{df} \cdot s/\sqrt{n}\); relies on `sample` still in memory from the prior cell.
+**Walkthrough:** `stats.t.ppf` at \\((1+0.95)/2\\) gives two-sided critical t; margin is \\(t_{df} \cdot s/\sqrt{n}\\); relies on `sample` still in memory from the prior cell.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from scipy import stats
 
 # Calculate 95% confidence interval
@@ -148,7 +196,30 @@ print(f"{confidence_level*100}% Confidence Interval:")
 print(f"({ci_lower:.2f}, {ci_upper:.2f}) feet")
 print(f"Interpretation: We're {confidence_level*100}% confident the true average")
 print(f"tree height falls between {ci_lower:.2f} and {ci_upper:.2f} feet")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Margin of error</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute the t critical value for n−1 degrees of freedom and multiply by the standard error (s/√n) to get the margin of error for a 95% interval.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Interval bounds</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Subtract and add the margin of error from the sample mean to form the interval, then print a plain-language interpretation of what 95% confidence means.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## What Makes a Good Estimator?
 
@@ -156,13 +227,16 @@ print(f"tree height falls between {ci_lower:.2f} and {ci_upper:.2f} feet")
 
 An unbiased estimator's expected value equals the population parameter:
 
-**Monte Carlo average of \(\bar x\)**
+**Monte Carlo average of \\(\bar x\\)**
 
-**Purpose:** Show empirically that the mean of many sample means tracks \(\mu\)—the computational face of unbiasedness for the sample mean.
+**Purpose:** Show empirically that the mean of many sample means tracks \\(\mu\\)—the computational face of unbiasedness for the sample mean.
 
 **Walkthrough:** Loop draws fresh n=100 samples with replacement; `mean_of_means` should hug `population_mean` from the earlier simulation block.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Demonstrate unbiasedness of sample mean
 n_simulations = 1000
 sample_means = []
@@ -177,7 +251,30 @@ print(f"\nUnbiasedness Analysis")
 print(f"True population mean: {population_mean:.2f}")
 print(f"Average of {n_simulations} sample means: {mean_of_means:.2f}")
 print(f"Difference: {abs(population_mean - mean_of_means):.2f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Monte Carlo simulation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw 1,000 independent samples of size 100 and record each mean to build an empirical picture of the sampling distribution.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Verify unbiasedness</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute the mean of 1,000 sample means and compare to μ—the tiny difference confirms the sample mean is an unbiased estimator.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Unbiasedness Demonstration](assets/unbiasedness_demonstration.png)
 *Figure 5: Distribution of sample means around the population mean. The green dashed line shows the mean of sample means, which is very close to the true population mean (red dashed line).*
@@ -192,14 +289,17 @@ An efficient estimator has less variability in its estimates:
 
 **Walkthrough:** `stats.trim_mean(data, 0.1)` drops the lowest/highest 10% before averaging; compare numeric closeness for teaching, not a formal efficiency calculation.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def compare_estimators(data):
     """Compare mean estimators"""
     # Regular mean
     mean1 = np.mean(data)
     # Trimmed mean (less efficient for normal data)
     mean2 = stats.trim_mean(data, 0.1)
-    
+
     return mean1, mean2
 
 # Compare estimators
@@ -207,7 +307,30 @@ regular_mean, trimmed_mean = compare_estimators(sample)
 print(f"\nEfficiency Analysis")
 print(f"Regular mean: {regular_mean:.2f}")
 print(f"Trimmed mean: {trimmed_mean:.2f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two estimators</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute the plain mean and a 10%-trimmed mean on the same data—the trimmed version drops the extreme 10% from each tail before averaging.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Efficiency comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print both estimates side by side; for normal data the plain mean is more efficient (lower variance), while the trimmed mean becomes competitive with heavy tails.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Efficiency Comparison](assets/efficiency_comparison.png)
 *Figure 6: Comparison of regular mean (red) and trimmed mean (green) estimators. The regular mean is more efficient for normally distributed data.*
@@ -216,13 +339,16 @@ print(f"Trimmed mean: {trimmed_mean:.2f}")
 
 A consistent estimator converges to the true value as sample size increases:
 
-**One \(\bar x\) per n on a ladder of sizes**
+**One \\(\bar x\\) per n on a ladder of sizes**
 
 **Purpose:** Print how |x̄ − μ| shrinks as `size` grows—visual consistency narrative without a formal limit proof.
 
 **Walkthrough:** Same `population` array as before; independent draws per row—differences step down on average as n increases.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Demonstrate consistency with increasing sample sizes
 sample_sizes = [10, 100, 1000, 5000]
 results = []
@@ -236,7 +362,30 @@ print(f"\nConsistency Analysis")
 print(f"True population mean: {population_mean:.2f}")
 for size, result in zip(sample_sizes, results):
     print(f"Sample size {size:4d}: {result:.2f} (Diff: {abs(result - population_mean):.2f})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Size ladder</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw one independent sample at each of four sizes (10, 100, 1000, 5000) and record the resulting sample mean.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Convergence printout</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print the absolute difference between each sample mean and μ—it should generally shrink as n grows, illustrating consistency numerically.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Consistency Demonstration](assets/consistency_demonstration.png)
 *Figure 7: Demonstration of consistency. As sample size increases, the sample mean (blue line) converges to the true population mean (red dashed line).*
@@ -251,7 +400,10 @@ for size, result in zip(sample_sizes, results):
 
 **Walkthrough:** Gaussian sample around target 100; `stats.sem` implicit inside `t.interval` via `scale` argument; function body stays side-effect free.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from scipy import stats
 
@@ -260,65 +412,114 @@ def quality_control_example():
     population_mean = 100  # Target value
     population_std = 2
     sample_size = 30
-    
+
     # Generate sample
     sample = np.random.normal(population_mean, population_std, sample_size)
-    
+
     # Calculate statistics
     sample_mean = np.mean(sample)
     sample_std = np.std(sample, ddof=1)
-    
+
     # Calculate 95% confidence interval
-    ci = stats.t.interval(0.95, len(sample)-1, 
-                         loc=sample_mean, 
+    ci = stats.t.interval(0.95, len(sample)-1,
+                         loc=sample_mean,
                          scale=stats.sem(sample))
-    
+
     return {
         'sample_mean': sample_mean,
         'sample_std': sample_std,
         'confidence_interval': ci
     }
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="4-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">QC sample</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw 30 production measurements from N(100, 2²) simulating a manufacturing process with a known target value.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">t-interval</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Use <code>stats.t.interval</code> with <code>stats.sem</code> as the scale parameter to produce a 95% CI—a one-line alternative to the manual ppf × SE formula.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Quality Control Analysis](assets/quality_control_analysis.png)
 *Figure 8: Quality control measurements with target value (red), sample mean (green), and 95% confidence interval (blue).*
 
 ### 2. A/B Testing in Tech
 
-**Bernoulli arms and normal-approx CI on \(\hat p_T - \hat p_C\)**
+**Bernoulli arms and normal-approx CI on \\(\hat p_T - \hat p_C\\)**
 
 **Purpose:** Estimate lift between two conversion rates and attach an asymptotic CI—common quick-and-dirty reporting path (check assumptions in production).
 
 **Walkthrough:** Independent Bernoulli vectors; `diff_std` uses separate-factor SE formula; `stats.norm.interval` treats the difference as normal—OK for large n.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def ab_testing_example():
     # Simulate conversion rates
     control_rate = 0.1
     treatment_rate = 0.12
     sample_size = 1000
-    
+
     # Generate samples
     control = np.random.binomial(1, control_rate, sample_size)
     treatment = np.random.binomial(1, treatment_rate, sample_size)
-    
+
     # Calculate statistics
     control_mean = np.mean(control)
     treatment_mean = np.mean(treatment)
-    
+
     # Calculate difference and confidence interval
     diff = treatment_mean - control_mean
-    diff_std = np.sqrt(control_mean*(1-control_mean)/sample_size + 
+    diff_std = np.sqrt(control_mean*(1-control_mean)/sample_size +
                       treatment_mean*(1-treatment_rate)/sample_size)
     ci = stats.norm.interval(0.95, loc=diff, scale=diff_std)
-    
+
     return {
         'control_rate': control_mean,
         'treatment_rate': treatment_mean,
         'difference': diff,
         'confidence_interval': ci
     }
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bernoulli arms</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Simulate binary conversion events for 1,000 users in each arm using Bernoulli draws at 10% and 12% rates.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Lift and CI</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute the difference in observed rates, build a normal-approx SE for the difference, and use <code>stats.norm.interval</code> to produce a 95% CI for the lift.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![A/B Testing Results](assets/ab_testing_results.png)
 *Figure 9: A/B test results showing conversion rates for control and treatment groups with error bars.*
@@ -405,38 +606,82 @@ A sampling distribution is the distribution of a statistic (like the mean) acros
 
 **Walkthrough:** Double loop unnecessary—inner draws `sample_size` with replacement; returns dict comparing population mean to mean/SD of simulated x̄’s.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def demonstrate_sampling_distribution():
     # Generate population data
     np.random.seed(42)
     population = np.random.normal(100, 15, 10000)
-    
+
     # Take multiple samples and calculate means
     n_samples = 1000
     sample_size = 30
     sample_means = []
-    
+
     for _ in range(n_samples):
         sample = np.random.choice(population, sample_size)
         sample_means.append(np.mean(sample))
-    
+
     # Plot sampling distribution
     plt.figure(figsize=(10, 6))
     sns.histplot(sample_means, kde=True)
-    plt.axvline(np.mean(population), color='red', linestyle='--', 
+    plt.axvline(np.mean(population), color='red', linestyle='--',
                 label='Population Mean')
     plt.title('Sampling Distribution of the Mean')
     plt.xlabel('Sample Mean')
     plt.ylabel('Frequency')
     plt.legend()
     plt.show()
-    
+
     return {
         'population_mean': np.mean(population),
         'sampling_dist_mean': np.mean(sample_means),
         'sampling_dist_std': np.std(sample_means)
     }
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="2-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Population setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a synthetic normal population of 10,000 values as the reference distribution for repeated sampling.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Collect sample means</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw 1,000 samples of size 30 with replacement and store each mean to build the empirical sampling distribution.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-24" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">KDE histogram</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot the sampling distribution with a seaborn KDE overlay and mark the true population mean as a reference line.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-30" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Summary statistics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Return population mean alongside the mean and SD of simulated sample means for easy comparison in a notebook.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Central Limit Theorem
 
@@ -452,32 +697,67 @@ The Central Limit Theorem (CLT) states that:
 
 **Walkthrough:** Exponential draws; nested loops fill `sample_means` per panel; axis titles show n.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def demonstrate_clt():
     # Generate non-normal population
     np.random.seed(42)
     population = np.random.exponential(scale=2, size=10000)
-    
+
     # Different sample sizes
     sample_sizes = [5, 30, 100]
     n_samples = 1000
-    
+
     # Plot sampling distributions
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-    
+
     for i, size in enumerate(sample_sizes):
         sample_means = []
         for _ in range(n_samples):
             sample = np.random.choice(population, size)
             sample_means.append(np.mean(sample))
-        
+
         sns.histplot(sample_means, kde=True, ax=axes[i])
         axes[i].set_title(f'n = {size}')
         axes[i].set_xlabel('Sample Mean')
-    
+
     plt.tight_layout()
     plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="2-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Skewed population</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Use an exponential distribution as the population to show CLT working on a non-normal base.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-7" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sample size ladder</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Try three sample sizes (5, 30, 100) to visualise how normality of the sampling distribution emerges as n grows.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three-panel KDE</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Collect 1,000 means per size and plot each distribution in its own axis; the rightmost panel should appear most bell-shaped.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Standard Error
 
@@ -489,25 +769,51 @@ The standard error (SE) measures the precision of our sample statistic:
 
 **Walkthrough:** Single random normal sample; return dict bundles point estimate, SE, and CI tuple.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def calculate_standard_error():
     # Example data
     sample = np.random.normal(100, 15, 30)
-    
+
     # Calculate standard error of the mean
     se = np.std(sample, ddof=1) / np.sqrt(len(sample))
-    
+
     # Calculate 95% confidence interval
-    ci = stats.t.interval(0.95, len(sample)-1, 
-                         loc=np.mean(sample), 
+    ci = stats.t.interval(0.95, len(sample)-1,
+                         loc=np.mean(sample),
                          scale=se)
-    
+
     return {
         'sample_mean': np.mean(sample),
         'standard_error': se,
         'confidence_interval': ci
     }
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SE formula</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute the standard error as s/√n using <code>ddof=1</code> for the unbiased sample standard deviation—this is the precision measure for the sample mean.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">t-interval output</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Feed the SE into <code>stats.t.interval</code> as the scale parameter and bundle mean, SE, and CI into a single return dict for easy inspection.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Practical Implications
 
@@ -549,28 +855,54 @@ A resampling technique to estimate sampling distributions:
 
 **Walkthrough:** Inner loop draws `len(sample)` picks with replacement; `np.percentile` on bootstrap means gives equal-tail 95% interval.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def bootstrap_example():
     # Original sample
     sample = np.random.normal(100, 15, 30)
-    
+
     # Bootstrap
     n_bootstrap = 1000
     bootstrap_means = []
-    
+
     for _ in range(n_bootstrap):
         bootstrap_sample = np.random.choice(sample, len(sample), replace=True)
         bootstrap_means.append(np.mean(bootstrap_sample))
-    
+
     # Calculate bootstrap confidence interval
     ci = np.percentile(bootstrap_means, [2.5, 97.5])
-    
+
     return {
         'original_mean': np.mean(sample),
         'bootstrap_mean': np.mean(bootstrap_means),
         'bootstrap_ci': ci
     }
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bootstrap loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw 1,000 resamples with replacement from the original 30-item sample, each the same size as the original, and record the mean of each resample.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Percentile CI</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Take the 2.5th and 97.5th percentiles of the bootstrap means to form a distribution-free 95% CI that requires no normality assumption.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Finite Population Correction
 

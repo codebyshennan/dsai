@@ -63,6 +63,19 @@ Let's break it down into simple steps:
    - For classification: Take a vote among the neighbors
    - For regression: Take the average of the neighbors' values
 
+```mermaid
+flowchart TD
+    A[New data point arrives] --> B[Compute distance to every training point]
+    B --> C[Sort by distance, keep closest k]
+    C --> D{Task type?}
+    D -->|Classification| E[Majority vote among k neighbors]
+    D -->|Regression| F[Average of k neighbors' values]
+    E --> G[Predicted class label]
+    F --> H[Predicted numeric value]
+```
+
+*At prediction time KNN does all the work — it never builds an explicit model. That's why it's called a **lazy** learner.*
+
 #### Minimal `KNeighborsClassifier` usage
 
 **Purpose:** See the lazy-learning API: `fit` stores references; `predict` queries the stored `X_train` at inference time.

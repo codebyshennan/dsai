@@ -32,6 +32,26 @@ Think of k like asking for advice:
 - k=5 is like asking your 5 closest friends
 - k=20 is like asking a larger group of friends
 
+```mermaid
+graph LR
+    subgraph SMALL["Small k  (k=1 or 2)"]
+        S1["High sensitivity to noise\nCaptures local patterns\nLow bias, HIGH variance"]
+        S2["Risk: overfitting\nJagged decision boundary"]
+    end
+    subgraph LARGE["Large k  (k=20+)"]
+        L1["Stable — averages many points\nSmooths over noise\nHigh bias, LOW variance"]
+        L2["Risk: underfitting\nMisses local clusters"]
+    end
+    subgraph SWEET["Sweet spot  (k = √n)"]
+        G1["Balance bias and variance\nStart here, then tune with CV"]
+    end
+
+    SMALL -->|"increase k"| SWEET
+    SWEET -->|"increase k further"| LARGE
+```
+
+*The `√n` rule is a starting point. Always use cross-validation to find the optimal k for your dataset.*
+
 ## Why Implementation Matters
 
 Understanding how to implement KNN is crucial because:
@@ -84,25 +104,51 @@ class SimpleKNN:
 **Walkthrough:**
 - Euclidean distance via `np.sqrt(np.sum((x - x_train)**2))`; `np.argsort` + slice for top-`k`; `Counter` for the mode.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
     def predict(self, X):
         """Make predictions for new data points"""
         return np.array([self._predict_single(x) for x in X])
-    
+
     def _predict_single(self, x):
         """Predict class for a single point"""
         # Calculate distances to all training points
-        distances = [np.sqrt(np.sum((x - x_train)**2)) 
+        distances = [np.sqrt(np.sum((x - x_train)**2))
                     for x_train in self.X_train]
-        
+
         # Get k nearest neighbors
         k_indices = np.argsort(distances)[:self.k]
         k_nearest_labels = [self.y_train[i] for i in k_indices]
-        
+
         # Return most common class
         most_common = Counter(k_nearest_labels).most_common(1)
         return most_common[0][0]
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Batch Predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>predict</code> maps <code>_predict_single</code> over every row of <code>X</code> and packs the results into a NumPy array, giving the same interface as scikit-learn estimators.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Distance and Majority Vote</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Euclidean distance is computed to every training point; <code>np.argsort</code> ranks them and a slice picks the k smallest; <code>Counter.most_common(1)</code> returns the plurality class among those k neighbours.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Breaking it down:**
 
@@ -121,7 +167,10 @@ class SimpleKNN:
 **Walkthrough:**
 - `np.array` for `X_train` / `y_train`; `fit` then `predict([new_movie])`; `print` shows the predicted genre.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example: Movie Genre Classification
 # Features: [Action Score, Romance Score]
 X_train = np.array([
@@ -142,7 +191,30 @@ knn.fit(X_train, y_train)
 new_movie = np.array([4, 6])  # Mix of action and romance
 prediction = knn.predict([new_movie])
 print(f"Predicted genre: {prediction[0]}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Training Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Six labelled movies are represented as [action score, romance score] pairs; the two-feature space makes it easy to visualise how the nearest-neighbour boundary separates Action from Romance points.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>SimpleKNN(k=3)</code> is fitted by storing training data, then queried with a mixed-genre point [4, 6]; the three nearest neighbours vote on the predicted label.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Using Scikit-learn
 
@@ -157,7 +229,10 @@ While implementing from scratch is educational, scikit-learn provides a robust, 
 **Walkthrough:**
 - `load_iris`, `train_test_split`, `StandardScaler.fit_transform` / `transform`, `KNeighborsClassifier` with `metric='euclidean'`, `accuracy_score`, `classification_report` with `target_names`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
@@ -201,7 +276,39 @@ def classify_iris_flowers():
 
 # Run the example
 model, scaler = classify_iris_flowers()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="18-21" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scale before KNN — always</span>
+    </div>
+    <div class="code-callout__body">
+      <p>KNN computes distances between data points. If one feature spans 0–1000 and another spans 0–1, distances are dominated by the large-scale feature. <code>StandardScaler</code> puts all features on the same scale so every dimension contributes equally.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">KNN parameters</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>n_neighbors=5</code> considers the 5 closest points for a majority vote. <code>weights='uniform'</code> treats all neighbors equally; try <code>'distance'</code> to weight closer points more. <code>metric='euclidean'</code> is the straight-line distance — other options include <code>'manhattan'</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="34-40" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Classification report</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>classification_report</code> shows per-class precision, recall, and F1 — more informative than a single accuracy number, especially when classes are imbalanced. <code>target_names</code> replaces numeric labels with human-readable names.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 

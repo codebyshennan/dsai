@@ -73,17 +73,17 @@ graph TD
 
 ```mermaid
 graph TD
-    subgraph Bronze Layer
+    subgraph bronze ["Bronze Layer"]
         A[Raw Data]
         B[Source Files]
         C[Stream Data]
     end
-    subgraph Silver Layer
+    subgraph silver ["Silver Layer"]
         D[Cleaned Data]
         E[Validated Data]
         F[Transformed Data]
     end
-    subgraph Gold Layer
+    subgraph gold ["Gold Layer"]
         G[Aggregated Data]
         H[Feature Sets]
         I[Analytics Data]
@@ -269,31 +269,31 @@ def setup_database(connection_string):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From sqlalchemy import create_engine, Column,…</span>
+      <span class="code-callout__title">Imports and declarative base</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From sqlalchemy import create_engine, Column,…</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports SQLAlchemy column types, <code>declarative_base</code> for ORM model definitions, and <code>sessionmaker</code> for connection management. <code>Base = declarative_base()</code> is the shared registry that maps Python classes to database tables.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="8-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">__tablename__ = &#x27;sales&#x27;</span>
+      <span class="code-callout__title">SalesRecord ORM model</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>__tablename__ = &#x27;sales&#x27;</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines the <code>sales</code> table as a Python class. Each <code>Column(...)` call maps a class attribute to a typed database column—SQLAlchemy infers the DDL from these declarations when <code>create_all</code> runs.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="26-38" data-tint="3">
+  <div class="code-callout" data-lines="24-38" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&quot;&quot;&quot;</span>
+      <span class="code-callout__title">setup_database: engine, schema creation, session</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&quot;&quot;&quot;</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Creates an engine from the connection string, calls <code>Base.metadata.create_all</code> to emit <code>CREATE TABLE</code> statements if the tables don't exist, then returns a bound <code>Session</code> instance ready for queries.</p>
     </div>
   </div>
 </aside>
@@ -405,31 +405,31 @@ mongo.insert_document('sales_db', 'transactions', document)
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From pymongo import MongoClient</span>
+      <span class="code-callout__title">Imports, class definition, and constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From pymongo import MongoClient</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports <code>MongoClient</code> and <code>datetime</code>, defines <code>MongoDBHandler</code>, and stores a client instance. All methods resolve the database and collection at call time, so one handler works across multiple databases.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="11-27" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Db = self.client[database]</span>
+      <span class="code-callout__title">insert_document, find_documents, update_document</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Db = self.client[database]</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Three CRUD methods following the same pattern: resolve <code>db</code> and <code>coll</code> from the client, then call the pymongo method—<code>insert_one</code>, <code>find</code>, or <code>update_many</code> with a <code>$set</code> operator.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="25-37" data-tint="3">
+  <div class="code-callout" data-lines="29-37" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Db = self.client[database]</span>
+      <span class="code-callout__title">Usage example</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Db = self.client[database]</strong> — lines 25-37 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Instantiates the handler, constructs a document dict with a live timestamp, and inserts it into the <code>transactions</code> collection of <code>sales_db</code>.</p>
     </div>
   </div>
 </aside>
@@ -494,40 +494,31 @@ class DataLakeHandler:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Import boto3</span>
+      <span class="code-callout__title">Imports, class definition, and constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Import boto3</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports <code>boto3</code>, <code>pandas</code>, and <code>StringIO</code>. The constructor creates an S3 client and stores the bucket name—the single point of configuration for all subsequent operations.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="13-30" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def upload_dataframe(self, df, key, partition…</span>
+      <span class="code-callout__title">upload_dataframe: partition key, CSV serialisation, S3 put</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def upload_dataframe(self, df, key, partition…</strong> — lines 13-25. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Optionally prefixes the key with a Hive-style partition path (e.g., <code>date=2023-01-01/</code>), serialises the DataFrame to a CSV string via <code>StringIO</code>, then uploads the bytes with <code>put_object</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="26-37" data-tint="3">
+  <div class="code-callout" data-lines="32-50" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Self.s3.put_object(</span>
+      <span class="code-callout__title">read_dataframe and list_files</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Self.s3.put_object(</strong> — lines 26-37 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="38-50" data-tint="4">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Read CSV data</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Read CSV data</strong> — lines 38-50 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>read_dataframe</code> fetches an object by key and parses the body as CSV directly. <code>list_files</code> uses <code>list_objects_v2</code> with an optional prefix, returning the key of every matching object.</p>
     </div>
   </div>
 </aside>
@@ -626,31 +617,31 @@ class DataWarehouseHandler:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From snowflake.connector import connect</span>
+      <span class="code-callout__title">Imports, class definition, and constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From snowflake.connector import connect</strong> — lines 1-10. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports Snowflake's <code>connect</code> and pandas. The constructor unpacks <code>connection_params</code> (account, user, password, warehouse, database) into <code>connect()</code> and stores the live connection.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-21" data-tint="2">
+  <div class="code-callout" data-lines="11-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def execute_query(self, query):</span>
+      <span class="code-callout__title">execute_query: cursor, execute, fetch</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def execute_query(self, query):</strong> — lines 11-21. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Opens a cursor, runs arbitrary SQL, and returns all rows as a list of tuples. Used internally by <code>load_data</code> to issue DDL commands (<code>CREATE TEMPORARY STAGE</code>, <code>COPY INTO</code>).</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="22-32" data-tint="3">
+  <div class="code-callout" data-lines="17-32" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Write data to stage</span>
+      <span class="code-callout__title">load_data: stage, write_pandas, COPY INTO</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Write data to stage</strong> — lines 22-32 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Three-step Snowflake bulk load: create a temporary stage, write the DataFrame into it with <code>write_pandas</code>, then issue a <code>COPY INTO</code> command to move the staged CSV data into the target table.</p>
     </div>
   </div>
 </aside>
@@ -692,22 +683,22 @@ def partition_data(df, partition_columns):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def partition_data(df, partition_columns):</span>
+      <span class="code-callout__title">Signature, init list, and groupby</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def partition_data(df, partition_columns):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Takes a DataFrame and a list of partition column names. Initialises an empty <code>partitions</code> list, then groups the data by those columns—each group becomes one partition file.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="10-25" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Partition_path = &#x27;/&#x27;.join([</span>
+      <span class="code-callout__title">Hive-style path building and partition list</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Partition_path = &#x27;/&#x27;.join([</strong> — lines 13-25. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>For multi-column partitions, joins <code>col=val</code> segments with <code>/</code> to produce a Hive-style path like <code>year=2023/month=01</code>. Single-column partitions use a simpler format. Each group is appended as a <code>{'path': ..., 'data': group}</code> dict.</p>
     </div>
   </div>
 </aside>
@@ -750,22 +741,22 @@ def decompress_data(compressed_data, compression='gzip'):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Import gzip</span>
+      <span class="code-callout__title">compress_data: JSON serialise then gzip</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Import gzip</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports <code>gzip</code> and <code>json</code>. <code>compress_data</code> serialises the input to a JSON string, encodes it to UTF-8 bytes, then compresses with <code>gzip.compress</code>. Unsupported compression types raise a <code>ValueError</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="17-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Raise ValueError(f&quot;Unsupported compression: {…</span>
+      <span class="code-callout__title">decompress_data: gunzip then JSON parse</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Raise ValueError(f&quot;Unsupported compression: {…</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The inverse of <code>compress_data</code>: decompresses bytes with <code>gzip.decompress</code>, decodes to a UTF-8 string, then parses with <code>json.loads</code> to restore the original Python object.</p>
     </div>
   </div>
 </aside>
@@ -822,31 +813,31 @@ class DataVersioning:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From datetime import datetime</span>
+      <span class="code-callout__title">Imports, class definition, and constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From datetime import datetime</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports <code>datetime</code> and <code>hashlib</code>. The constructor only stores the storage path—all version data is computed on demand in <code>save_version</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="11-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Create version metadata</span>
+      <span class="code-callout__title">save_version: generate ID, build metadata, persist</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Create version metadata</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Generates a unique version ID, assembles a <code>version_info</code> dict with timestamp, caller metadata, and an MD5 checksum, then saves both the data and the metadata via private helpers. Returns <code>version_info</code> so callers can record the lineage.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="29-42" data-tint="3">
+  <div class="code-callout" data-lines="30-42" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def _generate_version_id(self, data):</span>
+      <span class="code-callout__title">_generate_version_id and _calculate_checksum</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def _generate_version_id(self, data):</strong> — lines 29-42. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p><code>_generate_version_id</code> combines a datetime stamp with the first 8 characters of the checksum to produce a human-readable, collision-resistant ID. <code>_calculate_checksum</code> converts DataFrames to JSON or other objects to strings before hashing with MD5.</p>
     </div>
   </div>
 </aside>
@@ -1024,58 +1015,58 @@ storage.store_data(
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-21" data-tint="1">
+  <div class="code-callout" data-lines="1-32" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class DataStorage:</span>
+      <span class="code-callout__title">Class definition, constructor, and _initialize_backends</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class DataStorage:</strong> — lines 1-21 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines <code>DataStorage</code>, stores config and a versioning instance, then conditionally initialises each backend (RDBMS, MongoDB, data lake) based on which keys are present in <code>config</code>—making all three optional.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="22-42" data-tint="2">
+  <div class="code-callout" data-lines="34-53" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Backends[&#x27;mongodb&#x27;] = MongoDBHandler(</span>
+      <span class="code-callout__title">store_data: version then dispatch to backend</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Backends[&#x27;mongodb&#x27;] = MongoDBHandler(</strong> — lines 22-42 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Validates the backend name, versions the data first (so every write is auditable), then dispatches to the appropriate private store method based on the backend string.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="43-63" data-tint="3">
+  <div class="code-callout" data-lines="55-65" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">)</span>
+      <span class="code-callout__title">_store_in_rdbms: DataFrame to ORM objects</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>)</strong> — lines 43-63 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Converts each DataFrame row to a <code>SalesRecord</code> ORM object using <code>row.to_dict()</code>, bulk-inserts with <code>session.add_all</code>, and commits the transaction.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="64-84" data-tint="4">
+  <div class="code-callout" data-lines="67-86" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Session.add_all(records)</span>
+      <span class="code-callout__title">_store_in_mongodb and _store_in_data_lake</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Session.add_all(records)</strong> — lines 64-84 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>MongoDB: converts the DataFrame to a list of dicts with <code>to_dict('records')</code> and inserts. Data lake: delegates to <code>DataLakeHandler.upload_dataframe</code> with the key and optional partition from <code>kwargs</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="85-105" data-tint="1">
+  <div class="code-callout" data-lines="88-102" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Partition=kwargs.get(&#x27;partition&#x27;)</span>
+      <span class="code-callout__title">Configuration and DataStorage initialisation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Partition=kwargs.get(&#x27;partition&#x27;)</strong> — lines 85-105 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The <code>config</code> dict specifies connection strings for all three backends plus a local versioning path. Passing it to <code>DataStorage</code> bootstraps the full multi-backend system in one call.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="106-127" data-tint="2">
+  <div class="code-callout" data-lines="104-127" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;product_id&#x27;: [1, 2, 3],</span>
+      <span class="code-callout__title">Write to all three backends</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;product_id&#x27;: [1, 2, 3],</strong> — lines 106-127 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Demonstrates storing the same DataFrame in RDBMS, MongoDB (with database and collection kwargs), and the data lake (with a key path and date partition)—showing how the same <code>store_data</code> interface works across all backends.</p>
     </div>
   </div>
 </aside>

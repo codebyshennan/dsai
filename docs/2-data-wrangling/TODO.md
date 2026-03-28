@@ -1,3 +1,6 @@
+---
+published: false
+---
 # Data Wrangling Module TODOs
 
 ## Required Resources and Graphics

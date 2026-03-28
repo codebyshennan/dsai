@@ -31,6 +31,27 @@ Think of feature engineering as the secret sauce that can make or break your mac
 3. **Data Understanding**: The process helps you understand your data better
 4. **Problem-Solving**: It can help solve common data problems like missing values or different scales
 
+```mermaid
+graph TD
+    RAW["Raw columns"] --> NUM["Numeric\n(continuous / discrete)"]
+    RAW --> CAT["Categorical\n(nominal / ordinal)"]
+    RAW --> DT["Datetime"]
+    RAW --> TXT["Text"]
+
+    NUM --> NS["Scaling\nStandardScaler → z-score\nMinMaxScaler → [0,1]"]
+    NUM --> NL["Log / Box-Cox\n(fix right skew)"]
+    NUM --> NI["Interactions\nX1 × X2\npolynomial terms"]
+
+    CAT --> OHE["One-hot encoding\nNominal categories\n(no ordinal relationship)"]
+    CAT --> LE["Label / Ordinal encoding\nOrdered categories\n(S < M < L)"]
+    CAT --> TE["Target encoding\nHigh-cardinality: replace\nwith mean target (with CV)"]
+
+    DT --> DTF["Date parts\nyear, month, day, weekday\ntime since event"]
+
+    TXT --> TF["TF-IDF\nbag-of-words baseline"]
+    TXT --> EMB["Embeddings\n(advanced — word2vec, BERT)"]
+```
+
 ## Types of Features: Understanding Your Ingredients
 
 Before we start cooking (engineering features), let's understand the different types of ingredients (features) we might work with:
@@ -126,7 +147,10 @@ Where:
 
 **Walkthrough:** `fit_transform` on `df` learns $\mu$ and $\sigma$ per column; `pd.DataFrame` restores column names for plotting.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Before running this code, make sure you have pandas and sklearn installed
 # You can install them using: pip install pandas scikit-learn
 
@@ -176,7 +200,48 @@ plt.ylabel('Weight (Standardized)')
 
 plt.tight_layout()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import pandas, numpy, StandardScaler, and matplotlib for data creation, scaling, and visualization.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sample Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create a small DataFrame with height and weight columns to demonstrate the effect of scaling on different scales.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-26" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Transform</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>fit_transform</code> learns mean and standard deviation per column, then applies z-score normalization; the result is wrapped back into a DataFrame with original column names.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-43" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Side-by-side Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scatter plots before and after scaling show the relationship shape is unchanged—only the axis units shift to standardized values.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![feature-engineering](assets/feature-engineering_fig_1.png)
@@ -222,7 +287,10 @@ Where:
 
 **Walkthrough:** Same `df` as before; `MinMaxScaler` squeezes each column between min and max of the training set.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.preprocessing import MinMaxScaler
 
 # Create a min-max scaler
@@ -255,7 +323,39 @@ plt.ylabel('Weight (0-1)')
 
 plt.tight_layout()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">MinMaxScaler</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import and apply <code>MinMaxScaler</code>; <code>fit_transform</code> squeezes each column into [0, 1] based on its observed min and max.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Print Results</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print the scaled DataFrame to confirm all values fall between 0 and 1 after transformation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-31" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Comparison Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Side-by-side scatter plots show the original scale vs the [0, 1] range—the relationship shape is preserved while units change.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![feature-engineering](assets/feature-engineering_fig_2.png)
@@ -310,7 +410,10 @@ Think of this like creating separate sections in your store for each category. I
 
 **Walkthrough:** `get_dummies` expands `product` and `size`; the bar chart compares category counts before vs summed indicator columns after.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -350,7 +453,39 @@ plt.xticks(rotation=45)
 
 plt.tight_layout()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sample Categorical Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create a DataFrame with <code>product</code> and <code>size</code> columns to demonstrate one-hot encoding on nominal categories.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">One-Hot Encoding</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>pd.get_dummies</code> expands each categorical column into binary indicator columns—one per unique value.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-39" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Before/After Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Bar charts compare original category counts to the summed indicator columns, showing the same information in numeric form.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![feature-engineering](assets/feature-engineering_fig_3.png)
@@ -387,7 +522,10 @@ This is like giving each category a unique number. It's simpler than one-hot enc
 
 **Walkthrough:** Separate `LabelEncoder` per column; `fit_transform` maps each string category to an integer in arbitrary order—check `classes_` when interpreting.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.preprocessing import LabelEncoder
 
 # Create label encoders
@@ -417,7 +555,39 @@ plt.title('Label Encoded Sizes')
 
 plt.tight_layout()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Separate Encoders</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create separate <code>LabelEncoder</code> instances per column so each encoder tracks its own class-to-integer mapping independently.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Assign</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>fit_transform</code> maps each string category to an integer in alphabetical order; check <code>.classes_</code> to interpret the mapping.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visual Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Count plots before and after encoding show that frequency distributions are preserved—only the axis labels change from strings to integers.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![feature-engineering](assets/feature-engineering_fig_4.png)

@@ -27,6 +27,21 @@ Poor collection (biased samples, wrong timestamps, missing consent) limits every
 
 Organizations rarely use a single source. You should know **who generated the data** and **what relationship** they have to the people or systems described in it. That affects trust, legal rights, and how you interpret gaps.
 
+```mermaid
+graph TD
+    A[Your Organization] -->|Collects directly| B[First-party data\nWebsite events, CRM, surveys]
+    A -->|Receives via agreement| C[Second-party data\nPartner sharing]
+    A -->|Purchases or licenses| D[Third-party data\nData brokers, aggregators]
+    A -->|Downloads or accesses freely| E[Public data\nGovernment, research repos]
+
+    B -->|Highest trust| F[✓ You know how it was collected]
+    C -->|Medium trust| G[⚠ You inherit their definitions]
+    D -->|Lower trust| H[⚠ Provenance may be opaque]
+    E -->|Varies| I[Check license & refresh cadence]
+```
+
+*The closer to the source, the more you know about how data was gathered — and the fewer compliance surprises downstream.*
+
 ### First-party data
 
 **What it is:** Data your organization collects directly from customers, systems, or employees.
@@ -62,6 +77,20 @@ Organizations rarely use a single source. You should know **who generated the da
 ## Data collection methods
 
 Below are common **methods**, not a checklist for every project. Real work combines several (e.g. surveys plus server logs). For each method, ask: *What could go wrong if we only used this?*
+
+```mermaid
+flowchart TD
+    Q1{Do you need\npeople's opinions\nor behaviors?} -->|Opinions / attitudes| Q2{Small group\nor large?}
+    Q1 -->|Observed behaviors| Q3{Digital or\nphysical?}
+    Q1 -->|Data already exists| SEC[Secondary data / web scraping]
+    Q2 -->|Small / exploratory| INT[Interviews or Focus groups]
+    Q2 -->|Large / representative| SUR[Surveys / Questionnaires]
+    Q3 -->|Digital product| LOG[Data logging / Session recording]
+    Q3 -->|Physical space| OBS[In-store observation / Sensors]
+    Q1 -->|Causal claim needed| EXP[Experiment / A-B test]
+```
+
+*Start with the question you need to answer — that determines the method, not the other way around.*
 
 ### 1. Data logging
 
@@ -351,8 +380,8 @@ class DataAnonymizer:
 
 #### Finite-population sample size (illustrative)
 
-- **Purpose:** Turn **confidence level**, **margin of error**, and **population size** into one planned $n$ using a normal approximation and \(p(1-p)\approx 0.25\) as a conservative proportion—useful for survey planning before fieldwork.
-- **Walkthrough:** `z_scores` maps common \(\alpha\) to critical $z$; the fraction is a standard finite-population form; `math.ceil` rounds up. Confirm design and assumptions with a statistician for important decisions.
+- **Purpose:** Turn **confidence level**, **margin of error**, and **population size** into one planned $n$ using a normal approximation and \\(p(1-p)\approx 0.25\\) as a conservative proportion—useful for survey planning before fieldwork.
+- **Walkthrough:** `z_scores` maps common \\(\alpha\\) to critical $z$; the fraction is a standard finite-population form; `math.ceil` rounds up. Confirm design and assumptions with a statistician for important decisions.
 
 **Example — sample size helper** (classic formula sketch; confirm assumptions with a statistician for important decisions):
 

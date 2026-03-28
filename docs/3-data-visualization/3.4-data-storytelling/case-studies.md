@@ -22,7 +22,8 @@ Walmart needed to communicate monthly sales performance to store managers across
 
 ### The Bad Version
 
-> **Figure (add screenshot or diagram):** Bad Dashboard Example
+> **Figure (add screenshot or diagram):** A cluttered retail store dashboard with 50+ KPIs, inconsistent colors (random red/blue/green/yellow), no visual hierarchy, and metrics scattered with no logical grouping — the "before" state illustrating information overload.
+
 **Problems Explained:**
 
 - **Too many metrics at once**: Managers were overwhelmed with 50+ KPIs, making it impossible to focus on what mattered most
@@ -34,26 +35,27 @@ Walmart needed to communicate monthly sales performance to store managers across
 #### Detailed Breakdown of Bad Practices
 
 1. **Cluttered Metrics**
-   > **Figure (add screenshot or diagram):** Too Many Metrics
+   > **Figure (add screenshot or diagram):** Dashboard panel showing 20+ numeric tiles in a grid with no size or color hierarchy — all metrics look equally important, forcing the viewer to scan everything.
 - Too many metrics shown at once
    - No clear prioritization
    - Difficult to scan and understand
 
 2. **Inconsistent Colors**
-   > **Figure (add screenshot or diagram):** Inconsistent Colors
+   > **Figure (add screenshot or diagram):** A bar chart where each bar has a different random color with no semantic meaning — some categories in red (but not negative), others in green (but not positive), creating visual noise.
 - Random color choices
    - No consistent meaning
    - Hard to interpret quickly
 
 3. **Poor Hierarchy**
-   > **Figure (add screenshot or diagram):** Poor Hierarchy
+   > **Figure (add screenshot or diagram):** Dashboard section where KPIs, secondary metrics, and footnotes all use the same font size and weight — nothing stands out as the most important number, making it impossible to prioritize at a glance.
 - All elements given equal importance
    - No visual cues for prioritization
    - Confusing information architecture
 
 ### The Good Version
 
-> **Figure (add screenshot or diagram):** Good Dashboard Example
+> **Figure (add screenshot or diagram):** A clean store analytics dashboard with 5 prominently placed KPI cards (Daily Sales, Units Sold, Customer Count, Avg. Basket, Return Rate), a sparkline trend, green/red indicators for each metric vs prior week, and a clear hierarchy guiding the eye top-to-bottom.
+
 **Improvements Explained:**
 
 - **Focused on key metrics**: Reduced to 5-7 critical KPIs that directly impact store performance
@@ -65,19 +67,19 @@ Walmart needed to communicate monthly sales performance to store managers across
 #### Detailed Breakdown of Good Practices
 
 1. **Focused Metrics**
-   > **Figure (add screenshot or diagram):** Focused Metrics
+   > **Figure (add screenshot or diagram):** Three large KPI cards (Daily Sales, Customer Count, Avg. Basket) occupying the top row of the dashboard — each with a bold number, a small ↑/↓ trend arrow, and a sparkline; concise and scannable.
 - Clear key performance indicators
    - Easy to scan and understand
    - Prioritized information
 
 2. **Consistent Colors**
-   > **Figure (add screenshot or diagram):** Consistent Colors
+   > **Figure (add screenshot or diagram):** Same bar chart using a consistent semantic color scheme: green for categories above target, red for below target, and neutral gray for on-target — color carries meaning rather than just decoration.
 - Meaningful color scheme
    - Consistent visual language
    - Clear data interpretation
 
 3. **Clear Hierarchy**
-   > **Figure (add screenshot or diagram):** Clear Hierarchy
+   > **Figure (add screenshot or diagram):** Dashboard with clear visual hierarchy: primary KPIs in large bold text at the top (48px), secondary metrics in medium text in the middle (24px), and supporting detail tables in small text at the bottom (12px) — size signals importance.
 - Visual importance levels
    - Clear information structure
    - Guided attention flow
@@ -107,7 +109,8 @@ Spotify needed to understand why users were dropping off during the onboarding p
 
 ### The Bad Version
 
-> **Figure (add screenshot or diagram):** Bad Journey Map
+> **Figure (add screenshot or diagram):** A text-heavy Spotify onboarding analysis document — dense paragraphs of prose with no visual flow diagram, no drop-off rate numbers called out, and no color coding to identify problem stages.
+
 **Problems Explained:**
 
 - **Text-heavy explanation**: Long paragraphs of text made it difficult to understand the flow
@@ -119,26 +122,27 @@ Spotify needed to understand why users were dropping off during the onboarding p
 #### Detailed Breakdown of Bad Practices
 
 1. **Text-Heavy Explanation**
-   > **Figure (add screenshot or diagram):** Text-Heavy
+   > **Figure (add screenshot or diagram):** A slide with five paragraphs of text and no charts — viewers must read every word to find that step 3 has a 40% drop-off rate, buried in the middle of a paragraph.
 - Too much text
    - Hard to scan
    - Missing visual elements
 
 2. **Missing Metrics**
-   > **Figure (add screenshot or diagram):** Missing Metrics
+   > **Figure (add screenshot or diagram):** Funnel chart with no percentage labels on the steps — bars get smaller from top to bottom but the viewer cannot tell if the drop-off is 5% or 40% at each stage without reading footnotes.
 - No clear data points
    - Missing key indicators
    - Hard to measure success
 
 3. **No Flow**
-   > **Figure (add screenshot or diagram):** No Flow
+   > **Figure (add screenshot or diagram):** Bullet list of onboarding steps (Sign Up, Verify Email, Choose Plan, Create Playlist) with no connecting arrows or visual progression — steps appear as disconnected items rather than a sequential journey.
 - Disconnected steps
    - No clear progression
    - Hard to follow journey
 
 ### The Good Version
 
-> **Figure (add screenshot or diagram):** Good Journey Map
+> **Figure (add screenshot or diagram):** A Spotify onboarding funnel diagram with 5 sequential steps (Sign Up → Verify → Choose Plan → Follow Artists → Create Playlist), each step showing a completion percentage, color-coded green (>80%), yellow (50-80%), and red (<50%) for the critical "Create Playlist" step where 40% drop-off is highlighted with a callout annotation.
+
 **Improvements Explained:**
 
 - **Visual flow diagram**: Created a clear path showing each step of the onboarding process
@@ -150,19 +154,19 @@ Spotify needed to understand why users were dropping off during the onboarding p
 #### Detailed Breakdown of Good Practices
 
 1. **Visual Flow**
-   > **Figure (add screenshot or diagram):** Visual Flow
+   > **Figure (add screenshot or diagram):** Flow diagram with step boxes connected by horizontal arrows — each box has an icon (email ✉, checkmark ✓, music note ♪) and a conversion rate below it; the journey is scannable left-to-right in seconds.
 - Clear progression
    - Visual connections
    - Easy to follow
 
 2. **Clear Metrics**
-   > **Figure (add screenshot or diagram):** Clear Metrics
+   > **Figure (add screenshot or diagram):** Each onboarding step box annotated with: total users entering (top), users completing (middle), and drop-off rate in bold red below — key numbers visible without needing to look them up.
 - Key data points
    - Drop-off rates
    - Success metrics
 
 3. **Actionable Insights**
-   > **Figure (add screenshot or diagram):** Actionable Insights
+   > **Figure (add screenshot or diagram):** A callout box beside the worst-performing step (Create Playlist, 40% drop-off) listing three specific recommendations: "Add auto-generated starter playlist", "Reduce required fields", "Send reminder email at 24h" — insights tied directly to the data.
 - Critical points
    - Improvement areas
    - Clear recommendations
@@ -192,7 +196,8 @@ Airbnb needed to report on the performance of their latest marketing campaign ac
 
 ### The Bad Version
 
-> **Figure (add screenshot or diagram):** Bad Campaign Report
+> **Figure (add screenshot or diagram):** An Airbnb marketing report showing a raw data table — 8 columns (Channel, Impressions, Clicks, CTR, CPA, Spend, Conversions, ROAS) with 20 rows of numbers and no charts, no color coding, and no highlighted winners — the "before" illustrating data dump without story.
+
 **Problems Explained:**
 
 - **Raw data dump**: Presented all metrics without filtering or prioritization
@@ -204,26 +209,26 @@ Airbnb needed to report on the performance of their latest marketing campaign ac
 #### Detailed Breakdown of Bad Practices
 
 1. **Raw Data Dump**
-   > **Figure (add screenshot or diagram):** Raw Data
+   > **Figure (add screenshot or diagram):** A dense numeric table with no sorting, no color, and no highlights — all channels and all metrics presented in the same visual weight, forcing the reader to scan every cell to find the best-performing channel.
 - Unprocessed data
    - No filtering
    - Hard to interpret
 
 2. **No Story**
-   > **Figure (add screenshot or diagram):** No Story
+   > **Figure (add screenshot or diagram):** A slide with the title "Q3 Marketing Results" and a bar chart showing impressions by channel — but no mention of which channel drove the most revenue, no link to the campaign objective, and no next-step recommendation.
 - Missing narrative
    - No clear message
    - Hard to understand
 
 3. **Missing Context**
-   > **Figure (add screenshot or diagram):** Missing Context
+   > **Figure (add screenshot or diagram):** Channel performance table with ROAS values but no prior-period comparison — a 2.3x ROAS shown with no indication of whether that is good, bad, or typical for the industry.
 - No comparisons
    - No benchmarks
    - Hard to evaluate
 
 ### The Good Version
 
-> **Figure (add screenshot or diagram):** Good Campaign Report
+> **Figure (add screenshot or diagram):** An Airbnb campaign performance report with a narrative headline ("Paid Search delivered 4x ROAS, outperforming Social by 60%"), a channel comparison bar chart using consistent ROAS metric, YoY change annotations, and a recommendation box at the bottom suggesting budget reallocation toward Search.
 **Improvements Explained:**
 
 - **Clear narrative structure**: Started with objectives, showed results, ended with recommendations
@@ -235,19 +240,19 @@ Airbnb needed to report on the performance of their latest marketing campaign ac
 #### Detailed Breakdown of Good Practices
 
 1. **Clear Narrative**
-   > **Figure (add screenshot or diagram):** Clear Narrative
+   > **Figure (add screenshot or diagram):** Report layout showing three sections labelled "Objective", "Results", and "Recommendations" with a clear visual divider between each — the reader knows exactly where to find the story, the evidence, and the action.
 - Story structure
    - Clear progression
    - Logical flow
 
 2. **Channel Comparisons**
-   > **Figure (add screenshot or diagram):** Channel Comparisons
+   > **Figure (add screenshot or diagram):** Horizontal bar chart of ROAS by channel (Paid Search, Social, Email, Display, Affiliate) sorted descending — all using the same metric on a single shared scale, making relative performance instantly comparable.
 - Consistent metrics
    - Easy comparison
    - Clear differences
 
 3. **ROI Focus**
-   > **Figure (add screenshot or diagram):** ROI Focus
+   > **Figure (add screenshot or diagram):** Summary scorecard showing ROI and Customer Acquisition Cost (CAC) for each channel — two KPI columns per row with color indicators (green if above target, red if below), putting the business-critical metrics front and center.
 - Key metrics
    - Performance indicators
    - Clear outcomes
@@ -277,7 +282,8 @@ Tesla's finance team needed to present quarterly results to the board of directo
 
 ### The Bad Version
 
-> **Figure (add screenshot or diagram):** Bad Financial Report
+> **Figure (add screenshot or diagram):** A Tesla quarterly board deck slide showing a 10-column table of raw financial data — Revenue, COGS, Gross Profit, R&D, SG&A, EBIT, Net Income, EPS, FCF, Capex — for 8 quarters in small gray font with no charts or highlights; the "before" version overwhelming any audience.
+
 **Problems Explained:**
 
 - **Too many numbers**: Overwhelmed audience with raw financial data
@@ -289,26 +295,26 @@ Tesla's finance team needed to present quarterly results to the board of directo
 #### Detailed Breakdown of Bad Practices
 
 1. **Too Many Numbers**
-   > **Figure (add screenshot or diagram):** Too Many Numbers
+   > **Figure (add screenshot or diagram):** Quarterly P&L table with 10 rows × 8 quarters = 80 cells of numbers in size-10 font — no shading, no totals highlighted, and no visual cue for which quarter is current; pure data overload.
 - Data overload
    - No filtering
    - Hard to process
 
 2. **No Visual Aids**
-   > **Figure (add screenshot or diagram):** No Visual Aids
+   > **Figure (add screenshot or diagram):** A text-only slide with four bullet points describing revenue changes ("Revenue grew 12% YoY… up from $19.3B… margin improved 0.4pp…") — trends that a simple line chart would communicate instantly are buried in prose.
 - Missing charts
    - Text-heavy
    - Hard to visualize
 
 3. **Missing Context**
-   > **Figure (add screenshot or diagram):** Missing Context
+   > **Figure (add screenshot or diagram):** A net income figure "$1.1B" shown in isolation with no YoY comparison, no analyst consensus, and no prior quarter — the reader cannot tell if this is a beat, a miss, or a new record.
 - No comparisons
    - No benchmarks
    - Hard to evaluate
 
 ### The Good Version
 
-> **Figure (add screenshot or diagram):** Good Financial Report
+> **Figure (add screenshot or diagram):** Tesla board presentation slide: three KPI cards at the top (Revenue $24B ↑12% YoY, Gross Margin 18.2% ↑0.4pp, FCF $2.1B), a 8-quarter revenue trend line below with the current quarter highlighted, and a single annotation "Record automotive deliveries drove Q3 outperformance."
 **Improvements Explained:**
 
 - **Key metrics highlighted**: Focused on revenue growth, profit margins, and cash flow
@@ -320,19 +326,19 @@ Tesla's finance team needed to present quarterly results to the board of directo
 #### Detailed Breakdown of Good Practices
 
 1. **Key Metrics**
-   > **Figure (add screenshot or diagram):** Key Metrics
+   > **Figure (add screenshot or diagram):** Three large KPI cards displaying Revenue, Gross Margin, and Free Cash Flow — each with a bold current-quarter value, a smaller YoY delta in green/red, and a sparkline for the past 4 quarters.
 - Focused indicators
    - Clear trends
    - Important data
 
 2. **Visual Trends**
-   > **Figure (add screenshot or diagram):** Visual Trends
+   > **Figure (add screenshot or diagram):** Line chart of 8 quarters of revenue with a shaded area between the trend line and the baseline, the current quarter's point highlighted with a callout label, and a dotted forecast line extending 2 quarters ahead.
 - Clear patterns
    - Easy to follow
    - Time-based view
 
 3. **Year-over-Year**
-   > **Figure (add screenshot or diagram):** Year-over-Year
+   > **Figure (add screenshot or diagram):** Grouped bar chart comparing Q3 performance across the same quarter for 3 years (2022, 2023, 2024) side by side — each group has 3 bars in the same color family with shading, making YoY growth immediately visible.
 - Historical context
    - Clear comparisons
    - Progress tracking
@@ -362,7 +368,8 @@ Netflix needed to understand how users were interacting with their platform to o
 
 ### The Bad Version
 
-> **Figure (add screenshot or diagram):** Bad Usage Analytics
+> **Figure (add screenshot or diagram):** A Netflix internal analytics report showing a raw CSV-style table — 15 columns including feature_id, session_count, avg_duration_sec, p50_engagement, p95_engagement — with no charts, no feature names, and no indication of which features matter most.
+
 **Problems Explained:**
 
 - **Raw data tables**: Presented unprocessed usage statistics
@@ -374,26 +381,27 @@ Netflix needed to understand how users were interacting with their platform to o
 #### Detailed Breakdown of Bad Practices
 
 1. **Raw Data Tables**
-   > **Figure (add screenshot or diagram):** Raw Data
+   > **Figure (add screenshot or diagram):** A spreadsheet grid of 200 rows × 12 columns of usage event data — timestamps, session IDs, feature codes — with no aggregation or summarization; the analyst must write queries just to get any insight.
 - Unprocessed data
    - No filtering
    - Hard to interpret
 
 2. **No Visualizations**
-   > **Figure (add screenshot or diagram):** No Visualizations
+   > **Figure (add screenshot or diagram):** A slide titled "Feature Engagement Report" containing only a numbered list of feature names and session counts — no bar chart, no trend line, no color differentiation; features that differ by 10× in usage look identical in the list.
 - Missing charts
    - Text-heavy
    - Hard to visualize
 
 3. **Missing Patterns**
-   > **Figure (add screenshot or diagram):** Missing Patterns
+   > **Figure (add screenshot or diagram):** A line chart of daily active users with no seasonality annotation — the weekly dip on weekends is visible but unlabeled, leaving the viewer to wonder if the drop is a bug or expected behavior.
 - No trends
    - No connections
    - Hard to analyze
 
 ### The Good Version
 
-> **Figure (add screenshot or diagram):** Good Usage Analytics
+> **Figure (add screenshot or diagram):** A Netflix usage analytics dashboard with a Sankey/flow diagram showing the most common viewing paths (Browse → Search → Play, or Browse → Play Directly), a feature usage bar chart sorted by engagement with the top 5 highlighted in teal, and a heatmap of hourly usage by day of week showing peak engagement patterns.
+
 **Improvements Explained:**
 
 - **User flow diagrams**: Showed how users navigated through the platform
@@ -405,19 +413,19 @@ Netflix needed to understand how users were interacting with their platform to o
 #### Detailed Breakdown of Good Practices
 
 1. **User Flow**
-   > **Figure (add screenshot or diagram):** User Flow
+   > **Figure (add screenshot or diagram):** Sankey diagram of Netflix user navigation flows — nodes for Home, Search, Browse, Play, and Exit; arrow widths proportional to the number of users taking each path; the Home → Play direct path shown as the widest arrow.
 - Clear paths
    - User journeys
    - Navigation patterns
 
 2. **Feature Usage**
-   > **Figure (add screenshot or diagram):** Feature Usage
+   > **Figure (add screenshot or diagram):** Horizontal bar chart of Netflix features ranked by weekly active users — Search, Continue Watching, Top 10, My List, Downloads — with the top 3 bars highlighted in teal and the bottom 2 in gray, immediately signaling where to invest vs deprioritize.
 - Popular features
    - Usage patterns
    - Engagement levels
 
 3. **Time Patterns**
-   > **Figure (add screenshot or diagram):** Time Patterns
+   > **Figure (add screenshot or diagram):** Heatmap of Netflix streaming sessions by hour of day (y-axis, 0–23) and day of week (x-axis, Mon–Sun) — darker cells for high-engagement times revealing the Friday and Saturday evening peak cluster around 8–10 PM.
 - Usage trends
    - Time-based analysis
    - Behavioral patterns

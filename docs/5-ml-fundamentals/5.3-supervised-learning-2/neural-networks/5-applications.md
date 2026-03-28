@@ -33,7 +33,10 @@ Computer vision is like giving computers the ability to understand and interpret
 
 Image classification is like teaching a computer to recognize different types of objects in photos. For example, identifying whether an image contains a cat or a dog.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import tensorflow as tf
 from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -46,10 +49,10 @@ def create_image_classifier(num_classes):
         include_top=False,   # Don't include the final classification layer
         input_shape=(224, 224, 3)  # Standard image size
     )
-    
+
     # Freeze the pre-trained layers
     base_model.trainable = False
-    
+
     # Add our custom classification layers
     model = tf.keras.Sequential([
         base_model,
@@ -58,7 +61,7 @@ def create_image_classifier(num_classes):
         tf.keras.layers.Dropout(0.5),  # Prevent overfitting
         tf.keras.layers.Dense(num_classes, activation='softmax')  # Output layer
     ])
-    
+
     return model
 
 # Prepare data with augmentation
@@ -94,20 +97,64 @@ history = model.fit(
         tf.keras.callbacks.EarlyStopping(patience=3)  # Stop if no improvement
     ]
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>TensorFlow, the pre-trained ResNet50 backbone, and <code>ImageDataGenerator</code> for on-the-fly augmentation are imported to set up transfer learning.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Transfer Learning Model</span>
+    </div>
+    <div class="code-callout__body">
+      <p>ResNet50 is loaded with frozen ImageNet weights; a custom head (GlobalAveragePooling → Dense 256 → Dropout → softmax) is appended for the target number of classes.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-45" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data Augmentation</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>ImageDataGenerator</code> normalizes pixels and applies random rotations, shifts, and flips on the fly; <code>flow_from_directory</code> streams batches directly from a folder of labeled subdirectories.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="47-61" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compile and Train</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Adam with categorical cross-entropy loss is used; early stopping with <code>patience=3</code> halts training automatically when validation accuracy stops improving.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Object Detection: Finding and Locating Objects
 
 Object detection is like teaching a computer to not only recognize objects but also find where they are in an image. This is useful for applications like self-driving cars or security systems.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from ultralytics import YOLO
 
 def create_object_detector():
     """Create a YOLO object detector"""
     # Load pre-trained YOLO model
     model = YOLO('yolov8n.pt')  # Small version for faster training
-    
+
     # Train the model
     model.train(
         data='data.yaml',  # Configuration file
@@ -116,14 +163,14 @@ def create_object_detector():
         batch=16,          # Batch size
         save=True          # Save the model
     )
-    
+
     return model
 
 def detect_objects(model, image):
     """Detect objects in an image"""
     # Run detection
     results = model(image)
-    
+
     # Process results
     boxes = results[0].boxes
     for box in boxes:
@@ -131,9 +178,32 @@ def detect_objects(model, image):
         x1, y1, x2, y2 = box.xyxy[0]
         confidence = box.conf[0]
         class_id = box.cls[0]
-        
+
         print(f"Found: {class_id} with {confidence:.2f} confidence")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-17" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train YOLO</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>YOLO('yolov8n.pt')</code> loads the nano variant's pretrained weights; <code>model.train</code> fine-tunes on a custom dataset described in <code>data.yaml</code> for 100 epochs at 640-px resolution.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-32" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Detect Objects</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>detect_objects</code> runs inference on a single image and iterates over detected bounding boxes, printing the class ID and confidence score for each object found.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 2. Natural Language Processing: Understanding Text
 
@@ -143,7 +213,10 @@ NLP is like teaching computers to understand and work with human language, from 
 
 Text classification helps computers understand the meaning or sentiment of text, like determining if a product review is positive or negative.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from transformers import BertTokenizer, TFBertForSequenceClassification
 import tensorflow as tf
 
@@ -155,7 +228,7 @@ def create_text_classifier(num_labels):
         'bert-base-uncased',
         num_labels=num_labels
     )
-    
+
     return model, tokenizer
 
 def prepare_text_data(texts, tokenizer, max_length=128):
@@ -192,36 +265,71 @@ model.fit(
     epochs=3,
     batch_size=32
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load BERT</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>create_text_classifier</code> loads the <code>bert-base-uncased</code> tokenizer and its TensorFlow sequence-classification head with <code>num_labels</code> output units.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Tokenize Text</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>prepare_text_data</code> pads, truncates, and encodes a list of strings into input-ID and attention-mask tensors that BERT expects.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-49" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compile and Fine-tune</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A tiny three-sentence sentiment dataset is tokenized, then the model is compiled with a low learning rate (2e-5 is standard for BERT fine-tuning) and sparse categorical cross-entropy, then trained for 3 epochs.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Machine Translation: Breaking Language Barriers
 
 Machine translation helps computers translate text from one language to another, like having a digital translator in your pocket.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from transformers import MarianMTModel, MarianTokenizer
 
 def create_translator(src_lang='en', tgt_lang='fr'):
     """Create a machine translation model"""
     # Load pre-trained translation model
     model_name = f'Helsinki-NLP/opus-mt-{src_lang}-{tgt_lang}'
-    
+
     tokenizer = MarianTokenizer.from_pretrained(model_name)
     model = MarianMTModel.from_pretrained(model_name)
-    
+
     return model, tokenizer
 
 def translate_text(text, model, tokenizer):
     """Translate text from source to target language"""
     # Prepare text for model
     inputs = tokenizer(text, return_tensors='pt', padding=True)
-    
+
     # Generate translation
     outputs = model.generate(**inputs)
-    
+
     # Convert back to text
     translation = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    
+
     return translation
 
 # Example usage
@@ -230,7 +338,39 @@ text = "Hello, how are you today?"
 translation = translate_text(text, model, tokenizer)
 print(f"English: {text}")
 print(f"French: {translation}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load Translator</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>create_translator</code> builds the Helsinki-NLP model name from the language pair and loads the matching Marian tokenizer and model; swapping language codes selects a different translation direction.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Translate Text</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Input text is tokenized to PyTorch tensors, <code>model.generate</code> runs beam search to produce the most likely translation, and <code>tokenizer.decode</code> converts token IDs back to a readable string.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-31" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Usage Demo</span>
+    </div>
+    <div class="code-callout__body">
+      <p>An English greeting is translated to French; the original and translation are printed side by side to verify the output.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 3. Time Series Analysis: Predicting the Future
 
@@ -240,7 +380,10 @@ Time series analysis helps computers understand and predict patterns in data tha
 
 Predicting stock prices is like trying to forecast the weather - we use past patterns to predict future movements.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from tensorflow.keras.layers import LSTM, Dense
 from tensorflow.keras.models import Sequential
@@ -252,7 +395,7 @@ def create_stock_predictor(sequence_length):
         LSTM(50, activation='relu', input_shape=(sequence_length, 1)),
         Dense(1)  # Predict next day's price
     ])
-    
+
     model.compile(optimizer='adam', loss='mse')
     return model
 
@@ -278,7 +421,48 @@ X, y = prepare_sequences(data, sequence_length)
 # Create and train model
 model = create_stock_predictor(sequence_length)
 model.fit(X, y, epochs=50, batch_size=32)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>NumPy, Keras LSTM/Dense layers, and <code>yfinance</code> for fetching real stock prices are imported to build a minimal time-series predictor.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">LSTM Model</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A single LSTM layer with 50 units processes a window of past prices; a Dense(1) output head predicts the next day's value, compiled with MSE loss for regression.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sequence Prep</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>prepare_sequences</code> slides a window of <code>sequence_length</code> over the normalized price series, creating input-output pairs where each target is the immediately following price.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-36" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fetch and Train</span>
+    </div>
+    <div class="code-callout__body">
+      <p>One year of AAPL closing prices is downloaded, z-score normalized, windowed into sequences, and used to train the LSTM for 50 epochs.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Mistakes to Avoid
 

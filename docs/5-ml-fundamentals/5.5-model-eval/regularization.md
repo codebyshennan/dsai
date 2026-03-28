@@ -31,14 +31,47 @@ Regularization adds a penalty term to the model's loss function to discourage co
 
 ## Types of Regularization
 
+```mermaid
+flowchart TD
+    FIT["Model overfits\n(train >> val score)"] --> Q{What kind\nof model?}
+    Q -->|Linear / logistic\nregression| REG[Add regularization penalty]
+    Q -->|Tree-based| TREE["max_depth, min_samples_leaf,\nn_estimators limits"]
+    Q -->|Neural network| NN["Dropout, weight decay,\nbatch norm"]
+
+    REG --> L1["L1 / Lasso\n→ sparse weights\n(feature selection)"]
+    REG --> L2["L2 / Ridge\n→ small weights\n(keeps all features)"]
+    REG --> EN["Elastic Net\n→ both penalties\n(correlated features)"]
+
+    L1 & L2 & EN --> CV["Use cross-validation\nto choose λ (alpha)"]
+    CV --> PLOT["Plot val score vs log(α)\nPick peak"]
+```
+
+*Higher `alpha` (λ) = stronger penalty = simpler model. Too high and you underfit. Use `RidgeCV` or `LassoCV` to search automatically.*
+
 ### 1. L1 Regularization (Lasso)
 
 L1 regularization adds the absolute value of coefficients to the loss function:
 
-```python
+#### Lasso pipeline (regression $R^2$)
+
+- **Purpose:** **L1** (`Lasso`) shrinks coefficients and can zero some out—`alpha` controls penalty strength; score is **$R^2$** on the test set.
+- **Walkthrough:** Synthetic regression data via `make_regression`; `StandardScaler` puts features on comparable scales before penalizing weights.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+from sklearn.datasets import make_regression
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import Lasso
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
+
+X, y = make_regression(n_samples=500, n_features=20, noise=15, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # Create pipeline with L1 regularization
 pipeline = Pipeline([
@@ -49,14 +82,44 @@ pipeline = Pipeline([
 # Fit and evaluate
 pipeline.fit(X_train, y_train)
 print(f"L1 Regularization Score: {pipeline.score(X_test, y_test):.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Split</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a synthetic regression dataset with 20 features and noise, then split 80/20 for training and evaluation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline and Score</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Build a pipeline that scales features then applies Lasso (L1) at alpha=0.1, fit it, and print the test R² score.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. L2 Regularization (Ridge)
 
 L2 regularization adds the squared value of coefficients to the loss function:
 
+#### Ridge pipeline (same synthetic split)
+
+- **Purpose:** **L2** (`Ridge`) penalizes large squared weights—usually no exact zeros; compare $R^2$ to Lasso at the same `alpha` for intuition.
+- **Walkthrough:** Reuses the same `X_train`/`X_test` as the Lasso cell if run in order; or re-run `make_regression` + `train_test_split` in a fresh notebook.
+
 ```python
 from sklearn.linear_model import Ridge
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
 
 # Create pipeline with L2 regularization
 pipeline = Pipeline([
@@ -73,8 +136,15 @@ print(f"L2 Regularization Score: {pipeline.score(X_test, y_test):.3f}")
 
 Elastic Net combines L1 and L2 regularization:
 
+#### Elastic Net (`l1_ratio` mixes L1 vs L2)
+
+- **Purpose:** Blend **Lasso**-like sparsity with **Ridge**-like stability; `l1_ratio=0` is pure Ridge, `1` is pure Lasso.
+- **Walkthrough:** Same regression pipeline pattern; tune `alpha` and `l1_ratio` with cross-validation in practice.
+
 ```python
 from sklearn.linear_model import ElasticNet
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
 
 # Create pipeline with Elastic Net
 pipeline = Pipeline([
@@ -148,10 +218,21 @@ Regularization is like traffic control:
 
 Let's see how regularization helps in a credit risk prediction task:
 
-```python
-from sklearn.ensemble import RandomForestClassifier
+#### Logistic penalties (L1 / L2 / elastic-net)
+
+- **Purpose:** Compare **linear** classifiers with different `penalty` settings on the same synthetic credit features—accuracy summarizes fit (also inspect coefficients for sparsity).
+- **Walkthrough:** `solver` must match penalty (`liblinear` for L1, `saga` for elastic-net); `train_test_split` creates the evaluation split.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
 
 # Create credit risk dataset
 np.random.seed(42)
@@ -164,6 +245,10 @@ credit_score = np.random.normal(700, 100, n_samples)
 
 X = np.column_stack([age, income, credit_score])
 y = (credit_score + income/1000 + age > 800).astype(int)  # Binary target
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # Create pipelines with different regularization
 pipelines = {
@@ -193,7 +278,39 @@ plt.bar(results.keys(), results.values())
 plt.title('Regularization Comparison')
 plt.ylabel('Accuracy')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Credit Dataset and Split</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate three financial features and derive a binary label; the same synthetic credit setup used across 5.5 examples ensures the regularization comparison is consistent with other lessons.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-42" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three Penalty Pipelines</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Build L1 (liblinear solver), L2, and Elastic Net logistic regression pipelines; the solver choice matters — <code>liblinear</code> for L1 and <code>saga</code> for elastic-net are sklearn requirements.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="44-52" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Accuracy Bar Chart</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit each pipeline and collect test accuracy in a dict, then plot as a bar chart; similar scores across penalties indicate the data is well-separated regardless of regularization type.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Additional Resources
 

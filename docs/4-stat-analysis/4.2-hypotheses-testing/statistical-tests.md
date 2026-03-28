@@ -4,7 +4,7 @@
 
 ## Overview
 
-This lesson is a **selector map**: given your outcome type (numeric vs counts vs paired), number of groups, and rough assumptions, you pick a test that matches the data-generating story. [Hypothesis formulation](./hypothesis-formulation.md) gave you \(H_0\) and \(H_1\); here you attach a concrete test statistic and null distribution. The next lessons apply the same logic in product-style [A/B testing](./ab-testing.md) and in [reporting](./results-analysis.md).
+This lesson is a **selector map**: given your outcome type (numeric vs counts vs paired), number of groups, and rough assumptions, you pick a test that matches the data-generating story. [Hypothesis formulation](./hypothesis-formulation.md) gave you \\(H_0\\) and \\(H_1\\); here you attach a concrete test statistic and null distribution. The next lessons apply the same logic in product-style [A/B testing](./ab-testing.md) and in [reporting](./results-analysis.md).
 
 ## Why this matters
 
@@ -40,7 +40,23 @@ Statistical tests are essential tools for analyzing data. They help you determin
 
 Choosing the correct test depends on your research question, the type of data you have, and the assumptions your data meets. Use the decision tree below to guide your choice:
 
-![Statistical Test Decision Tree](assets/statistical_test_tree.png)
+```mermaid
+graph TD
+    Q["What type of outcome?"]
+    Q -->|"Numeric / continuous"| N["How many groups?"]
+    Q -->|"Counts / frequencies"| C["Chi-square test\n(goodness-of-fit or independence)"]
+    Q -->|"Ranked / ordinal"| R["Non-parametric\nMann-Whitney / Kruskal-Wallis"]
+
+    N -->|"1 group vs known value"| T1["One-sample t-test\nor z-test (large n)"]
+    N -->|"2 independent groups"| T2{"Normal?\nSame variance?"}
+    N -->|"2 paired / repeated"| T3["Paired t-test\nor Wilcoxon signed-rank"]
+    N -->|"3+ groups"| T4["One-way ANOVA\nthen post-hoc (Tukey)"]
+
+    T2 -->|"Yes"| T2A["Independent-samples t-test"]
+    T2 -->|"No"| T2B["Welch's t-test\n(unequal variance)\nor Mann-Whitney"]
+```
+
+> **Figure (add screenshot or diagram):** Full statistical test decision tree poster — numeric vs categorical, parametric vs non-parametric, one-sample vs two-sample vs k-sample branches.
 
 - **Numerical data (means):** Use t-tests or ANOVA.
 - **Categorical data (counts/frequencies):** Use chi-square tests.
@@ -71,11 +87,14 @@ Choosing the correct test depends on your research question, the type of data yo
 
 **Independent two-sample t-test with effect size**
 
-**Purpose:** Run a classic independent-groups t-test on small numeric arrays, compute a simple standardized mean difference (using the control SD), and return a single human-readable verdict at \(\alpha = 0.05\).
+**Purpose:** Run a classic independent-groups t-test on small numeric arrays, compute a simple standardized mean difference (using the control SD), and return a single human-readable verdict at \\(\alpha = 0.05\\).
 
 **Walkthrough:** `stats.ttest_ind` produces `t_stat` and `p_value`; the effect size line mirrors Cohen-style scaling; the returned dict keeps statistics and a printable `explanation` string.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Self-contained example: Independent t-test
 import numpy as np
 from scipy import stats
@@ -106,7 +125,39 @@ result = perform_ttest(control_data, treatment_data)
 print(result['explanation'])
 # Sample output:
 # T-statistic: -4.47, P-value: 0.002. Effect size: 3.00. Significant difference between group means at alpha=0.05.
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Setup and data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import NumPy and SciPy, then define two small control and treatment arrays to feed the t-test function.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">T-test and effect size</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Run <code>stats.ttest_ind</code> for t and p, then compute a Cohen-style standardized mean difference using the control SD.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-25" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Explanation string</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Format a human-readable summary combining the test statistic, p-value, effect size, and significance verdict at the chosen alpha.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** Exact numbers can differ slightly by SciPy version; you should still see a negative t-statistic, a small p-value, and a “significant difference” message for these toy groups.
 
@@ -131,11 +182,14 @@ T-statistic: -5.27, P-value: 0.001. Effect size: 3.73. Significant difference be
 
 **One-way ANOVA with eta-squared**
 
-**Purpose:** Compare means of three or more groups with `f_oneway`, summarize how much variance sits between groups (\(\eta^2\)), and state whether any mean differs at the chosen \(\alpha\).
+**Purpose:** Compare means of three or more groups with `f_oneway`, summarize how much variance sits between groups (\\(\eta^2\\)), and state whether any mean differs at the chosen \\(\alpha\\).
 
-**Walkthrough:** `stats.f_oneway(*groups)` for F and p; \(\eta^2\) uses between-group and total sum of squares; the function mirrors the t-test helper pattern (stats + explanation string).
+**Walkthrough:** `stats.f_oneway(*groups)` for F and p; \\(\eta^2\\) uses between-group and total sum of squares; the function mirrors the t-test helper pattern (stats + explanation string).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Self-contained example: One-way ANOVA
 from scipy import stats
 import numpy as np
@@ -171,9 +225,41 @@ result = perform_anova(group1, group2, group3)
 print(result['explanation'])
 # Sample output:
 # F-statistic: 44.00, P-value: 0.000. Effect size (eta-squared): 0.88. At least one group mean is significantly different at alpha=0.05.
-```
+{% endhighlight %}
 
-**Captured output (example):** F should be large and p near zero for these clearly separated toy groups; \(\eta^2\) stays high because most variation is between groups.
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three-group data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define three clearly separated groups (means ~6, 8, 11) as toy examples for the ANOVA function.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">F-test and eta-squared</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Run <code>f_oneway</code> then compute eta-squared (between-group SS / total SS) as a proportion-of-variance effect size.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-30" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Result dict</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Bundle F, p, eta-squared, significance flag, and a formatted explanation string for display or downstream reporting.</p>
+    </div>
+  </div>
+</aside>
+</div>
+
+**Captured output (example):** F should be large and p near zero for these clearly separated toy groups; \\(\eta^2\\) stays high because most variation is between groups.
 
 ```
 F-statistic: 44.67, P-value: 0.000. Effect size (eta-squared): 0.88. At least one group mean is significantly different at alpha=0.05.
@@ -200,7 +286,10 @@ F-statistic: 44.67, P-value: 0.000. Effect size (eta-squared): 0.88. At least on
 
 **Walkthrough:** When `expected` is passed, the contingency path runs; `chisquare` is used when testing counts against a uniform or custom expected pattern; the returned dict includes `test_type` for reporting.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Self-contained example: Chi-square test (goodness of fit)
 import numpy as np
 from scipy import stats
@@ -242,7 +331,39 @@ result = perform_chi_square(observed, expected)
 print(result['explanation'])
 # Sample output:
 # Chi-square: 1.18, P-value: 0.946. Effect size (Cramer's V): 0.20. No significant association at alpha=0.05.
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define observed dice-roll counts and uniform expected counts for a goodness-of-fit scenario.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Test dispatch</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Branch on whether <code>expected</code> is provided: use <code>chisquare</code> for goodness of fit or <code>chi2_contingency</code> for independence testing.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-35" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Cramer's V and result</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute Cramer's V as a normalized effect size and bundle everything into a result dict with a plain-text explanation.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** With observed counts close to uniform expected counts, chi-square is small and p is large—no evidence against the “fair die” style null.
 
@@ -271,11 +392,14 @@ Chi-square: 0.00, P-value: 1.000. Effect size (Cramer's V): 0.00. No significant
 
 **Pearson and Spearman correlation with significance**
 
-**Purpose:** Compare a parametric linear association (`pearsonr`) with a rank-based monotonic measure (`spearmanr`) on the same pairs, and interpret each against \(\alpha\).
+**Purpose:** Compare a parametric linear association (`pearsonr`) with a rank-based monotonic measure (`spearmanr`) on the same pairs, and interpret each against \\(\alpha\\).
 
 **Walkthrough:** The `method` flag switches APIs; both return correlation and two-sided p-value; two calls illustrate that strength and significance can differ slightly by metric.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Self-contained example: Correlation test (Pearson and Spearman)
 from scipy import stats
 import numpy as np
@@ -314,7 +438,39 @@ print(result['explanation'])
 # Sample output:
 # Pearson correlation: 0.89, P-value: 0.018. Significant correlation at alpha=0.05.
 # Spearman correlation: 0.94, P-value: 0.005. Significant correlation at alpha=0.05.
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Setup and data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import SciPy and NumPy, then define toy x and y arrays with a near-monotonic relationship to make both correlation tests clearly significant.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-30" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Unified correlation function</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Dispatch to <code>pearsonr</code> or <code>spearmanr</code> based on the <code>method</code> flag, build a plain-English explanation string, and return a structured result dict.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="32-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compare both metrics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Call the function twice—once for Pearson, once for Spearman—and print the explanation strings side by side to show how the two measures can give slightly different results.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** Both correlations should be strongly positive with p-values below 0.05 for this nearly monotonic toy data.
 

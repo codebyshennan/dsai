@@ -49,6 +49,31 @@ Think of cross validation like a sports team's practice games:
 - The validation data is like the practice game
 - The final model is like your team going into the real season
 
+```mermaid
+graph TD
+    subgraph KF["k-Fold CV  (k=5)"]
+        K1["Fold 1: [VAL | train | train | train | train]"]
+        K2["Fold 2: [train | VAL | train | train | train]"]
+        K3["Fold 3: [train | train | VAL | train | train]"]
+        K4["Fold 4: [train | train | train | VAL | train]"]
+        K5["Fold 5: [train | train | train | train | VAL]"]
+        MEAN["Average score across 5 folds\n= CV score (report ± std)"]
+        K1 & K2 & K3 & K4 & K5 --> MEAN
+    end
+    subgraph STRAT["Stratified k-Fold"]
+        S1["Each fold preserves\nclass proportion\nUse for imbalanced classes"]
+    end
+    subgraph TIME["TimeSeriesSplit"]
+        T1["Train on past → val on future\nNever let future data train on past\nRequired for time series"]
+    end
+    subgraph LOO["Leave-One-Out (LOO)"]
+        L1["k = n_samples\nExpensive, low bias\nSmall datasets only"]
+    end
+    KF -.->|"imbalanced data"| STRAT
+    KF -.->|"ordered data"| TIME
+    KF -.->|"tiny dataset"| LOO
+```
+
 ## Types of Cross-Validation
 
 ### K-Fold Cross-Validation
@@ -72,7 +97,10 @@ The data is divided into k subsets (called "folds"), and the holdout method is r
 
 **Walkthrough:** `KFold(..., shuffle=True)` randomizes row order before splitting; `cross_val_score` uses the estimator’s default scoring (accuracy for classifiers).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.model_selection import KFold, cross_val_score
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
@@ -91,7 +119,30 @@ scores = cross_val_score(model, X, y, cv=kf)
 
 print(f"Cross-validation scores: {scores}")
 print(f"Mean CV score: {scores.mean():.3f} (+/- {scores.std() * 2:.3f})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import KFold and cross_val_score, then create a small random dataset to demonstrate k-fold splitting.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Five-fold CV</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Run 5-fold cross-validation, training the RandomForest on each fold in turn and printing mean accuracy with ±2σ spread.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -118,7 +169,14 @@ Each observation is used once as a validation set while the remaining observatio
 **Walkthrough:** `LeaveOneOut` yields $n$ splits; `cross_val_score` averages scores across all rounds (expensive when $n$ is large).
 
 ```python
-from sklearn.model_selection import LeaveOneOut
+import numpy as np
+from sklearn.model_selection import LeaveOneOut, cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+
+# Same toy X, y as k-fold example above (or define here)
+X = np.random.randn(100, 4)
+y = np.random.randint(0, 2, 100)
+model = RandomForestClassifier(random_state=42)
 
 loo = LeaveOneOut()
 scores = cross_val_score(model, X, y, cv=loo)
@@ -150,8 +208,15 @@ Similar to K-Fold but ensures that the proportions of samples for each class are
 
 **Walkthrough:** `StratifiedKFold.split(X, y)` needs `y`; compare mean/std of scores against plain `KFold` on the same `X_imbalanced`, `y_imbalanced`.
 
-```python
-from sklearn.model_selection import StratifiedKFold
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+from sklearn.model_selection import StratifiedKFold, KFold, cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+
+model = RandomForestClassifier(random_state=42)
 
 # Create imbalanced dataset
 y_imbalanced = np.concatenate([np.zeros(80), np.ones(20)])
@@ -163,12 +228,44 @@ kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
 # Stratified scores
 stratified_scores = cross_val_score(model, X_imbalanced, y_imbalanced, cv=skf)
-# Regular scores  
+# Regular scores
 regular_scores = cross_val_score(model, X_imbalanced, y_imbalanced, cv=kf)
 
 print(f"Stratified CV: {stratified_scores.mean():.3f} (+/- {stratified_scores.std() * 2:.3f})")
 print(f"Regular CV: {regular_scores.mean():.3f} (+/- {regular_scores.std() * 2:.3f})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imbalanced Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create a dataset with an 80/20 class split so the difference between stratified and regular k-fold is visible — minority class is easily lost in regular splits.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two Splitter Strategies</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>StratifiedKFold</code> keeps ~20% minority class in each fold; plain <code>KFold</code> may concentrate them unevenly, inflating or deflating scores.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-21" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compare Results</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Printing mean ± 2 std for both strategies shows that stratified scoring is more stable — smaller standard deviation — on imbalanced data.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -196,8 +293,15 @@ For time series data, we need to respect the temporal order and avoid using futu
 
 **Walkthrough:** Loop prints index ranges for each fold—train blocks grow as folds advance (expanding window).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
 from sklearn.model_selection import TimeSeriesSplit
+
+# Ordered data (e.g. time index 0..n-1)
+X = np.arange(100).reshape(-1, 1)
 
 # Time series split
 tscv = TimeSeriesSplit(n_splits=5)
@@ -208,7 +312,30 @@ for fold, (train_idx, val_idx) in enumerate(tscv.split(X)):
     print(f"Fold {fold+1}:")
     print(f"  Train indices: {train_idx[:5]}...{train_idx[-5:]}")
     print(f"  Val indices: {val_idx[:5]}...{val_idx[-5:]}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create an ordered index array simulating 100 timesteps; <code>TimeSeriesSplit(n_splits=5)</code> will produce expanding train windows that never see future validation data.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Print Fold Ranges</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Each fold's train block grows while validation always starts immediately after the last training point — confirming no temporal leakage across folds.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -258,7 +385,10 @@ Let's see how cross validation helps in a real-world scenario:
 
 **Walkthrough:** `StratifiedKFold.split` returns indices; `pipeline.score` on each validation fold builds a list of fold accuracies.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
@@ -290,14 +420,46 @@ scores = []
 for fold, (train_idx, val_idx) in enumerate(skf.split(X, y)):
     X_train, X_val = X[train_idx], X[val_idx]
     y_train, y_val = y[train_idx], y[val_idx]
-    
+
     pipeline.fit(X_train, y_train)
     score = pipeline.score(X_val, y_val)
     scores.append(score)
     print(f"Fold {fold+1}: {score:.3f}")
 
 print(f"\nMean CV score: {np.mean(scores):.3f} (+/- {np.std(scores) * 2:.3f})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-18" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Synthetic Credit Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate age, income, and credit score features, then create a binary target based on a threshold combination of those features.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline and Splitter</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Wrap scaler and classifier in a pipeline to prevent data leakage, then set up stratified 5-fold splitting.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fold Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Iterate through each fold, fit the pipeline on train indices, score on validation indices, and print each fold accuracy plus the overall mean.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -319,13 +481,25 @@ Mean CV score: 0.981 (+/- 0.007)
 
 **Purpose:** Visualize bias–variance of the CV estimate as fold count changes; useful for picking $k$ when data are limited.
 
-**Walkthrough:** `cross_val_score(..., cv=k)` uses $k$-fold; `errorbar` plots mean $\pm$ std across folds—requires `matplotlib` and `LogisticRegression` in scope (add imports in your notebook).
+**Walkthrough:** `cross_val_score(..., cv=k)` uses $k$-fold; `errorbar` plots mean $\pm$ std across folds.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.datasets import make_classification
+
+X, y = make_classification(n_samples=800, n_features=20, random_state=42)
+
+
 def choose_optimal_k(X, y, k_range=range(2, 11)):
     scores = []
     stds = []
-    
+
     for k in k_range:
         cv_scores = cross_val_score(
             LogisticRegression(),
@@ -334,7 +508,7 @@ def choose_optimal_k(X, y, k_range=range(2, 11)):
         )
         scores.append(cv_scores.mean())
         stds.append(cv_scores.std())
-    
+
     plt.figure(figsize=(10, 5))
     plt.errorbar(k_range, scores, yerr=stds, fmt='o-')
     plt.xlabel('Number of Folds')
@@ -345,7 +519,39 @@ def choose_optimal_k(X, y, k_range=range(2, 11)):
     plt.show()
 
 choose_optimal_k(X, y)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a classification dataset with 800 samples and 20 features to analyse how fold count affects CV stability.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sweep k Values</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Loop k from 2 to 10, compute cross-validated mean accuracy and standard deviation for each fold count.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-32" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Error-bar Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot mean score ± std for each k to visually identify the fold count with the best bias-variance trade-off.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Additional Resources
 

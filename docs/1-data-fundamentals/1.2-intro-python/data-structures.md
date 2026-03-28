@@ -50,6 +50,19 @@ In Python, we use different "containers" (data structures) to store and organize
 
 Let's start with a simple overview before we dive deep into each one:
 
+```mermaid
+graph TD
+    DS[Python Data Structures] --> LIST["List [ ]\nOrdered, mutable\nAllow duplicates\nAccess by index"]
+    DS --> DICT["Dict { }\nKey-value pairs\nFast lookup by key\nMutable"]
+    DS --> TUPLE["Tuple ( )\nOrdered, immutable\nAllow duplicates\nFast to create"]
+    DS --> SET["Set { }\nUnordered, mutable\nNo duplicates\nFast membership test"]
+
+    LIST --> LU["Use for: sequences,\ntemperature readings,\nordered pipeline steps"]
+    DICT --> DU["Use for: student grades,\nconfig, JSON data,\ncount maps"]
+    TUPLE --> TU["Use for: (x, y) coords,\nfunction return pairs,\ndict keys"]
+    SET --> SU["Use for: unique IDs,\ndef deduplication,\nset intersection"]
+```
+
 **1. Lists `[ ]` - Ordered Collections You Can Change**
 ```python
 # A list is like a row of numbered boxes
@@ -204,7 +217,10 @@ Each structure optimized for different operations:
 
 Choose structures based on operation needs:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import time
 import numpy as np
 
@@ -213,17 +229,17 @@ def compare_performance(size=1000000):
    # Create data
    list_data = list(range(size))
    array_data = np.array(list_data)
-   
+
    # List operations
    start = time.time()
    list_result = [x * 2 for x in list_data]
    list_time = time.time() - start
-   
+
    # NumPy operations
    start = time.time()
    array_result = array_data * 2
    array_time = time.time() - start
-   
+
    print(f"List time: {list_time:.4f} seconds")
    print(f"NumPy time: {array_time:.4f} seconds")
    print(f"NumPy is {list_time/array_time:.1f}x faster")
@@ -231,15 +247,47 @@ def compare_performance(size=1000000):
 # Memory usage comparison
 def compare_memory():
    import sys
-   
+
    # Create equivalent data structures
    data = list(range(1000))
    list_mem = sys.getsizeof(data)
    array_mem = np.array(data).nbytes
-   
+
    print(f"List memory: {list_mem} bytes")
    print(f"NumPy memory: {array_mem} bytes")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Imports <code>time</code> for wall-clock measurement and NumPy for the vectorized alternative.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Speed Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Times a list comprehension against a NumPy vectorized multiply on one million elements, then prints the speedup ratio.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-35" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Memory Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Uses <code>sys.getsizeof</code> and <code>.nbytes</code> to show how a Python list uses more memory than an equivalent NumPy array.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Lists in Data Analysis - The Most Versatile Structure
 
@@ -454,7 +502,10 @@ data.clear() # Now data = []
 
 Now that you understand the basics, let's see how data scientists use lists:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Time series manipulation
 prices = [100.23, 101.45, 99.78, 102.34, 101.89]
 
@@ -479,9 +530,41 @@ def clean_data(data):
    iqr = q3 - q1
    lower_bound = q1 - 1.5 * iqr
    upper_bound = q3 + 1.5 * iqr
-   
+
    return [x for x in data if lower_bound <= x <= upper_bound]
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Returns Calculation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Builds a price list then computes percentage returns with a list comprehension iterating from index 1 onward.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Moving Average</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Slides a window of fixed size across the data and returns the mean of each window as a new list.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-27" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">IQR Outlier Removal</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Computes Q1, Q3, and IQR via NumPy, then filters the list to keep only values within 1.5 × IQR of the quartiles.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
  **Performance Tip**: For numerical computations, prefer NumPy arrays over lists!
 

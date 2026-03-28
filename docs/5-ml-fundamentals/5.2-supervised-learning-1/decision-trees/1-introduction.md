@@ -58,7 +58,10 @@ Let's break down the parts of a decision tree using a simple example:
 
 **Walkthrough:** Rows of `X` are `[is_raining, temp_F, have_time]`; `plot_tree` labels nodes; importances sum to 1 over features used in splits.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier, plot_tree
@@ -108,7 +111,39 @@ feature_importance = tree_model.feature_importances_
 features = ['Is Raining', 'Temperature', 'Have Time']
 for i, importance in enumerate(feature_importance):
     print(f"{features[i]}: {importance:.2f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-25" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Tree Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Eight hand-crafted walking scenarios with three features (rain, temperature, time) are fitted by <code>DecisionTreeClassifier(max_depth=3)</code>; the binary label encodes the go/stay decision.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-40" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plot_tree</code> with <code>filled=True</code> colors each node by majority class, making it easy to trace any path from root to leaf and understand the splitting logic.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="42-51" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Predict and Explain</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Predict for a new scenario, then print <code>feature_importances_</code> — each value is the fraction of total impurity reduction attributed to that feature across all splits.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![1-introduction](assets/1-introduction_fig_1.png)
@@ -154,7 +189,10 @@ Decision trees learn by finding the best questions to ask that separate the data
 
 **Walkthrough:** `plot_decision_boundary` fills class regions on a mesh; second `plot_tree` shows the splits that produced those rectangles.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Let's see the splitting process visually
 from sklearn.datasets import make_classification
 import numpy as np
@@ -180,15 +218,15 @@ def plot_decision_boundary(model, X, y):
     # Set min and max values for plotting
     x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
     y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-    
+
     # Create meshgrid
     xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
                          np.arange(y_min, y_max, 0.02))
-    
+
     # Predict for each point in the meshgrid
     Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
     Z = Z.reshape(xx.shape)
-    
+
     # Plot the contour
     plt.contourf(xx, yy, Z, alpha=0.3)
     plt.scatter(X[:, 0], X[:, 1], c=y, marker='o', edgecolor='k')
@@ -211,7 +249,39 @@ plot_tree(
 )
 plt.title('Decision Tree Structure')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-19" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Generate and Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>make_classification</code> with <code>n_features=2</code> produces a 2D dataset ideal for visualizing decision boundaries; <code>max_depth=3</code> keeps the tree readable.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-43" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Decision Boundary Helper</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The helper builds a fine meshgrid, predicts class labels at each point, and fills contour regions — this reveals the axis-aligned rectangular regions that decision trees always produce.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="45-57" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Boundary and Tree Plots</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot the decision surface first, then <code>plot_tree</code> to see the exact splits that produced those rectangular regions side by side.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![1-introduction](assets/1-introduction_fig_2.png)
@@ -263,7 +333,10 @@ Try building a simple decision tree on your own:
 
 **Exercise:** `5.2-dt-1-intro-exercise` — complete in your environment; compare your predictions to the captured run below.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Simple exercise: Predicting if a student will pass or fail
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
@@ -299,7 +372,30 @@ importances = student_model.feature_importances_
 # Display the most important factor in passing
 most_important = features[np.argmax(importances)]
 print(f"Most important factor: {most_important}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-20" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Student Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Eight students with four study-habit features and a binary pass/fail label; the data is intentionally small so the tree structure is easy to inspect manually.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-37" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Predict and Rank Features</span>
+    </div>
+    <div class="code-callout__body">
+      <p>After fitting, <code>predict</code> classifies a new student; <code>np.argmax(feature_importances_)</code> identifies the single most influential feature across all splits in the learned tree.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 

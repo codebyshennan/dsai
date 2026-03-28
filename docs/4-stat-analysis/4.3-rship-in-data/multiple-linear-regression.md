@@ -43,11 +43,26 @@ Think of simple linear regression like trying to bake cookies with just flour. Y
 
 Multiple linear regression is like using a complete recipe with flour, sugar, butter, eggs, and vanilla. Each ingredient contributes to the final product, and the recipe tells you exactly how much of each to use!
 
+```mermaid
+graph TD
+    subgraph MLR["Multiple Linear Regression"]
+        X["Predictors\nX₁, X₂, … Xₚ"]
+        X --> MODEL["ŷ = β₀ + β₁X₁ + β₂X₂ + … + βₚXₚ"]
+        MODEL --> COEFF["Each βᵢ = effect of Xᵢ\n*holding all other predictors constant*"]
+    end
+    subgraph WATCH["Watch out for"]
+        MC["Multicollinearity\nCorrelated predictors → unstable βᵢ\nCheck VIF > 10"]
+        OVB["Omitted variable bias\nMissing confounder changes βᵢ\nDomain knowledge required"]
+        OVF["Overfitting\nToo many predictors → R² inflated\nUse adjusted R² or cross-validate"]
+    end
+    COEFF --> WATCH
+```
+
 ### The Math (Don't Worry, We'll Explain It Simply!)
 
 The formula looks like this:
 
-\[ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p + \epsilon \]
+\\[ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p + \epsilon \\]
 
 This might look intimidating, but let's break it down:
 
@@ -118,7 +133,10 @@ Let's walk through a concrete example using Python. Don't worry if the code look
 
 **Walkthrough:** `model.score(X, y)` is training R²; `variance_inflation_factor` from statsmodels runs per-column VIF on the predictor matrix.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
@@ -171,7 +189,57 @@ def check_predictor_similarity(X):
 
 print("\nMulticollinearity Check (VIF values):")
 print(check_predictor_similarity(X))
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and synthetic predictors</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import sklearn, statsmodels, and plotting libraries. <code>np.random.seed(42)</code> fixes reproducibility. Three independent predictors — study hours, GPA, sleep — are each drawn from a standard normal distribution so they don't correlate with each other (ideal for isolating individual effects).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Known ground truth</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Exam scores are built with <em>known</em> coefficients (2, 3, 1.5) — after fitting, the model should recover these. This "check your answer" trick is useful whenever you're learning a new model: generate data with known structure, then verify the model finds it.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Multi-column feature matrix</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Unlike simple regression, <code>X</code> now has 3 columns (one per predictor). sklearn requires a 2D DataFrame or array — double brackets <code>[[ ]]</code> select multiple columns at once. No <code>.reshape</code> needed.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="36-41" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">One coefficient per predictor</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>model.coef_</code> gives one weight per column in <code>X</code>. Each coefficient means: "how much does the outcome change if this predictor increases by 1, <em>holding the others fixed</em>?" That last part is what makes MLR more powerful than running separate simple regressions.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="43-52" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Variance Inflation Factor (VIF)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>VIF measures how much each predictor's variance inflates due to correlation with others. A VIF above 5–10 signals multicollinearity — the model can't reliably separate the overlapping effects. VIF ≈ 1 here because the three predictors were generated independently.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** Coefficients and VIFs stay stable with `seed(42)`; last-decimal noise can differ by platform.
 

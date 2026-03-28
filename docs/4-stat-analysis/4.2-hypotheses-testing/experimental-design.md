@@ -37,6 +37,22 @@ This guide will help you understand the basics of experimental design, with simp
 
 ---
 
+```mermaid
+graph TD
+    subgraph PILLARS["Three pillars of experimental design"]
+        CTRL["Control\nHold confounds constant\nControl group as baseline\nBlinding to reduce observer bias"]
+        RAND["Randomization\nRandom assignment to conditions\nReduces selection bias\nEnables causal inference"]
+        REP["Replication\nEnough samples for power\nRepeat across settings\nReduces random error"]
+    end
+    subgraph POWER["Statistical power (1 − β)"]
+        P1["Sample size n (bigger → more power)"]
+        P2["Effect size δ (bigger → easier to detect)"]
+        P3["α significance threshold (lower → less power)"]
+        P4["Calculate n BEFORE running the experiment\n(power analysis)"]
+    end
+    CTRL & RAND & REP --> POWER
+```
+
 ## The Three Pillars of Experimental Design
 
 ### 1. Control
@@ -77,7 +93,10 @@ Suppose you have 10 participants and want to assign them to two groups at random
 
 **Walkthrough:** `np.random.permutation` shuffles labels; equal `group_size` uses floor division; seed `42` makes the split reproducible in course materials.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example: Randomly assign 10 participants to two groups
 import numpy as np
 
@@ -93,7 +112,30 @@ print("Treatment group:", treatment_group)
 # Sample output:
 # Control group: ['P7' 'P4' 'P8' 'P5' 'P3']
 # Treatment group: ['P6' 'P1' 'P9' 'P10' 'P2']
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Participant list</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Build 10 participant IDs and set a random seed so the split is reproducible across runs and course materials.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Permute and slice</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Shuffle all IDs with <code>np.random.permutation</code> and split at the midpoint to assign each participant to exactly one group.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** With seed 42, group membership is fixed; your run should list all ten IDs across the two arrays.
 
@@ -159,7 +201,10 @@ Suppose you're testing two fertilizers (A and B) on 20 identical plants. You wan
 
 **Walkthrough:** `np.random.choice(treatments, size=len(units))` assigns each plant independently; `dict(zip(...))` is easy to log and merge with outcome data later.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example: Completely Randomized Design (CRD)
 import numpy as np
 
@@ -189,7 +234,30 @@ for unit, treatment in assignment.items():
 # Plant_4: B
 # Plant_5: A
 # Plant_6: B
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="4-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CRD function</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Use <code>np.random.choice</code> to draw an independent treatment label for each unit—the simplest CRD, appropriate when units are exchangeable.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Build and inspect</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create 6 plant IDs, call the function, and print the resulting unit-to-treatment dict to verify each plant gets exactly one label.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** Each plant ID should appear once with either A or B; counts may be slightly uneven with independent draws.
 
@@ -235,7 +303,10 @@ Suppose you're testing two fertilizers on plants, but your garden has sunny and 
 
 **Walkthrough:** The loop walks `blocks`; `block_treatments` repeats the treatment list to cover all units; `permutation` randomizes within-block order before zipping to unit IDs.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example: Randomized Block Design (RBD)
 import numpy as np
 
@@ -275,7 +346,30 @@ for unit, treatment in assignment.items():
 # Shady_2: A
 # Shady_3: B
 # Shady_4: A
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="4-18" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Block-wise randomization</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each block, repeat the treatment list to cover all units in that block, then <code>np.random.permutation</code> randomizes order within the block before zipping to unit IDs.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two-block example</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create Sunny and Shady blocks of 4 plants each, run the function, and print assignments to confirm each block gets a balanced mix of treatments A and B.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** You should see two A and two B within each of `Sunny_*` and `Shady_*` when block sizes match treatment replications as coded.
 
@@ -347,15 +441,15 @@ If your sample is too small, you might miss real effects. If it's too large, you
 
 The required sample size for comparing two means can be calculated as:
 
-\[
+\\[
 n = 2 \left( \frac{z_{\alpha/2} + z_{\beta}}{d} \right)^2
-\]
+\\]
 
 where:
 
-- \( z_{\alpha/2} \): critical value for significance level
-- \( z_{\beta} \): critical value for desired power
-- \( d \): effect size (Cohen's d)
+- \\( z_{\alpha/2} \\): critical value for significance level
+- \\( z_{\beta} \\): critical value for desired power
+- \\( d \\): effect size (Cohen's d)
 
 ![Sample Size Determination](assets/sample_size_determination.png)
 

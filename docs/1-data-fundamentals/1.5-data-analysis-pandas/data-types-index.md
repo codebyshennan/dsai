@@ -29,6 +29,20 @@ In Pandas, each column in a DataFrame (or each value in a Series) has a specific
 - Correct calculations
 - Proper data handling
 
+```mermaid
+flowchart TD
+    Q["What does the column represent?"] --> NUM{Numeric?}
+    NUM -->|Whole numbers\nno NaN| I64["int64\n(or int32/int8 to save memory)"]
+    NUM -->|Decimals or\nhas NaN| F64["float64"]
+    NUM -->|No| CAT{Few unique\nvalues?}
+    CAT -->|Yes ≤ ~50| CATD["category\n(saves memory, enables ordering)"]
+    CAT -->|Free text| STR["string\n(or object)"]
+    CAT -->|True/False| BOOL["bool"]
+    CAT -->|Dates/times| DT["datetime64\npd.to_datetime()"]
+```
+
+*After loading a CSV, always call `df.dtypes` and `df.info()`. Columns that should be numeric but show `object` usually contain stray text (e.g. `"$1,200"` or `"N/A"`). Fix those before doing any math.*
+
 Common data types include:
 
 - **numbers**:

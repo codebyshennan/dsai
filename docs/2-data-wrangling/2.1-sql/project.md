@@ -85,40 +85,40 @@ ORDER BY total_spent DESC;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH customer_metrics AS (</span>
+      <span class="code-callout__title">CTE 1: aggregate 12-month order history per customer</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH customer_metrics AS (</strong> — lines 1-12. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>LEFT JOIN keeps customers who placed no orders in the period. The filter on <code>order_date &gt;= CURRENT_DATE - INTERVAL '12 months'</code> restricts to recent activity. <code>discount_rate</code> is the ratio of total discount to total spend—a proxy for price sensitivity.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="16-23" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHERE o.order_date &gt;= CURRENT_DATE - INTERVAL…</span>
+      <span class="code-callout__title">CTE 2: rank customers by spend and frequency quartiles</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WHERE o.order_date &gt;= CURRENT_DATE - INTERVAL…</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Two <code>NTILE(4)</code> window functions independently rank customers into quartiles by spend and order frequency. <code>CURRENT_DATE - last_order_date</code> gives recency as an interval; <code>monthly_avg_spend</code> normalizes spend by active months to compare irregular buyers fairly.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="25-36" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SELECT</span>
+      <span class="code-callout__title">Outer query: assign lifecycle segment label</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SELECT</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The first CASE maps the combination of spending and frequency quartiles (and recency) to lifecycle labels: VIP, High Value, Active, At Risk, or Churned. Results ordered by total spend descending surface the most valuable customers first.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="37-48" data-tint="4">
+  <div class="code-callout" data-lines="38-48" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHEN days_since_last_order &lt;= 30 THEN &#x27; Active&#x27;</span>
+      <span class="code-callout__title">Second CASE: assign buying behaviour pattern</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WHEN days_since_last_order &lt;= 30 THEN &#x27; Active&#x27;</strong> — lines 37-48 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>A separate CASE independently labels each customer's buying pattern based on discount sensitivity, average order size, and purchase frequency. This allows a customer to be both "VIP" (segment) and "Discount Sensitive" (pattern)—two orthogonal dimensions.</p>
     </div>
   </div>
 </aside>
@@ -178,40 +178,40 @@ ORDER BY cohort_month DESC, months_since_join;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH cohort_dates AS (</span>
+      <span class="code-callout__title">CTE 1: pair each customer's cohort month with each order month</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH cohort_dates AS (</strong> — lines 1-11. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p><code>DATE_TRUNC('month', join_date)</code> groups customers by the month they first joined—their cohort. The JOIN with <code>orders</code> produces one row per (customer, order), giving both the cohort month and the order month for cross-referencing.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-22" data-tint="2">
+  <div class="code-callout" data-lines="11-16" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">COUNT(DISTINCT customer_id) as num_customers</span>
+      <span class="code-callout__title">CTE 2: count original cohort size per month</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>COUNT(DISTINCT customer_id) as num_customers</strong> — lines 12-22. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p>Groups cohort_dates by cohort month and counts distinct customers—this is the denominator for retention rate calculations. Every subsequent month's active customers are divided by this number.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="23-33" data-tint="3">
+  <div class="code-callout" data-lines="18-28" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">FROM cohort_dates c</span>
+      <span class="code-callout__title">CTE 3: count active customers per cohort × order-month pair</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>FROM cohort_dates c</strong> — lines 23-33 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Self-joins cohort_dates (<code>c</code> for cohort month, <code>o</code> for order month) on <code>customer_id</code> to find which cohort members placed orders in each subsequent month. <code>EXTRACT(MONTH FROM order_month - cohort_month)</code> computes months since join.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="34-45" data-tint="4">
+  <div class="code-callout" data-lines="30-46" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">(active_customers::float / cohort_size * 100)…</span>
+      <span class="code-callout__title">Outer query: retention rate and cohort stage label</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>(active_customers::float / cohort_size * 100)…</strong> — lines 34-45 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Divides active customers by cohort size to get retention percentage. The CASE labels each cohort-month combination as New (month 0), Early (1–3), Established (4–6), or Loyal (7+). <code>WHERE months_since_join &lt;= 12</code> limits to the first year.</p>
     </div>
   </div>
 </aside>
@@ -289,49 +289,40 @@ ORDER BY gross_revenue DESC;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-20" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH product_metrics AS (</span>
+      <span class="code-callout__title">CTE 1: join products → orders → reviews and aggregate 90-day metrics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH product_metrics AS (</strong> — lines 1-12. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>Three LEFT JOINs attach order items, orders, and reviews to each product. LEFT JOIN keeps products with no sales or reviews. Gross revenue is <code>quantity × price</code>; gross profit is <code>quantity × (price - cost)</code>. The WHERE filters to 90 days of activity.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="22-29" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">COUNT(r.review_id) as review_count</span>
+      <span class="code-callout__title">CTE 2: add derived metrics and rankings per category</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>COUNT(r.review_id) as review_count</strong> — lines 13-24. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p><code>profit_margin</code> is gross profit as a percentage of revenue. <code>RANK() OVER (PARTITION BY category ORDER BY units_sold DESC)</code> ranks each product within its own category. <code>PERCENT_RANK()</code> gives the global revenue percentile across all products.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="25-36" data-tint="3">
+  <div class="code-callout" data-lines="31-47" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">ROUND((gross_profit / NULLIF(gross_revenue, 0…</span>
+      <span class="code-callout__title">Outer query: present financials and rating</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>ROUND((gross_profit / NULLIF(gross_revenue, 0…</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Rounds all numeric columns for display. <code>revenue_percentile</code> thresholds (0.9, 0.7, 0.4) map to performance tier labels. The rating_display CASE converts the numeric average rating into a text representation.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="37-48" data-tint="4">
+  <div class="code-callout" data-lines="49-62" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Profit_margin,</span>
+      <span class="code-callout__title">Margin category label</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Profit_margin,</strong> — lines 37-48 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="49-61" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHEN profit_margin &gt;= 25 THEN &#x27; Good Margin&#x27;</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>WHEN profit_margin &gt;= 25 THEN &#x27; Good Margin&#x27;</strong> — lines 49-61 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>A separate CASE labels each product's profitability tier (High / Good / Fair / Low Margin) independently of its revenue performance tier. Together with the performance tier, this gives a 2×2 style view: a product can be high-revenue but low-margin (a pricing signal) or low-revenue but high-margin (a niche opportunity).</p>
     </div>
   </div>
 </aside>
@@ -405,49 +396,40 @@ ORDER BY inventory_value DESC;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-17" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH inventory_metrics AS (</span>
+      <span class="code-callout__title">CTE 1: join products → order items → orders and aggregate 30-day demand</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH inventory_metrics AS (</strong> — lines 1-11. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>LEFT JOINs keep products with no sales. <code>SUM(oi.quantity) / 30.0</code> computes average daily demand from the last 30 days. The WHERE limits to recent orders; products with no orders in the period will have NULL demand.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-23" data-tint="2">
+  <div class="code-callout" data-lines="19-27" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">FROM products p</span>
+      <span class="code-callout__title">CTE 2: derive days-of-inventory, value, and turnover rate</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>FROM products p</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>stock_quantity / NULLIF(daily_demand, 0)</code> estimates how many days of stock remain. <code>inventory_value = stock_quantity × cost_price</code> is the cash tied up in stock. <code>inventory_turnover</code> is units sold as a percentage of current stock—high values signal fast-moving items.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="24-35" data-tint="3">
+  <div class="code-callout" data-lines="29-43" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">CASE</span>
+      <span class="code-callout__title">Outer query: stock status and turnover rate labels</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>CASE</strong> — lines 24-35 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The first CASE classifies stock level (Out of Stock → Reorder Needed → Overstocked → Healthy Stock → Low Stock). The second CASE labels turnover speed. Both are surfaced as readable columns for buyer dashboards.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="36-47" data-tint="4">
+  <div class="code-callout" data-lines="44-59" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Days_of_inventory,</span>
+      <span class="code-callout__title">Recommended action based on stock urgency</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Days_of_inventory,</strong> — lines 36-47 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="48-59" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHEN inventory_turnover &gt;= 25 THEN &#x27; Good Tur…</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>WHEN inventory_turnover &gt;= 25 THEN &#x27; Good Tur…</strong> — lines 48-59 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>A third CASE translates the stock status into an actionable instruction for the buyer: Urgent Reorder, Place Order, Consider Promotion, or Monitor Stock. Results are ordered by inventory value descending so high-value stockouts appear first.</p>
     </div>
   </div>
 </aside>
@@ -550,58 +532,49 @@ ORDER BY sale_date DESC;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-17" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH daily_sales AS (</span>
+      <span class="code-callout__title">CTE 1: aggregate daily order, revenue, and new-customer metrics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH daily_sales AS (</strong> — lines 1-14. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>Groups orders by day. <code>COUNT(DISTINCT CASE WHEN c.join_date = DATE_TRUNC('day', o.order_date) THEN c.customer_id END)</code> counts customers whose join date matches today's date—a proxy for new customers placing their first order on each day.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="19-30" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHERE o.order_date &gt;= CURRENT_DATE - INTERVAL…</span>
+      <span class="code-callout__title">CTE 2: derive per-day KPIs and prior-day values with LAG</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WHERE o.order_date &gt;= CURRENT_DATE - INTERVAL…</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Computes net revenue (revenue minus shipping and discounts), AOV, and new-customer percentage. Three <code>LAG(…) OVER (ORDER BY sale_date)</code> calls capture the previous day's values for revenue, orders, and customers—used to calculate day-over-day growth in the next CTE.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="29-43" data-tint="3">
+  <div class="code-callout" data-lines="32-57" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">),</span>
+      <span class="code-callout__title">CTE 3: compute growth rates and 7-day rolling averages</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>),</strong> — lines 29-43 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Three growth rate columns compare today to yesterday using <code>(current - prior) / NULLIF(prior, 0) * 100</code>. Two window functions with <code>ROWS BETWEEN 6 PRECEDING AND CURRENT ROW</code> smooth revenue and order counts into 7-day rolling averages.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="44-57" data-tint="4">
+  <div class="code-callout" data-lines="59-73" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">((num_customers - prev_day_customers)::float /</span>
+      <span class="code-callout__title">Outer query: present all KPIs and rolling averages</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>((num_customers - prev_day_customers)::float /</strong> — lines 44-57 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Selects and rounds all KPIs for display. Revenue and order growth rates feed the trend CASE labels in the next lines; AOV and revenue-per-customer give profitability context per day.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="58-71" data-tint="1">
+  <div class="code-callout" data-lines="75-87" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SELECT</span>
+      <span class="code-callout__title">Revenue and customer trend labels</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SELECT</strong> — lines 58-71 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="72-86" data-tint="2">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Customer_growth,</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Customer_growth,</strong> — lines 72-86 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Two CASE expressions translate numeric growth rates into readable trend labels (High Growth → Growing → Declining → Sharp Decline for revenue; Strong Acquisition → Growing Base → Customer Loss → High Churn for customers). Results are ordered most-recent-first.</p>
     </div>
   </div>
 </aside>
@@ -707,58 +680,40 @@ ORDER BY roi DESC;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-15" data-tint="1">
+  <div class="code-callout" data-lines="1-21" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH campaign_metrics AS (</span>
+      <span class="code-callout__title">CTE 1: aggregate impressions, clicks, conversions, and spend per campaign</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH campaign_metrics AS (</strong> — lines 1-15. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>LEFT JOIN <code>campaign_performance</code> keeps campaigns even if they have no daily performance rows yet. SUM aggregates all daily records into campaign-level totals. <code>COUNT(DISTINCT DATE_TRUNC('day', cp.date))</code> counts how many days the campaign has data for.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="16-30" data-tint="2">
+  <div class="code-callout" data-lines="23-52" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">FROM marketing_campaigns mc</span>
+      <span class="code-callout__title">CTE 2: compute CTR, conversion rate, ROAS, CPC, CPA, and ROI</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>FROM marketing_campaigns mc</strong> — lines 16-30 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Each KPI uses a guarded CASE to avoid division-by-zero. CTR = clicks / impressions; conversion rate = conversions / clicks; ROAS = revenue / spend; CPC = spend / clicks; CPA = spend / conversions; ROI = (revenue - spend) / spend × 100. All null-safe via <code>NULLIF</code> or inner <code>WHEN … &gt; 0</code> guards.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="31-45" data-tint="3">
+  <div class="code-callout" data-lines="54-72" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHEN total_clicks &gt; 0</span>
+      <span class="code-callout__title">Outer query: present metrics and performance category</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WHEN total_clicks &gt; 0</strong> — lines 31-45 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Selects all KPIs from the second CTE and computes <code>budget_utilization</code> inline as spend / budget × 100. The performance_category CASE buckets campaigns by ROI into Exceptional / Strong / Acceptable / Poor.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="46-60" data-tint="4">
+  <div class="code-callout" data-lines="74-92" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">ROUND((total_spend / NULLIF(total_conversions…</span>
+      <span class="code-callout__title">Recommended action based on multi-signal diagnosis</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>ROUND((total_spend / NULLIF(total_conversions…</strong> — lines 46-60 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="61-75" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Campaign_days,</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Campaign_days,</strong> — lines 61-75 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="76-91" data-tint="2">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">CASE</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>CASE</strong> — lines 76-91 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The action CASE checks multiple diagnostic signals in priority order: negative ROI → pause; CPA exceeds revenue per conversion → optimize targeting; low budget use → increase budget; low conversion rate → fix landing page; low CTR → revise creative. Results ordered by ROI descending.</p>
     </div>
   </div>
 </aside>
@@ -842,49 +797,40 @@ ORDER BY inventory_value DESC;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-13" data-tint="1">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH supplier_metrics AS (</span>
+      <span class="code-callout__title">CTE 1: join suppliers → products → orders → shipments and aggregate</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH supplier_metrics AS (</strong> — lines 1-13. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>Four LEFT JOINs chain from supplier through products, order items, orders, and shipments. <code>AVG(EXTRACT(EPOCH FROM …)/86400)</code> gives mean actual delivery time in days. The late-delivery rate uses <code>COUNT(DISTINCT CASE WHEN actual &gt; estimated THEN shipment_id END) / NULLIF(total, 0)</code>—a null-safe percentage.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="14-27" data-tint="2">
+  <div class="code-callout" data-lines="24-30" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">THEN sh.shipment_id</span>
+      <span class="code-callout__title">CTE 2: rank suppliers into quartiles by reliability, speed, and value</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>THEN sh.shipment_id</strong> — lines 14-27 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Three <code>NTILE(4)</code> window functions independently rank suppliers by late-delivery rate (reliability), average delivery days (speed), and inventory value (strategic importance). Quartile 1 = worst for rate/days, best for value.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="28-41" data-tint="3">
+  <div class="code-callout" data-lines="32-50" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">NTILE(4) OVER (ORDER BY inventory_value DESC)…</span>
+      <span class="code-callout__title">Outer query: translate quartiles into reliability and speed ratings</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>NTILE(4) OVER (ORDER BY inventory_value DESC)…</strong> — lines 28-41. Window functions compute per-row values using a frame without collapsing groups—check <code>PARTITION BY</code> and <code>ORDER BY</code> inside <code>OVER</code>.</p>
+      <p>Two CASE expressions convert reliability and speed quartile numbers into human-readable labels (High Risk → Very Reliable; Slow → Very Fast). A third converts the value quartile to strategic tier (Strategic → Minor).</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="42-55" data-tint="4">
+  <div class="code-callout" data-lines="52-69" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHEN reliability_quartile = 1 THEN &#x27;High Risk&#x27;</span>
+      <span class="code-callout__title">Supplier status: escalating action recommendation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WHEN reliability_quartile = 1 THEN &#x27;High Risk&#x27;</strong> — lines 42-55 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="56-69" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WHEN value_quartile = 3 THEN &#x27;Medium&#x27;</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>WHEN value_quartile = 3 THEN &#x27;Medium&#x27;</strong> — lines 56-69 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The final CASE checks late-delivery rate and actual vs. expected lead time together. Thresholds escalate from Good Standing → Monitor Closely → Needs Improvement → Review Partnership. Results ordered by inventory value so the most strategically important suppliers appear first.</p>
     </div>
   </div>
 </aside>
@@ -928,13 +874,22 @@ ORDER BY inventory_value DESC;
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-11" data-tint="1">
+     <div class="code-callout" data-lines="1-4" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Indexes for frequent joins</span>
+         <span class="code-callout__title">Single-column indexes on FK and date columns</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Indexes for frequent joins</strong> — lines 1-11. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+         <p>Indexes on <code>customer_id</code> and <code>order_date</code> speed up the most common join condition and date range filters. Similar single-column indexes on <code>price</code> and <code>stock_quantity</code> cover range scans in inventory and product queries.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="6-9" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Composite index for per-customer date-ordered queries</span>
+       </div>
+       <div class="code-callout__body">
+         <p>The composite <code>(customer_id, order_date DESC)</code> index satisfies queries that filter by customer and sort by date in one index scan—no separate sort step needed. The leading equality column prunes by customer first, then the date sort is already in order.</p>
        </div>
      </div>
    </aside>
@@ -964,13 +919,22 @@ ORDER BY inventory_value DESC;
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-9" data-tint="1">
+     <div class="code-callout" data-lines="1-5" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Regular statistics update</span>
+         <span class="code-callout__title">ANALYZE: refresh planner statistics</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Regular statistics update</strong> — lines 1-9 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+         <p><code>ANALYZE</code> updates the internal statistics tables that the query planner uses to estimate row counts and choose join strategies. After bulk loads or schema changes, outdated statistics cause the planner to pick bad plans.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="7-9" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">pg_stat_statements: find the slowest queries</span>
+       </div>
+       <div class="code-callout__body">
+         <p><code>pg_stat_statements</code> tracks execution statistics for every query the server runs. Ordering by <code>total_time DESC</code> and limiting to 10 surfaces the queries consuming the most cumulative time—the prime candidates for indexing or rewriting.</p>
        </div>
      </div>
    </aside>

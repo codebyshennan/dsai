@@ -84,9 +84,12 @@ Hypothesis testing is not only for academic papers. The same structure applies w
 
 **Purpose:** Sketch how conversion data become a 2×2 contingency table and a single chi-square test—mirroring click/conversion experiments (the toy draws random counts each run).
 
-**Walkthrough:** `np.random.binomial` yields total successes per arm; `chi2_contingency` returns \(\chi^2\) and p-value for independence of arm vs outcome.
+**Walkthrough:** `np.random.binomial` yields total successes per arm; `chi2_contingency` returns \\(\chi^2\\) and p-value for independence of arm vs outcome.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from scipy import stats
 
@@ -94,18 +97,18 @@ from scipy import stats
 def ab_test_demo():
     # Control group (current design)
     control_conversions = np.random.binomial(n=1000, p=0.10)
-    
+
     # Treatment group (new design)
     treatment_conversions = np.random.binomial(n=1000, p=0.12)
-    
+
     # Perform chi-square test
     contingency = np.array([
         [sum(control_conversions), 1000 - sum(control_conversions)],
         [sum(treatment_conversions), 1000 - sum(treatment_conversions)]
     ])
-    
+
     chi2, p_value = stats.chi2_contingency(contingency)[:2]
-    
+
     print("E-commerce A/B Test Results")
     print(f"Control Conversion: {sum(control_conversions)/1000:.1%}")
     print(f"Treatment Conversion: {sum(treatment_conversions)/1000:.1%}")
@@ -114,7 +117,30 @@ def ab_test_demo():
 
 # Run demonstration
 ab_test_demo()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="5-16" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Simulate conversions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw binomial samples for control (10% rate) and treatment (12% rate) arms, then arrange them into a 2×2 contingency table of successes and failures.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Chi-square test</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Pass the contingency table to <code>chi2_contingency</code> and print conversion rates alongside the p-value to test whether the difference in rates is statistically significant.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Medical Research Example
 
@@ -122,19 +148,22 @@ ab_test_demo()
 
 **Purpose:** Contrast the e-commerce example: Gaussian outcomes (e.g., days to recovery) use `ttest_ind` rather than chi-square—same hypothesis-testing workflow, different likelihood.
 
-**Walkthrough:** Independent draws for control vs treatment; `ttest_ind` tests equal means; prints means and a yes/no “improvement” flag at \(\alpha = 0.05\).
+**Walkthrough:** Independent draws for control vs treatment; `ttest_ind` tests equal means; prints means and a yes/no “improvement” flag at \\(\alpha = 0.05\\).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def clinical_trial_demo():
     # Control group (standard treatment)
     control = np.random.normal(loc=10, scale=2, size=100)
-    
+
     # Treatment group (new drug)
     treatment = np.random.normal(loc=9, scale=2, size=100)
-    
+
     # Perform t-test
     t_stat, p_value = stats.ttest_ind(control, treatment)
-    
+
     print("\nClinical Trial Analysis")
     print(f"Control Mean: {np.mean(control):.1f} days")
     print(f"Treatment Mean: {np.mean(treatment):.1f} days")
@@ -143,7 +172,30 @@ def clinical_trial_demo():
 
 # Run demonstration
 clinical_trial_demo()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Simulate trial arms</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw 100 normally distributed recovery times for each arm—control at mean 10 and treatment at mean 9—to represent a one-day improvement in continuous outcomes.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Independent t-test</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Apply <code>ttest_ind</code> to compare group means and print the group averages alongside the p-value and a plain-language improvement flag.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![README](assets/README_fig_1.png)
 
@@ -266,14 +318,14 @@ Here are all the key diagrams and assets referenced in this module:
 
 The t-test statistic for comparing two means is:
 
-\[
+\\[
 t = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
-\]
+\\]
 
 where:
 
-- \( \bar{X}_1, \bar{X}_2 \): sample means
-- \( s_1^2, s_2^2 \): sample variances
-- \( n_1, n_2 \): sample sizes
+- \\( \bar{X}_1, \bar{X}_2 \\): sample means
+- \\( s_1^2, s_2^2 \\): sample variances
+- \\( n_1, n_2 \\): sample sizes
 
 Remember: Good hypothesis testing is about asking the right questions and using the right tools to find reliable answers!

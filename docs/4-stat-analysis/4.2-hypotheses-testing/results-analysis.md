@@ -48,7 +48,10 @@ Like a metal detector beeping - it tells you something's there, but you need to 
 
 **Walkthrough:** `interpret_p_value` buckets evidence by thresholds; `visualize_significance` uses `stats.t.pdf` / `ppf` and `fill_between` for rejection tails; figure saves to the repo path beside this lesson (run from a context where that path is writable).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -57,10 +60,10 @@ import seaborn as sns
 
 class SignificanceAnalyzer:
     """A comprehensive toolkit for analyzing statistical significance"""
-    
+
     def __init__(self, alpha=0.05):
         self.alpha = alpha
-    
+
     def interpret_p_value(self, p_value):
         """Interpret p-value with rich context"""
         interpretation = {
@@ -71,7 +74,7 @@ class SignificanceAnalyzer:
             'interpretation': self._get_interpretation(p_value)
         }
         return interpretation
-    
+
     def _get_evidence_strength(self, p_value):
         """Determine strength of evidence"""
         if p_value < 0.001:
@@ -84,7 +87,7 @@ class SignificanceAnalyzer:
             return "Weak"
         else:
             return "No Evidence"
-    
+
     def _get_interpretation(self, p_value):
         """Get detailed interpretation"""
         if p_value < self.alpha:
@@ -97,32 +100,73 @@ class SignificanceAnalyzer:
                 f"Insufficient evidence to reject null hypothesis (p={p_value:.4f})\n"
                 f"This does not prove there is no effect, just that we couldn't detect one."
             )
-    
+
     def visualize_significance(self, test_statistic, df, observed_value):
         """Create visual representation of significance"""
         plt.figure(figsize=(12, 5))
-        
+
         # Distribution plot
         x = np.linspace(-4, 4, 1000)
         plt.plot(x, stats.t.pdf(x, df), 'b-', label='Null Distribution')
-        plt.axvline(observed_value, color='r', linestyle='--', 
+        plt.axvline(observed_value, color='r', linestyle='--',
                    label='Observed Value')
-        
+
         # Shade rejection regions
         critical_value = stats.t.ppf(1 - self.alpha/2, df)
         x_reject = x[(x <= -critical_value) | (x >= critical_value)]
-        plt.fill_between(x_reject, 
+        plt.fill_between(x_reject,
                         stats.t.pdf(x_reject, df),
                         color='red', alpha=0.2,
                         label='Rejection Region')
-        
+
         plt.title('Statistical Significance Visualization')
         plt.legend()
         plt.grid(True, alpha=0.3)
-        
+
         plt.savefig('docs/4-stat-analysis/4.2-hypotheses-testing/assets/significance_viz.png')
         plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="7-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class definition</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define <code>SignificanceAnalyzer</code> with a configurable alpha level (default 0.05) to drive all interpretation methods.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Interpret p-value</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Bundle significance flag, evidence strength label, and a plain-language interpretation into one return dict.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-35" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Evidence strength bands</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Categorise p-values into Very Strong / Strong / Moderate / Weak / No Evidence for stakeholder-facing reporting.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="49-68" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Significance plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw the t null density, mark the observed test statistic, and shade two-tailed rejection regions beyond the critical value.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Effect Sizes: The Magnitude Matters
 
@@ -130,14 +174,14 @@ Not just whether there's a difference, but how big it is:
 
 **Cohen's d formula:**
 
-\[
+\\[
 d = \frac{\bar{X}_1 - \bar{X}_2}{s_p}
-\]
+\\]
 
 where:
 
-- \( \bar{X}_1, \bar{X}_2 \): means of the two groups
-- \( s_p \): pooled standard deviation
+- \\( \bar{X}_1, \bar{X}_2 \\): means of the two groups
+- \\( s_p \\): pooled standard deviation
 
 **`EffectSizeAnalyzer`: label Cohen-style magnitude**
 
@@ -145,14 +189,17 @@ where:
 
 **Walkthrough:** `_get_magnitude` compares |effect| to literature thresholds by `type`; `_get_practical_significance` turns magnitude into narrative; plotting hooks are stubbed—extend `_plot_*` if you wire this class end-to-end.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class EffectSizeAnalyzer:
     """Toolkit for analyzing and interpreting effect sizes"""
-    
+
     def interpret_effect_size(self, effect_size, type='cohen'):
         """
         Interpret effect size with rich context
-        
+
         Parameters:
         -----------
         effect_size : float
@@ -161,32 +208,32 @@ class EffectSizeAnalyzer:
             Type of effect size ('cohen', 'r', 'eta')
         """
         interpretation = self._get_interpretation(effect_size, type)
-        
+
         # Create visualization
         plt.figure(figsize=(10, 4))
-        
+
         # Effect size scale
         plt.subplot(121)
         self._plot_effect_size_scale(effect_size, type)
-        
+
         # Practical impact
         plt.subplot(122)
         self._plot_practical_impact(effect_size, type)
-        
+
         plt.tight_layout()
         plt.savefig('docs/4-stat-analysis/4.2-hypotheses-testing/assets/effect_size_viz.png')
         plt.close()
-        
+
         return interpretation
-    
+
     def _get_interpretation(self, effect_size, type):
         """Get detailed interpretation of effect size"""
         # Get magnitude
         magnitude = self._get_magnitude(effect_size, type)
-        
+
         # Get practical significance
         practical = self._get_practical_significance(effect_size, type)
-        
+
         return {
             'effect_size': effect_size,
             'magnitude': magnitude,
@@ -196,7 +243,7 @@ class EffectSizeAnalyzer:
                 f"Practical Significance: {practical}"
             )
         }
-    
+
     def _get_magnitude(self, effect_size, type):
         """Determine magnitude of effect size"""
         if type == 'cohen':
@@ -205,29 +252,70 @@ class EffectSizeAnalyzer:
             thresholds = {0.1: 'small', 0.3: 'medium', 0.5: 'large'}
         elif type == 'eta':
             thresholds = {0.01: 'small', 0.06: 'medium', 0.14: 'large'}
-        
+
         abs_effect = abs(effect_size)
         for threshold, magnitude in sorted(thresholds.items()):
             if abs_effect < threshold:
                 return magnitude
         return 'very large'
-    
+
     def _get_practical_significance(self, effect_size, type):
         """Assess practical significance"""
         magnitude = self._get_magnitude(effect_size, type)
-        
+
         if magnitude in ['large', 'very large']:
             return "Likely to have substantial real-world impact"
         elif magnitude == 'medium':
             return "May have noticeable real-world impact"
         else:
             return "May have limited real-world impact"
-    
+
     def _plot_effect_size_scale(self, effect_size, type):
         """Create effect size scale visualization"""
         plt.title('Effect Size Scale')
         # Implementation details...
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class definition</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define <code>EffectSizeAnalyzer</code> to bundle interpretation and visualization of Cohen's d, r, and eta-squared in one place.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-31" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Public entry point</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Call private interpretation and visualization helpers, save the figure, and return a structured interpretation dict.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="53-63" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Magnitude thresholds</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Map numeric effect to "small / medium / large / very large" using literature thresholds for Cohen's d, Pearson r, and eta-squared.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="65-73" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Practical significance</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Translate magnitude into a stakeholder-facing sentence about real-world impact, separating statistical rarity from practical importance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Recommended Visualizations
 

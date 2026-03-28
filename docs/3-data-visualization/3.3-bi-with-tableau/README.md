@@ -216,10 +216,13 @@ RUNNING_SUM(SUM([Sales]))
 
 **Walkthrough:** Treat as signatures to look up in current docs; clustering and t-test need appropriate data prep.
 
-```sql
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
 -- Forecasting
 FORECAST_INDICATOR(
-    SUM([Sales]), 6, 'manual', 
+    SUM([Sales]), 6, 'manual',
     0.95, 'multiplicative'
 )
 
@@ -234,7 +237,39 @@ T_TEST(
     [Group1], [Group2],
     'two-tail', 0.95
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Forecasting</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>FORECAST_INDICATOR</code> with <code>'multiplicative'</code> seasonality and 95% confidence interval forecasts 6 periods ahead from the aggregated sales measure.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">K-Means Clustering</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>KMEANS</code> partitions records into 3 clusters using Euclidean distance on two dimensions—requires Tableau's Analytics model.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-17" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Statistical Test</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>T_TEST</code> runs a two-tailed t-test between two groups at the 95% confidence level to test for significant differences in means.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 4. Dashboard Design
 

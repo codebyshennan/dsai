@@ -1,3 +1,6 @@
+---
+published: false
+---
 # Module 3: maintainer backlog
 
 Internal checklist for **assets and enhancements** beyond the current lesson markdown. Authoring standards live in [`meta/DOCUMENTATION_GUIDELINES.md`](../meta/DOCUMENTATION_GUIDELINES.md).

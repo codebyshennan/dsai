@@ -207,7 +207,10 @@ Good documentation is essential in data science:
 - **Purpose:** Show a typical preprocessing skeleton: drop NA, then scale only numeric columns selected by `select_dtypes`.
 - **Walkthrough:** `scaler.fit_transform` returns an ndarray assigned back to `df[numeric_cols]`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Import required libraries
 import pandas as pd
 import numpy as np
@@ -216,23 +219,55 @@ from sklearn.preprocessing import StandardScaler
 def preprocess_data(df):
    """
    Preprocess the input DataFrame for analysis.
-   
+
    Parameters:
        df (pd.DataFrame): Input data
-       
+
    Returns:
        pd.DataFrame: Preprocessed data
    """
    # Remove missing values
    df = df.dropna()  # Important for model training
-   
+
    # Standardize numerical columns
    scaler = StandardScaler()
    numeric_cols = df.select_dtypes(include=[np.number]).columns
    df[numeric_cols] = scaler.fit_transform(df[numeric_cols])
-   
+
    return df
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Imports pandas, NumPy, and sklearn's <code>StandardScaler</code>—the three tools needed for this preprocessing pipeline.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Docstring</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A full docstring documents the parameter type and return type—good practice so callers know what to pass and what comes back.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-24" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Clean and Scale</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Drops NaN rows first, then uses <code>select_dtypes</code> to find numeric columns and scales them with <code>StandardScaler</code>—a common two-step before model training.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
  **Best Practice**: Use docstrings for functions and detailed inline comments for complex operations.
 
@@ -329,6 +364,25 @@ x = np.array([1,2,3])   # Unclear purpose
 ### Data Types for Analysis
 
 Python data types commonly used in data science:
+
+```mermaid
+graph TD
+    PY[Python types] --> NUM[Numeric]
+    PY --> TXT[Text]
+    PY --> BOOL[Boolean]
+    PY --> MISS[Missing / special]
+    NUM --> INT["int\n1, 1000"]
+    NUM --> FLT["float\n3.14, 23.5"]
+    NUM --> NINT["numpy int32/int64\nnp.int32(1)"]
+    NUM --> NFLT["numpy float64\nnp.float64(1.1)"]
+    TXT --> STR["str\n'Hello'"]
+    BOOL --> B["bool\nTrue / False"]
+    MISS --> NONE["None\n(Python missing)"]
+    MISS --> NAN["np.nan\n(numeric missing)"]
+    MISS --> NATD["pd.NaT\n(datetime missing)"]
+```
+
+*When you see a pandas `dtype` of `object`, it usually means string. `float64` columns often signal that pandas introduced NaN (which forces float) to hold missing values.*
 
 1. **Numeric Types for Statistical Analysis**:
 
@@ -541,6 +595,19 @@ F1 Score: 93.00%
 
 Common type conversions in data analysis:
 
+```mermaid
+flowchart LR
+    RAW["Raw value\n(string from CSV)"] -->|int()| I[int]
+    RAW -->|float()| F[float]
+    RAW -->|pd.to_datetime()| DT[datetime]
+    RAW -->|pd.Categorical()| CAT[category]
+    F -->|.astype(int)| I
+    I -->|.astype(float)| F
+    CAT -->|pd.get_dummies()| OHE[one-hot encoded\nDataFrame]
+```
+
+*Always validate before converting — a stray `"N/A"` string will raise a `ValueError` if you call `int()` directly. Use `pd.to_numeric(errors='coerce')` to convert safely and let pandas turn failures into `NaN`.*
+
 ```python
 import pandas as pd
 import numpy as np
@@ -579,34 +646,65 @@ def safe_float_convert(value):
 
 Best practices for type checking in data analysis:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 
 def validate_dataset(df):
    """Validate DataFrame data types and contents"""
-   
+
    # Check numeric columns
    numeric_cols = df.select_dtypes(include=[np.number]).columns
    for col in numeric_cols:
-       # Check for infinite values
        if np.any(np.isinf(df[col])):
            print(f"Warning: Infinite values in {col}")
-       
-       # Check for reasonable ranges
        if df[col].min() < 0 and col.endswith('_positive'):
            print(f"Warning: Negative values in {col}")
-   
+
    # Check categorical columns
    cat_cols = df.select_dtypes(include=['object']).columns
    for col in cat_cols:
-       # Check for unexpected categories
        unique_vals = df[col].nunique()
-       if unique_vals > 100:  # Arbitrary threshold
+       if unique_vals > 100:
            print(f"Warning: High cardinality in {col}")
-   
+
    return df
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Only pandas and NumPy are needed—pandas for type selection, NumPy for the <code>isinf</code> check.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Numeric Checks</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Loops over numeric columns to flag infinite values and negative numbers in columns whose names suggest they should be positive—two common data quality traps.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Categorical Checks</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Counts unique values per object column and warns if cardinality exceeds 100—high-cardinality categoricals often indicate data entry errors or IDs mistaken for categories.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Practice Exercises for Data Science
 > **Pro Tip:** Try solving these in Google Colab first, then use Python Tutor to understand your solution!

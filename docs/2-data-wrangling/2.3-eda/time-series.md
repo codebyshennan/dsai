@@ -28,7 +28,7 @@ Time series analysis is crucial for:
 
 ## Why Analyze Time Series?
 
-> **Figure (add screenshot or diagram):** Line chart of a series with trend—see **assets/timeseries_trend.png** when available.
+![Line chart of a time series with trend](assets/timeseries_trend.png)
 
 Time series analysis helps you:
 
@@ -278,68 +278,68 @@ class TimeSeriesAnalyzer:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-25" data-tint="1">
+  <div class="code-callout" data-lines="1-27" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Import pandas as pd</span>
+      <span class="code-callout__title">Imports and TimeSeriesAnalyzer constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Import pandas as pd</strong> — lines 1-25. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Eight imports including statsmodels for decomposition and stationarity tests. The constructor parses the date column with <code>pd.to_datetime</code> and sets it as the DataFrame index.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="26-51" data-tint="2">
+  <div class="code-callout" data-lines="28-46" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Self.value_column = value_column</span>
+      <span class="code-callout__title">analyze_components — period detection and decomposition</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Self.value_column = value_column</strong> — lines 26-51 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Auto-detects periodicity (7 for daily data, 12 for monthly), then calls <code>seasonal_decompose</code> with <code>extrapolate_trend='freq'</code> to handle edge points.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="52-77" data-tint="3">
+  <div class="code-callout" data-lines="47-69" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Plt.title(&#x27;Original Time Series&#x27;)</span>
+      <span class="code-callout__title">Decomposition plot</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Plt.title(&#x27;Original Time Series&#x27;)</strong> — lines 52-77 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Creates a 4-row subplot stack: original series, trend, seasonal component, and residuals—each with a descriptive title to identify patterns visually.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="78-102" data-tint="4">
+  <div class="code-callout" data-lines="71-103" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;yearly&#x27;: self.data[self.value_column].groupb…</span>
+      <span class="code-callout__title">analyze_patterns — temporal groupings and plots</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;yearly&#x27;: self.data[self.value_column].groupb…</strong> — lines 78-102. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p>Groups the value column by hour-of-day, day-of-week, month, and year to build four average-pattern series, then displays them in a 2×2 subplot grid.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="103-128" data-tint="1">
+  <div class="code-callout" data-lines="105-128" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Return patterns</span>
+      <span class="code-callout__title">analyze_stationarity — rolling stats and ADF test</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Return patterns</strong> — lines 103-128 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Plots the original series with a 7-day rolling mean and std to visually check stationarity, then runs the Augmented Dickey-Fuller test and flags the result with a p &lt; 0.05 threshold.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="129-154" data-tint="2">
+  <div class="code-callout" data-lines="130-154" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def detect_anomalies(self, window=30, thresho…</span>
+      <span class="code-callout__title">detect_anomalies — rolling z-score bounds</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def detect_anomalies(self, window=30, thresho…</strong> — lines 129-154. Window functions compute per-row values using a frame without collapsing groups—check <code>PARTITION BY</code> and <code>ORDER BY</code> inside <code>OVER</code>.</p>
+      <p>Computes rolling mean ± threshold×std over <code>window</code> days. Values outside those bounds are kept; in-range values are set to NaN, so <code>dropna()</code> returns only the anomaly timestamps.</p>
     </div>
   </div>
 </aside>
 </div>
 
-> **Figure (add screenshot or diagram):** Seasonal decomposition panels—see **assets/seasonal_decomposition.png** when available.
+![Seasonal decomposition: trend, seasonality, and residual components](assets/seasonal_decomposition.png)
 
-> **Figure (add screenshot or diagram):** Monthly or seasonal pattern chart—see **assets/monthly_pattern.png** when available.
+![Monthly seasonal pattern chart](assets/monthly_pattern.png)
 
-> **Figure (add screenshot or diagram):** Autocorrelation (ACF) plot—see **assets/autocorrelation.png** when available.
+![Autocorrelation (ACF) plot](assets/autocorrelation.png)
 
 ## Real-World Case Study: Sales Forecasting
 
@@ -431,49 +431,49 @@ create_sales_dashboard(sales_data, decomposition)
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Load sample sales data</span>
+      <span class="code-callout__title">Load data and run all four analyses</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Load sample sales data</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Loads the CSV, creates the analyser, then calls decomposition, pattern analysis, stationarity check, and anomaly detection in sequence.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="17-33" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">4. Detect Anomalies</span>
+      <span class="code-callout__title">Dashboard function signature and trend chart</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>4. Detect Anomalies</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines <code>create_sales_dashboard</code> and builds the first interactive chart: sales over time with the decomposed trend overlaid as a second trace.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="25-36" data-tint="3">
+  <div class="code-callout" data-lines="34-42" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Name=&#x27;Sales&#x27;</span>
+      <span class="code-callout__title">Monthly seasonality box plot</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Name=&#x27;Sales&#x27;</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Groups data by calendar month using a Plotly box plot so seasonal spread and medians are visible across all twelve months at once.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="37-48" data-tint="4">
+  <div class="code-callout" data-lines="43-59" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Data,</span>
+      <span class="code-callout__title">Anomaly overlay chart</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Data,</strong> — lines 37-48 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Plots the full sales line and overlays detected anomaly points as large red markers, making outlier timestamps immediately visible in the interactive chart.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="49-61" data-tint="1">
+  <div class="code-callout" data-lines="60-61" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Name=&#x27;Sales&#x27;</span>
+      <span class="code-callout__title">Execute dashboard</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Name=&#x27;Sales&#x27;</strong> — lines 49-61 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Calls <code>create_sales_dashboard</code> with the loaded data and the decomposition object to display all three interactive figures.</p>
     </div>
   </div>
 </aside>
@@ -533,13 +533,22 @@ def optimize_time_series(df):
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def optimize_time_series(df):</span>
+      <span class="code-callout__title">Datetime index and downsampling</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def optimize_time_series(df):</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Ensures the index is a proper DatetimeIndex, then resamples to daily means if the series has more than 10 000 rows—reducing memory without losing shape.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Float32 downcast</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Casts all numeric columns to float32, halving memory compared to float64 with negligible precision loss for most analytical use cases.</p>
     </div>
   </div>
 </aside>
@@ -573,13 +582,22 @@ def process_large_timeseries(file_path, chunksize=10000):
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def process_large_timeseries(file_path, chunk…</span>
+      <span class="code-callout__title">Chunked CSV read and processing loop</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def process_large_timeseries(file_path, chunk…</strong> — lines 1-10. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Uses <code>pd.read_csv(chunksize=…)</code> to stream the file in fixed-size blocks, keeping memory usage constant regardless of total file size. Each chunk is processed and appended to a list.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Concatenate results</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>pd.concat</code> assembles the final result only once all chunks are done, combining them back into a single DataFrame.</p>
     </div>
   </div>
 </aside>
@@ -628,13 +646,22 @@ Avoid these common mistakes in time series analysis:
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-12" data-tint="1">
+     <div class="code-callout" data-lines="1-4" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Def handle_irregular_intervals(df):</span>
+         <span class="code-callout__title">Resample to regular daily grid</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Def handle_irregular_intervals(df):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+         <p>Forces the time series onto a uniform daily frequency. Without this, downstream models may receive inconsistent time gaps and produce incorrect lags or windows.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="5-12" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Fill gaps progressively</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Short gaps (≤3 days) are forward-filled to carry the last known value. Remaining gaps use time-aware interpolation, which respects the actual temporal distance between known points.</p>
        </div>
      </div>
    </aside>
@@ -662,13 +689,22 @@ Avoid these common mistakes in time series analysis:
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-13" data-tint="1">
+     <div class="code-callout" data-lines="1-6" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Def detect_seasonality(data, max_lag=365):</span>
+         <span class="code-callout__title">Compute ACF and find peaks</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Def detect_seasonality(data, max_lag=365):</strong> — lines 1-13. Window functions compute per-row values using a frame without collapsing groups—check <code>PARTITION BY</code> and <code>ORDER BY</code> inside <code>OVER</code>.</p>
+         <p>Computes the autocorrelation function up to <code>max_lag</code> lags, then uses <code>find_peaks</code> to locate local maxima in the ACF curve—each peak is a candidate seasonal period.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="7-13" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Return dominant period</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Selects the lag at the highest ACF peak as the dominant seasonal period. Returns <code>None</code> if no peaks are found, indicating no clear periodicity.</p>
        </div>
      </div>
    </aside>
@@ -695,13 +731,22 @@ Avoid these common mistakes in time series analysis:
    {% endhighlight %}
    </div>
    <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-12" data-tint="1">
+     <div class="code-callout" data-lines="1-5" data-tint="1">
        <div class="code-callout__meta">
          <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Def analyze_trend_seasonality(data):</span>
+         <span class="code-callout__title">Extract trend via smoothing</span>
        </div>
        <div class="code-callout__body">
-         <p><strong>Def analyze_trend_seasonality(data):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+         <p>A 30-day rolling mean smooths out short-term fluctuations and seasonal noise, leaving the long-term trend signal.</p>
+       </div>
+     </div>
+     <div class="code-callout" data-lines="6-12" data-tint="2">
+       <div class="code-callout__meta">
+         <span class="code-callout__lines"></span>
+         <span class="code-callout__title">Isolate seasonal component</span>
+       </div>
+       <div class="code-callout__body">
+         <p>Subtracts the trend from the original series to get the detrended data, then groups by calendar month to compute the average seasonal pattern.</p>
        </div>
      </div>
    </aside>

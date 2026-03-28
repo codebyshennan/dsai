@@ -20,6 +20,25 @@ Almost every real question spans more than one table—customers and orders, stu
 
 ## Introduction to SQL Joins
 
+```mermaid
+graph LR
+    subgraph INNER["INNER JOIN — matching rows only"]
+        I1["Returns rows where\nON condition is TRUE in BOTH tables\nDrops unmatched rows from either side"]
+    end
+    subgraph LEFT["LEFT JOIN — keep all left rows"]
+        L1["Returns all rows from left table\nMatched columns from right or NULL\nMost common join in analytics"]
+    end
+    subgraph RIGHT["RIGHT JOIN — keep all right rows"]
+        R1["Returns all rows from right table\nMatched columns from left or NULL\nRare — usually rewrite as LEFT"]
+    end
+    subgraph FULL["FULL OUTER JOIN — keep everything"]
+        F1["Returns all rows from both tables\nNULL where no match\nUseful for reconciliation / audit"]
+    end
+    A["Table A"] & B["Table B"] --> INNER & LEFT & RIGHT & FULL
+```
+
+> **Figure (add screenshot or diagram):** Four Venn diagrams side by side — INNER (centre only), LEFT (left circle + centre), RIGHT (right circle + centre), FULL OUTER (both circles). Shade the returned region for each.
+
 SQL joins combine rows from two or more tables based on related columns. They are essential for:
 
 - Retrieving related data across tables
@@ -63,16 +82,16 @@ INNER JOIN customers c
       <span class="code-callout__title">Basic INNER JOIN</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Basic INNER JOIN</strong> — lines 1-8. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>Joins <code>orders</code> to <code>customers</code> on <code>customer_id</code>. Only rows with a matching customer in both tables appear—orders with no customer record and customers with no orders are both excluded.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="9-17" data-tint="2">
+  <div class="code-callout" data-lines="10-17" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Multiple conditions</span>
+      <span class="code-callout__title">Multiple ON conditions</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Multiple conditions</strong> — lines 9-17 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Two predicates in the <code>ON</code> clause mean both must match: the order's customer and the store must be the customer's preferred store. This further restricts the result—only orders placed at the customer's preferred location are returned.</p>
     </div>
   </div>
 </aside>
@@ -108,19 +127,19 @@ WHERE o.order_id IS NULL;
   <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Basic LEFT JOIN</span>
+      <span class="code-callout__title">LEFT JOIN: all customers, even those with no orders</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Basic LEFT JOIN</strong> — lines 1-8. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>Every customer from the left table appears in the result. Where there are no matching orders, <code>COUNT(o.order_id)</code> returns 0 and <code>COALESCE(SUM(…), 0)</code> substitutes 0 for the NULL total—customers who never ordered still appear with zeroes.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="9-16" data-tint="2">
+  <div class="code-callout" data-lines="10-16" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Finding missing relationships</span>
+      <span class="code-callout__title">Finding customers with no orders</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Finding missing relationships</strong> — lines 9-16 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>After the LEFT JOIN, rows where <code>o.order_id IS NULL</code> are exactly the customers who have no matching order. This anti-join pattern is a reliable way to find "missing" relationships without subqueries.</p>
     </div>
   </div>
 </aside>
@@ -155,19 +174,19 @@ WHERE oi.order_id IS NULL;
   <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Basic RIGHT JOIN</span>
+      <span class="code-callout__title">RIGHT JOIN: all products, even those never ordered</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Basic RIGHT JOIN</strong> — lines 1-7. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>The right table (<code>products</code>) drives the result—every product appears regardless of whether it has any matching <code>order_items</code> rows. <code>COALESCE(SUM(oi.quantity), 0)</code> returns 0 for products with no orders instead of NULL.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="8-15" data-tint="2">
+  <div class="code-callout" data-lines="9-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Finding unused products</span>
+      <span class="code-callout__title">Finding products that have never been ordered</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Finding unused products</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>After the RIGHT JOIN, <code>WHERE oi.order_id IS NULL</code> isolates products with no matching order item—another anti-join pattern, this time preserving the right table's unmatched rows.</p>
     </div>
   </div>
 </aside>
@@ -208,19 +227,19 @@ WHERE o.order_id IS NULL;
   <div class="code-callout" data-lines="1-10" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Basic FULL JOIN</span>
+      <span class="code-callout__title">FULL JOIN: every row from every table</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Basic FULL JOIN</strong> — lines 1-10. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>Three chained FULL JOINs mean unmatched rows from any table still appear—a customer with no orders, an order with no items, and a product with no order items all show up with NULLs for the unjoined columns.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-21" data-tint="2">
+  <div class="code-callout" data-lines="12-21" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
       <span class="code-callout__title">Finding all missing relationships</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Finding all missing relationships</strong> — lines 11-21 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>COALESCE</code> substitutes readable labels for NULLs in the output. <code>WHERE o.order_id IS NULL</code> filters to only the orphaned rows—customers with no orders, or products never ordered—exposing data integrity gaps across the four tables.</p>
     </div>
   </div>
 </aside>
@@ -254,22 +273,22 @@ CROSS JOIN products p;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-8" data-tint="1">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Basic CROSS JOIN</span>
+      <span class="code-callout__title">Basic CROSS JOIN: every product × category combination</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Basic CROSS JOIN</strong> — lines 1-8. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>A CROSS JOIN has no <code>ON</code> condition—it produces every combination of rows from both tables. With 100 products and 10 categories this gives 1,000 rows. Useful for generating all possibilities (e.g., a pricing matrix), dangerous when accidental.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="9-17" data-tint="2">
+  <div class="code-callout" data-lines="8-17" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SELECT</span>
+      <span class="code-callout__title">Generate date × product combinations</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SELECT</strong> — lines 9-17 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>generate_series</code> produces 8 consecutive dates; CROSS JOIN pairs each date with every product. This is a common pattern for pre-filling a calendar grid so that days with zero sales still appear as rows rather than gaps.</p>
     </div>
   </div>
 </aside>
@@ -300,10 +319,10 @@ JOIN products p ON oi.product_id = p.product_id;
   <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Order details with customer and product info</span>
+      <span class="code-callout__title">Multi-table INNER JOIN chain</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Order details with customer and product info</strong> — lines 1-11. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>Three consecutive JOINs thread through four tables: <code>orders → customers</code> for the buyer name, <code>orders → order_items</code> for the line rows, <code>order_items → products</code> for the price. Each JOIN adds columns; only rows present in every table are kept.</p>
     </div>
   </div>
 </aside>
@@ -339,22 +358,22 @@ ORDER BY times_bought_together DESC;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Employee hierarchy</span>
+      <span class="code-callout__title">Self join: employee → manager from the same table</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Employee hierarchy</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The same <code>employees</code> table is aliased twice. <code>e</code> is the employee row; <code>m</code> is the manager row found by matching <code>e.manager_id = m.employee_id</code>. LEFT JOIN keeps employees who have no manager (e.g., the CEO).</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-21" data-tint="2">
+  <div class="code-callout" data-lines="7-21" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">P2.product_name as recommended_product,</span>
+      <span class="code-callout__title">Self join on order_items: frequently bought together</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>P2.product_name as recommended_product,</strong> — lines 11-21 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>order_items</code> is joined to itself on the same <code>order_id</code> to find pairs of products appearing in the same order. <code>oi1.product_id &lt; oi2.product_id</code> prevents counting each pair twice and eliminates self-pairs. <code>HAVING COUNT(*) &gt; 5</code> keeps only popular combinations.</p>
     </div>
   </div>
 </aside>
@@ -386,22 +405,22 @@ LEFT JOIN drivers d
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-8" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Join based on date ranges</span>
+      <span class="code-callout__title">Range join: match events to overlapping promotions</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Join based on date ranges</strong> — lines 1-8. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>The <code>ON</code> clause uses <code>BETWEEN</code> instead of equality—an event matches a promotion if its date falls within the promotion's active window. LEFT JOIN keeps events even when no promotion was running.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="9-17" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Join with multiple conditions</span>
+      <span class="code-callout__title">Multi-condition join: only active drivers with capacity</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Join with multiple conditions</strong> — lines 9-17. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>Three conditions in the <code>ON</code> clause act as a composite filter at join time: the driver must cover the order's delivery zone, be currently active, and have fewer orders than their maximum capacity. This keeps the <code>WHERE</code> clause clean and expresses driver eligibility as part of the join.</p>
     </div>
   </div>
 </aside>
@@ -431,13 +450,22 @@ JOIN large_table ON medium_table.id = large_table.id;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-13" data-tint="1">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Use proper indexes</span>
+      <span class="code-callout__title">Index join columns for fast lookups</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Use proper indexes</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Creating indexes on the foreign key columns used in <code>ON</code> clauses (<code>customer_id</code>, and the composite <code>order_id, product_id</code>) lets the planner use an index nested-loop join instead of a full sequential scan of each table.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Hint: start from the smallest table</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The <code>/*+ LEADING(…) */</code> hint tells the planner which table to access first. Joining small → medium → large reduces intermediate row counts at each step and keeps memory usage low.</p>
     </div>
   </div>
 </aside>
@@ -467,22 +495,22 @@ GROUP BY c.customer_name;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-7" data-tint="1">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Avoid Cartesian products</span>
+      <span class="code-callout__title">Avoid implicit Cartesian products</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Avoid Cartesian products</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The comma-separated <code>FROM orders, customers</code> syntax produces a full Cartesian product—every order row paired with every customer row. Without a filter this is almost always a mistake. The explicit <code>JOIN … ON</code> form makes the intent clear and is harder to accidentally omit.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="8-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Handle NULL values</span>
+      <span class="code-callout__title">Handle NULLs from outer joins with COALESCE</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Handle NULL values</strong> — lines 8-15 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>After a LEFT JOIN, unmatched right-table columns are NULL. Aggregating NULL values with <code>SUM</code> returns NULL, not 0. <code>COALESCE(SUM(o.total_amount), 0)</code> converts the NULL result to 0 so customers who have never ordered show a meaningful total.</p>
     </div>
   </div>
 </aside>
@@ -528,31 +556,31 @@ LEFT JOIN customer_spending cs ON c.customer_id = cs.customer_id;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Use meaningful aliases</span>
+      <span class="code-callout__title">Readable aliases: full words instead of single letters</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Use meaningful aliases</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Using <code>cust</code>, <code>ord</code>, and <code>prod</code> instead of <code>c</code>, <code>o</code>, <code>p</code> makes queries self-documenting—readers can tell which table each column comes from without cross-referencing the FROM clause.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-20" data-tint="2">
+  <div class="code-callout" data-lines="10-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH customer_orders AS (</span>
+      <span class="code-callout__title">CTE 1: per-customer order counts</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH customer_orders AS (</strong> — lines 11-20. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>The first CTE pre-aggregates orders into one row per customer. Breaking a complex join into CTEs makes each piece independently readable and testable before composing them in the final SELECT.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="21-31" data-tint="3">
+  <div class="code-callout" data-lines="24-31" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SUM(total_amount) as total_spent</span>
+      <span class="code-callout__title">CTE 2 + outer join: combine aggregates per customer</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>SUM(total_amount) as total_spent</strong> — lines 21-31. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p>The second CTE sums total spend per customer. The final SELECT LEFT JOINs both CTEs onto <code>customers</code> so that customers with no orders still appear—with NULLs for count and total rather than being silently dropped.</p>
     </div>
   </div>
 </aside>
@@ -597,22 +625,22 @@ FROM user_journey;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH user_journey AS (</span>
+      <span class="code-callout__title">CTE: per-user event counts across the funnel</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH user_journey AS (</strong> — lines 1-14. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>LEFT JOIN <code>events</code> keeps users who never triggered any event. <code>COUNT(DISTINCT CASE WHEN event_type = 'view' THEN product_id END)</code> counts unique products at each funnel stage—view, cart, purchase—per user without multiple self-joins.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">ROUND(AVG(products_viewed)::numeric, 2) as av…</span>
+      <span class="code-callout__title">Outer query: aggregate funnel conversion rates</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>ROUND(AVG(products_viewed)::numeric, 2) as av…</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Averages per-user counts across all users, then computes view-to-cart and cart-to-purchase rates as percentages. <code>NULLIF(…, 0)</code> in the denominator prevents division-by-zero when no users reached the prior stage.</p>
     </div>
   </div>
 </aside>
@@ -660,31 +688,22 @@ ORDER BY orders_fulfilled DESC;
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-16" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH supplier_performance AS (</span>
+      <span class="code-callout__title">CTE: join suppliers → orders → deliveries</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH supplier_performance AS (</strong> — lines 1-11. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>Two LEFT JOINs chain from supplier to purchase orders then to deliveries. LEFT JOIN keeps suppliers who have no orders or deliveries. <code>EXTRACT(EPOCH FROM …)/86400</code> converts the interval to fractional days for <code>AVG</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-22" data-tint="2">
+  <div class="code-callout" data-lines="17-33" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">FROM suppliers s</span>
+      <span class="code-callout__title">Outer query: compute late-delivery rate and rating</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>FROM suppliers s</strong> — lines 12-22 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="23-33" data-tint="3">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">2</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>2</strong> — lines 23-33 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Divides late deliveries by total orders—<code>NULLIF(orders_fulfilled, 0)</code> prevents division-by-zero for new suppliers. The <code>CASE</code> expression buckets each supplier into a performance tier (Excellent / Good / Fair / Poor) for easy reporting.</p>
     </div>
   </div>
 </aside>
@@ -735,31 +754,22 @@ ORDER BY
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-18" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">WITH ticket_metrics AS (</span>
+      <span class="code-callout__title">CTE: join support tickets → orders → products</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>WITH ticket_metrics AS (</strong> — lines 1-12. The <code>WITH</code> clause names intermediate result sets; the outer query reads from them like views. Recursive CTEs union the base case with repeated expansion.</p>
+      <p>Three LEFT JOINs link each ticket to its related order, the order's items, and those items' products. LEFT JOIN preserves tickets that aren't linked to an order. <code>EXTRACT(EPOCH FROM …)/3600</code> converts the timestamp difference to hours for resolution time.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="19-36" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">EXTRACT(EPOCH FROM (t.resolved_at - t.created…</span>
+      <span class="code-callout__title">Outer query: aggregate metrics by priority</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>EXTRACT(EPOCH FROM (t.resolved_at - t.created…</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="25-36" data-tint="3">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">2</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>2</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Groups tickets by priority and calculates ticket count, average resolution time, resolution rate, and a comma-separated list of distinct affected products. <code>FILTER (WHERE product_name IS NOT NULL)</code> on <code>STRING_AGG</code> skips tickets not linked to any product.</p>
     </div>
   </div>
 </aside>
@@ -794,19 +804,19 @@ GROUP BY c.customer_name;
   <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Force hash join for large tables with no usef…</span>
+      <span class="code-callout__title">Hash join: best for large unsorted tables</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Force hash join for large tables with no usef…</strong> — lines 1-7. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>Hash joins build an in-memory hash table from the smaller table, then probe it for each row of the larger table. They work well when neither side has a useful index and are typically the planner's default for large ad-hoc joins.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="8-15" data-tint="2">
+  <div class="code-callout" data-lines="9-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Force merge join for indexed columns</span>
+      <span class="code-callout__title">Merge join: best for pre-sorted or indexed columns</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Force merge join for indexed columns</strong> — lines 8-15. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>Merge joins require both sides sorted on the join key. When an index already provides that order the planner can avoid a sort step and stream through both sides in a single pass—very efficient for equality joins on indexed columns.</p>
     </div>
   </div>
 </aside>
@@ -852,19 +862,19 @@ GROUP BY o.order_id;
   <div class="code-callout" data-lines="1-14" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Join with partitioned tables</span>
+      <span class="code-callout__title">Declare partitioned parent tables</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Join with partitioned tables</strong> — lines 1-14. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p><code>PARTITION BY RANGE (order_date)</code> and <code>PARTITION BY RANGE (order_id)</code> create parent tables with no data of their own—they delegate rows to child partitions. Queries against the parent automatically target only the relevant partition(s).</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="16-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Create corresponding partitions</span>
+      <span class="code-callout__title">Create child partitions and join them directly</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Create corresponding partitions</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Each <code>PARTITION OF … FOR VALUES FROM … TO …</code> creates a child table holding rows in that range. Joining the Q1 child partitions directly instead of the parent tables lets the planner skip all other partitions entirely—partition pruning.</p>
     </div>
   </div>
 </aside>
@@ -911,31 +921,31 @@ EXECUTE FUNCTION refresh_order_summary();
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Create materialized view for frequently joine…</span>
+      <span class="code-callout__title">Materialize a complex multi-join query as a stored result</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Create materialized view for frequently joine…</strong> — lines 1-10. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p><code>CREATE MATERIALIZED VIEW</code> executes the four-table JOIN once and stores the rows on disk. Subsequent reads hit the stored result instead of re-running the join—trading up-to-date data for dramatically faster reads.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-21" data-tint="2">
+  <div class="code-callout" data-lines="17-19" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">JOIN customers c ON o.customer_id = c.custome…</span>
+      <span class="code-callout__title">Index the materialized view for fast filtering</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>JOIN customers c ON o.customer_id = c.custome…</strong> — lines 11-21. Trace the <code>ON</code> predicates and join type: they decide which rows survive and whether unmatched keys appear as <code>NULL</code> (outer joins).</p>
+      <p>Indexes on <code>order_date</code> and <code>customer_name</code> make range scans and equality lookups on the materialized view just as fast as on a regular indexed table.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="22-32" data-tint="3">
+  <div class="code-callout" data-lines="21-33" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">RETURNS trigger AS $$</span>
+      <span class="code-callout__title">Trigger-based refresh: keep the view current on writes</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>RETURNS trigger AS $$</strong> — lines 22-32 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>A statement-level trigger fires after any INSERT, UPDATE, or DELETE on <code>orders</code> and calls <code>REFRESH MATERIALIZED VIEW CONCURRENTLY</code>—which rebuilds without locking out readers. This keeps the view fresh without a manual cron job.</p>
     </div>
   </div>
 </aside>
@@ -975,22 +985,22 @@ FROM generate_series(1, 100);
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Create sample customers</span>
+      <span class="code-callout__title">Bulk-insert 1,000 customers with random join dates</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Create sample customers</strong> — lines 1-11 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>generate_series(1, 1000)</code> produces 1,000 integers. The SELECT uses each integer <code>i</code> to generate a name and email, and casts a random fraction of 365 to an integer to spread join dates across the past year.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-23" data-tint="2">
+  <div class="code-callout" data-lines="9-24" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">(random() * 1000)::integer,</span>
+      <span class="code-callout__title">Bulk-insert orders and products with random values</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>(random() * 1000)::integer,</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>5,000 orders are inserted with random customer IDs (1–1,000), random dates in the past 90 days, and random amounts. Then 100 products are inserted with random category IDs and prices. Together these three blocks seed a realistic dataset for join practice.</p>
     </div>
   </div>
 </aside>
@@ -1041,28 +1051,19 @@ ORDER BY avg_total_spent DESC;
   <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Customer purchase patterns</span>
+      <span class="code-callout__title">CTE: per-customer order and spending summary</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Customer purchase patterns</strong> — lines 1-11 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>LEFT JOIN keeps customers who have never ordered. <code>COUNT(DISTINCT DATE_TRUNC('month', …))</code> counts how many different calendar months the customer placed at least one order—a proxy for purchase consistency over time.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-22" data-tint="2">
+  <div class="code-callout" data-lines="13-27" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">GROUP BY c.customer_id, c.customer_name</span>
+      <span class="code-callout__title">Outer query: classify each customer into a behaviour segment</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>GROUP BY c.customer_id, c.customer_name</strong> — lines 12-22. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="23-33" data-tint="3">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">ROUND(AVG(total_spent)::numeric, 2) as avg_to…</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>ROUND(AVG(total_spent)::numeric, 2) as avg_to…</strong> — lines 23-33 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>A <code>CASE</code> expression in both <code>SELECT</code> and <code>GROUP BY</code> labels each customer: never ordered, one-time, same-month repeat, or true returning. Grouping on the same expression aggregates counts and averages per segment for a high-level cohort summary.</p>
     </div>
   </div>
 </aside>

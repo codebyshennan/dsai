@@ -166,10 +166,10 @@ This single query tells us:
 ### 1. Introduction to Databases
 
 ```mermaid
-graph TD
+flowchart TD
     A[Database] --> B[Tables]
-    B --> C[Rows/Records]
-    B --> D[Columns/Fields]
+    B --> C["Rows / records"]
+    B --> D["Columns / fields"]
     A --> E[Relationships]
     E --> F[Primary Keys]
     E --> G[Foreign Keys]
@@ -196,33 +196,33 @@ Learn the building blocks of databases:
   - Data modeling best practices
   - Performance considerations
 
-- **Data Types & Constraints**
+**Data Types & Constraints**
 
-  <div class="code-explainer" data-code-explainer>
-  <div class="code-explainer__code">
-  
-  {% highlight sql %}
-    CREATE TABLE products (
-        product_id SERIAL PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        price DECIMAL(10,2) CHECK (price >= 0),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        category_id INT REFERENCES categories(id)
-    );
-  {% endhighlight %}
-  </div>
-  <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-    <div class="code-callout" data-lines="1-7" data-tint="1">
-      <div class="code-callout__meta">
-        <span class="code-callout__lines"></span>
-        <span class="code-callout__title">Table definition</span>
-      </div>
-      <div class="code-callout__body">
-        <p><code>SERIAL PRIMARY KEY</code> auto-generates surrogate IDs. <code>NOT NULL</code> and <code>CHECK (price &gt;= 0)</code> reject bad rows at insert time. <code>REFERENCES categories(id)</code> enforces a foreign key so every product points at a real category; <code>DEFAULT CURRENT_TIMESTAMP</code> fills <code>created_at</code> automatically.</p>
-      </div>
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2) CHECK (price >= 0),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    category_id INT REFERENCES categories(id)
+);
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Table definition</span>
     </div>
-  </aside>
+    <div class="code-callout__body">
+      <p><code>SERIAL PRIMARY KEY</code> auto-generates surrogate IDs. <code>NOT NULL</code> and <code>CHECK (price &gt;= 0)</code> reject bad rows at insert time. <code>REFERENCES categories(id)</code> enforces a foreign key so every product points at a real category; <code>DEFAULT CURRENT_TIMESTAMP</code> fills <code>created_at</code> automatically.</p>
+    </div>
   </div>
+</aside>
+</div>
 
 ### 2. Basic SQL Operations
 
@@ -342,11 +342,11 @@ $T_{memory} = O(k)$ where k = number of groups
 Master the art of combining data:
 
 ```mermaid
-graph LR
-    A[INNER JOIN] --> B[Matching Records]
-    C[LEFT JOIN] --> D[All Left + Matching Right]
-    E[RIGHT JOIN] --> F[All Right + Matching Left]
-    G[FULL JOIN] --> H[All Records]
+flowchart LR
+    A["INNER JOIN"] --> B["Matching rows"]
+    C["LEFT JOIN"] --> D["All left rows, matching right"]
+    E["RIGHT JOIN"] --> F["All right rows, matching left"]
+    G["FULL JOIN"] --> H["All rows"]
 ```
 
 Example of complex joins:
@@ -409,99 +409,99 @@ HAVING COUNT(DISTINCT order_id) > 0;
 
 Take your SQL skills to the next level:
 
-1. **Query Optimization**
+**1. Query optimization**
 
-   <div class="code-explainer" data-code-explainer>
-   <div class="code-explainer__code">
-   
-   {% highlight sql %}
-      EXPLAIN ANALYZE
-      SELECT /*+ INDEX(orders idx_order_date) */
-          DATE_TRUNC('month', order_date) as month,
-          COUNT(*) as order_count,
-          SUM(total_amount) as revenue
-      FROM orders
-      WHERE order_date >= CURRENT_DATE - INTERVAL '1 year'
-      GROUP BY DATE_TRUNC('month', order_date);
-   {% endhighlight %}
-   </div>
-   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-8" data-tint="1">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Plan and monthly revenue</span>
-       </div>
-       <div class="code-callout__body">
-         <p><strong>EXPLAIN ANALYZE</strong> runs the query and prints the executor plan plus actual timings—use it to see index use vs sequential scans. The <strong>SELECT</strong> buckets <code>order_date</code> by month over the last year and aggregates order counts and revenue (hint comment suggests an index on <code>order_date</code>).</p>
-       </div>
-     </div>
-   </aside>
-   </div>
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
 
-2. **Window Functions**
+{% highlight sql %}
+EXPLAIN ANALYZE
+SELECT /*+ INDEX(orders idx_order_date) */
+    DATE_TRUNC('month', order_date) as month,
+    COUNT(*) as order_count,
+    SUM(total_amount) as revenue
+FROM orders
+WHERE order_date >= CURRENT_DATE - INTERVAL '1 year'
+GROUP BY DATE_TRUNC('month', order_date);
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plan and monthly revenue</span>
+    </div>
+    <div class="code-callout__body">
+      <p><strong>EXPLAIN ANALYZE</strong> runs the query and prints the executor plan plus actual timings—use it to see index use vs sequential scans. The <strong>SELECT</strong> buckets <code>order_date</code> by month over the last year and aggregates order counts and revenue (hint comment suggests an index on <code>order_date</code>).</p>
+    </div>
+  </div>
+</aside>
+</div>
 
-   <div class="code-explainer" data-code-explainer>
-   <div class="code-explainer__code">
-   
-   {% highlight sql %}
-      SELECT 
-          category_name,
-          product_name,
-          price,
-          AVG(price) OVER (PARTITION BY category_name) as avg_category_price,
-          price - AVG(price) OVER (PARTITION BY category_name) as price_diff_from_avg,
-          RANK() OVER (PARTITION BY category_name ORDER BY price DESC) as price_rank
-      FROM products p
-      JOIN categories c ON p.category_id = c.category_id;
-   {% endhighlight %}
-   </div>
-   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-9" data-tint="1">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Partitioned windows</span>
-       </div>
-       <div class="code-callout__body">
-         <p><code>AVG(price) OVER (PARTITION BY category_name)</code> computes each row’s category average without collapsing rows. The next column subtracts that average from price (distance from typical). <code>RANK() … ORDER BY price DESC</code> ranks items inside each category.</p>
-       </div>
-     </div>
-   </aside>
-   </div>
+**2. Window functions**
 
-3. **Common Table Expressions (CTEs)**
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
 
-   <div class="code-explainer" data-code-explainer>
-   <div class="code-explainer__code">
-   
-   {% highlight sql %}
-      WITH RECURSIVE subordinates AS (
-          -- Base case: direct reports
-          SELECT employee_id, manager_id, name, 1 as level
-          FROM employees
-          WHERE manager_id = 1
-          
-          UNION ALL
-          
-          -- Recursive case: subordinates of subordinates
-          SELECT e.employee_id, e.manager_id, e.name, s.level + 1
-          FROM employees e
-          JOIN subordinates s ON e.manager_id = s.employee_id
-      )
-      SELECT * FROM subordinates ORDER BY level, employee_id;
-   {% endhighlight %}
-   </div>
-   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-14" data-tint="1">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Recursive org chart</span>
-       </div>
-       <div class="code-callout__body">
-         <p><strong>WITH RECURSIVE</strong> seeds with direct reports to manager 1, then <strong>UNION ALL</strong> joins employees to the growing result so each iteration walks one level down the tree. <code>level</code> increments until no new rows; the final <strong>SELECT</strong> returns the full subtree sorted by depth and id.</p>
-       </div>
-     </div>
-   </aside>
-   </div>
+{% highlight sql %}
+SELECT 
+    category_name,
+    product_name,
+    price,
+    AVG(price) OVER (PARTITION BY category_name) as avg_category_price,
+    price - AVG(price) OVER (PARTITION BY category_name) as price_diff_from_avg,
+    RANK() OVER (PARTITION BY category_name ORDER BY price DESC) as price_rank
+FROM products p
+JOIN categories c ON p.category_id = c.category_id;
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Partitioned windows</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>AVG(price) OVER (PARTITION BY category_name)</code> computes each row’s category average without collapsing rows. The next column subtracts that average from price (distance from typical). <code>RANK() … ORDER BY price DESC</code> ranks items inside each category.</p>
+    </div>
+  </div>
+</aside>
+</div>
+
+**3. Common table expressions (CTEs)**
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
+WITH RECURSIVE subordinates AS (
+    -- Base case: direct reports
+    SELECT employee_id, manager_id, name, 1 as level
+    FROM employees
+    WHERE manager_id = 1
+    
+    UNION ALL
+    
+    -- Recursive case: subordinates of subordinates
+    SELECT e.employee_id, e.manager_id, e.name, s.level + 1
+    FROM employees e
+    JOIN subordinates s ON e.manager_id = s.employee_id
+)
+SELECT * FROM subordinates ORDER BY level, employee_id;
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Recursive org chart</span>
+    </div>
+    <div class="code-callout__body">
+      <p><strong>WITH RECURSIVE</strong> seeds with direct reports to manager 1, then <strong>UNION ALL</strong> joins employees to the growing result so each iteration walks one level down the tree. <code>level</code> increments until no new rows; the final <strong>SELECT</strong> returns the full subtree sorted by depth and id.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Performance considerations:
 
@@ -539,325 +539,330 @@ Before starting this journey, ensure you have:
 
 ## Tools Required
 
-1. **DBeaver Community Edition**
-   - Universal Database Tool
+**1. DBeaver Community Edition**
 
-   <div class="code-explainer" data-code-explainer>
-   <div class="code-explainer__code">
-   
-   {% highlight bash %}
-      # Installation commands
-      # For macOS:
-      brew install --cask dbeaver-community
-      
-      # For Ubuntu:
-      sudo snap install dbeaver-ce
-   {% endhighlight %}
-   </div>
-   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-6" data-tint="1">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Install DBeaver</span>
-       </div>
-       <div class="code-callout__body">
-         <p><strong>Homebrew</strong> (macOS) and <strong>snap</strong> (Ubuntu) install the community edition GUI. After install, create a connection to your Postgres (or other) instance and use the SQL editor to run the course snippets.</p>
-       </div>
-     </div>
-   </aside>
-   </div>
+- Universal Database Tool
 
-   Features:
-   - SQL Editor with syntax highlighting
-   - Visual Query Builder
-   - ERD (Entity Relationship Diagram) viewer
-   - Data export/import wizards
-   - Multi-platform support (Windows, macOS, Linux)
-   - Connection templates for all major databases
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
 
-2. **Sample Database - Northwind**
-   Real-world business scenario database including:
+{% highlight bash %}
+# Installation commands
+# For macOS:
+brew install --cask dbeaver-community
 
-   <div class="code-explainer" data-code-explainer>
-   <div class="code-explainer__code">
-   
-   {% highlight sql %}
-      -- Core tables
-      - Customers (customer demographics and contacts)
-      - Products (product details and inventory)
-      - Orders (order details and shipping)
-      - Employees (staff information and territories)
-      
-      -- Key relationships
-      - One customer can have many orders
-      - One order can have multiple products
-      - Each product belongs to a category
-   {% endhighlight %}
-   </div>
-   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-10" data-tint="1">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Northwind outline</span>
-       </div>
-       <div class="code-callout__body">
-         <p>This block is a **schema sketch** (comments, not runnable DDL): core entities are customers, products, orders, and employees, with classic one-to-many paths (customer → orders → line items) and categories on products.</p>
-       </div>
-     </div>
-   </aside>
-   </div>
+# For Ubuntu:
+sudo snap install dbeaver-ce
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Install DBeaver</span>
+    </div>
+    <div class="code-callout__body">
+      <p><strong>Homebrew</strong> (macOS) and <strong>snap</strong> (Ubuntu) install the community edition GUI. After install, create a connection to your Postgres (or other) instance and use the SQL editor to run the course snippets.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
-   Installation:
+Features:
 
-   <div class="code-explainer" data-code-explainer>
-   <div class="code-explainer__code">
-   
-   {% highlight sql %}
-      -- 1. Create database
-      CREATE DATABASE northwind;
-      
-      -- 2. Import schema
-      psql -d northwind -f northwind_schema.sql
-      
-      -- 3. Import data
-      psql -d northwind -f northwind_data.sql
-   {% endhighlight %}
-   </div>
-   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-8" data-tint="1">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Create DB and load dumps</span>
-       </div>
-       <div class="code-callout__body">
-         <p><strong>CREATE DATABASE</strong> makes an empty database. <code>psql -f</code> runs SQL files: first schema (tables, keys), then data. Paths to the dump files must match your download; run from a shell where <code>psql</code> is on <code>PATH</code>.</p>
-       </div>
-     </div>
-   </aside>
-   </div>
+- SQL Editor with syntax highlighting
+- Visual Query Builder
+- ERD (Entity Relationship Diagram) viewer
+- Data export/import wizards
+- Multi-platform support (Windows, macOS, Linux)
+- Connection templates for all major databases
 
-3. **Additional Tools (Optional)**
-   - **pgAdmin 4**: Alternative GUI for PostgreSQL
-   - **Visual Studio Code**: With SQL extensions
-   - **DataGrip**: JetBrains SQL IDE (paid)
-   - **Postman**: For testing database APIs
+**2. Sample database (Northwind)**
 
-4. **Version Control Setup**
+Real-world business scenario database including:
 
-   <div class="code-explainer" data-code-explainer>
-   <div class="code-explainer__code">
-   
-   {% highlight bash %}
-      # Initialize SQL project
-      mkdir sql-practice
-      cd sql-practice
-      git init
-      
-      # Create .gitignore
-      echo "*.log" > .gitignore
-      echo "*.tmp" >> .gitignore
-   {% endhighlight %}
-   </div>
-   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-8" data-tint="1">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Git folder for scripts</span>
-       </div>
-       <div class="code-callout__body">
-         <p>Creates a directory and <strong>git init</strong> for versioned <code>.sql</code> files. <code>.gitignore</code> excludes logs and temp files so accidental local artifacts do not get committed.</p>
-       </div>
-     </div>
-   </aside>
-   </div>
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
+-- Core tables
+- Customers (customer demographics and contacts)
+- Products (product details and inventory)
+- Orders (order details and shipping)
+- Employees (staff information and territories)
+
+-- Key relationships
+- One customer can have many orders
+- One order can have multiple products
+- Each product belongs to a category
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Northwind outline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>This block is a **schema sketch** (comments, not runnable DDL): core entities are customers, products, orders, and employees, with classic one-to-many paths (customer → orders → line items) and categories on products.</p>
+    </div>
+  </div>
+</aside>
+</div>
+
+Installation:
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
+-- 1. Create database
+CREATE DATABASE northwind;
+
+-- 2. Import schema
+psql -d northwind -f northwind_schema.sql
+
+-- 3. Import data
+psql -d northwind -f northwind_data.sql
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create DB and load dumps</span>
+    </div>
+    <div class="code-callout__body">
+      <p><strong>CREATE DATABASE</strong> makes an empty database. <code>psql -f</code> runs SQL files: first schema (tables, keys), then data. Paths to the dump files must match your download; run from a shell where <code>psql</code> is on <code>PATH</code>.</p>
+    </div>
+  </div>
+</aside>
+</div>
+
+**3. Additional tools (optional)**
+
+- **pgAdmin 4**: Alternative GUI for PostgreSQL
+- **Visual Studio Code**: With SQL extensions
+- **DataGrip**: JetBrains SQL IDE (paid)
+- **Postman**: For testing database APIs
+
+**4. Version control setup**
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight bash %}
+# Initialize SQL project
+mkdir sql-practice
+cd sql-practice
+git init
+
+# Create .gitignore
+echo "*.log" > .gitignore
+echo "*.tmp" >> .gitignore
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Git folder for scripts</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates a directory and <strong>git init</strong> for versioned <code>.sql</code> files. <code>.gitignore</code> excludes logs and temp files so accidental local artifacts do not get committed.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices
 
-1. **Query Writing Standards**
+**1. Query writing standards**
 
-   <div class="code-explainer" data-code-explainer>
-   <div class="code-explainer__code">
-   
-   {% highlight sql %}
-      --  Bad Practice
-      SELECT * FROM orders o, customers c WHERE o.customer_id=c.id;
-      
-      --  Good Practice
-      SELECT 
-          c.first_name,
-          c.last_name,
-          o.order_date,
-          o.total_amount
-      FROM orders o
-      JOIN customers c 
-          ON o.customer_id = c.id
-      WHERE 
-          o.order_date >= CURRENT_DATE - INTERVAL '30 days'
-      ORDER BY 
-          o.order_date DESC;
-   {% endhighlight %}
-   </div>
-   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-8" data-tint="1">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Implicit join (avoid)</span>
-       </div>
-       <div class="code-callout__body">
-         <p>The “comma join” with <strong>WHERE</strong> is easy to misread and easy to turn into a Cartesian product if you forget a predicate. Prefer explicit <strong>JOIN … ON</strong> so relationships stay visible in the <strong>FROM</strong> clause.</p>
-       </div>
-     </div>
-     <div class="code-callout" data-lines="9-16" data-tint="2">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Explicit JOIN and columns</span>
-       </div>
-       <div class="code-callout__body">
-         <p>Lists only needed columns, joins orders to customers on <code>customer_id</code>, filters recent orders, and orders by date—readable structure for reviewers and for the optimizer.</p>
-       </div>
-     </div>
-   </aside>
-   </div>
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
 
-2. **Performance Optimization**
-   - **Indexing Strategy**
+{% highlight sql %}
+--  Bad Practice
+SELECT * FROM orders o, customers c WHERE o.customer_id=c.id;
 
-     <div class="code-explainer" data-code-explainer>
-     <div class="code-explainer__code">
-     
-     {% highlight sql %}
-          -- Create indexes for frequently queried columns
-          CREATE INDEX idx_orders_date ON orders(order_date);
-          CREATE INDEX idx_orders_customer ON orders(customer_id);
-          
-          -- Use composite indexes for common query patterns
-          CREATE INDEX idx_orders_customer_date 
-          ON orders(customer_id, order_date);
-     {% endhighlight %}
-     </div>
-     <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-       <div class="code-callout" data-lines="1-7" data-tint="1">
-         <div class="code-callout__meta">
-           <span class="code-callout__lines"></span>
-           <span class="code-callout__title">Single- and multi-column indexes</span>
-         </div>
-         <div class="code-callout__body">
-           <p>B-tree indexes on <code>order_date</code> and <code>customer_id</code> speed filters and joins. The composite index matches queries that filter by customer <em>and</em> date—column order should match your most selective predicates.</p>
-         </div>
-       </div>
-     </aside>
-     </div>
+--  Good Practice
+SELECT 
+    c.first_name,
+    c.last_name,
+    o.order_date,
+    o.total_amount
+FROM orders o
+JOIN customers c 
+    ON o.customer_id = c.id
+WHERE 
+    o.order_date >= CURRENT_DATE - INTERVAL '30 days'
+ORDER BY 
+    o.order_date DESC;
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Implicit join (avoid)</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The “comma join” with <strong>WHERE</strong> is easy to misread and easy to turn into a Cartesian product if you forget a predicate. Prefer explicit <strong>JOIN … ON</strong> so relationships stay visible in the <strong>FROM</strong> clause.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Explicit JOIN and columns</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lists only needed columns, joins orders to customers on <code>customer_id</code>, filters recent orders, and orders by date—readable structure for reviewers and for the optimizer.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
-   - **Query Optimization**
+**2. Performance optimization**
 
-     <div class="code-explainer" data-code-explainer>
-     <div class="code-explainer__code">
-     
-     {% highlight sql %}
-          --  Bad: Full table scan
-          SELECT * FROM orders 
-          WHERE EXTRACT(YEAR FROM order_date) = 2023;
-          
-          --  Good: Uses index
-          SELECT * FROM orders 
-          WHERE order_date >= '2023-01-01' 
-            AND order_date < '2024-01-01';
-     {% endhighlight %}
-     </div>
-     <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-       <div class="code-callout" data-lines="1-8" data-tint="1">
-         <div class="code-callout__meta">
-           <span class="code-callout__lines"></span>
-           <span class="code-callout__title">Sargable date range</span>
-         </div>
-         <div class="code-callout__body">
-           <p><code>EXTRACT(YEAR FROM order_date) = 2023</code> applies a function to the column, which often blocks index use. Prefer a **range** on <code>order_date</code> (<code>&gt;=</code> start and <code>&lt;</code> end of next year) so the planner can use a btree index.</p>
-         </div>
-       </div>
-     </aside>
-     </div>
+**Indexing strategy**
 
-3. **Data Integrity**
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
 
-   <div class="code-explainer" data-code-explainer>
-   <div class="code-explainer__code">
-   
-   {% highlight sql %}
-      -- Use constraints to enforce business rules
-      CREATE TABLE products (
-          product_id SERIAL PRIMARY KEY,
-          name VARCHAR(100) NOT NULL,
-          price DECIMAL(10,2) CHECK (price >= 0),
-          stock INT CHECK (stock >= 0),
-          category_id INT REFERENCES categories(id)
-      );
-   {% endhighlight %}
-   </div>
-   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-8" data-tint="1">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Constraints</span>
-       </div>
-       <div class="code-callout__body">
-         <p><code>CHECK</code> clauses forbid negative price or stock. <code>REFERENCES categories(id)</code> ties each product to an existing category row. Together they reject bad inserts before application code sees them.</p>
-       </div>
-     </div>
-   </aside>
-   </div>
+{% highlight sql %}
+-- Create indexes for frequently queried columns
+CREATE INDEX idx_orders_date ON orders(order_date);
+CREATE INDEX idx_orders_customer ON orders(customer_id);
 
-4. **Code Organization**
+-- Use composite indexes for common query patterns
+CREATE INDEX idx_orders_customer_date 
+ON orders(customer_id, order_date);
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Single- and multi-column indexes</span>
+    </div>
+    <div class="code-callout__body">
+      <p>B-tree indexes on <code>order_date</code> and <code>customer_id</code> speed filters and joins. The composite index matches queries that filter by customer <em>and</em> date—column order should match your most selective predicates.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
-   <div class="code-explainer" data-code-explainer>
-   <div class="code-explainer__code">
-   
-   {% highlight sql %}
-      -- Use CTEs for complex queries
-      WITH monthly_sales AS (
-          SELECT 
-              DATE_TRUNC('month', order_date) as month,
-              SUM(total_amount) as revenue
-          FROM orders
-          GROUP BY DATE_TRUNC('month', order_date)
-      ),
-      sales_growth AS (
-          SELECT 
-              month,
-              revenue,
-              LAG(revenue) OVER (ORDER BY month) as prev_month_revenue
-          FROM monthly_sales
-      )
-      SELECT 
-          month,
-          revenue,
-          ROUND(
-              ((revenue - prev_month_revenue) / prev_month_revenue * 100)::numeric, 
-              2
-          ) as growth_rate
-      FROM sales_growth;
-   {% endhighlight %}
-   </div>
-   <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-     <div class="code-callout" data-lines="1-11" data-tint="1">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Monthly revenue CTE</span>
-       </div>
-       <div class="code-callout__body">
-         <p>First CTE aggregates orders to one revenue row per calendar month. Second CTE uses <code>LAG(revenue) OVER (ORDER BY month)</code> to pull the previous month’s revenue on the same row—setup for period-over-period math.</p>
-       </div>
-     </div>
-     <div class="code-callout" data-lines="12-23" data-tint="2">
-       <div class="code-callout__meta">
-         <span class="code-callout__lines"></span>
-         <span class="code-callout__title">Growth rate</span>
-       </div>
-       <div class="code-callout__body">
-         <p>Final <strong>SELECT</strong> computes percent change vs prior month; the <code>::numeric</code> cast and <code>ROUND</code> control display. Guard division-by-null if the first month has no <code>LAG</code> (not shown here).</p>
-       </div>
-     </div>
-   </aside>
-   </div>
+**Query optimization**
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
+--  Bad: Full table scan
+SELECT * FROM orders 
+WHERE EXTRACT(YEAR FROM order_date) = 2023;
+
+--  Good: Uses index
+SELECT * FROM orders 
+WHERE order_date >= '2023-01-01' 
+  AND order_date < '2024-01-01';
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sargable date range</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>EXTRACT(YEAR FROM order_date) = 2023</code> applies a function to the column, which often blocks index use. Prefer a **range** on <code>order_date</code> (<code>&gt;=</code> start and <code>&lt;</code> end of next year) so the planner can use a btree index.</p>
+    </div>
+  </div>
+</aside>
+</div>
+
+**3. Data integrity**
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
+-- Use constraints to enforce business rules
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2) CHECK (price >= 0),
+    stock INT CHECK (stock >= 0),
+    category_id INT REFERENCES categories(id)
+);
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Constraints</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>CHECK</code> clauses forbid negative price or stock. <code>REFERENCES categories(id)</code> ties each product to an existing category row. Together they reject bad inserts before application code sees them.</p>
+    </div>
+  </div>
+</aside>
+</div>
+
+**4. Code organization**
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight sql %}
+-- Use CTEs for complex queries
+WITH monthly_sales AS (
+    SELECT 
+        DATE_TRUNC('month', order_date) as month,
+        SUM(total_amount) as revenue
+    FROM orders
+    GROUP BY DATE_TRUNC('month', order_date)
+),
+sales_growth AS (
+    SELECT 
+        month,
+        revenue,
+        LAG(revenue) OVER (ORDER BY month) as prev_month_revenue
+    FROM monthly_sales
+)
+SELECT 
+    month,
+    revenue,
+    ROUND(
+        ((revenue - prev_month_revenue) / prev_month_revenue * 100)::numeric, 
+        2
+    ) as growth_rate
+FROM sales_growth;
+{% endhighlight %}
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Monthly revenue CTE</span>
+    </div>
+    <div class="code-callout__body">
+      <p>First CTE aggregates orders to one revenue row per calendar month. Second CTE uses <code>LAG(revenue) OVER (ORDER BY month)</code> to pull the previous month’s revenue on the same row—setup for period-over-period math.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Growth rate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Final <strong>SELECT</strong> computes percent change vs prior month; the <code>::numeric</code> cast and <code>ROUND</code> control display. Guard division-by-null if the first month has no <code>LAG</code> (not shown here).</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Resources
 

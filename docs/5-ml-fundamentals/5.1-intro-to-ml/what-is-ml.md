@@ -22,7 +22,7 @@ Crash Course AI: how supervised learning fits into ML workflows.
 
 Machine Learning (ML) is a way to teach computers to learn from experience without being explicitly programmed. Instead of writing detailed rules for every situation, we show the computer examples and let it figure out the patterns on its own.
 
-![ML vs Traditional Programming](./images/ml_paradigm.png)
+> **Figure (add screenshot or diagram):** Side-by-side comparison of Traditional Programming (rules + data → output) versus Machine Learning (data + output → rules learned automatically) — two flowchart boxes with contrasting arrows.
 
 ### The Key Difference
 
@@ -31,13 +31,26 @@ Machine Learning (ML) is a way to teach computers to learn from experience witho
 
 ## Types of Machine Learning
 
+```mermaid
+graph TD
+    ML["Machine Learning"] --> SL["Supervised Learning\nLabeled data\nInput → Target"]
+    ML --> UL["Unsupervised Learning\nNo labels\nFind patterns"]
+    ML --> RL["Reinforcement Learning\nAgent + environment\nReward signal"]
+
+    SL --> REG["Regression\nNumeric output\nHouse price, demand forecast"]
+    SL --> CLS["Classification\nDiscrete output\nSpam, fraud, disease"]
+    UL --> CLU["Clustering\nGroup similar points\nCustomer segments"]
+    UL --> DIM["Dimensionality reduction\nCompress features\nPCA, t-SNE, UMAP"]
+    RL --> GAME["Games & robotics\nAlphaGo, self-driving\n(advanced topic)"]
+```
+
 There are three main types of machine learning:
 
 ### 1. Supervised Learning
 
 In supervised learning, we provide the computer with labeled examples to learn from. It's like learning with a teacher who shows you the correct answers.
 
-![Supervised Learning Examples](./images/supervised_learning.png)
+> **Figure (add screenshot or diagram):** Three supervised learning examples side by side: a labeled email dataset with Spam/Not Spam tags, a house price regression scatter plot, and an image with bounding-box labels — each showing the labeled training data concept.
 
 **Examples:**
 
@@ -49,7 +62,7 @@ In supervised learning, we provide the computer with labeled examples to learn f
 
 In unsupervised learning, we let the computer find patterns in data without providing labels. It's like discovering groups or patterns naturally.
 
-![Unsupervised Learning Example](./images/unsupervised_learning.png)
+> **Figure (add screenshot or diagram):** Scatter plot of unlabeled customer data points that separate into three visible clusters (colored differently), representing k-means or GMM finding structure without labels.
 
 **Examples:**
 
@@ -71,7 +84,7 @@ In reinforcement learning, an agent learns by interacting with an environment an
 
 The process of building a machine learning solution follows a systematic workflow:
 
-![ML Workflow](./images/ml_workflow.png)
+> **Figure (add screenshot or diagram):** Circular workflow diagram showing the 7-step ML process: Problem Definition → Data Collection → Data Preparation → Model Selection → Model Training → Evaluation → Deployment → (back to Problem Definition), with numbered arrows connecting each stage.
 
 1. **Problem Definition**: Clearly define what you want to achieve
 2. **Data Collection**: Gather relevant data
@@ -87,7 +100,7 @@ The process of building a machine learning solution follows a systematic workflo
 
 One of the fundamental challenges in machine learning is finding the right balance between bias and variance:
 
-![Bias-Variance Tradeoff](./images/bias_variance.png)
+> **Figure (add screenshot or diagram):** The classic bias-variance tradeoff curve — x-axis is model complexity, y-axis is error; two U-shaped curves for training error and test error crossing, marking the sweet spot, and the underfitting zone (left) vs overfitting zone (right) labeled.
 
 - **Underfitting (High Bias)**: Model is too simple and misses important patterns
 - **Good Fit**: Model captures the underlying patterns well
@@ -97,7 +110,7 @@ One of the fundamental challenges in machine learning is finding the right balan
 
 Learning curves help us understand how well our model is learning:
 
-![Learning Curves](./images/learning_curves.png)
+> **Figure (add screenshot or diagram):** Two learning curve plots side by side: one showing an underfitting model (both training and CV scores low and converging near the same low value) and one showing an overfitting model (training score high, CV score much lower with a persistent gap).
 
 - **Training Score**: How well the model performs on training data
 - **Cross-validation Score**: How well the model performs on new, unseen data
@@ -138,7 +151,10 @@ import matplotlib.pyplot as plt  # For visualization
 
 **Walkthrough:** `LinearRegression` learns coefficients from `sizes` → `prices`; `predict` extrapolates to 1750 sq ft.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.linear_model import LinearRegression
 
 # Sample data: house size (sq ft) and price ($)
@@ -153,7 +169,30 @@ model.fit(sizes, prices)
 new_size = [[1750]]
 predicted_price = model.predict(new_size)
 print(f"Predicted price for {new_size[0][0]} sq ft: ${predicted_price[0]:,.2f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data Preparation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Four (size, price) pairs serve as toy training data; <code>sizes</code> is a list of lists because sklearn expects a 2D feature matrix even for a single feature.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>model.fit</code> learns the slope and intercept; <code>predict</code> extrapolates to 1750 sq ft — this is the complete supervised learning loop in four lines.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 

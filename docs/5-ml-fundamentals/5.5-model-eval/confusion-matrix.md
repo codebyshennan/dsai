@@ -49,7 +49,15 @@ Imagine a model predicting whether a patient has a disease:
 
 ### 1. Binary Classification
 
-```python
+#### Logistic regression + heatmap
+
+- **Purpose:** Build a **2×2** confusion matrix from a trained classifier and visualize counts with **seaborn**—rows = true class, columns = predicted.
+- **Walkthrough:** `confusion_matrix(y_test, y_pred)`; `annot=True` writes cell counts; compare diagonal vs off-diagonal for error patterns.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -79,14 +87,54 @@ plt.title('Confusion Matrix')
 plt.ylabel('True Label')
 plt.xlabel('Predicted Label')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a synthetic 1000-sample binary classification dataset with 15 informative features, then split 80/20 into train and test sets.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train and Predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit logistic regression, generate test-set predictions, then compute the 2×2 confusion matrix comparing true vs predicted labels.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Heatmap Visualization</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>sns.heatmap</code> with <code>annot=True</code> writes raw counts in each cell; rows are true labels, columns are predicted labels.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![confusion-matrix](assets/confusion-matrix_fig_1.png)
 
 ### 2. Multi-class Classification
 
-```python
+#### Iris: 3×3 confusion matrix
+
+- **Purpose:** Same API extends to **multi-class**: off-diagonal cells show **which classes get confused** (e.g. versicolor vs virginica).
+- **Walkthrough:** `confusion_matrix` shape is `(n_classes, n_classes)`; row i = true class i.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier
 
@@ -112,7 +160,39 @@ plt.title('Multi-class Confusion Matrix')
 plt.ylabel('True Label')
 plt.xlabel('Predicted Label')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load Iris and Split</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The Iris dataset has three classes; the same <code>confusion_matrix</code> API produces a 3×3 matrix without any changes to the call.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train Random Forest and Predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A Random Forest classifier is fit on train data; predictions and the resulting confusion matrix reveal which species pairs are most confused.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-25" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Multi-class Heatmap</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The 3×3 heatmap shows diagonal hits and off-diagonal confusions — off-diagonal entries reveal which class pairs the model struggles to separate.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![confusion-matrix](assets/confusion-matrix_fig_2.png)
@@ -184,11 +264,24 @@ plt.show()
 
 Let's analyze a confusion matrix for a credit risk prediction model:
 
-```python
+#### Synthetic credit features + pipeline + CM
+
+- **Purpose:** Tie a **tabular** binary problem to a confusion matrix after **scaling + RandomForest**—closer to a real sklearn pipeline than raw matrices alone.
+- **Walkthrough:** Rule-based `y` from score-like features; `Pipeline` avoids scaling leakage when you CV properly in practice; heatmap reads like the binary case but with business labels (approve/reject) in narrative text below.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
 
 # Create credit risk dataset
 np.random.seed(42)
@@ -231,7 +324,48 @@ plt.title('Confusion Matrix for Credit Risk Prediction')
 plt.ylabel('True Label')
 plt.xlabel('Predicted Label')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import pandas, sklearn pipeline components, and seaborn — everything needed to build, train, and visualize a real-world credit pipeline.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Synthetic Credit Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate 1000 applicants with realistic financial distributions; the label is a simple threshold rule on score, income, and age.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-40" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline and Training</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A <code>Pipeline</code> chains <code>StandardScaler</code> and <code>RandomForestClassifier</code> so scaling is learned only from training data, preventing leakage.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="42-51" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Confusion Matrix Heatmap</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute and plot the binary confusion matrix with business-relevant labels (approve/reject) to reveal approval misclassification costs.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![confusion-matrix](assets/confusion-matrix_fig_3.png)

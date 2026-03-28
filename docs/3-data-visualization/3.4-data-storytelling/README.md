@@ -31,7 +31,7 @@ Think of this like building a house:
 - **Walls** (Conflict): The challenges and insights
 - **Roof** (Resolution): The solutions and next steps
 
-> **Figure (add screenshot or diagram):** Story Arc Visualization
+> **Figure (add screenshot or diagram):** A three-act story arc diagram for data presentations — a rising curve labeled "Setup (Context)" on the left, a peak labeled "Conflict (Insight/Problem)", and a descending resolution labeled "Resolution (Recommendation/Action)" — with example slide topics annotated at each stage.
 #### Why This Matters
 
 Understanding story architecture helps you:
@@ -49,7 +49,7 @@ Think of this like a traffic light system:
 - **Yellow** (Supporting Elements): Important context to consider
 - **Green** (Background Elements): Additional information for reference
 
-> **Figure (add screenshot or diagram):** Visual Hierarchy
+![Visual hierarchy principles in data storytelling](assets/visual_hierarchy.png)
 #### Why This Matters
 
 Good visual grammar helps you:
@@ -99,7 +99,7 @@ Think of this like choosing the right tool for a job:
 - **Line Chart**: Like a path - perfect for showing journeys
 - **Pie Chart**: Like a pizza - best for showing parts of a whole
 
-> **Figure (add screenshot or diagram):** Chart Selection Guide
+![Chart selection guide: which chart type fits which question](../../3-data-visualization/3.1-intro-data-viz/assets/chart_selection_guide.png)
 #### Common Mistakes to Avoid
 
 1. **Overcomplicating**: Don't use complex charts when simple ones will do

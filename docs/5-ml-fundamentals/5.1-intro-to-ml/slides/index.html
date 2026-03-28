@@ -13,7 +13,22 @@
         }
 
         .reveal {
-            font-size: 1.5em;
+            font-size: 1.45em;
+        }
+
+        /* Dense slides: smaller type so more bullets fit without overflow */
+        .reveal .box.box--compact {
+            font-size: 0.88em;
+            max-width: 92%;
+        }
+
+        .reveal .box.box--compact h3 {
+            font-size: 1.15em;
+        }
+
+        .reveal .box.box--compact li {
+            margin-bottom: 0.35em;
+            line-height: 1.35;
         }
 
         .reveal h1,
@@ -50,6 +65,8 @@
 
         .reveal li {
             margin-bottom: 0.5em;
+            overflow-wrap: anywhere;
+            word-wrap: break-word;
         }
 
         .reveal code {
@@ -80,23 +97,99 @@
             padding: 1em;
             border-radius: 8px;
             margin: 1em auto;
-            max-width: 80%;
+            max-width: 88%;
         }
 
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1.25em 2em;
+            max-width: 92%;
             margin: 0 auto;
+            align-items: start;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1em 1.25em;
+            max-width: 96%;
             margin: 0 auto;
+            align-items: start;
+        }
+
+        .reveal .two-column .list-container,
+        .reveal .three-column .list-container {
+            max-width: 100%;
+        }
+
+        .reveal .two-column ul,
+        .reveal .two-column ol,
+        .reveal .three-column ul,
+        .reveal .three-column ol {
+            max-width: 100%;
+        }
+
+        .slide-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.78em;
+            color: #555;
+            z-index: 2000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(4px);
+            padding: 0.4em 1em;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 0.75em;
+        }
+
+        .slide-nav a {
+            color: #555;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav a:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
+        }
+
+        .slide-nav__title {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+            color: #444;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .slide-nav__btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav__btn:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
         }
 
         .slide-footer {
@@ -115,6 +208,7 @@
 
         section {
             padding: 2em;
+            padding-top: 3.5em;
             padding-bottom: 4em;
             display: flex;
             flex-direction: column;
@@ -133,6 +227,16 @@
 </head>
 
 <body>
+    <nav class="slide-nav" id="slide-nav">
+        <a href="../" title="Back to lesson">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back
+        </a>
+        <span class="slide-nav__title">Introduction to Machine Learning</span>
+        <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        </button>
+    </nav>
     <div class="reveal">
         <div class="slides">
             
@@ -148,22 +252,32 @@
                 <section>
                     <div class="content-wrapper">
                         <h2>Bias Variance</h2>
-                        <div class="box">
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>High Bias (Underfitting)</strong></li>
 <li><strong>Low Bias</strong></li>
 <li><strong>High Variance (Overfitting)</strong></li>
 <li><strong>Low Variance</strong></li>
-<li>If you only show them one type of cat (high bias), they might miss other cat breeds</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>If you only show them one type of cat (high bias), they might miss other cat breeds</li>
 <li>If you show them every possible variation (high variance), they might start calling dogs cats too!</li>
 <li><strong>Training Score</strong>: How well the model performs on the data it's seen (like a student's performance on practice tests)</li>
 <li><strong>Cross-validation Score</strong>: How well the model performs on new data (like a student's performance on the actual exam)</li>
                         </ul>
                     </div>
                 
+                    </div>
+                
                         </div>
                     </div>
                     <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
@@ -172,10 +286,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Feature Engineering New</h2>
-                        <div class="box">
+                        <h2>Feature Engineering New (1/2)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Continuous Values</strong>: Like temperature or weight - they can take any value within a range</li>
@@ -183,12 +299,37 @@
 <li><strong>Nominal Categories</strong>: Groups with no particular order</li>
 <li><strong>Ordinal Categories</strong>: Groups with a meaningful order</li>
 <li><strong>Timestamps</strong>: Specific points in time</li>
-<li><strong>Time Series Data</strong>: Measurements taken over time</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Time Series Data</strong>: Measurements taken over time</li>
 <li><strong>Documents</strong>: Full text content</li>
 <li><strong>Social Media Posts</strong>: Short-form text</li>
 <li>$x$ is your original value (like a temperature in Celsius)</li>
 <li>$\mu$ is the average of all values (mean)</li>
-<li>$\sigma$ is how spread out the values are (standard deviation)</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Feature Engineering New (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>$\sigma$ is how spread out the values are (standard deviation)</li>
 <li>$x$ is your original value</li>
 <li>$x_{min}$ is the smallest value in your data</li>
 <li>$x_{max}$ is the largest value in your data</li>
@@ -203,10 +344,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Feature Engineering</h2>
-                        <div class="box">
+                        <h2>Feature Engineering (1/2)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Continuous Values</strong>: Like temperature or weight - they can take any value within a range</li>
@@ -214,12 +357,37 @@
 <li><strong>Nominal Categories</strong>: Groups with no particular order</li>
 <li><strong>Ordinal Categories</strong>: Groups with a meaningful order</li>
 <li><strong>Timestamps</strong>: Specific points in time</li>
-<li><strong>Time Series Data</strong>: Measurements taken over time</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Time Series Data</strong>: Measurements taken over time</li>
 <li><strong>Documents</strong>: Full text content</li>
 <li><strong>Social Media Posts</strong>: Short-form text</li>
 <li>$x$ is your original value (like a temperature in Celsius)</li>
 <li>$\mu$ is the average of all values (mean)</li>
-<li>$\sigma$ is how spread out the values are (standard deviation)</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Feature Engineering (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>$\sigma$ is how spread out the values are (standard deviation)</li>
 <li>$x$ is your original value</li>
 <li>$x_{min}$ is the smallest value in your data</li>
 <li>$x_{max}$ is the largest value in your data</li>
@@ -234,10 +402,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Ml Workflow</h2>
-                        <div class="box">
+                        <h2>Ml Workflow (1/2)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>What problem are we trying to solve?</li>
@@ -245,12 +415,37 @@
 <li>What data do we need?</li>
 <li>How will the solution be used?</li>
 <li>Keep track of your code changes</li>
-<li>Document model versions and performance</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Document model versions and performance</li>
 <li>Save model artifacts systematically</li>
 <li>Document your assumptions</li>
 <li>Keep track of preprocessing steps</li>
 <li>Record model performance metrics</li>
-<li>Monitor model performance over time</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Ml Workflow (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Monitor model performance over time</li>
 <li>Watch for data drift</li>
 <li>Set up alerts for performance degradation</li>
 <li>Analyze where your model makes mistakes</li>
@@ -267,10 +462,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>What Is Ml</h2>
-                        <div class="box">
+                        <h2>What Is Ml (1/2)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Traditional Programming</strong>: We write specific rules (program) to convert input into output</li>
@@ -278,12 +475,37 @@
 <li>Predicting house prices based on features (size, location, etc.)</li>
 <li>Classifying emails as spam or not spam</li>
 <li>Identifying objects in images</li>
-<li>Customer segmentation</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Customer segmentation</li>
 <li>Anomaly detection</li>
 <li>Topic modeling in text</li>
 <li>Game playing AI</li>
 <li>Robot navigation</li>
-<li>Resource management</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>What Is Ml (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Resource management</li>
 <li><strong>Underfitting (High Bias)</strong>: Model is too simple and misses important patterns</li>
 <li><strong>Good Fit</strong>: Model captures the underlying patterns well</li>
 <li><strong>Overfitting (High Variance)</strong>: Model is too complex and captures noise in the data</li>
@@ -308,6 +530,24 @@
             transition: 'slide',
             slideNumber: true,
             plugins: []
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Swap fullscreen icon when state changes
+        document.addEventListener('fullscreenchange', function () {
+            var icon = document.getElementById('fs-icon');
+            if (document.fullscreenElement) {
+                icon.innerHTML = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
+            } else {
+                icon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
+            }
         });
     </script>
 </body>

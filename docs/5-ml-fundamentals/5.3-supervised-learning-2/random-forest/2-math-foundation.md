@@ -30,17 +30,20 @@ This is exactly how bagging works in Random Forest!
 
 For a dataset of size n, we create m new datasets by randomly sampling with replacement. Each data point has about a 63.2% chance of being selected in each sample.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 
 def bootstrap_sample(X, y):
     """
     Create a bootstrap sample from the dataset.
-    
+
     Parameters:
     X: Features
     y: Target variable
-    
+
     Returns:
     X_sample: Sampled features
     y_sample: Sampled target
@@ -49,7 +52,30 @@ def bootstrap_sample(X, y):
     # Randomly select indices with replacement
     idxs = np.random.choice(n_samples, size=n_samples, replace=True)
     return X[idxs], y[idxs]
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Function Signature</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Takes feature matrix <code>X</code> and target <code>y</code>; the docstring documents inputs and outputs — critical since ~36.8% of samples will be left out (OOB) for each tree.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sample with Replacement</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>np.random.choice(..., replace=True)</code> selects n indices from 0…n-1 allowing duplicates — this is bootstrapping, the core mechanism that makes each tree in the forest see different training data.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Out-of-Bag (OOB) Estimation
 
@@ -78,24 +104,50 @@ At each split in a tree, we only consider a random subset of features:
 - For regression: typically $p/3$ features
 where $p$ is the total number of features.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def get_random_features(n_features, n_select):
     """
     Select a random subset of features.
-    
+
     Parameters:
     n_features: Total number of features
     n_select: Number of features to select
-    
+
     Returns:
     selected_features: Indices of selected features
     """
     return np.random.choice(
-        n_features, 
-        size=n_select, 
+        n_features,
+        size=n_select,
         replace=False
     )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Parameters</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Takes total feature count and how many to keep; the docstring clarifies that the return is feature <em>indices</em>, not values — these indices are then used to slice columns of <code>X</code> at each tree split.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Random Subset</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>replace=False</code> ensures no feature is picked twice per split; in sklearn this corresponds to <code>max_features='sqrt'</code> (classification) or <code>max_features='log2'</code> by convention.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Ensemble Prediction
 
@@ -124,21 +176,47 @@ Think of this as understanding which factors matter most in making a decision. F
 
 The Gini importance measures how much each feature contributes to reducing uncertainty in the predictions.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def gini_impurity(y):
     """
     Calculate Gini impurity - a measure of how mixed the classes are.
-    
+
     Parameters:
     y: Target variable
-    
+
     Returns:
     impurity: Gini impurity score
     """
     _, counts = np.unique(y, return_counts=True)
     probabilities = counts / len(y)
     return 1 - np.sum(probabilities ** 2)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Function and Docstring</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Takes a 1D label array <code>y</code> and returns a scalar impurity score between 0 (pure node) and 0.5 (maximally mixed for two classes).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Gini Calculation</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>np.unique</code> with <code>return_counts=True</code> tallies class frequencies; dividing by <code>len(y)</code> gives class probabilities; <code>1 - sum(p²)</code> implements the Gini formula.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Error Analysis
 
@@ -169,28 +247,54 @@ When deciding how to split the data at each node, we look for splits that:
 1. Create more homogeneous groups
 2. Reduce uncertainty in our predictions
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def information_gain(parent, left, right):
     """
     Calculate how much information we gain from a split.
-    
+
     Parameters:
     parent: Parent node data
     left: Left child node data
     right: Right child node data
-    
+
     Returns:
     gain: Information gain from the split
     """
     n = len(parent)
     n_l, n_r = len(left), len(right)
-    
+
     gain = gini_impurity(parent) - (
         n_l/n * gini_impurity(left) +
         n_r/n * gini_impurity(right)
     )
     return gain
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Signature and Docstring</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Takes three label arrays (parent node, left child, right child); information gain is the reduction in Gini impurity from the parent to the weighted-average child impurity.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Weighted Impurity Reduction</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Weights each child's Gini impurity by its fraction of the total samples (<code>n_l/n</code>, <code>n_r/n</code>); a larger gain means this split creates purer children — the tree picks the feature and threshold that maximizes this value.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Hyperparameter Effects
 

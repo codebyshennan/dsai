@@ -100,7 +100,10 @@ else:
 
 **Walkthrough:** `np.random.normal` fixes seed 42; `ttest_ind` yields the two-sided p-value used in the printout; figure writes to `assets/recovery_times_distribution.png` beside this lesson.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
@@ -135,7 +138,48 @@ print(f"Control group mean: {np.mean(control):.2f} days")
 print(f"Treatment group mean: {np.mean(treatment):.2f} days")
 print(f"P-value: {p_value:.4f}")
 print(f"Result: {'Significant' if p_value < 0.05 else 'Not significant'}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import libraries and fix the random seed so results are reproducible across runs.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two-arm simulation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Simulate recovery times for 30 control patients (mean 10 days) and 30 treatment patients (mean 9 days), then run an independent t-test.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Overlapping histograms</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot both groups as semi-transparent histograms with dashed vertical lines marking each group's mean.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="31-35" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Decision output</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print the group means and p-value, then report whether the result crosses the α = 0.05 threshold.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Recovery Times Distribution](assets/recovery_times_distribution.png)
 *Figure 4: Distribution of recovery times for control and treatment groups. The dashed lines indicate the mean recovery time for each group.*
@@ -160,54 +204,98 @@ A tiny p-value doesn't mean a huge effect!
 
 **Walkthrough:** Scenario 1 shifts means by 1% with n=1000; scenario 2 shifts by 10% with n=20; Cohen-style ratios use control SD; subplot titles embed live p-values from each run.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Demonstrating effect size vs p-value
 def compare_scenarios():
     # Scenario 1: Small effect, large sample
     large_sample1 = np.random.normal(100, 10, 1000)
     large_sample2 = np.random.normal(101, 10, 1000)  # Just 1% difference
-    
+
     # Scenario 2: Large effect, small sample
     small_sample1 = np.random.normal(100, 10, 20)
     small_sample2 = np.random.normal(110, 10, 20)  # 10% difference
-    
+
     # Calculate p-values and effect sizes
     _, p_value1 = stats.ttest_ind(large_sample1, large_sample2)
     _, p_value2 = stats.ttest_ind(small_sample1, small_sample2)
-    
+
     effect_size1 = (np.mean(large_sample2) - np.mean(large_sample1)) / np.std(large_sample1)
     effect_size2 = (np.mean(small_sample2) - np.mean(small_sample1)) / np.std(small_sample1)
-    
+
     # Visualize the scenarios
     plt.figure(figsize=(12, 5))
-    
+
     plt.subplot(121)
     plt.hist(large_sample1, alpha=0.5, label='Group 1', bins=30)
     plt.hist(large_sample2, alpha=0.5, label='Group 2', bins=30)
     plt.title(f'Small Effect (p={p_value1:.4f})')
     plt.legend()
-    
+
     plt.subplot(122)
     plt.hist(small_sample1, alpha=0.5, label='Group 1', bins=15)
     plt.hist(small_sample2, alpha=0.5, label='Group 2', bins=15)
     plt.title(f'Large Effect (p={p_value2:.4f})')
     plt.legend()
-    
+
     plt.tight_layout()
     plt.savefig('assets/effect_size_comparison.png')
     plt.close()
-    
+
     print("\nEffect Size vs P-value Comparison")
     print("\nScenario 1: Small Effect, Large Sample")
     print(f"P-value: {p_value1:.4f}")
     print(f"Effect size: {effect_size1:.2f}")
-    
+
     print("\nScenario 2: Large Effect, Small Sample")
     print(f"P-value: {p_value2:.4f}")
     print(f"Effect size: {effect_size2:.2f}")
 
 compare_scenarios()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="2-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two contrasting scenarios</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scenario 1 uses n=1000 with a tiny 1-unit shift; scenario 2 uses n=20 with a large 10-unit shift to contrast statistical vs practical significance.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">P-values and effect sizes</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Run t-tests on both pairs and compute Cohen-style effect sizes (mean difference ÷ control SD) to compare alongside p-values.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Side-by-side histograms</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Two subplots show heavily overlapping distributions (small effect) vs clearly separated groups (large effect) with live p-values in titles.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="37-46" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Printed comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print p-values and effect sizes for both scenarios to highlight how a small p-value does not guarantee a large or meaningful effect.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Effect Size Comparison](assets/effect_size_comparison.png)
 *Figure 5: Comparison of small effect with large sample (left) vs large effect with small sample (right). This demonstrates how p-values can be misleading without considering effect size.*
@@ -224,28 +312,31 @@ Larger samples can make tiny effects statistically significant.
 
 **Walkthrough:** Loop over `sizes`; each panel draws fresh normals (note: no fixed seed inside loop, so panels vary run-to-run); second loop prints a table of p-values vs n.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def show_sample_size_effect():
     effect_size = 0.2  # Fixed small effect
     sizes = [20, 100, 500, 1000]
-    
+
     # Visualize the effect of sample size
     plt.figure(figsize=(10, 6))
     for n in sizes:
         control = np.random.normal(0, 1, n)
         treatment = np.random.normal(effect_size, 1, n)
         _, p_value = stats.ttest_ind(control, treatment)
-        
+
         plt.subplot(2, 2, sizes.index(n) + 1)
         plt.hist(control, alpha=0.5, label='Control', bins=15)
         plt.hist(treatment, alpha=0.5, label='Treatment', bins=15)
         plt.title(f'n={n}, p={p_value:.4f}')
         plt.legend()
-    
+
     plt.tight_layout()
     plt.savefig('assets/sample_size_effect.png')
     plt.close()
-    
+
     print("\nSample Size Effect Demo")
     for n in sizes:
         control = np.random.normal(0, 1, n)
@@ -254,7 +345,39 @@ def show_sample_size_effect():
         print(f"n={n:4d}: p={p_value:.4f} {'Significant' if p_value < 0.05 else 'Not significant'}")
 
 show_sample_size_effect()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fixed small effect</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Hold the effect size constant at 0.2 standard deviations across all four sample-size trials.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Grid of histograms</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each n, draw fresh control and treatment samples, run a t-test, and plot overlapping histograms with the live p-value in each title.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-27" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Console table</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print n and p-value for each size, showing how the same small effect becomes "significant" only when n is large enough.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Sample Size Effect](assets/sample_size_effect.png)
 *Figure 6: Effect of sample size on p-values. As sample size increases, the same effect size becomes more detectable (smaller p-value).*
@@ -277,27 +400,30 @@ More consistent data makes effects easier to spot.
 
 **Walkthrough:** Rows of `table` are success/fail counts per arm; `np.mean` on 0/1 vectors gives rates; decision string is a toy business rule at α = 0.05.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def ab_test_simulation(n_visitors=1000):
     # Control: 10% conversion rate
     # Treatment: 12% conversion rate
-    
+
     control = np.random.binomial(1, 0.10, n_visitors)
     treatment = np.random.binomial(1, 0.12, n_visitors)
-    
+
     # Create contingency table
     table = np.array([
         [np.sum(control), len(control) - np.sum(control)],
         [np.sum(treatment), len(treatment) - np.sum(treatment)]
     ])
-    
+
     _, p_value, _, _ = stats.chi2_contingency(table)
-    
+
     # Visualize the results
     plt.figure(figsize=(8, 6))
-    plt.bar(['Control', 'Treatment'], 
+    plt.bar(['Control', 'Treatment'],
             [np.mean(control), np.mean(treatment)],
-            yerr=[np.std(control)/np.sqrt(len(control)), 
+            yerr=[np.std(control)/np.sqrt(len(control)),
                   np.std(treatment)/np.sqrt(len(treatment))],
             capsize=10)
     plt.title(f'A/B Test Results (p={p_value:.4f})')
@@ -305,7 +431,7 @@ def ab_test_simulation(n_visitors=1000):
     plt.ylim(0, 0.2)
     plt.savefig('assets/ab_test_results.png')
     plt.close()
-    
+
     print("\nA/B Test Results")
     print(f"Control conversion: {np.mean(control):.1%}")
     print(f"Treatment conversion: {np.mean(treatment):.1%}")
@@ -313,7 +439,48 @@ def ab_test_simulation(n_visitors=1000):
     print(f"Decision: {'Launch new version' if p_value < 0.05 else 'Keep current version'}")
 
 ab_test_simulation()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="4-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bernoulli arms</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Simulate binary conversion outcomes (0/1) for 1,000 visitors each in control (10%) and treatment (12%) groups.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Chi-square test</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Build a 2×2 contingency table of success/failure counts and run <code>chi2_contingency</code> to test whether conversion rates differ.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-26" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bar chart with error bars</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot mean conversion rates with ±1 SE error bars and embed the p-value in the chart title.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-33" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Launch decision</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print rates, p-value, and a simple rule: launch if p &lt; 0.05, otherwise keep the current version.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![A/B Test Results](assets/ab_test_results.png)
 *Figure 7: A/B test results showing conversion rates for control and treatment groups with error bars.*
@@ -342,12 +509,15 @@ When performing multiple tests:
 
 **Walkthrough:** List comprehension runs 20 independent two-sample t-tests on pure noise; `multipletests(..., method='bonferroni')[1]` returns adjusted p-values; scatter plot compares raw vs adjusted.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from statsmodels.stats.multitest import multipletests
 
 # Simulate multiple tests
-p_values = [stats.ttest_ind(np.random.normal(0, 1, 30), 
-                           np.random.normal(0, 1, 30)).pvalue 
+p_values = [stats.ttest_ind(np.random.normal(0, 1, 30),
+                           np.random.normal(0, 1, 30)).pvalue
             for _ in range(20)]
 
 # Apply Bonferroni correction
@@ -368,7 +538,48 @@ plt.close()
 print("\nMultiple Testing Correction")
 print(f"Original significant results: {sum(np.array(p_values) < 0.05)}")
 print(f"Corrected significant results: {sum(corrected_p < 0.05)}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Twenty null tests</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Run 20 independent t-tests on pure noise; some will fall below 0.05 by chance alone (false positives).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-9" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bonferroni correction</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Apply Bonferroni adjustment via <code>multipletests</code>, which multiplies each p-value by the number of tests to control family-wise error rate.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-21" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scatter comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot raw and corrected p-values together against the α = 0.05 threshold to show how correction shrinks apparent significance.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-25" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Count comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print before-and-after counts of "significant" results to illustrate how Bonferroni reduces false discoveries.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Multiple Testing Correction](assets/multiple_testing_correction.png)
 *Figure 8: Effect of multiple testing correction. The Bonferroni method adjusts p-values to control for the increased chance of false positives when performing multiple tests.*

@@ -138,15 +138,18 @@ For a network with $L$ layers:
 
 $$\frac{\partial L}{\partial w^{(l)}} = \frac{\partial L}{\partial a^{(l)}} \cdot \frac{\partial a^{(l)}}{\partial z^{(l)}} \cdot \frac{\partial z^{(l)}}{\partial w^{(l)}}$$
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def backward_pass(network, x, y, cache):
     """Compute gradients using backpropagation"""
     gradients = {}
     L = len(network)
-    
+
     # Output layer error
     dz = cache['a' + str(L)] - y
-    
+
     # Backpropagate through layers
     for l in reversed(range(L)):
         # Current layer gradients
@@ -156,7 +159,7 @@ def backward_pass(network, x, y, cache):
         gradients['db' + str(l)] = np.sum(
             dz, axis=1, keepdims=True
         )
-        
+
         if l > 0:
             # Error for previous layer
             dz = np.dot(
@@ -164,9 +167,41 @@ def backward_pass(network, x, y, cache):
             ) * activation_derivative(
                 cache['z' + str(l-1)]
             )
-    
+
     return gradients
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Output Layer Error</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Initialize gradient storage and compute the output-layer error <code>dz</code> as the difference between prediction and true label.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Weight Gradients</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each layer (in reverse), compute <code>dW</code> via outer product of error and previous activations, and <code>db</code> by summing the error signal.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-28" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Propagate Error Back</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Chain the error backward through the transposed weight matrix and multiply element-wise by the activation derivative to reach the previous layer.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Weight Initialization
 
@@ -205,18 +240,21 @@ Update rule with momentum $\beta$:
 $$v_t = \beta v_{t-1} + (1-\beta)\nabla_\theta J(\theta)$$
 $$\theta_t = \theta_{t-1} - \alpha v_t$$
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class MomentumOptimizer:
     def __init__(self, learning_rate=0.01, beta=0.9):
         self.lr = learning_rate
         self.beta = beta
         self.velocity = {}
-    
+
     def update(self, params, gradients):
         if not self.velocity:
             for key in params:
                 self.velocity[key] = np.zeros_like(params[key])
-        
+
         for key in params:
             # Update velocity
             self.velocity[key] = (
@@ -225,7 +263,39 @@ class MomentumOptimizer:
             )
             # Update parameters
             params[key] -= self.lr * self.velocity[key]
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Optimizer Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Store learning rate, momentum coefficient <code>beta</code>, and an empty dict for per-parameter velocity vectors.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-11" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Lazy Initialization</span>
+    </div>
+    <div class="code-callout__body">
+      <p>On the first call, create zero-filled velocity arrays matching each parameter's shape so the update rule works from the first step.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-19" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Momentum Update</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Blend the running velocity with the current gradient using <code>beta</code>, then nudge each parameter by the damped velocity — smoothing out oscillations.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Adam Optimizer
 
@@ -237,9 +307,12 @@ $$\hat{m}_t = \frac{m_t}{1-\beta_1^t}$$
 $$\hat{v}_t = \frac{v_t}{1-\beta_2^t}$$
 $$\theta_t = \theta_{t-1} - \alpha\frac{\hat{m}_t}{\sqrt{\hat{v}_t}+\epsilon}$$
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class AdamOptimizer:
-    def __init__(self, learning_rate=0.001, beta1=0.9, 
+    def __init__(self, learning_rate=0.001, beta1=0.9,
                  beta2=0.999, epsilon=1e-8):
         self.lr = learning_rate
         self.beta1 = beta1
@@ -248,15 +321,15 @@ class AdamOptimizer:
         self.m = {}  # First moment
         self.v = {}  # Second moment
         self.t = 0   # Time step
-    
+
     def update(self, params, gradients):
         if not self.m:
             for key in params:
                 self.m[key] = np.zeros_like(params[key])
                 self.v[key] = np.zeros_like(params[key])
-        
+
         self.t += 1
-        
+
         for key in params:
             # Update moments
             self.m[key] = (
@@ -267,17 +340,58 @@ class AdamOptimizer:
                 self.beta2 * self.v[key] +
                 (1 - self.beta2) * gradients[key]**2
             )
-            
+
             # Bias correction
             m_hat = self.m[key] / (1 - self.beta1**self.t)
             v_hat = self.v[key] / (1 - self.beta2**self.t)
-            
+
             # Update parameters
             params[key] -= (
-                self.lr * m_hat / 
+                self.lr * m_hat /
                 (np.sqrt(v_hat) + self.epsilon)
             )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Adam Hyperparameters</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Store the learning rate, two decay rates (<code>beta1</code> for momentum, <code>beta2</code> for RMS), a numerical floor <code>epsilon</code>, and empty dicts for first/second moments.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Initialize Moments</span>
+    </div>
+    <div class="code-callout__body">
+      <p>On the first update, create zero arrays for both <code>m</code> (first moment) and <code>v</code> (second moment) matching each parameter's shape.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Update Moments</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Accumulate an exponential moving average of gradients (<code>m</code>) and squared gradients (<code>v</code>) using their respective decay rates.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="31-38" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bias Correction and Step</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Divide by <code>(1 - beta^t)</code> to correct the early-step bias, then scale the gradient by <code>lr / (sqrt(v_hat) + epsilon)</code> for an adaptive per-parameter step.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Regularization Techniques
 
@@ -318,7 +432,10 @@ def dropout_backward(dout, cache):
 
 Let's create some visualizations to help understand these concepts:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -346,7 +463,39 @@ plt.grid(True)
 
 plt.tight_layout()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create 100 evenly spaced points from −5 to 5 and open a wide figure with three subplots side by side.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sigmoid Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plots <code>1/(1+e⁻ˣ)</code> — the S-shaped curve that squashes any input to (0, 1), used in binary output layers.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-18" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">ReLU and Tanh Plots</span>
+    </div>
+    <div class="code-callout__body">
+      <p>ReLU clips negatives to zero; Tanh maps to (−1, 1). Comparing all three side by side shows their distinct saturation behaviors.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![2-math-foundation](assets/2-math-foundation_fig_1.png)

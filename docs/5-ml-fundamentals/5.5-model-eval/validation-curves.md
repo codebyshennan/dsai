@@ -24,11 +24,36 @@ Validation curves plot the model's performance (typically error or accuracy) aga
 2. Validation score
 3. The relationship between them
 
+```mermaid
+graph LR
+    subgraph VC["Validation curve  (x = hyperparameter value)"]
+        LOW["Low complexity\n(small depth / large α)\nUnderfitting\nTrain ≈ Val, both high error"]
+        OPT["Optimal point\nSmall train-val gap\nBoth scores high"]
+        HIGH["High complexity\n(large depth / small α)\nOverfitting\nTrain high, Val drops"]
+    end
+    LOW -->|"increase complexity"| OPT
+    OPT -->|"too much complexity"| HIGH
+    subgraph DIFFER["Validation curve vs Learning curve"]
+        VC2["Validation curve:\nx-axis = hyperparameter\nDiagnoses: right complexity?"]
+        LC["Learning curve:\nx-axis = training set size\nDiagnoses: more data helps?"]
+    end
+```
+
+> **Figure (add screenshot or diagram):** A validation curve for tree `max_depth` (x-axis 1–20): training score (blue, stays high) and CV score (orange, peaks around depth 5–8 then drops), showing where overfitting starts.
+
 ## Types of Validation Curves
 
 ### 1. Model Complexity
 
-```python
+#### `validation_curve` for tree depth
+
+- **Purpose:** Sweep **`max_depth`** on a decision tree and plot **mean ± std** train vs CV scores—gap widening means overfitting as complexity grows.
+- **Walkthrough:** `validation_curve` fits `cv` folds per depth; `axis=1` aggregates folds; `fill_between` shows variance across splits.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import validation_curve
@@ -63,14 +88,45 @@ plt.title('Validation Curves (Model Complexity)')
 plt.legend(loc='best')
 plt.grid(True)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sweep Max Depth</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>validation_curve</code> fits 5 CV folds at each of 10 depth values; the output matrices (n_depths × n_folds) capture how score varies with complexity and split randomness.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-34" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Aggregate and Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Take mean and std across folds (<code>axis=1</code>), then plot both curves with <code>fill_between</code> bands; a widening gap between training and CV scores signals the onset of overfitting.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![validation-curves](assets/validation-curves_fig_1.png)
 
 ### 2. Regularization Strength
 
-```python
+#### Logistic `C` on a log scale
+
+- **Purpose:** See how **inverse regularization** `C` trades off bias and variance; uses the **same** `X, y` as the tree example above.
+- **Walkthrough:** `semilogx` matches log-spaced `C`; smaller `C` = stronger L2 penalty in sklearn’s `LogisticRegression`.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.linear_model import LogisticRegression
 
 # Calculate validation curves
@@ -98,14 +154,45 @@ plt.title('Validation Curves (Regularization)')
 plt.legend(loc='best')
 plt.grid(True)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Log-scale C Sweep</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>logspace(-4, 4, 9)</code> generates nine values from 0.0001 to 10000; small <code>C</code> applies strong L2 regularization while large <code>C</code> approaches an unregularized fit.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Semilog Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>semilogx</code> places the log-spaced <code>C</code> values evenly on the x-axis; the convergence of train and CV scores in the middle shows where regularization stops hurting and starts helping.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![validation-curves](assets/validation-curves_fig_2.png)
 
 ### 3. Learning Rate
 
-```python
+#### Gradient boosting `learning_rate`
+
+- **Purpose:** Illustrate validation curves for **`learning_rate`** in `GradientBoostingClassifier`—too high can overfit; too low needs more trees.
+- **Walkthrough:** Same `validation_curve` API with `param_name="learning_rate"`; compare train vs CV gap across rates.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.ensemble import GradientBoostingClassifier
 
 # Calculate validation curves
@@ -133,7 +220,30 @@ plt.title('Validation Curves (Learning Rate)')
 plt.legend(loc='best')
 plt.grid(True)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Learning Rate Range</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Sweep learning rate from 0.001 to 1.0 on a log scale; a very low rate needs more trees to converge while a very high rate can overfit with the default number of estimators.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Gap Analysis</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The same semilog plot pattern as the regularization example; a large train-CV gap at high learning rates identifies the overfitting regime for gradient boosting.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![validation-curves](assets/validation-curves_fig_3.png)
@@ -204,11 +314,22 @@ plt.show()
 
 Let's analyze validation curves for a credit risk prediction model:
 
-```python
+#### Pipeline + `classifier__max_depth` sweep
+
+- **Purpose:** Tune **nested** hyperparameters: the forest lives inside a **Pipeline**, so use **`classifier__max_depth`** as `param_name`.
+- **Walkthrough:** `validation_curve` clones the pipeline per depth; no manual train/test split here—the function does **internal CV** on `(X, y)`.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import validation_curve
 
 # Create credit risk dataset
 np.random.seed(42)
@@ -257,7 +378,39 @@ plt.title('Validation Curves for Credit Risk Prediction')
 plt.legend(loc='best')
 plt.grid(True)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-29" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Credit Dataset and Pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate the synthetic credit dataset and wrap a scaler+forest in a <code>Pipeline</code>; the pipeline object is passed directly to <code>validation_curve</code> so preprocessing runs correctly inside each fold.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="31-36" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Nested Parameter Name</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Use <code>classifier__max_depth</code> (double underscore) to reach through the pipeline and set the forest's depth; this pattern works for any nested step parameter in sklearn pipelines.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="38-57" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot and Interpret</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot mean ± std bands across depths 1–20; the depth where CV score peaks and the train-CV gap starts growing is the recommended operating depth for this credit model.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![validation-curves](assets/validation-curves_fig_4.png)

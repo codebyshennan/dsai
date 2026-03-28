@@ -643,4 +643,4 @@ Each part is worth 20 points:
 
 ## Next steps
 
-After you submit, review any misses with the [answer key](./module-assignment-key.md) (instructor-controlled), then continue to [SQL fundamentals](../../2-data-wrangling/2.1-sql/README.md) in Module 2, or return to the [course index](../../README.md).
+After you submit, review any misses with the [answer key](./module-assignment-key.md) (instructor-controlled), then continue to [SQL fundamentals](../../2-data-wrangling/2.1-sql/README.md) in Module 2, or return to the [full curriculum](../../curriculum.md).

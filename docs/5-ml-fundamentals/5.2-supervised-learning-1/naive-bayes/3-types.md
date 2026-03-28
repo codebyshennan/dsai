@@ -22,7 +22,7 @@ Think of choosing a Naive Bayes type like choosing the right tool for a job:
 
 ```mermaid
 graph TD
-    A[What's your data like?] --> B{Numbers?}
+    A["What's your data like?"] --> B{Numbers?}
     B -->|Yes| C[Gaussian NB]
     B -->|No| D{Counts?}
     D -->|Yes| E[Multinomial NB]
@@ -32,6 +32,8 @@ graph TD
 ```
 
 ## 1. Gaussian Naive Bayes: For Numbers
+
+![Gaussian NB: overlapping class distributions with decision boundary](assets/gaussian_nb.png)
 
 ### What is it?
 
@@ -61,7 +63,10 @@ These are all numbers, so Gaussian NB is perfect!
 - `StandardScaler().fit_transform` on training rows; `GaussianNB().fit`.
 - `transform` the new patient before `predict`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import StandardScaler
 
@@ -85,7 +90,30 @@ model.fit(scaled_data, diagnoses)
 new_patient = [[38.2, 85, 135, 40]]
 scaled_new_patient = scaler.transform(new_patient)
 prediction = model.predict(scaled_new_patient)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Scaling</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three patient records with four vitals are labelled sick/healthy; StandardScaler normalises the features so that temperature (38°C) and blood pressure (140 mmHg) live on comparable scales before Gaussian NB estimates the per-class distributions.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p>GaussianNB learns mean and variance for each feature per class; the new patient is transformed with the same scaler fitted on training data before calling <code>predict</code>.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Why This Matters
 
@@ -97,6 +125,8 @@ Gaussian NB is great because:
 - Fast and efficient
 
 ## 2. Multinomial Naive Bayes: For Counting
+
+![Word frequencies per class: spam words like 'buy' and 'free' vs ham words like 'meeting' and 'agenda'](assets/multinomial_feature_counts.png)
 
 ### What is it?
 
@@ -126,7 +156,10 @@ Multinomial NB counts how often words appear in each category to make its predic
 - `CountVectorizer().fit_transform(articles)` builds the document-term matrix.
 - `MultinomialNB().fit(X, categories)`; `vectorizer.transform(new_article)` then `predict`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -150,7 +183,30 @@ model.fit(X, categories)
 new_article = ["The new smartphone features amazing camera technology"]
 X_new = vectorizer.transform(new_article)
 prediction = model.predict(X_new)  # Should predict 'tech'
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Corpus and Vectorise</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three one-sentence training articles cover sports, tech, and politics; <code>CountVectorizer().fit_transform</code> builds a sparse document-term matrix of raw word counts used as features.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train and Classify</span>
+    </div>
+    <div class="code-callout__body">
+      <p>MultinomialNB models word counts as multinomial distributions per class; the new article is transformed with the same vocabulary before predict — words like "smartphone" and "technology" should push it toward "tech".</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Why This Matters
 
@@ -190,7 +246,10 @@ Bernoulli NB is perfect for these yes/no features!
 - `email_features` and `labels` are parallel lists; `BernoulliNB().fit`.
 - `predict` on `new_email` with the same four binary columns.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.naive_bayes import BernoulliNB
 
 # Example: Spam detection
@@ -208,7 +267,30 @@ model.fit(email_features, labels)
 # Predict a new email
 new_email = [[1, 0, 0, 1]]  # has_free=True, has_exclamation=True
 prediction = model.predict(new_email)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Binary Features</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Each email is encoded as four binary flags (has_free, has_attachment, has_link, has_exclamation); BernoulliNB models each feature as a Bernoulli trial (present/absent) rather than a word count.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The model learns P(feature=1 | class) for each binary flag; a new email with has_free and has_exclamation both true maps to the spam-like pattern seen in training.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Why This Matters
 
@@ -225,7 +307,7 @@ Bernoulli NB is great because:
 
 ```mermaid
 graph TD
-    A[What's your data?] --> B{Numbers?}
+    A["What's your data?"] --> B{Numbers?}
     B -->|Yes| C[Use Gaussian NB]
     B -->|No| D{Counts?}
     D -->|Yes| E[Use Multinomial NB]

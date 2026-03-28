@@ -24,15 +24,15 @@ Most pipeline incidents are integration problems: **schema drift**, **duplicate 
 
 ```mermaid
 graph TD
-    subgraph Batch Integration
+    subgraph batch_int ["Batch Integration"]
         A[Extract] --> B[Transform]
         B --> C[Load]
     end
-    subgraph Real-time Integration
+    subgraph rt_int ["Real-time Integration"]
         D[Stream] --> E[Process]
         E --> F[Store]
     end
-    subgraph Hybrid Integration
+    subgraph hyb_int ["Hybrid Integration"]
         G[Batch Layer] --> I[Serving Layer]
         H[Speed Layer] --> I
     end
@@ -206,28 +206,28 @@ class APIIntegrator:
   <div class="code-callout" data-lines="1-12" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Import requests</span>
+      <span class="code-callout__title">Imports and APIIntegrator constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Import requests</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Four imports. The constructor stores the base URL (stripped of trailing slash) and creates a persistent <code>requests.Session</code>, optionally attaching a Bearer token header for authenticated endpoints.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="13-24" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">If auth_token:</span>
+      <span class="code-callout__title">fetch_data — HTTP request and error handling</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>If auth_token:</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Builds the full URL, issues a GET request with optional query params, and calls <code>raise_for_status()</code> to convert 4xx/5xx responses into exceptions immediately.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="26-38" data-tint="3">
+  <div class="code-callout" data-lines="25-38" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Data = response.json()</span>
+      <span class="code-callout__title">Response normalisation</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Data = response.json()</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Handles three common API shapes: a JSON list (→ DataFrame directly), a dict with a <code>'data'</code> key (→ DataFrame from that list), or a single-object dict (→ one-row DataFrame).</p>
     </div>
   </div>
 </aside>
@@ -314,31 +314,31 @@ class FileIntegrator:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class FileIntegrator:</span>
+      <span class="code-callout__title">Class definition and constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class FileIntegrator:</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Stores a <code>base_path</code> prefix that is prepended to every file name, so callers pass relative paths and the class handles the full resolution.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="7-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Return pd.read_csv(file_path)</span>
+      <span class="code-callout__title">read_file — format dispatch</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Return pd.read_csv(file_path)</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Inspects the file extension and dispatches to the correct pandas reader: <code>read_csv</code>, <code>read_excel</code>, <code>read_json</code>, or <code>read_parquet</code>. Raises on unknown formats.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="25-36" data-tint="3">
+  <div class="code-callout" data-lines="23-36" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">File_path = f&quot;{self.base_path}/{file_path}&quot;</span>
+      <span class="code-callout__title">write_file — format dispatch</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>File_path = f&quot;{self.base_path}/{file_path}&quot;</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Mirror of <code>read_file</code>: dispatches to <code>to_csv</code>, <code>to_excel</code>, <code>to_json(orient='records')</code>, or <code>to_parquet</code> based on extension, all with <code>index=False</code>.</p>
     </div>
   </div>
 </aside>
@@ -375,22 +375,22 @@ class DatabaseIntegrator:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From sqlalchemy import create_engine, text</span>
+      <span class="code-callout__title">Imports and constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From sqlalchemy import create_engine, text</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Creates a SQLAlchemy engine from a connection string—the engine manages connection pooling and dialect translation for different databases.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-22" data-tint="2">
+  <div class="code-callout" data-lines="8-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&quot;&quot;&quot;Read data using SQL query&quot;&quot;&quot;</span>
+      <span class="code-callout__title">read_query, write_table, and execute_query</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&quot;&quot;&quot;Read data using SQL query&quot;&quot;&quot;</strong> — lines 12-22 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Three thin wrappers: <code>pd.read_sql</code> for SELECT queries, <code>df.to_sql</code> with an <code>append</code> strategy for writes, and a raw execution path for DDL or DML statements.</p>
     </div>
   </div>
 </aside>
@@ -482,22 +482,22 @@ class SchemaMapper:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From typing import Dict, List</span>
+      <span class="code-callout__title">SchemaMapper constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From typing import Dict, List</strong> — lines 1-10. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Accepts a <code>mapping</code> dict of source-name → target-name pairs and stores it for reuse in both the forward and reverse directions.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-21" data-tint="2">
+  <div class="code-callout" data-lines="10-21" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&quot;&quot;&quot;Apply column mapping to DataFrame&quot;&quot;&quot;</span>
+      <span class="code-callout__title">apply_mapping and reverse_mapping</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&quot;&quot;&quot;Apply column mapping to DataFrame&quot;&quot;&quot;</strong> — lines 11-21 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>apply_mapping</code> renames columns and drops any that are not in the mapping. <code>reverse_mapping</code> inverts the dict to rename target columns back to source names.</p>
     </div>
   </div>
 </aside>
@@ -532,22 +532,22 @@ class DataTypeConverter:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class DataTypeConverter:</span>
+      <span class="code-callout__title">Class definition and convert_types signature</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class DataTypeConverter:</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>A static method that takes a DataFrame and a dict of column→dtype pairs. It copies the DataFrame first to avoid mutating the caller's data.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-20" data-tint="2">
+  <div class="code-callout" data-lines="9-20" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">If column in df.columns:</span>
+      <span class="code-callout__title">Per-column type conversion with error handling</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>If column in df.columns:</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>For <code>'datetime'</code> uses <code>pd.to_datetime</code>; otherwise calls <code>astype</code>. Any conversion failure raises a descriptive <code>ValueError</code> naming the column and target dtype.</p>
     </div>
   </div>
 </aside>
@@ -593,19 +593,19 @@ class DataValidator:
   <div class="code-callout" data-lines="1-14" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From typing import Callable, Dict</span>
+      <span class="code-callout__title">Import, class definition, and add_rule</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From typing import Callable, Dict</strong> — lines 1-14. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports <code>Callable</code> and <code>Dict</code> from typing, defines <code>DataValidator</code> with a <code>validation_rules</code> dict keyed by column name, and <code>add_rule</code> which registers a callable rule for a given column.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="15-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def validate(self, df: pd.DataFrame) -&gt; bool:</span>
+      <span class="code-callout__title">validate method</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def validate(self, df: pd.DataFrame) -&gt; bool:</strong> — lines 15-28. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p><code>validate</code> iterates over every registered column and applies each rule via <code>df[column].apply(rule)</code>. It raises if a column is missing, then returns <code>True</code> only when every result series is all-True.</p>
     </div>
   </div>
 </aside>
@@ -647,22 +647,22 @@ class DataIntegrationPipeline:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-13" data-tint="1">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class DataIntegrationPipeline:</span>
+      <span class="code-callout__title">Class definition, constructor, and add_step</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class DataIntegrationPipeline:</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines <code>DataIntegrationPipeline</code> with a <code>steps</code> list. <code>add_step</code> appends a dict containing a step name, the callable function, and any extra keyword arguments—building up the pipeline declaratively before execution.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="14-27" data-tint="2">
+  <div class="code-callout" data-lines="16-27" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">})</span>
+      <span class="code-callout__title">run method with error handling</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>})</strong> — lines 14-27 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>run</code> iterates the steps list, calling each function on the running result DataFrame. On success it prints a confirmation; on failure it re-raises with the step name in the message so you know exactly where the pipeline broke.</p>
     </div>
   </div>
 </aside>
@@ -691,13 +691,22 @@ def extract_and_load(source_integrator, target_integrator,
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def extract_and_load(source_integrator, targe…</span>
+      <span class="code-callout__title">Signature and extract step</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def extract_and_load(source_integrator, targe…</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Takes source and target integrators plus their parameter dicts. The extract step calls <code>source_integrator.fetch_data</code> with the unpacked <code>source_params</code> to pull the raw data.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load step and return</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Writes the extracted data to the target system via <code>target_integrator.write_data</code> and returns it—allowing the caller to inspect or chain the result.</p>
     </div>
   </div>
 </aside>
@@ -725,13 +734,22 @@ def transform_and_load(data: pd.DataFrame, transformations: List[Callable],
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-13" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def transform_and_load(data: pd.DataFrame, tr…</span>
+      <span class="code-callout__title">Signature and transformation loop</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def transform_and_load(data: pd.DataFrame, tr…</strong> — lines 1-13. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Accepts a DataFrame, a list of transformation callables, and the target integrator. The loop applies each transform in order—<code>data = transform(data)</code>—so transformations chain without needing a pipeline object.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load step and return</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Writes the fully-transformed DataFrame to the target using <code>target_params</code>, then returns it so callers can log row counts or run post-load checks.</p>
     </div>
   </div>
 </aside>
@@ -766,22 +784,22 @@ def incremental_load(source_integrator, target_integrator,
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def incremental_load(source_integrator, targe…</span>
+      <span class="code-callout__title">Signature, filter injection, and extract</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def incremental_load(source_integrator, targe…</strong> — lines 1-10. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Accepts a <code>key_column</code> and <code>last_value</code> cursor. Before fetching, it injects a <code>gt</code> (greater-than) filter into <code>source_params</code> so only new rows are pulled—then calls <code>fetch_data</code> with the modified params.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-20" data-tint="2">
+  <div class="code-callout" data-lines="12-20" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Data = source_integrator.fetch_data(**source_…</span>
+      <span class="code-callout__title">Conditional load and cursor update</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Data = source_integrator.fetch_data(**source_…</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Only writes and advances the cursor when new rows exist (<code>not data.empty</code>). <code>last_value</code> is updated to <code>data[key_column].max()</code> so the next run resumes exactly where this one left off.</p>
     </div>
   </div>
 </aside>
@@ -908,58 +926,58 @@ except Exception as e:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-20" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Configuration</span>
+      <span class="code-callout__title">Configuration dict</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Configuration</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The <code>config</code> dict centralises all integration settings: the source API URL and auth token, the target database connection string, the field-level schema mapping (e.g., <code>'id' → 'customer_id'</code>), and per-column dtype targets for type conversion.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="22-38" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;value&#x27;: &#x27;purchase_amount&#x27;</span>
+      <span class="code-callout__title">Initialise components and validation rules</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;value&#x27;: &#x27;purchase_amount&#x27;</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Instantiates each integration component from the config, then registers two lambda validation rules: customer IDs must be positive and purchase amounts must be non-negative.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="26-38" data-tint="3">
+  <div class="code-callout" data-lines="40-47" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">)</span>
+      <span class="code-callout__title">Create pipeline and add extract step</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>)</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Creates a <code>DataIntegrationPipeline</code> and registers the first step: call <code>api_integrator.fetch_data</code> with <code>endpoint='sales'</code> to pull the raw sales records.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="39-50" data-tint="4">
+  <div class="code-callout" data-lines="49-63" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Create pipeline</span>
+      <span class="code-callout__title">Schema mapping, type conversion, and validation steps</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Create pipeline</strong> — lines 39-50 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Three pipeline steps run in sequence: rename columns to match the warehouse schema, cast each column to the configured dtype, then validate all rows against the registered rules before loading.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="51-63" data-tint="1">
+  <div class="code-callout" data-lines="65-69" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Schema_mapper.apply_mapping</span>
+      <span class="code-callout__title">Load step</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Schema_mapper.apply_mapping</strong> — lines 51-63 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The final pipeline step writes the validated, transformed data to the <code>sales</code> table via <code>db_integrator.write_table</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="64-76" data-tint="2">
+  <div class="code-callout" data-lines="71-76" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Pipeline.add_step(</span>
+      <span class="code-callout__title">Run pipeline with error handling</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Pipeline.add_step(</strong> — lines 64-76 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Executes the full pipeline inside a try/except. Success prints a confirmation; any step failure surfaces the step name in the error message so you know exactly where the integration broke.</p>
     </div>
   </div>
 </aside>

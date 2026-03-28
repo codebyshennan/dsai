@@ -32,7 +32,7 @@ Think of charts like different types of sentences:
 - **Line Chart** = Story over time (showing trends)
 - **Pie Chart** = Parts of a whole (showing proportions)
 
-> **Figure (add screenshot or diagram):** Chart Selection Guide
+![Chart selection guide: which chart type fits which question](../../3-data-visualization/3.1-intro-data-viz/assets/chart_selection_guide.png)
 The chart selection guide above helps you choose the right visualization based on your goal:
 
 1. **Comparison**: Use bar charts or column charts
@@ -145,7 +145,7 @@ Think of color like traffic signals:
 - **Yellow**: Caution and consider (supporting data)
 - **Green**: Go ahead and explore (background info)
 
-> **Figure (add screenshot or diagram):** Color Schemes
+![Color scheme examples for data visualization](../../3-data-visualization/3.1-intro-data-viz/assets/color_schemes.png)
 The color schemes above demonstrate three key approaches:
 
 1. **Sequential**: For showing progression or intensity
@@ -221,7 +221,7 @@ Think of layout like arranging furniture in a room:
 - **Flow**: How people move through the space (story progression)
 - **Balance**: Everything in its right place (visual harmony)
 
-> **Figure (add screenshot or diagram):** Layout Examples
+![Dashboard layout examples](assets/layout_examples.png)
 The layout examples above show three common structures:
 
 1. **Dashboard Layout**: For interactive data exploration

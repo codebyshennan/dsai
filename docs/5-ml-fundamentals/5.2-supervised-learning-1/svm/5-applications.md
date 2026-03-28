@@ -38,7 +38,10 @@ Let's build a simple spam detector that can classify emails:
 #### TF-IDF + linear SVC spam classifier
 **Purpose:** Train on a tiny email corpus, report accuracy, and classify a new message with probability and uncertainty flags.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
@@ -96,26 +99,26 @@ print(f"Accuracy: {accuracy:.2f}")
 def classify_email(email_text, threshold=0.7):
     """
     Classify an email as spam or not spam with confidence.
-    
+
     Parameters:
     - email_text: Text of the email to classify
     - threshold: Probability threshold for spam classification
-    
+
     Returns:
     - Classification result and confidence
     """
     # Transform email to TF-IDF features
     email_tfidf = vectorizer.transform([email_text])
-    
+
     # Get probability of being spam
     spam_probability = svm_classifier.predict_proba(email_tfidf)[0, 1]
-    
+
     # Classify based on threshold
     if spam_probability >= threshold:
         category = "SPAM"
     else:
         category = "NOT SPAM"
-        
+
     return {
         "classification": category,
         "confidence": spam_probability,
@@ -129,7 +132,48 @@ print(f"Email classified as: {result['classification']}")
 print(f"Confidence: {result['confidence']:.2f}")
 if result['uncertain']:
     print("This email requires manual review (uncertain classification)")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>NumPy for label arrays, <code>TfidfVectorizer</code> to convert text to numeric features, <code>SVC</code> as the classifier, and <code>train_test_split</code> to hold out test emails.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="31-51" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Vectorize and Train</span>
+    </div>
+    <div class="code-callout__body">
+      <p>TF-IDF converts each email into a sparse word-frequency vector; a linear-kernel SVC with <code>class_weight='balanced'</code> and <code>probability=True</code> is then fit on those vectors.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="58-83" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Classify Email</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>classify_email</code> transforms a new message with the fitted vectorizer and returns a dict with label, spam probability, and an <code>uncertain</code> flag for borderline cases near the 0.5 boundary.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="85-92" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Usage Demo</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A sample promotional email is passed through <code>classify_email</code>; the result prints classification, confidence, and a manual-review notice when the decision is uncertain.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -156,7 +200,10 @@ Let's create a simple image classifier using SVM:
 #### Synthetic 2D features and RBF SVC for two classes
 **Purpose:** Stand in for image feature vectors; evaluate accuracy and `predict_proba` for a new point.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
@@ -205,26 +252,26 @@ print(f"Accuracy: {accuracy:.2f}")
 def classify_image(features):
     """
     Classify an image based on its features.
-    
+
     Parameters:
     - features: Feature vector of the image
-    
+
     Returns:
     - Classification result and confidence
     """
     # Scale features
     scaled_features = scaler.transform([features])
-    
+
     # Get class probabilities
     probabilities = image_classifier.predict_proba(scaled_features)[0]
-    
+
     # Get predicted class
     predicted_class = image_classifier.predict(scaled_features)[0]
-    
+
     # Create human-readable result
     class_name = "Dog" if predicted_class == 1 else "Cat"
     confidence = probabilities[int(predicted_class)]
-    
+
     return {
         "class": class_name,
         "confidence": confidence,
@@ -243,36 +290,36 @@ print(f"Confidence: {result['confidence']:.2f}")
 # Visualize the classifier and data
 def plot_classifier():
     plt.figure(figsize=(10, 8))
-    
+
     # Create a mesh grid to visualize the decision boundary
     x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
     y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
     xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
                          np.arange(y_min, y_max, 0.1))
-    
+
     # Scale the mesh points
     mesh_points = np.c_[xx.ravel(), yy.ravel()]
     mesh_points_scaled = scaler.transform(mesh_points)
-    
+
     # Get predictions on mesh points
     Z = image_classifier.predict(mesh_points_scaled)
     Z = Z.reshape(xx.shape)
-    
+
     # Plot decision boundary
     plt.contourf(xx, yy, Z, alpha=0.3)
-    
+
     # Plot training data
     plt.scatter(cat_features[:, 0], cat_features[:, 1], c='blue', label='Cats')
     plt.scatter(dog_features[:, 0], dog_features[:, 1], c='red', label='Dogs')
-    
+
     # Plot support vectors
     plt.scatter(X[image_classifier.support_, 0], X[image_classifier.support_, 1],
                 s=100, facecolors='none', edgecolors='k', label='Support Vectors')
-    
+
     # Plot the new image point
-    plt.scatter(new_image_features[0], new_image_features[1], c='green', 
+    plt.scatter(new_image_features[0], new_image_features[1], c='green',
                 s=150, marker='*', label='New Image')
-    
+
     plt.legend()
     plt.title('SVM Image Classifier')
     plt.xlabel('Feature 1')
@@ -281,7 +328,48 @@ def plot_classifier():
 
 # Uncomment to visualize the classifier
 # plot_classifier()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Two Gaussian clusters centered at [2,2] and [-2,-2] stand in for cat and dog feature vectors; the combined array is split 80/20 for train and test.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-43" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scale and Train</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>StandardScaler</code> normalizes both feature dimensions before an RBF SVC (C=10) is fit; scaling is critical since the RBF kernel measures Euclidean distance.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="48-74" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Classify Image</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>classify_image</code> scales a raw feature vector, runs <code>predict_proba</code>, and returns a dict with class name, confidence, and per-class probabilities.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="83-110" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot Classifier</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plot_classifier</code> builds a meshgrid, predicts every grid point to shade decision regions, and overlays data points, support vectors, and the new image star marker.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -309,7 +397,10 @@ Here's how SVM can be used for medical diagnosis:
 #### Synthetic vitals + ROC-AUC, sensitivity, and specificity
 **Purpose:** Cross-validate on the training fold, then fit and report clinical-style metrics and a `diagnose_patient` helper.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
@@ -378,24 +469,24 @@ print(f"Specificity: {specificity:.2f}")  # True negative rate
 def diagnose_patient(measurements, risk_threshold=0.5):
     """
     Diagnose a patient based on medical measurements.
-    
+
     Parameters:
     - measurements: Array of patient measurements
       [blood_glucose, systolic_bp, diastolic_bp, bmi, cholesterol]
     - risk_threshold: Probability threshold for positive diagnosis
-    
+
     Returns:
     - Diagnosis results and risk assessment
     """
     # Scale measurements
     scaled_measurements = scaler.transform([measurements])
-    
+
     # Get probability of disease
     disease_probability = medical_classifier.predict_proba(scaled_measurements)[0, 1]
-    
+
     # Make diagnosis decision
     diagnosis = "POSITIVE" if disease_probability >= risk_threshold else "NEGATIVE"
-    
+
     # Determine risk level
     if disease_probability < 0.2:
         risk_level = "Low Risk"
@@ -405,10 +496,10 @@ def diagnose_patient(measurements, risk_threshold=0.5):
         risk_level = "High Risk"
     else:
         risk_level = "Very High Risk"
-    
+
     # Flag uncertain cases for specialist review
     needs_review = 0.4 <= disease_probability <= 0.6
-    
+
     return {
         "diagnosis": diagnosis,
         "disease_probability": disease_probability,
@@ -427,7 +518,48 @@ print(f"Diagnosis: {diagnosis_result['diagnosis']}")
 print(f"Disease Probability: {diagnosis_result['disease_probability']:.2f}")
 print(f"Risk Level: {diagnosis_result['risk_level']}")
 print(f"Recommendation: {diagnosis_result['recommendation']}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-27" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>100 healthy and 50 sick patients are drawn from Gaussian distributions over five vitals; stratified split preserves the 2:1 class ratio in both train and test sets.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-63" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CV, Fit, and Metrics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Five-fold cross-validation measures ROC-AUC on the training fold before the final model is fit; sensitivity and specificity are derived from the confusion matrix on the held-out test set.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="65-101" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Diagnose Patient</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>diagnose_patient</code> scales a new measurement vector, maps the disease probability to a four-level risk band, and flags borderline cases (0.4–0.6) for specialist review.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="103-110" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Usage Demo</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A new patient with elevated glucose and blood pressure is passed through the helper; the output prints diagnosis, numeric probability, risk level, and care recommendation.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -468,7 +600,10 @@ Here's how SVM can be used for credit risk assessment:
 #### Credit risk labels and `assess_credit_risk` helper
 **Purpose:** Train on synthetic applicant features, print `classification_report` and confusion matrix, then score a new applicant.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
@@ -526,20 +661,20 @@ print(cm)
 def assess_credit_risk(applicant_data):
     """
     Assess credit risk for a loan applicant.
-    
+
     Parameters:
     - applicant_data: Array of applicant information
       [income, credit_score, years_employed, debt_to_income_ratio]
-    
+
     Returns:
     - Risk assessment and loan recommendation
     """
     # Scale applicant data
     scaled_data = scaler.transform([applicant_data])
-    
+
     # Get risk probability
     risk_probability = risk_classifier.predict_proba(scaled_data)[0, 1]
-    
+
     # Determine risk level
     if risk_probability < 0.2:
         risk_level = "Very Low Risk"
@@ -561,7 +696,7 @@ def assess_credit_risk(applicant_data):
         risk_level = "Very High Risk"
         recommendation = "Decline"
         interest_rate = "N/A"
-    
+
     return {
         "risk_level": risk_level,
         "risk_probability": risk_probability,
@@ -582,7 +717,48 @@ print(f"Recommendation: {risk_assessment['recommendation']}")
 print(f"Suggested Interest Rate: {risk_assessment['suggested_interest_rate']}")
 if risk_assessment['manual_review_required']:
     print("This application requires manual review by a credit officer")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-29" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Split</span>
+    </div>
+    <div class="code-callout__body">
+      <p>200 low-risk and 100 high-risk applicants are synthesized from Gaussian distributions over income, credit score, employment, and debt ratio; stratified split preserves the 2:1 ratio.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="31-53" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scale, Fit, and Evaluate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Features are standardized, then an RBF SVC with <code>class_weight='balanced'</code> is fit; <code>classification_report</code> and the confusion matrix summarize precision, recall, and error types.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="55-95" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Assess Credit Risk</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>assess_credit_risk</code> converts raw applicant data to a risk probability and maps it to five tiers—each tier carries a lending recommendation, interest rate band, and manual-review flag.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="97-107" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Usage Demo</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A mid-range applicant (income 65 k, credit score 680) is scored; the output prints risk tier, probability, recommendation, suggested rate, and a manual-review notice if applicable.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -633,7 +809,10 @@ Here's a simple solution for handling missing values:
 #### Mean imputation before modeling
 **Purpose:** `SimpleImputer` fills NaNs so downstream SVM pipelines receive dense arrays.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.impute import SimpleImputer
 
@@ -648,30 +827,53 @@ X_with_missing = np.array([
 def handle_missing_data(X):
     """
     Handle missing values in data.
-    
+
     Parameters:
     - X: Input features with missing values
-    
+
     Returns:
     - Cleaned features with imputed values
     """
     # Create imputer that replaces missing values with the mean
     imputer = SimpleImputer(strategy='mean')
-    
+
     # Fit and transform the data
     X_imputed = imputer.fit_transform(X)
-    
+
     # Print before and after for comparison
     print("Original data with missing values:")
     print(X)
     print("\nData after imputation:")
     print(X_imputed)
-    
+
     return X_imputed
 
 # Handle the missing values
 X_clean = handle_missing_data(X_with_missing)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sample Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A 4×4 array is constructed with several <code>np.nan</code> entries scattered across rows and columns, representing a realistic scenario where some sensor readings or survey responses are missing.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-35" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Mean Imputation</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>SimpleImputer(strategy='mean')</code> replaces each NaN with the column mean computed from non-missing values; <code>fit_transform</code> does both steps in one call and returns a dense array safe for SVM pipelines.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -703,7 +905,10 @@ Proper feature scaling is essential for SVM:
 #### StandardScaler vs MinMaxScaler on mixed-scale features
 **Purpose:** Print descriptive stats before/after each scaler and plot three scatter panels (runs `plt.show()`).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import matplotlib.pyplot as plt
@@ -717,64 +922,64 @@ X_unscaled[:, 1] = X_unscaled[:, 1] * 0.1   # Second feature has much smaller sc
 def compare_scaling_methods(X):
     """
     Compare different scaling methods and their effects.
-    
+
     Parameters:
     - X: Input features to scale
-    
+
     Returns:
     - Dictionary of scaled datasets
     """
     # Create scalers
     standard_scaler = StandardScaler()
     minmax_scaler = MinMaxScaler()
-    
+
     # Apply scaling
     X_standard = standard_scaler.fit_transform(X)
     X_minmax = minmax_scaler.fit_transform(X)
-    
+
     # Print statistics
     print("Original data statistics:")
     print(f"Mean: {X.mean(axis=0)}")
     print(f"Std: {X.std(axis=0)}")
     print(f"Min: {X.min(axis=0)}")
     print(f"Max: {X.max(axis=0)}")
-    
+
     print("\nStandardScaler statistics:")
     print(f"Mean: {X_standard.mean(axis=0)}")
     print(f"Std: {X_standard.std(axis=0)}")
     print(f"Min: {X_standard.min(axis=0)}")
     print(f"Max: {X_standard.max(axis=0)}")
-    
+
     print("\nMinMaxScaler statistics:")
     print(f"Mean: {X_minmax.mean(axis=0)}")
     print(f"Std: {X_minmax.std(axis=0)}")
     print(f"Min: {X_minmax.min(axis=0)}")
     print(f"Max: {X_minmax.max(axis=0)}")
-    
+
     # Visualize the scaling effects
     plt.figure(figsize=(15, 5))
-    
+
     plt.subplot(1, 3, 1)
     plt.scatter(X[:, 0], X[:, 1])
     plt.title('Original Data (Unscaled)')
     plt.xlabel('Feature 1')
     plt.ylabel('Feature 2')
-    
+
     plt.subplot(1, 3, 2)
     plt.scatter(X_standard[:, 0], X_standard[:, 1])
     plt.title('StandardScaler (Mean=0, Std=1)')
     plt.xlabel('Feature 1')
     plt.ylabel('Feature 2')
-    
+
     plt.subplot(1, 3, 3)
     plt.scatter(X_minmax[:, 0], X_minmax[:, 1])
     plt.title('MinMaxScaler (Range [0,1])')
     plt.xlabel('Feature 1')
     plt.ylabel('Feature 2')
-    
+
     plt.tight_layout()
     plt.show()
-    
+
     return {
         'original': X,
         'standard_scaled': X_standard,
@@ -783,7 +988,39 @@ def compare_scaling_methods(X):
 
 # Compare different scaling methods
 scaled_data = compare_scaling_methods(X_unscaled)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Mixed-Scale Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Two features are artificially skewed—one scaled ×1000, the other ×0.1—to exaggerate the scale mismatch that motivates feature normalization before SVM training.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-50" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Apply and Print Stats</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Both scalers are fit and applied; mean, std, min, and max are printed for all three versions so you can verify that StandardScaler centers to zero and MinMaxScaler compresses to [0, 1].</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="52-73" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Side-by-Side Scatter</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three subplots show the original data, the standardized version, and the min-max version side by side, making the visual effect of each scaling method immediately apparent.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![5-applications](assets/5-applications_fig_1.png)
 
@@ -826,7 +1063,10 @@ Handling imbalanced classes in SVM:
 #### Standard SVM vs `class_weight` vs SMOTE
 **Purpose:** Compare three training strategies on the same held-out test split.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
@@ -874,7 +1114,48 @@ print("\nSVM with class_weight='balanced':")
 print(classification_report(y_test, y_pred_balanced))
 print("\nSMOTE + SVM:")
 print(classification_report(y_test, y_pred_smote))
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imbalanced Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>500 majority-class and 50 minority-class samples create a 10:1 imbalance; stratified split ensures the same ratio appears in both train and test sets.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-30" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Standard SVM</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A plain RBF SVC with no imbalance correction; its predictions will be biased toward the majority class, typically showing poor minority-class recall.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="32-42" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Balanced and SMOTE</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The second SVC uses <code>class_weight='balanced'</code> to up-weight minority errors; the third resamples the training set with SMOTE before fitting a standard SVC.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="44-49" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Report Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>All three <code>classification_report</code> calls are printed back-to-back so you can compare per-class precision, recall, and F1 across all three strategies on the same test set.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Explanation:**
 - Imbalanced classes are common in real-world problems (e.g., fraud detection, rare disease diagnosis)

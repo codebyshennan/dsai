@@ -44,6 +44,24 @@ Model evaluation is like weather forecasting:
 
 ## Metrics Comparison and Selection Guide
 
+```mermaid
+flowchart TD
+    A{What kind\nof problem?} -->|Classification| B{Are classes\nbalanced?}
+    A -->|Regression| R[MSE / RMSE / MAE / R²]
+    B -->|Yes, roughly balanced| C{Do false positives\ncost more?}
+    B -->|No, imbalanced| D[PR-AUC or F1-score]
+    C -->|Yes — e.g. spam filter| E[Precision]
+    C -->|No — false negatives cost more| F[Recall]
+    C -->|Need a single balanced number| G[F1-score]
+    C -->|Evaluating across all thresholds| H[ROC-AUC]
+    R --> R2{Are outliers\na concern?}
+    R2 -->|Yes, ignore large errors| MAE[MAE]
+    R2 -->|No, penalize large errors| RMSE[RMSE / MSE]
+    R2 -->|Need % interpretation| MAPE[MAPE]
+```
+
+*Always report more than one metric — a model with high accuracy on an imbalanced dataset can still be nearly useless.*
+
 ### Classification Metrics Comparison Table
 
 | Metric | Formula | Range | Best Value | Use When | Pros | Cons |
@@ -70,7 +88,14 @@ Model evaluation is like weather forecasting:
 ![Model Comparison](assets/model_comparison.png)
 
 #### Precision vs Recall Trade-off
-```python
+
+- **Purpose:** Illustrate **qualitatively** how conservative vs aggressive models move along precision–recall space (hand-drawn curves—not from a fitted model).
+- **Walkthrough:** Three fictional scenarios plot **precision vs recall** pairs; annotations highlight conservative (high precision, low recall) vs aggressive regions.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Demonstration of precision-recall trade-off
 import numpy as np
 import matplotlib.pyplot as plt
@@ -87,13 +112,13 @@ def demonstrate_precision_recall_tradeoff():
         'Balanced Model': {'precision': [0.80, 0.78, 0.75, 0.72, 0.68, 0.64, 0.60, 0.55, 0.50],
                           'recall': [0.50, 0.58, 0.65, 0.71, 0.76, 0.80, 0.84, 0.87, 0.90]}
     }
-    
+
     plt.figure(figsize=(12, 8))
-    
+
     for model_name, metrics in scenarios.items():
-        plt.plot(metrics['recall'], metrics['precision'], 'o-', 
+        plt.plot(metrics['recall'], metrics['precision'], 'o-',
                 label=f'{model_name}', linewidth=2, markersize=6)
-    
+
     plt.xlabel('Recall (Sensitivity)', fontsize=12)
     plt.ylabel('Precision', fontsize=12)
     plt.title('Precision vs Recall Trade-off for Different Model Types', fontsize=14)
@@ -101,23 +126,55 @@ def demonstrate_precision_recall_tradeoff():
     plt.grid(True, alpha=0.3)
     plt.xlim(0, 1)
     plt.ylim(0, 1)
-    
+
     # Add annotations
-    plt.annotate('High Precision\nLow Recall\n(Conservative)', 
+    plt.annotate('High Precision\nLow Recall\n(Conservative)',
                 xy=(0.3, 0.9), fontsize=10, ha='center',
                 bbox=dict(boxstyle="round,pad=0.3", facecolor="lightblue"))
-    plt.annotate('Low Precision\nHigh Recall\n(Aggressive)', 
+    plt.annotate('Low Precision\nHigh Recall\n(Aggressive)',
                 xy=(0.9, 0.4), fontsize=10, ha='center',
                 bbox=dict(boxstyle="round,pad=0.3", facecolor="lightcoral"))
-    plt.annotate('Balanced\nPrecision & Recall', 
+    plt.annotate('Balanced\nPrecision & Recall',
                 xy=(0.7, 0.7), fontsize=10, ha='center',
                 bbox=dict(boxstyle="round,pad=0.3", facecolor="lightgreen"))
-    
+
     plt.tight_layout()
     plt.show()
 
 demonstrate_precision_recall_tradeoff()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-17" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scenario Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Hard-code three fictional precision/recall pairs at nine threshold values to represent conservative, aggressive, and balanced model behaviors — no real fit needed for this illustrative diagram.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Overlay Three Curves</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Loop over the scenarios dict to draw each model's recall-vs-precision path; both axes are bounded 0–1 so relative positions are immediately comparable.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="31-45" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Region Annotations</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three <code>annotate</code> boxes label the conservative (top-left), aggressive (bottom-right), and balanced (center) operating regions to make the trade-off intuitive for readers.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![metrics](assets/metrics_fig_1.png)
@@ -157,7 +214,15 @@ Start Here: What type of problem?
 
 This is like the percentage of correct answers on a test.
 
-```python
+#### Accuracy and confusion matrix on synthetic data
+
+- **Purpose:** Compute **accuracy** and a **confusion matrix** from a simple logistic regression on `make_classification`—baseline workflow for classification metrics below.
+- **Walkthrough:** `predict` for hard labels; `accuracy_score` and `confusion_matrix` summarize mistakes; the rest of the cell (often in full notebook) prints reports.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, confusion_matrix
@@ -166,7 +231,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
 # Create sample dataset
-X, y = make_classification(n_samples=1000, n_features=20, 
+X, y = make_classification(n_samples=1000, n_features=20,
                          n_informative=15, n_redundant=5,
                          random_state=42)
 
@@ -197,19 +262,42 @@ def plot_confusion_matrix(y_true, y_pred):
     plt.ylabel('True Label')
     plt.xticks([0, 1], ['Negative', 'Positive'])
     plt.yticks([0, 1], ['Negative', 'Positive'])
-    
+
     # Add text annotations
     for i in range(cm.shape[0]):
         for j in range(cm.shape[1]):
             plt.text(j, i, str(cm[i, j]),
                     ha="center", va="center",
                     color="white" if cm[i, j] > cm.max() / 2 else "black")
-    
+
     plt.savefig('assets/confusion_matrix.png')
     plt.show()
 
 plot_confusion_matrix(y_test, y_pred)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-26" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data, Model, and Accuracy</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a 1000-sample synthetic dataset, fit logistic regression, and compute accuracy; this block establishes <code>y_pred</code> for the confusion matrix helper below.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-49" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Confusion Matrix Helper</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define <code>plot_confusion_matrix</code>: render the 2×2 matrix as an image with <code>imshow</code> and overlay cell counts as text, choosing white or black text based on relative cell magnitude.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![metrics](assets/metrics_fig_2.png)
@@ -253,7 +341,15 @@ weighted avg       0.82      0.82      0.82       200
 
 These are like the balance between being thorough and being accurate.
 
-```python
+#### Scalar P/R/F1 and precision–recall curve
+
+- **Purpose:** Show **`precision_score` / `recall_score` / `f1_score`** on hard predictions, then **`precision_recall_curve`** from **probability** scores for the same model.
+- **Walkthrough:** Uses `y_pred` from above for scalars; `y_pred_proba[:, 1]` feeds `precision_recall_curve` for the plot (see also [precision-recall.md](precision-recall.md)).
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 # Calculate metrics
@@ -268,9 +364,9 @@ print(f"F1 Score: {f1:.3f}")
 # Visualize trade-off
 def plot_precision_recall_tradeoff(y_true, y_pred_proba):
     from sklearn.metrics import precision_recall_curve
-    
+
     precision, recall, thresholds = precision_recall_curve(y_true, y_pred_proba)
-    
+
     plt.figure(figsize=(10, 6))
     plt.plot(recall, precision)
     plt.xlabel('Recall')
@@ -283,7 +379,30 @@ def plot_precision_recall_tradeoff(y_true, y_pred_proba):
 # Get probability predictions
 y_pred_proba = model.predict_proba(X_test)[:, 1]
 plot_precision_recall_tradeoff(y_test, y_pred_proba)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scalar P/R/F1</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute precision, recall, and F1 from hard labels (<code>y_pred</code>); these single-number summaries collapse the full confusion matrix into interpretable business-facing values.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">PR Curve Helper</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define <code>plot_precision_recall_tradeoff</code> using <code>predict_proba[:, 1]</code> scores to sweep the threshold; the resulting curve shows the full operating range beyond a fixed 0.5 cutoff.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![metrics](assets/metrics_fig_3.png)
@@ -323,13 +442,21 @@ Optimal Threshold Analysis:
 
 This is like the trade-off between sensitivity and specificity.
 
-```python
+#### Plot ROC from predicted probabilities
+
+- **Purpose:** Encapsulate **`roc_curve` + `auc`** with a reusable plotting helper—same function is called again in the credit-risk example at the end.
+- **Walkthrough:** `roc_curve` needs **scores**, not hard labels; diagonal line is the **random** baseline.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.metrics import roc_curve, auc
 
 def plot_roc_curve(y_true, y_pred_proba):
     fpr, tpr, thresholds = roc_curve(y_true, y_pred_proba)
     roc_auc = auc(fpr, tpr)
-    
+
     plt.figure(figsize=(10, 6))
     plt.plot(fpr, tpr, color='darkorange', lw=2,
              label=f'ROC curve (AUC = {roc_auc:.2f})')
@@ -345,7 +472,30 @@ def plot_roc_curve(y_true, y_pred_proba):
     plt.show()
 
 plot_roc_curve(y_test, y_pred_proba)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and Signature</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import <code>roc_curve</code> and <code>auc</code>; the helper accepts any <code>y_true</code>/<code>y_pred_proba</code> pair, making it reusable across different models in the same notebook.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compute and Plot ROC</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Sweep thresholds with <code>roc_curve</code>, summarize with <code>auc</code>, then plot FPR vs TPR; the dashed diagonal is the random-classifier baseline (AUC = 0.5).</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![metrics](assets/metrics_fig_4.png)
@@ -381,13 +531,21 @@ Performance at Different Thresholds:
 
 This is like the average squared difference between predictions and actual values.
 
-```python
+#### MSE and prediction scatter for regression
+
+- **Purpose:** Fit **linear regression** on `make_regression`, report **MSE**, and plot **predicted vs true** with a diagonal reference line.
+- **Walkthrough:** `mean_squared_error` penalizes large errors more than MAE; scatter tightness around the red line indicates fit quality.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.datasets import make_regression
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
 # Create regression dataset
-X, y = make_regression(n_samples=1000, n_features=20, 
+X, y = make_regression(n_samples=1000, n_features=20,
                       n_informative=15, noise=0.1,
                       random_state=42)
 
@@ -411,8 +569,8 @@ print(f"Mean Squared Error: {mse:.3f}")
 def plot_regression_predictions(y_true, y_pred):
     plt.figure(figsize=(10, 6))
     plt.scatter(y_true, y_pred, alpha=0.5)
-    plt.plot([y_true.min(), y_true.max()], 
-             [y_true.min(), y_true.max()], 
+    plt.plot([y_true.min(), y_true.max()],
+             [y_true.min(), y_true.max()],
              'r--', lw=2)
     plt.xlabel('True Values')
     plt.ylabel('Predictions')
@@ -422,7 +580,30 @@ def plot_regression_predictions(y_true, y_pred):
     plt.show()
 
 plot_regression_predictions(y_test, y_pred)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-23" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Regression Setup and MSE</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a regression dataset with low noise, fit linear regression, and compute MSE; with near-perfect signal the MSE should be close to zero, confirming the model recovers the true coefficients.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-40" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Prediction Scatter Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scatter predicted vs true values; points hugging the red diagonal (y=x) indicate accurate predictions — any systematic deviation reveals model bias.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![metrics](assets/metrics_fig_5.png)
@@ -486,7 +667,15 @@ True Value | Predicted | Residual
 
 This is like the percentage of variance explained by the model.
 
-```python
+#### R² and residual plot
+
+- **Purpose:** Report **`r2_score`** on the test set and **plot residuals** vs predictions to spot heteroscedasticity or outliers.
+- **Walkthrough:** Residuals should be **centered on 0** with no strong funnel shape if linear assumptions hold roughly.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Calculate R-squared
 r2 = r2_score(y_test, y_pred)
 print(f"R-squared Score: {r2:.3f}")
@@ -494,7 +683,7 @@ print(f"R-squared Score: {r2:.3f}")
 # Visualize residuals
 def plot_residuals(y_true, y_pred):
     residuals = y_true - y_pred
-    
+
     plt.figure(figsize=(10, 6))
     plt.scatter(y_pred, residuals, alpha=0.5)
     plt.axhline(y=0, color='r', linestyle='--')
@@ -506,7 +695,30 @@ def plot_residuals(y_true, y_pred):
     plt.show()
 
 plot_residuals(y_test, y_pred)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">R² Score</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute <code>r2_score</code> — the proportion of variance in <code>y_test</code> explained by the model; 1.0 is perfect fit, 0.0 means the model does no better than predicting the mean.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Residual Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot residuals (true − predicted) vs predicted values; residuals scattered randomly around the red horizontal zero line indicate no systematic error or heteroscedasticity.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![metrics](assets/metrics_fig_6.png)
@@ -536,10 +748,21 @@ R-squared Score: 1.000
 
 Let's see how different metrics help evaluate a credit risk model:
 
-```python
+#### Pipeline + multiple classification metrics
+
+- **Purpose:** One **tabular** toy example: scale features, **RandomForest**, then print **accuracy/precision/recall/F1** and reuse **`plot_roc_curve`** from the ROC section above.
+- **Walkthrough:** `y` is a simple rule on stacked features; **ensure `plot_roc_curve` is defined** in the same notebook/session before running.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # Create credit risk dataset
 np.random.seed(42)
@@ -579,7 +802,39 @@ print(f"F1 Score: {f1_score(y_test, y_pred):.3f}")
 
 # Plot ROC curve
 plot_roc_curve(y_test, y_pred_proba)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-19" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Credit Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Stack three financial features and derive a binary approval label from a threshold — the same synthetic credit setup used across 5.5 examples for consistent comparisons.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-37" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline and Predictions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scale then classify in a single pipeline; extract both hard labels (<code>predict</code>) and probability scores (<code>predict_proba[:, 1]</code>) to feed different metric functions.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="39-46" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Multiple Metrics and ROC</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print accuracy, precision, recall, and F1 as a summary, then call the reusable <code>plot_roc_curve</code> helper to show the model's full threshold-independent performance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![metrics](assets/metrics_fig_7.png)

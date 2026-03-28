@@ -58,7 +58,18 @@ Think of data like ingredients and narrative like a recipe:
 
 ## Story Structure Frameworks
 
-> **Figure (add screenshot or diagram):** Story Structure
+```mermaid
+graph LR
+    subgraph ARC["Classic Narrative Arc"]
+        H["Hook\nSurprising fact\nor question"] --> S["Setup\nContext &\nbackground"] --> R["Rising action\nDeepen the\nproblem"] --> C["Climax\nKey insight\nor finding"] --> RE["Resolution\nRecommendation\nor call to action"]
+    end
+    subgraph SCR["SCR Framework  (business)"]
+        SIT["Situation\nWhat is true\ntoday"] --> COM["Complication\nWhat changed\nor challenges us"] --> RES["Resolution\nWhat we\nshould do"]
+    end
+```
+
+> **Figure (add screenshot or diagram):** A visual comparison of the Classic Narrative Arc and the SCR (Situation–Complication–Resolution) framework side by side, showing how each maps to a typical data presentation flow.
+
 The diagram above shows two powerful approaches to structuring your data story:
 
 ### Classic Narrative Arc
@@ -125,7 +136,7 @@ A simpler alternative for business presentations:
 
 ### 1. The Hook: Grabbing Attention
 
-> **Figure (add screenshot or diagram):** Visual Hierarchy
+![Visual hierarchy principles in data storytelling](assets/visual_hierarchy.png)
 The visual hierarchy above shows how to structure your hook and initial message:
 
 - Primary Message: Your main insight or key finding
@@ -176,7 +187,7 @@ Think of this like setting up a mystery novel - provide enough context without g
 
 ### Choosing the Right Visualization
 
-> **Figure (add screenshot or diagram):** Visualization Decision Tree
+![Decision tree for choosing the right visualization](assets/visualization_decision_tree.png)
 Use this decision tree to select the most appropriate visualization for your data:
 
 - For comparisons between categories  Bar charts
@@ -186,7 +197,7 @@ Use this decision tree to select the most appropriate visualization for your dat
 
 ### Color Usage Guidelines
 
-> **Figure (add screenshot or diagram):** Color Palette Guide
+![Color palette guide for data storytelling](assets/color_palette_guide.png)
 Choose your colors based on your data type and purpose:
 
 - Sequential: For ordered data (e.g., low to high values)
@@ -196,7 +207,7 @@ Choose your colors based on your data type and purpose:
 
 ## Story Creation Process
 
-> **Figure (add screenshot or diagram):** Story Creation Process
+![Step-by-step story creation process](assets/story_creation_process.png)
 Follow this systematic approach to create compelling data stories:
 
 1. Data Collection: Gather relevant data
@@ -212,7 +223,7 @@ Follow this systematic approach to create compelling data stories:
 
 ## Quality Assurance
 
-> **Figure (add screenshot or diagram):** Quality Checklist
+![Quality checklist for data stories](assets/quality_checklist.png)
 Before finalizing your data story, verify these essential elements:
 
 - Clear main message: Is your key point immediately apparent?

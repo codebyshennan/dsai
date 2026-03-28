@@ -12,6 +12,27 @@ Crash Course AI: supervised learning framing (~15 min).
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+```mermaid
+graph TD
+    subgraph VG["Vanishing Gradients"]
+        VG1["Sigmoid/tanh saturate\n→ tiny derivatives"]
+        VG1 --> VG2["Gradient × gradient × …\n→ ≈ 0 in early layers"]
+        VG2 --> VG3["Fix: ReLU activations\nXavier/He init\nBatch normalisation\nResidual connections"]
+    end
+    subgraph EG["Exploding Gradients"]
+        EG1["Large weights\nor deep RNNs"]
+        EG1 --> EG2["Gradient × gradient × …\n→ ∞  (NaN loss)"]
+        EG2 --> EG3["Fix: Gradient clipping\nWeight regularisation\nLSTM gates"]
+    end
+    subgraph ARCH["Architecture mitigations"]
+        A1["Residual / skip connections\n(gradient highway)"]
+        A2["Batch Normalisation\n(re-centres activations each layer)"]
+        A3["Layer Normalisation\n(preferred in Transformers)"]
+    end
+    VG --> ARCH
+    EG --> ARCH
+```
+
 ## Vanishing Gradients
 
 ### What is it?

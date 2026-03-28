@@ -26,6 +26,23 @@ Hyperparameter tuning is crucial for several reasons:
 4. **Ensures model stability**: Consistent hyperparameters lead to reproducible results
 5. **Maximizes resource utilization**: Efficient parameter settings make better use of computational resources
 
+```mermaid
+graph TD
+    subgraph SEARCH["Search strategies"]
+        GS["Grid Search\nExhaustive: all combinations\nSafe, slow, scales poorly"]
+        RS["Random Search\nSample n random combos\nFaster, often as good"]
+        BO["Bayesian Optimisation\n(Optuna / HyperOpt)\nLearns from past trials\nBest for expensive models"]
+    end
+    subgraph SAFE["Leakage-free workflow"]
+        TRN["Train set"] --> CV["Inner CV\n(GridSearchCV / RandomizedSearchCV)\nFinds best hyperparams"]
+        CV --> REFIT["Refit on full train set\nwith best params"]
+        REFIT --> TEST["Evaluate on\nheld-out test set\n(touch ONCE)"]
+    end
+    GS & RS & BO --> CV
+```
+
+*Always fit the search object on train data only. The test set is touched once, at the very end, to report final performance.*
+
 ## Understanding Hyperparameters vs Parameters
 
 | Aspect | Parameters | Hyperparameters |
@@ -111,7 +128,15 @@ Grid search exhaustively searches through a manually specified subset of hyperpa
 
 **Implementation Example:**
 
-```python
+#### `GridSearchCV` on a random forest
+
+- **Purpose:** **Exhaustively** fit every combination in `param_grid`, pick the set with best **CV score**, then report **held-out test** accuracy (still only one test evaluation—avoid peeking repeatedly).
+- **Walkthrough:** `cv=5` means each combo is scored by 5 folds; `best_estimator_` is refit on full `X_train` after selection.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
@@ -119,8 +144,8 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 
 # Generate sample data
-X, y = make_classification(n_samples=1000, n_features=20, n_informative=10, 
-                          n_redundant=10, random_state=42)
+X, y = make_classification(n_samples=1000, n_features=20, n_informative=10,
+                           n_redundant=10, random_state=42)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Define parameter grid
@@ -154,7 +179,48 @@ print(f"Best cross-validation score: {grid_search.best_score_:.4f}")
 best_model = grid_search.best_estimator_
 test_score = best_model.score(X_test, y_test)
 print(f"Test set accuracy: {test_score:.4f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a 1000-sample classification problem and hold 20% back as the final test set — this test set is touched only once after the search finishes.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Parameter Grid</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Four hyperparameters with 3–4 values each — 108 total combinations that <code>GridSearchCV</code> will evaluate exhaustively.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-30" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">GridSearchCV Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>cv=5</code> means 5-fold cross-validation per candidate; <code>n_jobs=-1</code> parallelizes across all CPU cores; <code>verbose=1</code> prints per-fold progress.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="32-43" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit, Report, and Test</span>
+    </div>
+    <div class="code-callout__body">
+      <p>After searching, <code>best_estimator_</code> is refit on the full train set with the winning params; evaluate it once on the held-out test set for an unbiased accuracy estimate.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![hyperparameter-tuning](assets/hyperparameter-tuning_fig_1.png)
@@ -201,8 +267,17 @@ Random search samples hyperparameter combinations randomly from specified distri
 
 **Implementation Example:**
 
-```python
+#### `RandomizedSearchCV` with scipy distributions
+
+- **Purpose:** Sample **`n_iter`** random combos from continuous/discrete **distributions**—often better than grid search when many knobs matter ([Bergstra & Bengio](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf)).
+- **Walkthrough:** Uses the **same** `X_train`, `y_train` as the grid-search cell above; `randint`/`uniform` define priors over hyperparameters.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.model_selection import RandomizedSearchCV
+from sklearn.ensemble import RandomForestClassifier
 from scipy.stats import randint, uniform
 
 # Define parameter distributions
@@ -238,7 +313,39 @@ print(f"Best cross-validation score: {random_search.best_score_:.4f}")
 # Compare with grid search
 test_score = random_search.best_estimator_.score(X_test, y_test)
 print(f"Test set accuracy: {test_score:.4f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Continuous Distributions</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Instead of discrete grids, use scipy distributions — <code>randint</code> for integers and <code>uniform</code> for floats — to sample a richer parameter space with the same budget.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Randomized Search Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>n_iter=50</code> draws 50 random combinations; this covers far more of the space than a fixed grid while running in a fraction of the time.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-37" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Report</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Same reporting pattern as grid search: print best params and CV score, then evaluate the refitted best estimator on the held-out test set.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Starting random search...
@@ -274,18 +381,27 @@ Bayesian optimization uses probabilistic models to guide the search for optimal 
 
 **Implementation Example:**
 
-```python
+#### `BayesSearchCV` (scikit-optimize)
+
+- **Purpose:** Use a **Gaussian-process** model of CV score to pick promising next points—fewer evaluations than grid search on large spaces (requires **`scikit-optimize`**).
+- **Walkthrough:** `Integer`/`Real` define typed bounds; `n_iter` is how many surrogate-guided trials to run.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Note: Requires scikit-optimize: pip install scikit-optimize
+from sklearn.ensemble import RandomForestClassifier
 from skopt import BayesSearchCV
 from skopt.space import Real, Integer
 
 # Define search space with appropriate types
 search_space = {
     'n_estimators': Integer(50, 500),          # Integer space
-    'max_depth': Integer(5, 50),               # Integer space  
+    'max_depth': Integer(5, 50),               # Integer space
     'min_samples_split': Integer(2, 20),       # Integer space
     'min_samples_leaf': Integer(1, 10),        # Integer space
-    'max_features': Real(0.1, 1.0)            # Continuous space
+    'max_features': Real(0.1, 1.0)             # Continuous space
 }
 
 # What this does: Uses Bayesian optimization to intelligently search
@@ -296,8 +412,8 @@ bayes_search = BayesSearchCV(
     n_iter=50,              # Number of evaluations
     cv=5,                   # 5-fold cross-validation
     scoring='accuracy',     # Metric to optimize
-    n_jobs=-1,             # Use all available cores
-    random_state=42        # For reproducible results
+    n_jobs=-1,              # Use all available cores
+    random_state=42         # For reproducible results
 )
 
 # Fit the Bayesian search
@@ -311,7 +427,39 @@ print(f"Best cross-validation score: {bayes_search.best_score_:.4f}")
 # Evaluate on test set
 test_score = bayes_search.best_estimator_.score(X_test, y_test)
 print(f"Test set accuracy: {test_score:.4f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Search Space</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define typed integer and continuous bounds for each hyperparameter that the Bayesian surrogate model will explore.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">BayesSearchCV Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Configure 50 surrogate-guided trials with 5-fold CV, optimizing accuracy using all available CPU cores.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Evaluate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Run the Bayesian search, then print the best parameter set, CV score, and final test accuracy.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Method Comparison and Selection Guide
 
@@ -341,6 +489,11 @@ print(f"Test set accuracy: {test_score:.4f}")
 
 ### 1. Multi-Stage Tuning
 
+#### Coarse then fine grids
+
+- **Purpose:** **Stage 1** explores the landscape cheaply; **Stage 2** zooms near the best coarse point—reduces wasted fits vs one huge grid.
+- **Walkthrough:** These are **dicts only**; plug into `GridSearchCV` twice, using stage-1 `best_params_` to set stage-2 ranges.
+
 ```python
 # Stage 1: Coarse search with wide ranges
 coarse_grid = {
@@ -357,6 +510,11 @@ fine_grid = {
 
 ### 2. Early Stopping for Iterative Algorithms
 
+#### Gradient boosting with `n_iter_no_change`
+
+- **Purpose:** For **iterative** boosters, cap trees but let **validation monitoring** stop early when score plateaus—pairs with tuning `learning_rate` / `subsample`.
+- **Walkthrough:** `GradientBoostingClassifier` uses last `validation_fraction` of training as internal validation when these keys are set.
+
 ```python
 from sklearn.ensemble import GradientBoostingClassifier
 
@@ -371,24 +529,76 @@ gb_params = {
 
 ### 3. Nested Cross-Validation
 
-```python
-from sklearn.model_selection import cross_val_score
+#### Outer CV + inner `GridSearchCV`
 
-# Outer loop for unbiased performance estimation
+- **Purpose:** **Outer** folds estimate generalization; **inner** CV on each outer training fold picks hyperparameters—reduces optimistic bias from tuning on the same split you test on.
+- **Walkthrough:** Each outer fold builds a **fresh** `GridSearchCV` on `X_train_outer`, then scores on `X_test_outer`.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+from sklearn.datasets import make_classification
+from sklearn.model_selection import KFold, GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+
+X, y = make_classification(n_samples=1000, n_features=20, random_state=42)
+param_grid = {"max_depth": [5, 10, 20], "n_estimators": [100, 200]}
+
+outer_cv = KFold(n_splits=5, shuffle=True, random_state=42)
 outer_cv_scores = []
 for train_idx, test_idx in outer_cv.split(X, y):
     X_train_outer, X_test_outer = X[train_idx], X[test_idx]
     y_train_outer, y_test_outer = y[train_idx], y[test_idx]
-    
-    # Inner loop for hyperparameter tuning
+
+    grid_search = GridSearchCV(
+        RandomForestClassifier(random_state=42),
+        param_grid,
+        cv=5,
+        n_jobs=-1,
+    )
     grid_search.fit(X_train_outer, y_train_outer)
-    
-    # Evaluate best model on outer test set
+
     score = grid_search.best_estimator_.score(X_test_outer, y_test_outer)
     outer_cv_scores.append(score)
 
-print(f"Unbiased performance estimate: {np.mean(outer_cv_scores):.4f} ± {np.std(outer_cv_scores):.4f}")
-```
+print(
+    f"Unbiased performance estimate: {np.mean(outer_cv_scores):.4f} ± {np.std(outer_cv_scores):.4f}"
+)
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Grid</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a classification dataset and define a small hyperparameter grid for the nested search.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Nested CV Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each outer fold, run an independent inner GridSearchCV to select hyperparameters, then score the winner on the held-out outer test fold.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Unbiased Estimate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Report mean ± std across outer folds as an unbiased generalization estimate uncorrupted by hyperparameter search.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices
 
@@ -403,6 +613,12 @@ print(f"Unbiased performance estimate: {np.mean(outer_cv_scores):.4f} ± {np.std
 - **Group K-Fold**: When samples are grouped (e.g., by patient, location)
 
 ### 3. Monitor Computational Resources
+
+#### Wall-clock for one tuning run
+
+- **Purpose:** Log **elapsed time** and **how many param combos** were evaluated—helps compare grids vs random search budgets.
+- **Walkthrough:** Assumes `grid_search` from the `GridSearchCV` example above.
+
 ```python
 import time
 
@@ -426,6 +642,12 @@ Evaluated 108 combinations
 - Set time or iteration budgets
 
 ### 5. Document All Experiments
+
+#### Export `cv_results_` and best params
+
+- **Purpose:** Persist **every trial** (`cv_results_`) and **best** settings for reproducibility and plots.
+- **Walkthrough:** `test_score` should be the single held-out test accuracy from `best_estimator_` after tuning.
+
 ```python
 import pandas as pd
 
@@ -547,21 +769,39 @@ with open('best_params.txt', 'w') as f:
 - **Ray Tune**: Distributed hyperparameter tuning
 
 ### Example with Optuna
-```python
+
+#### Trial object + `cross_val_score`
+
+- **Purpose:** **Optuna** runs many trials, pruning unpromising ones—flexible alternative to sklearn search classes.
+- **Walkthrough:** `trial.suggest_*` draws parameters; objective returns **mean CV score** to maximize.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import optuna
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+
+X, y = make_classification(n_samples=1000, n_features=20, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
 
 def objective(trial):
     # Suggest hyperparameters
     n_estimators = trial.suggest_int('n_estimators', 50, 500)
     max_depth = trial.suggest_int('max_depth', 5, 50)
-    
+
     # Train and evaluate model
     model = RandomForestClassifier(
         n_estimators=n_estimators,
         max_depth=max_depth,
         random_state=42
     )
-    
+
     # Return metric to optimize
     scores = cross_val_score(model, X_train, y_train, cv=5)
     return scores.mean()
@@ -572,7 +812,39 @@ study.optimize(objective, n_trials=100)
 
 print(f"Best parameters: {study.best_params}")
 print(f"Best score: {study.best_value}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data Prep</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate and split a classification dataset so the objective function can evaluate on training data only.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Objective Function</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define the Optuna objective: sample integer hyperparameters via <code>trial.suggest_int</code>, then return mean 5-fold CV accuracy.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Study and Results</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create a maximization study, run 100 trials with automatic pruning, and print the best parameters and score found.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Summary
 

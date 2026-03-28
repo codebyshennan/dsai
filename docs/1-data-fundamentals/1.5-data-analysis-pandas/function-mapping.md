@@ -24,6 +24,25 @@
 
 Function application in Pandas means applying a function to your data to transform or analyze it. Think of it like:
 
+```mermaid
+graph TD
+    Q{What do you\nwant to apply to?} -->|One Series\nelement-by-element| MAP["Series.map(fn)\nor Series.apply(fn)"]
+    Q -->|DataFrame rows\nor columns| APP["DataFrame.apply(fn, axis=0/1)"]
+    Q -->|Every cell\nin DataFrame| APMAP["DataFrame.map(fn)\n(pandas ≥ 2.1, was applymap)"]
+
+    MAP --> EX1["series.map(str.upper)\nseries.map({'A':1,'B':2})"]
+    APP --> EX2["df.apply(np.sum, axis=0)  # per column\ndf.apply(lambda r: r.max()-r.min(), axis=1)  # per row"]
+    APMAP --> EX3["df.map(lambda x: round(x, 2))"]
+
+    subgraph FAST["Prefer vectorised where possible"]
+        V1["df['col'] * 2  (not .apply)"]
+        V2["df['col'].str.upper()  (not .map)"]
+        V3["pd.to_datetime(df['date'])  (not .apply)"]
+    end
+```
+
+*`apply` is flexible but slow on large DataFrames — prefer built-in vectorised methods (`.str`, `.dt`, arithmetic) whenever they exist.*
+
 - A recipe that you apply to each ingredient
 - A rule that processes each piece of data
 - A transformation that changes values
@@ -56,7 +75,10 @@ Let's explore with practical examples:
 - **Purpose:** Map numeric scores to letter buckets with a Python function, then clean currency strings and whitespace on a second table.
 - **Walkthrough:** `df[subject].apply(to_letter_grade)` is per-cell; `clean_price` strips `$` and commas before `float`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 
@@ -71,14 +93,12 @@ df = pd.DataFrame({
 print("Original grades:")
 print(df)
 
-# Convert numerical grades to letter grades
 def to_letter_grade(score):
     if score >= 90: return 'A'
     elif score >= 80: return 'B'
     elif score >= 70: return 'C'
     else: return 'F'
 
-# Apply to all numeric columns
 for subject in ['Math', 'Science', 'History']:
     df[f'{subject}_Grade'] = df[subject].apply(to_letter_grade)
 
@@ -93,7 +113,6 @@ sales_data = pd.DataFrame({
     'Quantity': ['5', '10', '8']
 })
 
-# Clean and transform data
 def clean_price(price):
     return float(price.replace('$', '').replace(',', ''))
 
@@ -107,7 +126,39 @@ sales_data['Total'] = sales_data['Price'] * sales_data['Quantity']
 
 print("\nCleaned sales data:")
 print(sales_data)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Imports pandas and NumPy—the only two dependencies for basic function application examples.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-25" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Grade Bucketing</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Defines a letter-grade function and applies it to each numeric column with a loop—the simplest per-element apply pattern.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-48" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data Cleaning</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Defines separate clean functions for price strings and product names, then chains <code>apply</code>, <code>astype</code>, and arithmetic to produce a tidy sales total column.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Original grades:
@@ -304,7 +355,10 @@ Calculate statistics for student grades:
 - **Purpose:** Aggregate each student’s quiz columns into average, min, max, and a boolean trend flag in one pass.
 - **Walkthrough:** `analyze_grades` returns `pd.Series(...)`; `apply(..., axis=1)` stacks those into new columns.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Create grade data
 grades = pd.DataFrame({
     'Student': ['Alice', 'Bob', 'Charlie', 'David'],
@@ -330,7 +384,39 @@ print("Original grades:")
 print(grades)
 print("\nGrade analysis:")
 print(analysis)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Quiz DataFrame</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates a small four-student quiz DataFrame to illustrate how row-wise <code>apply</code> can produce multiple derived columns at once.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Multi-Column Return</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Returns a <code>pd.Series</code> with four metrics per row—mean, max, min, and an improvement boolean—so <code>apply</code> expands them into columns automatically.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-24" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Row-Wise Apply</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Calls <code>apply(..., axis=1)</code> to run the function once per row and prints both the original table and the new analysis side by side.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Original grades:

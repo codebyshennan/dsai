@@ -95,16 +95,16 @@ logger = logging.getLogger(__name__)
       <span class="code-callout__title">Required libraries</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Required libraries</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Seven imports covering data manipulation (pandas, numpy), database connectivity (sqlalchemy), HTTP requests, logging, datetime, and type hints. These cover the full stack needed for an ETL pipeline.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="8-15" data-tint="2">
+  <div class="code-callout" data-lines="9-15" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From typing import Dict, List, Any</span>
+      <span class="code-callout__title">Logging configuration</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From typing import Dict, List, Any</strong> — lines 8-15. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Configures a root logger at INFO level with a timestamped format. The module-level <code>logger = logging.getLogger(__name__)</code> creates a named logger so log messages include the module name for easier filtering.</p>
     </div>
   </div>
 </aside>
@@ -145,22 +145,31 @@ class SalesAPIClient:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-8" data-tint="1">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class SalesAPIClient:</span>
+      <span class="code-callout__title">Class definition and constructor stub</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class SalesAPIClient:</strong> — lines 1-8 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines <code>SalesAPIClient</code> with typed constructor parameters (<code>base_url</code> and <code>api_key</code>). Your implementation should store these and set up an authenticated session for reuse across calls.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="9-17" data-tint="2">
+  <div class="code-callout" data-lines="8-12" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def fetch_sales(self, start_date: str, end_da…</span>
+      <span class="code-callout__title">fetch_sales stub</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def fetch_sales(self, start_date: str, end_da…</strong> — lines 9-17. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Accepts a date range and should return a DataFrame of sales records. Implement pagination, error handling, and retry logic here—this is the main data extraction entry point.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-17" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">handle_rate_limit stub</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Should inspect the <code>Retry-After</code> header (or use exponential backoff) and sleep the appropriate duration before the next request when the API returns a 429 response.</p>
     </div>
   </div>
 </aside>
@@ -212,22 +221,22 @@ class DataCleaner:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class DataCleaner:</span>
+      <span class="code-callout__title">Class definition and clean_sales_data stub</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class DataCleaner:</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines <code>DataCleaner</code> with a <code>clean_sales_data</code> method. The docstring lists the four required steps: handle missing values, remove duplicates, fix data types, and validate. Implement all four inside the stub.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-21" data-tint="2">
+  <div class="code-callout" data-lines="16-21" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">- Validate data</span>
+      <span class="code-callout__title">validate_data stub</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>- Validate data</strong> — lines 11-21 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Should apply business rules (e.g., non-negative amounts, valid customer IDs) and return <code>True</code> if all rows pass. Called after cleaning so validation failures indicate logic errors, not just dirty data.</p>
     </div>
   </div>
 </aside>
@@ -296,31 +305,31 @@ class WarehouseSchema:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class WarehouseSchema:</span>
+      <span class="code-callout__title">Class definition and method signature</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class WarehouseSchema:</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines <code>WarehouseSchema</code> with a single <code>create_tables</code> method that takes a SQLAlchemy engine. All table DDL is defined as inline SQL strings and executed at the end.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="8-19" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Customer_id INTEGER,</span>
+      <span class="code-callout__title">fact_sales DDL: star-schema fact table</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Customer_id INTEGER,</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines the central fact table with <code>sale_id</code> as primary key and foreign keys to three dimension tables (<code>dim_date</code>, <code>dim_product</code>, <code>dim_customer</code>). This is a classic star-schema design.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="26-38" data-tint="3">
+  <div class="code-callout" data-lines="21-37" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Date DATE,</span>
+      <span class="code-callout__title">dim_date DDL and schema execution</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Date DATE,</strong> — lines 26-38 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines the date dimension with time attributes (year, month, day, quarter, is_weekend) needed for time-based slicing in reports. The final block opens a connection and executes both DDL statements—dimension first, then fact.</p>
     </div>
   </div>
 </aside>
@@ -382,31 +391,22 @@ class DataPipeline:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-10" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class DataPipeline:</span>
+      <span class="code-callout__title">Class definition and constructor</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class DataPipeline:</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines <code>DataPipeline</code> and wires up the three main components in the constructor: the API client, the data cleaner, and the warehouse schema object—ready for use by <code>run_pipeline</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-20" data-tint="2">
+  <div class="code-callout" data-lines="10-31" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&quot;&quot;&quot;</span>
+      <span class="code-callout__title">run_pipeline: extract, transform, load, error handling</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&quot;&quot;&quot;</strong> — lines 11-20 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="21-31" data-tint="3">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Raw_data = self.api_client.fetch_sales(start_…</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Raw_data = self.api_client.fetch_sales(start_…</strong> — lines 21-31 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Orchestrates the full ETL flow for a date range: fetch raw sales from the API, clean them, then load to the warehouse. Any exception is logged with context before re-raising so the caller knows the pipeline failed.</p>
     </div>
   </div>
 </aside>
@@ -553,58 +553,40 @@ if __name__ == "__main__":
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-13" data-tint="1">
+  <div class="code-callout" data-lines="1-16" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Configuration</span>
+      <span class="code-callout__title">Configuration dict</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Configuration</strong> — lines 1-13 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Centralises all connection strings and file paths: API base URL and key, warehouse and source database connection strings, and three local directories (input, processed, failed) for file-based sources.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="14-27" data-tint="2">
+  <div class="code-callout" data-lines="18-41" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;failed_path&#x27;: &#x27;data/failed&#x27;</span>
+      <span class="code-callout__title">SalesDataPipeline: class, constructor, and setup_components</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;failed_path&#x27;: &#x27;data/failed&#x27;</strong> — lines 14-27 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines the main pipeline class. The constructor calls <code>setup_components</code>, which initialises the API client, creates the warehouse engine from config, and instantiates the data cleaner—wiring everything together before any pipeline run.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="28-40" data-tint="3">
+  <div class="code-callout" data-lines="43-59" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&quot;&quot;&quot;Initialize pipeline components&quot;&quot;&quot;</span>
+      <span class="code-callout__title">run_daily_load: extract, clean, load, error handling</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&quot;&quot;&quot;Initialize pipeline components&quot;&quot;&quot;</strong> — lines 28-40 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>The main execution method: calls the extract stub, passes the result through <code>clean_sales_data</code>, then calls the load stub. Logs success on completion; logs and re-raises on any failure.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="41-54" data-tint="4">
+  <div class="code-callout" data-lines="61-81" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Self.cleaner = DataCleaner()</span>
+      <span class="code-callout__title">Stub methods and main execution block</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Self.cleaner = DataCleaner()</strong> — lines 41-54 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="55-67" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Logger.info(&quot;Daily load completed successfully&quot;)</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Logger.info(&quot;Daily load completed successfully&quot;)</strong> — lines 55-67 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="68-81" data-tint="2">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Your code here</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Your code here</strong> — lines 68-81 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p><code>extract_daily_data</code> and <code>load_to_warehouse</code> are stubs for you to implement. The <code>__main__</code> block instantiates the pipeline with the config and calls <code>run_daily_load</code>, catching any failure and logging it.</p>
     </div>
   </div>
 </aside>

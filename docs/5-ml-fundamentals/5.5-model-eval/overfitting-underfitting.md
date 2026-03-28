@@ -38,6 +38,27 @@ Underfitting happens when a model is too simple to capture the underlying patter
 3. Model fails to capture important patterns
 4. Simple decision boundaries
 
+```mermaid
+graph LR
+    subgraph UNDERFIT["Underfitting\n(high bias)"]
+        U1["Model too simple"] --> U2["Low train accuracy\nLow test accuracy"]
+        U2 --> U3["Gap: small\n(both bad)"]
+    end
+    subgraph GOODFIT["Good fit"]
+        G1["Right complexity"] --> G2["High train accuracy\nHigh test accuracy"]
+        G2 --> G3["Gap: small\n(both good)"]
+    end
+    subgraph OVERFIT["Overfitting\n(high variance)"]
+        O1["Model too complex"] --> O2["Very high train accuracy\nLow test accuracy"]
+        O2 --> O3["Gap: large\n(memorised noise)"]
+    end
+
+    FIX1["Fix underfitting:\nmore features, larger model,\nless regularization"] -.-> UNDERFIT
+    FIX2["Fix overfitting:\nmore data, dropout,\nmore regularization"] -.-> OVERFIT
+```
+
+*The learning curve is the fastest diagnostic: plot train and validation error vs training set size. A large gap between the two curves signals overfitting; both curves high signals underfitting.*
+
 ## Real-World Analogies
 
 ### The Student Analogy
@@ -76,7 +97,15 @@ Model fitting is like weather forecasting:
 
 ## Practical Example
 
-```python
+#### Polynomial degree vs test MSE
+
+- **Purpose:** On **noisy linear** data, compare **too-simple** (linear), **reasonable** (low-degree poly), and **too-flexible** (high-degree poly) models by **test MSE**.
+- **Walkthrough:** `PolynomialFeatures` + `LinearRegression`; high degree fits training noise → larger error on `X_test`.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -113,7 +142,7 @@ for name, model in models.items():
         reg = LinearRegression()
         reg.fit(X_train_poly, y_train)
         y_pred = reg.predict(X_test_poly)
-    
+
     results[name] = mean_squared_error(y_test, y_pred)
 
 # Plot results
@@ -122,7 +151,48 @@ plt.bar(results.keys(), results.values())
 plt.title('Model Performance Comparison')
 plt.ylabel('Mean Squared Error')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-16" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data Generation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create 100 points from the linear function <code>2x</code> with Gaussian noise, then split 80/20 to measure out-of-sample performance for each model.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Model Complexity Spectrum</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three models span the complexity range: linear (underfitting), degree-2 polynomial (good fit), and degree-15 polynomial (overfitting to noise).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-38" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Evaluate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For polynomial models, features are expanded with <code>fit_transform</code> (train only), then a fresh <code>LinearRegression</code> fits the expanded training set and scores on test.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="40-46" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">MSE Bar Chart</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A bar chart of test MSE across the three models visually confirms that degree-15 produces the largest error despite fitting training data perfectly.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![overfitting-underfitting](assets/overfitting-underfitting_fig_1.png)

@@ -13,7 +13,22 @@
         }
 
         .reveal {
-            font-size: 1.5em;
+            font-size: 1.45em;
+        }
+
+        /* Dense slides: smaller type so more bullets fit without overflow */
+        .reveal .box.box--compact {
+            font-size: 0.88em;
+            max-width: 92%;
+        }
+
+        .reveal .box.box--compact h3 {
+            font-size: 1.15em;
+        }
+
+        .reveal .box.box--compact li {
+            margin-bottom: 0.35em;
+            line-height: 1.35;
         }
 
         .reveal h1,
@@ -50,6 +65,8 @@
 
         .reveal li {
             margin-bottom: 0.5em;
+            overflow-wrap: anywhere;
+            word-wrap: break-word;
         }
 
         .reveal code {
@@ -80,23 +97,99 @@
             padding: 1em;
             border-radius: 8px;
             margin: 1em auto;
-            max-width: 80%;
+            max-width: 88%;
         }
 
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1.25em 2em;
+            max-width: 92%;
             margin: 0 auto;
+            align-items: start;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1em 1.25em;
+            max-width: 96%;
             margin: 0 auto;
+            align-items: start;
+        }
+
+        .reveal .two-column .list-container,
+        .reveal .three-column .list-container {
+            max-width: 100%;
+        }
+
+        .reveal .two-column ul,
+        .reveal .two-column ol,
+        .reveal .three-column ul,
+        .reveal .three-column ol {
+            max-width: 100%;
+        }
+
+        .slide-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.78em;
+            color: #555;
+            z-index: 2000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(4px);
+            padding: 0.4em 1em;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 0.75em;
+        }
+
+        .slide-nav a {
+            color: #555;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav a:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
+        }
+
+        .slide-nav__title {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+            color: #444;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .slide-nav__btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav__btn:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
         }
 
         .slide-footer {
@@ -115,6 +208,7 @@
 
         section {
             padding: 2em;
+            padding-top: 3.5em;
             padding-bottom: 4em;
             display: flex;
             flex-direction: column;
@@ -133,6 +227,16 @@
 </head>
 
 <body>
+    <nav class="slide-nav" id="slide-nav">
+        <a href="../" title="Back to lesson">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back
+        </a>
+        <span class="slide-nav__title">Introduction to Data Visualization</span>
+        <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        </button>
+    </nav>
     <div class="reveal">
         <div class="slides">
             
@@ -147,10 +251,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Matplotlib Basics</h2>
-                        <div class="box">
+                        <h2>Matplotlib Basics (1/3)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Industry Standard</strong>: Most widely used Python plotting library</li>
@@ -158,22 +264,74 @@
 <li><strong>Integration</strong>: Works seamlessly with other data science libraries</li>
 <li><strong>Customization</strong>: Highly customizable for professional results</li>
 <li><strong>Figure</strong>: The entire canvas</li>
-<li><strong>Axes</strong>: The area where you draw</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Axes</strong>: The area where you draw</li>
 <li><strong>Title</strong>: The name of your artwork</li>
 <li><strong>Labels</strong>: Descriptions of what you're showing</li>
 <li><strong>Legend</strong>: A guide to your colors and symbols</li>
 <li>Start with a clear purpose</li>
-<li>Choose the right chart type</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Matplotlib Basics (2/3)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Choose the right chart type</li>
 <li>Plan your color scheme</li>
 <li>Consider your audience</li>
 <li>Use functions for reusable plots</li>
 <li>Keep your code clean and documented</li>
-<li>Use consistent naming conventions</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Use consistent naming conventions</li>
 <li>Comment complex operations</li>
 <li>Overcrowding with too much data</li>
 <li>Using inappropriate chart types</li>
 <li>Poor color choices</li>
-<li>Missing labels or context</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Matplotlib Basics (3/3)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Missing labels or context</li>
                         </ul>
                     </div>
                 
@@ -186,20 +344,30 @@
                 <section>
                     <div class="content-wrapper">
                         <h2>Troubleshooting Guide</h2>
-                        <div class="box">
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>Not closing figures when done</li>
 <li>Using inappropriate chart types</li>
 <li>Poor color choices</li>
 <li>Missing labels or context</li>
-<li>Start with a clear purpose</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Start with a clear purpose</li>
 <li>Keep it simple</li>
 <li>Test your visualizations</li>
 <li>Get feedback from others</li>
                         </ul>
+                    </div>
+                
                     </div>
                 
                         </div>
@@ -210,10 +378,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Visualization Principles</h2>
-                        <div class="box">
+                        <h2>Visualization Principles (1/11)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li><strong>Quick Processing</strong>: Your brain processes visual information in milliseconds</li>
@@ -221,102 +391,370 @@
 <li><strong>Memory</strong>: Visual information is easier to remember than text</li>
 <li><strong>Understanding</strong>: Complex relationships are clearer when visualized</li>
 <li>Happens in less than 250 milliseconds</li>
-<li>Automatic and parallel (processes multiple things at once)</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Automatic and parallel (processes multiple things at once)</li>
 <li>Detects basic visual properties like:</li>
 <li>Takes more than 250 milliseconds</li>
 <li>Requires focused attention</li>
 <li>Processes complex information</li>
-<li>Interprets meaning and relationships</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visualization Principles (2/11)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Interprets meaning and relationships</li>
 <li><strong>Bar Charts</strong>: Like measuring the height of different buildings</li>
 <li><strong>Line Length</strong>: Like comparing the length of different roads</li>
 <li><strong>Progress Bars</strong>: Like showing how far you've run in a race</li>
 <li><strong>Bubble Plots</strong>: Like showing the population of different cities</li>
-<li><strong>Tree Maps</strong>: Like showing the size of different files on your computer</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Tree Maps</strong>: Like showing the size of different files on your computer</li>
 <li><strong>Icon Size</strong>: Like showing the importance of different features</li>
 <li><strong>Markers</strong>: Like using different symbols on a map</li>
 <li><strong>Icons</strong>: Like using different icons for different types of files</li>
 <li><strong>Symbols</strong>: Like using different symbols for different categories</li>
-<li><strong>Boundaries</strong>: Like drawing a circle around related items</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visualization Principles (3/11)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Boundaries</strong>: Like drawing a circle around related items</li>
 <li><strong>Containers</strong>: Like putting similar items in the same box</li>
 <li><strong>Groups</strong>: Like organizing items into categories</li>
 <li><strong>Categories</strong>: Like using different colors for different types of fruit</li>
 <li><strong>Distinct Groups</strong>: Like using different colors for different teams</li>
-<li><strong>Qualitative Data</strong>: Like using different colors for different regions</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Qualitative Data</strong>: Like using different colors for different regions</li>
 <li><strong>Sequential Data</strong>: Like using darker colors for higher values</li>
 <li><strong>Heat Maps</strong>: Like using color intensity to show temperature</li>
 <li><strong>Density Plots</strong>: Like using color intensity to show concentration</li>
 <li><strong>Coordinates</strong>: Like plotting points on a map</li>
-<li><strong>Placement</strong>: Like arranging items in a specific order</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visualization Principles (4/11)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Placement</strong>: Like arranging items in a specific order</li>
 <li><strong>Alignment</strong>: Like lining up items in a row</li>
 <li>Items that are close together are perceived as related</li>
 <li>Like grouping related items in a menu</li>
 <li>Items that look similar are perceived as related</li>
-<li>Like using the same color for related items</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Like using the same color for related items</li>
 <li>The eye follows smooth, continuous lines</li>
 <li>Like following a path on a map</li>
 <li>The brain fills in missing parts of shapes</li>
 <li>Like seeing a complete circle even when part is missing</li>
-<li>The brain separates objects from their background</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visualization Principles (5/11)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>The brain separates objects from their background</li>
 <li>Like seeing a person standing in front of a wall</li>
 <li><strong>Few Items</strong>: Bar Chart (like comparing heights)</li>
 <li><strong>Many Items</strong>: Lollipop Chart (like comparing many values)</li>
 <li><strong>Over Time</strong>: Line Chart (like tracking progress)</li>
-<li><strong>Histogram</strong>: Like showing the distribution of heights</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Histogram</strong>: Like showing the distribution of heights</li>
 <li><strong>Density Plot</strong>: Like showing the concentration of data</li>
 <li><strong>Box Plot</strong>: Like showing the range and outliers</li>
 <li><strong>Box Plots</strong>: Like comparing distributions across groups</li>
 <li><strong>Violin Plots</strong>: Like showing the shape of distributions</li>
-<li><strong>Ridge Plots</strong>: Like showing multiple distributions</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visualization Principles (6/11)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Ridge Plots</strong>: Like showing multiple distributions</li>
 <li><strong>Scatter Plot</strong>: Like plotting height vs. weight</li>
 <li><strong>Line Plot</strong>: Like showing how two things change together</li>
 <li><strong>Bubble Plot</strong>: Like showing three variables at once</li>
 <li><strong>Parallel Coordinates</strong>: Like showing many variables at once</li>
-<li><strong>Heat Map</strong>: Like showing relationships between many things</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Heat Map</strong>: Like showing relationships between many things</li>
 <li><strong>Network Graph</strong>: Like showing connections between items</li>
 <li>Use for ordered data</li>
 <li>Like a thermometer (light to dark)</li>
 <li>Examples:</li>
-<li>Use for data with a midpoint</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visualization Principles (7/11)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Use for data with a midpoint</li>
 <li>Like a weather map (hot to cold)</li>
 <li>Examples:</li>
 <li>Use for categories</li>
 <li>Like different types of fruit</li>
-<li>Examples:</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Examples:</li>
 <li>Use colorblind-safe palettes</li>
 <li>Maintain sufficient contrast</li>
 <li>Provide alternative encodings</li>
 <li>Use readable font sizes</li>
-<li>Create clear hierarchy</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visualization Principles (8/11)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Create clear hierarchy</li>
 <li>Use high contrast labels</li>
 <li>Key message or visual</li>
 <li>Like a headline in a newspaper</li>
 <li>Supporting information</li>
-<li>Like subheadings in an article</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Like subheadings in an article</li>
 <li>Details and context</li>
 <li>Like the body text of an article</li>
 <li>Full Width: 12 columns</li>
 <li>Half Width: 6 columns</li>
-<li>Third Width: 4 columns</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visualization Principles (9/11)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Third Width: 4 columns</li>
 <li>Quarter Width: 3 columns</li>
 <li>Margins: 24px</li>
 <li>Gutters: 16px</li>
 <li>Padding: 16px</li>
-<li>Unnecessary decorative elements</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Unnecessary decorative elements</li>
 <li>Like adding too many colors or patterns</li>
 <li>Inappropriate axis scales</li>
 <li>Like starting a scale from a non-zero point</li>
 <li>Hard to distinguish colors</li>
-<li>Like using similar colors for different categories</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visualization Principles (10/11)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Like using similar colors for different categories</li>
 <li>Too much information</li>
 <li>Like trying to show everything at once</li>
 <li>Know what you want to communicate</li>
 <li>Choose the right chart type</li>
-<li>Focus on your message</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Focus on your message</li>
 <li>Remove unnecessary elements</li>
 <li>Use clear labels</li>
 <li>Maintain consistent style</li>
 <li>Use appropriate terminology</li>
-<li>Provide necessary context</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visualization Principles (11/11)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Provide necessary context</li>
 <li>Make it accessible</li>
 <li>Check for clarity</li>
 <li>Verify accuracy</li>
@@ -340,6 +778,24 @@
             transition: 'slide',
             slideNumber: true,
             plugins: []
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Swap fullscreen icon when state changes
+        document.addEventListener('fullscreenchange', function () {
+            var icon = document.getElementById('fs-icon');
+            if (document.fullscreenElement) {
+                icon.innerHTML = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
+            } else {
+                icon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
+            }
         });
     </script>
 </body>

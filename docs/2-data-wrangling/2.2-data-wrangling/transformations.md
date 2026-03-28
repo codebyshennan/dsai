@@ -84,10 +84,10 @@ graph TD
     <div class="code-callout" data-lines="1-5" data-tint="1">
       <div class="code-callout__meta">
         <span class="code-callout__lines"></span>
-        <span class="code-callout__title">Z = (x - μ) / σ</span>
+        <span class="code-callout__title">Z-score formula</span>
       </div>
       <div class="code-callout__body">
-        <p><strong>Z = (x - μ) / σ</strong> — lines 1-5 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+        <p>Subtracts the column mean (μ) and divides by its standard deviation (σ), producing a value whose sign shows direction and magnitude shows how many standard deviations away.</p>
       </div>
     </div>
   </aside>
@@ -107,10 +107,10 @@ graph TD
     <div class="code-callout" data-lines="1-2" data-tint="1">
       <div class="code-callout__meta">
         <span class="code-callout__lines"></span>
-        <span class="code-callout__title">X_scaled = (x - x_min) / (x_max - x_min)</span>
+        <span class="code-callout__title">Min-Max formula</span>
       </div>
       <div class="code-callout__body">
-        <p><strong>X_scaled = (x - x_min) / (x_max - x_min)</strong> — lines 1-2 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+        <p>Shifts each value by the column minimum, then divides by the total range, compressing all values into [0, 1].</p>
       </div>
     </div>
   </aside>
@@ -133,10 +133,10 @@ graph TD
     <div class="code-callout" data-lines="1-5" data-tint="1">
       <div class="code-callout__meta">
         <span class="code-callout__lines"></span>
-        <span class="code-callout__title">X_robust = (x - Q2) / (Q3 - Q1)</span>
+        <span class="code-callout__title">Robust scaling formula</span>
       </div>
       <div class="code-callout__body">
-        <p><strong>X_robust = (x - Q2) / (Q3 - Q1)</strong> — lines 1-5 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+        <p>Centers on the median (Q2) and scales by the interquartile range (Q3 − Q1), making it insensitive to extreme outliers unlike standard or min-max scaling.</p>
       </div>
     </div>
   </aside>
@@ -157,10 +157,10 @@ graph TD
     <div class="code-callout" data-lines="1-1" data-tint="1">
       <div class="code-callout__meta">
         <span class="code-callout__lines"></span>
-        <span class="code-callout__title">X_log = log(x + c)  # c is a constant to hand…</span>
+        <span class="code-callout__title">Log transform formula</span>
       </div>
       <div class="code-callout__body">
-        <p><strong>X_log = log(x + c)  # c is a constant to hand…</strong> — lines 1-1 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+        <p>Adds a small constant <em>c</em> before taking the log to handle zero values; compresses right-skewed distributions toward a more normal shape.</p>
       </div>
     </div>
   </aside>
@@ -182,10 +182,10 @@ graph TD
     <div class="code-callout" data-lines="1-4" data-tint="1">
       <div class="code-callout__meta">
         <span class="code-callout__lines"></span>
-        <span class="code-callout__title">X_boxcox = {</span>
+        <span class="code-callout__title">Box-Cox transform formula</span>
       </div>
       <div class="code-callout__body">
-        <p><strong>X_boxcox = {</strong> — lines 1-4 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+        <p>A power transform parameterised by λ: when λ = 0 it reduces to a log; otherwise it applies a power law. Requires strictly positive data.</p>
       </div>
     </div>
   </aside>
@@ -210,10 +210,10 @@ graph TD
     <div class="code-callout" data-lines="1-7" data-tint="1">
       <div class="code-callout__meta">
         <span class="code-callout__lines"></span>
-        <span class="code-callout__title">Handles negative values unlike Box-Cox</span>
+        <span class="code-callout__title">Yeo-Johnson transform formula</span>
       </div>
       <div class="code-callout__body">
-        <p><strong>Handles negative values unlike Box-Cox</strong> — lines 1-7 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+        <p>Extends Box-Cox to handle zero and negative values with separate piecewise cases for x ≥ 0 and x &lt; 0, making it applicable to any numeric column.</p>
       </div>
     </div>
   </aside>
@@ -268,19 +268,19 @@ def create_transformation_pipeline(numeric_features, categorical_features):
   <div class="code-callout" data-lines="1-15" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">From sklearn.compose import ColumnTransformer</span>
+      <span class="code-callout__title">Imports and function signature</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>From sklearn.compose import ColumnTransformer</strong> — lines 1-15. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Imports three sklearn components and defines the function, documenting that it accepts lists of numeric and categorical column names and returns a fitted Pipeline.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="16-30" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Numeric_transformer = Pipeline(steps=[</span>
+      <span class="code-callout__title">Build and combine sub-pipelines</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Numeric_transformer = Pipeline(steps=[</strong> — lines 16-30 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Creates a StandardScaler pipeline for numeric features and a OneHotEncoder pipeline for categoricals, joins them in a ColumnTransformer, and wraps the result in a final Pipeline.</p>
     </div>
   </div>
 </aside>
@@ -344,40 +344,40 @@ class DistributionTransformer:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class DistributionTransformer:</span>
+      <span class="code-callout__title">Class definition and __init__</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class DistributionTransformer:</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Stores the transform <code>method</code> (box-cox, yeo-johnson, or quantile) and <code>target_distribution</code>, initializing placeholders for the fitted transformer and lambda parameter.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="10-19" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Parameters:</span>
+      <span class="code-callout__title">fit_transform: signature and docstring</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Parameters:</strong> — lines 13-24 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines the method and documents that it accepts array-like data and returns a transformed array.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="25-36" data-tint="3">
+  <div class="code-callout" data-lines="20-34" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Self.transformer = pt</span>
+      <span class="code-callout__title">Three transform branches</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Self.transformer = pt</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Dispatches to Box-Cox (stores λ), Yeo-Johnson via <code>PowerTransformer</code>, or quantile normalisation via <code>QuantileTransformer</code>—storing the fitted object for later inverse-transform.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="37-49" data-tint="4">
+  <div class="code-callout" data-lines="36-49" data-tint="4">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&quot;&quot;&quot;</span>
+      <span class="code-callout__title">inverse_transform</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&quot;&quot;&quot;</strong> — lines 37-49 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Reverses the transform: uses scipy's <code>inv_boxcox</code> with the stored λ for Box-Cox, or delegates to the stored sklearn transformer's <code>inverse_transform</code> for the other methods.</p>
     </div>
   </div>
 </aside>
@@ -430,28 +430,28 @@ def engineer_time_features(df, datetime_column):
   <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def engineer_time_features(df, datetime_column):</span>
+      <span class="code-callout__title">Function signature and docstring</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def engineer_time_features(df, datetime_column):</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Defines the function and documents its inputs (DataFrame + column name) and output (DataFrame of engineered time features).</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-23" data-tint="2">
+  <div class="code-callout" data-lines="12-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Dt = pd.to_datetime(df[datetime_column])</span>
+      <span class="code-callout__title">Basic datetime components</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Dt = pd.to_datetime(df[datetime_column])</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Parses the column to datetime, then extracts year, month, day, hour, day-of-week, and quarter into a new DataFrame.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="24-35" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Cyclical features</span>
+      <span class="code-callout__title">Cyclical and business-logic features</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Cyclical features</strong> — lines 24-35 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Adds sin/cos encodings for month and hour (so the model sees January and December as adjacent), plus boolean flags for weekend, business hour, and morning.</p>
     </div>
   </div>
 </aside>
@@ -493,22 +493,22 @@ def transform_ecommerce_data(df):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def transform_ecommerce_data(df):</span>
+      <span class="code-callout__title">Monetary values and time features</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def transform_ecommerce_data(df):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Applies a Box-Cox transform to <code>price</code> to reduce skew, then calls <code>engineer_time_features</code> to extract datetime components from <code>order_date</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="11-25" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Encoded_categories = cat_encoder.fit_transform(</span>
+      <span class="code-callout__title">Encode categories, add interaction features, and combine</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Encoded_categories = cat_encoder.fit_transform(</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>One-hot encodes category and payment method, creates price-per-unit and items-per-order interaction columns, then concatenates everything into a single DataFrame.</p>
     </div>
   </div>
 </aside>
@@ -547,22 +547,22 @@ def transform_financial_data(df):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def transform_financial_data(df):</span>
+      <span class="code-callout__title">Returns and log returns</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def transform_financial_data(df):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Computes percentage price changes (<code>returns</code>) and their log equivalent (<code>log_returns</code>), which is more normally distributed and additive across periods.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="10-24" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Df[f&#x27;rolling_mean_{window}&#x27;] = df[&#x27;price&#x27;].ro…</span>
+      <span class="code-callout__title">Rolling statistics and technical indicators</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Df[f&#x27;rolling_mean_{window}&#x27;] = df[&#x27;price&#x27;].ro…</strong> — lines 13-24. Window functions compute per-row values using a frame without collapsing groups—check <code>PARTITION BY</code> and <code>ORDER BY</code> inside <code>OVER</code>.</p>
+      <p>Generates rolling mean, std, and z-score for three window lengths (1 week, 1 month, 3 months), then appends RSI and MACD technical indicators before returning the enriched DataFrame.</p>
     </div>
   </div>
 </aside>
@@ -627,31 +627,31 @@ def validate_transformation(original, transformed):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-13" data-tint="1">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def validate_transformation(original, transfo…</span>
+      <span class="code-callout__title">Function signature and docstring</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def validate_transformation(original, transfo…</strong> — lines 1-13. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Defines the function, documents that it takes original and transformed arrays, and returns a metrics dictionary.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="14-27" data-tint="2">
+  <div class="code-callout" data-lines="12-27" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;original_skew&#x27;: stats.skew(original),</span>
+      <span class="code-callout__title">Compute validation metrics</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;original_skew&#x27;: stats.skew(original),</strong> — lines 14-27 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Records skew and kurtosis before and after, runs normality tests on both, and captures min/max range to check for unexpected clipping or expansion.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="28-41" data-tint="3">
+  <div class="code-callout" data-lines="29-41" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Visualize comparison</span>
+      <span class="code-callout__title">Side-by-side histogram comparison</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Visualize comparison</strong> — lines 28-41 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Plots the original and transformed distributions in two panels so you can visually confirm the transform had the intended effect before returning the metrics dict.</p>
     </div>
   </div>
 </aside>
@@ -692,19 +692,19 @@ def optimize_transformation_pipeline(df, pipeline):
   <div class="code-callout" data-lines="1-11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def optimize_transformation_pipeline(df, pipe…</span>
+      <span class="code-callout__title">Function signature and docstring</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def optimize_transformation_pipeline(df, pipe…</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Defines the function and documents that it accepts a DataFrame and an unfitted sklearn Pipeline, returning an optimised fitted Pipeline.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="12-23" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Memory optimization</span>
+      <span class="code-callout__title">Memory optimisation and pipeline caching</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Memory optimization</strong> — lines 12-23 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Downcasts float64 and int64 columns to smaller types to cut memory usage, then enables sklearn Pipeline caching via <code>set_params(memory=...)</code> before fitting.</p>
     </div>
   </div>
 </aside>
@@ -783,22 +783,22 @@ Validation results for tenure:
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Load data</span>
+      <span class="code-callout__title">Load data and inspect distributions</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Load data</strong> — lines 1-14 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Reads the customer CSV and prints scipy's describe output for every numeric column so you can assess skew and kurtosis before choosing transforms.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-28" data-tint="2">
+  <div class="code-callout" data-lines="9-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Categorical_features</span>
+      <span class="code-callout__title">Build pipeline, transform, and validate</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Categorical_features</strong> — lines 15-28 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Creates the feature lists, builds a transformation pipeline, fits and transforms the data, then validates each numeric feature by comparing original and scaled distributions.</p>
     </div>
   </div>
 </aside>

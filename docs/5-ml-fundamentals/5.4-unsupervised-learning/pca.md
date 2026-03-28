@@ -36,9 +36,31 @@ Let's break it down into simple steps:
 
 3. **Project the Data**: We rotate our data to align with these main directions.
 
+```mermaid
+flowchart LR
+    A["Raw data\nN samples × P features"] --> B["Standardize\n(zero mean, unit variance)"]
+    B --> C["Compute covariance\nmatrix (P × P)"]
+    C --> D["Eigen-decompose\n→ eigenvectors & eigenvalues"]
+    D --> E["Sort by explained variance\n(scree plot)"]
+    E --> F{How many\ncomponents?}
+    F -->|"Keep k where\ncumulative variance ≥ 95%"| G["Project onto top-k\nprincipal components"]
+    G --> H["Reduced data\nN samples × k"]
+    H --> I["Visualise (k=2/3)\nor feed into model"]
+```
+
+*The output components are **uncorrelated** — PC1 captures the most variance, PC2 the next most, and so on. The scree plot shows where adding more components stops being useful.*
+
 Let's see this in action with a simple example:
 
-```python
+#### 2D toy cloud: scale, fit PCA, three subplots
+
+- **Purpose:** Walk through **standardize → `PCA().fit_transform` → explained variance ratio** on a noisy ring-like 2D dataset.
+- **Walkthrough:** Left: scaled $xy$; middle: same points with **principal axes** as red arrows; right: data in **PC coordinates** (orthogonal axes). `explained_variance_ratio_` sums to 1.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
@@ -93,7 +115,48 @@ plt.close()
 
 # Print explained variance
 print("Explained variance ratio:", pca.explained_variance_ratio_)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="14-16" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scale before PCA</span>
+    </div>
+    <div class="code-callout__body">
+      <p>PCA finds the directions of maximum <em>variance</em>. A feature measured in thousands will dominate over one measured in units, so <code>StandardScaler</code> is applied first to give every feature equal footing.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and transform</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>PCA()</code> with no argument keeps all components. <code>fit_transform</code> finds the principal directions <em>and</em> projects the data onto them in one step — equivalent to calling <code>fit</code> then <code>transform</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="33-40" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Principal component arrows</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>pca.components_</code> holds the principal directions as unit vectors. Drawing them as arrows on the original data shows <em>which way the data varies most</em> — the longer the effective spread, the more variance that component captures.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="42-54" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">PC space + explained variance</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The third subplot shows data in <strong>PC coordinates</strong>: axes are now orthogonal directions of maximum variance. <code>explained_variance_ratio_</code> says what fraction of total variance each PC accounts for — two roughly-equal values here confirm neither direction dominates.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Explained variance ratio: [0.50565666 0.49434334]
@@ -103,10 +166,19 @@ Explained variance ratio: [0.50565666 0.49434334]
 
 Let's see how PCA can help compress images while maintaining quality:
 
-```python
+#### Digits reconstruction vs number of components
+
+- **Purpose:** Show **compression** as low-rank PCA reconstruction: fewer components ⇒ blurrier digit, with **cumulative variance** noted in the title.
+- **Walkthrough:** `PCA(n_components=k)` fit on full `X`; `inverse_transform` maps back to pixel space for the first sample; top row repeats the **original** for comparison.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.datasets import load_digits
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
 
 # Load digits dataset
 digits = load_digits()
@@ -128,7 +200,7 @@ for i, n_comp in enumerate(n_components_list):
     pca = PCA(n_components=n_comp)
     X_transformed = pca.fit_transform(X)
     X_reconstructed = pca.inverse_transform(X_transformed)
-    
+
     reconstructed_digit = X_reconstructed[0].reshape(8, 8)
     axes[1, i].imshow(reconstructed_digit, cmap='gray')
     axes[1, i].axis('off')
@@ -137,7 +209,39 @@ for i, n_comp in enumerate(n_components_list):
 plt.tight_layout()
 plt.savefig('assets/pca_image_compression.png')
 plt.close()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load Digits and Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Load the 8×8 digit pixel dataset (64 features); a 2-row subplot grid will show the original image on top and reconstructions from increasing component counts below.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Original Row</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fill the top row with the same original digit image four times as a reference; reshaping the flat 64-value array to (8, 8) is required for <code>imshow</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Reconstruction Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each component count, fit PCA on all digits, project, then call <code>inverse_transform</code> to reconstruct; the title shows cumulative explained variance so readers see the quality-compression trade-off at a glance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## How to Choose the Number of Components
 
@@ -145,14 +249,26 @@ plt.close()
 
 Think of this like a pie chart showing how much each component contributes to the total information:
 
-```python
+#### Cumulative explained variance curve
+
+- **Purpose:** Choose $k$ by **elbow** on **cumulative** `explained_variance_ratio_`—how many components capture most variance.
+- **Walkthrough:** Full `PCA()` on `X` (digits data from above); `np.cumsum` drives the y-axis.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+
 def plot_explained_variance(X):
     pca = PCA()
     pca.fit(X)
-    
+
     # Cumulative explained variance
     cumsum = np.cumsum(pca.explained_variance_ratio_)
-    
+
     plt.figure(figsize=(10, 5))
     plt.plot(range(1, len(cumsum) + 1), cumsum, 'bo-')
     plt.xlabel('Number of Components')
@@ -163,17 +279,52 @@ def plot_explained_variance(X):
     plt.close()
 
 plot_explained_variance(X)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Full PCA Fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit PCA with no component limit to get all eigenvalues; <code>np.cumsum</code> on <code>explained_variance_ratio_</code> turns per-component fractions into a running total.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Cumulative Curve</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot cumulative variance vs component count; the "elbow" where the curve flattens near 0.95 suggests the optimal number of components to retain.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Method 2: Scree Plot
 
 This is like looking at the "steepness" of the information gain:
 
-```python
+#### Scree plot (per-component variance)
+
+- **Purpose:** Plot **each** PC’s share of variance (`explained_variance_ratio_`) to spot where marginal gain drops—often used for an **elbow** (subjective).
+- **Walkthrough:** Same full PCA fit as above; x-axis is PC index.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+
 def plot_scree(X):
     pca = PCA()
     pca.fit(X)
-    
+
     plt.figure(figsize=(10, 5))
     plt.plot(range(1, len(pca.explained_variance_ratio_) + 1),
              pca.explained_variance_ratio_, 'bo-')
@@ -185,7 +336,30 @@ def plot_scree(X):
     plt.close()
 
 plot_scree(X)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">PCA and Per-component Variance</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit full PCA and read <code>explained_variance_ratio_</code> — each entry is the fraction of total variance captured by that one PC, unlike the cumulative curve which sums progressively.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scree Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot individual variance per component; the "elbow" where the curve sharply levels off identifies the cutoff after which additional components add little information.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Mistakes to Avoid
 
@@ -197,7 +371,15 @@ plot_scree(X)
 
 1. **Always Scale Your Data**:
 
+#### Preprocess helper: impute NaNs, then scale
+
+- **Purpose:** Standard **PCA prep**: replace NaNs with `nan_to_num`, then **`StandardScaler`** so PCs are not dominated by large-scale features.
+- **Walkthrough:** `fit_transform` learns scaling on the matrix you pass; use the same scaler for any new rows.
+
 ```python
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+
 def preprocess_for_pca(X):
     # Remove missing values
     X = np.nan_to_num(X)
@@ -211,26 +393,61 @@ def preprocess_for_pca(X):
 
 2. **Validate Your Results**:
 
-```python
+#### Train/test reconstruction error
+
+- **Purpose:** Fit PCA on **training** data only, then compare **MSE** of reconstruction on train vs test—large test gap can mean overfitting $k$ or distribution shift.
+- **Walkthrough:** `train_test_split` from `sklearn.model_selection` (import in notebook); `inverse_transform` measures how well $k$ dims recover the original pixels.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.decomposition import PCA
+
 def validate_pca_results(X, n_components):
     # Split data
     X_train, X_test = train_test_split(X, test_size=0.2)
-    
+
     # Fit PCA on training data
     pca = PCA(n_components=n_components)
     X_train_pca = pca.fit_transform(X_train)
     X_test_pca = pca.transform(X_test)
-    
+
     # Reconstruct data
     X_train_reconstructed = pca.inverse_transform(X_train_pca)
     X_test_reconstructed = pca.inverse_transform(X_test_pca)
-    
+
     # Calculate reconstruction error
     train_error = np.mean((X_train - X_train_reconstructed) ** 2)
     test_error = np.mean((X_test - X_test_reconstructed) ** 2)
-    
+
     return train_error, test_error
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit on Train Only</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit PCA on the training split only; apply <code>transform</code> (not <code>fit_transform</code>) to the test set so PCA learns the principal directions from training data alone — preventing data leakage.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Reconstruction MSE</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Call <code>inverse_transform</code> on both sets and compute MSE; a much larger test error than train error suggests the chosen <code>n_components</code> over-fits the training distribution.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## When to Use PCA
 

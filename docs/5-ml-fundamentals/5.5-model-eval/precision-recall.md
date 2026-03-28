@@ -20,6 +20,25 @@ Precision and Recall are fundamental metrics in machine learning for evaluating 
 
 ## What are Precision and Recall?
 
+```mermaid
+graph TD
+    subgraph CM["Confusion matrix"]
+        TP["TP\nTrue Positive\nCorrectly predicted positive"]
+        FP["FP\nFalse Positive\nPredicted positive — actually negative"]
+        FN["FN\nFalse Negative\nPredicted negative — actually positive"]
+        TN["TN\nTrue Negative\nCorrectly predicted negative"]
+    end
+    PREC["Precision\n= TP / (TP + FP)\nOf all predicted +,\nhow many were right?\nOptimise when FP is costly\n(spam filter, legal screening)"]
+    REC["Recall / Sensitivity\n= TP / (TP + FN)\nOf all actual +,\nhow many did we catch?\nOptimise when FN is costly\n(cancer screening, fraud)"]
+    F1["F1 Score\n= 2 × (P × R) / (P + R)\nHarmonic mean — balances both\nUse when classes are imbalanced"]
+    TP --> PREC & REC
+    FP --> PREC
+    FN --> REC
+    PREC & REC --> F1
+```
+
+> **Figure (add screenshot or diagram):** A Precision-Recall curve (x-axis = Recall 0–1, y-axis = Precision 0–1) for a classification model, showing the area under the PR curve (PR-AUC) shaded, with the operating threshold point marked.
+
 ![Precision-Recall Curve](assets/precision_recall_curve.png)
 
 ### Precision
@@ -64,7 +83,15 @@ There's typically a trade-off between precision and recall:
 
 ### 1. Binary Classification
 
-```python
+#### PR curve and average precision
+
+- **Purpose:** Plot **precision vs recall** from **predicted probabilities** (not hard labels) and report **average precision** (area-like summary under the PR curve).
+- **Walkthrough:** `precision_recall_curve` returns aligned arrays; `average_precision_score` integrates the step function—strong when positives are rare ([ROC](roc-and-auc.md) can look optimistic).
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_recall_curve, average_precision_score
@@ -96,19 +123,61 @@ plt.title('Precision-Recall Curve')
 plt.legend(loc="lower left")
 plt.grid(True)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data, Model, and Probabilities</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit logistic regression and extract <code>predict_proba[:, 1]</code> — the positive-class probabilities needed to sweep the threshold for the PR curve.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compute PR Curve</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>precision_recall_curve</code> returns aligned precision/recall arrays at every unique probability threshold; <code>average_precision_score</code> summarizes the area in one number.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-31" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot Curve</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot recall on x and precision on y; the AP score in the legend gives a quick summary of the curve's area without reading the shape manually.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![precision-recall](assets/precision-recall_fig_1.png)
 
 ### 2. Multi-class Classification
 
-```python
+#### One-vs-rest PR curves (Iris)
+
+- **Purpose:** For **multiclass**, draw one PR curve per class by binarizing labels **per class** vs rest—same pattern as multiclass ROC.
+- **Walkthrough:** `label_binarize` on `y_test`; loop pairs `y_test_bin[:, i]` with `y_pred_proba[:, i]`; legend shows **AP** per class.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import matplotlib.pyplot as plt
+from itertools import cycle
 from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import label_binarize
 from sklearn.metrics import precision_recall_curve, average_precision_score
-from itertools import cycle
 
 # Load iris dataset
 iris = load_iris()
@@ -146,7 +215,39 @@ plt.title('Multi-class Precision-Recall Curves')
 plt.legend(loc="lower left")
 plt.grid(True)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-16" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Binarize Labels</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>label_binarize</code> converts the three-class integer labels to a 3-column binary matrix; each column is the one-vs-rest indicator for that class.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-31" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Per-class PR Curves</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Loop over each class, pairing the binarized true labels with the model's predicted probability for that column; store precision, recall, and AP per class in dicts.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="33-43" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Overlay Three Curves</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Cycle through three colors to draw each class's PR curve on the same axes; the AP in the legend lets you compare performance per class at a glance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![precision-recall](assets/precision-recall_fig_2.png)
@@ -227,11 +328,23 @@ plt.show()
 
 Let's analyze precision-recall curves for a credit risk prediction model:
 
-```python
+#### Credit pipeline + PR plot
+
+- **Purpose:** Combine **tabular** features, **scaled RandomForest**, and a **precision–recall** plot with **AP** for a skew-sensitive view of a scoring model.
+- **Walkthrough:** Same synthetic target idea as other 5.5 “credit” snippets; `[:, 1]` is probability of the positive class.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import precision_recall_curve, average_precision_score
 
 # Create credit risk dataset
 np.random.seed(42)
@@ -277,7 +390,39 @@ plt.title('Precision-Recall Curve for Credit Risk Prediction')
 plt.legend(loc="lower left")
 plt.grid(True)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Credit Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate five financial features with realistic distributions and derive a binary approval label from a linear threshold — reusing the same synthetic credit setup as other 5.5 examples.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-36" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline and Probabilities</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A scaler+forest pipeline avoids leakage; <code>predict_proba[:, 1]</code> gives the positive-class score needed to sweep the PR threshold.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="38-50" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">PR Curve and Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute and plot the precision–recall curve; the AP score tells lenders whether the model reliably ranks high-risk applicants above low-risk ones.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![precision-recall](assets/precision-recall_fig_3.png)

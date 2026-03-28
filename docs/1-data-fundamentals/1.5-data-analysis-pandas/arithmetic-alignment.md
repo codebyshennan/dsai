@@ -24,6 +24,30 @@
 
 Data alignment is one of Pandas' most powerful features! It automatically matches up data by their index labels when performing operations. Think of it like:
 
+```mermaid
+graph LR
+    subgraph S1["Series A"]
+        A1["a → 10"]
+        A2["b → 20"]
+        A3["c → 30"]
+    end
+    subgraph S2["Series B"]
+        B1["b → 5"]
+        B2["c → 15"]
+        B3["d → 25"]
+    end
+    subgraph RESULT["A + B (aligned by label)"]
+        R1["a → NaN  (no 'a' in B)"]
+        R2["b → 25   (20 + 5)"]
+        R3["c → 45   (30 + 15)"]
+        R4["d → NaN  (no 'd' in A)"]
+    end
+    S1 --> RESULT
+    S2 --> RESULT
+```
+
+*Pandas matches by **label**, not position. Unmatched labels become `NaN`. Always check `.isna()` after arithmetic on two Series with potentially different indexes.*
+
 - Two people comparing shopping lists
 - Matching employee records from different departments
 - Combining sales data from multiple stores
@@ -513,4 +537,4 @@ Remember: Data alignment is automatic in Pandas, but understanding how it works 
 
 ## Next steps
 
-You have completed the core pandas lessons in Module 1. Continue to [SQL fundamentals](../../2-data-wrangling/2.1-sql/README.md) in Module 2, or use the [course index](../../README.md) for the full path.
+You have completed the core pandas lessons in Module 1. Continue to [SQL fundamentals](../../2-data-wrangling/2.1-sql/README.md) in Module 2, or use the [full curriculum](../../curriculum.md) for the full path.

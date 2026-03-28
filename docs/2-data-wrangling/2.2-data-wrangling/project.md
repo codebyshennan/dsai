@@ -98,28 +98,28 @@ CREATE TABLE products (
   <div class="code-callout" data-lines="1-10" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Customer Information</span>
+      <span class="code-callout__title">Customers table</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Customer Information</strong> — lines 1-10 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines the <code>customers</code> entity with demographic fields (<code>age</code>, <code>gender</code>, <code>country</code>), contact info (<code>email</code>), and two date columns that will later be used to validate temporal consistency.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="11-21" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Transaction Records</span>
+      <span class="code-callout__title">Transactions table</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Transaction Records</strong> — lines 11-21 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Records each purchase event. Foreign keys to both <code>customers</code> and <code>products</code> enforce referential integrity; <code>amount</code>, <code>payment_method</code>, and <code>device_type</code> are the primary cleaning and outlier-detection targets.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="22-32" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Product Catalog</span>
+      <span class="code-callout__title">Products table</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Product Catalog</strong> — lines 22-32 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Holds catalogue attributes: <code>price</code> and <code>stock_level</code> need range validation, <code>category</code> and <code>brand</code> need standardised casing, and <code>description</code> is a free-text field prone to nulls.</p>
     </div>
   </div>
 </aside>
@@ -175,31 +175,31 @@ def assess_data_quality(df):
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def assess_data_quality(df):</span>
+      <span class="code-callout__title">Function signature and results scaffold</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def assess_data_quality(df):</strong> — lines 1-12. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Declares the function and initialises a <code>quality_report</code> dict with four empty sub-dicts—one for each quality dimension (completeness, validity, consistency, uniqueness)—so downstream code can populate them independently.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-24" data-tint="2">
+  <div class="code-callout" data-lines="11-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">&#x27;missing_values&#x27;: df.isnull().sum(),</span>
+      <span class="code-callout__title">Completeness and validity checks</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>&#x27;missing_values&#x27;: df.isnull().sum(),</strong> — lines 13-24. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p>Completeness: counts and percentages of null values per column. Validity: iterates over numeric columns to record <code>min</code>/<code>max</code> ranges—useful for spotting impossible values like negative ages or prices above business thresholds.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="25-36" data-tint="3">
+  <div class="code-callout" data-lines="24-36" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">If &#x27;registration_date&#x27; in df.columns and &#x27;las…</span>
+      <span class="code-callout__title">Consistency and uniqueness checks, then return</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>If &#x27;registration_date&#x27; in df.columns and &#x27;las…</strong> — lines 25-36 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Consistency: guards with <code>if … in df.columns</code> before comparing <code>last_login_date >= registration_date</code>—the <code>.mean()</code> gives the pass rate. Uniqueness: cardinality ratio per column (values between 0 and 1; close to 1 signals near-unique, close to 0 signals high repetition). The complete report dict is returned.</p>
     </div>
   </div>
 </aside>
@@ -261,31 +261,31 @@ class DataCleaner:
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-14" data-tint="1">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class DataCleaner:</span>
+      <span class="code-callout__title">Class definition and configuration</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class DataCleaner:</strong> — lines 1-14 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Defines the <code>DataCleaner</code> class and its <code>__init__</code>. The optional <code>config</code> dict sets domain-specific thresholds (<code>age_range</code>, <code>price_range</code>, <code>outlier_threshold</code>) so the same class works for different business contexts without code changes.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="15-29" data-tint="2">
+  <div class="code-callout" data-lines="11-28" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Handle missing values</span>
+      <span class="code-callout__title">clean_customer_data method</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Handle missing values</strong> — lines 15-29 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Works on a copy to avoid mutating the original. Fills missing ages with the median and missing countries with the mode, casts the date column, nullifies ages outside the configured range (rather than dropping rows), and uppercases country codes for consistency.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="30-44" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def clean_transaction_data(self, transactions…</span>
+      <span class="code-callout__title">clean_transaction_data method</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def clean_transaction_data(self, transactions…</strong> — lines 30-44. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Deduplicates on the natural key (<code>customer_id</code> + <code>timestamp</code> + <code>amount</code>), then uses a z-score threshold to null-out extreme <code>amount</code> values rather than deleting rows—preserving row count for downstream joins. Payment method strings are lowercased for grouping consistency.</p>
     </div>
   </div>
 </aside>
@@ -350,40 +350,22 @@ class FeatureEngineer:
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-12" data-tint="1">
+  <div class="code-callout" data-lines="1-28" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Class FeatureEngineer:</span>
+      <span class="code-callout__title">create_customer_features method</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Class FeatureEngineer:</strong> — lines 1-12 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Computes four RFM-style signals per customer from the transactions table: lifetime value (total spend), purchase frequency (transaction count), average order value, and recency (days since last purchase). All four series are assembled into a single <code>DataFrame</code> indexed by <code>customer_id</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-25" data-tint="2">
+  <div class="code-callout" data-lines="30-50" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Average order value</span>
+      <span class="code-callout__title">create_product_features method</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Average order value</strong> — lines 13-25 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="26-37" data-tint="3">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">})</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>})</strong> — lines 26-37 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="38-50" data-tint="4">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Price_pct_change = group[&#x27;price&#x27;].pct_change()</span>
-    </div>
-    <div class="code-callout__body">
-      <p><strong>Price_pct_change = group[&#x27;price&#x27;].pct_change()</strong> — lines 38-50. Aggregation collapses rows after <code>FROM</code>/<code>WHERE</code>; <code>GROUP BY</code> defines one output row per group, and <code>HAVING</code> filters those groups.</p>
+      <p>Derives two product signals: sales velocity (transaction count per product) and price elasticity. The nested <code>calculate_elasticity</code> helper computes the percentage change in demand divided by the percentage change in price for each product group—a standard economics metric for sensitivity analysis.</p>
     </div>
   </div>
 </aside>
@@ -431,31 +413,31 @@ def validate_final_dataset(df, validation_rules):
 {% endhighlight %}
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Def validate_final_dataset(df, validation_rul…</span>
+      <span class="code-callout__title">Function signature and results scaffold</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Def validate_final_dataset(df, validation_rul…</strong> — lines 1-11. Walk this block top to bottom: imports, inputs, then the transformation or plot that uses them.</p>
+      <p>Takes the cleaned <code>df</code> and a <code>validation_rules</code> dict (allowing callers to inject custom rule functions). Initialises three empty sub-dicts so each check populates its own section of the report independently.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="12-22" data-tint="2">
+  <div class="code-callout" data-lines="10-19" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Validation_results[&#x27;completeness&#x27;] = {</span>
+      <span class="code-callout__title">Completeness and consistency checks</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Validation_results[&#x27;completeness&#x27;] = {</strong> — lines 12-22 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>Completeness: stores null counts and percentages. Consistency: iterates over caller-supplied rule functions—each receives the full DataFrame and returns a scalar or Series, making the validator extensible without touching this code.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="23-33" data-tint="3">
+  <div class="code-callout" data-lines="21-33" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Validation_results[&#x27;statistical_validity&#x27;] = {</span>
+      <span class="code-callout__title">Statistical validation and return</span>
     </div>
     <div class="code-callout__body">
-      <p><strong>Validation_results[&#x27;statistical_validity&#x27;] = {</strong> — lines 23-33 in the highlighted code. Identify what this band does: DDL (table/column definitions), row changes (<code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code>), or a <code>SELECT</code> pipeline—then read joins and predicates in snippet order.</p>
+      <p>For every numeric column, records mean, standard deviation, skewness, and excess kurtosis—a quick distributional health-check. High skew or kurtosis after cleaning can indicate remaining outliers or transformation needs. The full report dict is returned.</p>
     </div>
   </div>
 </aside>

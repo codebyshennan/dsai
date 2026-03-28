@@ -20,6 +20,28 @@ Early stopping is a regularization technique that helps prevent overfitting by m
 
 Early stopping works by monitoring the model's performance on a validation set during training. When the performance stops improving or starts to degrade, training is stopped to prevent overfitting.
 
+```mermaid
+flowchart LR
+    subgraph TRAIN_LOOP["Training loop"]
+        E1["Epoch 1"] --> E2["Epoch 2"] --> E3["..."] --> EN["Epoch N"]
+    end
+    subgraph CHECK["After each epoch"]
+        VAL["Measure\nvalidation loss"]
+        BETTER{Better than\nbest so far?}
+        SAVE["Save checkpoint\n+ reset patience counter"]
+        WAIT["Increment patience\ncounter"]
+        STOP{Counter ≥\npatience limit?}
+        HALT["Stop training\nRestore best checkpoint"]
+    end
+    EN --> VAL --> BETTER
+    BETTER -->|Yes| SAVE --> E1
+    BETTER -->|No| WAIT --> STOP
+    STOP -->|No| E1
+    STOP -->|Yes| HALT
+```
+
+*`patience` controls how many epochs of no-improvement you tolerate before stopping. Typical values: 5–20 for neural networks, 10–50 for gradient boosting.*
+
 ### Why Early Stopping Matters
 
 1. Prevents overfitting
@@ -49,17 +71,30 @@ Early stopping is like sports training:
 
 ### 1. Basic Early Stopping
 
-```python
+#### Manual `partial_fit` loop with patience
+
+- **Purpose:** Illustrate **patience**: stop when validation score fails to improve for several epochs—same idea as Keras/ PyTorch callbacks.
+- **Walkthrough:** `MLPClassifier.partial_fit` needs `classes` on the first call; synthetic data is created so the snippet runs alone.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+from sklearn.datasets import make_classification
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+
+X, y = make_classification(n_samples=1000, n_features=20, random_state=42)
 
 # Split data into train, validation, and test sets
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
 
-# Initialize model
-model = MLPClassifier(hidden_layer_sizes=(100, 50), max_iter=1000)
+# Initialize model (warm_start required for repeated partial_fit)
+model = MLPClassifier(
+    hidden_layer_sizes=(100, 50), max_iter=1, warm_start=True, random_state=42
+)
 
 # Train with early stopping
 best_val_score = 0
@@ -69,24 +104,63 @@ no_improvement = 0
 for epoch in range(1000):
     model.partial_fit(X_train, y_train, classes=np.unique(y))
     val_score = model.score(X_val, y_val)
-    
+
     if val_score > best_val_score:
         best_val_score = val_score
         no_improvement = 0
     else:
         no_improvement += 1
-    
+
     if no_improvement >= patience:
         print(f"Early stopping at epoch {epoch}")
         break
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Setup and Model Init</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Create a three-way split (train/val/test); <code>warm_start=True</code> and <code>max_iter=1</code> let <code>partial_fit</code> advance training one epoch at a time without resetting weights.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-35" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Patience Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Each iteration calls <code>partial_fit</code> then scores the validation set; the counter resets on any improvement and triggers a break when it reaches the <code>patience</code> limit — the core early-stopping mechanic.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Using Scikit-learn's Early Stopping
 
-```python
+#### `SGDClassifier(early_stopping=True)`
+
+- **Purpose:** Let sklearn reserve a **validation_fraction** of training data and stop when score plateaus—no manual epoch loop.
+- **Walkthrough:** Requires **`X_train`/`y_train`** from a classification dataset; below uses `make_classification` for a self-contained fit.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import SGDClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
+
+X, y = make_classification(n_samples=1000, n_features=20, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # Create pipeline with early stopping
 pipeline = Pipeline([
@@ -97,11 +171,58 @@ pipeline = Pipeline([
 # Fit and evaluate
 pipeline.fit(X_train, y_train)
 print(f"Early Stopping Score: {pipeline.score(X_test, y_test):.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Split</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a 1000-sample classification dataset and split 80/20; the 80% training set is then further split internally by <code>SGDClassifier</code> using <code>validation_fraction</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Built-in Early Stopping</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>SGDClassifier(early_stopping=True, validation_fraction=0.2)</code> automatically reserves 20% of train data for validation and halts when score stops improving — no manual loop needed.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 3. Custom Early Stopping Class
 
-```python
+#### Callable tracker object
+
+- **Purpose:** Encapsulate **patience** and **min_delta** in a small class you can plug into any training loop.
+- **Walkthrough:** Same synthetic split as **§1** so the cell runs alone; `EarlyStopping` tracks whether validation score improved.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+
+X, y = make_classification(n_samples=1000, n_features=20, random_state=42)
+X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
+X_val, X_test, y_val, y_test = train_test_split(
+    X_temp, y_temp, test_size=0.5, random_state=42
+)
+
+model = MLPClassifier(
+    hidden_layer_sizes=(100, 50), max_iter=1, warm_start=True, random_state=42
+)
+
+
 class EarlyStopping:
     def __init__(self, patience=5, min_delta=0):
         self.patience = patience
@@ -109,7 +230,7 @@ class EarlyStopping:
         self.best_score = None
         self.counter = 0
         self.should_stop = False
-    
+
     def __call__(self, val_score):
         if self.best_score is None:
             self.best_score = val_score
@@ -120,7 +241,7 @@ class EarlyStopping:
         else:
             self.best_score = val_score
             self.counter = 0
-        
+
         return self.should_stop
 
 # Use custom early stopping
@@ -128,11 +249,43 @@ early_stopping = EarlyStopping(patience=5)
 for epoch in range(1000):
     model.partial_fit(X_train, y_train, classes=np.unique(y))
     val_score = model.score(X_val, y_val)
-    
+
     if early_stopping(val_score):
         print(f"Early stopping at epoch {epoch}")
         break
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Model Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Same three-way split and <code>warm_start</code> MLP as the manual loop example; the difference is that the stopping logic is now encapsulated in a callable class rather than inline.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-36" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">EarlyStopping Class</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define <code>EarlyStopping</code> with <code>patience</code> and <code>min_delta</code>; <code>__call__</code> updates the best score and counter, returning <code>True</code> only when the patience limit is reached.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="38-47" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Training Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Call the instance like a function each epoch; when it returns <code>True</code> the loop breaks — the class can be reused across different models and frameworks with no changes.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices
 
@@ -177,10 +330,20 @@ for epoch in range(1000):
 
 Let's see how early stopping helps in a credit risk prediction task:
 
-```python
+#### Growing `n_estimators` with patience
+
+- **Purpose:** Treat **number of trees** as a training “epoch” and stop when **test** accuracy stops improving—pedagogical (production uses **OOB** or **CV**, not the test set for selection).
+- **Walkthrough:** `set_params(classifier__n_estimators=...)` refits the pipeline each step; **do not** use this pattern for real model selection without a validation fold.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
 
 # Create credit risk dataset
 np.random.seed(42)
@@ -215,20 +378,43 @@ for n_estimators in range(10, 100, 10):
     pipeline.set_params(classifier__n_estimators=n_estimators)
     pipeline.fit(X_train, y_train)
     score = pipeline.score(X_test, y_test)
-    
+
     if score > best_score:
         best_score = score
         best_model = pipeline
         no_improvement = 0
     else:
         no_improvement += 1
-    
+
     if no_improvement >= patience:
         print(f"Early stopping at {n_estimators} trees")
         break
 
 print(f"Best model score: {best_score:.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-24" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Credit Dataset and Pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate synthetic credit features, derive a binary label, and wrap a RandomForest in a scaler pipeline; the forest's <code>n_estimators</code> will be updated each iteration to simulate an epoch-by-epoch training process.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="30-52" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Tree-count Patience Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>set_params(classifier__n_estimators=...)</code> grows the forest incrementally; the patience counter triggers early stopping when test score stops improving — pedagogical note: use a validation fold rather than the test set in production.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Early stopping at 90 trees

@@ -13,7 +13,22 @@
         }
 
         .reveal {
-            font-size: 1.5em;
+            font-size: 1.45em;
+        }
+
+        /* Dense slides: smaller type so more bullets fit without overflow */
+        .reveal .box.box--compact {
+            font-size: 0.88em;
+            max-width: 92%;
+        }
+
+        .reveal .box.box--compact h3 {
+            font-size: 1.15em;
+        }
+
+        .reveal .box.box--compact li {
+            margin-bottom: 0.35em;
+            line-height: 1.35;
         }
 
         .reveal h1,
@@ -50,6 +65,8 @@
 
         .reveal li {
             margin-bottom: 0.5em;
+            overflow-wrap: anywhere;
+            word-wrap: break-word;
         }
 
         .reveal code {
@@ -80,23 +97,99 @@
             padding: 1em;
             border-radius: 8px;
             margin: 1em auto;
-            max-width: 80%;
+            max-width: 88%;
         }
 
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1.25em 2em;
+            max-width: 92%;
             margin: 0 auto;
+            align-items: start;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 2em;
-            max-width: 80%;
+            gap: 1em 1.25em;
+            max-width: 96%;
             margin: 0 auto;
+            align-items: start;
+        }
+
+        .reveal .two-column .list-container,
+        .reveal .three-column .list-container {
+            max-width: 100%;
+        }
+
+        .reveal .two-column ul,
+        .reveal .two-column ol,
+        .reveal .three-column ul,
+        .reveal .three-column ol {
+            max-width: 100%;
+        }
+
+        .slide-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.78em;
+            color: #555;
+            z-index: 2000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(4px);
+            padding: 0.4em 1em;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 0.75em;
+        }
+
+        .slide-nav a {
+            color: #555;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav a:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
+        }
+
+        .slide-nav__title {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+            color: #444;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .slide-nav__btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .slide-nav__btn:hover {
+            background: rgba(0,0,0,0.07);
+            color: #222;
         }
 
         .slide-footer {
@@ -115,6 +208,7 @@
 
         section {
             padding: 2em;
+            padding-top: 3.5em;
             padding-bottom: 4em;
             display: flex;
             flex-direction: column;
@@ -133,6 +227,16 @@
 </head>
 
 <body>
+    <nav class="slide-nav" id="slide-nav">
+        <a href="../" title="Back to lesson">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back
+        </a>
+        <span class="slide-nav__title">3.3 Business Intelligence with Tableau</span>
+        <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        </button>
+    </nav>
     <div class="reveal">
         <div class="slides">
             
@@ -147,10 +251,12 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Advanced Analytics</h2>
-                        <div class="box">
+                        <h2>Advanced Analytics (1/2)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>Compare values over time</li>
@@ -158,12 +264,37 @@
 <li>Rank and analyze performance</li>
 <li>Bars for Sales</li>
 <li>Line for Profit</li>
-<li>Top N selector</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Top N selector</li>
 <li>Date range picker</li>
 <li>Threshold setter</li>
-<li>Tableau Help: [help.tableau.com](https://help.tableau.com)</li>
-<li>Community: [community.tableau.com](https://community.tableau.com)</li>
-<li>Video Tutorials: [Tableau YouTube](https://www.youtube.com/user/tableausoftware)</li>
+<li>Tableau Help: <a href="https://help.tableau.com" target="_blank" rel="noopener">help.tableau.com</a></li>
+<li>Community: <a href="https://community.tableau.com" target="_blank" rel="noopener">community.tableau.com</a></li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Advanced Analytics (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Video Tutorials: <a href="https://www.youtube.com/user/tableausoftware" target="_blank" rel="noopener">Tableau YouTube</a></li>
 <li>Start with simple calculations</li>
 <li>Build complexity gradually</li>
 <li>Practice with sample data</li>
@@ -180,9 +311,11 @@
                 <section>
                     <div class="content-wrapper">
                         <h2>Looker Studio Case Study</h2>
-                        <div class="box">
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>A dynamic sales performance dashboard</li>
@@ -190,11 +323,19 @@
 <li>A product profitability analysis</li>
 <li>Interactive filters and controls</li>
 <li>It contains clean, pre-formatted data</li>
-<li>It includes realistic business scenarios</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>It includes realistic business scenarios</li>
 <li>It's easy to import into Google Sheets</li>
 <li>It covers multiple analysis dimensions</li>
 <li>1</li>
                         </ul>
+                    </div>
+                
                     </div>
                 
                         </div>
@@ -206,20 +347,30 @@
                 <section>
                     <div class="content-wrapper">
                         <h2>Powerbi Case Study</h2>
-                        <div class="box">
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>A dynamic sales performance dashboard</li>
 <li>A geographical distribution analysis</li>
 <li>A product profitability analysis</li>
 <li>Interactive filters and drill-downs</li>
-<li>It contains clean, pre-formatted data</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>It contains clean, pre-formatted data</li>
 <li>It includes realistic business scenarios</li>
 <li>It's readily available in Power BI</li>
 <li>It covers multiple analysis dimensions</li>
                         </ul>
+                    </div>
+                
                     </div>
                 
                         </div>
@@ -230,23 +381,50 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Tableau Basics</h2>
-                        <div class="box">
+                        <h2>Tableau Basics (1/2)</h2>
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>Tableau's intuitive visualization interface</li>
 <li>Real-time data analysis without coding</li>
 <li>Interactive dashboard creation</li>
 <li>Advanced visualization techniques</li>
-<li>[Tableau Documentation](https://help.tableau.com/current/guides/get-started-tutorial/en-us/get-started-tutorial-home.htm)</li>
-<li>[Tableau Public Gallery](https://public.tableau.com/app/discover)</li>
-<li>[Tableau Community](https://community.tableau.com/s/)</li>
+<li><a href="https://help.tableau.com/current/guides/get-started-tutorial/en-us/get-started-tutorial-home.htm" target="_blank" rel="noopener">Tableau Documentation</a></li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><a href="https://public.tableau.com/app/discover" target="_blank" rel="noopener">Tableau Public Gallery</a></li>
+<li><a href="https://community.tableau.com/s/" target="_blank" rel="noopener">Tableau Community</a></li>
 <li>Tableau Technical Support</li>
 <li>Community Forums</li>
 <li>Knowledge Base</li>
-<li>Training Resources</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Tableau Basics (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Training Resources</li>
                         </ul>
                     </div>
                 
@@ -259,20 +437,30 @@
                 <section>
                     <div class="content-wrapper">
                         <h2>Tableau Case Study</h2>
-                        <div class="box">
+                        <div class="box box--compact">
                             
                             
+                    <div class="two-column">
+                        
                     <div class="list-container">
                         <ul>
                             <li>A dynamic sales performance dashboard</li>
 <li>A geographical distribution analysis</li>
 <li>A product profitability analysis</li>
 <li>Interactive filters and drill-downs</li>
-<li>It contains clean, pre-formatted data</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>It contains clean, pre-formatted data</li>
 <li>It includes realistic business scenarios</li>
 <li>It's readily available in Tableau</li>
 <li>It covers multiple analysis dimensions</li>
                         </ul>
+                    </div>
+                
                     </div>
                 
                         </div>
@@ -291,6 +479,24 @@
             transition: 'slide',
             slideNumber: true,
             plugins: []
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Swap fullscreen icon when state changes
+        document.addEventListener('fullscreenchange', function () {
+            var icon = document.getElementById('fs-icon');
+            if (document.fullscreenElement) {
+                icon.innerHTML = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
+            } else {
+                icon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
+            }
         });
     </script>
 </body>

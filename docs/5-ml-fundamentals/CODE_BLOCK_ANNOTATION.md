@@ -1,3 +1,6 @@
+---
+published: false
+---
 # Code block annotations (Module 5 — ML fundamentals)
 
 Use this template for Markdown lessons, notebooks, and slide-adjacent docs so every substantive code fence has a clear teaching role. **Do not change program behavior** in snippets unless the curriculum explicitly requires it.

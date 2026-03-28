@@ -29,7 +29,26 @@ Typical building blocks you might split out:
 
 Together these pieces form a **library** your team imports instead of copy-pasting cells.
 
-```python
+```mermaid
+graph TD
+    NB["notebook.ipynb\n(analysis / model)"]
+    NB -->|"from preprocessing import"| PP["preprocessing.py\nclean, type-fix, outliers"]
+    NB -->|"from features import"| FE["features.py\ndate parts, encodings, windows"]
+    NB -->|"from evaluation import"| EV["evaluation.py\nmetrics, CV, plots"]
+    NB -->|"from plotting import"| PL["plotting.py\nchart defaults, brand colors"]
+
+    PP --> DATA["data/\nraw/ processed/ external/"]
+    FE --> DATA
+    EV --> MODEL["models/\ntrained artefacts"]
+    PL --> MODEL
+```
+
+*Each `.py` module does one job. The notebook stays readable because all the boilerplate is imported, not copy-pasted.*
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example data science module structure
 import numpy as np
 import pandas as pd
@@ -80,7 +99,48 @@ def calculate_regression_metrics(
        'mae': mean_absolute_error(y_true, y_pred),
        'r2': r2_score(y_true, y_pred)
    }
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Module Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Standard data science imports at the top of a module so all functions share the same dependencies.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Numeric Cleaner</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Replaces infinite values with NaN then fills NaN with the column median—a safe default for numeric pipelines.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Date Feature Builder</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Parses a date column and extracts year, month, day, and day-of-week as numeric features models can use directly.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="35-50" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Regression Metrics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Lazy-imports sklearn metrics inside the function, then returns MSE, MAE, and R² in a dict for consistent evaluation across models.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ---
 
@@ -136,7 +196,10 @@ df2_processed = preprocess_dataset(df2)
 ### Core Data Analysis Modules
 Common modules for data analysis:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # NumPy: Numerical computations
 import numpy as np
 
@@ -183,14 +246,58 @@ plt.figure(figsize=(10, 6))
 sns.scatterplot(data=df, x='x', y='y', hue='category')
 plt.title('Data Distribution')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">NumPy Basics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates a 2D array and computes mean, standard deviation, and matrix multiplication—NumPy's core numeric operations.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pandas Wrangling</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Reads a CSV, generates summary statistics, groups by category, and builds a pivot table—the typical EDA workflow.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sklearn Pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Splits data, scales features, then fits a RandomForest—the standard train/scale/fit pattern for classification.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="38-45" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualization</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates a scatter plot coloured by category using Seaborn on top of Matplotlib—the most common plotting combo.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ---
 
 ### Advanced Data Science Modules
 Specialized modules for specific tasks:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Scipy: Scientific computing
 from scipy import stats
 from scipy.optimize import minimize
@@ -240,7 +347,48 @@ fig = px.scatter(
    hover_data=['id']
 )
 fig.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scipy Stats</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Runs a t-test and Pearson correlation for hypothesis testing, plus numerical optimisation with a simple quadratic objective.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Statsmodels OLS</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fits an Ordinary Least Squares regression with a constant term and prints a full statistical summary including p-values and confidence intervals.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-33" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">XGBoost Training</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Wraps data in a DMatrix, sets depth and learning rate parameters, then trains a gradient boosting classifier for 100 rounds.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="35-46" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plotly Chart</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates an interactive scatter plot where colour encodes category and point size encodes a numeric value—hover reveals the ID.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Creating Data Science Modules
 
@@ -249,7 +397,10 @@ fig.show()
 ### Module Organization
 Example of a well-organized data science module:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 """
 Feature Engineering Module
 
@@ -278,7 +429,7 @@ TEXT_FEATURES = ['description', 'comments']
 
 class FeatureEngineer:
    """Feature engineering for different data types"""
-   
+
    def __init__(
        self,
        numeric_features: Optional[List[str]] = None,
@@ -286,77 +437,55 @@ class FeatureEngineer:
        date_features: Optional[List[str]] = None,
        text_features: Optional[List[str]] = None
    ):
-       """
-       Initialize feature engineer
-       
-       Args:
-           numeric_features: List of numeric column names
-           categorical_features: List of categorical column names
-           date_features: List of date column names
-           text_features: List of text column names
-       """
        self.numeric_features = numeric_features or NUMERIC_FEATURES
        self.categorical_features = (
            categorical_features or CATEGORICAL_FEATURES
        )
        self.date_features = date_features or DATE_FEATURES
        self.text_features = text_features or TEXT_FEATURES
-       
+
        # Initialize transformers
        self.numeric_transformer = NumericTransformer()
        self.categorical_transformer = CategoricalTransformer()
        self.date_transformer = DateTransformer()
        self.text_transformer = TextTransformer()
-   
+
    def fit_transform(
        self,
        df: pd.DataFrame
    ) -> pd.DataFrame:
-       """
-       Create features from DataFrame
-       
-       Args:
-           df: Input DataFrame
-           
-       Returns:
-           DataFrame with engineered features
-       """
        df = df.copy()
-       
+
        # Transform each feature type
        if self.numeric_features:
            df = self.numeric_transformer.fit_transform(
                df[self.numeric_features]
            )
-       
+
        if self.categorical_features:
            df = self.categorical_transformer.fit_transform(
                df[self.categorical_features]
            )
-       
+
        if self.date_features:
            df = self.date_transformer.fit_transform(
                df[self.date_features]
            )
-       
+
        if self.text_features:
            df = self.text_transformer.fit_transform(
                df[self.text_features]
            )
-       
+
        return df
 
 class NumericTransformer(BaseEstimator, TransformerMixin):
    """Transform numeric features"""
-   
+
    def __init__(self):
        self.stats = {}
-   
-   def fit(
-       self,
-       X: pd.DataFrame,
-       y: Optional[pd.Series] = None
-   ) -> 'NumericTransformer':
+
+   def fit(self, X: pd.DataFrame, y=None):
        """Calculate statistics for transformations"""
        for col in X.columns:
            self.stats[col] = {
@@ -367,48 +496,85 @@ class NumericTransformer(BaseEstimator, TransformerMixin):
                'max': X[col].max()
            }
        return self
-   
-   def transform(
-       self,
-       X: pd.DataFrame
-   ) -> pd.DataFrame:
+
+   def transform(self, X: pd.DataFrame) -> pd.DataFrame:
        """Transform numeric features"""
        X = X.copy()
-       
        for col in X.columns:
            stats = self.stats[col]
-           
-           # Create new features
-           X[f'{col}_zscore'] = (
-               (X[col] - stats['mean']) / stats['std']
-           )
+           X[f'{col}_zscore'] = (X[col] - stats['mean']) / stats['std']
            X[f'{col}_normalized'] = (
-               (X[col] - stats['min']) /
-               (stats['max'] - stats['min'])
+               (X[col] - stats['min']) / (stats['max'] - stats['min'])
            )
            X[f'{col}_to_median'] = X[col] / stats['median']
-       
        return X
 
 # Similar implementations for other transformers...
 
 def main():
    """Example usage"""
-   # Create sample data
    df = pd.DataFrame({
        'amount': [100, 200, 300],
        'category': ['A', 'B', 'A'],
        'order_date': ['2023-01-01', '2023-01-02', '2023-01-03']
    })
-   
-   # Create and use feature engineer
    engineer = FeatureEngineer()
    features = engineer.fit_transform(df)
    print("Engineered features shape:", features.shape)
 
 if __name__ == "__main__":
    main()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-25" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Module Header</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A module docstring, standard imports, and constants at the top establish shared feature-name lists for all functions below.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-50" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">FeatureEngineer Init</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Accepts optional feature-name lists defaulting to the constants above, then instantiates one specialised transformer per feature type.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="52-75" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">fit_transform Dispatch</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Calls each transformer only when the corresponding feature list is non-empty, chaining transformations on a copy of the DataFrame.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="77-102" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">NumericTransformer</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Follows the sklearn fit/transform pattern: <code>fit</code> stores column statistics, <code>transform</code> creates z-score, min-max, and median-ratio features.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="104-115" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Entry Point</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The <code>if __name__ == "__main__"</code> guard lets the module be imported without running the demo—a standard Python best practice.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ---
 
@@ -474,7 +640,10 @@ setup(
 ### Managing Dependencies
 Common data science package management:
 
-```bash
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight bash %}
 # Create virtual environment with conda
 conda create -n ds_env python=3.8
 
@@ -497,7 +666,48 @@ pip install optuna
 
 # Save pip requirements
 pip freeze > requirements.txt
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Create Environment</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates a named conda environment pinned to Python 3.8 and activates it so subsequent installs go into that isolated environment.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Install Packages</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Installs core data science libraries from the default channel and conda-forge for packages like XGBoost that need it.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-15" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Export Environment</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Exports the environment to a YAML file so teammates can recreate the exact same setup with <code>conda env create</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-21" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pip Extras</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Installs packages not available on conda via pip, then freezes all installed versions to a requirements file for reproducibility.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Example `environment.yml`:
 ```yaml
@@ -523,7 +733,10 @@ dependencies:
 ### Development Tools
 Essential tools for data science development:
 
-```bash
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight bash %}
 # Install development tools
 conda install -c conda-forge jupyterlab
 conda install -c conda-forge black flake8 mypy
@@ -540,10 +753,45 @@ mypy src/
 
 # Run tests with coverage
 pytest --cov=src tests/
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Install Dev Tools</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Installs JupyterLab for notebooks, Black/Flake8/mypy for code quality, and pytest with coverage reporting.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Lint and Type Check</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Black auto-formats code, Flake8 checks PEP 8 style violations, and mypy catches type errors before runtime.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-16" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Run Tests</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Runs the full test suite with coverage so you can see which lines of your module are not yet exercised by tests.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Example test file:
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # tests/test_features.py
 import pytest
 import pandas as pd
@@ -556,20 +804,52 @@ def test_numeric_features():
    df = pd.DataFrame({
        'amount': [100, 200, np.nan, 400]
    })
-   
+
    # Create feature engineer
    engineer = FeatureEngineer(
        numeric_features=['amount']
    )
-   
+
    # Transform data
    result = engineer.fit_transform(df)
-   
+
    # Check results
    assert 'amount_zscore' in result.columns
    assert 'amount_normalized' in result.columns
    assert not result.isnull().any().any()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Test Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Imports pytest alongside pandas and numpy and the module under test so each test function has everything it needs.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Arrange Test Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates a minimal DataFrame with a NaN value to verify the transformer handles missing data, then instantiates FeatureEngineer for that column only.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-25" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Assert Output</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Checks that z-score and normalised columns were created and that no nulls remain—covering both shape and correctness of the transformation.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Practice Exercises for Data Science
 Try these advanced exercises:

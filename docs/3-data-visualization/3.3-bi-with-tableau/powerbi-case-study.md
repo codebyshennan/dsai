@@ -22,10 +22,31 @@ Short Tableau Public install; pair with the written guides in this folder.
    - Select "Sample - Superstore.xlsx"
 5. Click "Load" to import the dataset
 
-> **Figure (add screenshot or diagram):** Power BI Start Page
-*Caption: The Power BI start page showing the Get Data option.*
+> **Figure (add screenshot or diagram):** Power BI Desktop start page — the "Get Data" button prominently displayed in the Home tab ribbon, a list of recent files on the left, and a "New report" option; the data connector gallery visible after clicking Get Data showing Excel, CSV, SQL Server, and more.
+
 
 ### 2. Understanding the Power BI Workspace
+
+```mermaid
+graph TD
+    subgraph VIEWS["Three main views (left icon bar)"]
+        RV["Report View\nCanvas + pages\nCreate / format visuals"]
+        DV["Data View\nTable data\nEdit columns, types"]
+        MV["Model View\nRelationships\nJoin tables"]
+    end
+    subgraph PANELS["Right panels"]
+        VIS["Visualizations\nChart type picker\nFormat pane"]
+        FLD["Fields\nDrag columns\nonto visuals"]
+        FLT["Filters\nPage / visual\nlevel filters"]
+    end
+    RV --- VIS
+    RV --- FLD
+    RV --- FLT
+    DV -->|"Power Query\nM language"| TRANS["Transform / clean data"]
+    MV -->|"Drag to join"| REL["Define relationships\nbetween tables"]
+```
+
+> **Figure (add screenshot or diagram):** Power BI Desktop workspace — annotated with Report View canvas, left icon bar (Report / Data / Model), Visualizations panel, Fields panel, and Filters panel.
 
 The Power BI interface consists of several key areas:
 
@@ -50,8 +71,8 @@ The Power BI interface consists of several key areas:
    - **Filters**: Filtering options
    - **Format**: Visual formatting controls
 
-> **Figure (add screenshot or diagram):** Power BI Workspace
-*Caption: The Power BI workspace showing key areas and their functions.*
+> **Figure (add screenshot or diagram):** Power BI Desktop in Report View — the left icon bar with Report/Data/Model view icons, the canvas in the center with an empty page, the Visualizations panel on the right (chart type picker + Format tab), and the Fields panel showing the loaded table columns.
+
 
 ## Project Overview
 
@@ -62,8 +83,8 @@ In this comprehensive case study, we'll analyze retail data to drive business de
 - A product profitability analysis
 - Interactive filters and drill-downs
 
-> **Figure (add screenshot or diagram):** Final Dashboard Preview
-*Caption: The complete dashboard we'll build, showing sales trends, geographical distribution, and product performance.*
+> **Figure (add screenshot or diagram):** The completed Power BI SuperStore dashboard — a Sales by Category clustered column chart (top-left), a US map visualization with bubble sizes by Sales (top-right), a Sales and Profit dual-axis line chart (bottom-left), and a Region slicer on the right side for interactive filtering.
+
 
 ## Dataset Introduction
 
@@ -74,8 +95,8 @@ We'll utilize the "Sample - Superstore" dataset included with Power BI. This dat
 - It's readily available in Power BI
 - It covers multiple analysis dimensions
 
-> **Figure (add screenshot or diagram):** Sample Superstore Data
-*Caption: The Sample Superstore dataset in Power BI, showing the tables and their relationships.*
+> **Figure (add screenshot or diagram):** Power BI Desktop Data View showing the Orders table — column headers (Order ID, Order Date, Ship Mode, Category, Sales, Profit) visible in a scrollable grid, with the table name highlighted in the Fields pane on the right.
+
 
 ### Data Structure Overview
 
@@ -134,8 +155,8 @@ Data Structure:
    - Tracking Period: Full dataset
 ```
 
-> **Figure (add screenshot or diagram):** Data Model View
-*Caption: The Data Model view showing table relationships and field properties.*
+> **Figure (add screenshot or diagram):** Power BI Desktop Model View — four table boxes (Orders, Products, Customers, Returns) connected by relationship lines; the Orders-Products join line showing a one-to-many (1:*) cardinality marker and the relationship filter direction arrow.
+
 
 ## Step-by-Step Visualization Guide
 
@@ -151,8 +172,8 @@ Data Structure:
    - Add data labels from the Format pane
    - Customize colors and title
 
-> **Figure (add screenshot or diagram):** First Chart Creation
-*Caption: Creating a basic column chart showing sales by category.*
+> **Figure (add screenshot or diagram):** Power BI Report View with a Clustered Column Chart selected — the Visualizations pane showing the chart type, the Axis field well containing "Category", and the Values field well containing "Sales"; a three-bar chart on the canvas with data labels enabled.
+
 
 ### 2. Time Series Analysis
 
@@ -170,8 +191,8 @@ Data Structure:
    - Configure dual axis in the Format pane
    - Add reference lines from Analytics pane
 
-> **Figure (add screenshot or diagram):** Line Chart Setup
-*Caption: Setting up a line chart with multiple measures for sales and profit.*
+> **Figure (add screenshot or diagram):** Power BI dual-axis line chart — Order Date (month granularity) on the x-axis, Sales line (left y-axis, blue) and Profit line (right y-axis, orange) visible; the Format pane open showing the "Secondary y-axis" toggle enabled and "Synchronize axes" option.
+
 
 ### 3. Geographic Analysis
 
@@ -189,8 +210,8 @@ Data Structure:
    - Configure tooltips
    - Add reference lines
 
-> **Figure (add screenshot or diagram):** Map Creation
-*Caption: Creating a map visualization showing sales by state.*
+> **Figure (add screenshot or diagram):** Power BI Map visualization — the US map with bubble markers over each state, bubble size proportional to Sales, bubble color shaded by Profit (red = loss, blue = profit); a tooltip open on California showing State, Sales, and Profit values.
+
 
 ### 4. Building a Dashboard
 
@@ -202,8 +223,8 @@ Data Structure:
    - Configure drill-through options
    - Set up bookmarks for different views
 
-> **Figure (add screenshot or diagram):** Dashboard Building
-*Caption: Building a dashboard with multiple visualizations and interactive elements.*
+> **Figure (add screenshot or diagram):** Power BI Report View with multiple visuals arranged on the canvas — a column chart top-left, a map top-right, a line chart bottom-left — and a Region slicer on the right; the Format ribbon visible with alignment snap-to-grid options highlighted.
+
 
 ## Advanced Features
 
@@ -214,8 +235,8 @@ Data Structure:
    - Enter formula: `Profit Ratio = DIVIDE(SUM([Profit]), SUM([Sales]))`
    - Click the checkmark to save
 
-> **Figure (add screenshot or diagram):** DAX Measure Creation
-*Caption: Creating a DAX measure for profit ratio.*
+> **Figure (add screenshot or diagram):** Power BI's New Measure formula bar — the DAX expression `Profit Ratio = DIVIDE(SUM([Profit]), SUM([Sales]))` entered, a green checkmark confirming valid syntax, and the new measure appearing in the Fields pane under the Orders table with a calculator icon.
+
 
 ### 2. Parameters
 
@@ -228,8 +249,8 @@ Data Structure:
    - Add parameter control to report
    - Use in measures or filters
 
-> **Figure (add screenshot or diagram):** Parameter Creation
-*Caption: Setting up a parameter for dynamic filtering.*
+> **Figure (add screenshot or diagram):** Power BI's "Manage Parameters" dialog — a new parameter named "TopN" configured as an integer type with a range of 1–20 and a default value of 5; the parameter then referenced in a DAX measure formula visible below.
+
 
 ## Tips and Best Practices
 
@@ -262,8 +283,8 @@ Data Structure:
    - Share via Power BI Service
    - Create Power BI Apps
 
-> **Figure (add screenshot or diagram):** Save and Publish Options
-*Caption: Various options for saving and publishing your Power BI report.*
+> **Figure (add screenshot or diagram):** Power BI Desktop with "Publish" clicked — a workspace selection dialog listing available Power BI Service workspaces (My Workspace, Team Analytics, Sales Dashboard); a success confirmation "Published to Power BI" with an "Open in Power BI" link.
+
 
 ## Next Steps
 
@@ -291,8 +312,8 @@ Remember: Practice makes perfect! Try recreating these visualizations and experi
    - Merge queries
    - Pivot/unpivot data
 
-> **Figure (add screenshot or diagram):** Power Query Editor
-*Caption: The Power Query Editor interface showing transformation options.*
+> **Figure (add screenshot or diagram):** Power BI's Power Query Editor — the Orders table open, with the "Applied Steps" panel on the right listing transformation steps (Source, Navigation, Changed Type, Removed Duplicates); the Home tab showing Remove Rows, Split Column, and Merge Queries buttons.
+
 
 ### 2. Advanced Data Modeling
 
@@ -306,8 +327,8 @@ Remember: Practice makes perfect! Try recreating these visualizations and experi
    - Drag fields between tables to create relationships
    - Configure relationship properties (cardinality, cross-filter direction)
 
-> **Figure (add screenshot or diagram):** Data Modeling
-*Caption: Setting up hierarchies and relationships in the data model.*
+> **Figure (add screenshot or diagram):** Power BI Model View showing a hierarchy setup — the "Category" field expanded to reveal "Sub-Category" and "Product Name" as child levels; an "Edit Relationship" dialog open between Orders and Products showing cardinality and cross-filter direction settings.
+
 
 ## Advanced Visualizations
 
@@ -324,8 +345,8 @@ Remember: Practice makes perfect! Try recreating these visualizations and experi
    - Smart Filter PRO
    - Zebra BI Tables
 
-> **Figure (add screenshot or diagram):** Custom Visuals
-*Caption: Adding and using custom visuals from AppSource.*
+> **Figure (add screenshot or diagram):** Power BI's AppSource visual gallery — a search result for "Chiclet Slicer" showing the visual thumbnail, rating (4.5 stars), install count, and an "Add" button; the custom visual then appearing in the Visualizations pane alongside built-in charts.
+
 
 ### 2. Advanced Chart Types
 
@@ -341,30 +362,33 @@ Remember: Practice makes perfect! Try recreating these visualizations and experi
    - Add potential influencers
    - Configure analysis settings
 
-> **Figure (add screenshot or diagram):** Advanced Charts
-*Caption: Using advanced chart types like Decomposition Tree and Key Influencers.*
+> **Figure (add screenshot or diagram):** Power BI Decomposition Tree visual — the root node showing total Sales, expanded to Category level (3 branches), then Sub-Category, with the AI "+" button suggesting the next best split; the Key Influencers visual beside it showing which factors most increase Profit.
+
 
 ## Advanced DAX Patterns
 
 ### 1. Time Intelligence Functions
 
-```dax
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight dax %}
 // Year-to-Date Sales
-YTD Sales = 
+YTD Sales =
 CALCULATE(
     SUM([Sales]),
     DATESYTD('Date'[Date])
 )
 
 // Previous Year Comparison
-PY Sales = 
+PY Sales =
 CALCULATE(
     SUM([Sales]),
     SAMEPERIODLASTYEAR('Date'[Date])
 )
 
 // Moving Average
-MA Sales = 
+MA Sales =
 AVERAGEX(
     DATESINPERIOD(
         'Date'[Date],
@@ -374,13 +398,48 @@ AVERAGEX(
     ),
     [Sales]
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Year-to-Date</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>DATESYTD</code> returns all dates from Jan 1 to the current date in the filter context, giving a cumulative YTD total.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Prior Year Compare</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>SAMEPERIODLASTYEAR</code> shifts the date filter back exactly one year, enabling clean YoY variance calculations.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-24" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">3-Month Moving Average</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>DATESINPERIOD</code> with <code>-3 MONTH</code> creates a rolling window; <code>AVERAGEX</code> iterates over that period and averages sales.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### 2. Advanced Filter Context
 
-```dax
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight dax %}
 // Top N Products by Category
-Top N Products = 
+Top N Products =
 VAR N = 5
 RETURN
 CALCULATE(
@@ -394,14 +453,37 @@ CALCULATE(
 )
 
 // Dynamic Segmentation
-Customer Segment = 
+Customer Segment =
 SWITCH(
     TRUE(),
     [Sales] > 10000, "High Value",
     [Sales] > 5000, "Medium Value",
     "Low Value"
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-13" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Top N Filter</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>VAR N</code> stores the threshold; <code>TOPN</code> ranks product names by sales descending and <code>CALCULATE</code> applies that set as a filter.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Dynamic Segmentation</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>SWITCH(TRUE(), ...)</code> evaluates conditions in order—the first matching expression wins, replacing a chain of nested IFs.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Power BI Service Features
 
@@ -419,8 +501,8 @@ SWITCH(
    - Set up data lineage
    - Manage permissions
 
-> **Figure (add screenshot or diagram):** Workspace Management
-*Caption: Managing workspaces and content in Power BI Service.*
+> **Figure (add screenshot or diagram):** Power BI Service workspace management page — a list of workspace members with their roles (Admin, Member, Contributor, Viewer), a "Schedule refresh" panel showing a dataset with its next refresh time, and a "Data gateway" status indicator.
+
 
 ### 2. Collaboration Features
 
@@ -436,8 +518,8 @@ SWITCH(
    - Optimize for mobile viewing
    - Enable offline access
 
-> **Figure (add screenshot or diagram):** Collaboration Features
-*Caption: Sharing and collaboration options in Power BI Service.*
+> **Figure (add screenshot or diagram):** Power BI Service sharing dialog — email addresses entered in the "Grant access" field, permission level dropdown (Can view / Can edit), and a "Send notification email" checkbox; below, the "Publish to web" option showing an embed code snippet for public sharing.
+
 
 ## Performance Optimization
 
@@ -455,8 +537,8 @@ SWITCH(
    - Monitor refresh performance
    - Analyze storage usage
 
-> **Figure (add screenshot or diagram):** Performance Tools
-*Caption: Using Power BI's performance monitoring tools.*
+> **Figure (add screenshot or diagram):** Power BI Performance Analyzer pane — a list of visuals on the current page each with "DAX query", "Visual display", and "Other" timing rows showing milliseconds; the slowest visual highlighted in red, and a "Copy query" button for exporting the DAX to DAX Studio for deeper analysis.
+
 
 ### 2. Data Refresh Strategies
 
@@ -472,8 +554,8 @@ SWITCH(
    - Configure archive settings
    - Monitor refresh performance
 
-> **Figure (add screenshot or diagram):** Refresh Configuration
-*Caption: Setting up and monitoring data refresh in Power BI.*
+> **Figure (add screenshot or diagram):** Power BI Service dataset settings page — the "Scheduled refresh" section showing a toggle (On), frequency set to "Daily", time slots configured at 6 AM and 6 PM, and a "Refresh history" table below listing the last 5 refresh attempts with success/failure status and duration.
+
 
 ## Security and Governance
 
@@ -491,8 +573,8 @@ SWITCH(
    - Time-based filters
    - Custom security rules
 
-> **Figure (add screenshot or diagram):** Security Configuration
-*Caption: Setting up row-level security in Power BI.*
+> **Figure (add screenshot or diagram):** Power BI Desktop's "Manage roles" dialog for row-level security — a "Salesperson" role defined with the DAX filter `[Region] = USERNAME()` on the Orders table; a "View as roles" preview button showing the report filtered to one region.
+
 
 ### 2. Data Governance
 
@@ -508,5 +590,5 @@ SWITCH(
    - Security monitoring
    - Compliance reporting
 
-> **Figure (add screenshot or diagram):** Governance Tools
-*Caption: Power BI's governance and compliance features.*
+> **Figure (add screenshot or diagram):** Power BI Admin Portal — the "Usage metrics" page showing a bar chart of report views per day for the past 30 days, a top-10 most-viewed reports table, and an "Audit logs" link pointing to Microsoft 365 compliance center for deeper event-level tracking.
+

@@ -1,3 +1,6 @@
+---
+published: false
+---
 # Visual Resources Needed for ML Fundamentals
 
 ## 5.2 Supervised Learning 1

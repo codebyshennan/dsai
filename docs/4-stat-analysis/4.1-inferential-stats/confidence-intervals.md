@@ -8,7 +8,7 @@ A **point estimate** (for example, a sample mean) is one number. A **confidence 
 
 ## Why this matters
 
-Reporting only \(\bar x\) hides how noisy the estimate might be. Intervals show **precision** as well as location. You will:
+Reporting only \\(\bar x\\) hides how noisy the estimate might be. Intervals show **precision** as well as location. You will:
 
 - Report **ranges** for unknown parameters, not only point estimates.
 - Interpret intervals in plain language without overstating what “95% confidence” means.
@@ -84,11 +84,14 @@ where:
 
 **t-based CI for one-sample mean effect**
 
-**Purpose:** Walk through the textbook recipe—sample mean, sample SD with `ddof=1`, `t.ppf` critical value, margin \(t \cdot s/\sqrt{n}\)—and plot the interval on the effect histogram.
+**Purpose:** Walk through the textbook recipe—sample mean, sample SD with `ddof=1`, `t.ppf` critical value, margin \\(t \cdot s/\sqrt{n}\\)—and plot the interval on the effect histogram.
 
-**Walkthrough:** `confidence = 0.95` implies two-sided \(\alpha/2\); vertical lines mark \(\bar x\) and endpoints; prose printout restates the frequentist CI wording used in reports.
+**Walkthrough:** `confidence = 0.95` implies two-sided \\(\alpha/2\\); vertical lines mark \\(\bar x\\) and endpoints; prose printout restates the frequentist CI wording used in reports.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
@@ -99,27 +102,27 @@ np.random.seed(42)
 def analyze_clinical_trial():
     # Simulate blood pressure reduction in mm Hg
     treatment_effect = np.random.normal(loc=10, scale=3, size=100)
-    
+
     # Calculate statistics
     mean_effect = np.mean(treatment_effect)
     std_effect = np.std(treatment_effect, ddof=1)
-    
+
     # Calculate 95% CI
     confidence = 0.95
     df = len(treatment_effect) - 1
     t_value = stats.t.ppf((1 + confidence) / 2, df)
     margin_error = t_value * (std_effect / np.sqrt(len(treatment_effect)))
-    
+
     ci_lower = mean_effect - margin_error
     ci_upper = mean_effect + margin_error
-    
+
     # Visualize the results
     plt.figure(figsize=(10, 6))
     plt.hist(treatment_effect, bins=20, alpha=0.7, label='Treatment Effects')
     plt.axvline(mean_effect, color='red', linestyle='--', label='Mean Effect')
     plt.axvline(ci_lower, color='blue', linestyle=':', label='95% CI')
     plt.axvline(ci_upper, color='blue', linestyle=':')
-    plt.fill_between([ci_lower, ci_upper], [0, 0], [20, 20], 
+    plt.fill_between([ci_lower, ci_upper], [0, 0], [20, 20],
                      color='blue', alpha=0.2, label='Confidence Interval')
     plt.xlabel('Blood Pressure Reduction (mm Hg)')
     plt.ylabel('Frequency')
@@ -127,7 +130,7 @@ def analyze_clinical_trial():
     plt.legend()
     plt.savefig('assets/treatment_effects_ci.png')
     plt.close()
-    
+
     print("Clinical Trial Analysis")
     print(f"Average BP Reduction: {mean_effect:.1f} mm Hg")
     print(f"95% CI: ({ci_lower:.1f}, {ci_upper:.1f}) mm Hg")
@@ -135,7 +138,57 @@ def analyze_clinical_trial():
     print(f"BP reduction lies between {ci_lower:.1f} and {ci_upper:.1f} mm Hg")
 
 analyze_clinical_trial()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import NumPy, SciPy stats, and Matplotlib, then fix the random seed for reproducible results.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-11" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Simulate data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate 100 blood-pressure-reduction values from a normal distribution centred at 10 mmHg.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compute the CI</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Calculate the t-critical value for 95% confidence, then build lower and upper bounds using the margin of error formula.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-38" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize results</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot the histogram of treatment effects with vertical lines and a shaded band marking the confidence interval.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="40-46" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Print summary</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print the mean effect and interval bounds with a plain-language interpretation of 95% confidence.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** With `seed(42)` the printed mean and bounds are stable across runs.
 
@@ -179,12 +232,15 @@ The point estimate is our best guess.
 
 **Walkthrough:** Fresh `np.random.normal` per panel (no fixed seed—widths vary run-to-run); `ci[1]-ci[0]` titles each subplot; second loop repeats draws for console output.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def demonstrate_sample_size_effect():
     population_mean = 100
     population_std = 15
     sizes = [10, 30, 100, 300]
-    
+
     # Visualize the effect of sample size
     plt.figure(figsize=(12, 8))
     for i, n in enumerate(sizes):
@@ -193,20 +249,20 @@ def demonstrate_sample_size_effect():
         ci = stats.t.interval(0.95, len(sample)-1,
                             loc=np.mean(sample),
                             scale=stats.sem(sample))
-        
+
         plt.hist(sample, bins=15, alpha=0.7)
         plt.axvline(np.mean(sample), color='red', linestyle='--', label='Mean')
         plt.axvline(ci[0], color='blue', linestyle=':', label='95% CI')
         plt.axvline(ci[1], color='blue', linestyle=':')
-        plt.fill_between([ci[0], ci[1]], [0, 0], [20, 20], 
+        plt.fill_between([ci[0], ci[1]], [0, 0], [20, 20],
                         color='blue', alpha=0.2)
         plt.title(f'Sample Size: {n}\nCI Width: {ci[1]-ci[0]:.2f}')
         plt.legend()
-    
+
     plt.tight_layout()
     plt.savefig('assets/sample_size_effect_ci.png')
     plt.close()
-    
+
     print("\nSample Size Effect on CI Width")
     for n in sizes:
         sample = np.random.normal(population_mean, population_std, n)
@@ -219,7 +275,39 @@ def demonstrate_sample_size_effect():
         print(f"Precision: {'*' * int(50/width)}")
 
 demonstrate_sample_size_effect()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Parameters</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define population mean, standard deviation, and the four sample sizes to compare.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Subplot grid</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each sample size, draw a random sample, compute the 95% t-interval, and plot a histogram with the CI shaded in each subplot.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-39" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Console output</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print the CI width for each n and a visual "precision stars" indicator—more stars means a narrower interval.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** Stochastic; expect narrower widths as `n` increases.
 
@@ -257,11 +345,14 @@ Precision: ***************
 
 **Walkthrough:** `stats.t.interval(level, df, loc, scale)` sweeps `level`; each subplot title shows CI width; reliability stars are illustrative only.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def demonstrate_confidence_level_effect():
     sample = np.random.normal(100, 15, 30)
     levels = [0.80, 0.90, 0.95, 0.99]
-    
+
     # Visualize the effect of confidence level
     plt.figure(figsize=(12, 8))
     for i, level in enumerate(levels):
@@ -269,20 +360,20 @@ def demonstrate_confidence_level_effect():
         ci = stats.t.interval(level, len(sample)-1,
                             loc=np.mean(sample),
                             scale=stats.sem(sample))
-        
+
         plt.hist(sample, bins=15, alpha=0.7)
         plt.axvline(np.mean(sample), color='red', linestyle='--', label='Mean')
         plt.axvline(ci[0], color='blue', linestyle=':', label=f'{level*100}% CI')
         plt.axvline(ci[1], color='blue', linestyle=':')
-        plt.fill_between([ci[0], ci[1]], [0, 0], [20, 20], 
+        plt.fill_between([ci[0], ci[1]], [0, 0], [20, 20],
                         color='blue', alpha=0.2)
         plt.title(f'Confidence Level: {level*100}%\nCI Width: {ci[1]-ci[0]:.2f}')
         plt.legend()
-    
+
     plt.tight_layout()
     plt.savefig('assets/confidence_level_effect.png')
     plt.close()
-    
+
     print("\nConfidence Level Effect on CI Width")
     for level in levels:
         ci = stats.t.interval(level, len(sample)-1,
@@ -294,7 +385,39 @@ def demonstrate_confidence_level_effect():
         print(f"Reliability: {'*' * int(level*10)}")
 
 demonstrate_confidence_level_effect()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Shared sample</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw one sample of size 30 and define four confidence levels to compare across subplots.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Subplot per level</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each confidence level, compute the t-interval and overlay the mean, CI bounds, and shaded band on the same histogram.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-36" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Width printout</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print each level's CI width; 99% should produce the widest interval, showing the precision-confidence trade-off.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** One run’s widths; 99% should be widest.
 
@@ -334,7 +457,10 @@ Reliability: *********
 
 **Walkthrough:** `stats.sem` feeds the scale argument; histogram + vertical lines duplicate earlier lesson visuals with new variable names.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def mean_ci(data, confidence=0.95):
     """Calculate CI for a mean using t-distribution"""
     mean = np.mean(data)
@@ -352,7 +478,7 @@ plt.hist(scores, bins=15, alpha=0.7)
 plt.axvline(mean, color='red', linestyle='--', label='Mean')
 plt.axvline(ci[0], color='blue', linestyle=':', label='95% CI')
 plt.axvline(ci[1], color='blue', linestyle=':')
-plt.fill_between([ci[0], ci[1]], [0, 0], [20, 20], 
+plt.fill_between([ci[0], ci[1]], [0, 0], [20, 20],
                  color='blue', alpha=0.2)
 plt.xlabel('Test Score')
 plt.ylabel('Frequency')
@@ -364,7 +490,48 @@ plt.close()
 print(f"\nTest Score Analysis")
 print(f"Mean score: {mean:.1f}")
 print(f"95% CI: ({ci[0]:.1f}, {ci[1]:.1f})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Helper function</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Encapsulate mean, SEM, and <code>stats.t.interval</code> in a two-line helper that returns the CI tuple and the sample mean.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Generate scores</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Simulate 50 student test scores from a normal distribution and compute the 95% CI using the helper.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-25" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot histogram</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot the score histogram with the mean line and a blue shaded band for the confidence interval bounds.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="27-29" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Print results</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Report the mean score and the interval endpoints for quick interpretation.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** Random `scores` vector each run unless you add `np.random.seed`.
 
@@ -384,21 +551,24 @@ Mean score: 77.4
 
 **Wilson score interval (not Wald)**
 
-**Purpose:** Avoid boundary issues near 0 or 1 by using the Wilson center/margin formulas—better small-sample behavior than \(\hat p \pm z SE\) for some settings.
+**Purpose:** Avoid boundary issues near 0 or 1 by using the Wilson center/margin formulas—better small-sample behavior than \\(\hat p \pm z SE\\) for some settings.
 
 **Walkthrough:** `z = norm.ppf` for two-sided critical value; denominator `1 + z²/n` pulls the center toward ½; bar plot uses half-width as symmetric error.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def proportion_ci(successes, n, confidence=0.95):
     """Calculate CI for a proportion using Wilson score interval"""
     z = stats.norm.ppf((1 + confidence) / 2)
     p_hat = successes / n
-    
+
     # Wilson score interval
     denominator = 1 + z**2/n
     center = (p_hat + z**2/(2*n))/denominator
     margin = z * np.sqrt(p_hat*(1-p_hat)/n + z**2/(4*n**2))/denominator
-    
+
     return (center - margin, center + margin)
 
 # Example: Survey responses
@@ -408,7 +578,7 @@ ci = proportion_ci(responses, total)
 
 # Visualize the results
 plt.figure(figsize=(8, 6))
-plt.bar(['Response Rate'], [responses/total], yerr=[(ci[1]-ci[0])/2], 
+plt.bar(['Response Rate'], [responses/total], yerr=[(ci[1]-ci[0])/2],
         capsize=10, color='blue', alpha=0.7)
 plt.axhline(y=ci[0], color='red', linestyle=':', label='95% CI')
 plt.axhline(y=ci[1], color='red', linestyle=':')
@@ -422,7 +592,39 @@ plt.close()
 print(f"\nSurvey Analysis")
 print(f"Response rate: {responses/total:.1%}")
 print(f"95% CI: ({ci[0]:.1%}, {ci[1]:.1%})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Wilson score formula</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Use the Wilson score interval instead of the simple Wald form for better behaviour near 0 or 1; the denominator shrinks the center toward 0.5.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Survey data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute the Wilson CI for 180 positive responses out of 200 total surveys.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-28" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Bar chart with error bars</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot the response rate as a bar with symmetric error bars and horizontal lines marking the CI bounds.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** Fixed `responses/total` here yields repeatable percentages.
 
@@ -442,27 +644,30 @@ Response rate: 90.0%
 
 **Welch-style SE and df, two-sample t critical value**
 
-**Purpose:** Build a CI on \(\bar X_1 - \bar X_2\) with unpooled variances—matches the unequal-variance two-sample t spirit—then visualize arms with a boxplot.
+**Purpose:** Build a CI on \\(\bar X_1 - \bar X_2\\) with unpooled variances—matches the unequal-variance two-sample t spirit—then visualize arms with a boxplot.
 
 **Walkthrough:** `se = sqrt(s1²/n1 + s2²/n2)`; Welch–Satterthwaite `df` formula feeds `t.ppf`; margin is `t_val * se`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def diff_means_ci(group1, group2, confidence=0.95):
     """Calculate CI for difference between two means"""
     diff = np.mean(group1) - np.mean(group2)
-    
+
     # Pooled standard error
     n1, n2 = len(group1), len(group2)
     var1, var2 = np.var(group1, ddof=1), np.var(group2, ddof=1)
     se = np.sqrt(var1/n1 + var2/n2)
-    
+
     # Welch-Satterthwaite degrees of freedom
     df = (var1/n1 + var2/n2)**2 / ((var1/n1)**2/(n1-1) + (var2/n2)**2/(n2-1))
-    
+
     # Calculate CI
     t_val = stats.t.ppf((1 + confidence) / 2, df)
     margin = t_val * se
-    
+
     return (diff - margin, diff + margin)
 
 # Example: Comparing two teaching methods
@@ -481,7 +686,39 @@ plt.close()
 print(f"\nTeaching Method Comparison")
 print(f"Mean difference: {np.mean(method1_scores) - np.mean(method2_scores):.1f}")
 print(f"95% CI: ({ci[0]:.1f}, {ci[1]:.1f})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-16" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Welch-style CI</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute the unpooled standard error and Welch–Satterthwaite degrees of freedom, then build the CI on the mean difference.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two-group example</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate scores for two teaching methods and call the CI function to quantify the uncertainty in their difference.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Boxplot comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Side-by-side box plots contrast the two groups; the printed CI tells whether the difference is distinguishable from zero.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured output (example):** Random method scores each run; interval may or may not cover zero.
 

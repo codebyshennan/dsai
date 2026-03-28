@@ -26,6 +26,21 @@ This is exactly what distance metrics do in KNN - they help us measure similarit
 
 ## Common Distance Metrics Explained
 
+```mermaid
+graph TD
+    Q{What kind\nof features?} -->|Continuous,\nsame scale| EU["Euclidean\n√Σ(xᵢ−yᵢ)²\nStraight-line distance"]
+    Q -->|Continuous,\ndifferent units| MAN["Manhattan\nΣ|xᵢ−yᵢ|\nCity-block distance"]
+    Q -->|General case\n(tunes p)| MIN["Minkowski\n(Σ|xᵢ−yᵢ|ᵖ)^(1/p)\np=1→Manhattan, p=2→Euclidean"]
+    Q -->|Text or vectors\n(magnitude irrelevant)| COS["Cosine similarity\ncos θ = (x·y)/(‖x‖‖y‖)\nAngle between vectors"]
+    Q -->|Binary /\ncategorical| HAM["Hamming\nCount mismatches\nUsed in NLP, genetics"]
+
+    EU --> WARN["⚠ Must scale features first!\nOtherwise large-range features dominate"]
+    MAN --> WARN
+    MIN --> WARN
+```
+
+*Always apply `StandardScaler` or `MinMaxScaler` before using any distance-based method — a salary column in dollars will dwarf an age column in years.*
+
 ### 1. Euclidean Distance (Straight Line Distance)
 
 Think of this as measuring distance "as the crow flies" - the shortest possible path between two points.
@@ -198,7 +213,10 @@ Let's say you're predicting house prices using these features:
 
 **Walkthrough:** Expect `X`, `y`, `train_test_split`, and `X_test_scaled = scaler.transform(X_test)` to exist—snippet is illustrative glue code.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsRegressor
 
@@ -219,7 +237,30 @@ for metric in metrics:
 print("Model performance with different metrics:")
 for metric, score in results.items():
     print(f"{metric}: {score:.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scale Features</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>StandardScaler</code> normalizes each feature to zero mean and unit variance — critical for distance-based models so features with larger ranges don't dominate the distance calculation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compare Metrics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Loop over Euclidean and Manhattan metrics, fit a <code>KNeighborsRegressor</code> with each, and collect R² scores — comparing them reveals which metric better reflects similarity in this feature space.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Additional Resources
 

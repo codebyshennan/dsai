@@ -73,16 +73,18 @@ This gives us a quick overview of:
 
 Let's analyze real estate data:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Sample house prices (in thousands)
 house_prices = pd.Series([
-    250, 280, 295, 310, 460, 475, 
+    250, 280, 295, 310, 460, 475,
     285, 290, 310, 330, 380, 400
 ], name='House Prices ($K)')
 
 def analyze_distribution(data: pd.Series) -> None:
     """Analyze and visualize data distribution"""
-    # Calculate statistics
     stats = {
         'mean': data.mean(),
         'median': data.median(),
@@ -90,34 +92,62 @@ def analyze_distribution(data: pd.Series) -> None:
         'skewness': data.skew(),
         'kurtosis': data.kurtosis()
     }
-    
-    # Print statistics
+
     print("\nDistribution Analysis:")
     for stat, value in stats.items():
         print(f"{stat.title()}: {value:.2f}")
-    
-    # Create visualization
+
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
-    
-    # Histogram with KDE
+
     sns.histplot(data, kde=True, ax=ax1)
-    ax1.axvline(stats['mean'], color='r', linestyle='--', 
+    ax1.axvline(stats['mean'], color='r', linestyle='--',
                 label=f"Mean: {stats['mean']:.2f}")
-    ax1.axvline(stats['median'], color='g', linestyle='--', 
+    ax1.axvline(stats['median'], color='g', linestyle='--',
                 label=f"Median: {stats['median']:.2f}")
     ax1.legend()
     ax1.set_title('Distribution with Mean and Median')
-    
-    # Boxplot
+
     sns.boxplot(y=data, ax=ax2)
     ax2.set_title('Boxplot with Quartiles')
-    
+
     plt.tight_layout()
     plt.show()
 
 # Analyze house prices
 analyze_distribution(house_prices)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sample Data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates a pandas Series of house prices in thousands—small enough to inspect but realistic enough to show skew.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Five-Number Summary</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Computes mean, median, std, skewness, and kurtosis into a dict then prints each—covering center, spread, and shape in one pass.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-37" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Dual-Panel Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plots a histogram+KDE with mean and median reference lines on the left, and a boxplot showing quartiles and outliers on the right.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![one-variable-statistics](assets/one-variable-statistics_fig_2.png)
@@ -140,14 +170,17 @@ Kurtosis: -0.35
 
 Let's implement all three measures:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class CentralTendency:
     """Calculate and compare central tendency measures"""
-    
+
     def __init__(self, data: pd.Series):
         self.data = data
         self.results = self._calculate_measures()
-    
+
     def _calculate_measures(self) -> dict:
         """Calculate all central tendency measures"""
         return {
@@ -156,32 +189,27 @@ class CentralTendency:
             'mode': self.data.mode()[0],
             'trimmed_mean': stats.trim_mean(self.data, 0.1)
         }
-    
+
     def compare_measures(self) -> None:
         """Compare different measures visually"""
         plt.figure(figsize=(10, 6))
-        
-        # Plot distribution
         sns.histplot(self.data, kde=True)
-        
-        # Add vertical lines for measures
+
         colors = ['r', 'g', 'b', 'y']
         labels = ['Mean', 'Median', 'Mode', 'Trimmed Mean']
-        
+
         for (measure, value), color, label in zip(
             self.results.items(), colors, labels
         ):
             plt.axvline(
-                value,
-                color=color,
-                linestyle='--',
+                value, color=color, linestyle='--',
                 label=f"{label}: {value:.2f}"
             )
-        
+
         plt.title('Distribution with Central Tendency Measures')
         plt.legend()
         plt.show()
-    
+
     def print_summary(self) -> None:
         """Print summary of central tendency measures"""
         print("\nCentral Tendency Measures:")
@@ -194,11 +222,42 @@ salaries = pd.Series([
     55000, 57000, 58000, 60000, 150000
 ], name='Salaries')
 
-# Analyze central tendency
 ct = CentralTendency(salaries)
 ct.print_summary()
 ct.compare_measures()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-15" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Four Measures</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Computes mean, median, mode, and a 10%-trimmed mean at construction time so all visualisation and print methods share the same pre-calculated dict.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-34" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visual Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Overlays four coloured vertical lines on the histogram so you can see how far the mean is pulled from the median by the outlier salary of 150,000.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="36-50" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Print and Demo</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Prints each measure and runs the visualization on a salary series that includes one outlier at 150,000 to show mean distortion.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![one-variable-statistics](assets/one-variable-statistics_fig_3.png)
@@ -282,84 +341,65 @@ Reason: Data contains outliers
 
 Let's create a comprehensive spread analyzer:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class SpreadAnalyzer:
     """Analyze data spread using various measures"""
-    
+
     def __init__(self, data: pd.Series):
         self.data = data
         self.stats = self._calculate_stats()
-    
+
     def _calculate_stats(self) -> dict:
         """Calculate various spread statistics"""
         q1, q3 = self.data.quantile([0.25, 0.75])
         iqr = q3 - q1
-        
         return {
             'range': self.data.max() - self.data.min(),
             'std': self.data.std(),
             'variance': self.data.var(),
-            'mad': self.data.mad(),  # Mean absolute deviation
+            'mad': self.data.mad(),
             'iqr': iqr,
-            'quartiles': {
-                'Q1': q1,
-                'Q3': q3
-            }
+            'quartiles': {'Q1': q1, 'Q3': q3}
         }
-    
+
     def identify_outliers(self) -> pd.Series:
         """Identify outliers using IQR method"""
         q1 = self.stats['quartiles']['Q1']
         q3 = self.stats['quartiles']['Q3']
         iqr = self.stats['iqr']
-        
         lower_bound = q1 - 1.5 * iqr
         upper_bound = q3 + 1.5 * iqr
-        
-        return self.data[
-            (self.data < lower_bound) |
-            (self.data > upper_bound)
-        ]
-    
+        return self.data[(self.data < lower_bound) | (self.data > upper_bound)]
+
     def plot_spread(self) -> None:
         """Visualize data spread"""
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
-        
-        # Box plot
         sns.boxplot(x=self.data, ax=ax1)
         ax1.set_title('Boxplot with Quartiles')
-        
-        # Distribution plot with spread measures
+
         sns.histplot(self.data, kde=True, ax=ax2)
-        
-        # Add vertical lines for spread measures
         mean = self.data.mean()
         std = self.stats['std']
-        
-        ax2.axvline(mean, color='r', linestyle='--',
-                    label='Mean')
-        ax2.axvline(mean + std, color='g', linestyle=':',
-                    label='+1 Std Dev')
-        ax2.axvline(mean - std, color='g', linestyle=':',
-                    label='-1 Std Dev')
-        
+        ax2.axvline(mean, color='r', linestyle='--', label='Mean')
+        ax2.axvline(mean + std, color='g', linestyle=':', label='+1 Std Dev')
+        ax2.axvline(mean - std, color='g', linestyle=':', label='-1 Std Dev')
         ax2.legend()
         ax2.set_title('Distribution with Standard Deviation')
-        
         plt.tight_layout()
         plt.show()
-    
+
     def print_summary(self) -> None:
         """Print spread analysis summary"""
         print("\nSpread Analysis:")
         for measure, value in self.stats.items():
             if measure != 'quartiles':
                 print(f"{measure.title()}: {value:.2f}")
-        
         print("\nQuartiles:")
         for q, v in self.stats['quartiles'].items():
             print(f"{q}: {v:.2f}")
-        
         outliers = self.identify_outliers()
         if len(outliers) > 0:
             print(f"\nFound {len(outliers)} outliers:")
@@ -371,11 +411,42 @@ temperatures = pd.Series([
     19.9, 20.3, 25.0, 18.9, 19.5, 20.0
 ], name='Daily Temperatures')
 
-# Analyze spread
 spread = SpreadAnalyzer(temperatures)
 spread.print_summary()
 spread.plot_spread()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-19" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Spread Statistics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Computes range, std, variance, MAD, IQR, and Q1/Q3 at init—five spread measures for comprehensive spread characterisation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="21-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">IQR Outlier Detection</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Uses the 1.5×IQR fence rule—the same logic behind boxplot whiskers—to return a filtered Series of extreme values.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-62" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot and Summary</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Stacks a boxplot and a histogram with ±1 std dev lines, then prints all spread metrics and flags any outliers found by the IQR method.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ---
 
@@ -383,75 +454,85 @@ spread.plot_spread()
 
 Let's analyze variability in different scenarios:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def compare_variability(datasets: dict) -> None:
     """Compare variability across different datasets"""
     fig, axes = plt.subplots(
-        len(datasets), 2,
-        figsize=(15, 5 * len(datasets))
+        len(datasets), 2, figsize=(15, 5 * len(datasets))
     )
-    
     results = {}
-    
-    for (name, data), (ax1, ax2) in zip(
-        datasets.items(), axes
-    ):
-        # Calculate statistics
+
+    for (name, data), (ax1, ax2) in zip(datasets.items(), axes):
         stats = {
             'std': data.std(),
             'iqr': data.quantile(0.75) - data.quantile(0.25),
-            'cv': data.std() / data.mean()  # Coefficient of variation
+            'cv': data.std() / data.mean()
         }
         results[name] = stats
-        
-        # Create visualizations
+
         sns.boxplot(x=data, ax=ax1)
         ax1.set_title(f'{name} - Boxplot')
-        
+
         sns.histplot(data, kde=True, ax=ax2)
         ax2.set_title(f'{name} - Distribution')
-        
-        # Add mean and std dev lines
         mean = data.mean()
-        std = stats['std']
-        ax2.axvline(mean, color='r', linestyle='--',
-                    label='Mean')
-        ax2.axvline(mean + std, color='g', linestyle=':',
-                    label='+1 Std Dev')
-        ax2.axvline(mean - std, color='g', linestyle=':',
-                    label='-1 Std Dev')
+        ax2.axvline(mean, color='r', linestyle='--', label='Mean')
+        ax2.axvline(mean + stats['std'], color='g', linestyle=':', label='+1 Std Dev')
+        ax2.axvline(mean - stats['std'], color='g', linestyle=':', label='-1 Std Dev')
         ax2.legend()
-    
+
     plt.tight_layout()
     plt.show()
-    
-    # Print comparison
+
     print("\nVariability Comparison:")
-    measures = ['std', 'iqr', 'cv']
-    
-    for measure in measures:
+    for measure in ['std', 'iqr', 'cv']:
         print(f"\n{measure.upper()}:")
-        for name, stats in results.items():
-            print(f"{name}: {stats[measure]:.3f}")
+        for name, st in results.items():
+            print(f"{name}: {st[measure]:.3f}")
 
 # Example datasets
 datasets = {
-    'Stock Prices': pd.Series([
-        100, 102, 101, 103, 98, 99, 102,
-        101, 100, 103, 97, 102
-    ]),
-    'Temperature': pd.Series([
-        20.1, 20.3, 20.2, 20.1, 20.4, 20.2,
-        20.3, 20.1, 20.2, 20.3
-    ]),
-    'Website Traffic': pd.Series([
-        1000, 1500, 800, 2000, 1200, 1800,
-        900, 2500, 1100, 1300
-    ])
+    'Stock Prices': pd.Series([100, 102, 101, 103, 98, 99, 102, 101, 100, 103, 97, 102]),
+    'Temperature': pd.Series([20.1, 20.3, 20.2, 20.1, 20.4, 20.2, 20.3, 20.1, 20.2, 20.3]),
+    'Website Traffic': pd.Series([1000, 1500, 800, 2000, 1200, 1800, 900, 2500, 1100, 1300])
 }
-
 compare_variability(datasets)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Per-Dataset Stats</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each dataset computes std, IQR, and coefficient of variation (CV)—CV normalises spread by the mean so datasets on different scales can be compared.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Side-by-Side Plots</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Places a boxplot and histogram with ±1 std dev lines for each dataset in its own row so shapes and spreads are visually comparable.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-42" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__title">Print Comparison</span>
+      <span class="code-callout__lines"></span>
+    </div>
+    <div class="code-callout__body">
+      <p>Prints std, IQR, and CV grouped by measure so you can read down each column to see which dataset is most variable.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![one-variable-statistics](assets/one-variable-statistics_fig_4.png)
@@ -484,100 +565,101 @@ Website Traffic: 0.385
 
 Let's create a comprehensive frequency analyzer:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class FrequencyAnalyzer:
     """Analyze and visualize frequency distributions"""
-    
-    def __init__(
-        self,
-        data: pd.Series,
-        bins: Optional[int] = None
-    ):
+
+    def __init__(self, data: pd.Series, bins: Optional[int] = None):
         self.data = data
         self.bins = bins or self._suggest_bins()
         self.freq_dist = self._calculate_frequency()
-    
+
     def _suggest_bins(self) -> int:
         """Suggest number of bins using Sturge's rule"""
         return int(1 + 3.322 * np.log10(len(self.data)))
-    
+
     def _calculate_frequency(self) -> pd.DataFrame:
         """Calculate frequency distribution"""
-        # Create bins
-        hist, bin_edges = np.histogram(
-            self.data, bins=self.bins
-        )
-        
-        # Create frequency table
+        hist, bin_edges = np.histogram(self.data, bins=self.bins)
         freq_df = pd.DataFrame({
             'bin_start': bin_edges[:-1],
             'bin_end': bin_edges[1:],
             'frequency': hist
         })
-        
-        # Add relative and cumulative frequencies
-        freq_df['relative_freq'] = (
-            freq_df['frequency'] / len(self.data)
-        )
-        freq_df['cumulative_freq'] = (
-            freq_df['frequency'].cumsum()
-        )
-        freq_df['cumulative_relative'] = (
-            freq_df['relative_freq'].cumsum()
-        )
-        
+        freq_df['relative_freq'] = freq_df['frequency'] / len(self.data)
+        freq_df['cumulative_freq'] = freq_df['frequency'].cumsum()
+        freq_df['cumulative_relative'] = freq_df['relative_freq'].cumsum()
         return freq_df
-    
+
     def plot_distributions(self) -> None:
         """Create visualization suite"""
-        fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(
-            2, 2, figsize=(15, 12)
-        )
-        
-        # Histogram
+        fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 12))
+
         sns.histplot(self.data, bins=self.bins, ax=ax1)
         ax1.set_title('Frequency Distribution')
-        
-        # Relative frequency
-        ax2.bar(
-            range(len(self.freq_dist)),
-            self.freq_dist['relative_freq']
-        )
+
+        ax2.bar(range(len(self.freq_dist)), self.freq_dist['relative_freq'])
         ax2.set_title('Relative Frequency')
-        
-        # Cumulative frequency
-        ax3.plot(
-            range(len(self.freq_dist)),
-            self.freq_dist['cumulative_freq'],
-            marker='o'
-        )
+
+        ax3.plot(range(len(self.freq_dist)), self.freq_dist['cumulative_freq'], marker='o')
         ax3.set_title('Cumulative Frequency')
-        
-        # Density plot
+
         sns.kdeplot(self.data, ax=ax4)
         ax4.set_title('Density Distribution')
-        
+
         plt.tight_layout()
         plt.show()
-    
+
     def print_summary(self) -> None:
         """Print frequency distribution summary"""
         print("\nFrequency Distribution Summary:")
         print(self.freq_dist.round(3))
-        
-        print("\nDistribution Statistics:")
+        print(f"\nDistribution Statistics:")
         print(f"Number of bins: {self.bins}")
-        print(f"Most common bin frequency: "
-              f"{self.freq_dist['frequency'].max()}")
-        print(f"Median frequency: "
-              f"{self.freq_dist['frequency'].median()}")
+        print(f"Most common bin frequency: {self.freq_dist['frequency'].max()}")
+        print(f"Median frequency: {self.freq_dist['frequency'].median()}")
 
 # Example with student grades
 grades = pd.Series(np.random.normal(75, 10, 200).clip(0, 100))
 freq_analyzer = FrequencyAnalyzer(grades)
 freq_analyzer.print_summary()
 freq_analyzer.plot_distributions()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Init with Auto-Bins</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Uses Sturge's rule (<code>1 + 3.322·log₁₀(n)</code>) to suggest the bin count if none is given, then pre-computes the full frequency table at construction.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Frequency Table</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Builds a DataFrame with bin edges, counts, relative frequencies, and cumulative frequencies—the four columns needed for standard frequency distribution tables.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-55" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Four-Panel View</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Creates a 2×2 grid: histogram, relative frequency bar chart, cumulative frequency line, and KDE—covering every standard distribution visualisation in one call.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![one-variable-statistics](assets/one-variable-statistics_fig_5.png)
@@ -609,82 +691,90 @@ Median frequency: 24.5
 
 Let's create publication-quality visualizations:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def create_analysis_dashboard(
     data: pd.Series,
     title: str = "Data Analysis Dashboard"
 ) -> None:
     """Create comprehensive data analysis dashboard"""
-    # Setup the plot
     fig = plt.figure(figsize=(15, 10))
     gs = fig.add_gridspec(2, 3)
-    
-    # Basic distribution
+
     ax1 = fig.add_subplot(gs[0, :2])
     sns.histplot(data, kde=True, ax=ax1)
     ax1.set_title('Distribution with KDE')
-    
-    # Box plot
+
     ax2 = fig.add_subplot(gs[0, 2])
     sns.boxplot(y=data, ax=ax2)
     ax2.set_title('Box Plot')
-    
-    # QQ plot
+
     ax3 = fig.add_subplot(gs[1, 0])
     stats.probplot(data, dist="norm", plot=ax3)
     ax3.set_title('Q-Q Plot')
-    
-    # Cumulative distribution
+
     ax4 = fig.add_subplot(gs[1, 1])
-    stats.cumfreq(data, numbins=20)
-    ax4.hist(
-        data,
-        bins=20,
-        density=True,
-        cumulative=True,
-        alpha=0.8
-    )
+    ax4.hist(data, bins=20, density=True, cumulative=True, alpha=0.8)
     ax4.set_title('Cumulative Distribution')
-    
-    # Violin plot
+
     ax5 = fig.add_subplot(gs[1, 2])
     sns.violinplot(y=data, ax=ax5)
     ax5.set_title('Violin Plot')
-    
-    # Add overall title
+
     fig.suptitle(title, size=16, y=1.02)
-    
-    # Adjust layout
     plt.tight_layout()
     plt.show()
-    
-    # Print summary statistics
+
     print("\nSummary Statistics:")
     print(data.describe().round(2))
-    
-    # Print distribution tests
+
     print("\nNormality Tests:")
     _, shapiro_p = stats.shapiro(data)
-    _, ks_p = stats.kstest(
-        data,
-        'norm',
-        args=(data.mean(), data.std())
-    )
-    
+    _, ks_p = stats.kstest(data, 'norm', args=(data.mean(), data.std()))
     print(f"Shapiro-Wilk p-value: {shapiro_p:.4f}")
     print(f"Kolmogorov-Smirnov p-value: {ks_p:.4f}")
 
 # Example with real estate data
 house_sizes = pd.Series(
-    np.random.lognormal(7, 0.3, 200),  # Square feet
+    np.random.lognormal(7, 0.3, 200),
     name='House Sizes'
 )
+create_analysis_dashboard(house_sizes, "Real Estate Size Analysis")
+{% endhighlight %}
 
-create_analysis_dashboard(
-    house_sizes,
-    "Real Estate Size Analysis"
-)
-```
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-27" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Five-Panel Layout</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Uses <code>GridSpec</code> to arrange histogram+KDE, boxplot, Q-Q plot, cumulative distribution, and violin plot in a single figure for a complete distributional view.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="29-38" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Normality Tests</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Runs Shapiro-Wilk (best for small samples) and Kolmogorov-Smirnov against a normal reference and prints both p-values for formal normality assessment.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="40-44" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Demo: Log-Normal</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generates right-skewed house sizes from a log-normal distribution so the dashboard's Q-Q and histogram show a non-normal shape for contrast.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![one-variable-statistics](assets/one-variable-statistics_fig_6.png)

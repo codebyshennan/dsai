@@ -33,6 +33,19 @@ Key Advantages:
 └─────────────────────────┘
 ```
 
+```mermaid
+graph TD
+    subgraph SB["Seaborn plot families"]
+        REL["Relational\nscatterplot / lineplot\nRelationship between two numeric variables"]
+        DIST["Distribution\nhistplot / kdeplot / ecdfplot / rugplot\nShape of a single numeric variable"]
+        CAT["Categorical\nboxplot / violinplot / barplot\nstripplot / swarmplot / pointplot\nNumeric variable by category"]
+        MAT["Matrix\nheatmap / clustermap\nCorrelations or confusion matrices"]
+        PAIR["Multi-variable\npairplot — all pairs at once\nFacetGrid — any chart by group"]
+    end
+    DATA["Tidy DataFrame\n(one row per observation)"] --> SB
+    SB --> FIG["Matplotlib Figure\n(Seaborn wraps it — you can still call ax.set_*)"]
+```
+
 ## Getting Started
 
 ### Professional Setup
@@ -105,7 +118,10 @@ tips, tips_summary = load_and_inspect_data("tips")
 
 **Walkthrough:** `histplot`/`boxplot`/`violinplot`/`ecdfplot` share `data=` and `x=` or `y=`; `GridSpec` lays out four axes.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def plot_distribution_suite(data, variable):
     """Create comprehensive distribution analysis"""
     # Create figure
@@ -158,13 +174,64 @@ def plot_distribution_suite(data, variable):
 
 # Example usage
 dist_fig = plot_distribution_suite(tips, "total_bill")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Figure setup with GridSpec</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plt.figure</code> creates the canvas; <code>add_gridspec(2, 2)</code> reserves a 2×2 grid of axes. <code>hspace</code>/<code>wspace</code> control the gaps between panels — a cleaner approach than <code>plt.subplot</code> for multi-panel dashboards. <code>add_subplot(gs[0, 0])</code> places the first axes in the top-left cell.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">histplot with KDE overlay</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>sns.histplot(kde=True)</code> draws the histogram <em>and</em> a smoothed kernel density curve in one call. The KDE shows the continuous shape of the distribution, not just binned counts.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-26" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">boxplot: 5-number summary</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>add_subplot(gs[0, 1])</code> places the second axes in the top-right cell. A box plot compresses a distribution into median, IQR box, and whiskers (±1.5×IQR). Points beyond the whiskers are outliers. Useful for quick comparisons across many groups.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-46" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">violinplot + ecdfplot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A <strong>violin</strong> mirrors the KDE shape on both sides — you see the full distribution density, not just quartiles. <strong>ECDF</strong> (empirical CDF) shows what fraction of values fall below each x — great for reading off percentiles directly.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="47-52" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Layout and usage</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plt.tight_layout()</code> adjusts subplot spacing automatically to prevent overlapping labels. The function returns the figure for saving or further modification. The example call at the bottom shows typical usage with the built-in <code>tips</code> dataset.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![seaborn-guide](assets/seaborn-guide_fig_1.png)
 
 **Output:**
-> **Figure (add screenshot or diagram):** Distribution Suite
+> **Figure (add screenshot or diagram):** Four-panel distribution suite for the tips `total_bill` column: histogram with bar counts (top-left), KDE density curve (top-right), ECDF plot (bottom-left), and a rug plot showing individual observation ticks on the x-axis (bottom-right).
+
 ### 2. Categorical Distributions
 
 **Purpose:** Show how a numeric outcome varies across a category using box, violin, strip, and swarm plots.
@@ -231,7 +298,7 @@ cat_fig = plot_categorical_analysis(tips, "day", "total_bill")
 ![seaborn-guide](assets/seaborn-guide_fig_2.png)
 
 **Output:**
-> **Figure (add screenshot or diagram):** Categorical Analysis
+> **Figure (add screenshot or diagram):** 2×2 categorical analysis of `total_bill` by `day`: box plot showing quartiles and outliers (top-left), violin plot with embedded box (top-right), strip plot with jittered points (bottom-left), and swarm plot with non-overlapping points (bottom-right).
 
 ## Relationship Analysis
 
@@ -302,7 +369,8 @@ scatter_fig = create_scatter_analysis(tips, "total_bill", "tip", "time")
 ```
 
 **Output:**
-> **Figure (add screenshot or diagram):** Scatter Analysis
+> **Figure (add screenshot or diagram):** 2×2 scatter analysis of total_bill vs tip: basic scatter with hue by time (top-left), scatter with red OLS regression line and 95% band (top-right), residual plot with a dashed zero-line (bottom-left), and a hexbin density plot with a YlOrRd color scale (bottom-right).
+
 ### 2. Complex Relationships
 
 **Purpose:** Combine `PairGrid` (same y vs x with hue) and `FacetGrid` (small multiples by category) for multivariate views.
@@ -356,9 +424,11 @@ pair_g, facet_g = analyze_complex_relationships(
 ![seaborn-guide](assets/seaborn-guide_fig_5.png)
 
 **Output - Pair Grid:**
-> **Figure (add screenshot or diagram):** Pair Plot
+> **Figure (add screenshot or diagram):** PairGrid showing total_bill (x) vs tip (y) scatter in a single column, with points colored by `time` (Lunch/Dinner) and a legend in the upper right.
+
 **Output - Facet Grid:**
-> **Figure (add screenshot or diagram):** Facet Grid
+> **Figure (add screenshot or diagram):** FacetGrid of 2×4 panels (rows = time, columns = day) each showing a total_bill vs tip scatter — demonstrating how small multiples split data by two categorical variables simultaneously.
+
 ## Matrix Visualizations
 
 ### 1. Correlation Analysis
@@ -410,21 +480,27 @@ corr_fig = create_correlation_analysis(tips)
 ![seaborn-guide](assets/seaborn-guide_fig_7.png)
 
 **Output - Heatmap:**
-> **Figure (add screenshot or diagram):** Correlation Heatmap
+> **Figure (add screenshot or diagram):** Annotated Pearson correlation heatmap for the numeric columns in the tips dataset — a 4×4 grid with values from −1 to +1 shown in each cell using a blue-white-red diverging colormap, strong correlations immediately visible in dark red.
+
 **Output - Clustermap:**
-> **Figure (add screenshot or diagram):** Clustermap
+> **Figure (add screenshot or diagram):** Seaborn clustermap of the same correlation matrix with dendrograms on both axes — rows and columns reordered so highly correlated variables cluster together, making variable groups visually obvious.
+
 ### Additional Visualization Examples
 
 **Bar Plot with Error Bars:**
-> **Figure (add screenshot or diagram):** Bar Plot
+> **Figure (add screenshot or diagram):** Horizontal bar chart showing mean tip amount by day of the week (Thu–Sun), with 95% bootstrap confidence interval error bars on each bar and values labeled.
+
 **Count Plot:**
-> **Figure (add screenshot or diagram):** Count Plot
+> **Figure (add screenshot or diagram):** Count plot (frequency bar chart) of diners per day split by sex — side-by-side bars per day with a legend showing Female (blue) and Male (orange).
+
 **Joint Plot:**
-> **Figure (add screenshot or diagram):** Joint Plot
+> **Figure (add screenshot or diagram):** Joint plot of total_bill vs tip: a scatter plot in the center panel, histogram marginal distributions on the top (total_bill) and right (tip) edges, with a Pearson r and p-value annotation.
+
 **Time Series Heatmap:**
-> **Figure (add screenshot or diagram):** Flights Heatmap
+> **Figure (add screenshot or diagram):** Seaborn heatmap of the flights dataset — years 1949–1960 on the x-axis, months Jan–Dec on the y-axis, cell color representing passenger count; warmer colors toward the bottom-right show growth over time.
+
 **Line Plot:**
-> **Figure (add screenshot or diagram):** Line Plot
+> **Figure (add screenshot or diagram):** Seaborn line plot of monthly average values over a year, with a shaded 95% confidence interval band around the mean line; multiple lines colored by group (e.g. by year) with a clear legend.
 ## Best Practices
 
 ### 1. Style Management

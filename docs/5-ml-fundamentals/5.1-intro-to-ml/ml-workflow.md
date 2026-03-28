@@ -22,7 +22,7 @@ Crash Course AI: how supervised learning fits into ML workflows.
 
 A machine learning workflow is a systematic process that helps us build effective ML solutions. Think of it as a recipe for creating machine learning models. Just like a recipe has specific steps to follow, the ML workflow has clear stages that help us build better models.
 
-![ML Workflow](./images/ml_workflow.png)
+> **Figure (add screenshot or diagram):** Linear diagram of the 6-step ML workflow — Problem Definition → Data Collection → Data Preparation → Model Training → Evaluation → Deployment — with feedback arrows from Evaluation back to Data Preparation and from Deployment back to Problem Definition.
 
 ## Why is a Workflow Important?
 
@@ -37,6 +37,18 @@ Following a structured workflow helps us:
 5. Make our work reproducible
 
 ## The Machine Learning Workflow Steps
+
+```mermaid
+graph TD
+    P["1. Problem definition\nBusiness/research question\nDefine success metric"]
+    P --> D["2. Data collection & EDA\nGather, explore, understand\nbias / quality / volume"]
+    D --> PR["3. Data preparation\nClean, transform, split\nTrain / Val / Test — no leakage!"]
+    PR --> M["4. Model selection & training\nBaseline → complexity\nFit on train only"]
+    M --> E["5. Evaluation\nVal set performance\nHyperparameter tuning"]
+    E --> DEP["6. Deployment & monitoring\nServe predictions\nMonitor for drift"]
+    E -->|"Performance not good enough"| PR
+    DEP -->|"Data changes / degradation"| P
+```
 
 The workflow consists of six main steps:
 
@@ -130,7 +142,10 @@ Let's start by loading and examining our data:
 
 **Walkthrough:** Adjust `house_data.csv` to your path; `isnull().sum()` counts gaps per column before imputation.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -147,7 +162,30 @@ print("\nMissing Values:\n", df.isnull().sum())
 # Basic statistics
 print("\nSummary Statistics:")
 print(df.describe())
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and Load</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Standard ML imports — pandas for the dataframe, numpy for numerics, matplotlib and seaborn for plots; <code>read_csv</code> loads the raw house dataset.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Shape and Missingness</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Print row/column counts, column dtypes, and per-column null counts before any modeling; <code>describe()</code> adds numeric range summaries to spot outliers early.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Exploratory Data Analysis (EDA)
 
@@ -159,7 +197,10 @@ EDA helps us understand patterns and relationships in our data:
 
 **Walkthrough:** `histplot` for univariate shape; `heatmap` on `df.corr()` for linear relationships (nonlinear links may still hide).
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Distribution of house prices
 plt.figure(figsize=(10, 6))
 sns.histplot(data=df, x='price', bins=50)
@@ -173,7 +214,30 @@ plt.figure(figsize=(12, 8))
 sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
 plt.title('Feature Correlations')
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Price Distribution</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>histplot</code> shows whether house prices are skewed or multimodal — skew suggests a log transform may help the model; multimodal peaks can indicate distinct market segments.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Correlation Heatmap</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>df.corr()</code> computes pairwise Pearson correlations; the heatmap with annotations reveals which features move together — high inter-feature correlation flags potential multicollinearity.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 The histogram shows whether the target is skewed or multimodal (which can affect metrics and transforms). The correlation matrix is a first pass at **linear** relationships only; strong nonlinear links may not appear here.
 
@@ -193,13 +257,16 @@ Let's create a helper class to clean our data:
 
 **Walkthrough:** `select_dtypes` splits numeric vs object columns; `remove_outliers` keeps rows within `n_std` standard deviations of the mean for one column.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class DataCleaner:
     """Helper class for data cleaning"""
-    
+
     def __init__(self, df):
         self.df = df.copy()
-    
+
     def handle_missing_values(self):
         """Fill missing values appropriately"""
         # Numerical: use median for skewed data
@@ -208,20 +275,20 @@ class DataCleaner:
             if self.df[col].isnull().any():
                 median = self.df[col].median()
                 self.df[col] = self.df[col].fillna(median)
-        
+
         # Categorical: use mode
         categorical_cols = self.df.select_dtypes(include=['object']).columns
         for col in categorical_cols:
             if self.df[col].isnull().any():
                 mode = self.df[col].mode()[0]
                 self.df[col] = self.df[col].fillna(mode)
-    
+
     def remove_outliers(self, column, n_std=3):
         """Remove outliers using the z-score method"""
         mean = self.df[column].mean()
         std = self.df[column].std()
         self.df = self.df[
-            (self.df[column] <= mean + (n_std * std)) & 
+            (self.df[column] <= mean + (n_std * std)) &
             (self.df[column] >= mean - (n_std * std))
         ]
 
@@ -229,7 +296,48 @@ class DataCleaner:
 cleaner = DataCleaner(df)
 cleaner.handle_missing_values()
 cleaner.remove_outliers('price')
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The class stores a copy of the dataframe so the original is never modified in place.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fill Missing Values</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Numeric columns get median imputation (robust to skew); categorical columns use the most frequent value (mode).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-31" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Remove Outliers</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Rows whose value on the chosen column falls beyond <code>n_std</code> standard deviations from the mean are dropped via z-score filtering.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="33-36" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Usage Example</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Instantiate the cleaner, run both methods in sequence to get a clean dataframe ready for feature engineering.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Feature Engineering
 
@@ -241,22 +349,48 @@ Feature engineering is about creating new features that might help our model:
 
 **Walkthrough:** `price_per_sqft` and `total_rooms` combine existing fields; `get_dummies` expands `view` and `condition` into binary columns.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def create_features(df):
     """Create new features from existing ones"""
     # Example feature engineering
     df['price_per_sqft'] = df['price'] / df['sqft_living']
     df['total_rooms'] = df['bedrooms'] + df['bathrooms']
     df['is_renovated'] = (df['yr_renovated'] > 0).astype(int)
-    
+
     # Handle categorical variables
     df = pd.get_dummies(df, columns=['view', 'condition'])
-    
+
     return df
 
 # Create new features
 df = create_features(df)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Numeric Features</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three derived numeric columns — price per sqft, total rooms, and a renovation flag — encode domain knowledge that raw columns alone cannot express for a linear model.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Categorical Encoding</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>pd.get_dummies</code> one-hot encodes <code>view</code> and <code>condition</code> into binary columns; <code>create_features(df)</code> returns the expanded dataframe ready for splitting and modeling.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 4. Model Selection and Training
 
@@ -294,7 +428,10 @@ Let's try different models to find the best one:
 
 **Walkthrough:** `train_evaluate_model` fits each model, predicts train and val sets, then packs `mean_absolute_error` and `r2_score` into a dict; the loop fills `results` per model name.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
@@ -303,11 +440,11 @@ def train_evaluate_model(model, X_train, X_val, y_train, y_val):
     """Train and evaluate a model"""
     # Train the model
     model.fit(X_train, y_train)
-    
+
     # Make predictions
     train_pred = model.predict(X_train)
     val_pred = model.predict(X_val)
-    
+
     # Calculate metrics
     results = {
         'train_mae': mean_absolute_error(y_train, train_pred),
@@ -315,7 +452,7 @@ def train_evaluate_model(model, X_train, X_val, y_train, y_val):
         'train_r2': r2_score(y_train, train_pred),
         'val_r2': r2_score(y_val, val_pred)
     }
-    
+
     return results
 
 # Try different models
@@ -328,7 +465,39 @@ models = {
 results = {}
 for name, model in models.items():
     results[name] = train_evaluate_model(model, X_train, X_val, y_train, y_val)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three regressor classes plus MAE and R² metric functions are imported for the comparison loop.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train and Evaluate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The helper fits any sklearn estimator, predicts on both splits, and returns a dict of four metrics to detect train/val divergence.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Model Comparison Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three models are defined in a dict and evaluated with the same helper; <code>results</code> collects each model's metrics for side-by-side comparison.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 5. Model Evaluation
 
@@ -344,22 +513,25 @@ Evaluation helps us understand how well our model performs and where it needs im
 
 **Walkthrough:** `mean_squared_error` with `sqrt` gives RMSE; the red diagonal line is perfect calibration.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def evaluate_model(model, X_test, y_test):
     """Evaluate model on test set"""
     predictions = model.predict(X_test)
-    
+
     # Calculate metrics
     mae = mean_absolute_error(y_test, predictions)
     mse = mean_squared_error(y_test, predictions)
     rmse = np.sqrt(mse)
     r2 = r2_score(y_test, predictions)
-    
+
     print("Model Performance Metrics:")
     print(f"MAE: ${mae:,.2f}")
     print(f"RMSE: ${rmse:,.2f}")
     print(f"R² Score: {r2:.3f}")
-    
+
     # Plot actual vs predicted
     plt.figure(figsize=(10, 6))
     plt.scatter(y_test, predictions, alpha=0.5)
@@ -372,7 +544,39 @@ def evaluate_model(model, X_test, y_test):
 # Evaluate best model
 best_model = models['Random Forest']  # Example
 evaluate_model(best_model, X_test, y_test)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compute Metrics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>MAE, RMSE (via <code>sqrt(mse)</code>), and R² are computed then printed with dollar-formatted strings for interpretability.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Actual vs Predicted Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The scatter plot shows each test sample; the red dashed diagonal is perfect calibration—points above or below reveal systematic over- or under-prediction.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-28" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Run on Best Model</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Pull the Random Forest from the <code>models</code> dict and pass it with the held-out test set to get final, unbiased evaluation numbers.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Learning Curves Analysis
 
@@ -384,15 +588,18 @@ Learning curves help us understand if our model is learning well:
 
 **Walkthrough:** `learning_curve` returns scores per train size; plotting mean train vs mean CV score shows the bias–variance story.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.model_selection import learning_curve
 
 def plot_learning_curves(model, X, y):
     """Plot learning curves to detect overfitting"""
     train_sizes, train_scores, val_scores = learning_curve(
-        model, X, y, cv=5, n_jobs=-1, 
+        model, X, y, cv=5, n_jobs=-1,
         train_sizes=np.linspace(0.1, 1.0, 10))
-    
+
     plt.figure(figsize=(10, 6))
     plt.plot(train_sizes, np.mean(train_scores, axis=1), 'o-', label='Training Score')
     plt.plot(train_sizes, np.mean(val_scores, axis=1), 'o-', label='Cross-validation Score')
@@ -405,7 +612,30 @@ def plot_learning_curves(model, X, y):
 
 # Plot learning curves
 plot_learning_curves(best_model, X, y)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compute Curves</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>learning_curve</code> re-fits the model at 10 linearly-spaced training sizes using 5-fold CV, returning raw scores for both the train and validation sets.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot Both Curves</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Mean train and CV scores are plotted against sample count; a persistent gap indicates overfitting, while both curves being low indicates underfitting.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 6. Model Deployment
 
@@ -421,14 +651,17 @@ Deployment makes our model available for real-world use. It's like opening a res
 
 **Walkthrough:** `joblib.dump` writes binary blobs under `model/`; paths are illustrative—match your deployment layout.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import joblib
 
 def save_model(model, scaler, feature_names, path='model/'):
     """Save model and associated objects"""
     import os
     os.makedirs(path, exist_ok=True)
-    
+
     # Save model and preprocessing objects
     joblib.dump(model, f'{path}model.joblib')
     joblib.dump(scaler, f'{path}scaler.joblib')
@@ -436,7 +669,30 @@ def save_model(model, scaler, feature_names, path='model/'):
 
 # Save the model
 save_model(best_model, scaler, X.columns)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Directory Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>os.makedirs(path, exist_ok=True)</code> creates the output directory if it doesn't exist, ensuring <code>joblib.dump</code> never fails on a missing path.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Serialize All Artifacts</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Model, scaler, and feature names are saved as separate <code>.joblib</code> files — storing all three together ensures inference code can reconstruct the exact preprocessing + scoring pipeline.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Making Predictions
 
@@ -446,23 +702,26 @@ save_model(best_model, scaler, X.columns)
 
 **Walkthrough:** Column order must match training; `scaler.transform` expects the same feature matrix shape the scaler saw at fit time.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def predict_house_price(features_df, model_path='model/'):
     """Load model and make predictions"""
     # Load model and preprocessing objects
     model = joblib.load(f'{model_path}model.joblib')
     scaler = joblib.load(f'{model_path}scaler.joblib')
     features = joblib.load(f'{model_path}features.joblib')
-    
+
     # Ensure correct features
     features_df = features_df[features]
-    
+
     # Scale features
     scaled_features = scaler.transform(features_df)
-    
+
     # Predict
     prediction = model.predict(scaled_features)
-    
+
     return prediction[0]
 
 # Example prediction
@@ -475,7 +734,39 @@ new_house = pd.DataFrame({
 
 predicted_price = predict_house_price(new_house)
 print(f"\nPredicted House Price: ${predicted_price:,.2f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Load Artifacts</span>
+    </div>
+    <div class="code-callout__body">
+      <p>All three saved objects—model, scaler, and feature list—are loaded from disk so inference is fully self-contained.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Align and Transform</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Columns are reordered to match training, then the same scaler is applied so new data arrives in the same numeric range the model saw at fit time.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="18-29" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Predict New House</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A single-row DataFrame with four features is passed to the function and the formatted price is printed—this is the minimal inference path.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices and Tips
 

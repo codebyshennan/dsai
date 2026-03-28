@@ -18,48 +18,80 @@ Crash Course AI: supervised learning framing (~15 min).
 
 Let's start with a basic example that shows how to implement Ridge Regression, one of the most common regularization techniques.
 
-```python
-# Import necessary libraries
+#### Ridge on scaled features (regression)
+
+- **Purpose:** Fit **L2-penalized** linear regression after **`StandardScaler`** so penalties apply fairly across feature scales.
+- **Walkthrough:** `alpha` controls penalty strength; predictions use **`X_test_scaled`** with the **fitted** scaler.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import numpy as np
 
-# Create sample data
-# Think of this as creating a small dataset to practice with
-np.random.seed(42)  # This ensures we get the same random numbers each time
-X = np.random.randn(100, 20)  # 100 samples with 20 features
-y = np.random.randn(100)      # 100 target values
+np.random.seed(42)
+X = np.random.randn(100, 20)  # 100 samples, 20 features
+y = np.random.randn(100)
 
-# Split and scale data
-# This is like dividing your data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# Scale the features
-# This is like converting different currencies to a common standard
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Train ridge model
-# Think of alpha as how strict the regularization is
-ridge = Ridge(alpha=0.1)  # alpha is the regularization strength
+ridge = Ridge(alpha=0.1)
 ridge.fit(X_train_scaled, y_train)
 
-# Make predictions
-# This is like using your trained model to make new predictions
 y_pred = ridge.predict(X_test_scaled)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Split</span>
+    </div>
+    <div class="code-callout__body">
+      <p>100 random samples with 20 features and a random target are generated with a fixed seed for reproducibility; the 80/20 split produces 80 training and 20 test samples.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scale and Fit Ridge</span>
+    </div>
+    <div class="code-callout__body">
+      <p>StandardScaler normalises features to zero mean and unit variance (fitted on training data only); Ridge with alpha=0.1 applies L2 regularisation, shrinking coefficients toward zero without eliminating any.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Real-World Example: House Price Prediction
 
 Let's look at a more practical example that you might encounter in the real world - predicting house prices.
 
-```python
+#### Compare Lasso, Ridge, ElasticNet coefficients
+
+- **Purpose:** On the **same scaled** train/test split, compare **$R^2$**, **RMSE**, and **coefficient vectors**—L1 may zero noisy columns.
+- **Walkthrough:** Bar chart overlays coefficients per feature; requires **`Ridge`**, **`Lasso`**, **`ElasticNet`** and **`numpy`** for vector math.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
 import pandas as pd
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import Ridge, Lasso, ElasticNet
 import matplotlib.pyplot as plt
 
 # Create sample dataset
@@ -104,8 +136,6 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # Compare different regularization methods
 # Let's see how different types of regularization perform
-from sklearn.linear_model import Lasso, ElasticNet
-
 models = {
     'Lasso': Lasso(alpha=0.1),           # L1 regularization
     'Ridge': Ridge(alpha=0.1),           # L2 regularization
@@ -151,7 +181,57 @@ for name, result in results.items():
     print(f"\n{name}:")
     print(f"R Score: {result['R2']:.3f}")  # Higher is better
     print(f"RMSE: ${result['RMSE']:,.2f}")  # Lower is better
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="14-22" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Noise features in the dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>4 meaningful features (size, bedrooms, age, location) plus 2 random noise columns. Regularization should shrink or zero the noise coefficients — this makes the comparison between methods observable in the coefficient chart.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="38-47" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scale before regularizing</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Regularization penalizes coefficient magnitude — without scaling, features with large units (e.g. house size in sq ft) receive a lower penalty than small-unit features, distorting results. Always scale before applying L1 or L2 penalties.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="49-55" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three regularization methods</span>
+    </div>
+    <div class="code-callout__body">
+      <p><strong>Lasso</strong> (L1) drives noisy coefficients to exactly zero — acts as feature selection. <strong>Ridge</strong> (L2) shrinks all coefficients but rarely zeros them. <strong>ElasticNet</strong> blends both via <code>l1_ratio</code>. Same <code>alpha=0.1</code> lets you compare them fairly.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="57-70" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train and collect metrics</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The loop trains each model and stores R², RMSE, and <code>coef_</code> vectors in one dict — a reusable pattern for comparing multiple estimators on the same split without repeating code.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="72-88" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Coefficient comparison chart</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Grouped bar chart shows each method's coefficient per feature side-by-side. Lasso bars for noise features should be near zero; Ridge bars will be small but nonzero — the visual makes the L1 vs L2 difference concrete.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![3-implementation](assets/3-implementation_fig_1.png)
@@ -175,8 +255,17 @@ RMSE: $58,572.77
 
 Finding the right regularization strength (alpha) is like finding the right amount of seasoning for a dish - too little and it's bland, too much and it's overwhelming.
 
-```python
+#### `GridSearchCV` for `Ridge` `alpha`
+
+- **Purpose:** Pick **`alpha`** by **5-fold CV** on **negative MSE** (maximize implied RMSE reduction).
+- **Walkthrough:** Uses **`X_train`**, **`y_train`** from the house-pricing cell (already scaled features).
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.model_selection import GridSearchCV
+from sklearn.linear_model import Ridge
 
 # Setup parameter grid
 # We'll try different values of alpha to find the best one
@@ -192,7 +281,30 @@ grid_search = GridSearchCV(
 grid_search.fit(X_train, y_train)
 
 print("Best alpha:", grid_search.best_params_['alpha'])
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Import and Grid</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import <code>GridSearchCV</code> and define candidate alpha values to sweep over.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Search and Report</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Run 5-fold CV over the grid using negative MSE and print the winning alpha.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Best alpha: 1
@@ -202,30 +314,63 @@ Best alpha: 1
 
 Lasso regularization is particularly good at feature selection - it's like having a strict teacher who helps you focus on the most important subjects.
 
-```python
+#### Nonzero Lasso coefficients as feature selection
+
+- **Purpose:** List features whose **Lasso** coefficients remain nonzero at a given **`alpha`**—a simple embedded selector.
+- **Walkthrough:** Expects **`X`** as a **`DataFrame`** with column names; uses training labels **`y_train`**.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+from sklearn.linear_model import Lasso
+
 def select_features_lasso(X, y, alpha=0.1):
     """Select features using Lasso regularization"""
     # Train Lasso model
     lasso = Lasso(alpha=alpha)
     lasso.fit(X, y)
-    
+
     # Get selected features
     selected_features = X.columns[lasso.coef_ != 0]
-    
+
     # Print results
     print("Selected features:", len(selected_features))
     for feature, coef in zip(X.columns, lasso.coef_):
         if coef != 0:
             print(f"{feature}: {coef:.4f}")
-    
+
     return selected_features
 
 # Use function
 selected = select_features_lasso(
-    pd.DataFrame(X_train, columns=X.columns), 
+    pd.DataFrame(X_train, columns=X.columns),
     y_train
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit Lasso</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Train a Lasso model at the given alpha to shrink unimportant coefficients to exactly zero.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Report and Return</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Filter nonzero coefficients, print selected feature names with their magnitudes, and invoke the function on training data.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Selected features: 6
@@ -241,17 +386,28 @@ noise_feature2: 2136.7192
 
 Cross-validation is like taking multiple tests to ensure you really understand the material, not just memorizing the answers.
 
-```python
+#### CV RMSE vs `alpha` for three linear models
+
+- **Purpose:** Sweep **`alpha`** and compare **5-fold neg-MSE** → RMSE for **Ridge**, **Lasso**, and **ElasticNet** on the same `(X, y)`.
+- **Walkthrough:** Uses **`X_scaled`** and **`y`** from the house example; returns a **`DataFrame`** for quick plotting.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+import pandas as pd
 from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import Ridge, Lasso, ElasticNet
 
 def compare_alphas(X, y, alphas=[0.001, 0.01, 0.1, 1, 10]):
     """Compare different regularization strengths"""
     results = []
-    
+
     for alpha in alphas:
         # Create and evaluate models
         ridge_scores = cross_val_score(
-            Ridge(alpha=alpha), X, y, 
+            Ridge(alpha=alpha), X, y,
             cv=5, scoring='neg_mean_squared_error'
         )
         lasso_scores = cross_val_score(
@@ -262,7 +418,7 @@ def compare_alphas(X, y, alphas=[0.001, 0.01, 0.1, 1, 10]):
             ElasticNet(alpha=alpha, l1_ratio=0.5), X, y,
             cv=5, scoring='neg_mean_squared_error'
         )
-        
+
         # Store results
         results.append({
             'alpha': alpha,
@@ -270,13 +426,45 @@ def compare_alphas(X, y, alphas=[0.001, 0.01, 0.1, 1, 10]):
             'lasso_rmse': np.sqrt(-lasso_scores.mean()),
             'elastic_rmse': np.sqrt(-elastic_scores.mean())
         })
-    
+
     return pd.DataFrame(results)
 
 # Compare alphas
 results_df = compare_alphas(X_scaled, y)
 print(results_df)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import cross-validation utilities and all three regularized linear models to compare.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-31" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CV per Alpha</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each alpha value, run 5-fold cross-validation on Ridge, Lasso, and ElasticNet and collect RMSE results.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="33-37" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Build and Print</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Return results as a DataFrame and print the side-by-side RMSE comparison for all alpha values.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
     alpha    ridge_rmse    lasso_rmse   elastic_rmse
@@ -291,16 +479,27 @@ print(results_df)
 
 Evaluating your model is like checking your work after solving a problem - it helps you understand how well you're doing.
 
-```python
+#### Train vs test $R^2$, RMSE, sparsity
+
+- **Purpose:** Summarize **fit vs generalization** and count **nonzero weights** for interpretability.
+- **Walkthrough:** Works for **linear** models with **`coef_`**; uses **`r2_score`** and **`mean_squared_error`**.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+from sklearn.metrics import r2_score, mean_squared_error
+
 def evaluate_regularized_model(model, X_train, X_test, y_train, y_test):
     """Comprehensive evaluation of regularized model"""
     # Train model
     model.fit(X_train, y_train)
-    
+
     # Make predictions
     y_train_pred = model.predict(X_train)
     y_test_pred = model.predict(X_test)
-    
+
     # Calculate metrics
     results = {
         'train_r2': r2_score(y_train, y_train_pred),  # How well it fits training data
@@ -309,16 +508,39 @@ def evaluate_regularized_model(model, X_train, X_test, y_train, y_test):
         'test_rmse': np.sqrt(mean_squared_error(y_test, y_test_pred)),     # Testing error
         'n_nonzero_coef': np.sum(model.coef_ != 0)    # How many features it uses
     }
-    
+
     # Print results
     print("Training R²:", results['train_r2'])
     print("Testing R²:", results['test_r2'])
     print("Training RMSE:", results['train_rmse'])
     print("Testing RMSE:", results['test_rmse'])
     print("Non-zero coefficients:", results['n_nonzero_coef'])
-    
+
     return results
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Train the model and generate predictions for both train and test sets to compare in-sample vs out-of-sample performance.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Metrics and Sparsity</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute R² and RMSE for train/test, count nonzero coefficients for sparsity, print all metrics, and return the results dict.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best Practices
 
@@ -326,7 +548,14 @@ def evaluate_regularized_model(model, X_train, X_test, y_train, y_test):
 
 Always scale your features before applying regularization. This is like converting different currencies to a common standard before comparing them.
 
+#### Fit `StandardScaler` on feature matrix
+
+- **Purpose:** Reminder snippet: **fit** scaler on training data only; here `X` stands in for the full design matrix before splitting.
+- **Walkthrough:** In production, call **`fit_transform`** on train and **`transform`** on test.
+
 ```python
+from sklearn.preprocessing import StandardScaler
+
 # Always scale features before regularization
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)

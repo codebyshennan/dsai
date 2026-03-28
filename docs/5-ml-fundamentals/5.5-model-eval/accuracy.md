@@ -22,9 +22,28 @@ Accuracy is one of the most fundamental metrics in machine learning, measuring t
 
 Accuracy is the ratio of correct predictions to total predictions:
 
-\[
+\\[
 \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}}
-\]
+\\]
+
+```mermaid
+graph LR
+    subgraph CONF["Confusion matrix"]
+        TP["TP\n(correct positive)"]
+        TN["TN\n(correct negative)"]
+        FP["FP\n(false alarm)"]
+        FN["FN\n(missed positive)"]
+    end
+    ACC["Accuracy =\n(TP + TN) /\n(TP + TN + FP + FN)"]
+    CONF --> ACC
+    subgraph WHEN["When accuracy misleads"]
+        IMB["Imbalanced classes\n99% negative → predict all negative\n→ 99% accuracy, zero recall!"]
+    end
+    ACC --> WHEN
+    WHEN --> USE["Use Precision, Recall,\nF1, or PR-AUC instead"]
+```
+
+*Rule of thumb: if your dataset has < 80% majority class, accuracy is still OK as a sanity check. Beyond that, always report at least one additional metric.*
 
 ## Types of Accuracy
 
@@ -36,7 +55,10 @@ Accuracy is the ratio of correct predictions to total predictions:
 
 **Walkthrough:** `make_classification` builds a toy dataset; compare `y_test` to `y_pred` from `model.predict`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.datasets import make_classification
@@ -57,7 +79,30 @@ y_pred = model.predict(X_test)
 # Calculate accuracy
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and Split</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a balanced binary classification dataset and split 80/20; the class balance here makes accuracy a meaningful baseline metric.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train and Score</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit logistic regression, call <code>predict</code> for hard labels, then pass both to <code>accuracy_score</code>—the fraction of matching indices across all test samples.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -73,9 +118,14 @@ Accuracy: 0.810
 
 **Walkthrough:** `RandomForestClassifier` predicts class indices; chance baseline is roughly $1/\text{n\_classes}$ when uniform.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 # Load iris dataset
 iris = load_iris()
@@ -92,7 +142,30 @@ y_pred = model.predict(X_test)
 # Calculate accuracy
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Iris Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Load the three-class Iris dataset and split into train/test; with only 150 samples, <code>test_size=0.2</code> reserves 30 samples for evaluation.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Random Forest Accuracy</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit a Random Forest and measure accuracy; for well-separated Iris classes this typically reaches 1.0, illustrating that accuracy is reliable when classes are balanced and separable.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -163,11 +236,22 @@ Accuracy: 1.000
 
 Let's analyze accuracy for a credit risk prediction model:
 
-```python
+#### Pipeline accuracy vs majority baseline
+
+- **Purpose:** Report **accuracy** on tabular credit-like data and compare to the **majority-class** baseline (always predicting the more common label).
+- **Walkthrough:** `Pipeline` scales then fits `RandomForestClassifier`; baseline is `max(P(y=1), P(y=0))` on the test labels.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
 import pandas as pd
+from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 
 # Create credit risk dataset
 np.random.seed(42)
@@ -207,7 +291,39 @@ print(f"Accuracy: {accuracy:.3f}")
 # Calculate baseline accuracy
 baseline_accuracy = max(y_test.mean(), 1 - y_test.mean())
 print(f"Baseline Accuracy: {baseline_accuracy:.3f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-24" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Credit Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate five financial features and derive a binary approval label from a threshold on credit score, income, and age — the same synthetic credit setup reused across 5.5 examples.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-40" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Pipeline and Prediction</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A scaler+forest pipeline prevents data leakage; <code>predict</code> returns hard labels used to compute the test-set accuracy score.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="42-48" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Accuracy vs Baseline</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Report both model accuracy and the majority-class baseline (<code>max(P(y=1), P(y=0))</code>); the gap between the two shows how much the model actually learns beyond trivial prediction.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 Accuracy: 0.970

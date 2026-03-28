@@ -111,32 +111,67 @@ $$\text{Gain}(s) = \frac{1}{2} \left[\frac{G_L^2}{H_L + \lambda} + \frac{G_R^2}{
 - $H$ tells us how diverse the books are
 - $\lambda$ prevents us from creating too many tiny sections
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def find_best_split(gradients, hessians, feature_values):
     """Find the best way to split our data"""
     best_gain = 0
     best_split = None
-    
+
     for value in feature_values:
         # Split data into left and right groups
         left_mask = feature_values <= value
         right_mask = ~left_mask
-        
+
         # Calculate statistics for each group
         G_L = gradients[left_mask].sum()
         G_R = gradients[right_mask].sum()
         H_L = hessians[left_mask].sum()
         H_R = hessians[right_mask].sum()
-        
+
         # Calculate how good this split is
         gain = calculate_split_gain(G_L, G_R, H_L, H_R)
-        
+
         if gain > best_gain:
             best_gain = gain
             best_split = value
-    
+
     return best_split, best_gain
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Signature</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Takes gradient sums (<code>G</code>), hessian sums (<code>H</code>), and candidate thresholds; in XGBoost these are precomputed first-and second-order loss derivatives for each sample.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Threshold Sweep</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each candidate threshold, split samples into left/right, sum gradients and hessians in each child, compute gain via <code>calculate_split_gain</code>; track the threshold that maximizes gain.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-24" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return Best</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Return the winning threshold and its gain so the calling tree-builder can create the split node and recurse into each child.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Regularization: Preventing Overfitting
 
@@ -157,7 +192,10 @@ $$\text{Obj} = \sum_{i=1}^n L(y_i, \hat{y}_i) + \sum_{k=1}^K \Omega(f_k)$$
 
 We stop training when the model stops improving:
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 class EarlyStopping:
     """Stop training when the model stops improving"""
     def __init__(self, patience=5, min_delta=0):
@@ -166,7 +204,7 @@ class EarlyStopping:
         self.counter = 0
         self.best_loss = None
         self.early_stop = False
-    
+
     def __call__(self, val_loss):
         if self.best_loss is None:
             self.best_loss = val_loss
@@ -177,7 +215,30 @@ class EarlyStopping:
         else:
             self.best_loss = val_loss
             self.counter = 0
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Class Init</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Stores <code>patience</code> (rounds to wait), <code>min_delta</code> (minimum improvement threshold), a patience counter, the best loss seen so far, and a stop flag.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-20" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Call Logic</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Each call checks if validation loss improved by at least <code>min_delta</code>; if not, the patience counter increments and <code>early_stop</code> is set to <code>True</code> once the limit is reached — the training loop checks this flag.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Analogy**: It's like studying for an exam - you stop when additional studying doesn't improve your practice test scores.
 

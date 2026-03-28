@@ -38,6 +38,25 @@ Model check-ups help us:
 3. Ensure our predictions will be reliable
 4. Gain confidence in our results
 
+```mermaid
+graph TD
+    subgraph ASSUME["Four OLS assumptions  (LINE)"]
+        L["Linearity\nResiduals vs fitted: random scatter\nNo curve = assumption met"]
+        I["Independence\nResiduals uncorrelated\nNo time-series pattern"]
+        N["Normality of residuals\nQQ-plot: points on diagonal\nRequired for inference CIs"]
+        E["Equal variance (homoscedasticity)\nScale-location plot: flat band\nFan shapes → heteroscedasticity"]
+    end
+    subgraph FIX["Common fixes"]
+        F1["Curvature → log(y) or polynomial term"]
+        F2["Fan shape → log(y) or WLS (weighted regression)"]
+        F3["Outliers → robust regression or flag & re-check"]
+        F4["Non-normality → OK for large n (CLT); bootstrap CIs"]
+    end
+    L & I & N & E --> FIX
+```
+
+> **Figure (add screenshot or diagram):** Four standard residual diagnostic plots in a 2×2 grid: Residuals vs Fitted, Normal QQ, Scale-Location, Residuals vs Leverage — with labels on what each plot reveals.
+
 ## Four Key Questions to Ask About Your Model
 
 To make sure your model is healthy, we need to check four main assumptions. Think of these as the "vital signs" of your model:
@@ -56,7 +75,10 @@ To make sure your model is healthy, we need to check four main assumptions. Thin
 
 **Walkthrough:** `model.predict(X)` gives fitted values; subtracting from `y` yields residuals; `plt.axhline(0, ...)` marks the ideal random-scatter band.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -68,7 +90,7 @@ def check_if_relationship_is_straight(model, X, y):
     # Get predictions
     y_pred = model.predict(X)
     errors = y - y_pred  # These are called "residuals"
-    
+
     # Create plot
     plt.figure(figsize=(10, 6))
     plt.scatter(y_pred, errors, alpha=0.7)
@@ -77,11 +99,34 @@ def check_if_relationship_is_straight(model, X, y):
     plt.ylabel('How wrong we were (errors)')
     plt.title('Are Our Errors Random? (They Should Be!)')
     plt.show()
-    
+
     print("What to look for:")
     print("✓ GOOD: Random scatter around the zero line with no pattern")
     print("✗ BAD: Any curves, funnels, or patterns in the dots")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import NumPy, pandas, Matplotlib, seaborn, and SciPy — the standard diagnostic toolkit used across all helper functions in this lesson.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Residuals vs fitted</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute residuals as y − ŷ, scatter them against fitted values, and draw a zero reference line; a random scatter around zero indicates no systematic pattern (good linearity).</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **What good looks like**: Dots randomly scattered around the horizontal line with no clear pattern.
 
@@ -133,13 +178,16 @@ def check_if_points_are_independent(errors):
 
 **Walkthrough:** Same fitted values and residuals as the linearity plot; taking `np.abs` emphasizes magnitude of error rather than sign.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def check_if_error_spread_is_even(model, X, y):
     """Check if the errors have consistent spread."""
     # Get predictions and errors
     y_pred = model.predict(X)
     errors = y - y_pred
-    
+
     # Create plot to look at absolute error values
     plt.figure(figsize=(10, 6))
     plt.scatter(y_pred, np.abs(errors), alpha=0.7)
@@ -147,11 +195,34 @@ def check_if_error_spread_is_even(model, X, y):
     plt.ylabel('How big our errors were (absolute value)')
     plt.title('Is Our Error Spread Consistent?')
     plt.show()
-    
+
     print("What to look for:")
     print("✓ GOOD: Random scatter with consistent spread throughout")
     print("✗ BAD: Fan or funnel shapes that get wider or narrower")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Absolute residuals</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Take the absolute value of residuals to focus on error magnitude and plot it against fitted values—a scale-location style diagnostic.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-17" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Homoscedasticity check</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot and describe what consistent (homoscedastic) versus fanning (heteroscedastic) spread looks like so the learner knows what to look for.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **What good looks like**: Errors with similar spread across all predictions.
 
@@ -171,28 +242,54 @@ def check_if_error_spread_is_even(model, X, y):
 
 **Walkthrough:** `stats.probplot(..., dist="norm", plot=ax)` overlays theoretical normal quantiles; `stats.shapiro` returns a test statistic and p-value for small-to-moderate sample sizes.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def check_if_errors_follow_bell_curve(errors):
     """Check if our errors follow a normal distribution (bell curve)."""
     # Create plots
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
-    
+
     # Histogram to see the distribution shape
     ax1.hist(errors, bins=30, density=True, alpha=0.7)
     ax1.set_title('Distribution of Errors (Should Look Like a Bell Curve)')
-    
+
     # Q-Q plot compares our errors to a perfect bell curve
     stats.probplot(errors, dist="norm", plot=ax2)
     ax2.set_title('Q-Q Plot (Points Should Follow the Line)')
-    
+
     plt.tight_layout()
     plt.show()
-    
+
     # Statistical test
     stat, p_value = stats.shapiro(errors)
     print(f"Bell curve test p-value: {p_value:.4f}")
     print("If p-value < 0.05, errors likely don't follow a bell curve")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="3-14" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Histogram and Q-Q plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot a density histogram alongside a Q-Q plot from <code>stats.probplot</code>; points following the diagonal line indicate normally distributed residuals.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Shapiro–Wilk test</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Run the Shapiro–Wilk normality test and print the p-value; a p-value below 0.05 suggests the residuals depart from normality.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **What good looks like**: A histogram that looks like a bell curve and points following the diagonal line in the Q-Q plot.
 
@@ -210,27 +307,30 @@ Sometimes, just a few unusual data points can have an outsized impact on your mo
 
 **Cook’s distance from residuals, leverage, and MSE**
 
-**Purpose:** Compute Cook’s \(D_i\) for each observation and plot it against index with a simple rule-of-thumb cutoff to flag high-influence points.
+**Purpose:** Compute Cook’s \\(D_i\\) for each observation and plot it against index with a simple rule-of-thumb cutoff to flag high-influence points.
 
-**Walkthrough:** Leverage comes from the hat matrix diagonal; `mse` uses residual sum of squares divided by `n - p`; the stem plot compares each \(D_i\) to `4/n`.
+**Walkthrough:** Leverage comes from the hat matrix diagonal; `mse` uses residual sum of squares divided by `n - p`; the stem plot compares each \\(D_i\\) to `4/n`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def find_all_around_troublemakers(model, X, y):
     """Find data points with high overall influence on the model."""
     # Get predictions and errors
     y_pred = model.predict(X)
     errors = y - y_pred
-    
+
     # Calculate leverage (how extreme each point's x-values are)
     hat_matrix = X @ np.linalg.inv(X.T @ X) @ X.T
     leverage = np.diagonal(hat_matrix)
-    
+
     # Calculate Cook's distance
     n = len(y)
     p = X.shape[1]
     mse = np.sum(errors**2) / (n - p)
     cooks_d = (errors**2 * leverage) / (p * mse * (1 - leverage)**2)
-    
+
     # Plot
     plt.figure(figsize=(10, 6))
     plt.stem(range(len(cooks_d)), cooks_d, markerfmt='ro')
@@ -240,9 +340,41 @@ def find_all_around_troublemakers(model, X, y):
     plt.title("Which Points Have Too Much Influence?")
     plt.legend()
     plt.show()
-    
+
     return cooks_d
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="3-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Hat matrix and leverage</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Build the hat matrix H = X(XᵀX)⁻¹Xᵀ and extract its diagonal to obtain per-observation leverage values.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Cook's distance formula</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute Cook's D using residuals, leverage, and MSE; each value measures how much all fitted values would shift if this observation were deleted.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-26" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Stem plot with threshold</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Stem-plot each Cook's D value and overlay a 4/n reference line; points above it are worth investigating as high-influence observations.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **What to look for**: Points with Cook's Distance values that stand out above the threshold line.
 
@@ -254,17 +386,20 @@ def find_all_around_troublemakers(model, X, y):
 
 **Leverage (hat values) for each row of X**
 
-**Purpose:** Show how extreme each observation’s predictors are in predictor space via the diagonal of the hat matrix, with a common \(2p/n\) reference line.
+**Purpose:** Show how extreme each observation’s predictors are in predictor space via the diagonal of the hat matrix, with a common \\(2p/n\\) reference line.
 
-**Walkthrough:** Same hat-matrix construction as Cook’s distance; `np.diagonal` extracts leverage \(h_{ii}\) for plotting.
+**Walkthrough:** Same hat-matrix construction as Cook’s distance; `np.diagonal` extracts leverage \\(h_{ii}\\) for plotting.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def find_unusual_x_values(X):
     """Find data points with unusual X values."""
     # Calculate hat values (another name for leverage)
     hat_matrix = X @ np.linalg.inv(X.T @ X) @ X.T
     leverage = np.diagonal(hat_matrix)
-    
+
     # Plot
     plt.figure(figsize=(10, 6))
     plt.stem(range(len(leverage)), leverage, markerfmt='bo')
@@ -274,9 +409,32 @@ def find_unusual_x_values(X):
     plt.title('Which Points Have Unusual X Values?')
     plt.legend()
     plt.show()
-    
+
     return leverage
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Leverage via hat matrix</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Extract diagonal elements of the hat matrix H = X(XᵀX)⁻¹Xᵀ; high values indicate observations with extreme predictor values that can pull the fitted line.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Stem plot with 2p/n threshold</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Plot leverage per observation and add a 2p/n reference line; points above it have unusually extreme predictor values and deserve closer inspection.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **What to look for**: Points with leverage values above the threshold line.
 
@@ -290,11 +448,14 @@ Here's a function that performs all these checks at once:
 
 **Walkthrough:** The function calls the previously defined helpers in order, then prints counts of points above simple leverage and Cook thresholds.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def give_model_complete_checkup(model, X, y):
     """
     Run a complete diagnostic check-up on our regression model.
-    
+
     Parameters:
     model: our fitted regression model
     X: our predictor variables
@@ -303,41 +464,73 @@ def give_model_complete_checkup(model, X, y):
     # Get predictions and errors
     y_pred = model.predict(X)
     errors = y - y_pred
-    
+
     print("=== MODEL CHECK-UP RESULTS ===\n")
-    
+
     # 1. Linearity check
     print("✅ CHECKING IF RELATIONSHIP IS STRAIGHT...")
     check_if_relationship_is_straight(model, X, y)
-    
+
     # 2. Independence check
     print("\n✅ CHECKING IF POINTS ARE INDEPENDENT...")
     check_if_points_are_independent(errors)
-    
+
     # 3. Consistent error spread check
     print("\n✅ CHECKING IF ERROR SPREAD IS CONSISTENT...")
     check_if_error_spread_is_even(model, X, y)
-    
+
     # 4. Bell curve check
     print("\n✅ CHECKING IF ERRORS FOLLOW A BELL CURVE...")
     check_if_errors_follow_bell_curve(errors)
-    
+
     # 5. Troublemaker identification
     print("\n✅ FINDING TROUBLEMAKER POINTS...")
     cooks_d = find_all_around_troublemakers(model, X, y)
     leverage = find_unusual_x_values(X)
-    
+
     # Summary of issues found
     print("\n=== SUMMARY OF POTENTIAL ISSUES ===")
     print(f"Points with unusual X values: {sum(leverage > 2*X.shape[1]/len(X))}")
     print(f"Points with too much overall influence: {sum(cooks_d > 4/len(y))}")
-    
+
     return {
         'errors': errors,
         'cooks_distance': cooks_d,
         'leverage': leverage
     }
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Function setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Accept a fitted model, predictor matrix, and target vector; compute predictions and residuals for all downstream checks.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-32" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Four assumption checks</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Call helper functions in sequence for linearity, independence (Durbin–Watson), homoscedasticity, and normality of residuals.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="34-44" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Influence summary</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute Cook's distance and leverage, print counts of flagged observations using common rule-of-thumb thresholds, and return all diagnostics.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Let's Try It: A Hands-On Example
 
@@ -349,7 +542,10 @@ Let's see how this works with some example data:
 
 **Walkthrough:** `np.abs(X[:, 0])` scales the noise to create heteroscedastic-like behavior; `model.fit` then feeds the same `X` into the check-up pipeline.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Create some example data
 np.random.seed(42)  # This makes the "random" numbers the same each time
 n_samples = 100
@@ -368,7 +564,39 @@ model.fit(X, y)
 
 # Run our complete check-up
 results = give_model_complete_checkup(model, X, y)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Synthetic data with outlier</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a 100×2 predictor matrix and manually set the first row to [5, 5] to create a high-leverage outlier point.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Heteroscedastic response</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scale the noise by <code>|X[:,0]|</code> so error variance grows with the predictor, deliberately violating homoscedasticity.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-18" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and check</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit <code>LinearRegression</code> and pass the model to <code>give_model_complete_checkup</code> to run all four diagnostic plots and the influence summary.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![model-diagnostics_fig_8](assets/model-diagnostics_fig_8.png)
 

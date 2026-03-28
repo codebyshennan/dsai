@@ -28,7 +28,15 @@ Here's how we'll do it step by step:
 
 ![Learning Curve](assets/learning_curve.png)
 
-```python
+#### XGBoost: `DMatrix`, `train`, early stopping
+
+- **Purpose:** End-to-end **binary classification** with the native **`xgb.train`** API: `DMatrix` wraps arrays, `evals` tracks train/test log loss, **`early_stopping_rounds`** caps boosting rounds.
+- **Walkthrough:** Requires **`pip install xgboost`**; `eta` is learning rate; `predict` returns probabilities for `binary:logistic`.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # First, let's import the tools we need
 # Think of these as our kitchen utensils
 import numpy as np
@@ -91,7 +99,57 @@ y_pred_binary = (y_pred > 0.5).astype(int)  # Convert probabilities to 0/1
 # This is like getting feedback on our cooking
 print("Classification Report:")
 print(classification_report(y_test, y_pred_binary))
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="11-18" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Informative vs redundant features</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>make_classification</code> creates 15 features that genuinely predict the label and 5 redundant noise features — mimics real data where not all columns are useful. Gradient boosting handles this well via feature selection inside each tree.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-31" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">DMatrix: XGBoost's data format</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>xgb.DMatrix</code> wraps numpy arrays in XGBoost's optimized internal format, attaching labels alongside features. Required before calling <code>xgb.train</code> — unlike sklearn's <code>.fit(X, y)</code>, XGBoost separates data preparation from training.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="33-41" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Boosting parameters</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>eta</code> (learning rate) shrinks each new tree's contribution — lower values need more rounds but generalize better. <code>objective: binary:logistic</code> produces probabilities for a two-class problem. <code>eval_metric: logloss</code> measures calibration of those probabilities.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="43-52" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train with eval tracking</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>evals</code> logs loss on both train and test each round. <code>early_stopping_rounds=10</code> halts boosting when test loss stops improving for 10 rounds — XGBoost automatically uses the best round's weights, avoiding over-boosting.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="54-57" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Probability → class label</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>model.predict</code> returns a float probability per sample. <code>(y_pred > 0.5)</code> applies the default decision threshold — lower it (e.g. 0.3) to catch more positives at the cost of more false alarms.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Great job! You've just built your first spam detector. Let's break down what we did:
 
@@ -116,61 +174,89 @@ Let's implement this step by step:
 
 ![Feature Importance](assets/feature_importance.png)
 
-```python
-# First, let's import our tools
-# These are different from XGBoost, but serve similar purposes
+#### LightGBM regression: `Dataset`, RMSE, $R^2$
+
+- **Purpose:** Train a **gradient boosting regressor** with LightGBM’s **`Dataset`** and validation sets; compare to sklearn with **RMSE** and **$R^2$**.
+- **Walkthrough:** Requires **`pip install lightgbm`**; `make_regression` builds synthetic tabular targets; `early_stopping` callback stops when validation RMSE stalls.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
 import lightgbm as lgb
+from sklearn.datasets import make_regression
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 
-# Let's create some sample house data
-# Think of this as collecting information about different houses
 X, y = make_regression(
-    n_samples=1000,        # Number of houses
-    n_features=20,         # Number of features per house
-    noise=0.1,             # Some randomness in prices
+    n_samples=1000,
+    n_features=20,
+    noise=0.1,
     random_state=42
 )
 
-# Let's split our data
-# This is similar to what we did before
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, 
+    X, y,
     test_size=0.2,
     random_state=42
 )
 
-# Now, let's prepare our data for LightGBM
-# Notice how this is slightly different from XGBoost
 train_data = lgb.Dataset(X_train, label=y_train)
 test_data = lgb.Dataset(X_test, label=y_test, reference=train_data)
 
-# Let's set our model parameters
-# These are similar to XGBoost but with some differences
 params = {
-    'objective': 'regression',  # We're predicting continuous values
-    'metric': 'rmse',          # Root Mean Squared Error
-    'num_leaves': 31,          # Number of leaves in each tree
-    'learning_rate': 0.05,     # How fast to learn
-    'feature_fraction': 0.9    # Use 90% of features in each tree
+    'objective': 'regression',
+    'metric': 'rmse',
+    'num_leaves': 31,
+    'learning_rate': 0.05,
+    'feature_fraction': 0.9
 }
 
-# Time to train our model!
 model = lgb.train(
     params,
     train_data,
     num_boost_round=100,
     valid_sets=[train_data, test_data],
-    callbacks=[lgb.early_stopping(10)]  # Stop if no improvement
+    callbacks=[lgb.early_stopping(10)]
 )
 
-# Let's make predictions
 y_pred = model.predict(X_test)
-
-# Finally, let's evaluate our model
-# We'll use RMSE and R² to measure accuracy
 print(f"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred)):.4f}")
 print(f"R²: {r2_score(y_test, y_pred):.4f}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-18" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data and LightGBM Datasets</span>
+    </div>
+    <div class="code-callout__body">
+      <p>1000 synthetic regression samples with 20 features are split 80/20; <code>lgb.Dataset</code> wraps the train and test arrays — the <code>reference=train_data</code> argument aligns the test set's feature histogram with the training set.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-37" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Params and Train</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A parameter dict sets the regression objective and RMSE metric; <code>feature_fraction=0.9</code> adds column subsampling for regularisation; <code>early_stopping(10)</code> halts training if validation RMSE has not improved for 10 rounds.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="39-41" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Evaluate</span>
+    </div>
+    <div class="code-callout__body">
+      <p>RMSE measures the average prediction error in the original units; R² shows the fraction of variance explained — together they give a balanced picture of regression performance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Excellent! You've now built a house price predictor. Notice how this implementation is similar to our spam detector but with some key differences:
 
@@ -194,68 +280,83 @@ Let's implement this step by step:
 
 ![SHAP Values](assets/shap_values.png)
 
-```python
-# First, let's import CatBoost
-# This is our third framework, but the concepts are similar
-from catboost import CatBoostClassifier, Pool
+#### CatBoost: `Pool` + categorical feature indices
 
-# Let's create some sample customer data
-# Think of this as collecting customer information
+- **Purpose:** Train on **mixed numeric and categorical** columns without manual one-hot encoding—**`cat_features`** tells CatBoost which columns to treat as categories.
+- **Walkthrough:** Requires **`pip install catboost`**; `Pool` bundles `X`, `y`, and metadata; `classification_report` summarizes precision/recall on the test split.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+import pandas as pd
+from catboost import CatBoostClassifier, Pool
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+
 data = pd.DataFrame({
-    'age': np.random.normal(40, 10, 1000),           # Customer age
-    'income': np.random.normal(50000, 20000, 1000),  # Annual income
-    'education': np.random.choice(                    # Education level
-        ['HS', 'BS', 'MS', 'PhD'], 1000
-    ),
-    'occupation': np.random.choice(                   # Job type
-        ['Tech', 'Finance', 'Healthcare'], 1000
-    )
+    'age': np.random.normal(40, 10, 1000),
+    'income': np.random.normal(50000, 20000, 1000),
+    'education': np.random.choice(['HS', 'BS', 'MS', 'PhD'], 1000),
+    'occupation': np.random.choice(['Tech', 'Finance', 'Healthcare'], 1000)
 })
 
-# Let's create our target variable
-# This identifies high-value customers
 data['target'] = (
-    (data['age'] > 35) & 
+    (data['age'] > 35) &
     (data['income'] > 45000) |
     (data['education'].isin(['MS', 'PhD']))
 ).astype(int)
 
-# Let's prepare our features
 X = data.drop('target', axis=1)
 y = data['target']
 
-# Let's split our data
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, 
+    X, y,
     test_size=0.2,
     random_state=42
 )
 
-# Here's something new: we need to specify categorical features
 cat_features = ['education', 'occupation']
-
-# Let's prepare our data for CatBoost
-# Notice how we specify categorical features
 train_pool = Pool(X_train, y_train, cat_features=cat_features)
 test_pool = Pool(X_test, y_test, cat_features=cat_features)
 
-# Time to train our model!
 model = CatBoostClassifier(
-    iterations=100,        # Number of trees
-    learning_rate=0.1,     # Learning rate
-    depth=6,              # Tree depth
+    iterations=100,
+    learning_rate=0.1,
+    depth=6,
     loss_function='Logloss',
     verbose=False
 )
 model.fit(train_pool, eval_set=test_pool)
 
-# Let's make predictions
 y_pred = model.predict(test_pool)
-
-# Finally, let's evaluate our model
 print("Classification Report:")
 print(classification_report(y_test, y_pred))
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-18" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data with Categoricals</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Two numeric and two categorical columns are generated; the binary target labels high-value customers using an age/income/education rule that mimics a real segmentation heuristic.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-43" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CatBoost Pool and Train</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>Pool</code> bundles features, labels, and the categorical column indices so CatBoost can apply ordered target encoding natively; <code>eval_set</code> enables validation loss logging during training without a separate API call.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Great work! You've now built a customer segmentation model. Notice how CatBoost makes it easy to handle categorical data:
 
@@ -279,60 +380,49 @@ Let's implement this step by step:
 
 ![Customer Tenure Distribution](assets/churn_prediction.png)
 
-```python
-# Let's create realistic customer data
-# Think of this as collecting customer service information
+#### Churn model: `fit` with `cat_features`, importance, risk bins
+
+- **Purpose:** Fit **CatBoost** on a churn table, inspect **`feature_importances_`**, and bucket **predicted probabilities** into Low/Medium/High risk tiers.
+- **Walkthrough:** `predict_proba` column `[:, 1]` is P(churn); `pd.cut` labels segments for prioritization (thresholds are illustrative).
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+import pandas as pd
+from catboost import CatBoostClassifier
+from sklearn.model_selection import train_test_split
+
 data = pd.DataFrame({
-    'tenure': np.random.normal(30, 15, 1000),           # Months with company
-    'monthly_charges': np.random.normal(70, 20, 1000),  # Monthly bill
-    'total_charges': np.random.normal(2000, 800, 1000), # Total spent
-    'contract_type': np.random.choice(                   # Contract length
+    'tenure': np.random.normal(30, 15, 1000),
+    'monthly_charges': np.random.normal(70, 20, 1000),
+    'total_charges': np.random.normal(2000, 800, 1000),
+    'contract_type': np.random.choice(
         ['Month-to-month', 'One year', 'Two year'], 1000
     ),
-    'payment_method': np.random.choice(                  # How they pay
+    'payment_method': np.random.choice(
         ['Electronic check', 'Mailed check', 'Bank transfer'], 1000
     ),
-    'internet_service': np.random.choice(                # Service type
-        ['DSL', 'Fiber optic', 'No'], 1000
-    )
+    'internet_service': np.random.choice(['DSL', 'Fiber optic', 'No'], 1000)
 })
 
-# Let's create our target variable
-# This identifies customers who might leave
 data['churn'] = (
-    (data['tenure'] < 12) & 
+    (data['tenure'] < 12) &
     (data['monthly_charges'] > 80) |
     (data['contract_type'] == 'Month-to-month')
 ).astype(int)
 
-# Let's prepare our features
 cat_features = ['contract_type', 'payment_method', 'internet_service']
 X = data.drop('churn', axis=1)
 y = data['churn']
 
-# Let's split our data
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, 
-    test_size=0.2,
-    random_state=42
-)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Time to train our model!
-model = CatBoostClassifier(
-    iterations=200,
-    learning_rate=0.1,
-    depth=6,
-    loss_function='Logloss',
-    verbose=False
-)
-model.fit(
-    X_train, y_train,
-    cat_features=cat_features,
-    eval_set=(X_test, y_test)
-)
+model = CatBoostClassifier(iterations=200, learning_rate=0.1, depth=6,
+                           loss_function='Logloss', verbose=False)
+model.fit(X_train, y_train, cat_features=cat_features, eval_set=(X_test, y_test))
 
-# Let's analyze which features are most important
-# This helps us understand what drives churn
 importance = pd.DataFrame({
     'feature': X.columns,
     'importance': model.feature_importances_
@@ -341,18 +431,44 @@ importance = pd.DataFrame({
 print("\nFeature Importance:")
 print(importance)
 
-# Finally, let's categorize customers by risk
-# This helps prioritize retention efforts
 y_prob = model.predict_proba(X_test)[:, 1]
-risk_categories = pd.cut(
-    y_prob,
-    bins=[0, 0.3, 0.6, 1],
-    labels=['Low', 'Medium', 'High']
-)
+risk_categories = pd.cut(y_prob, bins=[0, 0.3, 0.6, 1], labels=['Low', 'Medium', 'High'])
 
 print("\nRisk Distribution:")
 print(risk_categories.value_counts())
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-23" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data Generation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Three numeric and three categorical columns simulate a telecom dataset; the churn label combines short tenure, high charges, and month-to-month contract — a realistic proxy for real churn signals.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="25-33" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Train CatBoost</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Categorical columns are passed directly via <code>cat_features</code> without manual encoding; CatBoost uses ordered target statistics internally, avoiding target leakage.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="35-46" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Importance and Risk Bins</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Feature importances are ranked to surface the top churn drivers; <code>pd.cut</code> buckets predicted probabilities into Low/Medium/High tiers, enabling prioritised retention outreach.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 Congratulations! You've now built a complete customer churn prediction system. Notice how we've combined everything we've learned:
 

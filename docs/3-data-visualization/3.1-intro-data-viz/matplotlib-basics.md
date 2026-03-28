@@ -41,6 +41,21 @@ import numpy as np
 plt.style.use('seaborn')
 ```
 
+```mermaid
+graph TD
+    FIG["Figure\n(the whole canvas — plt.figure)"]
+    FIG --> AX1["Axes  (subplot 1)\nActual plot area\nfig, ax = plt.subplots()"]
+    FIG --> AX2["Axes  (subplot 2)\nMultiple panels\nfig, axes = plt.subplots(1, 2)"]
+
+    AX1 --> TITLE["ax.set_title()"]
+    AX1 --> XLABEL["ax.set_xlabel()"]
+    AX1 --> YLABEL["ax.set_ylabel()"]
+    AX1 --> LEGEND["ax.legend()"]
+    AX1 --> PLOT["ax.plot / ax.scatter\nax.bar / ax.hist / ax.imshow"]
+```
+
+*Key rule: `plt.subplots()` returns a Figure and one or more Axes objects. Do all your drawing on the Axes — the Figure just holds them.*
+
 ### Understanding the Basics
 
 Think of a Matplotlib plot like a painting:
@@ -59,7 +74,10 @@ Think of a Matplotlib plot like a painting:
 
 **Walkthrough:** `subplots` returns `(fig, ax)`; plotting goes on `ax`; `label` + `legend()` explains the curve.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def create_simple_plot():
     # Create sample data - like preparing your paint
     x = np.linspace(0, 10, 100)  # 100 points from 0 to 10
@@ -83,9 +101,41 @@ def create_simple_plot():
     ax.set_ylabel('Y Axis')
     ax.grid(True, linestyle='--', alpha=0.7)
     ax.legend()
-    
+
     return fig, ax
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="6-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Figure and axes</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plt.subplots()</code> returns two objects: the <strong>figure</strong> (the whole window) and the <strong>axes</strong> (the drawing area). Always keep a reference to <code>ax</code> — the object-oriented API lets you control multiple subplots precisely.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plot with styling</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>ax.plot()</code> draws a line through the (x, y) pairs. Keyword arguments control appearance: <code>color</code> accepts hex or names, <code>linewidth</code> scales thickness, <code>label</code> is what appears in the legend.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-23" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Labels and grid</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>set_title</code>, <code>set_xlabel</code>, <code>set_ylabel</code> annotate the chart. <code>grid(alpha=0.7)</code> draws faint reference lines. <code>legend()</code> reads the <code>label</code> strings you set in each <code>plot()</code> call.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Understanding the Code
 

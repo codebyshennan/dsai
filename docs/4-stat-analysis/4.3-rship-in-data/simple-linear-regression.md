@@ -51,7 +51,7 @@ The formula for our prediction line is beautifully simple:
 **Predicted Value = Starting Point + Rate of Change × Input Value**
 
 In math notation:
-\[ \hat{y} = a + bx \]
+\\[ \hat{y} = a + bx \\]
 
 Where:
 - **ŷ (y-hat)** is what we're predicting
@@ -72,6 +72,8 @@ If you start at mile marker 0 and drive at 60 miles per hour, after 2 hours (x),
 ## Before We Start: What Makes a Good Regression?
 
 For our simple linear regression to work well, the relationship should follow certain patterns:
+
+> **Figure (add screenshot or diagram):** A 2×2 panel of the four standard residual diagnostic plots: (1) Residuals vs Fitted — should show a flat band with no curve; (2) Normal Q-Q — points should hug the diagonal; (3) Scale-Location — flat line confirms constant spread; (4) Residuals vs Leverage — flags high-influence points. Annotate each panel with what "good" looks like vs a violation.
 
 ### 1. The Relationship Should Be a Straight Line
 
@@ -107,7 +109,10 @@ Let's walk through a concrete example using Python. Don't worry if you're not fa
 
 **Walkthrough:** `LinearRegression().fit` expects `X` as a 2D array; `model.coef_` and `model.intercept_` are the slope and intercept; `r2_score(y, y_pred)` compares observed and predicted outcomes.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
@@ -140,7 +145,57 @@ plt.ylabel('Test Score')
 plt.title('Hours Studied vs. Test Scores')
 plt.legend()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and synthetic data</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import sklearn's <code>LinearRegression</code> and <code>r2_score</code> alongside NumPy and Matplotlib. <code>np.random.seed(42)</code> pins the random draws so results reproduce across runs. <code>np.linspace</code> creates 100 evenly-spaced study-hour values; the <code>y</code> formula adds Gaussian noise to a clean linear signal.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">2D feature matrix</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>.reshape(-1, 1)</code> converts the 1D array to a column vector — sklearn requires <code>X</code> to be 2D (samples × features). <code>-1</code> tells NumPy to infer the row count automatically.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-17" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and predict</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>LinearRegression().fit</code> runs OLS — computes the intercept and slope that minimize the sum of squared residuals (vertical distances from points to the line). No hyperparameters needed. <code>model.predict(X)</code> applies the fitted line to produce <code>y_pred</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-22" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Intercept, slope, R²</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>intercept_</code> is the predicted score when hours = 0. <code>coef_[0]</code> is the slope: each extra hour adds this many points. <code>r2_score</code> measures how much variance the line explains (1.0 = perfect fit).</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-32" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Visualize the fit</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Scatter plot shows the noisy actual data; the red line is the model's prediction across the full X range. Seeing both together helps you assess whether the linear assumption holds.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![simple-linear-regression_fig_1](assets/simple-linear-regression_fig_1.png)
 

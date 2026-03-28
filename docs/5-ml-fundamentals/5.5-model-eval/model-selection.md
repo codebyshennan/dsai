@@ -54,13 +54,46 @@ Model selection is like building a sports team:
 - You need to consider team chemistry (model ensemble)
 - You want the best performance within your budget
 
+```mermaid
+graph TD
+    subgraph CRITERIA["Selection criteria"]
+        PERF["Predictive performance\n(CV score on train set)"]
+        INTERP["Interpretability\n(Logistic < RF < NN)"]
+        SPEED["Inference speed\n(Linear: µs, NN: ms)"]
+        DATA["Data size\n(small → simpler model\nlarge → complex OK)"]
+    end
+    subgraph WORKFLOW["Safe model comparison workflow"]
+        SPLIT["Train / Val / Test split\n(or nested CV)"]
+        SPLIT --> CANDIDATES["Evaluate candidate\nmodel families on Val"]
+        CANDIDATES --> BEST["Select best family\n+ tune hyperparams\nwith inner CV"]
+        BEST --> FINAL["Evaluate once\non held-out Test set\n(report this number)"]
+    end
+    subgraph PITFALLS["Common mistakes"]
+        M1["Peeking at test set\nduring model selection"]
+        M2["Not baselining against\na naive predictor"]
+        M3["Optimizing val set score\nthen reporting it as test score"]
+    end
+    CRITERIA --> WORKFLOW
+    WORKFLOW -.-> PITFALLS
+```
+
+*The test set is touched exactly once. Any decision made by looking at it inflates your reported performance.*
+
 ## Types of Models
 
 ### 1. Linear Models
 
 These are like following a straight path - simple and interpretable.
 
-```python
+#### Logistic regression + 2D boundary plot
+
+- **Purpose:** Baseline **linear** classifier accuracy and a **2D** decision surface (first two features) for intuition.
+- **Walkthrough:** `plot_decision_boundary` refits on `X[:, :2]` only—so the image matches a 2-feature slice, not full 20D geometry.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_classification
@@ -69,7 +102,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
 # Create sample dataset
-X, y = make_classification(n_samples=1000, n_features=20, 
+X, y = make_classification(n_samples=1000, n_features=20,
                          n_informative=15, n_redundant=5,
                          random_state=42)
 
@@ -92,17 +125,17 @@ def plot_decision_boundary(model, X, y):
     # Reduce to 2D for visualization
     X_2d = X[:, :2]
     model.fit(X_2d, y)
-    
+
     # Create mesh grid
     x_min, x_max = X_2d[:, 0].min() - 1, X_2d[:, 0].max() + 1
     y_min, y_max = X_2d[:, 1].min() - 1, X_2d[:, 1].max() + 1
     xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
                         np.arange(y_min, y_max, 0.02))
-    
+
     # Predict on mesh grid
     Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
     Z = Z.reshape(xx.shape)
-    
+
     # Plot
     plt.figure(figsize=(10, 8))
     plt.contourf(xx, yy, Z, alpha=0.4)
@@ -114,7 +147,30 @@ def plot_decision_boundary(model, X, y):
     plt.show()
 
 plot_decision_boundary(linear_model, X, y)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-24" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data, Split, and Accuracy</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate a 20-feature binary dataset, split 80/20, fit logistic regression on all features, and print accuracy; <code>X_train</code>/<code>y_train</code> from this block are reused in the tree and MLP examples below.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-53" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">2D Boundary Helper</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plot_decision_boundary</code> slices to the first two features and refits there; a dense meshgrid fed through <code>predict</code> lets <code>contourf</code> shade each class region, revealing a straight separator for logistic regression.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![model-selection](assets/model-selection_fig_1.png)
@@ -132,7 +188,15 @@ The linear model creates a straight decision boundary, which works well for line
 
 These are like following a decision tree - more complex but often more powerful.
 
-```python
+#### Random forest accuracy + importances
+
+- **Purpose:** Compare **nonlinear** tree ensemble accuracy to logistic regression on the **same** split (`X_train` from §1).
+- **Walkthrough:** `plot_feature_importance` saves under `assets/` when you run locally—paths match figures checked into the lesson.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.ensemble import RandomForestClassifier
 
 # Train tree-based model
@@ -148,19 +212,42 @@ print(f"Tree Model Accuracy: {accuracy_score(y_test, y_pred_tree):.3f}")
 def plot_feature_importance(model, feature_names):
     importances = model.feature_importances_
     indices = np.argsort(importances)[::-1]
-    
+
     plt.figure(figsize=(10, 6))
     plt.title('Feature Importance')
     plt.bar(range(len(importances)), importances[indices])
-    plt.xticks(range(len(importances)), 
-               [f'Feature {i+1}' for i in indices], 
+    plt.xticks(range(len(importances)),
+               [f'Feature {i+1}' for i in indices],
                rotation=45)
     plt.tight_layout()
     plt.savefig('assets/feature_importance.png')
     plt.show()
 
 plot_feature_importance(tree_model, [f'Feature {i+1}' for i in range(X.shape[1])])
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Forest Fit and Accuracy</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit a Random Forest on the same train split from the logistic example; compare accuracy to see how the nonlinear ensemble performs versus a linear baseline on the same 20-feature dataset.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-27" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Feature Importance Bar Chart</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Sort features by mean impurity decrease and plot as a bar chart; since <code>make_classification</code> created only 15 informative features out of 20, the bottom 5 bars should be near zero.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![model-selection](assets/model-selection_fig_2.png)
@@ -178,7 +265,15 @@ The Random Forest model shows which features are most important for making predi
 
 These are like having multiple layers of decision-making - very powerful but more complex.
 
-```python
+#### MLP + `learning_curve`
+
+- **Purpose:** Show a **high-capacity** model’s accuracy and how score changes with **training set size** (same `X`, `y` as prior subsections).
+- **Walkthrough:** `learning_curve` uses internal CV; the saved PNG illustrates train vs validation gap.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.neural_network import MLPClassifier
 
 # Train neural network
@@ -193,17 +288,17 @@ print(f"Neural Network Accuracy: {accuracy_score(y_test, y_pred_nn):.3f}")
 # Visualize learning curve
 def plot_learning_curve(model, X, y):
     from sklearn.model_selection import learning_curve
-    
+
     train_sizes, train_scores, val_scores = learning_curve(
-        model, X, y, cv=5, n_jobs=-1, 
+        model, X, y, cv=5, n_jobs=-1,
         train_sizes=np.linspace(0.1, 1.0, 10)
     )
-    
+
     train_mean = np.mean(train_scores, axis=1)
     train_std = np.std(train_scores, axis=1)
     val_mean = np.mean(val_scores, axis=1)
     val_std = np.std(val_scores, axis=1)
-    
+
     plt.figure(figsize=(10, 6))
     plt.plot(train_sizes, train_mean, label='Training score')
     plt.plot(train_sizes, val_mean, label='Cross-validation score')
@@ -218,7 +313,30 @@ def plot_learning_curve(model, X, y):
     plt.show()
 
 plot_learning_curve(nn_model, X, y)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">MLP Fit and Accuracy</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit a two-hidden-layer MLP (100, 50) and report accuracy; this high-capacity model should outperform logistic regression on the same split but may show a larger train-CV gap in the learning curve.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-38" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Learning Curve Helper</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define <code>plot_learning_curve</code> around sklearn's <code>learning_curve</code>; the function is reused in the model-selection process section to diagnose the best model's data needs.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![model-selection](assets/model-selection_fig_3.png)
@@ -236,15 +354,23 @@ The learning curve shows how the model's performance improves with more training
 
 Let's compare different models:
 
-```python
+#### Bar chart of test accuracies
+
+- **Purpose:** One place to **fit** several estimators and compare **test** accuracy—extend with CV or nested CV for real selection.
+- **Walkthrough:** Dictionary maps label → unfitted estimator; each is fit on `X_train` and scored on `X_test`.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 def compare_models(models, X_train, X_test, y_train, y_test):
     results = {}
-    
+
     for name, model in models.items():
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
         results[name] = accuracy_score(y_test, y_pred)
-    
+
     # Plot comparison
     plt.figure(figsize=(10, 6))
     plt.bar(results.keys(), results.values())
@@ -255,7 +381,7 @@ def compare_models(models, X_train, X_test, y_train, y_test):
     plt.tight_layout()
     plt.savefig('assets/model_comparison.png')
     plt.show()
-    
+
     return results
 
 # Compare models
@@ -266,7 +392,30 @@ models = {
 }
 
 results = compare_models(models, X_train, X_test, y_train, y_test)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-20" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compare Models Helper</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Define <code>compare_models</code>: fit each estimator in the dict, collect test accuracy in a results dict, then plot a bar chart; the function is reused later in the credit risk example.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-28" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three-model Comparison</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Pass logistic regression, random forest, and MLP into the helper; the bar heights directly compare performance on the held-out test split from the earlier sections.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![model-selection](assets/model-selection_fig_4.png)
@@ -303,7 +452,19 @@ The comparison shows that the Neural Network performs best on this dataset, foll
 
 Let's see how different models perform on a credit risk prediction task:
 
-```python
+#### Pipelines on synthetic credit features
+
+- **Purpose:** Compare **scaled** linear, forest, and MLP pipelines on tabular credit-like inputs.
+- **Walkthrough:** Builds `X`, `y`, then **`train_test_split`**; reuses **`compare_models`** from the previous section.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
@@ -319,6 +480,10 @@ credit_score = np.random.normal(700, 100, n_samples)
 
 X = np.column_stack([age, income, credit_score])
 y = (credit_score + income/1000 + age > 800).astype(int)  # Binary target
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # Create pipelines
 pipelines = {
@@ -338,7 +503,30 @@ pipelines = {
 
 # Compare pipelines
 results = compare_models(pipelines, X_train, X_test, y_train, y_test)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Credit Dataset and Split</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Stack three financial features into a numpy array and split 80/20; the synthetic label (threshold on credit score + income + age) makes all three model families near-perfect on this separable task.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-41" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Three Scaled Pipelines</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Wrap each classifier in a scaler pipeline so all models see normalized features; passing the dict to <code>compare_models</code> yields a bar chart comparing their test accuracies in one call.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![model-selection](assets/model-selection_fig_5.png)
@@ -358,31 +546,67 @@ For the credit risk prediction task, all models perform exceptionally well, with
 
 ### 1. Model Selection Process
 
-```python
+#### End-to-end helper (same-session API)
+
+- **Purpose:** Split → compare models → plot learning curve for the **winner**—illustrative; production workflows add **nested CV** and a locked test set.
+- **Walkthrough:** Expects **`compare_models`** and **`plot_learning_curve`** defined earlier on this page.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neural_network import MLPClassifier
+
 def model_selection_process(X, y):
     # Split data
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
-    
-    # Define models
+
+    # Define models (same keys as compare_models example above)
     models = {
-        'Linear': LogisticRegression(),
-        'Tree': RandomForestClassifier(),
-        'Neural Network': MLPClassifier(hidden_layer_sizes=(100, 50))
+        "Linear": LogisticRegression(),
+        "Tree": RandomForestClassifier(),
+        "Neural Network": MLPClassifier(hidden_layer_sizes=(100, 50)),
     }
-    
-    # Compare models
+
+    # Compare models (requires compare_models + accuracy_score from earlier cells)
     results = compare_models(models, X_train, X_test, y_train, y_test)
-    
-    # Plot learning curves for best model
+
+    # Plot learning curves for best model (requires plot_learning_curve from §3)
     best_model_name = max(results, key=results.get)
     plot_learning_curve(models[best_model_name], X, y)
-    
+
     return results
 
 model_selection_process(X, y)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-26" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">End-to-end Workflow</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Bundle split → compare → diagnose in one function; <code>compare_models</code> and <code>plot_learning_curve</code> are helpers defined in earlier cells of the same session.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Auto-select Best Model</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>max(results, key=results.get)</code> picks the top-accuracy model name; passing that fitted estimator to <code>plot_learning_curve</code> shows whether adding more data would further improve the winner.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![model-selection](assets/model-selection_fig_6.png)

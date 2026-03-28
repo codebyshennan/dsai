@@ -37,7 +37,10 @@ Think of weighted KNN like asking your friends for movie recommendations:
 **Walkthrough:**
 - `KNeighborsClassifier(..., weights='distance')`; `fit` on `X_train`, `y_train`; `predict` for `new_movie`; needs NumPy for `X_train` / `new_movie`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -66,7 +69,30 @@ knn.fit(X_train, y_train)
 new_movie = np.array([4, 4, 3])  # Mix of all genres
 prediction = knn.predict([new_movie])
 print(f"Predicted genre: {prediction[0]}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Weighted KNN Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Six movies labeled by genre with three score features; <code>weights='distance'</code> makes nearer neighbors cast stronger votes than distant ones — helpful when one cluster is much closer to the query.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-29" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Predict Genre</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The new movie with balanced genre scores is passed to <code>predict</code>; the weighted vote among the 5 nearest neighbors determines the output genre.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -91,7 +117,10 @@ Sometimes your data has too many features, making KNN slow and less accurate. Di
 **Walkthrough:**
 - `PCA(n_components=2).fit_transform`; `plt.scatter` with `c=y`, `colorbar`, `plt.show()`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
@@ -100,7 +129,7 @@ def visualize_data(X, y):
     # Reduce to 2 dimensions for visualization
     pca = PCA(n_components=2)
     X_reduced = pca.fit_transform(X)
-    
+
     # Create scatter plot
     plt.figure(figsize=(10, 6))
     scatter = plt.scatter(X_reduced[:, 0], X_reduced[:, 1], c=y, cmap='viridis')
@@ -115,7 +144,30 @@ from sklearn.datasets import load_iris
 iris = load_iris()
 X, y = iris.data, iris.target
 visualize_data(X, y)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-17" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">PCA Reduction</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>PCA(n_components=2).fit_transform</code> compresses all four Iris features into two principal components that capture the most variance — enabling a 2D scatter plot of a 4D dataset.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="19-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Scatter with Colorbar</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Load Iris and call the helper; <code>c=y</code> colors each point by class, and the colorbar maps numeric label to color — clear cluster separation indicates the first two PCs are informative.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![4-advanced](assets/4-advanced_fig_1.png)
@@ -133,7 +185,10 @@ Choosing the right number of neighbors (k) is crucial. Too few can lead to noise
 **Walkthrough:**
 - Loop over `k_values`; `cross_val_score(..., cv=5).mean()`; `np.argmax` on scores; `plt.plot` with markers.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import cross_val_score
@@ -143,12 +198,12 @@ def find_best_k(X, y, max_k=20):
     """Find the best k value using cross-validation"""
     k_values = range(1, max_k + 1)
     scores = []
-    
+
     for k in k_values:
         knn = KNeighborsClassifier(n_neighbors=k)
         score = cross_val_score(knn, X, y, cv=5).mean()
         scores.append(score)
-    
+
     # Plot results
     plt.figure(figsize=(10, 6))
     plt.plot(k_values, scores, 'o-')
@@ -157,14 +212,46 @@ def find_best_k(X, y, max_k=20):
     plt.title('Finding the Best k Value')
     plt.grid(True)
     plt.show()
-    
+
     best_k = k_values[np.argmax(scores)]
     print(f"Best k value: {best_k}")
     return best_k
 
 # Example usage
 best_k = find_best_k(X, y)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-4" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>NumPy for argmax, <code>KNeighborsClassifier</code> for fitting, <code>cross_val_score</code> for unbiased k-selection, and matplotlib for the curve plot.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="6-24" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">CV Sweep</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each k from 1 to <code>max_k</code>, a fresh KNN is evaluated with 5-fold CV; mean scores are collected and plotted to show the accuracy curve.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-30" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Return Best k</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>argmax</code> on the scores list finds the index of the highest CV accuracy; the corresponding k value is printed and returned.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![4-advanced](assets/4-advanced_fig_2.png)
@@ -186,7 +273,10 @@ When one class is much more common than others, KNN can be biased. Here's how to
 **Walkthrough:**
 - `Pipeline([('smote', SMOTE(...)), ('knn', KNeighborsClassifier(...))])`; `cross_val_score(pipeline, X, y, cv=5)`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from imblearn.over_sampling import SMOTE
 from imblearn.pipeline import Pipeline
@@ -198,11 +288,11 @@ def handle_imbalanced_data(X, y):
         ('smote', SMOTE(random_state=42)),
         ('knn', KNeighborsClassifier(n_neighbors=5))
     ])
-    
+
     # Train and evaluate
     scores = cross_val_score(pipeline, X, y, cv=5)
     print(f"Average accuracy after balancing: {scores.mean():.3f}")
-    
+
     return pipeline
 
 # Example: Credit Card Fraud Detection
@@ -210,7 +300,30 @@ def handle_imbalanced_data(X, y):
 X_imbalanced = np.array([...])  # Your features
 y_imbalanced = np.array([...])  # Your labels (mostly 0s, few 1s)
 model = handle_imbalanced_data(X_imbalanced, y_imbalanced)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">SMOTE Pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>SMOTE</code> generates synthetic minority-class samples; wrapping it in <code>imblearn.Pipeline</code> with the KNN classifier ensures oversampling only happens inside each CV fold, preventing data leakage.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-23" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Evaluate and Return</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>cross_val_score</code> evaluates the full pipeline on held-out folds; the placeholder arrays illustrate the expected shape — swap with your real imbalanced dataset.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## 5. Optimizing for Speed: Using Tree Structures
 
@@ -223,38 +336,73 @@ For large datasets, KNN can be slow. Tree structures help speed it up:
 **Walkthrough:**
 - `BallTree(X)` in `fit`; `tree.query(X, k=self.k)` returns distances and indices; `np.bincount` / `argmax` for voting.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 from sklearn.neighbors import BallTree
 
 class FastKNN:
     def __init__(self, k=5):
         self.k = k
-        
+
     def fit(self, X, y):
         """Build a ball tree for faster searches"""
         self.tree = BallTree(X)
         self.y_train = y
-        
+
     def predict(self, X):
         """Make predictions using the ball tree"""
         # Find k nearest neighbors quickly
         distances, indices = self.tree.query(X, k=self.k)
-        
+
         # Get predictions
         predictions = []
         for idx_set in indices:
             k_labels = self.y_train[idx_set]
             prediction = np.bincount(k_labels).argmax()
             predictions.append(prediction)
-            
+
         return np.array(predictions)
 
 # Example usage
 fast_knn = FastKNN(k=5)
 fast_knn.fit(X_train, y_train)
 predictions = fast_knn.predict(X_test)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>BallTree</code> is a spatial index that finds nearest neighbors in O(log n) rather than the O(n) brute-force scan of default KNN.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit: Build the Tree</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>BallTree(X)</code> builds the index once at fit time; the training labels are stored separately for the voting step during prediction.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-24" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Predict: Majority Vote</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>tree.query</code> returns the k nearest neighbor indices per query point; <code>np.bincount(...).argmax()</code> picks the most frequent class label among them.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Common Mistakes to Avoid
 

@@ -44,7 +44,10 @@ Module Structure:
 
 **Walkthrough:** Assumes `plt` and `data` exist; `trendline='ols'` requires `statsmodels` in the environment for Plotly 5+.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example: Basic vs Advanced Visualization
 import seaborn as sns
 import plotly.express as px
@@ -61,7 +64,39 @@ fig = px.scatter(data,
                  animation_frame='time',
                  hover_data=['details'],
                  trendline='ols')
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Importing both <code>seaborn</code> and <code>plotly.express</code> sets up the two main advanced visualization libraries.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-7" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Basic Matplotlib Plot</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Two lines with no color, animation, or interactivity—the baseline for comparison.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="9-16" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Advanced Plotly Scatter</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>size</code>, <code>color</code>, <code>animation_frame</code>, and <code>hover_data</code> encode four dimensions in one interactive chart; <code>trendline='ols'</code> adds a regression line.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Key Benefits
 
@@ -95,12 +130,15 @@ Techniques:
 
 **Walkthrough:** `update_data` would be wired to your data source; `method: animate` expects frames if you use Plotly’s animation API fully.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example: Real-time Dashboard
 def create_realtime_dashboard(data_stream):
     """Create auto-updating dashboard"""
     fig = go.Figure()
-    
+
     # Add real-time trace
     fig.add_trace(
         go.Scatter(
@@ -109,12 +147,12 @@ def create_realtime_dashboard(data_stream):
             name='Live Data'
         )
     )
-    
+
     # Add update functionality
     def update_data(frame):
         fig.data[0].x = frame['time']
         fig.data[0].y = frame['value']
-    
+
     # Configure updates
     fig.update_layout(
         updatemenus=[{
@@ -126,9 +164,50 @@ def create_realtime_dashboard(data_stream):
             }]
         }]
     )
-    
+
     return fig
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-2" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Figure Initialization</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A blank <code>go.Figure()</code> serves as the canvas; traces and layout are added incrementally.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="4-13" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Live Trace</span>
+    </div>
+    <div class="code-callout__body">
+      <p>An empty <code>go.Scatter</code> with <code>x=[], y=[]</code> is a placeholder; <code>update_data</code> populates it when new frames arrive.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="15-18" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Update Callback</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Replaces the trace's <code>x</code> and <code>y</code> arrays in place; wire this to your data source or Dash callback for streaming.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-30" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Play Button</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>updatemenus</code> adds an animation-style Play button; <code>method: "animate"</code> triggers Plotly's built-in frame stepping.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![README](assets/README_fig_1.png)
@@ -139,39 +218,83 @@ def create_realtime_dashboard(data_stream):
 
 **Walkthrough:** Expects columns `value`, `category`, `x`, `y`, `time` in `data`; tighten column names to match your frame.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example: Statistical Visualization
 def create_statistical_plot(data):
     """Create comprehensive statistical visualization"""
     # Create figure with subplots
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 12))
-    
+
     # 1. Distribution
     sns.histplot(data=data, x='value', hue='category',
                 multiple="stack", ax=ax1)
     ax1.set_title('Distribution Analysis')
-    
+
     # 2. Box Plot
     sns.boxplot(data=data, x='category', y='value',
                ax=ax2)
     ax2.set_title('Statistical Summary')
-    
+
     # 3. Regression
     sns.regplot(data=data, x='x', y='y',
                scatter_kws={'alpha':0.5},
                line_kws={'color': 'red'},
                ax=ax3)
     ax3.set_title('Trend Analysis')
-    
+
     # 4. Time Series
     sns.lineplot(data=data, x='time', y='value',
                 hue='category', style='category',
                 ax=ax4)
     ax4.set_title('Temporal Patterns')
-    
+
     plt.tight_layout()
     return fig
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">2×2 Grid Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plt.subplots(2, 2)</code> unpacks four axes into named variables so each panel can be targeted independently.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Stacked Histogram</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>multiple="stack"</code> stacks category bars rather than overlapping them, keeping the total height meaningful.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-20" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Box Plot and Regression</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The box plot summarizes per-category spread; <code>regplot</code> overlays a scatter plus OLS trend line in a single call.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="22-30" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Time Series Panel</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>hue</code> and <code>style</code> together differentiate categories by both color and line dash, aiding color-blind readers.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Module content
 
@@ -236,7 +359,10 @@ Features:
 
 **Walkthrough:** Run once per notebook kernel; import `sns`, `plt`, then `plotly.io`.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example: Basic Setup
 def setup_visualization_env():
     """Configure professional visualization defaults"""
@@ -247,7 +373,7 @@ def setup_visualization_env():
         font="sans-serif",
         font_scale=1.1
     )
-    
+
     # Matplotlib settings
     plt.rcParams.update({
         'figure.figsize': (10, 6),
@@ -255,11 +381,43 @@ def setup_visualization_env():
         'axes.labelsize': 12,
         'axes.titlesize': 14
     })
-    
+
     # Plotly settings
     import plotly.io as pio
     pio.templates.default = "plotly_white"
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-10" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Seaborn Theme</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>sns.set_theme</code> applies a global style, palette, and font scale that affects all subsequent Seaborn and Matplotlib figures.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">rcParams Update</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plt.rcParams.update</code> overrides default figure size, DPI, and font sizes—run once per notebook kernel.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-22" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Plotly Template</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Setting <code>pio.templates.default</code> to <code>"plotly_white"</code> gives all Plotly figures a clean white background by default.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Week 2: Advanced Techniques
 
@@ -267,23 +425,58 @@ def setup_visualization_env():
 
 **Walkthrough:** `plot_joint`/`plot_marginals` populate the grid; second `regplot` with `scatter=False` draws the line without duplicating points.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example: Complex Visualization
 def create_advanced_visualization(data):
     """Create advanced multi-layer visualization"""
     # Base layer
     g = sns.JointGrid(data=data, x="x", y="y", hue="category")
-    
+
     # Add layers
     g.plot_joint(sns.scatterplot)
     g.plot_marginals(sns.histplot)
     g.add_legend()
-    
+
     # Enhance with statistical overlay
     sns.regplot(data=data, x="x", y="y",
                scatter=False, ax=g.ax_joint,
                color="red", line_kws={"linestyle": "--"})
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">JointGrid Setup</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>JointGrid</code> creates a central joint plot area with marginal axes for per-variable distributions.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Joint and Marginals</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>plot_joint</code> fills the central scatter; <code>plot_marginals</code> fills the side histograms—both color by <code>hue</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-15" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Regression Overlay</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>scatter=False</code> draws only the OLS line onto <code>g.ax_joint</code> without duplicating the scatter points.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ### Week 3: Real-World Applications
 
@@ -291,7 +484,10 @@ def create_advanced_visualization(data):
 
 **Walkthrough:** `specs` declares subplot types; traces are added by `row`/`col`; extend with real data columns.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 # Example: Interactive Dashboard
 def create_dashboard(data):
     """Create comprehensive dashboard"""
@@ -300,7 +496,7 @@ def create_dashboard(data):
         specs=[[{"type": "scatter3d"}, {"type": "scatter"}],
                [{"type": "heatmap"}, {"type": "bar"}]]
     )
-    
+
     # Add plots
     fig.add_trace(
         go.Scatter3d(
@@ -310,13 +506,45 @@ def create_dashboard(data):
         ),
         row=1, col=1
     )
-    
+
     # Add interactivity
     fig.update_layout(
         clickmode='event+select',
         hovermode='closest'
     )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Mixed Subplot Types</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>specs</code> declares each cell's chart type—<code>scatter3d</code>, <code>heatmap</code>, and <code>bar</code> can coexist in one figure.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-18" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">3D Scatter Trace</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>add_trace(..., row=1, col=1)</code> places the 3D scatter into the top-left cell; repeat for other cells with different trace types.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-23" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Interaction Modes</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>clickmode='event+select'</code> enables lasso/box selection for cross-filtering; <code>hovermode='closest'</code> pins tooltips to the nearest point.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Best practices
 

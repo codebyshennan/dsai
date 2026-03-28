@@ -42,6 +42,25 @@ Imagine you're a doctor diagnosing a disease:
 
 ROC and AUC help us find the right balance between catching all cases and avoiding false alarms.
 
+```mermaid
+graph LR
+    subgraph ROC["ROC Curve  (vary threshold 0 → 1)"]
+        AX["x-axis: FPR = FP / (FP + TN)\n= false alarm rate"]
+        AY["y-axis: TPR = TP / (TP + FN)\n= sensitivity / recall"]
+        LOW["Low threshold (predict + for almost all)\nHigh TPR — but high FPR too"]
+        HIGH["High threshold (predict + rarely)\nLow FPR — but misses many +"]
+    end
+    subgraph AUC["AUC interpretation"]
+        A1["AUC = 1.0\nPerfect ranking"]
+        A2["AUC ≈ 0.5\nRandom classifier\n(diagonal line)"]
+        A3["AUC < 0.5\nWorse than random\n(flip predictions)"]
+        A4["AUC ≈ 0.7–0.8\nTypically acceptable\nfor tabular models"]
+    end
+    ROC --> AUC
+```
+
+> **Figure (add screenshot or diagram):** ROC curve plot with x-axis FPR (0–1), y-axis TPR (0–1): a diagonal dashed line for a random classifier, and a curve bowing toward the top-left for a good model, with the AUC shaded in green.
+
 ## Technical Definitions
 
 ### ROC Curve Components
@@ -49,14 +68,14 @@ ROC and AUC help us find the right balance between catching all cases and avoidi
 The ROC curve plots the True Positive Rate (TPR) against the False Positive Rate (FPR) at various threshold settings:
 
 **True Positive Rate (TPR)** = Sensitivity = Recall
-\[
+\\[
 \text{TPR} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}
-\]
+\\]
 
 **False Positive Rate (FPR)** = 1 - Specificity
-\[
+\\[
 \text{FPR} = \frac{\text{False Positives}}{\text{False Positives} + \text{True Negatives}}
-\]
+\\]
 
 ### AUC (Area Under the Curve)
 
@@ -88,7 +107,15 @@ The AUC measures the model's ability to distinguish between classes:
 
 ### 1. Basic ROC Curve for Binary Classification
 
-```python
+#### Train a model and plot one ROC curve
+
+- **Purpose:** End-to-end minimal example: synthetic binary data, `predict_proba` scores, `roc_curve` / `auc`, and a plot—this is the pattern you will reuse on real projects.
+- **Walkthrough:** `y_pred_proba[:, 1]` is P(class 1); `roc_curve` returns aligned `fpr`, `tpr`, `thresholds`; `auc(fpr, tpr)` matches the integral of the plotted curve.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_classification
@@ -97,9 +124,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_curve, auc, roc_auc_score
 
 # Create sample dataset
-X, y = make_classification(n_samples=1000, n_features=20, 
-                         n_informative=15, n_redundant=5,
-                         random_state=42)
+X, y = make_classification(n_samples=1000, n_features=20,
+                           n_informative=15, n_redundant=5,
+                           random_state=42)
 
 # Split data
 X_train, X_test, y_train, y_test = train_test_split(
@@ -138,7 +165,39 @@ def plot_roc_curve(fpr, tpr, roc_auc, title="ROC Curve"):
     plt.show()
 
 plot_roc_curve(fpr, tpr, roc_auc)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-22" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Data, Model, and Probabilities</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Fit logistic regression and extract <code>predict_proba[:, 1]</code> — the positive-class scores used to sweep the decision threshold across the ROC curve.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-31" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compute ROC and AUC</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>roc_curve</code> returns aligned FPR, TPR, and threshold arrays; <code>auc(fpr, tpr)</code> integrates the curve — the same value as <code>roc_auc_score</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="33-49" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Reusable Plot Function</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Encapsulate the plot logic so the same function can be called for any model's FPR/TPR arrays; the dashed diagonal shows the random-classifier baseline.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![roc-and-auc](assets/roc-and-auc_fig_1.png)
@@ -185,7 +244,15 @@ False Positive Rate | True Positive Rate | Threshold
 
 ### 2. Comparing Multiple Models
 
-```python
+#### Overlay ROC curves for several classifiers
+
+- **Purpose:** Compare **ranking quality** (AUC) across algorithms on the **same** train/test split so the curves are comparable.
+- **Walkthrough:** `SVC(probability=True)` enables `predict_proba`; loop fits each model, plots `(fpr, tpr)` with a legend label including AUC; dashed diagonal = random baseline.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
@@ -220,7 +287,39 @@ plt.title('ROC Curves for Multiple Models')
 plt.legend(loc="lower right")
 plt.grid(True, alpha=0.3)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-12" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Four Classifiers</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Collect logistic regression, random forest, SVM (with <code>probability=True</code>), and Naive Bayes in a dict; the SVM needs the flag to expose <code>predict_proba</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Fit and Plot Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Each model is fit on the same training split; its ROC curve is computed and plotted in one loop so all four appear on the same axes for direct comparison.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-34" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Baseline and Formatting</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The dashed diagonal marks random performance (AUC 0.5); the legend with per-model AUC lets you rank classifiers at a glance.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![roc-and-auc](assets/roc-and-auc_fig_2.png)
@@ -244,7 +343,15 @@ Model Ranking by AUC:
 
 ### 3. Multi-class ROC Curves
 
-```python
+#### One-vs-rest ROC on Iris
+
+- **Purpose:** For **multi-class** problems, plot a **binary ROC per class** using **label binarization**—each class is “positive” vs all others.
+- **Walkthrough:** `label_binarize` makes shape `(n_samples, n_classes)`; loop applies `roc_curve` to each column of `y_test_bin` against the matching column of `predict_proba`.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.datasets import load_iris
 from sklearn.preprocessing import label_binarize
 from itertools import cycle
@@ -290,7 +397,39 @@ plt.title('Multi-class ROC Curves')
 plt.legend(loc="lower right")
 plt.grid(True, alpha=0.3)
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-11" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Binarize Labels</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Convert the three-class integer array to a 3-column binary matrix with <code>label_binarize</code>; each column is the one-vs-rest indicator for one Iris species.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="13-26" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Per-class ROC Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each class index, pair the binarized true column with the predicted probability column; store FPR, TPR, and AUC in dicts keyed by class index.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="28-44" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Overlay Three Curves</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Cycle through three colors to plot each species' ROC curve; real class names from <code>iris.target_names</code> make the legend readable without numeric class indices.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![roc-and-auc](assets/roc-and-auc_fig_3.png)
@@ -324,15 +463,23 @@ Model Accuracy: 100.0%
 
 Understanding how different thresholds affect model performance is crucial for practical applications.
 
-```python
+#### Sweep thresholds and plot precision/recall vs TPR/FPR
+
+- **Purpose:** Show how **precision, recall, F1, TPR, and FPR** change as you raise the classification threshold—helps pick an operating point, not only AUC.
+- **Walkthrough:** `analyze_thresholds` binarizes scores at each threshold, uses `confusion_matrix(...).ravel()` for tn,fp,fn,tp (binary case), then plots two subplots. Requires **binary** `y_true`; extend carefully for multiclass.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
 
 def analyze_thresholds(y_true, y_pred_proba, thresholds=None):
     """Analyze model performance across different thresholds."""
-    
+
     if thresholds is None:
         thresholds = np.linspace(0, 1, 101)
-    
+
     metrics = {
         'threshold': [],
         'precision': [],
@@ -341,10 +488,10 @@ def analyze_thresholds(y_true, y_pred_proba, thresholds=None):
         'fpr': [],
         'tpr': []
     }
-    
+
     for threshold in thresholds:
         y_pred = (y_pred_proba >= threshold).astype(int)
-        
+
         # Calculate metrics
         if len(np.unique(y_pred)) > 1:  # Avoid division by zero
             precision = precision_score(y_true, y_pred, zero_division=0)
@@ -352,19 +499,19 @@ def analyze_thresholds(y_true, y_pred_proba, thresholds=None):
             f1 = f1_score(y_true, y_pred, zero_division=0)
         else:
             precision = recall = f1 = 0
-        
+
         # Calculate TPR and FPR
         tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
         tpr = tp / (tp + fn) if (tp + fn) > 0 else 0
         fpr = fp / (fp + tn) if (fp + tn) > 0 else 0
-        
+
         metrics['threshold'].append(threshold)
         metrics['precision'].append(precision)
         metrics['recall'].append(recall)
         metrics['f1'].append(f1)
         metrics['fpr'].append(fpr)
         metrics['tpr'].append(tpr)
-    
+
     return metrics
 
 # Analyze thresholds for our model
@@ -374,11 +521,11 @@ threshold_metrics = analyze_thresholds(y_test, y_pred_proba)
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
 
 # Plot 1: Precision, Recall, F1 vs Threshold
-ax1.plot(threshold_metrics['threshold'], threshold_metrics['precision'], 
+ax1.plot(threshold_metrics['threshold'], threshold_metrics['precision'],
          label='Precision', linewidth=2)
-ax1.plot(threshold_metrics['threshold'], threshold_metrics['recall'], 
+ax1.plot(threshold_metrics['threshold'], threshold_metrics['recall'],
          label='Recall', linewidth=2)
-ax1.plot(threshold_metrics['threshold'], threshold_metrics['f1'], 
+ax1.plot(threshold_metrics['threshold'], threshold_metrics['f1'],
          label='F1-Score', linewidth=2)
 ax1.set_xlabel('Threshold')
 ax1.set_ylabel('Score')
@@ -387,9 +534,9 @@ ax1.legend()
 ax1.grid(True, alpha=0.3)
 
 # Plot 2: TPR and FPR vs Threshold
-ax2.plot(threshold_metrics['threshold'], threshold_metrics['tpr'], 
+ax2.plot(threshold_metrics['threshold'], threshold_metrics['tpr'],
          label='True Positive Rate', linewidth=2)
-ax2.plot(threshold_metrics['threshold'], threshold_metrics['fpr'], 
+ax2.plot(threshold_metrics['threshold'], threshold_metrics['fpr'],
          label='False Positive Rate', linewidth=2)
 ax2.set_xlabel('Threshold')
 ax2.set_ylabel('Rate')
@@ -399,13 +546,53 @@ ax2.grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-18" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Function Signature and Dict</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import classification metrics and define <code>analyze_thresholds</code>; the metrics dict pre-declares six lists that will be filled in the sweep loop.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="20-42" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Threshold Sweep Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>For each threshold, binarize the predicted probabilities; guard against all-one-class edge cases with <code>zero_division=0</code>, then derive TPR and FPR from <code>confusion_matrix(...).ravel()</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="44-76" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two-panel Visualization</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Left panel plots precision, recall, and F1 vs threshold; right panel plots TPR and FPR — together they reveal the operating point trade-off space beyond a single AUC number.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Practical Example: Credit Risk Assessment
 
 Let's apply ROC and AUC analysis to a realistic credit risk prediction scenario:
 
-```python
+#### Synthetic credit data, pipeline, and four-panel analysis
+
+- **Purpose:** Tie ROC to a **tabular** workflow: engineered features, **stratified** split, **`Pipeline`** (scale + forest), then ROC, threshold curves, and related plots in one figure.
+- **Walkthrough:** Target is built via a logistic-style linear form + sigmoid + binomial draw; `analyze_thresholds` is reused from above—run the earlier cells so `analyze_thresholds` and imports exist in the notebook.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
@@ -489,11 +676,11 @@ ax1.grid(True, alpha=0.3)
 # Threshold analysis
 threshold_metrics = analyze_thresholds(y_test, y_pred_proba, np.linspace(0, 1, 101))
 
-ax2.plot(threshold_metrics['threshold'], threshold_metrics['precision'], 
+ax2.plot(threshold_metrics['threshold'], threshold_metrics['precision'],
          label='Precision', linewidth=2)
-ax2.plot(threshold_metrics['threshold'], threshold_metrics['recall'], 
+ax2.plot(threshold_metrics['threshold'], threshold_metrics['recall'],
          label='Recall (TPR)', linewidth=2)
-ax2.plot(threshold_metrics['threshold'], threshold_metrics['f1'], 
+ax2.plot(threshold_metrics['threshold'], threshold_metrics['f1'],
          label='F1-Score', linewidth=2)
 ax2.set_xlabel('Threshold')
 ax2.set_ylabel('Score')
@@ -532,7 +719,39 @@ print(f"AUC Score: {roc_auc:.3f}")
 print(f"Number of test samples: {len(y_test)}")
 print(f"Actual default rate: {y_test.mean():.2%}")
 print(f"Predicted default rate (threshold=0.5): {(y_pred_proba >= 0.5).mean():.2%}")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-46" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Synthetic Credit Dataset</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Generate seven financial features with realistic distributions; the binary default label is derived from a logistic-style linear combination, giving a ~25% default rate that tests the model under class imbalance.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="48-64" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Stratified Split and Pipeline</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>stratify=y</code> preserves the default rate in both splits; the scaler+forest pipeline prevents leakage and produces calibrated probability scores via <code>predict_proba[:, 1]</code>.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="66-118" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Four-panel Analysis</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The 2×2 figure covers ROC curve, threshold trade-offs, predicted probability distributions separated by true label, and feature importance — giving a full diagnostic view of the credit scoring model.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 
 ![roc-and-auc](assets/roc-and-auc_fig_4.png)
@@ -683,20 +902,29 @@ Recommendations:
 
 ### 1. Confidence Intervals for AUC
 
-```python
+#### Bootstrap CI for a single AUC
+
+- **Purpose:** Quantify **uncertainty** in AUC by resampling rows with replacement and recomputing `roc_auc_score`—wide intervals mean unstable estimates (small $n$ or noisy scores).
+- **Walkthrough:** Inner loop skips resamples where only one class appears (`ValueError`); percentile bands give a **nominal** CI; for reporting, align bootstrap design with your team's stats practice.
+
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 from scipy import stats
+from sklearn.metrics import roc_auc_score
 
 def bootstrap_auc(y_true, y_pred_proba, n_bootstrap=1000, confidence_level=0.95):
     """Calculate bootstrap confidence interval for AUC."""
     n_samples = len(y_true)
     bootstrap_aucs = []
-    
+
     for _ in range(n_bootstrap):
         # Bootstrap sample
         indices = np.random.choice(n_samples, n_samples, replace=True)
         y_boot = y_true[indices]
         y_pred_boot = y_pred_proba[indices]
-        
+
         # Calculate AUC for bootstrap sample
         try:
             auc_boot = roc_auc_score(y_boot, y_pred_boot)
@@ -704,18 +932,50 @@ def bootstrap_auc(y_true, y_pred_proba, n_bootstrap=1000, confidence_level=0.95)
         except ValueError:
             # Skip if bootstrap sample has only one class
             continue
-    
+
     # Calculate confidence interval
     alpha = 1 - confidence_level
     lower = np.percentile(bootstrap_aucs, 100 * alpha / 2)
     upper = np.percentile(bootstrap_aucs, 100 * (1 - alpha / 2))
-    
+
     return np.mean(bootstrap_aucs), lower, upper
 
 # Calculate confidence interval for our credit risk model
 auc_mean, auc_lower, auc_upper = bootstrap_auc(y_test, y_pred_proba)
 print(f"AUC: {auc_mean:.3f} (95% CI: {auc_lower:.3f} - {auc_upper:.3f})")
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Setup Loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Import AUC scorer and initialise the list that will accumulate AUC values from each bootstrap resample.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-22" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Resample and Score</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Draw replacement samples, compute AUC for each, and skip resamples that land on a single class to avoid errors.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="24-32" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Confidence Interval</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Compute percentile-based lower and upper bounds and return the mean AUC with its confidence interval.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ```
 AUC: 0.734 (95% CI: 0.677 - 0.787)
@@ -742,6 +1002,11 @@ Confidence Interval Interpretation:
 ```
 
 ### 2. Cross-Validation with ROC/AUC
+
+#### Stratified K-fold mean `roc_auc`
+
+- **Purpose:** Report **mean ± spread** of AUC across folds—more stable than a single split when data are limited.
+- **Walkthrough:** `cross_val_score(..., scoring='roc_auc')` uses the unfitted `pipeline` and training matrix `X_train`, `y_train` from the credit example; `StratifiedKFold` preserves class balance per fold.
 
 ```python
 from sklearn.model_selection import cross_val_score, StratifiedKFold
