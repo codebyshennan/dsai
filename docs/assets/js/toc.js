@@ -67,7 +67,18 @@
     if (!ul.children.length) return;
 
     nav.appendChild(ul);
-    slot.appendChild(nav);
+
+    var details = document.createElement('details');
+    details.className = 'page-toc__details';
+    if (window.matchMedia('(min-width: 1100px)').matches) {
+      details.setAttribute('open', '');
+    }
+    var summary = document.createElement('summary');
+    summary.className = 'page-toc__summary';
+    summary.textContent = 'Contents';
+    details.appendChild(summary);
+    details.appendChild(nav);
+    slot.appendChild(details);
     slot.hidden = false;
 
     var links = ul.querySelectorAll('a');

@@ -1,3 +1,9 @@
+---
+layout: default
+title: Course overview
+permalink: /README.html
+---
+
 # Welcome to Data Science and Analytics Course
 
 ## Overview
@@ -8,7 +14,7 @@ This site is a **self-contained curriculum** from first steps in Python and anal
 
 **If you are new to the stack:** Start with [Module 0: Prep](0-prep/README.md) (environment, Jupyter, optional tools), then [Module 1: Data fundamentals](1-data-fundamentals/README.md). Maintainer-facing authoring notes live in `meta/` in the repository and are **not** part of the public site build.
 
-The [course index](index.md) lists every lesson page in one place for bookmarking and search.
+The [full curriculum](curriculum.md) lists every lesson page in one place for bookmarking and search. The [home page](index.md) links to each module.
 
 ## Learning objectives
 

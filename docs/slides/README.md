@@ -32,6 +32,12 @@ make build-all-slides
   - `title`: `title`, optional `subtitle` (plain text or `**bold**` segments).
   - `content`: `title`, optional `content` object with optional `title`, `items` (string array), and optional `ordered` (use `<ol>` instead of `<ul>`).
 
+Optional fields on `content` (for long lists — avoids overflow):
+
+- **`chunkSize`** (number): max items per slide before splitting into multiple sections with titles like `Your Title (2/5)`. Default is **10**. Set to **`false`** or **`0`** to keep all items on one slide (use sparingly).
+- **`columns`** (`2` or `3`): force a multi-column list layout. If omitted, the builder may use 2 columns when a chunk has **8+** items, or 3 columns when a chunk has **18+** items.
+- Ordered lists (`ordered: true`) use correct `<ol start="…">` continuation across columns.
+
 List item strings support inline `**emphasis**` only (rendered as `<strong>`). Other markdown is not parsed; use plain text or HTML entities if needed.
 
 ## Editing

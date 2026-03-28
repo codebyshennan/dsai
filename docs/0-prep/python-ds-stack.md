@@ -181,9 +181,16 @@ uv pip install numpy pandas matplotlib seaborn scikit-learn statsmodels jupyter 
 
 > **On screen:** **uv pip install** finishing quickly in the terminal.
 
-## Common Issues & Troubleshooting
+## Gotchas
 
-### Installation Problems
+- **Install into the wrong environment** — if `(dsai)` (or `.venv`) is not visible in your prompt, you are installing into the wrong Python. Activate your environment first, then install.
+- **`ModuleNotFoundError` even after installing** — the package went into a different env than your running Python. Check `which python` (macOS/Linux) or `where python` (Windows) and confirm it points to your course env before retrying.
+- **Mixing conda and pip** — in a conda env, `conda install` sets up compiled wheels and their system dependencies correctly; random `pip install` can overwrite them with incompatible builds. Use `conda-forge` first; fall back to `pip` only when a package is not on conda-forge.
+- **`great_expectations` conflicts** — it pulls in a large dependency tree. If it blocks other installs, install it last, or omit it until the data engineering module explicitly requires it.
+- **NumPy 2.x deprecation warnings** — libraries like statsmodels may emit warnings against NumPy 2. They still work; treat warnings as informational unless you see an actual error.
+- **Matplotlib shows no plot window in a script** — outside a notebook, add `plt.show()` at the end of your script, or use `%matplotlib inline` at the top of a Jupyter notebook.
+
+
 
 1.  **Package Conflicts**:
 
@@ -288,6 +295,6 @@ uv pip install numpy pandas matplotlib seaborn scikit-learn statsmodels jupyter 
    * [Real Python Tutorials](https://realpython.com/tutorials/data-science/)
    * [Scipy Lectures](https://scipy-lectures.org/)
 3. **Community Support**:
-   * Stack Overflow tags: \[numpy], \[pandas], \[matplotlib], \[scikit-learn]
+   * Stack Overflow tags: `[numpy]`, `[pandas]`, `[matplotlib]`, `[scikit-learn]`
    * GitHub Issues for respective libraries
    * Reddit: [r/datascience](https://www.reddit.com/search/?q=datascience), [r/learnpython](https://www.reddit.com/search/?q=learnpython)

@@ -38,7 +38,7 @@ remote_theme: pages-themes/primer@v0.6.0  # ← Uses GitHub's Primer theme
 # Markdown Processing
 markdown: GFM                   # ← GitHub Flavored Markdown (jekyll-commonmark-ghpages)
 highlighter: rouge               # ← Fenced code blocks; use ```python etc.
-# Math: MathJax script in _layouts/default.html (not kramdown math_engine)
+# Math: KaTeX in _layouts/default.html + assets/js/katex-init.js (not kramdown math_engine)
 ```
 
 ### 2. **Content Structure**
@@ -280,7 +280,7 @@ Gets syntax highlighted with Rouge:
 </div>
 ```
 
-### 4. Math Rendering (MathJax)
+### 4. Math Rendering (KaTeX)
 
 ```markdown
 $$E = mc^2$$
@@ -362,7 +362,7 @@ open https://codebyshennan.github.io/tamkeen-data/1-data-fundamentals/1.2-intro-
 
 ### Issue: Math formulas not rendering
 
-**Fix:** The site uses **`markdown: GFM`** (no kramdown `math_engine`). Math relies on the **MathJax script** in `_layouts/default.html`. Use `$$...$$` or `\[...\]` in Markdown and confirm in the built HTML that MathJax runs (check the browser console if needed).
+**Fix:** The site uses **`markdown: GFM`** (no kramdown `math_engine`). Math relies on **KaTeX** (`_layouts/default.html` + `assets/js/katex-init.js`). Use `$$...$$` or doubled delimiters `\\[...\\]` / `\\(...\\)` in Markdown—GFM strips a single backslash before `( ) [ ]`, so inline/display TeX delimiters must be doubled. Confirm in the built HTML that the page contains literal backslash-paren or backslash-bracket sequences so KaTeX auto-render can run.
 
 ### Issue: Code not highlighted
 

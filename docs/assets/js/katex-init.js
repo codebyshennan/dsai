@@ -1,6 +1,7 @@
 /**
  * KaTeX auto-render for lesson article only. Delimiters: $$, \\[\\], \\(\\).
  * Skips $ single delimiter to avoid false positives in prose.
+ * GFM strips a single backslash before ( ) [ ]; lesson Markdown doubles those backslashes so the DOM still contains TeX delimiters for auto-render.
  */
 (function () {
   'use strict';

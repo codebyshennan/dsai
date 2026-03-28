@@ -17,7 +17,8 @@
       mermaid.initialize({
         startOnLoad: false,
         theme: 'forest',
-        flowchart: { useMaxWidth: true, htmlLabels: true },
+        // htmlLabels: false avoids foreignObject + quoted-label edge cases in flowcharts
+        flowchart: { useMaxWidth: true, htmlLabels: false },
         securityLevel: 'loose',
       });
       var nodes = [];

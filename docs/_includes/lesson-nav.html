@@ -94,6 +94,62 @@
     {% endif %}
   {% endif %}
 
+  {% comment %} Cross-submodule next: if no next page within this dir, look up the next dir in the course sequence. {% endcomment %}
+  {% if next_page == nil %}
+    {% assign _cfound = false %}
+    {% assign _cnext_dir = '' %}
+    {% for _cd in site.data.submodule_sequence %}
+      {% if _cfound and _cnext_dir == '' %}
+        {% assign _cnext_dir = _cd %}
+      {% endif %}
+      {% if _cd == dir_key %}
+        {% assign _cfound = true %}
+      {% endif %}
+    {% endfor %}
+    {% if _cnext_dir != '' %}
+      {% assign _cnext_order = site.data.lesson_nav_order[_cnext_dir] %}
+      {% if _cnext_order %}
+        {% assign _cnext_file = _cnext_order | first %}
+        {% assign _cnext_path = _cnext_dir | append: '/' | append: _cnext_file %}
+        {% assign next_page = site.pages | where: 'path', _cnext_path | first %}
+        {% if next_page %}{% assign next_is_cross_module = true %}{% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% comment %} Cross-submodule prev: if no prev page within this dir, look up the last lesson of the previous dir. {% endcomment %}
+  {% if prev_page == nil %}
+    {% assign _pfound = false %}
+    {% assign _cprev_dir = '' %}
+    {% assign _cprev_last = '' %}
+    {% for _cd in site.data.submodule_sequence %}
+      {% if _cd == dir_key %}
+        {% assign _pfound = true %}
+        {% assign _cprev_dir = _cprev_last %}
+      {% endif %}
+      {% unless _pfound %}
+        {% assign _cprev_last = _cd %}
+      {% endunless %}
+    {% endfor %}
+    {% if _cprev_dir != '' %}
+      {% assign _cprev_order = site.data.lesson_nav_order[_cprev_dir] %}
+      {% if _cprev_order %}
+        {% assign _cprev_last_i = _cprev_order | size | minus: 1 %}
+        {% assign _cprev_file = '' %}
+        {% for f in _cprev_order %}
+          {% if forloop.index0 == _cprev_last_i %}
+            {% assign _cprev_file = f %}
+          {% endif %}
+        {% endfor %}
+        {% if _cprev_file != '' %}
+          {% assign _cprev_path = _cprev_dir | append: '/' | append: _cprev_file %}
+          {% assign prev_page = site.pages | where: 'path', _cprev_path | first %}
+          {% if prev_page %}{% assign prev_is_cross_module = true %}{% endif %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
   {% comment %}
     Root href: for submodule pages, point to the submodule's own directory index (its README).
     For README pages (which are the submodule root), point up to the course index.
@@ -147,9 +203,9 @@
 <nav class="lesson-nav" aria-label="Lesson navigation">
   <div class="lesson-nav__inner">
     {% if prev_page %}
-      <a class="lesson-nav__btn lesson-nav__btn--prev" href="{{ prev_page.url | relative_url }}"{% if prev_page.title %} title="{{ prev_page.title | escape }}"{% endif %}>← Previous</a>
+      <a class="lesson-nav__btn lesson-nav__btn--prev" href="{{ prev_page.url | relative_url }}"{% if prev_page.title %} title="{{ prev_page.title | escape }}"{% endif %}><span class="lesson-nav__btn-icon" aria-hidden="true">←</span><span class="lesson-nav__btn-label">{% if prev_is_cross_module %} Prev Module{% else %} Previous{% endif %}</span></a>
     {% else %}
-      <span class="lesson-nav__btn lesson-nav__btn--disabled" aria-disabled="true">← Previous</span>
+      <span class="lesson-nav__btn lesson-nav__btn--prev lesson-nav__btn--disabled" aria-disabled="true"><span class="lesson-nav__btn-icon" aria-hidden="true">←</span><span class="lesson-nav__btn-label"> Previous</span></span>
     {% endif %}
 
     <div class="lesson-nav__dropdown" id="lesson-nav-dropdown">
@@ -191,9 +247,9 @@
     </div>
 
     {% if next_page %}
-      <a class="lesson-nav__btn lesson-nav__btn--next" href="{{ next_page.url | relative_url }}"{% if next_page.title %} title="{{ next_page.title | escape }}"{% endif %}>Next →</a>
+      <a class="lesson-nav__btn lesson-nav__btn--next" href="{{ next_page.url | relative_url }}"{% if next_page.title %} title="{{ next_page.title | escape }}"{% endif %}><span class="lesson-nav__btn-label">{% if next_is_cross_module %}Next Module {% else %}Next {% endif %}</span><span class="lesson-nav__btn-icon" aria-hidden="true">→</span></a>
     {% else %}
-      <span class="lesson-nav__btn lesson-nav__btn--disabled" aria-disabled="true">Next →</span>
+      <span class="lesson-nav__btn lesson-nav__btn--next lesson-nav__btn--disabled" aria-disabled="true"><span class="lesson-nav__btn-label">Next </span><span class="lesson-nav__btn-icon" aria-hidden="true">→</span></span>
     {% endif %}
   </div>
 </nav>

@@ -44,6 +44,45 @@ The site uses **`markdown: GFM`** (GitHub Flavored Markdown). **Inline backticks
 
 `> **Figure (add screenshot or diagram):** Short description of what to capture.`
 
+**Callout styling (repo-wide):** Ordinary Markdown blockquotes (`>` …) render with the same accent bar, surface, and muted body text as the **inline** lesson callout (see `assets/css/style.css`). No HTML required for that look.
+
+**Lesson callout cards (HTML):** Use `<aside class="lesson-callout …">` when you need a **different layout**—external title above the bar, or Q&A with an italic prompt—rather than a single quoted block. Jekyll passes HTML through.
+
+1. **Inline label** — one bordered block; put the label in bold at the start of the paragraph.
+
+```html
+<aside class="lesson-callout lesson-callout--inline" role="note">
+  <p><strong>Real-world example:</strong> One or more sentences of body copy.</p>
+</aside>
+```
+
+2. **External title** — title sits above; only the body has the vertical accent bar.
+
+```html
+<aside class="lesson-callout lesson-callout--titled" role="note">
+  <p class="lesson-callout__label">Key takeaway</p>
+  <div class="lesson-callout__body">
+    <p>Supporting text for the takeaway.</p>
+  </div>
+</aside>
+```
+
+3. **Question and answer** — combine `lesson-callout--titled` and `lesson-callout--qa`; use `lesson-callout__question` for the italic prompt.
+
+```html
+<aside class="lesson-callout lesson-callout--titled lesson-callout--qa" role="note">
+  <p class="lesson-callout__label">Common question</p>
+  <div class="lesson-callout__body">
+    <p class="lesson-callout__question">Why would I need this?</p>
+    <p>Short answer for learners.</p>
+  </div>
+</aside>
+```
+
+Optional **`data-accent`** on the `<aside>` for tint + icon (same layout as typed callouts): `data-accent="success"`, `data-accent="warning"`, or `data-accent="purple"`. Icons and colors are defined in `assets/css/callouts.css`.
+
+**Typed callouts (tint + icon):** `assets/js/callouts.js` scans lesson blockquotes and sets `data-callout-type` when the **first bold label** in the first paragraph matches a known pattern (case-insensitive), e.g. `**Warning:**`, `**Note:**`, `**Note for beginners:**`, `**Time needed:**`, `**Figure (...):**`, `**On screen:**` (same figure-style icon), `**Troubleshooting:**` (warning-style), `**Tip:**`, `**Tip for beginners:**`, `**Teacher's Note**`, `**Real-world example:**`, `**Best Practice:**`, `**Reflect:**`, `**Common Pitfall:**`, etc. Manual override: add `data-callout-type="note|warning|…"` on a `<blockquote>` or `<aside class="lesson-callout">` in HTML.
+
 **Embedded videos (YouTube):** Prefer **standalone clips of about 15 minutes or less** for on-page `<iframe>` embeds. Longer or multi-hour courses belong in **Additional resources** as normal links, not as the primary embedded video.
 
 **Bulk insert (maintainers):** `scripts/add_helpful_videos.py` adds a `## Helpful video` block (iframe + short blurb) to lesson `.md` files that do not already contain `youtube.com/embed`, using longest-prefix path rules under `docs/`. It skips `0-prep/` (hand-curated), `meta/`, root `index.md`, assignments/TODO-style names, `slides/`, and directories such as `.venv`, `_site`, and `node_modules`. From `docs/`: `pnpm run helpful-videos` (use `pnpm run helpful-videos -- --dry-run` to list targets without writing).
@@ -262,7 +301,7 @@ Each row is one **reference file** sampled for structure, tone, and recurring el
 - **Structure:** H2/H3 path: concept → definition → example → code → pitfalls → next steps. Horizontal rules (`---`) often separate major sections in Python/Pandas-style pages. Long lessons end with “Next steps” or “Further reading”; capstone material uses phased timelines and deliverables.
 - **Pedagogy:** Progressive disclosure (idea in words, then formula, then code); optional links to notebooks, Python Tutor, or AI prompts are enhancements, not prerequisites.
 - **Code defaults:** Python unless the topic is SQL, BI, or another stack. Prefer `numpy`, `pandas`, `matplotlib`, `seaborn`, `scipy`, `sklearn` with imports at the top and comments.
-- **Math (GFM + MathJax in layout):** `$$...$$` or `\[...\]` for display; inline `$...$` as needed. Preview the built site—GFM does not apply kramdown’s old math preprocessor.
+- **Math (GFM + KaTeX in layout):** `$$...$$` or `\\[...\\]` for display; inline `\\(...\\)` (double the backslashes in Markdown—GFM otherwise strips the backslash from TeX-style open/close delimiters). The layout does not use kramdown’s math preprocessor—preview the built site.
 - **Diagrams:** `mermaid` for workflows (EDA, ETL, missing-data mechanisms); keep diagrams readable on GitHub Pages.
 - **SQL:** Fenced blocks with `sql` and short comments.
 - **BI / tools:** Numbered or YAML-style steps plus screenshot placeholders under `./assets/` as appropriate.

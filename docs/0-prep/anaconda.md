@@ -240,9 +240,23 @@ Anaconda Navigator is a visual tool that lets you launch applications and manage
 
 > **Note:** If VS Code isn't listed, you may need to install it separately. See the VS Code setup guide for details.
 
-## Common Issues & Troubleshooting
+## Gotchas
 
-### Anaconda Issues
+### Anaconda
+
+- **"Add to PATH" is no longer recommended** — recent Anaconda installers default to *not* adding conda to PATH. Instead, use **Anaconda Prompt** on Windows or run `conda init zsh` / `conda init bash` once after install so your terminal shell can find `conda`. Restart the terminal afterwards.
+- **`conda activate` says "no such command"** — this means `conda init` was never run for your shell. Fix: `conda init <shell>` (e.g. `conda init zsh`), then restart the terminal.
+- **Solving environment takes forever** — the classic conda solver is slow on large environments. Enable the faster libmamba solver: `conda config --set solver libmamba` (requires `conda-libmamba-solver`, included in Anaconda 23.x+).
+- **Anaconda Navigator launches base, not your course env** — Navigator apps launch in the `base` env by default. Use the **Environment** dropdown in Navigator to switch to `dsai` before launching Jupyter.
+- **Don't install course packages into `base`** — conflicts in `base` are hard to untangle. Keep `base` minimal; do all course work in a named env (`dsai`).
+
+### uv
+
+- **"uv: command not found" after install** — the install script adds uv to `~/.local/bin` (Linux/macOS) or `%USERPROFILE%\.local\bin` (Windows) and updates your shell config, but the current terminal session doesn't see it yet. Close and reopen the terminal, or run `source ~/.zshrc` / `source ~/.bashrc`.
+- **`uv venv` creates `.venv` in the current folder** — if you run it in the wrong directory, a stray `.venv` appears there. Always `cd` into your project folder first.
+- **Forgetting to activate before installing** — `uv pip install` without activating `.venv` installs into the global Python. Check that `(.venv)` appears in your prompt before running any install commands.
+
+
 
 1. **PATH Issues**:
    - Windows: Restart your computer

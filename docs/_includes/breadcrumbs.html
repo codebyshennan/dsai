@@ -7,7 +7,11 @@
 {% assign dir_key = page.dir | remove_first: '/' | remove_last: '/' %}
 <nav class="breadcrumb-nav" aria-label="Breadcrumb">
   <ol class="breadcrumb-nav__list">
-    <li><a href="{{ '/' | relative_url }}">Home</a></li>
+    <li>
+      <a href="{{ '/' | relative_url }}" aria-label="Home" class="breadcrumb-nav__home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </a>
+    </li>
     {% if dir_key != '' %}
       {% assign segs = dir_key | split: '/' %}
       {% assign prefix = '' %}
@@ -24,17 +28,26 @@
         {% endunless %}
         {% if seg == '_assignments' %}
           {% assign crumb_label = 'Assignments' %}
+          {% assign crumb_short = 'Asst' %}
         {% elsif crumb_page %}
           {% assign crumb_label = crumb_page.title %}
+          {% assign crumb_short = seg | split: '-' | first %}
         {% else %}
           {% assign crumb_label = seg | replace: '-', ' ' | replace: '_', ' ' %}
+          {% assign crumb_short = seg | split: '-' | first %}
         {% endif %}
         {% unless forloop.last %}
           <li>
             {% if crumb_page %}
-              <a href="{{ crumb_page.url | relative_url }}">{{ crumb_label | escape }}</a>
+              <a href="{{ crumb_page.url | relative_url }}">
+                <span class="breadcrumb-nav__label-long">{{ crumb_label | escape }}</span>
+                <span class="breadcrumb-nav__label-short" aria-hidden="true">{{ crumb_short | escape }}</span>
+              </a>
             {% else %}
-              <span class="breadcrumb-nav__muted">{{ crumb_label | escape }}</span>
+              <span class="breadcrumb-nav__muted">
+                <span class="breadcrumb-nav__label-long">{{ crumb_label | escape }}</span>
+                <span class="breadcrumb-nav__label-short" aria-hidden="true">{{ crumb_short | escape }}</span>
+              </span>
             {% endif %}
           </li>
         {% else %}
@@ -43,9 +56,15 @@
           {% else %}
             <li>
               {% if crumb_page %}
-                <a href="{{ crumb_page.url | relative_url }}">{{ crumb_label | escape }}</a>
+                <a href="{{ crumb_page.url | relative_url }}">
+                  <span class="breadcrumb-nav__label-long">{{ crumb_label | escape }}</span>
+                  <span class="breadcrumb-nav__label-short" aria-hidden="true">{{ crumb_short | escape }}</span>
+                </a>
               {% else %}
-                <span class="breadcrumb-nav__muted">{{ crumb_label | escape }}</span>
+                <span class="breadcrumb-nav__muted">
+                  <span class="breadcrumb-nav__label-long">{{ crumb_label | escape }}</span>
+                  <span class="breadcrumb-nav__label-short" aria-hidden="true">{{ crumb_short | escape }}</span>
+                </span>
               {% endif %}
             </li>
             <li><span class="breadcrumb-nav__current" aria-current="page">{{ page.title | escape }}</span></li>

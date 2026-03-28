@@ -170,7 +170,17 @@ CREATE TABLE my_table (
    - Configure object retention
    - Regular security audits
 
-## Common Issues & Troubleshooting
+## Gotchas
+
+- **Trial is 30 days and ~$400 in credits** — credits are consumed while a warehouse is running. Always set **auto-suspend to 60 seconds** or less so the warehouse shuts down when idle. Forgetting this is the #1 way to burn through trial credits.
+- **"No active warehouse" error** — Snowsight requires a running warehouse to execute queries. Select one from the warehouse context menu (top of the worksheet) and make sure it shows "Running" (green dot) before querying.
+- **Bookmark your account URL** — your Snowflake login URL is unique to your account (e.g. `xy12345.snowflakecomputing.com`). It's not `snowflake.com`. Save it; you'll need it every time you log in.
+- **MFA is enforced at setup** — Snowflake prompts for multi-factor authentication during account creation. Set up an authenticator app (Google Authenticator, Authy) before the trial expires; MFA cannot be skipped later.
+- **Trial expiry = data loss** — all databases, tables, and queries are deleted when the 30-day trial ends. Export any work you want to keep before day 30.
+- **`ACCOUNTADMIN` is for learning only** — in a real org, nobody uses `ACCOUNTADMIN` for day-to-day queries. Get comfortable creating lower-privilege roles (`SYSADMIN`, custom roles) as you progress through the module.
+- **Snowsight UI changes frequently** — the interface is actively updated. If a menu or button described here looks different, check [Snowflake documentation](https://docs.snowflake.com/) for the current UI layout.
+
+
 
 ### Connection Problems
 

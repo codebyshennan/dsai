@@ -110,6 +110,33 @@
     });
   }
 
+  /**
+   * Gutter column with 1..n — matches logical lines in `code` (same rules as code-explainer).
+   * Skipped for output/log blocks where line refs are usually noise.
+   */
+  function buildLineNumbersColumn(codeEl) {
+    var text = codeEl.textContent || '';
+    var lines = text.split(/\r\n|\r|\n/);
+    var col = document.createElement('div');
+    var digits = Math.max(2, String(lines.length).length);
+    var frag = document.createDocumentFragment();
+    var i;
+    var span;
+
+    col.className = 'code-block__line-numbers';
+    col.setAttribute('aria-hidden', 'true');
+    col.style.minWidth = digits + 1 + 'ch';
+
+    for (i = 0; i < lines.length; i += 1) {
+      span = document.createElement('span');
+      span.className = 'code-block__line-number';
+      span.textContent = String(i + 1);
+      frag.appendChild(span);
+    }
+    col.appendChild(frag);
+    return col;
+  }
+
   function findRoots() {
     var body = document.querySelector('.markdown-body');
     if (!body) return [];
@@ -142,6 +169,9 @@
     if (!code) return;
 
     var lang = getLang(code, root);
+    // Mermaid runs on the raw `<pre><code class="language-mermaid">` text; wrapping (line
+    // numbers, copy chrome) can confuse some diagram parsers—leave blocks untouched.
+    if (lang === 'mermaid') return;
     var wrapper = document.createElement('div');
     wrapper.setAttribute('data-code-block', '');
     wrapper.className = 'code-block';
@@ -170,6 +200,9 @@
 
     var parent = root.parentNode;
     parent.insertBefore(wrapper, root);
+    if (!OUTPUT_LANGS[lang]) {
+      inner.appendChild(buildLineNumbersColumn(code));
+    }
     inner.appendChild(root);
     wrapper.appendChild(header);
     wrapper.appendChild(inner);

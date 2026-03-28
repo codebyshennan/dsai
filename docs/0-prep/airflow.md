@@ -222,7 +222,17 @@ Monitor services:
 docker compose ps
 ```
 
-## Common Issues & Troubleshooting
+## Gotchas
+
+- **Never install without constraint files** — plain `pip install apache-airflow` or `uv pip install apache-airflow` almost always produces a broken install due to conflicting transitive dependencies. Always use the official `--constraint` URL for your Airflow version and Python version.
+- **`AIRFLOW_HOME` must be consistent** — Airflow stores its database, config, and DAGs relative to `AIRFLOW_HOME`. If you open a new terminal and forget to set it, `airflow standalone` initializes a *fresh* second Airflow instance in `~/airflow`, and your DAGs won't appear. Set `AIRFLOW_HOME` in your shell profile or always `cd` to the project folder and export before running Airflow.
+- **Airflow 3.x uses `airflow api-server`, not `airflow webserver`** — guides written for Airflow 2.x say `airflow webserver`. In Airflow 3.x, the web UI is served by `airflow api-server --port 8080`. Using the old command will fail or start nothing.
+- **DAGs don't appear immediately** — the scheduler picks up new DAG files every 30–60 seconds (configurable). If your DAG is missing, wait a minute, then check `airflow dags list` for import errors (a syntax error in the Python file will silently prevent loading).
+- **`load_examples = True` by default** — Airflow ships with ~20 example DAGs. They clutter the UI when learning. Set `load_examples = False` in `airflow.cfg` and run `airflow db migrate` to remove them.
+- **SQLite only supports one active process** — with `LocalExecutor` or `CeleryExecutor`, multiple workers try to write the SQLite database concurrently and will fail. SQLite is only suitable for `SequentialExecutor` (one task at a time), which is the default for learning. Upgrade to PostgreSQL when you need parallelism.
+- **Port 8080 already in use** — if something else is on port 8080 (another Airflow, Jupyter, a local server), the API server won't start. Change the port with `airflow api-server --port 8090` or stop the conflicting process first.
+
+
 
 ### Installation Problems
 

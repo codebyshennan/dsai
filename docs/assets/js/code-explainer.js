@@ -37,14 +37,43 @@
     return isNaN(px) ? fs * 1.55 : px;
   }
 
-  function offsetWithin(el, ancestor) {
-    var y = 0;
-    var n = el;
-    while (n && n !== ancestor) {
-      y += n.offsetTop;
-      n = n.parentElement;
+  /**
+   * Map a character offset in `root`'s aggregated text (tree order) to a text node + offset.
+   */
+  function findNodeAtOffset(root, offset) {
+    var walk = 0;
+    var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var textNode;
+    while ((textNode = tw.nextNode())) {
+      var len = textNode.nodeValue.length;
+      if (walk + len >= offset) {
+        return { node: textNode, offset: offset - walk };
+      }
+      walk += len;
     }
-    return y;
+    return null;
+  }
+
+  /** Half-open [start, end) character indices for logical lines startLine..endLine (1-based). */
+  function charRangeForLogicalLines(text, startLine, endLine) {
+    var lines = text.split(/\r\n|\r|\n/);
+    var n = lines.length;
+    if (n === 0) return null;
+    var s = Math.max(1, Math.min(startLine, n));
+    var e = Math.max(s, Math.min(endLine, n));
+    var start = 0;
+    var i;
+    for (i = 0; i < s - 1; i++) {
+      start += lines[i].length + 1;
+    }
+    var end = start;
+    for (i = s - 1; i <= e - 1; i++) {
+      end += lines[i].length;
+      if (i < e - 1) {
+        end += 1;
+      }
+    }
+    return { start: start, end: end };
   }
 
   function formatLineLabel(range) {
@@ -60,16 +89,70 @@
     }
   }
 
+  /**
+   * Place the highlight band using the real layout of the code (Rouge spans, wrapped lines).
+   * Falls back to one line-height per logical line only if the Range API yields no box.
+   */
   function applyHighlightGeometry(hl, container, pre, start, end) {
-    var preTop = offsetWithin(pre, container);
-    var padTop = parseFloat(window.getComputedStyle(pre).paddingTop) || 0;
     var lineHeight = measureLineHeightPx(pre);
     var lineCount = lineCountFromPre(pre);
-
     var s = Math.max(1, Math.min(start, lineCount));
     var e = Math.max(s, Math.min(end, lineCount));
 
-    hl.style.top = preTop + padTop + (s - 1) * lineHeight + 'px';
+    var codeEl = pre.querySelector('code') || pre;
+    var text = codeEl.textContent || '';
+    var charRange = charRangeForLogicalLines(text, s, e);
+    if (charRange && text.length > 0) {
+      charRange.start = Math.max(0, Math.min(charRange.start, text.length));
+      charRange.end = Math.max(charRange.start, Math.min(charRange.end, text.length));
+    }
+    var cr = container.getBoundingClientRect();
+    var scrollTop = container.scrollTop || 0;
+    var padTop = parseFloat(window.getComputedStyle(pre).paddingTop) || 0;
+
+    if (charRange && charRange.end > charRange.start && document.createRange) {
+      var startPos = findNodeAtOffset(codeEl, charRange.start);
+      var endPos = findNodeAtOffset(codeEl, charRange.end);
+      if (startPos && endPos) {
+        try {
+          var rng = document.createRange();
+          rng.setStart(startPos.node, startPos.offset);
+          rng.setEnd(endPos.node, endPos.offset);
+          var rr = rng.getBoundingClientRect();
+          if (rr.height > 0.5) {
+            hl.style.top = rr.top - cr.top + scrollTop + 'px';
+            hl.style.height = rr.height + 'px';
+            return;
+          }
+        } catch (_e) {
+          /* fall through */
+        }
+      }
+    }
+
+    /* Collapsed or empty range: at least one line-height so the band is visible */
+    if (charRange && charRange.end <= charRange.start) {
+      var probe = findNodeAtOffset(codeEl, charRange.start);
+      if (probe && document.createRange) {
+        try {
+          var r2 = document.createRange();
+          r2.setStart(probe.node, probe.offset);
+          r2.setEnd(probe.node, Math.min(probe.offset + 1, probe.node.nodeValue.length));
+          var r2b = r2.getBoundingClientRect();
+          if (r2b.height > 0.5) {
+            hl.style.top = r2b.top - cr.top + scrollTop + 'px';
+            hl.style.height = Math.max(lineHeight, r2b.height) + 'px';
+            return;
+          }
+        } catch (_e2) {
+          /* fall through */
+        }
+      }
+    }
+
+    /* Legacy fallback: uniform line height (wrong when lines wrap) */
+    var preRect = pre.getBoundingClientRect();
+    hl.style.top = preRect.top - cr.top + scrollTop + padTop + (s - 1) * lineHeight + 'px';
     hl.style.height = (e - s + 1) * lineHeight + 'px';
   }
 
@@ -124,18 +207,23 @@
     var codeCol = root.querySelector('.code-explainer__code');
     if (!codeCol) return;
 
-    var container =
+    var shell =
       codeCol.querySelector('.code-block__body') || codeCol.querySelector('.highlighter-rouge');
-    if (!container) return;
+    if (!shell) return;
 
-    var pre = container.querySelector('pre');
+    var pre = shell.querySelector('pre');
     if (!pre) return;
+
+    // Overlay sits on the Rouge block so line bands align with code only (not the line-number gutter).
+    // Use div.highlight (not .highlight) to avoid matching pre.highlight — appending a <div> inside
+    // <pre> is invalid HTML and browsers eject it, breaking the position:relative coordinate system.
+    var overlayParent = pre.closest('div.highlight, div.highlighter-rouge') || shell;
 
     // Mark inited only once language/copy chrome and body exist (see code-blocks.js).
     root.setAttribute('data-code-explainer-init', '1');
 
-    if (window.getComputedStyle(container).position === 'static') {
-      container.style.position = 'relative';
+    if (window.getComputedStyle(overlayParent).position === 'static') {
+      overlayParent.style.position = 'relative';
     }
 
     var calloutEls = root.querySelectorAll('.code-explainer__callouts .code-callout');
@@ -153,24 +241,24 @@
     });
     if (!hasHighlights) return;
 
-    var overlay = buildOverlay(container, pre, ranges);
+    var overlay = buildOverlay(overlayParent, pre, ranges);
     if (overlay.children.length) {
-      container.appendChild(overlay);
+      overlayParent.appendChild(overlay);
     }
 
     var ro;
     if (window.ResizeObserver) {
       ro = new ResizeObserver(function () {
-        relayout(container, pre, overlay);
+        relayout(overlayParent, pre, overlay);
       });
       ro.observe(pre);
-      ro.observe(container);
+      ro.observe(overlayParent);
     }
 
     window.addEventListener(
       'resize',
       function () {
-        relayout(container, pre, overlay);
+        relayout(overlayParent, pre, overlay);
       },
       { passive: true }
     );

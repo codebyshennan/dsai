@@ -147,7 +147,17 @@ drive.mount('/content/drive')
 
    After installing packages that affect imports, use **Runtime → Restart runtime** so notebooks pick up the new libraries.
 
-## Common Issues & Troubleshooting
+## Gotchas
+
+- **Runtime resets wipe everything** — when a Colab runtime disconnects or is recycled, all installed packages, in-memory variables, and files in `/content/` are gone. Add `!pip install ...` cells at the top of your notebook so it can be re-run from scratch.
+- **Free tier GPU is not always available** — if Colab says "No backend available" for GPU/TPU, switch the runtime to CPU and continue. GPU access on the free tier is best-effort and can be unavailable during peak hours.
+- **Google Drive mount requires re-authorization every session** — you need to re-run the `drive.mount(...)` cell and grant permission each new runtime. Saving files to Drive first (not just `/content/`) is the safest way to keep work between sessions.
+- **Package versions differ from your local env** — Colab updates its pre-installed stack independently. If code works locally but fails in Colab (or vice versa), check library versions: `import sklearn; print(sklearn.__version__)`.
+- **Free tier idle timeout is ~90 minutes** — long-running training jobs will be interrupted. Save checkpoints regularly if doing any model training.
+- **`%pip install` vs `!pip install`** — in Colab notebooks, prefer `%pip install` (notebook magic); it restarts the kernel if needed. `!pip install` installs to the system Python and may require a manual **Runtime → Restart runtime** before new imports work.
+- **Colab Pro/Pro+ limits also change** — Google periodically adjusts compute units and idle timeouts. Check the [Colab FAQ](https://research.google.com/colaboratory/faq.html) for current limits rather than relying on any one guide.
+
+
 
 ### Connection Problems
 

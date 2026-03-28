@@ -33,4 +33,4 @@ If a section looks like a dense list, read the **introductory paragraphs** first
 
 ## If you are overwhelmed
 
-Pick **one** submodule, finish its README and first two lessons, then pause. Depth beats racing through outlines. Revisit the [course index](../index.md) when you are ready for the next unit.
+Pick **one** submodule, finish its README and first two lessons, then pause. Depth beats racing through outlines. Revisit the [full curriculum](../curriculum.md) when you are ready for the next unit.

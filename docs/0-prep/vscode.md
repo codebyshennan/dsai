@@ -123,6 +123,15 @@ Hello from your course environment!
 * [**Ruff**](https://github.com/astral-sh/ruff) — fast linter and **isort**-style import sorting
 * [**View Image for Python Debugging**](https://marketplace.visualstudio.com/items?itemName=elazarcoh.simply-view-image-for-python-debugging) — useful when debugging outside notebooks
 
+## Gotchas
+
+- **Status bar ≠ terminal** — the interpreter shown in the bottom-right status bar controls Run/Debug and the editor's IntelliSense. The integrated terminal is a separate shell; it will use system Python until you run `conda activate dsai` (or the path activates automatically via `conda init`). Check both.
+- **Opened from Spotlight/Finder on macOS** — VS Code launched outside a terminal doesn't source `.zshrc` or `.bash_profile`, so `conda` commands may not be found in the integrated terminal. Fix: open VS Code with `code .` from a terminal that already has the env active, or run `conda activate dsai` manually in the VS Code terminal.
+- **"Python: Select Interpreter" is not sticky across workspaces** — each folder/workspace stores its own interpreter setting. If you open a different project folder, rerun **Python: Select Interpreter** for that folder.
+- **Pylance not installed** — Pylance (type-checking, auto-import) is a separate extension from the Python extension. It's usually auto-installed alongside it, but if IntelliSense feels weak, check that Pylance is enabled in Extensions.
+- **Jupyter extension kernel differs from browser Jupyter** — if you have both VS Code Jupyter and browser Jupyter open on the same file, each may use a different kernel. Stick to one UI per session; the kernel selector in the top-right of the notebook shows which Python is active.
+- **Extension host crash** — VS Code occasionally crashes the extension host, especially on first install. Close and reopen VS Code; it usually self-heals.
+
 ## PyCharm (by JetBrains)
 
 > **On screen:** PyCharm (optional) — ML-aware completion or project view.

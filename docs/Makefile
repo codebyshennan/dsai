@@ -57,7 +57,7 @@ build: prep data-fundamentals
 # Rebuild every submodule that has slides/data.json
 build-all-slides:
 	@echo "Building all slide decks..."
-	@for f in $$(find . -path '*/slides/data.json' -type f); do \
+	@for f in $$(find . \( -path './_site/*' -o -path './.git/*' \) -prune -o -path '*/slides/data.json' -type f -print); do \
 		moddir=$$(dirname $$(dirname "$$f")); \
 		echo " -> $$moddir"; \
 		node slides/build.js "$$moddir" || exit 1; \
@@ -101,8 +101,11 @@ _ruby33:
 bundle-install: _ruby33
 	PATH="$(RUBY33_BIN):$$PATH" bundle install
 
-jekyll-serve jekyll-build: _ruby33
-	@PATH="$(RUBY33_BIN):$$PATH" bundle exec jekyll $(subst jekyll-,,$@)
+jekyll-build: _ruby33
+	@PATH="$(RUBY33_BIN):$$PATH" bundle exec jekyll build
+
+jekyll-serve: _ruby33
+	@PATH="$(RUBY33_BIN):$$PATH" bundle exec jekyll serve --livereload
 
 jekyll-build-with-search: _ruby33
 	@PATH="$(RUBY33_BIN):$$PATH" bundle exec jekyll build

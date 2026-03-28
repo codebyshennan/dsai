@@ -143,7 +143,17 @@ from pyspark.ml import Pipeline
    - Minimize data movement
    - Cache frequently used data
 
-## Common Issues & Troubleshooting
+## Gotchas
+
+- **Cluster auto-terminates after 2 hours** — Community Edition clusters stop automatically after 2 hours of inactivity. When you return, click **Start** on the cluster before running any notebook cells. You will not lose your notebooks, but in-memory variables and installed packages are gone.
+- **Notebooks must be attached to a running cluster** — the cluster status indicator at the top of the notebook must show "Attached" (not "Detached" or "Starting"). If it's detached, click the cluster name and select your running cluster.
+- **`%pip install` is session-scoped** — packages installed with `%pip install` are available for the current cluster session only. When the cluster restarts, you must re-run those cells. Put install cells near the top of your notebook so they run as part of the setup.
+- **Community Edition has no persistent /tmp storage** — files written to the local filesystem outside DBFS disappear when the cluster restarts. Use `dbutils.fs.put(...)` or write to `/dbfs/...` paths for anything you want to keep between sessions.
+- **PySpark ≠ pandas** — `spark.read.csv(...)` returns a Spark DataFrame, not a pandas DataFrame. `.show()` replaces `.head()`, and many pandas methods don't exist on Spark DataFrames. Use `.toPandas()` to convert when needed.
+- **GitHub auth may ask for re-authorization** — if you signed up via GitHub and Databricks loses the token, it will prompt for re-authorization. Check your GitHub OAuth apps if this keeps happening.
+- **Community Edition ≠ production Databricks** — the free tier is a single-node setup; there is no true distributed computing. Code written here will run on actual clusters, but do not expect the same concurrency or scale.
+
+
 
 ### Connection Problems
 

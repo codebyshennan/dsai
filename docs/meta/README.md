@@ -11,6 +11,6 @@ This folder holds **internal** documentation for the Tamkeen course site. It is 
 | [INDEX-UPDATE-SUMMARY.md](INDEX-UPDATE-SUMMARY.md) | History of `index.md` navigation updates |
 | [SUMMARY.md](SUMMARY.md) | Curriculum summary (long-form) |
 
-Public-facing course overview remains at the repo root: [`docs/README.md`](../README.md) and [`docs/index.md`](../index.md).
+Public-facing course overview: [`docs/README.md`](../README.md); home with module cards: [`docs/index.md`](../index.md); full lesson list: [`docs/curriculum.md`](../curriculum.md).
 
 Slide tooling lives under [`slides/`](../slides/).

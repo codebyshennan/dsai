@@ -136,7 +136,17 @@ jupyter notebook
 
 > **On screen:** Jupyter file browser / home page listing folders and **New** menu.
 
-## Useful Resources
+## Gotchas
+
+- **Kernel ≠ terminal Python** — if `import pandas` fails inside a notebook but works in your terminal, the notebook kernel is bound to a different environment. Fix: in the browser, go to **Kernel → Change kernel** and select the env where pandas is installed. In VS Code, use the kernel picker (top-right of the notebook).
+- **Cells run out of order produce wrong results** — Jupyter keeps state; if you run cell 10 before cell 2, variables from earlier cells may be missing or stale. Use **Kernel → Restart & Run All** after any significant reordering.
+- **`%matplotlib inline` must be run before plotting** — place the magic command in a cell you run early in the session. Defining it in a cell that hasn't been run yet won't have any effect.
+- **uv + Jupyter: kernel not found** — Jupyter must be installed *inside* the `.venv` you activated (`uv pip install jupyter`), and you may also need `uv pip install ipykernel`. Otherwise the browser shows "No kernel" or uses system Python.
+- **Anaconda: Jupyter not in your course env** — if you installed Jupyter into `base` but run code in `dsai`, packages installed in `dsai` won't be importable. Fix: `conda activate dsai && conda install jupyter`, or register the env as a kernel: `python -m ipykernel install --user --name=dsai`.
+- **Notebooks auto-save checkpoints, not the file** — `.ipynb_checkpoints/` contains auto-saves, but the main file is only updated on explicit save (Ctrl+S / Cmd+S). Save before closing the browser tab.
+- **Browser tab vs VS Code** — opening the same `.ipynb` in both simultaneously can cause conflicting saves or two different kernels. Stick to one interface per file.
+
+
 
 - [Official Jupyter Documentation](https://jupyter.org/)
 - [Jupyter Notebook Tutorial](https://www.dataquest.io/blog/jupyter-notebook-tutorial/)
