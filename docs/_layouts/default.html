@@ -18,6 +18,9 @@
           document.documentElement.setAttribute('data-theme', 'light');
         }
       } catch (e) {}
+      if (new URLSearchParams(window.location.search).get('embed') === '1') {
+        document.documentElement.setAttribute('data-embed', 'true');
+      }
     })();
   </script>
   {% seo %}

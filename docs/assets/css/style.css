@@ -2010,3 +2010,10 @@ select:focus-visible {
         break-inside: avoid;
     }
 }
+
+/* Embed mode: hide header and bottom lesson nav */
+html[data-embed="true"] .site-header,
+html[data-embed="true"] .lesson-nav {
+    display: none !important;
+}
+
