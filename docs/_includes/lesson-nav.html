@@ -130,22 +130,25 @@
     {% assign prog_tot = sibs | size %}
   {% endif %}
 
-  {% assign has_slides = false %}
-  {% assign slide_dirs = site.data.slide_index.dirs %}
-  {% if slide_dirs and slide_dirs contains dir_key %}
-    {% assign has_slides = true %}
-  {% endif %}
-  {% assign slides_href = '/' | append: dir_key | append: '/slides/' %}
-
 <nav class="lesson-nav" aria-label="Lesson navigation">
-  {% if prog_cur != '' or has_slides %}
+  {% if prog_cur != '' %}
   <div class="lesson-nav__meta">
-    {% if prog_cur != '' %}
     <span class="lesson-nav__progress">Lesson {{ prog_cur }} of {{ prog_tot }}</span>
-    {% endif %}
-    {% if has_slides %}
-    <a class="lesson-nav__slides" href="{{ slides_href | relative_url }}">Slides</a>
-    {% endif %}
+    <select class="lesson-nav__jump" aria-label="Jump to lesson" onchange="if(this.value)location.href=this.value">
+      {% if idx > -1 %}
+        {% for f in order %}
+          {% assign _jpath = dir_key | append: '/' | append: f %}
+          {% assign _jpage = site.pages | where: 'path', _jpath | first %}
+          {% if _jpage %}
+            <option value="{{ _jpage.url | relative_url }}"{% if f == page.name %} selected{% endif %}>{{ _jpage.title | default: f | replace: '-', ' ' | replace: '.md', '' }}</option>
+          {% endif %}
+        {% endfor %}
+      {% elsif sidx > -1 %}
+        {% for p in sibs %}
+          <option value="{{ p.url | relative_url }}"{% if p.name == page.name %} selected{% endif %}>{{ p.title | default: p.name | replace: '-', ' ' | replace: '.md', '' }}</option>
+        {% endfor %}
+      {% endif %}
+    </select>
   </div>
   {% endif %}
   <div class="lesson-nav__inner">
