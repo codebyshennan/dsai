@@ -2011,9 +2011,10 @@ select:focus-visible {
     }
 }
 
-/* Embed mode: hide header and bottom lesson nav */
+/* Embed mode: hide header, bottom lesson nav, and table of contents */
 html[data-embed="true"] .site-header,
-html[data-embed="true"] .lesson-nav {
+html[data-embed="true"] .lesson-nav,
+html[data-embed="true"] .page-toc {
     display: none !important;
 }
 
