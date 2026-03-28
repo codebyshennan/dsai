@@ -208,7 +208,9 @@
     if (!codeCol) return;
 
     var shell =
-      codeCol.querySelector('.code-block__body') || codeCol.querySelector('.highlighter-rouge');
+      codeCol.querySelector('.code-block__body') ||
+      codeCol.querySelector('.highlighter-rouge') ||
+      codeCol.querySelector('figure.highlight');
     if (!shell) return;
 
     var pre = shell.querySelector('pre');

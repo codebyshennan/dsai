@@ -144,7 +144,7 @@
     var seen = new Set();
     var out = [];
 
-    body.querySelectorAll('.highlighter-rouge').forEach(function (el) {
+    body.querySelectorAll('.highlighter-rouge, figure.highlight').forEach(function (el) {
       if (el.closest('[data-code-block]')) return;
       if (seen.has(el)) return;
       seen.add(el);
