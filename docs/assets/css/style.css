@@ -1297,6 +1297,7 @@ body.site-search-open {
 }
 
 .lesson-nav__meta {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
