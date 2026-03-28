@@ -8,6 +8,13 @@
 {% if page.path == 'README.md' or page.path == 'index.md' %}
   {% assign show_lesson_nav = false %}
 {% endif %}
+{% comment %} Hide nav on module-level READMEs (one dir segment deep — entry points, not lessons) {% endcomment %}
+{% if page.name == 'README.md' %}
+  {% assign _dir_depth = page.dir | split: '/' | compact | size %}
+  {% if _dir_depth == 1 %}
+    {% assign show_lesson_nav = false %}
+  {% endif %}
+{% endif %}
 
 {% if show_lesson_nav %}
   {% assign dir_key = page.dir | remove_first: '/' | remove_last: '/' %}
