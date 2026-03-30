@@ -539,7 +539,14 @@ Before starting this journey, ensure you have:
 
 ## Tools Required
 
-**1. DBeaver Community Edition**
+**1. Online SQL Compilers (no installation needed)**
+
+If you prefer to practice SQL directly in the browser without installing anything:
+
+- **SQLite Online** — [sqliteonline.com](https://sqliteonline.com/) — run SQL queries instantly in the browser
+- **DB Browser for SQLite** — [sqlitebrowser.org](https://sqlitebrowser.org/) — desktop GUI for SQLite databases
+
+**2. DBeaver Community Edition**
 
 - Universal Database Tool
 

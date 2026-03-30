@@ -772,6 +772,10 @@ def create_interactive_dashboard(df):
 </aside>
 </div>
 
+## Session Notebooks
+
+- [EDA Analysis Session Notebook (Google Colab)](https://colab.research.google.com/drive/1mwUvWH-BzjdfD7Qyx4z21t5Qxxyu8Yfw#scrollTo=H0Nuio29lvQa)
+
 ## Assignment
 
 Ready to practice your EDA skills? Head over to the [Module 2 assignment (student version)](../_assignments/module-assignment-student.md) to apply what you have learned.

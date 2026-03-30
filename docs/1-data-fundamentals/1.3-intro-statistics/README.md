@@ -128,6 +128,18 @@ Statistics isn't just about numbers - it's about telling stories with data. As y
 
 > **Note:** Don't worry if some concepts seem abstract at first. With practice and real-world examples, they'll become clearer. Take your time with each section.
 
+## Session Resources
+
+### Key Topic Links
+
+- **Basic Probability** — Interactive guide with examples: [BBC Bitesize: Probability](https://www.bbc.co.uk/bitesize/articles/zpmmp9q#zvvvcxs)
+- **Bayesian Probability** — Clear explanation of Bayes' Theorem: [GeeksForGeeks: Bayes' Theorem](https://www.geeksforgeeks.org/maths/bayes-theorem/)
+- **Probability Distributions in Real-Life** — Applications in ML: [Data Science Dojo: Statistical Distributions](https://datasciencedojo.com/blog/types-of-statistical-distributions-in-ml/)
+
+### Additional Resources
+
+- **DS Statistics (correlation, etc.)**: [W3Schools: Data Science Statistics](https://www.w3schools.com/datascience/ds_stat_correlation.asp)
+
 ## Next Steps
 
 After completing this module, you'll move on to:

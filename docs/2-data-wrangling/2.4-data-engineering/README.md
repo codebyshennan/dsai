@@ -759,6 +759,14 @@ Real-world applications of data engineering across industries:
      - Resource utilization
      - Scalability metrics
 
+## Tools and Installation
+
+### Apache Airflow
+
+Airflow is the industry-standard workflow orchestration platform covered in this module. Follow the official quickstart guide to get it running locally:
+
+- [Apache Airflow Installation Guide](https://airflow.apache.org/docs/apache-airflow/stable/start.html)
+
 ## Assignment
 
 Ready to practice your data engineering skills? Head over to the [Module 2 assignment (student version)](../_assignments/module-assignment-student.md) to apply what you have learned.

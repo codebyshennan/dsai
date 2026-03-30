@@ -550,6 +550,9 @@ encoded shape: (120, 10)
    - [Data Cleaning Guide](https://scikit-learn.org/stable/modules/preprocessing.html)
    - [Feature Engineering Book](https://www.oreilly.com/library/view/feature-engineering-for/9781491953235/)
 
+4. **Session Notebooks**
+   - [Data Wrangling Session Notebook (Google Colab)](https://colab.research.google.com/drive/18oENSAH3g8ULCjq7iynC0LdrAj14Dihi?usp=sharing)
+
 ## Assignment
 
 Ready to practice your data wrangling skills? Head over to the [Module 2 assignment (student version)](../_assignments/module-assignment-student.md) to apply what you have learned.
