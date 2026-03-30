@@ -11,7 +11,7 @@
     if (!pres.length) return;
     try {
       var mod = await import(
-        'https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.esm.min.mjs'
+        'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs'
       );
       var mermaid = mod.default;
       mermaid.initialize({

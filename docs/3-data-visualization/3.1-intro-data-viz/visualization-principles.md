@@ -55,9 +55,9 @@ graph LR
     end
     subgraph AT["Attentive  (> 250 ms)"]
         A1["Reading labels"]
-        A2["Comparing small\nlength differences"]
+        A2["Comparing small length differences"]
         A3["Counting items"]
-        A4["Tracing overlapping\nlines"]
+        A4["Tracing overlapping lines"]
     end
     PA -->|Encode high-priority insights here| highlight["Highlight key data point"]
     AT -->|Reserve for exploration| detail["Supporting details"]

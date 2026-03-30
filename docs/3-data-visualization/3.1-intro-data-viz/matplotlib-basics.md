@@ -44,14 +44,14 @@ plt.style.use('seaborn')
 ```mermaid
 graph TD
     FIG["Figure (the whole canvas - plt.figure)"]
-    FIG --> AX1["Axes (subplot 1)\nActual plot area\nfig, ax = plt.subplots()"]
-    FIG --> AX2["Axes (subplot 2)\nMultiple panels\nfig, axes = plt.subplots(1, 2)"]
+    FIG --> AX1["Axes (subplot 1) - fig, ax = plt.subplots()"]
+    FIG --> AX2["Axes (subplot 2) - fig, axes = plt.subplots(1, 2)"]
 
     AX1 --> TITLE["ax.set_title()"]
     AX1 --> XLABEL["ax.set_xlabel()"]
     AX1 --> YLABEL["ax.set_ylabel()"]
     AX1 --> LEGEND["ax.legend()"]
-    AX1 --> PLOT["ax.plot / ax.scatter\nax.bar / ax.hist / ax.imshow"]
+    AX1 --> PLOT["ax.plot / scatter / bar / hist / imshow"]
 ```
 
 *Key rule: `plt.subplots()` returns a Figure and one or more Axes objects. Do all your drawing on the Axes — the Figure just holds them.*
