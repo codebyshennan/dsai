@@ -33,7 +33,7 @@ That sentence determines the data shape you need.
 
 ```mermaid
 flowchart TD
-    Q[Question] --> G{What are you comparing?}
+    Q[Question] --> G{"What are you comparing?"}
     G -->|Categories| A[Aggregate by group]
     G -->|Time| T[Aggregate by time period]
     G -->|Distribution| D[Keep one numeric variable]
@@ -47,6 +47,44 @@ flowchart TD
 
 ## Core preparation patterns
 
+We use one sample dataset throughout all five steps so you can see the data change at each stage.
+
+```python
+# no-output
+import pandas as pd
+
+sales = pd.DataFrame({
+    "order_id":     ["A1",  "A2",  "A3",  "A4",  "A5",  "A6",  "A7",  "A8",  "A9",  "A10"],
+    "order_date":   ["2025-03-01","2025-06-15","2025-08-20","2024-11-05","2025-11-12",
+                     "2025-01-30","2025-06-15","2025-09-01","2024-12-20","2025-06-15"],
+    "status":       ["completed","completed","completed","completed","cancelled",
+                     "completed","completed","completed","completed","completed"],
+    "category":     ["Electronics","Clothing","Electronics","Clothing","Electronics",
+                     "Food","Food","Clothing","Electronics","Clothing"],
+    "revenue":      [250.0, 45.0, 180.0, 60.0, None, 30.0, 25.0, 90.0, 200.0, 55.0],
+    "product_name": ["Laptop","T-Shirt","Phone","Jeans","Headphones",
+                     "Coffee","Tea","Jacket","Tablet","Dress"],
+})
+sales["order_date"] = pd.to_datetime(sales["order_date"])
+```
+
+**Starting dataset — 10 rows, 6 columns:**
+
+| order_id | order_date | status | category | revenue | product_name |
+|---|---|---|---|---|---|
+| A1 | 2025-03-01 | completed | Electronics | 250.0 | Laptop |
+| A2 | 2025-06-15 | completed | Clothing | 45.0 | T-Shirt |
+| A3 | 2025-08-20 | completed | Electronics | 180.0 | Phone |
+| **A4** | **2024-11-05** | completed | Clothing | 60.0 | Jeans |
+| **A5** | 2025-11-12 | **cancelled** | Electronics | **NaN** | Headphones |
+| A6 | 2025-01-30 | completed | Food | 30.0 | Coffee |
+| A7 | 2025-06-15 | completed | Food | 25.0 | Tea |
+| A8 | 2025-09-01 | completed | Clothing | 90.0 | Jacket |
+| **A9** | **2024-12-20** | completed | Electronics | 200.0 | Tablet |
+| A10 | 2025-06-15 | completed | Clothing | 55.0 | Dress |
+
+Three rows need attention (highlighted): A4 and A9 are from 2024, and A5 is cancelled with missing revenue.
+
 ### 1. Inspect the dataset first
 
 **Purpose:** Check column names, data types, missing values, and duplicate rows before plotting.
@@ -54,18 +92,29 @@ flowchart TD
 **Walkthrough:** Use `info`, `isna`, and `duplicated` to catch problems that would later produce broken axes, empty categories, or misleading counts.
 
 ```python
-import pandas as pd
-
 def inspect_for_viz(df):
     summary = {
         "shape": df.shape,
         "columns": df.columns.tolist(),
-        "missing_values": df.isna().sum(),
+        "missing_values": df.isna().sum().to_dict(),
         "duplicate_rows": int(df.duplicated().sum()),
-        "dtypes": df.dtypes.astype(str)
+        "dtypes": df.dtypes.astype(str).to_dict(),
     }
     return summary
+
+for key, val in inspect_for_viz(sales).items():
+    print(f"{key}: {val}")
 ```
+
+```
+shape: (10, 6)
+columns: ['order_id', 'order_date', 'status', 'category', 'revenue', 'product_name']
+missing_values: {'order_id': 0, 'order_date': 0, 'status': 0, 'category': 0, 'revenue': 1, 'product_name': 0}
+duplicate_rows: 0
+dtypes: {'order_id': 'object', 'order_date': 'datetime64[ns]', 'status': 'object', 'category': 'object', 'revenue': 'float64', 'product_name': 'object'}
+```
+
+One missing `revenue` value in row A5. `order_date` is already `datetime64` so grouping by period will work without conversion.
 
 ### 2. Filter to the relevant slice
 
@@ -79,7 +128,22 @@ sales_2025 = sales.loc[
     & (sales["order_date"] < "2026-01-01")
     & (sales["status"] == "completed")
 ].copy()
+
+print(sales_2025[["order_id","order_date","status","category","revenue"]].to_string(index=False))
 ```
+
+```
+order_id order_date     status     category  revenue
+      A1 2025-03-01  completed  Electronics    250.0
+      A2 2025-06-15  completed     Clothing     45.0
+      A3 2025-08-20  completed  Electronics    180.0
+      A6 2025-01-30  completed         Food     30.0
+      A7 2025-06-15  completed         Food     25.0
+      A8 2025-09-01  completed     Clothing     90.0
+     A10 2025-06-15  completed     Clothing     55.0
+```
+
+Down from 10 rows to 7: A4 and A9 (2024 dates) and A5 (cancelled) are gone.
 
 ### 3. Aggregate to the right level
 
@@ -94,10 +158,21 @@ category_summary = (
     .agg(
         revenue=("revenue", "sum"),
         orders=("order_id", "nunique"),
-        avg_order_value=("revenue", "mean")
+        avg_order_value=("revenue", "mean"),
     )
 )
+
+print(category_summary.to_string(index=False))
 ```
+
+```
+    category  revenue  orders  avg_order_value
+    Clothing    190.0       3    63.333333
+ Electronics    430.0       2   215.000000
+        Food     55.0       2    27.500000
+```
+
+7 transaction rows collapsed to 3 summary rows — one per category. Each row now represents one bar mark on the chart.
 
 ### 4. Sort for readability
 
@@ -111,28 +186,60 @@ top_categories = (
     .sort_values("revenue", ascending=False)
     .head(10)
 )
+
+print(top_categories.to_string(index=False))
 ```
+
+```
+    category  revenue  orders  avg_order_value
+ Electronics    430.0       2   215.000000
+    Clothing    190.0       3    63.333333
+        Food     55.0       2    27.500000
+```
+
+Electronics moves to the top. The chart now reads highest-to-lowest without the viewer having to search.
 
 ### 5. Reshape when needed
 
 **Purpose:** Convert wide tables into long form for libraries like Seaborn and Plotly Express.
 
-**Walkthrough:** `melt` is especially useful when several metric columns should become one "metric" column and one "value" column.
+**Walkthrough:** `melt` is especially useful when several metric columns should become one "metric" column and one "value" column. For example, to plot both `sales` and `returns` as grouped lines on the same chart:
 
 ```python
 monthly_wide = pd.DataFrame({
-    "month": ["Jan", "Feb", "Mar"],
-    "sales": [120, 150, 170],
-    "returns": [5, 7, 6]
+    "month":   ["Jan", "Feb", "Mar"],
+    "sales":   [120,   150,   170],
+    "returns": [5,     7,     6],
 })
 
 monthly_long = monthly_wide.melt(
     id_vars="month",
     value_vars=["sales", "returns"],
     var_name="metric",
-    value_name="value"
+    value_name="value",
 )
+
+print(monthly_wide)
+print()
+print(monthly_long)
 ```
+
+```
+  month  sales  returns
+0   Jan    120        5
+1   Feb    150        7
+2   Mar    170        6
+
+  month   metric  value
+0   Jan    sales    120
+1   Feb    sales    150
+2   Mar    sales    170
+3   Jan  returns      5
+4   Feb  returns      7
+5   Mar  returns      6
+```
+
+Wide form (3 rows × 3 columns) becomes long form (6 rows × 3 columns). Seaborn's `hue` parameter can now split on `metric` to draw two lines from a single column.
 
 ## Handling common issues
 

@@ -37,7 +37,7 @@ If everything is highlighted, nothing is highlighted.
 ```mermaid
 flowchart LR
     D[Data] --> C[Chart]
-    C --> H{What matters most?}
+    C --> H{"What matters most?"}
     H --> P[Specific point]
     H --> R[Range or threshold]
     H --> E[Event or intervention]

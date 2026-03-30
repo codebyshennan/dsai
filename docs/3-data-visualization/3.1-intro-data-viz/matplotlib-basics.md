@@ -43,9 +43,9 @@ plt.style.use('seaborn')
 
 ```mermaid
 graph TD
-    FIG["Figure\n(the whole canvas — plt.figure)"]
-    FIG --> AX1["Axes  (subplot 1)\nActual plot area\nfig, ax = plt.subplots()"]
-    FIG --> AX2["Axes  (subplot 2)\nMultiple panels\nfig, axes = plt.subplots(1, 2)"]
+    FIG["Figure (the whole canvas - plt.figure)"]
+    FIG --> AX1["Axes (subplot 1)\nActual plot area\nfig, ax = plt.subplots()"]
+    FIG --> AX2["Axes (subplot 2)\nMultiple panels\nfig, axes = plt.subplots(1, 2)"]
 
     AX1 --> TITLE["ax.set_title()"]
     AX1 --> XLABEL["ax.set_xlabel()"]
