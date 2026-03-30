@@ -67,6 +67,8 @@ graph LR
 
 ## Visual Elements
 
+![Pre-attentive visual attributes: length, width, orientation, size, shape, enclosure, position, grouping, color hue, color intensity](assets/bp_why_visual_analytics.png)
+
 ### 1. Form Attributes
 
 Think of these as the building blocks of your visualization:
@@ -120,6 +122,8 @@ Think of colors as a language:
 ## Gestalt Principles
 
 Think of these as the rules of visual organization:
+
+![Gestalt principles: good figure, proximity, similarity, continuation, closure, symmetry](assets/gestalt.jpg)
 
 ### 1. Proximity
 
