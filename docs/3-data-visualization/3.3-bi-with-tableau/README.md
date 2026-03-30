@@ -1,4 +1,4 @@
-# 3.3 Business Intelligence with Tableau
+# Business Intelligence with Tableau
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **3.3 Business Intelligence with Tableau** in your course schedule.
 

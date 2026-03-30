@@ -1,4 +1,4 @@
-# Mastering Data Storytelling: A Beginner's Guide
+# Data Storytelling
 
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Mastering Data Storytelling: A Beginner's Guide** in your course schedule.
 
