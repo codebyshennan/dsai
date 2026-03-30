@@ -8,9 +8,9 @@ Use this page when code runs but plots look wrong, fail to display, or raise bac
 
 ## Helpful video
 
-Context for how visualization fits into analytics and communication.
+Fixing one of the most common matplotlib pain points: controlling figure size and layout.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UUy6_ElQXBY" title="Matplotlib Tips: Figure Size — Kimberly Fessel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Common Issues and Solutions
 

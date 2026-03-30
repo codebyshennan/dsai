@@ -6,9 +6,9 @@
 
 ## Helpful video
 
-Context for how visualization fits into analytics and communication.
+A practical walkthrough of cleaning and reshaping a real dataset in pandas before visualization.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bDhvCp3_lYw" title="Data Cleaning in Pandas — Alex the Analyst" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Why data prep matters
 

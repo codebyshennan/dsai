@@ -6,9 +6,9 @@
 
 ## Helpful video
 
-Context for how visualization fits into analytics and communication.
+Creating and customizing your first matplotlib plots — figures, labels, titles, legends, and styling.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UO98lJQ3QGI" title="Matplotlib Tutorial Part 1 — Corey Schafer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is Matplotlib?
 

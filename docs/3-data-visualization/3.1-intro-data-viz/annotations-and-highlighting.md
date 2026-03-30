@@ -6,9 +6,9 @@
 
 ## Helpful video
 
-Context for how visualization fits into analytics and communication.
+How to add and position text, labels, and annotations on matplotlib charts using plt.text() and plt.annotate().
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NBYzSaTbodM" title="Add Text to Matplotlib Figures — Kimberly Fessel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Why annotation matters
 

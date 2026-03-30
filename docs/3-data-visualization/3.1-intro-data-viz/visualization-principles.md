@@ -6,9 +6,9 @@
 
 ## Helpful video
 
-Context for how visualization fits into analytics and communication.
+Why bar charts beat pie charts — and the perceptual science behind choosing the right chart type.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RiEZ_hEf96A" title="Bar Charts Are Better than Pie Charts — StatQuest" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Understanding Visual Perception
 
