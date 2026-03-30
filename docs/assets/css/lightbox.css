@@ -1,0 +1,33 @@
+/* ─── Lightbox ────────────────────────────────────────────────────── */
+
+/* Clickable images inside lesson content */
+.markdown-body img:not(a img) {
+  cursor: zoom-in;
+}
+
+/* Full-screen overlay */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  cursor: zoom-out;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-overlay.is-open {
+  display: flex;
+}
+
+/* Expanded image */
+.lightbox-overlay__img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  /* pointer-events: none lets clicks fall through to overlay for close */
+  pointer-events: none;
+}
