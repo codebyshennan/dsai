@@ -1,35 +1,110 @@
 /**
- * Mermaid 11+: render diagrams after DOM is ready (deferred load).
+ * Mermaid diagrams: fetch .mmd source files, render with theme awareness.
+ * Supports two modes:
+ *   1. [data-mermaid-src] elements (preferred): fetches the .mmd file and renders.
+ *   2. pre>code.language-mermaid blocks (legacy): renders inline source directly.
  */
 (function () {
   'use strict';
 
-  async function run() {
-    var pres = document.querySelectorAll(
-      'pre code.language-mermaid, pre code.language-mermaid diagram'
-    );
-    if (!pres.length) return;
-    try {
-      var mod = await import(
-        'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs'
-      );
-      var mermaid = mod.default;
-      mermaid.initialize({
-        startOnLoad: false,
-        theme: 'forest',
-        // htmlLabels: false avoids foreignObject + quoted-label edge cases in flowcharts
-        flowchart: { useMaxWidth: true, htmlLabels: false },
-        securityLevel: 'loose',
-      });
-      var nodes = [];
-      document.querySelectorAll('pre code.language-mermaid').forEach(function (code) {
-        if (code.parentElement) nodes.push(code.parentElement);
-      });
-      if (nodes.length) await mermaid.run({ nodes: nodes });
-    } catch (e) {
-      console.warn('Mermaid failed to load or render', e);
-    }
+  var CDN = 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs';
+  var mermaid = null;
+  var idCounter = 0;
+
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'forest';
   }
+
+  async function renderAll() {
+    var theme = currentTheme();
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: theme,
+      flowchart: { useMaxWidth: true, htmlLabels: false },
+      securityLevel: 'loose',
+    });
+
+    var tasks = [];
+
+    // Mode 1: [data-mermaid-src] containers
+    document.querySelectorAll('[data-mermaid-src]').forEach(function (c) {
+      tasks.push((async function () {
+        var text = c._mermaidSource;
+        if (!text) return;
+        try {
+          var id = 'mmd-' + (idCounter++);
+          var result = await mermaid.render(id, text);
+          c.innerHTML = result.svg;
+          var stray = document.getElementById(id);
+          if (stray) stray.remove();
+        } catch (e) {
+          console.warn('Mermaid render failed:', c.dataset.mermaidSrc, e);
+        }
+      })());
+    });
+
+    // Mode 2: legacy pre>code.language-mermaid blocks
+    document.querySelectorAll('pre code.language-mermaid').forEach(function (code) {
+      tasks.push((async function () {
+        var text = code.textContent;
+        if (!text) return;
+        var pre = code.parentElement;
+        if (!pre) return;
+        try {
+          var id = 'mmd-' + (idCounter++);
+          var result = await mermaid.render(id, text);
+          var wrapper = document.createElement('div');
+          wrapper.className = 'mermaid-diagram';
+          wrapper.innerHTML = result.svg;
+          pre.replaceWith(wrapper);
+          var stray = document.getElementById(id);
+          if (stray) stray.remove();
+        } catch (e) {
+          console.warn('Mermaid render failed (legacy block):', e);
+        }
+      })());
+    });
+
+    await Promise.all(tasks);
+  }
+
+  async function run() {
+    var hasSrc = document.querySelector('[data-mermaid-src]');
+    var hasLegacy = document.querySelector('pre code.language-mermaid');
+    if (!hasSrc && !hasLegacy) return;
+
+    if (!mermaid) {
+      var mod = await import(CDN);
+      mermaid = mod.default;
+    }
+
+    // Fetch .mmd source files (once per container, cached on element)
+    if (hasSrc) {
+      await Promise.all(
+        Array.from(document.querySelectorAll('[data-mermaid-src]')).map(async function (c) {
+          if (!c._mermaidSource) {
+            try {
+              var r = await fetch(c.dataset.mermaidSrc);
+              if (!r.ok) throw new Error('HTTP ' + r.status);
+              c._mermaidSource = await r.text();
+            } catch (e) {
+              console.warn('Could not fetch diagram:', c.dataset.mermaidSrc, e);
+            }
+          }
+        })
+      );
+    }
+
+    await renderAll();
+  }
+
+  // Re-render when theme attribute changes on <html>
+  new MutationObserver(function () {
+    if (mermaid) renderAll();
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);

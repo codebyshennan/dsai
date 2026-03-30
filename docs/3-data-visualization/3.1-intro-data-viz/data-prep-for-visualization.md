@@ -31,19 +31,7 @@ Before writing plotting code, state the question in one sentence.
 
 That sentence determines the data shape you need.
 
-```mermaid
-flowchart TD
-    Q[Question] --> G{"What are you comparing?"}
-    G -->|Categories| A[Aggregate by group]
-    G -->|Time| T[Aggregate by time period]
-    G -->|Distribution| D[Keep one numeric variable]
-    G -->|Relationship| R[Keep paired variables]
-    A --> O[Sort and label]
-    T --> O
-    D --> O
-    R --> O
-    O --> P[Plot]
-```
+{% include mermaid-diagram.html src="3-data-visualization/3.1-intro-data-viz/diagrams/data-prep-for-visualization-1.mmd" %}
 
 ## Core preparation patterns
 

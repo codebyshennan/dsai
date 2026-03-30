@@ -1,0 +1,16 @@
+graph LR
+    subgraph PA["Pre-attentive  (< 250 ms)"]
+        P1["Color / Hue"]
+        P2["Shape"]
+        P3["Size"]
+        P4["Orientation"]
+        P5["Motion"]
+    end
+    subgraph AT["Attentive  (> 250 ms)"]
+        A1["Reading labels"]
+        A2["Comparing small length differences"]
+        A3["Counting items"]
+        A4["Tracing overlapping lines"]
+    end
+    PA -->|Encode high-priority insights here| highlight["Highlight key data point"]
+    AT -->|Reserve for exploration| detail["Supporting details"]

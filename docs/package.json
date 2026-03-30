@@ -17,6 +17,8 @@
     "audit-ml-code-blocks": "uv run python scripts/audit_ml_fundamentals_code_blocks.py",
     "after-outcomes": "uv run python scripts/add_after_outcomes.py",
     "helpful-videos": "uv run python scripts/add_helpful_videos.py",
+    "migrate:mermaid": "uv run python scripts/migrate-mermaid.py",
+    "validate:mermaid": "bash scripts/validate-mermaid.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -24,6 +26,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.8.1",
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.4.1",
     "pagefind": "^1.4.0"
   }
 }

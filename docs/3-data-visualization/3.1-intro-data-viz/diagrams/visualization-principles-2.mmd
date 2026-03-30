@@ -1,0 +1,21 @@
+flowchart TD
+    Q1{"What do you want to show?"} --> CMP[Comparison]
+    Q1 --> DST[Distribution]
+    Q1 --> REL[Relationship]
+    Q1 --> COM[Composition]
+    Q1 --> CHG[Change over time]
+
+    CMP --> CMP2{"How many categories?"}
+    CMP2 -->|"Few (<= 7)"| BAR[Bar chart]
+    CMP2 -->|Many| LOL[Lollipop / Dot plot]
+
+    DST --> DST2{"One variable or many?"}
+    DST2 -->|One| HIST[Histogram / Box plot]
+    DST2 -->|Many groups| VIO[Violin / Ridge plot]
+
+    REL --> REL2{"Two or more variables?"}
+    REL2 -->|Two continuous| SCA[Scatter plot]
+    REL2 -->|Many| HEAT[Heat map / Pair plot]
+
+    COM --> PIE[Stacked bar\nor Treemap]
+    CHG --> LINE[Line chart]

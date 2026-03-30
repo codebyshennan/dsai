@@ -34,17 +34,7 @@ Annotate only when something deserves extra attention:
 
 If everything is highlighted, nothing is highlighted.
 
-```mermaid
-flowchart LR
-    D[Data] --> C[Chart]
-    C --> H{"What matters most?"}
-    H --> P[Specific point]
-    H --> R[Range or threshold]
-    H --> E[Event or intervention]
-    P --> A[Label or arrow]
-    R --> B[Reference line or band]
-    E --> V[Vertical marker + note]
-```
+{% include mermaid-diagram.html src="3-data-visualization/3.1-intro-data-viz/diagrams/annotations-and-highlighting-1.mmd" %}
 
 ## Core annotation tools
 

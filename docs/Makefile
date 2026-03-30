@@ -8,7 +8,7 @@
 #   make reg MOD=…    — clean + rebuild one module’s slides (path under docs/)
 .PHONY: clean build build-all-slides prep all data-fundamentals regenerate clean-module \
 	jekyll-serve jekyll-build bundle-install jekyll-build-with-search _ruby33 \
-	dev site search gems slides all-slides reg
+	dev site search gems slides all-slides reg validate-mermaid
 
 # --- Short aliases (easier to type) ---
 dev: jekyll-serve
@@ -110,3 +110,7 @@ jekyll-serve: _ruby33
 jekyll-build-with-search: _ruby33
 	@PATH="$(RUBY33_BIN):$$PATH" bundle exec jekyll build
 	pnpm exec pagefind --site _site --output-path _site/pagefind
+
+# Validate all .mmd diagram files
+validate-mermaid:
+	@bash scripts/validate-mermaid.sh
