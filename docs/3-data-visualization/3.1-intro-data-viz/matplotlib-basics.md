@@ -168,6 +168,8 @@ def pyplot_example():
     plt.show()
 ```
 
+![Pyplot interface example](assets/matplotlib_basics_pyplot.png)
+
 ### 2. Object-Oriented
 
 Think of this as detailed painting:
@@ -187,6 +189,8 @@ def object_oriented_example():
     return fig, ax
 ```
 
+![Object-oriented interface example](assets/matplotlib_basics_oo.png)
+
 ## Essential Plot Types
 
 ### 1. Line Plots
@@ -201,26 +205,28 @@ Perfect for showing trends over time:
 def create_line_plot(x, y1, y2):
     """Create a professional line plot with multiple series"""
     fig, ax = plt.subplots(figsize=(10, 6))
-    
+
     # Plot multiple lines
-    ax.plot(x, y1, 
+    ax.plot(x, y1,
            color='#3498db',  # Blue
-           label='Series 1', 
+           label='Series 1',
            linewidth=2)
-    ax.plot(x, y2, 
+    ax.plot(x, y2,
            color='#e74c3c',  # Red
-           label='Series 2', 
+           label='Series 2',
            linewidth=2)
-    
+
     # Customize
     ax.set_title('Multi-Series Line Plot')
     ax.set_xlabel('Time')
     ax.set_ylabel('Value')
     ax.grid(True, linestyle=':', alpha=0.7)
     ax.legend()
-    
+
     return fig, ax
 ```
+
+![Multi-series line plot](assets/matplotlib_basics_line.png)
 
 ### 2. Scatter Plots
 
@@ -251,6 +257,8 @@ def create_scatter_plot(x, y, colors, sizes):
     
     return fig, ax
 ```
+
+![Scatter plot with color and size encoding](assets/matplotlib_basics_scatter.png)
 
 ### 3. Bar Charts
 
@@ -285,9 +293,11 @@ def create_bar_chart(categories, values, errors=None):
     ax.set_title('Bar Chart with Error Bars')
     ax.set_xlabel('Categories')
     ax.set_ylabel('Values')
-    
+
     return fig, ax
 ```
+
+![Bar chart with error bars](assets/matplotlib_basics_bar.png)
 
 ## Styling and Customization
 

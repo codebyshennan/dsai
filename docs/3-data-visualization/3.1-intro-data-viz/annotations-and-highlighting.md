@@ -91,6 +91,8 @@ ax.axhline(
 )
 ```
 
+![Direct label, reference line, and shaded range combined](assets/annotations_line_annotated.png)
+
 Useful reference lines include:
 
 - average
@@ -130,6 +132,8 @@ colors[peak_idx] = "#e34a33"
 fig, ax = plt.subplots(figsize=(10, 5))
 ax.bar(x, y, color=colors)
 ```
+
+![Selective color emphasis — one bar highlighted](assets/annotations_selective_color.png)
 
 This is often stronger than using many bright colors.
 
@@ -173,6 +177,8 @@ ax.annotate(
 )
 ```
 
+![Annotated horizontal bar chart](assets/annotations_bar_highlighted.png)
+
 ### Annotating a time series
 
 **Purpose:** Mark an event date and explain the change after it.
@@ -196,6 +202,8 @@ ax.annotate(
     fontsize=11
 )
 ```
+
+![Time series with annotated event](assets/annotations_timeseries.png)
 
 ## Writing annotation text
 
