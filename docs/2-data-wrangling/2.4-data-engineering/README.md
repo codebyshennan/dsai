@@ -763,9 +763,9 @@ Real-world applications of data engineering across industries:
 
 ### Apache Airflow
 
-Airflow is the industry-standard workflow orchestration platform covered in this module. Follow the official quickstart guide to get it running locally:
+Airflow is the industry-standard workflow orchestration platform covered in this module. Follow the course setup guide to get it running locally:
 
-- [Apache Airflow Installation Guide](https://airflow.apache.org/docs/apache-airflow/stable/start.html)
+- [Apache Airflow Setup Guide](../../0-prep/airflow.md)
 
 ## Assignment
 
