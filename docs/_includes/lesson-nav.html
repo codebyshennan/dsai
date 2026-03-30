@@ -186,9 +186,16 @@
 
   {% assign prog_cur = '' %}
   {% assign prog_tot = '' %}
+  {% assign is_module_nav = false %}
   {% if idx > -1 %}
     {% assign prog_cur = idx | plus: 1 %}
     {% assign prog_tot = order | size %}
+    {% comment %} Detect module-level nav: order contains submodule paths (contain '/') {% endcomment %}
+    {% for f in order %}
+      {% if f contains '/' %}
+        {% assign is_module_nav = true %}
+      {% endif %}
+    {% endfor %}
   {% elsif sidx > -1 %}
     {% assign prog_cur = sidx | plus: 1 %}
     {% assign prog_tot = sibs | size %}
@@ -214,7 +221,7 @@
               aria-haspopup="true"
               aria-expanded="false"
               aria-controls="lesson-nav-list">
-        {% if prog_cur != '' %}<span class="lesson-nav__dropdown-cur">Lesson {{ prog_cur }} of {{ prog_tot }}</span>{% else %}<span class="lesson-nav__dropdown-cur">Navigate</span>{% endif %}
+        {% if prog_cur != '' %}{% if is_module_nav %}{% if page.name == 'README.md' and idx == 0 %}<span class="lesson-nav__dropdown-cur">Overview</span>{% else %}{% assign sub_cur = idx %}{% assign sub_tot = prog_tot | minus: 1 %}<span class="lesson-nav__dropdown-cur">Submodule {{ sub_cur }} of {{ sub_tot }}</span>{% endif %}{% else %}<span class="lesson-nav__dropdown-cur">Lesson {{ prog_cur }} of {{ prog_tot }}</span>{% endif %}{% else %}<span class="lesson-nav__dropdown-cur">Navigate</span>{% endif %}
         <svg class="lesson-nav__caret" aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 7L5 3L8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <ul class="lesson-nav__dropdown-list" id="lesson-nav-list" role="menu" hidden>
