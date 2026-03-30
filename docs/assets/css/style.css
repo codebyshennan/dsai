@@ -2028,3 +2028,10 @@ html[data-embed="true"] .page-toc {
     display: none !important;
 }
 
+/* toc.js removes the [hidden] attr on pages with headings, so the grid rule
+   .page-toc[hidden] ~ .page-layout__main no longer fires in embed mode,
+   leaving the main column stuck in the narrow 220px track. Force full width. */
+html[data-embed="true"] .page-layout__main {
+    grid-column: 1 / -1;
+}
+
