@@ -60,12 +60,46 @@ Your instructor shares the **time**, **link**, and **rules** (drop-in vs sign-up
 
 If your cohort uses a forum or chat, use the same discipline: paste errors and code snippets, not only “it doesn’t work.”
 
-## When you are stuck
+## How to unblock yourself
 
-1. Re-read the lesson section you skipped.
-2. Check the troubleshooting section in the relevant [setup guide](./README.md).
-3. Search the exact error text—often someone else hit the same conda or path issue.
-4. Ask in office hours or your class channel with **steps to reproduce** and **full error output**.
+When you hit a wall, work through these three steps before asking for help:
+
+1. **Trace the error message.** Read it carefully—what could be causing it? Fix that, then address the next error. If there is no visible error, find where the problem is using `print` statements or logging to give yourself more clues.
+2. **Google the error and context.** Search for the exact error message plus the technology name, e.g. `Python NameError: name is not defined`. Skim results and dig deeper into the most promising ones.
+3. **Ask peers or your instructor—with context.** Share what the error is, what you think is causing it, and what you learnt from steps 1 and 2. Context lets others help you quickly. We use mainstream technologies and the problems you encounter will rarely be exotic.
+
+### How to use Google effectively
+
+Professional data scientists spend a significant portion of their time finding answers on Google. Learning to search well may be your most transferable skill from this course.
+
+**Search formula:** `<error message> <technology name>` — for example, `NameError: name is not defined Python`.
+
+A few habits that help:
+
+- When you land on a result (Stack Overflow, docs, forum), scan for the relevant part quickly—do not read everything top-to-bottom.
+- If the first search doesn't work, try different keyword combinations. It often takes several attempts.
+- With experience you will develop a feel for when you are on the right track; trust that feeling and keep refining.
+
+### How to ask questions that get answers
+
+Always include context. A question without context forces the person helping you to guess, which wastes both of your time.
+
+For technical questions, useful context includes:
+
+- What is the exact error message?
+- What do you think the problem is?
+- What have you already tried from debugging and googling?
+- What is the relevant code?
+
+**Compare these three versions of the same question:**
+
+> **No context** — "My code is not working. Please help!"
+
+> **Incomplete context** — "My code is not working. I'm getting `NameError: name is not defined`. Please help!"
+
+> **Full context** — "I'm getting `NameError: name 'clases' is not defined` on line 3. I'm trying to access a variable named `clases`. Googling suggests the variable isn't defined, but I'm not sure why. Relevant code is below—any suggestions?"
+
+The third question is easy to answer in one reply. The first two require multiple back-and-forth exchanges before anyone can help.
 
 ## Grades and milestones
 

@@ -10,7 +10,7 @@ Context for plotting libraries and communication goals in advanced viz.
 
 ## Overview
 
-This submodule is **code-first**: you will write Python with **Seaborn** (statistical plots on top of Matplotlib) and **Plotly** (interactive charts and small dashboards). Think of it as moving from simple static plots to richer, exploratory, and interactive visuals.
+This submodule is **code-first**: you will write Python with **Seaborn** (statistical plots on top of Matplotlib) and **Plotly** (interactive charts and small dashboards). Think of it as moving from simple static plots to richer, exploratory, and interactive visuals, then applying them to time-based analysis and a realistic business case.
 
 > **Time needed:** Plan several hours to work through both guides and run the examples in a notebook.
 
@@ -27,6 +27,8 @@ Module Structure:
 ├─────────────────────────┤
 │ Interactive Plots     │ → Plotly Excellence
 ├─────────────────────────┤
+│ Time Series           │ → Trends, seasonality, events
+├─────────────────────────┤
 │ Real-world Projects   │ → Applied Learning
 └─────────────────────────┘
 ```
@@ -34,6 +36,7 @@ Module Structure:
 ## Prerequisites
 
 - [3.1 Intro to data visualization](../3.1-intro-data-viz/README.md): Matplotlib comfort and chart-choice basics.
+- [3.1 Preparing data for visualization](../3.1-intro-data-viz/data-prep-for-visualization.md): chart-ready summaries and reshaping.
 - Python environment with **matplotlib**, **pandas**, and (after install) **seaborn** and **plotly**.
 
 ## Why advanced visualization?
@@ -589,6 +592,13 @@ Principles:
     - Responsive feedback
     - Performance
 ```
+
+## Recommended sequence
+
+1. Start with [Seaborn guide](seaborn-guide.md) for statistical views and cleaner defaults.
+2. Move to [Plotly guide](plotly-guide.md) for interactivity, hover detail, and browser-ready output.
+3. Use [Time series visualization](time-series-visualization.md) for trends, rolling averages, and event markers.
+4. Finish with [Real-world case study](real-world-case-study.md) to connect chart choice, data prep, and recommendation writing.
 
 ## Assignment
 

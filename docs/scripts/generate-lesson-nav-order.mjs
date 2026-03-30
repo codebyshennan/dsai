@@ -172,10 +172,18 @@ const OVERRIDES = {
   "3-data-visualization/3.1-intro-data-viz": [
     "README.md",
     "visualization-principles.md",
+    "data-prep-for-visualization.md",
     "matplotlib-basics.md",
+    "annotations-and-highlighting.md",
     "troubleshooting-guide.md",
   ],
-  "3-data-visualization/3.2-adv-data-viz": ["README.md", "seaborn-guide.md", "plotly-guide.md"],
+  "3-data-visualization/3.2-adv-data-viz": [
+    "README.md",
+    "seaborn-guide.md",
+    "plotly-guide.md",
+    "time-series-visualization.md",
+    "real-world-case-study.md",
+  ],
   "3-data-visualization/3.3-bi-with-tableau": [
     "README.md",
     "tableau-basics.md",

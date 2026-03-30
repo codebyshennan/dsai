@@ -4,6 +4,8 @@
 
 > **Note:** This submodule starts with **why** charts work (perception, color, hierarchy), then moves to **Matplotlib** in code. Read [Visualization principles](visualization-principles.md) before [Matplotlib basics](matplotlib-basics.md) if you are new to design terms.
 
+It now also includes a short lesson on [preparing data for visualization](data-prep-for-visualization.md) and a practical guide to [annotations and highlighting](annotations-and-highlighting.md), because a clean chart depends as much on framing and emphasis as on syntax.
+
 ## Helpful video
 
 Context for how visualization fits into analytics and communication.
@@ -147,6 +149,7 @@ See how a basic plot can be enhanced with proper styling and annotations:
 ### Week 1: Foundations
 
 - Understanding basic principles
+- Preparing data at the right level for charts
 - Learning chart selection
 - Mastering color theory
 - Grasping design fundamentals
@@ -161,9 +164,9 @@ See how a basic plot can be enhanced with proper styling and annotations:
 ### Week 3: Advanced Features
 
 - Creating multiple plots
-- Adding interactivity
+- Adding annotations and highlights
 - Custom styling
-- Animations and dynamic updates
+- Troubleshooting layout and rendering issues
 
 ## Best Practices
 
@@ -211,8 +214,9 @@ See how a basic plot can be enhanced with proper styling and annotations:
 
 ## Next steps
 
-1. Work through [Visualization principles](visualization-principles.md) and [Matplotlib basics](matplotlib-basics.md); use [Troubleshooting guide](troubleshooting-guide.md) when plots misbehave.
-2. Continue to [3.2 Advanced data visualization](../3.2-adv-data-viz/README.md) for Seaborn and Plotly.
-3. Use the [module assignment](../_assignments/module-assignment.md) when assigned.
+1. Work through [Visualization principles](visualization-principles.md), then [Preparing data for visualization](data-prep-for-visualization.md), then [Matplotlib basics](matplotlib-basics.md).
+2. Use [Annotations and highlighting](annotations-and-highlighting.md) to turn a correct chart into a communicative one, and use [Troubleshooting guide](troubleshooting-guide.md) when plots misbehave.
+3. Continue to [3.2 Advanced data visualization](../3.2-adv-data-viz/README.md) for Seaborn, Plotly, time-series work, and a case-study workflow.
+4. Use the [module assignment](../_assignments/module-assignment.md) when assigned.
 
 Remember: The best visualizations tell a story. Focus on clarity and purpose, and let your data speak for itself.
