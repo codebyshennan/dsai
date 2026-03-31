@@ -69,6 +69,27 @@
     });
 
     await Promise.all(tasks);
+    attachLightboxHandlers();
+  }
+
+  function attachLightboxHandlers() {
+    if (!window.tamkeenLightbox) return;
+    // Mode 1: [data-mermaid-src] containers
+    document.querySelectorAll('[data-mermaid-src]').forEach(function (c) {
+      if (c._lightboxAttached || !c.querySelector('svg')) return;
+      c._lightboxAttached = true;
+      c.addEventListener('click', function () {
+        window.tamkeenLightbox.openSvg(c);
+      });
+    });
+    // Mode 2: legacy .mermaid-diagram wrappers
+    document.querySelectorAll('.mermaid-diagram').forEach(function (c) {
+      if (c._lightboxAttached || !c.querySelector('svg')) return;
+      c._lightboxAttached = true;
+      c.addEventListener('click', function () {
+        window.tamkeenLightbox.openSvg(c);
+      });
+    });
   }
 
   async function run() {

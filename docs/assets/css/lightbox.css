@@ -31,3 +31,34 @@
   /* pointer-events: none lets clicks fall through to overlay for close */
   pointer-events: none;
 }
+
+/* ─── Diagram lightbox ─────────────────────────────────────────────── */
+
+/* Clickable Mermaid diagrams */
+[data-mermaid-src],
+.mermaid-diagram {
+  cursor: zoom-in;
+}
+
+/* SVG wrapper inside overlay */
+.lightbox-overlay__svg-wrap {
+  display: none;
+  max-width: 92vw;
+  max-height: 92vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  padding: 1.5rem;
+  /* pointer-events: none lets clicks fall through to overlay for close */
+  pointer-events: none;
+}
+
+.lightbox-overlay__svg-wrap svg {
+  display: block;
+  /* Override any hardcoded width/height so the SVG scales to fit */
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 80vh;
+}

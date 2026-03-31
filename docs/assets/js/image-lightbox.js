@@ -1,4 +1,4 @@
-/* image-lightbox.js – click-to-expand images in lesson content */
+/* image-lightbox.js – click-to-expand images and Mermaid diagrams in lesson content */
 (function () {
   'use strict';
 
@@ -13,12 +13,16 @@
     overlay.className = 'lightbox-overlay';
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-label', 'Image viewer – press Escape or click to close');
+    overlay.setAttribute('aria-label', 'Viewer – press Escape or click to close');
 
     var img = document.createElement('img');
     img.className = 'lightbox-overlay__img';
     img.setAttribute('alt', '');
     overlay.appendChild(img);
+
+    var svgWrap = document.createElement('div');
+    svgWrap.className = 'lightbox-overlay__svg-wrap';
+    overlay.appendChild(svgWrap);
 
     overlay.addEventListener('click', closeLightbox);
     document.body.appendChild(overlay);
@@ -28,8 +32,26 @@
   function openLightbox(src, alt) {
     var overlay = getOrCreateOverlay();
     var img = overlay.querySelector('img');
+    var svgWrap = overlay.querySelector('.lightbox-overlay__svg-wrap');
     img.src = src;
     img.alt = alt || '';
+    img.style.display = '';
+    svgWrap.style.display = 'none';
+    svgWrap.innerHTML = '';
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function openSvgLightbox(containerEl) {
+    var svgEl = containerEl.querySelector('svg');
+    if (!svgEl) return;
+    var overlay = getOrCreateOverlay();
+    var img = overlay.querySelector('img');
+    var svgWrap = overlay.querySelector('.lightbox-overlay__svg-wrap');
+    img.style.display = 'none';
+    svgWrap.innerHTML = '';
+    svgWrap.appendChild(svgEl.cloneNode(true));
+    svgWrap.style.display = 'block';
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   }
@@ -39,6 +61,13 @@
     if (!overlay) return;
     overlay.classList.remove('is-open');
     document.body.style.overflow = '';
+    var svgWrap = overlay.querySelector('.lightbox-overlay__svg-wrap');
+    if (svgWrap) {
+      svgWrap.style.display = 'none';
+      svgWrap.innerHTML = '';
+    }
+    var img = overlay.querySelector('img');
+    if (img) img.style.display = '';
   }
 
   function handleKeydown(e) {
@@ -59,6 +88,9 @@
 
     document.addEventListener('keydown', handleKeydown);
   }
+
+  // Expose openSvgLightbox for mermaid-init.js to call after async rendering
+  window.tamkeenLightbox = { openSvg: openSvgLightbox };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
