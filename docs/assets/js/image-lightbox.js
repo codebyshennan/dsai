@@ -50,7 +50,13 @@
     var svgWrap = overlay.querySelector('.lightbox-overlay__svg-wrap');
     img.style.display = 'none';
     svgWrap.innerHTML = '';
-    svgWrap.appendChild(svgEl.cloneNode(true));
+    var clone = svgEl.cloneNode(true);
+    // Remove fixed pixel dimensions so CSS can scale the SVG to fit the lightbox
+    clone.removeAttribute('width');
+    clone.removeAttribute('height');
+    clone.style.width = '100%';
+    clone.style.height = 'auto';
+    svgWrap.appendChild(clone);
     svgWrap.style.display = 'block';
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
@@ -82,6 +88,8 @@
       // Skip images that are already a link – those navigate on click
       if (img.closest('a')) return;
       img.addEventListener('click', function () {
+        // Skip broken / not-yet-loaded images
+        if (!img.complete || img.naturalWidth === 0) return;
         openLightbox(img.src, img.alt);
       });
     });
