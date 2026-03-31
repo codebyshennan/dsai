@@ -119,7 +119,7 @@ Each topic includes:
 
 ## Assignment
 
-Ready to apply your model evaluation knowledge? Use [Module 5 assignment](../_assignments/module-assignment.md) (implementation sections reference CV and metrics) and [_assignments.md](../_assignments.md) for quick self-check answers.
+Ready to apply your model evaluation knowledge? Use [Module 5 assignment](../_assignments/module-assignment.md) (implementation sections reference CV and metrics).
 
 ## Getting Started
 

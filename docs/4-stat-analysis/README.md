@@ -44,7 +44,7 @@ Substantive `python` fenced blocks in this module pair with a short **bold title
 
 ## Practice and assessment
 
-- [Module assignments](./_assignments.md) — consolidated assignment for module 4.
+- [Module assignments](./_assignments/module-assignment.md) — consolidated assignment for module 4.
 
 ## Next steps
 

@@ -737,7 +737,6 @@ param_selection = select_regularization_parameter(X_collinear, y_collinear)
 
 When you run this code, you'll see a visualization of how MSE changes with alpha (saved as `regularization_selection.png`):
 
-![Regularization Selection](assets/regularization_selection.png)
 
 ### 2. Comparing Different Regularization Methods
 

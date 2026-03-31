@@ -122,6 +122,12 @@ plt.savefig('nonlinear_relationship.png')
 plt.show()
 {% endhighlight %}
 
+![polynomial-regression](assets/polynomial-regression_fig_1.png)
+
+
+![polynomial-regression](assets/polynomial-regression_fig_2.png)
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-8" data-tint="1">
@@ -228,6 +234,9 @@ def compare_linear_polynomial():
 # Run the function
 compare_linear_polynomial()
 {% endhighlight %}
+
+![polynomial-regression](assets/polynomial-regression_fig_3.png)
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -349,6 +358,19 @@ def visualize_polynomial_transformation():
 # Run the function
 visualize_polynomial_transformation()
 {% endhighlight %}
+
+![polynomial-regression](assets/polynomial-regression_fig_4.png)
+
+```
+Polynomial Feature Transformation (degree=2):
+   Original x    x   x^2
+0           1  1.0   1.0
+1           2  2.0   4.0
+2           3  3.0   9.0
+3           4  4.0  16.0
+4           5  5.0  25.0
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -476,6 +498,9 @@ def plot_different_degrees():
 # Run the function
 plot_different_degrees()
 {% endhighlight %}
+
+![polynomial-regression](assets/polynomial-regression_fig_5.png)
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -697,6 +722,20 @@ X_train, X_test, y_train, y_test, poly, scaler = prepare_polynomial_data(X_examp
 model = train_polynomial_model(X_train, y_train)
 {% endhighlight %}
 
+![polynomial-regression](assets/polynomial-regression_fig_6.png)
+
+```
+Original feature shape: (160, 1)
+Polynomial feature shape: (160, 3)
+New feature names:
+['x^1', 'x^2', 'x^3']
+Model trained successfully!
+Intercept (β₀): -6.0711
+Number of coefficients: 3
+First few coefficients: [ 6.50706898 -7.72810022  9.60710778]
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-13" data-tint="1">
@@ -860,8 +899,6 @@ evaluation = evaluate_polynomial_model(model, X_test, y_test, poly, scaler, X_ex
 
 When you run this code, you'll see two plots like these (saved as `polynomial_prediction.png` and `polynomial_actual_vs_predicted.png`):
 
-![Polynomial Prediction](assets/polynomial_prediction.png)
-![Actual vs Predicted](assets/polynomial_actual_vs_predicted.png)
 
 And you'll get output like:
 
@@ -940,6 +977,16 @@ def find_optimal_degree(X, y, max_degree=10):
 # Find the optimal degree for our example dataset
 optimal_degree, cv_errors = find_optimal_degree(X_example, y_example)
 {% endhighlight %}
+
+![polynomial-regression](assets/polynomial-regression_fig_7.png)
+
+
+![polynomial-regression](assets/polynomial-regression_fig_8.png)
+
+```
+The optimal polynomial degree is: 3
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -1104,7 +1151,6 @@ demonstrate_overfitting()
 
 When you run this code, you'll see a visualization like this (saved as `polynomial_overfitting.png`):
 
-![Polynomial Overfitting](assets/polynomial_overfitting.png)
 
 This clearly shows how:
 
@@ -1224,7 +1270,6 @@ demonstrate_regularization()
 
 When you run this code, you'll see a comparison like this (saved as `polynomial_regularization.png`):
 
-![Polynomial Regularization](assets/polynomial_regularization.png)
 
 This shows how regularization helps control the model's complexity, even with a high polynomial degree:
 

@@ -182,6 +182,9 @@ def plot_bias_variance_tradeoff():
 plot_bias_variance_tradeoff()
 {% endhighlight %}
 
+![model-selection](assets/model-selection_fig_1.png)
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-8" data-tint="1">
@@ -329,6 +332,9 @@ def demonstrate_overfitting_underfitting():
 # Execute the function
 demonstrate_overfitting_underfitting()
 {% endhighlight %}
+
+![model-selection](assets/model-selection_fig_2.png)
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -483,6 +489,14 @@ y_sample = 3*X_sample.squeeze() + np.random.normal(0, 1, 100)
 # Execute the function
 X_train, X_test, y_train, y_test, model = train_test_split_example(X_sample, y_sample)
 {% endhighlight %}
+
+![model-selection](assets/model-selection_fig_3.png)
+
+```
+Training MSE: 0.8864
+Test MSE: 0.8728
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -648,6 +662,9 @@ def cross_validation_example(X, y, k=5):
 # Execute the function
 cv_mean, cv_std = cross_validation_example(X_sample, y_sample)
 {% endhighlight %}
+
+![model-selection](assets/model-selection_fig_4.png)
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -837,6 +854,14 @@ y_nonlinear = np.sin(X_nonlinear.ravel()) + np.random.normal(0, 0.2, 100)
 # Execute the function
 model_comparison = compare_models_aic_bic(X_nonlinear, y_nonlinear)
 {% endhighlight %}
+
+![model-selection](assets/model-selection_fig_5.png)
+
+```
+Best model according to AIC: Degree 5.0 polynomial
+Best model according to BIC: Degree 5.0 polynomial
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -1056,6 +1081,23 @@ y_multi = 5*X_multi[:, 0] + 2*X_multi[:, 1] - 3*X_multi[:, 2] + np.random.normal
 # Execute the function
 selected, train_errors, test_errors = forward_selection(X_multi, y_multi)
 {% endhighlight %}
+
+![model-selection](assets/model-selection_fig_6.png)
+
+```
+Step 1: Added Feature 1, Train MSE: 9.2499, Test MSE: 23.3469
+Step 2: Added Feature 3, Train MSE: 3.2018, Test MSE: 9.5926
+Step 3: Added Feature 2, Train MSE: 0.7323, Test MSE: 1.1629
+Step 4: Added Feature 4, Train MSE: 0.6916, Test MSE: 1.3233
+Step 5: Added Feature 5, Train MSE: 0.6876, Test MSE: 1.3434
+Step 6: Added Feature 7, Train MSE: 0.6839, Test MSE: 1.3159
+Step 7: Added Feature 6, Train MSE: 0.6808, Test MSE: 1.3277
+Step 8: Added Feature 8, Train MSE: 0.6803, Test MSE: 1.3185
+
+Optimal number of features: 3
+Optimal features: ['Feature 1', 'Feature 3', 'Feature 2']
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -1293,6 +1335,22 @@ def backward_elimination(X, y, min_features=1):
 # Execute the function with our multivariate data
 selected_backward, train_errors_backward, test_errors_backward = backward_elimination(X_multi, y_multi)
 {% endhighlight %}
+
+![model-selection](assets/model-selection_fig_7.png)
+
+```
+Step 1: Removed Feature 8, Train MSE: 0.6808, Test MSE: 1.3277
+Step 2: Removed Feature 6, Train MSE: 0.6839, Test MSE: 1.3159
+Step 3: Removed Feature 7, Train MSE: 0.6876, Test MSE: 1.3434
+Step 4: Removed Feature 5, Train MSE: 0.6916, Test MSE: 1.3233
+Step 5: Removed Feature 4, Train MSE: 0.7323, Test MSE: 1.1629
+Step 6: Removed Feature 2, Train MSE: 3.2018, Test MSE: 9.5926
+Step 7: Removed Feature 3, Train MSE: 9.2499, Test MSE: 23.3469
+
+Optimal number of features: 3
+Optimal features: ['Feature 1', 'Feature 2', 'Feature 3']
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

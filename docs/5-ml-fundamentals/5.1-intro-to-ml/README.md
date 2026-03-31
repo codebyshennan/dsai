@@ -74,7 +74,7 @@ Before starting this section, you should be familiar with:
 
 ## Assignment
 
-Ready to apply your knowledge? The module assignment (concepts plus implementation) is in [Module 5 assignment](../_assignments/module-assignment.md). Brief answers for self-check are in [_assignments.md](../_assignments.md) at the repo root of this module.
+Ready to apply your knowledge? The module assignment (concepts plus implementation) is in [Module 5 assignment](../_assignments/module-assignment.md).
 
 ## Getting Started
 

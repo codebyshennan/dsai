@@ -939,7 +939,6 @@ compare_models_on_imbalanced_data(models, X_test, y_test)
 
 When you run this code, you'll see a comparison of regular and balanced models on imbalanced data (saved as `imbalanced_comparison.png`):
 
-![Imbalanced Comparison](assets/imbalanced_comparison.png)
 
 This comparison shows that:
 

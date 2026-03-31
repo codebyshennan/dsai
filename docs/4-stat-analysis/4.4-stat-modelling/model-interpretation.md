@@ -178,6 +178,19 @@ for feature, coef in zip(X.columns, model.coef_):
         print(f"Number of Rooms: ${coef:.2f} - For each additional room, the house price increases by ${coef:.2f}")
 {% endhighlight %}
 
+![model-interpretation](assets/model-interpretation_fig_1.png)
+
+```
+
+Linear Regression Coefficient Interpretation:
+Intercept: $101809.90 (Base price when all features are 0)
+Square Footage: $117.95 - For each additional square foot, the house price increases by $117.95
+Age: $-2340.04 - For each additional year of age, the house price decreases by $2340.04
+Distance from Downtown: $-14984.28 - For each additional mile from downtown, the house price decreases by $14984.28
+Number of Rooms: $28010.98 - For each additional room, the house price increases by $28010.98
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-10" data-tint="1">
@@ -295,6 +308,18 @@ for feature, std_coef in zip(std_feature_importance['Feature'], std_feature_impo
     print(f"{feature}: {std_coef:.2f} - A one standard deviation increase in {feature} {effect} the price by ${abs(std_coef):.2f}")
 {% endhighlight %}
 
+![model-interpretation](assets/model-interpretation_fig_2.png)
+
+```
+
+Standardized Coefficient Interpretation:
+sqft: 32861.93 - A one standard deviation increase in sqft increases the price by $32861.93
+num_rooms: 28487.79 - A one standard deviation increase in num_rooms increases the price by $28487.79
+age: -16126.96 - A one standard deviation increase in age decreases the price by $16126.96
+distance_downtown: -14857.72 - A one standard deviation increase in distance_downtown decreases the price by $14857.72
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-9" data-tint="1">
@@ -382,6 +407,18 @@ print("\nRandom Forest Feature Importance:")
 for feature, importance in zip(rf_importance['Feature'], rf_importance['Importance']):
     print(f"{feature}: {importance:.4f} - Contributes {importance*100:.1f}% to the model's decisions")
 {% endhighlight %}
+
+![model-interpretation](assets/model-interpretation_fig_3.png)
+
+```
+
+Random Forest Feature Importance:
+sqft: 0.4685 - Contributes 46.9% to the model's decisions
+num_rooms: 0.3196 - Contributes 32.0% to the model's decisions
+distance_downtown: 0.1074 - Contributes 10.7% to the model's decisions
+age: 0.1044 - Contributes 10.4% to the model's decisions
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -529,6 +566,20 @@ for feature, coef in zip(cat_coef[cat_coef['Feature'].isin(cat_features)]['Featu
     effect = "increases" if coef > 0 else "decreases"
     print(f"{feature}: ${coef:.2f} - This category {effect} the loan amount by ${abs(coef):.2f} compared to the baseline")
 {% endhighlight %}
+
+![model-interpretation](assets/model-interpretation_fig_4.png)
+
+```
+
+Categorical Feature Interpretation:
+Baseline categories: Education_High School and MaritalStatus_Single
+Education_High School: $-5094.75 - This category decreases the loan amount by $5094.75 compared to the baseline
+Education_Master: $4881.15 - This category increases the loan amount by $4881.15 compared to the baseline
+Education_PhD: $10756.70 - This category increases the loan amount by $10756.70 compared to the baseline
+MaritalStatus_Married: $11630.11 - This category increases the loan amount by $11630.11 compared to the baseline
+MaritalStatus_Single: $3295.10 - This category increases the loan amount by $3295.10 compared to the baseline
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -689,9 +740,6 @@ for feature in features_to_plot:
 
 When you run this code, you'll see partial dependence plots (saved as `partial_dependence.png`, `pdp_income.png`, and `pdp_age.png`):
 
-![Partial Dependence](assets/partial_dependence.png)
-![PDP Income](assets/pdp_income.png)
-![PDP Age](assets/pdp_age.png)
 
 PDPs are powerful because they:
 
@@ -819,8 +867,6 @@ for feature in ['Income', 'Age']:
 
 When you run this code, you'll see ICE plots (saved as `ice_income.png` and `ice_age.png`):
 
-![ICE Income](assets/ice_income.png)
-![ICE Age](assets/ice_age.png)
 
 ICE plots show:
 
@@ -935,10 +981,6 @@ plt.show()
 
 When you run this code, you'll see various SHAP plots (saved as multiple PNG files):
 
-![SHAP Summary](assets/shap_summary.png)
-![SHAP Detailed](assets/shap_detailed.png)
-![SHAP Dependence Income](assets/shap_dependence_income.png)
-![SHAP Waterfall](assets/shap_waterfall.png)
 
 SHAP values are especially powerful because they:
 
@@ -1062,7 +1104,6 @@ print(linear_interpretation)
 
 When you run this code, you'll see a visualization of the linear regression coefficients with confidence intervals (saved as `linear_model_interpretation.png`):
 
-![Linear Model Interpretation](assets/linear_model_interpretation.png)
 
 ### 2. Logistic Regression
 
@@ -1151,6 +1192,25 @@ for feature, odds_ratio in zip(log_coef['Feature'], log_coef['Odds_Ratio']):
     elif feature == 'FamilyHistory':
         print(f"Family History: {odds_ratio:.3f} - Having family history of diabetes multiplies the odds by {odds_ratio:.2f}")
 {% endhighlight %}
+
+![model-interpretation](assets/model-interpretation_fig_5.png)
+
+```
+
+Logistic Regression Interpretation:
+         Feature  Coefficient  Odds_Ratio
+3  FamilyHistory     0.965100    2.625050
+1            BMI     0.111403    1.117845
+0            Age     0.060541    1.062411
+2        Glucose     0.031271    1.031766
+
+Odds Ratio Interpretation:
+Family History: 2.625 - Having family history of diabetes multiplies the odds by 2.63
+BMI: 1.118 - For each additional BMI unit, the odds of diabetes increase by 11.8%
+Age: 1.062 - For each additional year of age, the odds of diabetes increase by 6.2%
+Glucose: 1.032 - For each additional unit of glucose, the odds of diabetes increase by 3.2%
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -1288,6 +1348,22 @@ def interpret_tree_prediction(tree_model, X, feature_names, sample_index=0):
 # Interpret a single prediction
 interpret_tree_prediction(tree_model, X, X.columns, sample_index=0)
 {% endhighlight %}
+
+![model-interpretation](assets/model-interpretation_fig_6.png)
+
+
+![model-interpretation](assets/model-interpretation_fig_7.png)
+
+```
+Decision path for sample 0:
+Sample values: {'Income': np.float64(67450.71229516849), 'Age': np.float64(26.710049890779274), 'Education_High School': np.False_, 'Education_Master': np.True_, 'Education_PhD': np.False_, 'MaritalStatus_Married': np.True_, 'MaritalStatus_Single': np.False_}
+Predicted value: 52388.22
+Node 0: MaritalStatus_Married = 1.00 > 0.50 → Go to right child
+Node 8: Education_High School = 0.00 <= 0.50 → Go to left child
+Node 9: Education_PhD = 0.00 <= 0.50 → Go to left child
+Leaf node 10: Predicted value = 52388.22
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -1488,6 +1564,23 @@ interpretability_comparison = compare_model_interpretability()
 print("\nModel Interpretability Comparison:")
 print(interpretability_comparison)
 {% endhighlight %}
+
+![model-interpretation](assets/model-interpretation_fig_8.png)
+
+```
+
+Model Interpretability Comparison:
+               Model  ...                                     Explanation
+0  Linear Regression  ...      Coefficients directly show feature effects
+1   Lasso Regression  ...      Coefficients directly show feature effects
+2      Decision Tree  ...      Visual tree structure shows decision rules
+3      Random Forest  ...       Feature importance and partial dependence
+4  Gradient Boosting  ...       Feature importance and partial dependence
+5     Neural Network  ...  Black box, requires post-hoc methods like SHAP
+
+[6 rows x 5 columns]
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -1893,6 +1986,23 @@ Interpretation Challenge:
 explore_correlation_vs_causation()
 {% endhighlight %}
 
+![model-interpretation](assets/model-interpretation_fig_9.png)
+
+```
+
+Exploring Correlation vs. Causation:
+          Feature  Coefficient
+0     Temperature     0.987892
+1  Shorts_Wearing    -0.215225
+
+Interpretation Challenge:
+- The model shows both Temperature and Shorts_Wearing as significant predictors
+- However, only Temperature directly causes Ice Cream Sales
+- Shorts_Wearing is correlated with Ice Cream Sales only because both are influenced by Temperature
+- A proper causal model would recognize that controlling for Temperature makes Shorts_Wearing irrelevant
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-20" data-tint="1">
@@ -2276,7 +2386,6 @@ print(complexity_comparison)
 
 When you run this code, you'll see a visualization of model complexity vs. interpretability (saved as `complexity_vs_interpretability.png`):
 
-![Complexity vs Interpretability](assets/complexity_vs_interpretability.png)
 
 ## Practice Exercise
 
@@ -2290,7 +2399,7 @@ Try applying these model interpretation techniques to your own dataset:
 
 ## Next steps
 
-- Try the [module 4 assignments](../_assignments.md) to consolidate inference, testing, relationships, and modelling.
+- Try the [module 4 assignments](../_assignments/module-assignment.md) to consolidate inference, testing, relationships, and modelling.
 
 ## Additional Resources
 
