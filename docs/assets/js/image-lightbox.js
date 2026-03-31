@@ -45,21 +45,13 @@
   function openSvgLightbox(containerEl) {
     var svgEl = containerEl.querySelector('svg');
     if (!svgEl) return;
-    var overlay = getOrCreateOverlay();
-    var img = overlay.querySelector('img');
-    var svgWrap = overlay.querySelector('.lightbox-overlay__svg-wrap');
-    img.style.display = 'none';
-    svgWrap.innerHTML = '';
-    var clone = svgEl.cloneNode(true);
-    // Remove fixed pixel dimensions so CSS can scale the SVG to fit the lightbox
-    clone.removeAttribute('width');
-    clone.removeAttribute('height');
-    clone.style.width = '100%';
-    clone.style.height = 'auto';
-    svgWrap.appendChild(clone);
-    svgWrap.style.display = 'block';
-    overlay.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
+    try {
+      var svgData = new XMLSerializer().serializeToString(svgEl);
+      var b64 = btoa(unescape(encodeURIComponent(svgData)));
+      openLightbox('data:image/svg+xml;base64,' + b64, 'Diagram');
+    } catch (e) {
+      console.warn('Lightbox SVG serialization failed:', e);
+    }
   }
 
   function closeLightbox() {
