@@ -1,38 +1,292 @@
 {
-    "title": "Advanced Data Visualization 📊",
-    "subtitle": "",
+    "title": "Advanced Data Visualization",
+    "subtitle": "Seaborn, Plotly, Time Series, and Real-World Practice",
     "slides": [
         {
             "type": "title",
-            "title": "Advanced Data Visualization 📊",
-            "subtitle": ""
+            "title": "Advanced Data Visualization",
+            "subtitle": "Seaborn, Plotly, Time Series, and Real-World Practice"
         },
         {
             "type": "content",
-            "title": "Plotly Guide",
+            "title": "When to Go Beyond Matplotlib",
             "content": {
                 "type": "box",
                 "items": [
-                    "Start with Plotly Express for quick results",
-                    "Use Graph Objects for fine-grained control",
-                    "Consider performance with large datasets",
-                    "Test interactivity across browsers",
-                    "Include clear documentation for users"
+                    "**Complexity**: Multi-variable stories need hue, size, facets, and layers that Matplotlib handles verbosely",
+                    "**Statistical context**: Confidence bands, regression overlays, and KDE curves are boilerplate in Matplotlib but one-liners in Seaborn",
+                    "**Interactivity**: Stakeholders want to zoom, hover, and filter — static PNGs cannot do that",
+                    "**Speed**: Plotly Express produces a publication-ready chart in one function call",
+                    "**Audience**: A Jupyter notebook shared via HTML needs interactive charts; a PDF report needs polished static ones",
+                    "Rule of thumb: start with Matplotlib for quick exploration, move to Seaborn for statistical polish, reach for Plotly when the audience needs to explore the data themselves"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Seaborn Guide",
+            "title": "The Advanced Viz Toolkit",
             "content": {
                 "type": "box",
                 "items": [
-                    "Start with data exploration",
-                    "Choose appropriate visualizations",
-                    "Keep it simple but informative",
-                    "Consider your audience",
-                    "Use consistent styling",
-                    "Save high-quality outputs"
+                    "**Seaborn**: Statistical visualization on top of Matplotlib — beautiful defaults, tidy-data API, built-in stats",
+                    "**Plotly Express**: High-level interactive charts — one function call, browser-ready HTML output",
+                    "**Plotly Graph Objects**: Low-level control over every trace, layout property, and animation frame",
+                    "**pandas + Matplotlib**: Still the backbone — Seaborn and Plotly both accept DataFrames",
+                    "**Submodule map**: Seaborn → statistical plots | Plotly → interactive charts | Time series → trends and events | Case study → end-to-end workflow"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Seaborn",
+            "subtitle": "Statistical Visualization with Beautiful Defaults"
+        },
+        {
+            "type": "content",
+            "title": "Seaborn: Key Advantages",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Beautiful defaults**: Professional look out-of-the-box with no manual styling",
+                    "**Statistical power**: Built-in KDE, regression lines, confidence bands, and bootstrapping",
+                    "**Pandas integration**: Pass a DataFrame and column names — no need to extract arrays manually",
+                    "**Themes**: `whitegrid`, `darkgrid`, `ticks`, `white`, `dark` — switch context with one call",
+                    "**Palette control**: Qualitative, sequential, and diverging palettes; colorblind-safe options built in",
+                    "**Figure-level functions**: `relplot`, `displot`, `catplot`, `lmplot` handle faceting automatically"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Seaborn: Setting Up a Professional Environment",
+            "content": {
+                "type": "box",
+                "items": [
+                    "`sns.set_theme(style='whitegrid', palette='deep', font_scale=1.1)` — one call sets global style",
+                    "`plt.rcParams.update({'figure.figsize': (10, 6), 'figure.dpi': 100})` — aligns Matplotlib defaults",
+                    "Context presets: `sns.set_context('notebook')` for exploration, `'presentation'` for slides, `'paper'` for print",
+                    "Use `sns.color_palette('colorblind')` when publishing for accessibility",
+                    "Always call `plt.tight_layout()` before saving to prevent label clipping"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Seaborn: Distribution Plots",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**histplot**: Binned counts with optional KDE overlay — `kde=True` adds the density curve in one argument",
+                    "**boxplot**: Median, IQR box, whiskers (1.5×IQR), and outlier points — best for comparing groups",
+                    "**violinplot**: KDE mirrored on both sides — shows the full distribution shape, not just quartiles",
+                    "**ecdfplot**: Empirical cumulative distribution — read off any percentile directly from the x-axis",
+                    "Use `hue=` to split any plot by a categorical variable — Seaborn handles colors and a legend automatically",
+                    "Combine `stripplot` on top of `boxplot` to show both the summary and the raw data points"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Seaborn: Relationship and Matrix Plots",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**scatterplot**: Encode up to five dimensions — x, y, hue, size, style — without extra code",
+                    "**regplot**: Scatter plus OLS regression line and 95% confidence band in one call",
+                    "**residplot**: Shows regression residuals — a flat band around zero means the linear fit is appropriate",
+                    "**heatmap**: Correlation matrix as a color grid — `annot=True` adds the numeric values in each cell",
+                    "**clustermap**: Reorders rows and columns by similarity, revealing variable groups the standard heatmap hides",
+                    "**pairplot / PairGrid**: All pairwise scatter or distribution plots — fast for multivariate EDA",
+                    "**FacetGrid**: Small multiples — the same plot repeated per category level without manual subplots"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Seaborn: hue, size, and style Encoding",
+            "content": {
+                "type": "box",
+                "items": [
+                    "`hue=`: Assigns a distinct color per category — the most common third dimension",
+                    "`size=`: Scales marker area by a numeric column — good for volume or importance",
+                    "`style=`: Uses different marker shapes or line dashes per category — helps colorblind readers",
+                    "Combine `hue` + `style` on `lineplot` for multi-series time charts that are readable in grayscale",
+                    "`hue_order=` controls the legend and color assignment order",
+                    "`palette=` accepts named palettes, lists of hex codes, or `sns.color_palette()` objects",
+                    "Avoid using all three encodings simultaneously — cognitive overload cancels the clarity gain"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Plotly",
+            "subtitle": "Interactive Charts for Exploration and Sharing"
+        },
+        {
+            "type": "content",
+            "title": "Plotly: Express vs Graph Objects",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Plotly Express (px)**: High-level API — one function call produces a complete interactive figure",
+                    "**Graph Objects (go)**: Low-level API — build every trace, axis, and annotation manually",
+                    "Start with `px` for 90% of charts; drop to `go` only when Express cannot express what you need",
+                    "`px.scatter`, `px.line`, `px.bar`, `px.histogram`, `px.box` — all return a `go.Figure` you can further modify",
+                    "`fig.update_layout(...)` and `fig.update_traces(...)` work on both Express and Graph Objects figures",
+                    "Set `pio.templates.default = 'plotly_white'` once to give every figure a clean background"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Plotly: Hover, Zoom, and Interactivity",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Every Plotly chart includes zoom, pan, and reset by default — no extra code needed",
+                    "`hover_data={'col': ':.2f'}` — controls which columns appear in the tooltip and how they are formatted",
+                    "`hovermode='x unified'` — snaps all traces to the same x position, useful for time series",
+                    "`hovertemplate=` — full control over tooltip HTML and formatting strings",
+                    "Click a legend entry to hide or show that trace; double-click to isolate it",
+                    "`update_xaxes(rangeslider_visible=True)` adds a mini navigator below the x-axis for time charts",
+                    "`fig.write_html('report.html', include_plotlyjs='cdn')` exports a self-contained interactive file"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Plotly: Multi-Encoding and Animation",
+            "content": {
+                "type": "box",
+                "items": [
+                    "`px.scatter(df, x=..., y=..., size=..., color=..., animation_frame='year')` — five dimensions in one call",
+                    "`animation_frame=` adds a playback slider — the Gapminder bubble chart is the canonical example",
+                    "`make_subplots(rows=2, cols=2, specs=[[...], [...]])` — lay out mixed chart types in one figure",
+                    "`fig.add_trace(go.Bar(...), row=1, col=2)` — place traces into specific grid cells",
+                    "`updatemenus` with `method='relayout'` — add YTD / All range buttons above a time chart",
+                    "`updatemenus` with `method='restyle'` — add Show / Hide buttons to toggle trace visibility"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Time Series Visualization",
+            "subtitle": "Trends, Aggregation, and Event Annotation"
+        },
+        {
+            "type": "content",
+            "title": "Time Series: Why It Needs Its Own Rules",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Order matters**: Unlike categories, time points have a fixed sequence — sorting is mandatory",
+                    "**Gaps matter**: Connecting points across missing dates silently implies continuous data",
+                    "**Aggregation level determines the message**: Daily noise vs weekly trend vs monthly business rhythm",
+                    "**Seasonality can hide or exaggerate trends**: A rising annual trend can look flat on a monthly chart",
+                    "**Partial periods mislead**: A current incomplete month compared to finished prior months will always look low",
+                    "Use `pd.to_datetime()` and `sort_values('date')` before any time chart — always"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Time Series: Core Patterns",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Trend line**: `ax.plot(dates, values)` — keep it simple, label axes clearly, limit overlapping series",
+                    "**Resampling**: `.resample('W').agg(...)` to convert daily data to weekly before plotting",
+                    "**Rolling average**: `series.rolling(window=4).mean()` — smooths noise without hiding raw variation when both are shown",
+                    "**Multiple series**: Use `sns.lineplot(hue='channel')` for up to 5 series; more than that, use small multiples",
+                    "**Small multiples**: `sns.relplot(col='channel', col_wrap=2)` — one panel per group, shared x-axis",
+                    "**Event markers**: `ax.axvline(date)` + `ax.annotate('Launch', ...)` — often more informative than the line itself"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Time Series: Interactive Exploration with Plotly",
+            "content": {
+                "type": "box",
+                "items": [
+                    "`px.line(df, x='date', y='visits')` then `fig.update_xaxes(rangeslider_visible=True)` — range navigator in two lines",
+                    "Useful when stakeholders need to inspect exact values, zoom into anomalies, or compare sub-periods",
+                    "Add `hovermode='x unified'` so all series show their values at the same date on hover",
+                    "Static Matplotlib chart for the final report; interactive Plotly version for stakeholder exploration",
+                    "**Checklist before publishing a time chart**: dates parsed and sorted | aggregation level matches the question | incomplete periods excluded or labeled | key events annotated directly on the chart"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Real-World Case Study",
+            "subtitle": "From Business Question to Polished Recommendation"
+        },
+        {
+            "type": "content",
+            "title": "Case Study: E-Commerce Conversion Analysis",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Scenario**: The growth team asks — 'Why did conversion improve in Q2, and which channels should we invest in next?'",
+                    "**Step 1 — Define the decision**: Break the request into chartable questions before opening a notebook",
+                    "Question 1: Did conversion really improve over time? → line chart",
+                    "Question 2: Which channels contributed most? → bar chart or scatter",
+                    "Question 3: Was the lift broad-based or concentrated in one device? → faceted or grouped view",
+                    "Question 4: Is the recommendation about volume, efficiency, or both? → determines which metric to prioritize",
+                    "**This prevents random chart production** — every chart must answer a specific question"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Case Study: Workflow Steps",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Step 2 — Prepare data**: Aggregate to the right grain (`weekly_channel`), compute derived metrics (`conversion_rate`, `revenue_per_session`)",
+                    "**Step 3 — Explore**: Use a small set of charts with distinct purposes — one per sub-question",
+                    "**Step 4 — Identify the takeaway**: Suppose paid search drove volume, email drove efficiency, mobile improved after a redesign",
+                    "**Step 5 — Build final visuals**: Fewer charts than the exploration phase — usually 2 or 3",
+                    "Final set: one annotated trend line + one sorted bar chart + one segmented device view",
+                    "**Step 6 — Write the recommendation**: Connect evidence to action — 'Protect email because it remains the highest-converting channel'"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Case Study: Common Failure Modes",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Starting with a chart type instead of a business question",
+                    "Using too many exploratory charts in the final deliverable",
+                    "Mixing volume and rate metrics on the same axis without explanation",
+                    "Showing channel performance without normalizing for traffic scale",
+                    "Presenting a correlation as proof of causation",
+                    "Choosing a chart because it looks impressive rather than because it answers the question",
+                    "A well-chosen static chart with an annotation often persuades more than an interactive dashboard"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Choosing the Right Library",
+            "subtitle": "A Decision Framework"
+        },
+        {
+            "type": "content",
+            "title": "Library Decision Framework",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Use Matplotlib when**: you need full pixel-level control, integrating with existing Matplotlib code, or publishing to PDF/LaTeX",
+                    "**Use Seaborn when**: your data is tidy (long format), you need statistical overlays, or you want professional defaults with minimal code",
+                    "**Use Plotly Express when**: the audience needs to explore the data, you are sharing an HTML file, or you need animation",
+                    "**Use Plotly Graph Objects when**: Express cannot produce the exact layout or interaction you need",
+                    "**Combine them**: Seaborn for the static report charts, Plotly for the interactive companion notebook",
+                    "**Always ask**: Will the audience see this on a screen (use Plotly) or on paper (use Seaborn/Matplotlib)?",
+                    "**Start simple**: A clear bar chart with a good annotation beats a complex dashboard with no takeaway"
                 ]
             }
         }

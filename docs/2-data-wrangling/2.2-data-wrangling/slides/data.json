@@ -8,45 +8,255 @@
             "subtitle": ""
         },
         {
+            "type": "title",
+            "title": "What Is Data Wrangling?",
+            "subtitle": "And why it eats 80% of a data scientist's time"
+        },
+        {
             "type": "content",
+            "title": "What Is Data Wrangling?",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Definition**: Transforming raw, messy data into a clean, reliable format ready for analysis",
+                    "Also called **data munging** or **data preprocessing**",
+                    "Think of it as mise en place—a chef preps ingredients before cooking; an analyst preps tables before modelling",
+                    "**The 80/20 Rule**: Data scientists typically spend ~80% of their time wrangling data and ~20% on actual analysis",
+                    "**Why it matters**: Garbage in → garbage out; every downstream insight or model depends on wrangling quality",
+                    "**Core steps**: Assess quality → handle missing values → treat outliers → transform features → validate"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "The Data Wrangling Journey",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**1. Ingest**: Load data from CSV, database, API, or spreadsheet",
+                    "**2. Assess**: Profile the data—dtypes, missing counts, duplicates, value ranges",
+                    "**3. Clean**: Fix missing values, remove duplicates, standardise formats",
+                    "**4. Treat outliers**: Detect extreme values and decide: keep, cap, or remove",
+                    "**5. Transform**: Scale, encode, and engineer features for analysis or modelling",
+                    "**6. Validate**: Assert invariants hold; document every change made",
+                    "**Principle**: Fix only what you can justify—document everything else"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Data Quality",
+            "subtitle": "You cannot fix what you do not measure"
+        },
+        {
+            "type": "content",
+            "title": "Data Quality Dimensions",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Accuracy**: Does the data correctly represent reality? (e.g. age should be 0–120)",
+                    "**Completeness**: Are all required fields populated? (`df.isnull().sum()`)",
+                    "**Consistency**: Are formats and codes uniform across the dataset? (e.g. date formats, category labels)",
+                    "**Validity**: Does the data follow business rules? (e.g. email format, non-negative prices)",
+                    "**Uniqueness**: Is the dataset free of duplicates? (`df.duplicated().sum()`)",
+                    "**Timeliness**: Is the data recent enough for the question being asked?",
+                    "**Rule of thumb**: Measure all six dimensions before touching a single value"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Quick Data Quality Audit",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Shape and types**: `df.info()` — row count, column count, dtype per column",
+                    "**Missing values**: `df.isnull().sum()` — count NaNs per column",
+                    "**Missing rate**: `df.isnull().mean() * 100` — percentage missing",
+                    "**Duplicates**: `df.duplicated().sum()` — number of duplicate rows",
+                    "**Numeric summary**: `df.describe()` — min, max, mean, std, quartiles",
+                    "**Categorical cardinality**: `df['col'].value_counts()` — frequency of each category",
+                    "**Common red flags**: negative prices, impossible dates, all-zero columns, suspiciously round numbers"
+                ]
+            }
+        },
+        {
+            "type": "title",
             "title": "Missing Values",
+            "subtitle": "Why data is absent matters as much as how to fill it"
+        },
+        {
+            "type": "content",
+            "title": "Missing Data Mechanisms",
             "content": {
                 "type": "box",
                 "items": [
-                    "Always investigate why data is missing",
-                    "Consider domain knowledge",
-                    "Document assumptions"
+                    "**MCAR — Missing Completely at Random**: Absence is unrelated to any variable; safe to drop rows or use simple imputation (e.g. server glitch drops random records)",
+                    "**MAR — Missing at Random**: Absence depends on *other observed* columns; imputation using related columns is defensible (e.g. older respondents skip income field)",
+                    "**MNAR — Missing Not at Random**: Absence depends on the *missing value itself*; hardest case, needs domain knowledge or sensitivity analysis (e.g. high earners skip income field)",
+                    "**Why it matters**: Dropping MNAR rows introduces bias; filling MCAR rows with the mean is usually safe",
+                    "**Detection**: Check whether missingness in column A correlates with values in column B (`df.isnull().corr()`)"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Project",
+            "title": "Missing Value Strategies",
             "content": {
                 "type": "box",
                 "items": [
-                    "Key findings",
-                    "Critical issues",
-                    "Recommendations"
+                    "**Drop rows**: Use when <5% missing and mechanism is MCAR — `df.dropna(subset=['col'])`",
+                    "**Drop column**: Use when >50% of values are missing and the column adds little signal",
+                    "**Mean/median imputation**: Quick fix for numeric, low missing rate (<10%); median is robust to outliers",
+                    "**Mode imputation**: Default for categorical columns — `df['col'].fillna(df['col'].mode()[0])`",
+                    "**KNN / MICE imputation**: Multivariate method; better when columns are correlated",
+                    "**Flag + fill**: Add a binary `col_was_missing` indicator, then fill — preserves missingness signal for models",
+                    "**Golden rule**: Always investigate *why* data is missing before choosing a strategy"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Outliers",
+            "subtitle": "Extreme values: errors, or the most interesting signal?"
+        },
+        {
+            "type": "content",
+            "title": "Types of Outliers",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Point outliers**: Individual values far from the rest (e.g. a $999,999 order in a $100 dataset)",
+                    "**Contextual outliers**: Values unusual only in a specific context (e.g. 20°C in winter)",
+                    "**Collective outliers**: A group of values that together form an unusual pattern (e.g. a sudden flat line in sensor data)",
+                    "**Key question**: Is the outlier an *error* to fix, or *signal* to keep?",
+                    "**Examples of valuable outliers**: Fraud transactions, record-breaking sales, equipment failure events",
+                    "**Principle**: Never remove outliers without understanding what they represent"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Transformations",
+            "title": "Outlier Detection Methods",
             "content": {
                 "type": "box",
                 "items": [
-                    "**Standard Scaling (Z-score)**",
-                    "**Min-Max Scaling**",
-                    "**Robust Scaling**",
-                    "**Log Transform**",
-                    "**Box-Cox Transform**",
-                    "**Yeo-Johnson Transform**",
-                    "Consider the data distribution",
-                    "Understand algorithm requirements",
-                    "Preserve important relationships",
-                    "Handle special cases (zeros, negatives)"
+                    "**Z-score**: `z = (x − μ) / σ` — flag |z| > 3; assumes roughly normal distribution",
+                    "**IQR rule**: `IQR = Q3 − Q1`; flag values below `Q1 − 1.5×IQR` or above `Q3 + 1.5×IQR`; robust to skew",
+                    "**Visual — boxplot**: `df.boxplot(column='price')` — whiskers show IQR bounds; dots are outliers",
+                    "**Visual — histogram**: Reveals multi-modal distributions and long tails",
+                    "**Visual — scatter plot**: Spot bivariate outliers invisible in univariate checks",
+                    "**Robust scaling check**: Use median and IQR instead of mean and std when outliers are present"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Outlier Treatment Options",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Remove**: Delete the row — only if the value is a confirmed data error",
+                    "**Cap (winsorise)**: Clip to the 1st / 99th percentile — `df['col'].clip(lower=p1, upper=p99)`; preserves row count",
+                    "**Transform**: Apply log or sqrt to compress the scale — effective for right-skewed distributions",
+                    "**Impute**: Treat extreme values like missing data and impute with median",
+                    "**Keep**: Do nothing — appropriate when the outlier is real signal (e.g. fraud, record sales)",
+                    "**Separate model**: Train one model on normal data, another specifically on anomalies",
+                    "**Decision flow**: Error? → Remove. Real but extreme? → Cap or transform. Signal? → Keep or separate"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Data Transformations",
+            "subtitle": "Scaling, encoding, and reshaping features for analysis"
+        },
+        {
+            "type": "content",
+            "title": "Numeric Scaling Methods",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Standard Scaling (Z-score)**: `z = (x − μ) / σ` → mean 0, std 1; use for algorithms assuming normality (linear regression, PCA, SVM)",
+                    "**Min-Max Scaling**: `x_scaled = (x − x_min) / (x_max − x_min)` → [0, 1] range; use for neural networks and KNN",
+                    "**Robust Scaling**: Uses median and IQR instead of mean and std — best when outliers are present",
+                    "**When to scale**: Distance-based models (KNN, SVM, k-means) require scaling; tree-based models (Random Forest, XGBoost) generally do not",
+                    "**Fit on train, apply on test**: Always fit the scaler only on training data to avoid data leakage"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Distribution Fixes: Log & Other Transforms",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Log transform**: `np.log1p(x)` — compresses right-skewed distributions (salaries, prices, counts); use `log1p` to handle zeros safely",
+                    "**Square root transform**: `np.sqrt(x)` — milder than log; works on non-negative data",
+                    "**Box-Cox**: Finds the optimal power λ to normalise; requires strictly positive values",
+                    "**Yeo-Johnson**: Extension of Box-Cox that handles zeros and negatives",
+                    "**Check after**: Re-plot a histogram — a roughly bell-shaped curve means the transform worked",
+                    "**Rule**: Apply distribution fixes *before* scaling"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Categorical Encoding",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**One-Hot Encoding**: Creates a binary column per category — `pd.get_dummies(df, columns=['category'])`; use for nominal (unordered) categories with low cardinality",
+                    "**Label Encoding**: Maps each category to an integer — use only for ordinal features (e.g. Low/Med/High → 0/1/2) or tree-based models",
+                    "**Ordinal Encoding**: Like label encoding but respects a defined order",
+                    "**Target Encoding**: Replaces category with mean target value — powerful but prone to leakage; use with cross-validation",
+                    "**High cardinality warning**: One-hot encoding a column with 500 categories creates 500 new columns — consider hashing or embedding instead"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "String and Date Handling",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Normalise strings**: `df['col'].str.lower().str.strip()` — removes case and whitespace inconsistencies",
+                    "**Fuzzy matching**: Use `rapidfuzz` or `fuzzywuzzy` to merge near-duplicate categories (e.g. 'iPhone' vs 'i-phone')",
+                    "**Parse dates**: `pd.to_datetime(df['date'])` — converts string dates to a proper datetime dtype",
+                    "**Extract date features**: `df['month'] = df['date'].dt.month` — year, month, day, weekday, hour",
+                    "**Date arithmetic**: `df['age_days'] = (pd.Timestamp.today() - df['signup_date']).dt.days`",
+                    "**Timezones**: Always convert to UTC first when combining data from multiple sources"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Practical Pandas Workflow Tips",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Method chaining**: Chain operations with `.pipe()` for readable, testable pipelines",
+                    "**Vectorise, don't loop**: `df['total'] = df['price'] * df['quantity']` is orders of magnitude faster than a row-by-row loop",
+                    "**Downcast dtypes**: `pd.to_numeric(df['col'], downcast='integer')` — halves memory on large datasets",
+                    "**Use `.copy()`**: `df_clean = df.copy()` before modifying — avoids SettingWithCopyWarning and preserves originals",
+                    "**Document changes**: Keep a `cleaning_log` dict recording rows dropped, columns imputed, and transforms applied",
+                    "**Assert invariants**: Use `assert df.isnull().sum().sum() == 0` and `assert df['price'].min() >= 0` after each step"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Putting It All Together",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Step 1 — Profile**: `df.info()`, `df.describe()`, `df.isnull().sum()`, `df.duplicated().sum()`",
+                    "**Step 2 — Clean**: Drop or impute missing values; remove confirmed duplicate rows",
+                    "**Step 3 — Outliers**: Detect with IQR / Z-score; decide: cap, remove, or keep",
+                    "**Step 4 — Transform**: Scale numerics; encode categoricals; parse dates; fix skew",
+                    "**Step 5 — Validate**: Assert no nulls remain; check value ranges; compare distributions before/after",
+                    "**Step 6 — Document**: Log every decision — what you changed, why, and what you left unchanged",
+                    "**Key mindset**: Wrangling is not mechanical cleaning — every decision is a modelling assumption"
                 ]
             }
         }

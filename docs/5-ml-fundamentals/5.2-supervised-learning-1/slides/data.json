@@ -1,11 +1,337 @@
 {
     "title": "5.2 Supervised Learning Part 1",
-    "subtitle": "",
+    "subtitle": "k-NN, Naive Bayes, Decision Trees, SVM",
     "slides": [
         {
             "type": "title",
             "title": "5.2 Supervised Learning Part 1",
-            "subtitle": ""
+            "subtitle": "k-NN · Naive Bayes · Decision Trees · SVM"
+        },
+        {
+            "type": "title",
+            "title": "Module Overview",
+            "subtitle": "Four classical algorithms, when to use each"
+        },
+        {
+            "type": "content",
+            "title": "What is Supervised Learning?",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Supervised learning**: the model learns from labelled examples — every training row has a known output $y$",
+                    "**Goal**: learn a function $f$ such that $f(X) \\approx y$ on unseen data",
+                    "**Classification**: predict a discrete category (spam / not spam, disease / healthy)",
+                    "**Regression**: predict a continuous number (house price, temperature tomorrow)",
+                    "**Key ingredients**: features $X$, labels $y$, a training set, and a held-out test set",
+                    "**Workflow**: collect data → split train/test → fit model → evaluate → iterate"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Classification vs Regression",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Classification** — output is a category",
+                    "Email spam detection: spam or not spam",
+                    "Medical diagnosis: disease present or absent",
+                    "Image recognition: cat, dog, or bird",
+                    "**Regression** — output is a number",
+                    "Predicting house sale price from square footage and location",
+                    "Forecasting tomorrow's temperature from today's weather",
+                    "Estimating delivery time from distance and traffic",
+                    "**Same algorithms, different loss functions** — all four algorithms in this module support both tasks"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "The Four Algorithms",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**k-Nearest Neighbours (kNN)** — vote among the $k$ closest training points",
+                    "**Naive Bayes** — apply Bayes' theorem with a feature-independence assumption",
+                    "**Decision Trees** — split data with nested if/else rules on feature thresholds",
+                    "**Support Vector Machines (SVM)** — find the maximum-margin hyperplane between classes",
+                    "Each algorithm makes different assumptions about the data — understanding these helps you choose wisely",
+                    "All four are available in scikit-learn with a consistent `fit` / `predict` API"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "k-Nearest Neighbours",
+            "subtitle": "Learning by looking at your neighbours"
+        },
+        {
+            "type": "content",
+            "title": "kNN — The Core Idea",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Lazy learner**: kNN stores the entire training set and does no explicit training phase",
+                    "**At prediction time**: find the $k$ training points closest to the new point",
+                    "**Classification**: take a majority vote among those $k$ neighbours",
+                    "**Regression**: take the average of those $k$ neighbours' values",
+                    "**Analogy**: asking your $k$ nearest friends for a restaurant recommendation and going with the majority",
+                    "**Key hyperparameter**: $k$ — the number of neighbours to consult"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "kNN — Distance Metrics",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Euclidean distance** (L2): $d = \\sqrt{\\sum_i (p_i - q_i)^2}$ — straight-line distance, default choice for continuous features",
+                    "**Manhattan distance** (L1): $d = \\sum_i |p_i - q_i|$ — sum of absolute differences, robust to outliers",
+                    "**Cosine similarity**: measures the angle between two vectors — great for text (TF-IDF) features",
+                    "**Critical rule**: always scale features before computing distances — a feature in thousands dominates one in units",
+                    "Use `StandardScaler` or `MinMaxScaler` from scikit-learn before fitting kNN"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "kNN — Choosing k",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**k = 1**: perfectly fits training data but highly sensitive to noise — high variance",
+                    "**k = n**: predicts the global majority class every time — high bias",
+                    "**Sweet spot**: use cross-validation to search over k = 1, 3, 5, 7, … and pick the elbow",
+                    "**Rule of thumb**: start with $k = \\sqrt{n}$ as an initial guess",
+                    "**Prefer odd k** for binary classification to avoid tied votes",
+                    "**Curse of dimensionality**: distances become meaningless in high-dimensional spaces — consider dimensionality reduction first",
+                    "**Memory cost**: kNN stores the full training set — can be expensive for large $n$"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Naive Bayes",
+            "subtitle": "Probabilistic classification with Bayes' theorem"
+        },
+        {
+            "type": "content",
+            "title": "Naive Bayes — Bayes' Theorem",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Bayes' theorem**: $P(y \\mid X) = \\dfrac{P(X \\mid y)\\, P(y)}{P(X)}$",
+                    "$P(y \\mid X)$ — **posterior**: probability of class $y$ given the observed features $X$",
+                    "$P(X \\mid y)$ — **likelihood**: how probable is the data if $y$ is true",
+                    "$P(y)$ — **prior**: baseline frequency of class $y$ in training data",
+                    "$P(X)$ — **evidence**: normalising constant (same for all classes, so often ignored)",
+                    "**Decision rule**: predict the class $y$ that maximises the posterior probability"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Naive Bayes — The Independence Assumption",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**The naive assumption**: features are conditionally independent given the class label",
+                    "This lets us write: $P(X \\mid y) = \\prod_{j=1}^{d} P(x_j \\mid y)$",
+                    "Instead of estimating one joint distribution over all features, we estimate $d$ simple univariate distributions",
+                    "The assumption is almost always violated in practice — but the classifier still works surprisingly well",
+                    "**Why it works**: even if probabilities are wrong, the *ranking* of classes is often correct",
+                    "**Spam example**: presence of 'free' and 'win' are not independent, yet the classifier separates spam effectively"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Naive Bayes — Variants",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Multinomial NB** (`MultinomialNB`): features are word/token counts — standard for text classification",
+                    "**Bernoulli NB** (`BernoulliNB`): features are binary presence/absence indicators — short documents",
+                    "**Gaussian NB** (`GaussianNB`): features are continuous and modelled as Gaussian — general numeric data",
+                    "**Complement NB**: adapts MultinomialNB for imbalanced classes",
+                    "**Laplace smoothing**: adds a pseudocount to avoid zero probabilities for unseen feature values (the zero-frequency problem)",
+                    "**Strengths**: very fast training, low memory, strong baseline for text; works well with small datasets"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Decision Trees",
+            "subtitle": "Nested if/else rules learned from data"
+        },
+        {
+            "type": "content",
+            "title": "Decision Trees — How They Work",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Root node**: starts with all training data",
+                    "**Splitting**: at each node, choose the feature and threshold that best separates the classes",
+                    "**Branches**: each branch represents one answer to the feature question",
+                    "**Leaf nodes**: terminal nodes that output a class label (or mean value for regression)",
+                    "**Recursive**: the same splitting process is applied to each child node until a stopping criterion is met",
+                    "**Result**: a tree of axis-aligned rectangular decision regions — easy to visualise and explain"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Decision Trees — Splitting Criteria",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Gini impurity**: $G = 1 - \\sum_k p_k^2$ — measures how mixed the classes are in a node (0 = pure)",
+                    "**Entropy**: $H = -\\sum_k p_k \\log_2 p_k$ — information-theoretic measure of disorder",
+                    "**Information gain**: $IG = H(\\text{parent}) - \\sum_j \\frac{N_j}{N} H(\\text{child}_j)$ — how much entropy a split removes",
+                    "**Best split**: the feature and threshold that maximises information gain (or minimises Gini after the split)",
+                    "**Gini vs Entropy**: Gini is computationally cheaper; both usually give similar trees",
+                    "scikit-learn's `DecisionTreeClassifier` uses Gini by default; set `criterion='entropy'` to switch"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Decision Trees — Overfitting and Pruning",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Overfitting risk**: an unconstrained tree will grow until every leaf is pure — memorising the training data",
+                    "**Pre-pruning** (early stopping): limit `max_depth`, set `min_samples_split`, or `min_samples_leaf`",
+                    "**Post-pruning**: grow the full tree, then remove branches that add little predictive value on a validation set",
+                    "**Cost-complexity pruning** (`ccp_alpha`): penalises tree size; larger `ccp_alpha` = smaller tree",
+                    "**Feature importance**: `feature_importances_` reports total impurity reduction per feature — useful for feature selection",
+                    "**Instability**: a small change in training data can produce a very different tree — ensemble methods (Random Forests) solve this"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Support Vector Machines",
+            "subtitle": "Maximum-margin decision boundaries"
+        },
+        {
+            "type": "content",
+            "title": "SVM — The Core Idea",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Goal**: find the hyperplane that separates the two classes with the **widest margin**",
+                    "**Hyperplane**: a line in 2D, a flat plane in 3D, a $(d-1)$-dimensional surface in $d$ dimensions",
+                    "**Margin**: the distance from the hyperplane to the nearest training point on each side",
+                    "**Support vectors**: the training points that lie on the margin boundary — these are the only points that define the hyperplane",
+                    "**Memory efficient**: only the support vectors are stored after training — the rest of the training set can be discarded",
+                    "**Analogy**: building a fence between two types of plants, positioned as far as possible from both"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "SVM — The Margin and the C Parameter",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Hard-margin SVM**: requires all points to be correctly classified — only works for linearly separable data",
+                    "**Soft-margin SVM**: allows some points inside or on the wrong side of the margin — controlled by parameter $C$",
+                    "**Optimisation objective**: $\\min_{w,b} \\frac{1}{2}\\|w\\|^2 + C \\sum_i \\xi_i$ subject to $y_i(w^T x_i + b) \\geq 1 - \\xi_i$",
+                    "**Small $C$**: wider margin, more misclassifications tolerated — lower variance, higher bias",
+                    "**Large $C$**: narrow margin, fewer misclassifications allowed — higher variance, lower bias",
+                    "**Scaling is essential**: SVM is sensitive to feature scale — always use `StandardScaler` before fitting"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "SVM — Kernels",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Kernel trick**: implicitly maps features into a higher-dimensional space where a linear boundary exists — no explicit transformation needed",
+                    "**Linear kernel**: no mapping — fast, good default for high-dimensional text data",
+                    "**RBF (radial basis function) kernel**: $K(x, x') = \\exp(-\\gamma \\|x - x'\\|^2)$ — general-purpose nonlinear boundary",
+                    "**Polynomial kernel**: $K(x, x') = (x^T x' + r)^d$ — useful when feature interactions have known polynomial structure",
+                    "**Sigmoid kernel**: resembles a two-layer neural network activation",
+                    "**Gamma ($\\gamma$)**: controls RBF kernel width — large $\\gamma$ = tight fit to training points (overfitting risk)",
+                    "**Tip**: start with linear SVM; switch to RBF if accuracy is insufficient"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Comparing the Four Algorithms",
+            "subtitle": "Trade-offs and when to use each"
+        },
+        {
+            "type": "content",
+            "title": "Algorithm Trade-offs",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Naive Bayes** — training: very fast | prediction: fast | interpretability: moderate | memory: low",
+                    "**kNN** — training: trivial (stores data) | prediction: slow as $n$ grows | interpretability: low | memory: high",
+                    "**Decision Trees** — training: fast | prediction: fast | interpretability: high (rule lists) | memory: low",
+                    "**SVM** — training: costly for large $n$ | prediction: moderate | interpretability: low–moderate | memory: moderate (support vectors only)",
+                    "**Scaling sensitivity**: kNN and SVM require feature scaling; Naive Bayes and Decision Trees do not",
+                    "**Non-linearity**: kNN, Decision Trees, and SVM (with kernel) handle non-linear boundaries; linear Naive Bayes does not"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "When to Use Each Algorithm",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Naive Bayes** → text classification (spam, sentiment, topic), high-dimensional sparse data, fast real-time inference",
+                    "**kNN** → recommendation systems, pattern recognition, anomaly detection, when data clusters are well-separated",
+                    "**Decision Trees** → when interpretability is required (e.g., regulated domains), mixed feature types, feature importance ranking",
+                    "**SVM** → complex classification with clear class separation, image recognition, high-dimensional spaces with relatively few samples",
+                    "**Start simple**: always establish a logistic regression or linear SVM baseline before more complex models",
+                    "**Validate**: never rely on a heuristic — always cross-validate and compare on your specific dataset"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Common Pitfalls",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**kNN**: forgetting to scale features — distances are meaningless without normalisation",
+                    "**kNN**: using on very large datasets without approximate nearest-neighbour indexing",
+                    "**Naive Bayes**: zero-frequency problem — use Laplace smoothing (`alpha` parameter) to avoid zero probabilities",
+                    "**Naive Bayes**: assuming the independence assumption holds — verify with domain knowledge",
+                    "**Decision Trees**: growing too deep without pruning leads to overfitting and brittle models",
+                    "**SVM**: not scaling features before fitting; also mismatching kernel choice (RBF for sparse text slows training)",
+                    "**All models**: data leakage — never fit scalers or encoders on the test set"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Summary",
+            "subtitle": "Key takeaways from this module"
+        },
+        {
+            "type": "content",
+            "title": "Key Takeaways",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Supervised learning** maps labelled input-output pairs to a function $f(X) \\approx y$",
+                    "**kNN** is a lazy, distance-based voter — simple but memory-hungry and scale-sensitive",
+                    "**Naive Bayes** applies Bayes' theorem with a feature-independence shortcut — fast and excellent for text",
+                    "**Decision Trees** learn axis-aligned if/else rules — highly interpretable but prone to overfitting without pruning",
+                    "**SVM** maximises the margin between classes and uses kernel tricks for non-linear boundaries",
+                    "**No free lunch**: no single algorithm wins on all problems — always validate with cross-validation",
+                    "**Next**: 5.3 covers ensemble methods (Random Forests, Gradient Boosting) that extend Decision Trees"
+                ]
+            }
         }
     ]
 }

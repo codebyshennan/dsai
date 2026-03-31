@@ -8,44 +8,118 @@
             "subtitle": ""
         },
         {
+            "type": "title",
+            "title": "What is Machine Learning?",
+            "subtitle": "Definition and the key difference from traditional programming"
+        },
+        {
             "type": "content",
-            "title": "Bias Variance",
+            "title": "What is Machine Learning?",
             "content": {
                 "type": "box",
                 "items": [
-                    "**High Bias (Underfitting)**",
-                    "**Low Bias**",
-                    "**High Variance (Overfitting)**",
-                    "**Low Variance**",
-                    "If you only show them one type of cat (high bias), they might miss other cat breeds",
-                    "If you show them every possible variation (high variance), they might start calling dogs cats too!",
-                    "**Training Score**: How well the model performs on the data it's seen (like a student's performance on practice tests)",
-                    "**Cross-validation Score**: How well the model performs on new data (like a student's performance on the actual exam)"
+                    "**Traditional Programming**: Rules + Data → Output (you write the logic explicitly)",
+                    "**Machine Learning**: Data + Output → Rules learned automatically",
+                    "ML lets computers find patterns from examples instead of following hand-crafted instructions",
+                    "**Example**: Instead of writing spam filters with keyword rules, we show 10,000 labelled emails and the model learns the rules itself",
+                    "When to use ML: when the rules are too complex to write by hand, or when patterns change over time",
+                    "When NOT to use ML: when a simple rule or query already works, or when you need a fully auditable decision path"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Types of Learning",
+            "subtitle": "Supervised, unsupervised, and reinforcement"
+        },
+        {
+            "type": "content",
+            "title": "Supervised Learning",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Definition**: Learn from labelled examples — each input has a known correct output",
+                    "**Regression**: Predict a continuous number",
+                    "  → House prices, demand forecasting, temperature prediction",
+                    "**Classification**: Predict a category",
+                    "  → Spam detection, image recognition, churn prediction",
+                    "Requires a labelled dataset; performance is measurable against held-out ground truth"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Feature Engineering New",
+            "title": "Unsupervised & Reinforcement Learning",
             "content": {
                 "type": "box",
                 "items": [
-                    "**Continuous Values**: Like temperature or weight - they can take any value within a range",
-                    "**Discrete Values**: Like counting items - they can only take specific values",
-                    "**Nominal Categories**: Groups with no particular order",
-                    "**Ordinal Categories**: Groups with a meaningful order",
-                    "**Timestamps**: Specific points in time",
-                    "**Time Series Data**: Measurements taken over time",
-                    "**Documents**: Full text content",
-                    "**Social Media Posts**: Short-form text",
-                    "$x$ is your original value (like a temperature in Celsius)",
-                    "$\\mu$ is the average of all values (mean)",
-                    "$\\sigma$ is how spread out the values are (standard deviation)",
-                    "$x$ is your original value",
-                    "$x_{min}$ is the smallest value in your data",
-                    "$x_{max}$ is the largest value in your data"
+                    "**Unsupervised learning**: No labels — the algorithm finds structure on its own",
+                    "  → Customer segmentation (clustering), anomaly detection, topic modelling",
+                    "  → Dimensionality reduction: compress many features into 2–3 for visualisation (PCA, t-SNE)",
+                    "**Reinforcement learning**: An agent learns by interacting with an environment and receiving rewards or penalties",
+                    "  → Game-playing AI (AlphaGo), robot navigation, resource scheduling",
+                    "Most production ML today is supervised; unsupervised is common for EDA and pre-processing"
                 ]
             }
+        },
+        {
+            "type": "title",
+            "title": "Algorithm Families Overview",
+            "subtitle": "Regression, classification, clustering, dimensionality reduction"
+        },
+        {
+            "type": "content",
+            "title": "Common Algorithm Families",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Linear models**: Linear/logistic regression — fast, interpretable, good baseline",
+                    "**Tree-based models**: Decision trees, Random Forest, Gradient Boosting — handle non-linearity, mixed types",
+                    "**Support Vector Machines**: Effective in high-dimensional spaces; less common for tabular data now",
+                    "**Clustering**: k-Means, DBSCAN — group similar observations without labels",
+                    "**Dimensionality reduction**: PCA, t-SNE, UMAP — compress features for visualisation or denoising",
+                    "Rule of thumb: always start with a simple linear model as your baseline before trying complex ones"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "The ML Workflow",
+            "subtitle": "Problem → Data → Features → Model → Evaluation → Deployment"
+        },
+        {
+            "type": "content",
+            "title": "ML Workflow: Problem Definition & Data",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Step 1 — Problem definition**: What question are we answering? What is success? (metric, threshold, business impact)",
+                    "**Step 2 — Data collection**: Identify sources; check volume, coverage, and legal/privacy constraints",
+                    "**Step 3 — EDA & cleaning**: Inspect shape, dtypes, missing values, outliers, and class balance",
+                    "Key question before any modelling: 'Is this a regression, classification, or clustering problem?'",
+                    "A poorly defined problem is the most common reason ML projects fail"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "ML Workflow: Modelling & Evaluation",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Step 4 — Feature engineering**: Transform raw columns into inputs the algorithm can use",
+                    "**Step 5 — Model selection & training**: Start simple; compare multiple algorithms on a validation split",
+                    "**Step 6 — Evaluation**: Report metrics on the held-out test set only (MAE, RMSE, accuracy, F1, etc.)",
+                    "**Step 7 — Deployment & monitoring**: Save model artefacts; monitor for data drift and performance degradation",
+                    "Data splits: training (fit) → validation (tune) → test (final, unbiased estimate)",
+                    "Never peek at the test set during development"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Feature Engineering",
+            "subtitle": "Selection, extraction, and transformation"
         },
         {
             "type": "content",
@@ -53,70 +127,82 @@
             "content": {
                 "type": "box",
                 "items": [
-                    "**Continuous Values**: Like temperature or weight - they can take any value within a range",
-                    "**Discrete Values**: Like counting items - they can only take specific values",
-                    "**Nominal Categories**: Groups with no particular order",
-                    "**Ordinal Categories**: Groups with a meaningful order",
-                    "**Timestamps**: Specific points in time",
-                    "**Time Series Data**: Measurements taken over time",
-                    "**Documents**: Full text content",
-                    "**Social Media Posts**: Short-form text",
-                    "$x$ is your original value (like a temperature in Celsius)",
-                    "$\\mu$ is the average of all values (mean)",
-                    "$\\sigma$ is how spread out the values are (standard deviation)",
-                    "$x$ is your original value",
-                    "$x_{min}$ is the smallest value in your data",
-                    "$x_{max}$ is the largest value in your data"
+                    "**What it is**: Turning raw columns into inputs that algorithms can use effectively",
+                    "**Feature types**: Numerical (continuous, discrete), categorical (nominal, ordinal), temporal, text",
+                    "**Scaling / normalisation**: StandardScaler (z-score) or MinMaxScaler — required by distance-based and linear models",
+                    "**Encoding categoricals**: One-hot encoding for nominal; ordinal encoding for ordered; avoid label encoding for nominal data",
+                    "**Derived features**: Domain-informed combinations (price per sqft, is_renovated, age × condition)",
+                    "**Feature selection**: Remove redundant or noisy inputs to reduce variance (SelectKBest, Lasso, correlation filter)"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Bias–Variance Tradeoff",
+            "subtitle": "Underfitting, overfitting, and the sweet spot"
+        },
+        {
+            "type": "content",
+            "title": "Bias–Variance Tradeoff",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**High Bias (Underfitting)**: Model too simple — misses real patterns; both train and CV scores are low",
+                    "  → Fix: more features, higher-capacity model, less regularisation",
+                    "**High Variance (Overfitting)**: Model too complex — memorises noise; train score is high but CV score is much lower",
+                    "  → Fix: more training data, simpler model, regularisation (Ridge/Lasso), feature selection",
+                    "**Good fit**: Both scores are reasonably high and the gap between them is small",
+                    "Analogy: teaching cat recognition — too few examples → misses breeds (bias); too many random examples → calls dogs cats (variance)"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Ml Workflow",
+            "title": "Reading Learning Curves",
             "content": {
                 "type": "box",
                 "items": [
-                    "What problem are we trying to solve?",
-                    "What are our success metrics?",
-                    "What data do we need?",
-                    "How will the solution be used?",
-                    "Keep track of your code changes",
-                    "Document model versions and performance",
-                    "Save model artifacts systematically",
-                    "Document your assumptions",
-                    "Keep track of preprocessing steps",
-                    "Record model performance metrics",
-                    "Monitor model performance over time",
-                    "Watch for data drift",
-                    "Set up alerts for performance degradation",
-                    "Analyze where your model makes mistakes",
-                    "Look for patterns in errors",
-                    "Use insights to improve the model"
+                    "**Training score**: How well the model performs on data it has seen",
+                    "**Cross-validation score**: How well it performs on unseen data — the number that matters",
+                    "**Large persistent gap** (train high, CV low): Overfitting — simplify or regularise",
+                    "**Both curves low**: Underfitting — add complexity or engineer better features",
+                    "**Curves converge near a high value**: Good fit — stop tuning, move to final evaluation",
+                    "Learning curves are the single best diagnostic tool before hyperparameter tuning"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Practical Tips",
+            "subtitle": "Baselines, data splits, and reproducibility"
+        },
+        {
+            "type": "content",
+            "title": "Practical Tips for ML Projects",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Always establish a baseline**: A simple mean predictor or majority-class classifier sets the floor",
+                    "**Set a random seed**: `random_state=42` in every split and model for reproducible results",
+                    "**Split before scaling**: Fit scalers and encoders on training data only; transform validation/test with the same fitted object",
+                    "**Version control everything**: Code, data hashes, model artefacts, and performance metrics",
+                    "**Document assumptions**: Record which rows were excluded, what features were engineered, and why",
+                    "**Monitor after deployment**: Watch for data drift — the real world changes and models degrade silently"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "What Is Ml",
+            "title": "Key Takeaways",
             "content": {
                 "type": "box",
                 "items": [
-                    "**Traditional Programming**: We write specific rules (program) to convert input into output",
-                    "**Machine Learning**: We provide examples of inputs and outputs, and the computer learns the rules",
-                    "Predicting house prices based on features (size, location, etc.)",
-                    "Classifying emails as spam or not spam",
-                    "Identifying objects in images",
-                    "Customer segmentation",
-                    "Anomaly detection",
-                    "Topic modeling in text",
-                    "Game playing AI",
-                    "Robot navigation",
-                    "Resource management",
-                    "**Underfitting (High Bias)**: Model is too simple and misses important patterns",
-                    "**Good Fit**: Model captures the underlying patterns well",
-                    "**Overfitting (High Variance)**: Model is too complex and captures noise in the data",
-                    "**Training Score**: How well the model performs on training data",
-                    "**Cross-validation Score**: How well the model performs on new, unseen data"
+                    "ML learns rules from data rather than following hand-coded instructions",
+                    "Three learning paradigms: supervised (labels), unsupervised (no labels), reinforcement (rewards)",
+                    "Algorithm families: linear models, tree-based, clustering, dimensionality reduction — start simple",
+                    "Follow the workflow: problem → data → features → model → evaluation → deployment",
+                    "Feature engineering often matters more than algorithm choice — invest time here",
+                    "Diagnose with bias–variance: underfitting → add complexity; overfitting → simplify or regularise"
                 ]
             }
         }

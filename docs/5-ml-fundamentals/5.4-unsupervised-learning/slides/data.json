@@ -8,60 +8,377 @@
             "subtitle": ""
         },
         {
+            "type": "title",
+            "title": "What is Unsupervised Learning?",
+            "subtitle": "Finding structure without labels"
+        },
+        {
             "type": "content",
-            "title": "Advanced Clustering",
+            "title": "Supervised vs Unsupervised Learning",
             "content": {
                 "type": "box",
                 "items": [
-                    "Automatically adapting to varying densities",
-                    "Not requiring an epsilon parameter",
-                    "Providing cluster membership probabilities"
+                    "**Supervised learning**: you provide labelled examples (input → known output)",
+                    "**Unsupervised learning**: no labels — the algorithm discovers structure on its own",
+                    "Goal: find natural groupings, reduce complexity, or detect anomalies",
+                    "Common tasks: clustering, dimensionality reduction, anomaly detection",
+                    "Used as a standalone analysis or as a preprocessing step before supervised models"
                 ]
             }
         },
         {
             "type": "content",
+            "title": "Why Unsupervised Learning Matters",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Customer segmentation**: group customers by behaviour without predefined categories",
+                    "**Anomaly detection**: spot unusual spending patterns or fraud without labelled fraud examples",
+                    "**Dimensionality reduction**: simplify 100-feature datasets to 2D for visualisation",
+                    "**Feature extraction**: identify the most informative aspects of raw data",
+                    "**Exploratory analysis**: understand what structure exists before choosing a model"
+                ]
+            }
+        },
+        {
+            "type": "title",
             "title": "Clustering",
+            "subtitle": "Finding natural groups in your data"
+        },
+        {
+            "type": "content",
+            "title": "What is Clustering?",
             "content": {
                 "type": "box",
                 "items": [
-                    "You don't know what groups exist in your data",
-                    "You want to discover natural patterns",
-                    "You need to segment your data into meaningful categories",
-                    "Decides how many groups to make (k)",
-                    "Places items in the group they're closest to",
-                    "Keeps adjusting until everything is in the right place",
-                    "Starts with each item as its own group",
-                    "Gradually combines similar groups",
-                    "Creates a tree-like structure of relationships",
-                    "Identifies dense neighborhoods (clusters)",
-                    "Marks sparse areas as noise",
-                    "Doesn't need to know how many neighborhoods to look for",
-                    "You know how many clusters you want",
-                    "Your clusters are roughly spherical",
-                    "You have a large dataset",
-                    "You don't know how many clusters you want",
-                    "You want to see the relationships between clusters",
-                    "You have a small to medium dataset",
-                    "You don't know how many clusters you want",
-                    "Your clusters can be any shape",
-                    "You want to identify outliers"
+                    "Clustering groups similar data points together without being told what the groups are",
+                    "Use clustering when: you don't know what groups exist in your data",
+                    "Use clustering when: you want to discover natural patterns",
+                    "Use clustering when: you need to segment data into meaningful categories",
+                    "**Key challenge**: no ground truth — you cannot directly measure if a clustering is correct",
+                    "**Key challenge**: choosing the right number of clusters and the right algorithm"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "K-Means Clustering",
+            "subtitle": "The workhorse partition algorithm"
+        },
+        {
+            "type": "content",
+            "title": "How K-Means Works",
+            "content": {
+                "type": "box",
+                "items": [
+                    "1. Choose k — the number of clusters you want",
+                    "2. Randomly place k centroids in the feature space",
+                    "3. Assign each point to the nearest centroid (Euclidean distance)",
+                    "4. Recompute each centroid as the mean of its assigned points",
+                    "5. Repeat steps 3–4 until assignments stop changing (convergence)",
+                    "Result: k non-overlapping clusters, each point belongs to exactly one cluster"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Tsne Umap",
+            "title": "Choosing k — The Elbow Method",
             "content": {
                 "type": "box",
                 "items": [
-                    "You need highly detailed local structure",
-                    "You have a small to medium dataset",
-                    "You want to focus on local relationships",
-                    "You have a large dataset",
-                    "You need to preserve both local and global structure",
-                    "You need faster computation",
-                    "You want to use the embedding for downstream tasks"
+                    "**Inertia**: sum of squared distances from each point to its centroid",
+                    "More clusters always reduces inertia — so we cannot just minimise it blindly",
+                    "**Elbow method**: plot inertia vs k and look for the 'elbow' where gain slows sharply",
+                    "The elbow k is where adding another cluster stops paying off",
+                    "**Silhouette score** (0 to 1) is an alternative: higher = better-separated clusters",
+                    "Neither method gives a definitive answer — treat as a heuristic, not a formula"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "K-Means Limitations",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Assumes spherical clusters**: struggles with elongated or irregular shapes",
+                    "**Sensitive to scale**: always standardise features before running K-Means",
+                    "**Sensitive to outliers**: a single outlier can pull a centroid far from the cluster",
+                    "**Must specify k**: requires you to know (or guess) the number of clusters",
+                    "**Non-deterministic**: different random initialisations can give different results — fix `random_state`",
+                    "**Equal-size bias**: tends to produce clusters of similar size even when the true groups differ"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Hierarchical Clustering",
+            "subtitle": "Building a tree of cluster relationships"
+        },
+        {
+            "type": "content",
+            "title": "How Hierarchical Clustering Works",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Agglomerative (bottom-up)**: start with every point as its own cluster, then merge the two closest clusters repeatedly",
+                    "**Divisive (top-down)**: start with one cluster containing all points and recursively split — less common",
+                    "The process builds a **dendrogram**: a tree diagram showing the merge history",
+                    "To get k clusters: 'cut' the dendrogram horizontally — branches below the cut become clusters",
+                    "**Linkage methods** control how distance between clusters is computed"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Linkage Methods and When to Use Hierarchical Clustering",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Ward linkage**: minimises within-cluster variance — most commonly used, produces compact clusters",
+                    "**Complete linkage**: distance = max distance between any two points across clusters — avoids elongated clusters",
+                    "**Single linkage**: distance = min distance — prone to chaining (linking clusters through a single bridge point)",
+                    "**Average linkage**: distance = mean of all pairwise distances — a compromise",
+                    "Use hierarchical clustering when: you don't know the number of clusters in advance",
+                    "Use hierarchical clustering when: you want to explore cluster relationships at multiple granularities",
+                    "Use hierarchical clustering when: you have a small to medium dataset (scales poorly above ~10k points)"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "DBSCAN",
+            "subtitle": "Density-based clustering for arbitrary shapes"
+        },
+        {
+            "type": "content",
+            "title": "How DBSCAN Works",
+            "content": {
+                "type": "box",
+                "items": [
+                    "DBSCAN = Density-Based Spatial Clustering of Applications with Noise",
+                    "**Two parameters**: `eps` (neighbourhood radius) and `min_samples` (density threshold)",
+                    "A point is a **core point** if it has at least `min_samples` neighbours within radius `eps`",
+                    "**Border points**: within `eps` of a core point but with fewer than `min_samples` neighbours",
+                    "**Noise points**: not within `eps` of any core point — labelled as -1 (outliers)",
+                    "Clusters grow by connecting core points that are within `eps` of each other"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "DBSCAN Strengths and Weaknesses",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Does not require specifying k** — the number of clusters emerges from the data density",
+                    "**Handles arbitrary cluster shapes**: can find crescents, rings, and non-convex regions",
+                    "**Identifies outliers explicitly** as noise — useful for anomaly detection",
+                    "**Weakness**: struggles when clusters have very different densities",
+                    "**Weakness**: choosing `eps` and `min_samples` requires domain knowledge or experimentation",
+                    "Rule of thumb: use a k-distance plot to pick `eps` at the 'elbow' of nearest-neighbour distances"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Comparing Clustering Algorithms",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Use K-Means when**: you know k, clusters are roughly spherical, and you have a large dataset",
+                    "**Use Hierarchical when**: you want to explore cluster relationships, dataset is small-to-medium, no k required",
+                    "**Use DBSCAN when**: clusters can be any shape, you want outlier detection, no k required",
+                    "All methods are sensitive to feature scale — always standardise before clustering",
+                    "Try multiple algorithms and compare using silhouette score or domain knowledge",
+                    "There is no universally best algorithm — match the method to your data's geometry"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Dimensionality Reduction",
+            "subtitle": "Simplifying high-dimensional data"
+        },
+        {
+            "type": "content",
+            "title": "The Curse of Dimensionality",
+            "content": {
+                "type": "box",
+                "items": [
+                    "As the number of features grows, data becomes increasingly sparse in that space",
+                    "Distance measures lose meaning — all points start to look equally far apart",
+                    "Models need exponentially more data to learn reliably as dimensions increase",
+                    "**Dimensionality reduction** projects data onto fewer dimensions while preserving structure",
+                    "Two main goals: **visualisation** (2D or 3D output) and **preprocessing** (remove noise, reduce compute)",
+                    "Linear methods (PCA) preserve global variance; non-linear methods (t-SNE, UMAP) preserve local structure"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Principal Component Analysis (PCA)",
+            "subtitle": "Linear dimensionality reduction"
+        },
+        {
+            "type": "content",
+            "title": "How PCA Works",
+            "content": {
+                "type": "box",
+                "items": [
+                    "PCA finds orthogonal directions (principal components) of maximum variance in the data",
+                    "PC1 captures the most variance; PC2 captures the next most, and is perpendicular to PC1",
+                    "Each subsequent PC is orthogonal to all previous ones and captures decreasing variance",
+                    "Step 1: Standardise features (critical — PCA is variance-based, scale dominates)",
+                    "Step 2: Compute the covariance matrix and its eigenvectors/eigenvalues",
+                    "Step 3: Project data onto the top k eigenvectors (principal components)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Reading a Scree Plot and Choosing Components",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Explained variance ratio**: what fraction of total variance each PC captures",
+                    "**Scree plot**: bar or line chart of explained variance per component — look for the 'elbow'",
+                    "**Cumulative variance curve**: running total — a common rule is to keep components that sum to 90–95% variance",
+                    "After the elbow, additional components add little information and likely capture noise",
+                    "For visualisation: project to 2 or 3 components regardless of cumulative variance",
+                    "For preprocessing: use the elbow or variance threshold to choose k"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "PCA Use Cases and Limitations",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Good for**: high-dimensional tabular data, image compression, noise reduction",
+                    "**Good for**: speeding up downstream models by reducing input features",
+                    "**Limitation**: only captures linear relationships — misses curved or non-linear structure",
+                    "**Limitation**: principal components are combinations of original features — harder to interpret",
+                    "**Limitation**: sensitive to outliers (variance-based)",
+                    "Always fit PCA on training data only — apply the same transform to test data to prevent leakage"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "t-SNE and UMAP",
+            "subtitle": "Non-linear visualisation of complex structure"
+        },
+        {
+            "type": "content",
+            "title": "t-SNE: Visualising Local Neighbourhoods",
+            "content": {
+                "type": "box",
+                "items": [
+                    "t-SNE = t-Distributed Stochastic Neighbour Embedding",
+                    "Converts pairwise similarities in high-dimensional space to 2D probabilities",
+                    "Optimises the 2D layout to match the high-dimensional neighbourhood structure",
+                    "**Perplexity** (5–50): controls how many neighbours each point 'considers' — tune this",
+                    "Low perplexity → focuses on very local structure (may fragment real clusters)",
+                    "High perplexity → captures more global structure but blurs fine detail",
+                    "**Distances between clusters in a t-SNE plot are not meaningful** — do not interpret cluster spacing"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "UMAP: Faster and More Faithful",
+            "content": {
+                "type": "box",
+                "items": [
+                    "UMAP = Uniform Manifold Approximation and Projection",
+                    "Constructs a topological graph of local neighbourhoods, then optimises a 2D layout",
+                    "**Faster** than t-SNE and scales to larger datasets",
+                    "**Better global structure preservation**: distances between clusters are more meaningful than t-SNE",
+                    "Key parameters: `n_neighbors` (local vs global balance) and `min_dist` (cluster spread)",
+                    "Unlike t-SNE, UMAP can transform new points after fitting — useful for downstream tasks"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "t-SNE vs UMAP: When to Use Each",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Both are for visualisation only** — do not use the embeddings as features for models without careful validation",
+                    "**Use t-SNE when**: you need highly detailed local structure and have a small-to-medium dataset",
+                    "**Use UMAP when**: you have a large dataset and need faster computation",
+                    "**Use UMAP when**: you need to preserve both local and global structure",
+                    "**Use UMAP when**: you want to apply the embedding to new data (UMAP supports `transform`)",
+                    "Always run PCA first to reduce to ~50 dimensions before t-SNE — speeds up computation significantly"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Advanced Clustering",
+            "subtitle": "Beyond k-means — soft assignments and validation"
+        },
+        {
+            "type": "content",
+            "title": "Gaussian Mixture Models (GMM)",
+            "content": {
+                "type": "box",
+                "items": [
+                    "GMM models the data as a mixture of k Gaussian distributions",
+                    "Each cluster has its own mean and covariance — handles clusters of different shapes and sizes",
+                    "**Soft assignments**: every point gets a probability of belonging to each cluster",
+                    "Fitted with the Expectation-Maximisation (EM) algorithm",
+                    "Use `predict_proba` to retrieve soft membership scores — useful when cluster boundaries are ambiguous",
+                    "More flexible than K-Means but more sensitive to initialisation and requires specifying k"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "HDBSCAN: Hierarchical Density Clustering",
+            "content": {
+                "type": "box",
+                "items": [
+                    "HDBSCAN extends DBSCAN by building a hierarchy of density-based clusters",
+                    "**Adapts to varying densities** — no single `eps` parameter required",
+                    "Provides **cluster membership probabilities** (like GMM) via `clusterer.probabilities_`",
+                    "More robust than DBSCAN when clusters have different local densities",
+                    "Still identifies noise points (label -1) for outlier detection",
+                    "Parameters: `min_cluster_size` (minimum cluster size) and `min_samples` (density sensitivity)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Cluster Validation Metrics",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Silhouette score** (-1 to 1): measures how similar a point is to its own cluster vs others — higher is better",
+                    "**Davies-Bouldin index**: ratio of within-cluster to between-cluster distance — lower is better",
+                    "**Calinski-Harabasz index**: ratio of between-cluster to within-cluster variance — higher is better",
+                    "All internal metrics — they measure compactness and separation without ground truth labels",
+                    "Use silhouette score to compare different k values or different algorithms on the same data",
+                    "Always sanity-check with domain knowledge — a high score does not guarantee business-meaningful clusters"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Practical Tips for Unsupervised Learning",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Always scale your data** before clustering or PCA — distance and variance are scale-sensitive",
+                    "**Handle missing values** first — most algorithms cannot handle NaN",
+                    "**Try multiple algorithms**: K-Means, DBSCAN, and GMM often give complementary perspectives",
+                    "**Visualise your clusters** with PCA or UMAP to check if they look sensible",
+                    "**Validation without labels is hard** — use internal metrics plus domain knowledge",
+                    "**Beware of high dimensionality**: run PCA or feature selection before clustering on 50+ features",
+                    "**Document your choices**: record which k, which algorithm, and why — reproducibility matters"
                 ]
             }
         }

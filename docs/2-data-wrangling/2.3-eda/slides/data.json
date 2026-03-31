@@ -9,117 +9,284 @@
         },
         {
             "type": "content",
-            "title": "Distributions",
+            "title": "What is EDA and Why It Comes First",
             "content": {
                 "type": "box",
                 "items": [
-                    "**Mean**: $\\bar{x} = \\frac{1}{n}\\sum_{i=1}^n x_i$",
-                    "**Median**: Middle value when sorted",
-                    "**Mode**: Most frequent value",
-                    "**Variance**: $\\sigma^2 = \\frac{1}{n}\\sum_{i=1}^n (x_i - \\bar{x})^2$",
-                    "**Standard Deviation**: $\\sigma = \\sqrt{\\frac{1}{n}\\sum_{i=1}^n (x_i - \\bar{x})^2}$",
-                    "**IQR**: $IQR = Q_3 - Q_1$",
-                    "**Skewness**: $\\gamma_1 = \\frac{m_3}{m_2^{3/2}}$ where $m_k = \\frac{1}{n}\\sum_{i=1}^n (x_i - \\bar{x})^k$",
-                    "**Kurtosis**: $\\gamma_2 = \\frac{m_4}{m_2^2} - 3$"
+                    "EDA is a **structured investigation** of your data before modelling or reporting",
+                    "Coined by John Tukey (1977): let the data speak before fitting a model",
+                    "Catch **wrong units, skewed distributions, leaky features, silent missingness** early",
+                    "Builds intuition about the domain — essential for choosing the right model",
+                    "EDA saves hours of debugging and gives stakeholders confidence in your numbers",
+                    "Mindset: be a **detective**, not a statistician — ask questions, then measure"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Project",
+            "title": "The EDA Workflow",
             "content": {
                 "type": "box",
                 "items": [
-                    "Customer transactions",
-                    "Product information",
-                    "Temporal data",
-                    "Customer demographics",
-                    "Sales metrics",
-                    "Analyze the distribution of sales amounts",
-                    "Examine customer spending patterns",
-                    "Study product pricing distributions",
-                    "Identify and handle outliers",
-                    "Transform skewed distributions if necessary",
-                    "Analyze product category distributions",
-                    "Examine customer demographics",
-                    "Study geographical distributions",
-                    "Create meaningful visualizations for each",
-                    "Cross-tabulations of categories",
-                    "Chi-square tests of independence",
-                    "Visualization of category relationships",
-                    "Compare numeric variables across categories",
-                    "Analyze variance between groups",
-                    "Create box plots and violin plots",
-                    "Daily sales patterns",
-                    "Weekly trends",
-                    "Monthly seasonality",
-                    "Year-over-year growth",
-                    "Trend analysis",
-                    "Seasonal patterns",
-                    "Residual analysis",
-                    "Moving averages",
-                    "Identify unusual patterns",
-                    "Detect seasonal anomalies",
-                    "Flag suspicious transactions",
-                    "Analyze product affinities",
-                    "Study category performance",
-                    "Identify top performers",
-                    "Regional sales patterns",
-                    "Location-based trends",
-                    "Market penetration analysis",
-                    "Executive summary",
-                    "Key findings",
-                    "Methodology description",
-                    "Recommendations",
-                    "Clear and informative plots",
-                    "Proper labeling",
-                    "Consistent styling",
-                    "Interactive elements (optional)",
-                    "Code quality and organization (20%)",
-                    "Analysis depth and accuracy (30%)",
-                    "Visualization effectiveness (20%)",
-                    "Insights and interpretation (20%)",
-                    "Documentation clarity (10%)"
+                    "**Step 1 — Load & inspect**: shape, dtypes, memory, first/last rows",
+                    "**Step 2 — Univariate analysis**: distribution of each column individually",
+                    "**Step 3 — Summary statistics**: `describe()`, `value_counts()`, missing counts",
+                    "**Step 4 — Missing data**: patterns, heatmaps, decide MCAR / MAR / MNAR",
+                    "**Step 5 — Outlier detection**: visual (box plot) + statistical (IQR, z-score)",
+                    "**Step 6 — Bivariate analysis**: scatter plots, correlation matrices",
+                    "**Step 7 — Categorical relationships**: bar charts, cross-tabs, chi-square",
+                    "**Step 8 — Time series EDA**: trends, seasonality, rolling statistics",
+                    "**Step 9 — Document findings**: hypotheses to test, red flags to address"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Univariate Analysis",
+            "subtitle": "Understanding one variable at a time"
+        },
+        {
+            "type": "content",
+            "title": "Histograms and Distribution Shape",
+            "content": {
+                "type": "box",
+                "items": [
+                    "A **histogram** bins values and counts frequency — first visual check for any numeric column",
+                    "Add a **KDE curve** (`sns.histplot(kde=True)`) to see the smooth density estimate",
+                    "**Normal (bell)**: mean ≈ median, symmetric tails — parametric methods safe",
+                    "**Right-skewed**: long right tail, mean > median — common in revenue, income",
+                    "**Left-skewed**: long left tail, mean < median — common in ratings, scores",
+                    "**Bimodal**: two peaks — often a hidden sub-population or mixing of groups",
+                    "Rule of thumb: |skewness| > 1 is significant and usually needs a transform",
+                    "`df['col'].hist(bins=30)` or `sns.histplot(df['col'], bins=30, kde=True)`"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Relationships",
+            "title": "Box Plots and Skewness",
             "content": {
                 "type": "box",
                 "items": [
-                    "Making better predictions",
-                    "Identifying key drivers",
-                    "Discovering hidden patterns",
-                    "Making informed business decisions",
-                    "**Pearson Correlation**: $r = \\frac{\\sum_{i=1}^n (x_i - \\bar{x})(y_i - \\bar{y})}{\\sqrt{\\sum_{i=1}^n (x_i - \\bar{x})^2}\\sqrt{\\sum_{i=1}^n (y_i - \\bar{y})^2}}$",
-                    "**Spearman Rank Correlation**: $\\rho = 1 - \\frac{6\\sum d_i^2}{n(n^2-1)}$ where $d_i$ is rank difference",
-                    "**Kendall's Tau**: $\\tau = \\frac{2(P - Q)}{n(n-1)}$ where P and Q are concordant and discordant pairs",
-                    "**Chi-square Test**: $\\chi^2 = \\sum \\frac{(O - E)^2}{E}$",
-                    "**Cramer's V**: $V = \\sqrt{\\frac{\\chi^2}{n \\min(r-1, c-1)}}$",
-                    "**Mutual Information**: $I(X;Y) = \\sum_{y \\in Y} \\sum_{x \\in X} p(x,y) \\log(\\frac{p(x,y)}{p(x)p(y)})$"
+                    "A **box plot** shows Q1, median, Q3 and the IQR fence in one glance",
+                    "Box spans **Q1 to Q3** (middle 50 % of data); line inside is the **median**",
+                    "Whiskers extend to 1.5 × IQR; points beyond are drawn as individual dots",
+                    "**Skewness**: $\\gamma_1 = \\frac{m_3}{m_2^{3/2}}$ — positive means right tail is longer",
+                    "**Kurtosis**: $\\gamma_2 = \\frac{m_4}{m_2^2} - 3$ — heavy tails have positive excess kurtosis",
+                    "When median is close to Q1, the distribution is right-skewed (long upper whisker)",
+                    "`sns.boxplot(y=df['col'])` or `df.boxplot(column='col')`"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Summary Statistics",
+            "subtitle": "Numbers that summarise a column"
+        },
+        {
+            "type": "content",
+            "title": "Central Tendency and Spread",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Mean**: $\\bar{x} = \\frac{1}{n}\\sum_{i=1}^n x_i$ — best for symmetric distributions, sensitive to outliers",
+                    "**Median**: middle value when sorted — robust, better for skewed data",
+                    "**Mode**: most frequent value — use for categorical and discrete data",
+                    "**Std**: $\\sigma = \\sqrt{\\frac{1}{n}\\sum (x_i - \\bar{x})^2}$ — same units as the data",
+                    "**IQR**: $Q_3 - Q_1$ — robust spread measure used in outlier fences",
+                    "When mean >> median: suspect right skew and outliers pulling the mean up",
+                    "Rule: use **median + IQR** for skewed data, **mean + std** for symmetric data"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Time Series",
+            "title": "Using describe() and value_counts()",
             "content": {
                 "type": "box",
                 "items": [
-                    "Forecasting future trends",
-                    "Understanding seasonal patterns",
-                    "Detecting anomalies",
-                    "Making data-driven decisions",
-                    "Optimizing business operations",
-                    "**Trend** ($T_t$): Long-term direction",
-                    "**Seasonality** ($S_t$): Regular patterns",
-                    "**Residuals** ($R_t$): Random variations",
-                    "**Additive Model**: $Y_t = T_t + S_t + R_t$",
-                    "**Multiplicative Model**: $Y_t = T_t \\times S_t \\times R_t$",
-                    "**Simple Moving Average**: $MA_t = \\frac{1}{n}\\sum_{i=0}^{n-1} Y_{t-i}$",
-                    "**Exponential Moving Average**: $EMA_t = \\alpha Y_t + (1-\\alpha)EMA_{t-1}$"
+                    "`df.describe()` → count, mean, std, min, 25 %, 50 %, 75 %, max for all numeric columns",
+                    "`df.describe(include='all')` → also includes top/freq/unique for categoricals",
+                    "`df['col'].value_counts()` → frequency table for categorical or discrete columns",
+                    "`df['col'].value_counts(normalize=True)` → proportion instead of count",
+                    "`df.info()` → dtypes and non-null counts in one call — first sanity check",
+                    "Compare **min/max to domain expectations** — spot impossible values early",
+                    "Check `count` vs `len(df)` per column to surface missing data quickly"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Outlier Detection During EDA",
+            "subtitle": "Visual and statistical methods"
+        },
+        {
+            "type": "content",
+            "title": "Visual Outlier Detection",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Box plot**: points beyond 1.5 × IQR fences are flagged as potential outliers",
+                    "**Histogram**: isolated bars at extremes indicate outliers",
+                    "**Scatter plot**: isolated points far from the cloud are visible immediately",
+                    "**Strip / swarm plot**: shows individual points — useful for small datasets",
+                    "Always plot before deciding — some 'outliers' are correct extreme values (e.g. billionaires in income data)",
+                    "Plot with and without outliers to understand their **impact on the distribution**"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Statistical Outlier Detection",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**IQR method**: outlier if value < Q1 − 1.5 × IQR or > Q3 + 1.5 × IQR",
+                    "**Z-score method**: outlier if |z| > 3, where $z = \\frac{x - \\bar{x}}{\\sigma}$",
+                    "IQR is more **robust** (not affected by outliers themselves); z-score assumes near-normality",
+                    "Use z-score only when data is roughly symmetric; prefer IQR for skewed data",
+                    "Decision options: **keep, cap (winsorize), transform (log), or remove** — justify each choice",
+                    "Document every outlier decision — reviewers and future-you will thank you"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Missing Data Patterns",
+            "subtitle": "Understand before imputing"
+        },
+        {
+            "type": "content",
+            "title": "Missing Data Analysis and Heatmaps",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**MCAR** (Missing Completely At Random): no pattern — safe to drop or impute",
+                    "**MAR** (Missing At Random): missingness depends on other columns — impute carefully",
+                    "**MNAR** (Missing Not At Random): missingness depends on the missing value itself — hardest case",
+                    "`df.isnull().sum()` → count per column; `/ len(df) * 100` for percentage",
+                    "**Missingness heatmap**: `sns.heatmap(df.isnull(), cbar=False)` — spots row-level patterns",
+                    "**Correlation of missingness**: `df.isnull().corr()` — finds columns that go missing together",
+                    "Never blindly `dropna()` — always profile the pattern first to avoid silent bias"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Bivariate Analysis",
+            "subtitle": "Exploring relationships between two variables"
+        },
+        {
+            "type": "content",
+            "title": "Scatter Plots and Correlation Matrices",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Scatter plot**: plot two numeric columns against each other to see linear or non-linear patterns",
+                    "Add a regression line (`sns.regplot`) to estimate the direction and slope at a glance",
+                    "**Pearson r**: $r = \\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sqrt{\\sum (x_i-\\bar{x})^2}\\sqrt{\\sum(y_i-\\bar{y})^2}}$ — linear only, −1 to 1",
+                    "**Spearman ρ**: rank-based, handles monotonic non-linear relationships",
+                    "**Correlation heatmap**: `sns.heatmap(df.corr(), annot=True, cmap='coolwarm')` — overview of all pairs",
+                    "r > 0.7 or < −0.7 is usually considered **strong**; always visualise to confirm",
+                    "**Correlation ≠ causation** — lurking variables and reverse causality are common"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Categorical Relationships",
+            "subtitle": "Bar charts, cross-tabs, and group comparisons"
+        },
+        {
+            "type": "content",
+            "title": "Bar Charts and Cross-Tabulations",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Bar chart**: `df['col'].value_counts().plot(kind='bar')` — frequency of each category",
+                    "**Grouped bar chart**: compare one numeric metric across categories side by side",
+                    "**Stacked bar chart**: shows proportions within each category",
+                    "**Cross-tabulation**: `pd.crosstab(df['A'], df['B'])` — joint frequency table for two categoricals",
+                    "**Chi-square test**: $\\chi^2 = \\sum \\frac{(O - E)^2}{E}$ — test independence between two categorical columns",
+                    "**Cramér's V**: $V = \\sqrt{\\frac{\\chi^2}{n \\cdot \\min(r-1, c-1)}}$ — effect size, 0 (no association) to 1 (perfect)",
+                    "**Box plot by category**: `sns.boxplot(x='category', y='numeric', data=df)` — compare distributions"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Time Series EDA",
+            "subtitle": "Exploring temporal patterns"
+        },
+        {
+            "type": "content",
+            "title": "Trends, Seasonality, and Rolling Statistics",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Parse dates first**: `pd.to_datetime(df['date'])` → set as index for resampling",
+                    "**Line plot**: `df.set_index('date')['value'].plot()` — first check for trends and spikes",
+                    "**Decomposition**: separate Trend ($T_t$), Seasonality ($S_t$), Residuals ($R_t$)",
+                    "Additive: $Y_t = T_t + S_t + R_t$ — use when seasonal amplitude is constant",
+                    "Multiplicative: $Y_t = T_t \\times S_t \\times R_t$ — use when amplitude grows with the trend",
+                    "**Simple moving average**: $MA_t = \\frac{1}{n}\\sum_{i=0}^{n-1} Y_{t-i}$ — smooths noise, reveals trend",
+                    "**EMA**: $EMA_t = \\alpha Y_t + (1-\\alpha)EMA_{t-1}$ — reacts faster to recent changes",
+                    "`df.resample('M').mean()` — aggregate to monthly; `rolling(7).mean()` — 7-day smoothing"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Time Series Anomaly Detection",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Rolling z-score**: flag points beyond rolling_mean ± 3 × rolling_std",
+                    "`rolling_mean = series.rolling(window=30).mean()`",
+                    "`rolling_std  = series.rolling(window=30).std()`",
+                    "Anomaly = value outside `rolling_mean ± threshold × rolling_std`",
+                    "**Seasonal anomaly**: compare same period across years (e.g. December week vs prior Decembers)",
+                    "**ACF plot**: autocorrelation function reveals the dominant seasonal period",
+                    "Plot anomalies as **red markers** on the original line chart for immediate visibility"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "EDA Workflow Summary",
+            "subtitle": "A repeatable checklist"
+        },
+        {
+            "type": "content",
+            "title": "EDA Checklist Before Modelling",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Load**: confirm shape, dtypes, memory; scan first and last rows",
+                    "**Profile**: `describe(include='all')`, `info()`, missing counts per column",
+                    "**Univariate**: histogram + box plot for every numeric; bar chart for every categorical",
+                    "**Outliers**: IQR fence or z-score; visualise and decide keep / cap / remove",
+                    "**Missing data**: heatmap, correlation of missingness, classify MCAR / MAR / MNAR",
+                    "**Bivariate**: correlation heatmap, scatter plots for key pairs, cross-tabs for categoricals",
+                    "**Temporal** (if applicable): line plot, decomposition, rolling stats, anomaly scan",
+                    "**Document**: write down hypotheses, red flags, and data quality decisions before modelling"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "EDA Project",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Apply the full EDA workflow to the e-commerce dataset provided",
+                    "Analyse distributions of sales amounts and customer spending patterns",
+                    "Detect and justify treatment of outliers in price and revenue columns",
+                    "Profile missing data patterns and document your imputation or removal decisions",
+                    "Build a correlation heatmap and identify the top 3 strongest numeric relationships",
+                    "Create cross-tabs and bar charts for at least two categorical pairs",
+                    "Decompose the daily sales time series into trend, seasonal, and residual components",
+                    "Summarise your findings in a short report: key insights and data quality decisions"
                 ]
             }
         }

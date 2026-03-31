@@ -115,6 +115,13 @@
   - "3.2-adv-data-viz/README.md"
   - "3.3-bi-with-tableau/README.md"
   - "3.4-data-storytelling/README.md"
+  - "FAQ.md"
+  - "glossary.md"
+  - "beginners-guide.md"
+  - "best-practices-guide.md"
+  - "choosing-the-right-visualization.md"
+  - "common-mistakes.md"
+  - "quick-start.md"
 
 "3-data-visualization/_assignments":
   - "module-assignment.md"

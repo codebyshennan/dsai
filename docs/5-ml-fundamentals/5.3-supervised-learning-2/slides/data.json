@@ -1,11 +1,422 @@
 {
     "title": "Supervised Learning - Part 2",
-    "subtitle": "",
+    "subtitle": "Ensembles, Neural Networks & Regularization",
     "slides": [
         {
             "type": "title",
             "title": "Supervised Learning - Part 2",
-            "subtitle": ""
+            "subtitle": "Ensembles, Neural Networks & Regularization"
+        },
+        {
+            "type": "title",
+            "title": "Module Overview",
+            "subtitle": "What we cover in Part 2"
+        },
+        {
+            "type": "content",
+            "title": "From Single Learners to Ensembles",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Part 1 recap**: Decision trees, logistic regression, SVMs — one model, one prediction",
+                    "**Part 2 idea**: Combine many models to beat any single learner",
+                    "**Two ensemble families**: Bagging (parallel) and Boosting (sequential)",
+                    "**Deep learning**: Neural networks learn feature representations automatically",
+                    "**Regularization**: Controls complexity across all model families",
+                    "**Goal**: Choose the right tool for the problem — tabular data, images, or text"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Learning Objectives",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Explain how Random Forests reduce variance through bagging and feature randomness",
+                    "Describe the sequential error-correction logic behind Gradient Boosting",
+                    "Identify XGBoost and LightGBM as production-grade boosting libraries",
+                    "Trace the forward pass through a neural network layer by layer",
+                    "Explain how backpropagation uses the chain rule to update weights",
+                    "Apply L1, L2, dropout, and early stopping to prevent overfitting",
+                    "Select the right algorithm given data type, size, and interpretability needs"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Random Forests",
+            "subtitle": "Bagging + Feature Randomness"
+        },
+        {
+            "type": "content",
+            "title": "What is a Random Forest?",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Core idea**: Train many decision trees independently, then aggregate their predictions",
+                    "**Classification**: majority vote across all trees",
+                    "**Regression**: average of all tree outputs",
+                    "**Why better than one tree?** Individual trees overfit; the ensemble averages out their errors",
+                    "**Analogy**: Asking 100 experts instead of 1 — the crowd is smarter than any individual",
+                    "**Key ingredients**: Bootstrap sampling (bagging) + random feature subsets at each split"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Bootstrap Aggregating (Bagging)",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Bootstrap sample**: Draw N samples from the training set with replacement",
+                    "Each tree sees a different ~63% of the data; ~37% is left out (out-of-bag)",
+                    "**Diversity**: Trees trained on different subsets make different errors",
+                    "**Aggregation**: Averaging diverse errors reduces overall variance",
+                    "**Out-of-bag (OOB) error**: Free validation estimate — no separate hold-out needed",
+                    "OOB samples act like a validation set for each tree; averaged OOB error approximates test error"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Random Feature Selection",
+            "content": {
+                "type": "box",
+                "items": [
+                    "At each split, consider only a random subset of features (not all features)",
+                    "**Classification default**: sqrt(n_features) features per split",
+                    "**Regression default**: n_features / 3 features per split",
+                    "**Why randomize features?** Prevents dominant features from appearing in every tree",
+                    "Decorrelates the trees — correlated trees don't reduce variance when averaged",
+                    "**Feature importance**: Count how much each feature reduces impurity across all splits"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Random Forest — When to Use",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Great for**: High-dimensional tabular data, mixed feature types, feature importance analysis",
+                    "**Handles**: Missing values, non-linear relationships, both classification and regression",
+                    "**Stable**: Less sensitive to hyperparameters than boosting methods",
+                    "**Parallelizable**: Trees train independently — easy to distribute",
+                    "**Less suitable for**: Real-time low-latency inference, very large datasets (try LightGBM), pure linear patterns",
+                    "**Key hyperparameters**: n_estimators (more is usually better), max_features, max_depth"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Gradient Boosting",
+            "subtitle": "Sequential Error Correction"
+        },
+        {
+            "type": "content",
+            "title": "How Gradient Boosting Works",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Core idea**: Fit each new tree to the *residuals* (errors) of the current ensemble",
+                    "**Step 1**: Start with a simple prediction (e.g., the mean of y)",
+                    "**Step 2**: Compute residuals — where is the current model wrong?",
+                    "**Step 3**: Train a shallow tree to predict those residuals",
+                    "**Step 4**: Add the tree to the ensemble (scaled by learning rate)",
+                    "**Step 5**: Repeat — each iteration corrects what the previous ensemble missed",
+                    "**Gradient descent in function space**: We minimize loss by stepping in the direction of steepest descent"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Bagging vs Boosting",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Bagging (Random Forest)**: Trees trained in parallel on bootstrap samples",
+                    "**Boosting (Gradient Boosting)**: Trees trained sequentially; each fixes prior errors",
+                    "**Bagging reduces variance** — good when individual trees overfit",
+                    "**Boosting reduces bias** — good when individual trees underfit (weak learners)",
+                    "**Bagging**: robust, parallelizable, fewer hyperparameters",
+                    "**Boosting**: typically higher accuracy, but more parameters to tune and slower to train",
+                    "**Rule of thumb**: Try Random Forest first; switch to boosting if you need the extra edge"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "XGBoost and LightGBM",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**XGBoost**: Regularized gradient boosting — adds L1/L2 penalties on tree weights; dominated Kaggle ca. 2015–2018",
+                    "**LightGBM**: Leaf-wise (best-first) tree growth instead of level-wise — faster and lower memory on large datasets",
+                    "**CatBoost**: Native categorical feature handling with ordered boosting to reduce target leakage",
+                    "**Shared strengths**: Built-in cross-validation, early stopping, feature importance, sparse data support",
+                    "**Key hyperparameters**: learning_rate, n_estimators, max_depth, subsample, colsample_bytree, reg_alpha/lambda",
+                    "**Practical tip**: Start with learning_rate=0.1 and use early stopping on a validation set"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Gradient Boosting — When to Use",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Best for**: Structured / tabular data where accuracy is the priority",
+                    "**Common use cases**: Credit scoring, churn prediction, sales forecasting, Kaggle competitions",
+                    "**Handles**: Mixed types, missing values, imbalanced classes (with scale_pos_weight)",
+                    "**Less suitable for**: Real-time systems (training is sequential), image/text (use neural networks)",
+                    "**Overfitting risk**: High learning rate + too many trees → memorization; use early stopping",
+                    "**Interpretability**: SHAP values give local feature attributions without sacrificing accuracy"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Neural Networks",
+            "subtitle": "Layers, Activations, and the Forward Pass"
+        },
+        {
+            "type": "content",
+            "title": "Building Blocks of a Neural Network",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Neuron**: Computes a weighted sum of inputs then applies an activation function",
+                    "**Input layer**: Receives raw features (pixel values, word embeddings, tabular columns)",
+                    "**Hidden layers**: Learn increasingly abstract representations of the input",
+                    "**Output layer**: Produces the final prediction (class probabilities or regression value)",
+                    "**Weights (W)**: Learnable parameters connecting neurons between layers",
+                    "**Bias (b)**: Shifts the activation — allows the model to fit data not centered at the origin",
+                    "**Depth**: More hidden layers = more capacity to learn complex functions"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Activation Functions",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Why activations?** Without them, stacking linear layers collapses to a single linear transform",
+                    "**ReLU** (Rectified Linear Unit): max(0, x) — fast, default choice for hidden layers",
+                    "**Sigmoid**: 1/(1+e^-x) — squashes to (0,1); used for binary output, prone to vanishing gradients in deep nets",
+                    "**Tanh**: Squashes to (-1,1); zero-centered; better than sigmoid for hidden layers in shallow nets",
+                    "**Softmax**: Converts raw scores to a probability distribution across K classes — use at the output layer for multi-class",
+                    "**Leaky ReLU / ELU**: Fix the 'dying ReLU' problem where neurons get stuck at zero",
+                    "**Practical default**: ReLU hidden layers + Softmax output (classification) or linear output (regression)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "The Forward Pass",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Step 1**: Feed input vector x into the input layer",
+                    "**Step 2**: Each hidden layer computes z = Wx + b, then a = activation(z)",
+                    "**Step 3**: Output layer produces prediction ŷ (e.g., class probabilities via softmax)",
+                    "**Step 4**: Compute loss L(ŷ, y) — e.g., cross-entropy for classification, MSE for regression",
+                    "**All operations are differentiable**: Enables gradients to flow backward through the network",
+                    "**Inference = forward pass only**: After training, prediction is fast — just matrix multiplications"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Neural Network Architectures",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Feedforward (MLP)**: Fully-connected layers — good for tabular data and general regression/classification",
+                    "**CNN (Convolutional)**: Shared filters scan spatial regions — dominant for images and video",
+                    "**RNN / LSTM**: Recurrent connections carry state across time steps — good for sequences (text, audio)",
+                    "**Transformer**: Attention mechanism — current state-of-the-art for NLP, and increasingly vision",
+                    "**Transfer learning**: Fine-tune a pretrained model (e.g., ResNet, BERT) instead of training from scratch",
+                    "**Practical heuristic**: Tabular → MLP or boosting; images → CNN; text → Transformer"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Backpropagation",
+            "subtitle": "Chain Rule, Gradients, and Weight Updates"
+        },
+        {
+            "type": "content",
+            "title": "How Neural Networks Learn",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Goal**: Adjust weights W so that the loss L(ŷ, y) is minimized",
+                    "**Gradient descent**: Move weights in the direction that decreases the loss — W ← W - α·∂L/∂W",
+                    "**α (learning rate)**: Controls step size — too large = overshoot; too small = slow convergence",
+                    "**Challenge**: Network has many layers — how do we compute ∂L/∂W for every weight?",
+                    "**Answer**: Backpropagation — efficiently compute all gradients in one backward pass",
+                    "**Key insight**: The chain rule lets us propagate error signals from output back to input"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "The Chain Rule in Practice",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Chain rule**: ∂L/∂W₁ = (∂L/∂a₂) · (∂a₂/∂z₂) · (∂z₂/∂a₁) · (∂a₁/∂z₁) · (∂z₁/∂W₁)",
+                    "**Forward pass**: Compute and cache all intermediate activations (z, a at each layer)",
+                    "**Backward pass**: Starting from the loss, multiply local gradients layer by layer",
+                    "**Vanishing gradients**: Sigmoid/tanh derivatives are small — multiplied many times → gradient ≈ 0 in early layers",
+                    "**Exploding gradients**: Gradients grow exponentially — clip gradients or use batch normalization",
+                    "**Solution**: ReLU activations, careful weight initialization (Xavier/He), gradient clipping, batch norm"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Optimizers and Learning Rate",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**SGD (Stochastic Gradient Descent)**: Update weights on mini-batches — noisier but faster than full-batch",
+                    "**Momentum**: Accumulate gradient direction over past steps to dampen oscillations",
+                    "**Adam**: Adaptive learning rates per parameter using first and second gradient moments — default choice",
+                    "**Learning rate too high**: Loss oscillates or diverges",
+                    "**Learning rate too low**: Very slow convergence; may get stuck in local minima",
+                    "**Learning rate schedule**: Start high, decay over time (step decay, cosine annealing, warm restarts)",
+                    "**Practical tip**: Start with Adam at lr=1e-3; reduce on plateau or use a scheduler"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Regularization",
+            "subtitle": "Controlling Complexity to Prevent Overfitting"
+        },
+        {
+            "type": "content",
+            "title": "Why Regularization?",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Overfitting**: Model memorizes training data — high training accuracy, poor test accuracy",
+                    "**Bias-variance tradeoff**: More complex model → lower bias, higher variance",
+                    "**Regularization adds a penalty** on model complexity to the loss function",
+                    "**Modified loss**: L_total = L_data + λ · Complexity_penalty",
+                    "**λ (lambda)**: Regularization strength — higher λ → simpler model (more bias, less variance)",
+                    "**Signs of overfitting**: Large gap between training and validation curves, high feature weights"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "L1 and L2 Regularization",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**L2 (Ridge)**: Penalty = λ·Σw² — shrinks all weights toward zero; keeps all features",
+                    "L2 is differentiable everywhere and works well when many features contribute a little",
+                    "**L1 (Lasso)**: Penalty = λ·Σ|w| — drives some weights to exactly zero; automatic feature selection",
+                    "L1 is useful when you believe most features are irrelevant (sparse signal)",
+                    "**Elastic Net**: Penalty = λ₁·Σ|w| + λ₂·Σw² — combines both; good for correlated features",
+                    "**In tree models**: Regularization via max_depth, min_samples_leaf, or XGBoost's reg_alpha/reg_lambda",
+                    "**Practical tip**: Default to L2; switch to L1 or Elastic Net when feature selection is important"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Dropout and Early Stopping",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Dropout**: Randomly zero out neurons (rate 0.2–0.5) during each training step",
+                    "Forces the network to learn redundant representations — no single neuron can dominate",
+                    "Equivalent to training an ensemble of many thinned networks simultaneously",
+                    "**Dropout at test time**: Turn off dropout; scale activations by keep probability",
+                    "**Early stopping**: Monitor validation loss; stop training when it stops improving",
+                    "Saves a checkpoint of the best model; prevents wasted compute and overfitting",
+                    "**Patience parameter**: Number of epochs to wait for improvement before stopping"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Other Regularization Techniques",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Batch normalization**: Normalize layer inputs per mini-batch — stabilizes training, mild regularization effect",
+                    "**Data augmentation**: Artificially expand training data (flips, crops, noise) — especially useful in vision",
+                    "**Weight decay**: L2 penalty applied directly to optimizer (equivalent to L2 regularization in SGD)",
+                    "**Max-norm constraint**: Clip weight vector norms during training",
+                    "**Reduce model capacity**: Fewer layers, fewer neurons — simplest form of regularization",
+                    "**Cross-validation**: Estimates true generalization error; guides hyperparameter tuning including λ"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Comparing Approaches",
+            "subtitle": "Ensembles vs. Deep Learning"
+        },
+        {
+            "type": "content",
+            "title": "Algorithm Comparison",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Random Forest**: Fast training, robust defaults, interpretable feature importance — great starting point",
+                    "**Gradient Boosting (XGBoost/LightGBM)**: Best accuracy on tabular data, requires careful tuning",
+                    "**Neural Networks (MLP)**: Flexible, scales with data — competitive on tabular only with large datasets",
+                    "**CNN**: Unmatched on image/video tasks — learn spatial hierarchies automatically",
+                    "**Transformer**: State-of-the-art on text, increasingly vision and multimodal tasks",
+                    "**Training speed**: Random Forest > LightGBM > XGBoost > MLP (generally)",
+                    "**Interpretability**: Random Forest > Gradient Boosting (SHAP) > Neural Networks (attribution methods)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Decision Guide: Picking an Algorithm",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Image / video data?** → CNN (ResNet, EfficientNet) or Vision Transformer",
+                    "**Text / sequence data?** → Transformer (BERT, GPT fine-tune) or LSTM",
+                    "**Structured / tabular data + need interpretability?** → Random Forest",
+                    "**Structured / tabular data + need best accuracy?** → Gradient Boosting (XGBoost or LightGBM)",
+                    "**Large dataset + complex patterns?** → Neural Network (MLP or domain-specific architecture)",
+                    "**Small dataset?** → Simpler models (logistic regression, Random Forest) before neural networks",
+                    "**Always**: Establish a simple baseline first; use cross-validation to compare fairly"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Key Takeaways",
+            "subtitle": "Summary of Supervised Learning Part 2"
+        },
+        {
+            "type": "content",
+            "title": "Summary",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Random Forest**: Bagging + random features → low variance; OOB error gives free validation",
+                    "**Gradient Boosting**: Sequential residual fitting → low bias; XGBoost/LightGBM are production-ready",
+                    "**Neural Networks**: Stacked differentiable layers learn representations; architecture choice matters",
+                    "**Backpropagation**: Chain rule enables efficient gradient computation; Adam is the go-to optimizer",
+                    "**Regularization**: L1/L2 for weight penalties, dropout for networks, early stopping for all",
+                    "**Bias-variance tradeoff** runs through everything: more complex → lower bias, higher variance",
+                    "**Next step**: Practice on real datasets — compare models with proper cross-validation and metrics"
+                ]
+            }
         }
     ]
 }

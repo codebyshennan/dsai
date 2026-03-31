@@ -243,7 +243,7 @@
                 <section>
                     <div class="content-wrapper">
                         <h1>Data Querying with SQL: Your Gateway to Data Mastery</h1>
-                        
+                        <h3>From fundamentals to advanced patterns</h3>
                     </div>
                     <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
@@ -251,7 +251,7 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Advanced Concepts (1/2)</h2>
+                        <h2>What is SQL and Why it Matters (1/2)</h2>
                         <div class="box box--compact">
                             
                             
@@ -259,22 +259,22 @@
                         
                     <div class="list-container">
                         <ul>
-                            <li>Write complex, performant queries</li>
-<li>Handle large-scale data processing</li>
-<li>Implement sophisticated business logic</li>
-<li>Optimize database operations</li>
-<li>Write self-documenting queries with clear aliases</li>
+                            <li><strong>SQL</strong> (Structured Query Language) is the standard language for working with relational databases</li>
+<li>SQL lets you ask questions of structured data at scale—from 100 to 100 million rows, the same query works</li>
+<li><strong>Where SQL appears in practice:</strong></li>
+<li>- Reports and dashboards</li>
+<li>- ML feature pipelines and data preparation</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>Use CTEs for better readability and maintenance</li>
-<li>Leverage appropriate indexes for performance</li>
-<li>Consider query plan and execution cost</li>
-<li>Implement proper constraints and relationships</li>
-<li>Use appropriate data types</li>
+                            <li>- Application backends and APIs</li>
+<li>- Business intelligence and analytics</li>
+<li><strong>Why it matters for data science:</strong></li>
+<li>- Most organisations store structured data in relational databases</li>
+<li>- Pull trustworthy slices without waiting on someone else</li>
                         </ul>
                     </div>
                 
@@ -288,18 +288,14 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Advanced Concepts (2/2)</h2>
+                        <h2>What is SQL and Why it Matters (2/2)</h2>
                         <div class="box">
                             
                             
                     <div class="list-container">
                         <ul>
-                            <li>Design with scalability in mind</li>
-<li>Regular maintenance and optimization</li>
-<li>Version control your database changes</li>
-<li>Implement proper testing procedures</li>
-<li>Monitor query performance</li>
-<li>Regular code reviews and optimization</li>
+                            <li>- 90% of Fortune 500 companies use SQL-based databases</li>
+<li>- Required skill for data analysts, engineers, and scientists</li>
                         </ul>
                     </div>
                 
@@ -311,51 +307,7 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Aggregations</h2>
-                        <div class="box">
-                            
-                            
-                    <div class="list-container">
-                        <ul>
-                            <li>Raw data = Individual grocery receipts</li>
-<li>Aggregated data = Monthly spending summary</li>
-<li><a href="https://www.postgresql.org/docs/current/functions-aggregate.html" target="_blank" rel="noopener">PostgreSQL Aggregation Documentation</a></li>
-<li><a href="https://mode.com/sql-tutorial/sql-window-functions/" target="_blank" rel="noopener">Window Functions Tutorial</a></li>
-<li><a href="https://use-the-index-luke.com/" target="_blank" rel="noopener">SQL Performance Tuning Guide</a></li>
-<li><a href="https://modern-sql.com/" target="_blank" rel="noopener">Advanced SQL Recipes</a></li>
-                        </ul>
-                    </div>
-                
-                        </div>
-                    </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
-                </section>
-            
-
-                <section>
-                    <div class="content-wrapper">
-                        <h2>Basic Operations</h2>
-                        <div class="box">
-                            
-                            
-                    <div class="list-container">
-                        <ul>
-                            <li>Data retrieval and analysis</li>
-<li>Database management</li>
-<li>Data integrity maintenance</li>
-<li>Application development</li>
-                        </ul>
-                    </div>
-                
-                        </div>
-                    </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
-                </section>
-            
-
-                <section>
-                    <div class="content-wrapper">
-                        <h2>Intro Databases (1/2)</h2>
+                        <h2>Relational Databases: Core Concepts (1/2)</h2>
                         <div class="box box--compact">
                             
                             
@@ -363,22 +315,22 @@
                         
                     <div class="list-container">
                         <ul>
-                            <li>Uses structured tables with rows and columns</li>
-<li>Enforces relationships between tables</li>
-<li>Examples: PostgreSQL, MySQL, Oracle</li>
-<li>Document Stores (MongoDB)</li>
-<li>Key-Value Stores (Redis)</li>
+                            <li><strong>Tables, Rows, and Columns:</strong></li>
+<li>- A <strong>table</strong> is like a spreadsheet: rows are records, columns are attributes</li>
+<li>- Every row represents one entity (e.g. one customer, one order)</li>
+<li>- Every column holds one type of value (e.g. name, date, amount)</li>
+<li><strong>Keys and Relationships:</strong></li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>Column-Family Stores (Cassandra)</li>
-<li>Graph Databases (Neo4j)</li>
-<li>Time-Series Databases (InfluxDB)</li>
-<li>Search Engines (Elasticsearch)</li>
-<li>Vector Databases (Pinecone)</li>
+                            <li>- <strong>Primary key</strong> — uniquely identifies each row in a table</li>
+<li>- <strong>Foreign key</strong> — a column that references the primary key of another table</li>
+<li>- Keys enforce <strong>referential integrity</strong> — no orphaned records</li>
+<li><strong>Schema:</strong></li>
+<li>- The blueprint of a database: table names, column names, data types, constraints</li>
                         </ul>
                     </div>
                 
@@ -392,7 +344,25 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Intro Databases (2/2)</h2>
+                        <h2>Relational Databases: Core Concepts (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- Good schema design reduces redundancy and makes queries predictable</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Types of Databases (1/2)</h2>
                         <div class="box box--compact">
                             
                             
@@ -400,21 +370,22 @@
                         
                     <div class="list-container">
                         <ul>
-                            <li>Spatial Databases (PostGIS)</li>
-<li>Conceptual Model</li>
-<li>Logical Model</li>
-<li>Physical Model</li>
-<li>Data Storage</li>
+                            <li><strong>Relational (RDBMS) — focus of this module:</strong></li>
+<li>- Structured tables with enforced relationships</li>
+<li>- Examples: PostgreSQL, MySQL, SQLite, Oracle</li>
+<li>- Best for: transactional data, reports, analytics</li>
+<li><strong>NoSQL — alternative families:</strong></li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>Data Retrieval</li>
-<li>Data Update</li>
-<li>Administration</li>
-<li>Security</li>
+                            <li>- Document Stores (MongoDB) — flexible JSON documents</li>
+<li>- Key-Value Stores (Redis) — fast cache and counters</li>
+<li>- Column-Family (Cassandra) — wide-column time-series</li>
+<li>- Graph Databases (Neo4j) — connected entities</li>
+<li><strong>Specialised:</strong></li>
                         </ul>
                     </div>
                 
@@ -428,16 +399,1007 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Joins</h2>
+                        <h2>Types of Databases (2/2)</h2>
                         <div class="box">
                             
                             
                     <div class="list-container">
                         <ul>
-                            <li>Retrieving related data across tables</li>
-<li>Building comprehensive reports</li>
-<li>Analyzing relationships in data</li>
-<li>Creating meaningful insights</li>
+                            <li>- Vector Databases (Pinecone) — embeddings for ML</li>
+<li>- Time-Series (InfluxDB) — sensor and metric streams</li>
+<li>- Search Engines (Elasticsearch) — full-text search</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Basic SQL Operations</h1>
+                        <h3>SELECT, FROM, WHERE, ORDER BY, LIMIT</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>The SELECT Statement (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>SELECT</strong> retrieves data — the most common SQL operation</li>
+<li><strong>Core clauses (in writing order):</strong></li>
+<li>- `SELECT` — which columns to return</li>
+<li>- `FROM` — which table to query</li>
+<li>- `WHERE` — filter rows (optional)</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- `ORDER BY` — sort the result (optional)</li>
+<li>- `LIMIT` — cap the number of rows returned (optional)</li>
+<li><strong>Examples:</strong></li>
+<li>- `SELECT * FROM customers;` — all columns, all rows</li>
+<li>- `SELECT first_name, email FROM customers;` — specific columns</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>The SELECT Statement (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- `SELECT * FROM customers ORDER BY last_name ASC LIMIT 10;`</li>
+<li><strong>Aliases</strong> rename columns in output: `SELECT price * 1.1 AS price_with_tax`</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Writing and Reading Data (CRUD) (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>CREATE TABLE</strong> — defines structure with data types and constraints</li>
+<li>- `SERIAL PRIMARY KEY` auto-increments the ID</li>
+<li>- `NOT NULL` rejects missing values</li>
+<li>- `UNIQUE` prevents duplicate values in a column</li>
+<li>- `DEFAULT` sets a fallback value (e.g. `CURRENT_TIMESTAMP`)</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>INSERT INTO</strong> — adds one or multiple rows</li>
+<li>- Single row: `INSERT INTO table (col1) VALUES (val1);`</li>
+<li>- Multi-row: list multiple value tuples in one statement (more efficient)</li>
+<li><strong>UPDATE</strong> — modifies existing rows (always use WHERE!)</li>
+<li><strong>DELETE</strong> — removes rows (always use WHERE!)</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Writing and Reading Data (CRUD) (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Safety rule:</strong> test your `WHERE` condition with a SELECT before running UPDATE or DELETE</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Filtering and Conditions</h1>
+                        <h3>WHERE, AND/OR/NOT, BETWEEN, IN, LIKE, NULL</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>WHERE Clause and Logical Operators (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>WHERE</strong> filters rows before they reach the output</li>
+<li><strong>Comparison operators:</strong> `=`, `!=`, `&lt;`, `&gt;`, `&lt;=`, `&gt;=`</li>
+<li><strong>Logical operators:</strong></li>
+<li>- `AND` — both conditions must be true</li>
+<li>- `OR` — at least one condition must be true</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- `NOT` — inverts a condition</li>
+<li><strong>Range and membership:</strong></li>
+<li>- `BETWEEN 10 AND 50` — inclusive range check</li>
+<li>- `IN ('A', 'B', 'C')` — match any value in a list</li>
+<li>- `NOT IN (...)` — exclude a list of values</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>WHERE Clause and Logical Operators (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Pattern matching:</strong></li>
+<li>- `LIKE 'Jo%'` — starts with 'Jo' (% is wildcard for any characters)</li>
+<li>- `LIKE '_ohn'` — _ matches exactly one character</li>
+<li>- `ILIKE` — case-insensitive version (PostgreSQL)</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Handling NULL Values (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>NULL</strong> means the value is unknown or missing — not zero, not empty string</li>
+<li>NULL arithmetic always returns NULL: `NULL + 1 = NULL`</li>
+<li><strong>Checking for NULL:</strong></li>
+<li>- `WHERE column IS NULL` — find missing values</li>
+<li>- `WHERE column IS NOT NULL` — find present values</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- Never use `= NULL` — it always returns false</li>
+<li><strong>Working with NULL in output:</strong></li>
+<li>- `COALESCE(column, 0)` — return 0 if column is NULL</li>
+<li>- `NULLIF(a, b)` — return NULL if a equals b (useful to avoid divide-by-zero)</li>
+<li><strong>Aggregate functions skip NULLs:</strong></li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Handling NULL Values (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- `COUNT(*)` counts all rows; `COUNT(column)` skips NULLs</li>
+<li>- `SUM`, `AVG`, `MIN`, `MAX` all ignore NULL values</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Aggregations</h1>
+                        <h3>GROUP BY, COUNT, SUM, AVG, MIN, MAX, HAVING</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Aggregate Functions (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Aggregations collapse many rows into a <strong>summary value</strong></li>
+<li>Think of it as: individual receipts → monthly spending report</li>
+<li><strong>Core aggregate functions:</strong></li>
+<li>- `COUNT(*)` — count all rows in the group</li>
+<li>- `COUNT(col)` — count non-NULL values</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- `COUNT(DISTINCT col)` — count unique non-NULL values</li>
+<li>- `SUM(col)` — total of a numeric column</li>
+<li>- `AVG(col)` — mean value (ignores NULLs)</li>
+<li>- `MIN(col)` / `MAX(col)` — lowest / highest value</li>
+<li><strong>Query execution order matters:</strong></li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Aggregate Functions (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT</li>
+<li>- WHERE filters rows *before* grouping; HAVING filters groups *after*</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>GROUP BY and HAVING (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>GROUP BY</strong> partitions rows into groups before aggregation</li>
+<li>- Every column in SELECT must be either in GROUP BY or wrapped in an aggregate function</li>
+<li>- Example: `SELECT category, COUNT(*) FROM products GROUP BY category;`</li>
+<li>- Group by multiple columns: `GROUP BY year, month`</li>
+<li><strong>HAVING</strong> filters groups after aggregation</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- `WHERE` cannot reference aggregate results — use `HAVING` instead</li>
+<li>- Example: find categories with more than 100 products:</li>
+<li>- `GROUP BY category HAVING COUNT(*) &gt; 100`</li>
+<li><strong>Common patterns:</strong></li>
+<li>- Top N groups: `GROUP BY … ORDER BY SUM(amount) DESC LIMIT 5`</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>GROUP BY and HAVING (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- Conditional aggregation: `SUM(CASE WHEN status = 'done' THEN 1 ELSE 0 END)`</li>
+<li>- `COUNT(DISTINCT customer_id)` for unique buyer count per region</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>SQL Joins</h1>
+                        <h3>INNER, LEFT, RIGHT, FULL OUTER</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Why Joins Matter (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>Almost every real question spans <strong>more than one table</strong></li>
+<li>Examples: customers + orders, students + enrolments, products + reviews</li>
+<li><strong>The key decision:</strong> which rows are you willing to *drop* from the result?</li>
+<li>Getting this wrong silently loses data or creates duplicates</li>
+<li><strong>Join syntax:</strong></li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- `FROM table_a a JOIN table_b b ON a.id = b.a_id`</li>
+<li>- Use short aliases (`a`, `b`, `c`) to keep queries readable</li>
+<li>- Always qualify column names with their table alias in multi-table queries</li>
+<li><strong>Cartesian product warning:</strong></li>
+<li>- Missing `ON` clause → every row of A matched with every row of B</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Why Joins Matter (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- 1,000 × 1,000 rows = 1,000,000 rows — almost never what you want</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>INNER JOIN</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>INNER JOIN</strong> returns only rows that have a match in *both* tables</li>
+<li>Visual: the overlapping centre of two Venn diagram circles</li>
+<li>Rows with no match on *either* side are dropped from the result</li>
+<li><strong>Use when:</strong> you only care about records that exist in both tables</li>
+<li><strong>Example:</strong></li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- Orders with their customer name → only orders that have a matching customer</li>
+<li>- Customers with no orders and orders with no customer are both excluded</li>
+<li><strong>Syntax:</strong></li>
+<li>- `FROM orders o INNER JOIN customers c ON o.customer_id = c.customer_id`</li>
+<li>- `INNER` keyword is optional — plain `JOIN` defaults to INNER</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>LEFT JOIN and RIGHT JOIN (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>LEFT JOIN</strong> — all rows from the *left* table, matched rows from the right</li>
+<li>- Unmatched right-side columns appear as NULL</li>
+<li>- Use when: you want all left-side records regardless of whether they have a match</li>
+<li>- Example: all customers, with order count (0 for customers with no orders)</li>
+<li><strong>RIGHT JOIN</strong> — all rows from the *right* table, matched rows from the left</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- Mirror image of LEFT JOIN</li>
+<li>- Tip: rewrite any RIGHT JOIN as a LEFT JOIN by swapping table order — easier to read</li>
+<li><strong>LEFT JOIN anti-pattern (find missing matches):</strong></li>
+<li>- `LEFT JOIN … WHERE right_table.id IS NULL`</li>
+<li>- Returns only left-side rows that had *no* match in the right table</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>LEFT JOIN and RIGHT JOIN (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- Example: customers who have never placed an order</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>FULL OUTER JOIN and Join Summary (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>FULL OUTER JOIN</strong> — all rows from *both* tables</li>
+<li>- Unmatched columns from either side appear as NULL</li>
+<li>- Use when: you want a complete picture of both datasets with gaps visible</li>
+<li>- Example: audit two systems side-by-side to see where they disagree</li>
+<li><strong>Join type summary:</strong></li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- INNER JOIN → only matching rows from both sides</li>
+<li>- LEFT JOIN → all left rows + matching right rows (NULL if no match)</li>
+<li>- RIGHT JOIN → all right rows + matching left rows (NULL if no match)</li>
+<li>- FULL OUTER JOIN → all rows from both sides (NULL where no match)</li>
+<li><strong>Self join:</strong></li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>FULL OUTER JOIN and Join Summary (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- Join a table to itself using aliases (e.g. employee → manager)</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Advanced Concepts</h1>
+                        <h3>Subqueries, CTEs, Window Functions</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Subqueries (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>A <strong>subquery</strong> is a SELECT nested inside another SQL statement</li>
+<li><strong>In the WHERE clause:</strong></li>
+<li>- `WHERE customer_id IN (SELECT id FROM vip_customers)`</li>
+<li>- Returns rows where the column matches the subquery result</li>
+<li><strong>In the FROM clause (derived table):</strong></li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- `FROM (SELECT … FROM …) AS sub` — treat a query result as a table</li>
+<li>- Useful for multi-step calculations before a final SELECT</li>
+<li><strong>Correlated subquery:</strong></li>
+<li>- References the outer query's current row — runs once per outer row</li>
+<li>- Powerful but can be slow on large tables</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Subqueries (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>EXISTS / NOT EXISTS:</strong></li>
+<li>- `WHERE EXISTS (SELECT 1 FROM orders WHERE orders.customer_id = c.id)`</li>
+<li>- Stops scanning as soon as one match is found — often faster than IN</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>CTEs (Common Table Expressions) (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li>A <strong>CTE</strong> (WITH clause) names a subquery so you can reference it like a table</li>
+<li><strong>Why use CTEs:</strong></li>
+<li>- Breaks a complex query into readable, named steps</li>
+<li>- Avoids repeating the same subquery multiple times</li>
+<li>- Easier to test each step individually</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- Supported by all major databases (PostgreSQL, MySQL 8+, SQL Server, BigQuery)</li>
+<li><strong>Syntax:</strong></li>
+<li>- `WITH step_name AS (SELECT …) SELECT … FROM step_name`</li>
+<li>- Chain multiple CTEs: `WITH a AS (…), b AS (… FROM a) SELECT … FROM b`</li>
+<li><strong>Recursive CTEs:</strong></li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>CTEs (Common Table Expressions) (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- Reference themselves to walk hierarchical data (org charts, folder trees)</li>
+<li>- `WITH RECURSIVE tree AS (base_case UNION ALL recursive_step)`</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Window Functions (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Window functions</strong> compute values across a set of rows *related to the current row* without collapsing them into one</li>
+<li>Unlike GROUP BY, original rows are preserved in the output</li>
+<li><strong>Syntax:</strong> `function() OVER (PARTITION BY … ORDER BY …)`</li>
+<li><strong>Ranking functions:</strong></li>
+<li>- `ROW_NUMBER()` — unique sequential rank (no ties)</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- `RANK()` — same rank for ties, gaps after tied ranks</li>
+<li>- `DENSE_RANK()` — same rank for ties, no gaps</li>
+<li><strong>Running totals and moving averages:</strong></li>
+<li>- `SUM(amount) OVER (PARTITION BY customer_id ORDER BY date)` — running total per customer</li>
+<li>- `AVG(amount) OVER (ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)` — 7-day moving average</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Window Functions (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>LAG / LEAD</strong> — access the previous or next row's value within a partition</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Best Practices and Query Optimisation</h1>
+                        <h3>Write clean, fast, maintainable SQL</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Writing Readable SQL (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Formatting conventions:</strong></li>
+<li>- Capitalise keywords: `SELECT`, `FROM`, `WHERE`, `JOIN`</li>
+<li>- One clause per line for queries longer than one line</li>
+<li>- Indent continuation lines consistently</li>
+<li><strong>Naming and aliases:</strong></li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- Use descriptive aliases: `customers AS c`, not just `x`</li>
+<li>- Name calculated columns clearly: `SUM(amount) AS total_revenue`</li>
+<li>- Avoid `SELECT *` in production — list columns explicitly</li>
+<li><strong>CTEs over nested subqueries:</strong></li>
+<li>- Replace deeply nested subqueries with named CTEs</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Writing Readable SQL (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- Each CTE should do one logical thing</li>
+<li><strong>Comments:</strong></li>
+<li>- `-- single line` and `/* block */` comments explain *why*, not just what</li>
+<li>- Document non-obvious business logic and edge cases</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Query Optimisation Tips (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Filter early:</strong> push WHERE conditions as close to the source table as possible</li>
+<li><strong>SELECT only what you need:</strong> retrieving fewer columns reduces I/O</li>
+<li><strong>Indexes:</strong></li>
+<li>- An index lets the database find rows without scanning the whole table</li>
+<li>- Index columns used in WHERE, JOIN ON, and ORDER BY</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- Too many indexes slow down INSERT/UPDATE/DELETE</li>
+<li><strong>Join order:</strong> place the more selective (smaller result) table first in large joins</li>
+<li><strong>EXPLAIN / EXPLAIN ANALYZE:</strong></li>
+<li>- Shows the query execution plan before (or after) running</li>
+<li>- Look for `Seq Scan` on large tables — often a missing index</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Query Optimisation Tips (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- `EXPLAIN ANALYZE` runs the query and shows actual vs estimated row counts</li>
+<li><strong>Avoid functions on indexed columns in WHERE:</strong></li>
+<li>- `WHERE LOWER(email) = 'x'` cannot use a plain index on `email`</li>
+<li>- Use a functional index or rewrite the condition</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Data Integrity and Maintenance (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Constraints keep data trustworthy:</strong></li>
+<li>- `NOT NULL` — no missing required values</li>
+<li>- `UNIQUE` — no duplicate entries in a column</li>
+<li>- `FOREIGN KEY … REFERENCES` — no orphaned records</li>
+<li>- `CHECK` — custom business rules (e.g. `price &gt; 0`)</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Transactions:</strong></li>
+<li>- Wrap related changes in `BEGIN … COMMIT` so they succeed or fail together</li>
+<li>- Use `ROLLBACK` to undo on error</li>
+<li><strong>Schema changes:</strong></li>
+<li>- Version-control migration files (e.g. Flyway, Liquibase, Alembic)</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Data Integrity and Maintenance (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- Test migrations in a staging environment before production</li>
+<li><strong>Ongoing maintenance:</strong></li>
+<li>- Monitor slow queries with `pg_stat_statements`</li>
+<li>- Regular `ANALYZE` keeps query planner statistics current</li>
+<li>- Review and drop unused indexes to reduce write overhead</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Further Learning (1/2)</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
+                        
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Official documentation:</strong></li>
+<li>- <a href="https://www.postgresql.org/docs/current/functions-aggregate.html" target="_blank" rel="noopener">PostgreSQL Aggregation Functions</a></li>
+<li>- <a href="https://www.postgresql.org/docs/current/tutorial-window.html" target="_blank" rel="noopener">PostgreSQL Window Functions</a></li>
+<li><strong>Interactive practice:</strong></li>
+<li>- <a href="https://sqlzoo.net/" target="_blank" rel="noopener">SQLZoo</a> — browser-based exercises from basics to advanced</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>- <a href="https://mode.com/sql-tutorial/" target="_blank" rel="noopener">Mode SQL Tutorial</a> — window functions deep dive</li>
+<li><strong>Performance:</strong></li>
+<li>- <a href="https://use-the-index-luke.com/" target="_blank" rel="noopener">Use The Index, Luke</a> — indexing explained visually</li>
+<li>- <a href="https://explain.dalibo.com/" target="_blank" rel="noopener">explain.dalibo.com</a> — paste EXPLAIN output for a visual plan</li>
+<li><strong>Advanced patterns:</strong></li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Further Learning (2/2)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>- <a href="https://modern-sql.com/" target="_blank" rel="noopener">Modern SQL</a> — CTEs, window functions, and beyond</li>
+<li><strong>Next in this module:</strong> SQL Project — apply everything end-to-end on a real dataset</li>
                         </ul>
                     </div>
                 

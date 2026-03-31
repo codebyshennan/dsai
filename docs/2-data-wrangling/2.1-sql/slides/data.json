@@ -5,99 +5,458 @@
         {
             "type": "title",
             "title": "Data Querying with SQL: Your Gateway to Data Mastery",
-            "subtitle": ""
+            "subtitle": "From fundamentals to advanced patterns"
         },
         {
             "type": "content",
-            "title": "Advanced Concepts",
+            "title": "What is SQL and Why it Matters",
             "content": {
                 "type": "box",
                 "items": [
-                    "Write complex, performant queries",
-                    "Handle large-scale data processing",
-                    "Implement sophisticated business logic",
-                    "Optimize database operations",
-                    "Write self-documenting queries with clear aliases",
-                    "Use CTEs for better readability and maintenance",
-                    "Leverage appropriate indexes for performance",
-                    "Consider query plan and execution cost",
-                    "Implement proper constraints and relationships",
-                    "Use appropriate data types",
-                    "Design with scalability in mind",
-                    "Regular maintenance and optimization",
-                    "Version control your database changes",
-                    "Implement proper testing procedures",
-                    "Monitor query performance",
-                    "Regular code reviews and optimization"
+                    "**SQL** (Structured Query Language) is the standard language for working with relational databases",
+                    "SQL lets you ask questions of structured data at scale—from 100 to 100 million rows, the same query works",
+                    "**Where SQL appears in practice:**",
+                    "- Reports and dashboards",
+                    "- ML feature pipelines and data preparation",
+                    "- Application backends and APIs",
+                    "- Business intelligence and analytics",
+                    "**Why it matters for data science:**",
+                    "- Most organisations store structured data in relational databases",
+                    "- Pull trustworthy slices without waiting on someone else",
+                    "- 90% of Fortune 500 companies use SQL-based databases",
+                    "- Required skill for data analysts, engineers, and scientists"
                 ]
             }
         },
         {
             "type": "content",
+            "title": "Relational Databases: Core Concepts",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Tables, Rows, and Columns:**",
+                    "- A **table** is like a spreadsheet: rows are records, columns are attributes",
+                    "- Every row represents one entity (e.g. one customer, one order)",
+                    "- Every column holds one type of value (e.g. name, date, amount)",
+                    "**Keys and Relationships:**",
+                    "- **Primary key** — uniquely identifies each row in a table",
+                    "- **Foreign key** — a column that references the primary key of another table",
+                    "- Keys enforce **referential integrity** — no orphaned records",
+                    "**Schema:**",
+                    "- The blueprint of a database: table names, column names, data types, constraints",
+                    "- Good schema design reduces redundancy and makes queries predictable"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Types of Databases",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Relational (RDBMS) — focus of this module:**",
+                    "- Structured tables with enforced relationships",
+                    "- Examples: PostgreSQL, MySQL, SQLite, Oracle",
+                    "- Best for: transactional data, reports, analytics",
+                    "**NoSQL — alternative families:**",
+                    "- Document Stores (MongoDB) — flexible JSON documents",
+                    "- Key-Value Stores (Redis) — fast cache and counters",
+                    "- Column-Family (Cassandra) — wide-column time-series",
+                    "- Graph Databases (Neo4j) — connected entities",
+                    "**Specialised:**",
+                    "- Vector Databases (Pinecone) — embeddings for ML",
+                    "- Time-Series (InfluxDB) — sensor and metric streams",
+                    "- Search Engines (Elasticsearch) — full-text search"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Basic SQL Operations",
+            "subtitle": "SELECT, FROM, WHERE, ORDER BY, LIMIT"
+        },
+        {
+            "type": "content",
+            "title": "The SELECT Statement",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**SELECT** retrieves data — the most common SQL operation",
+                    "**Core clauses (in writing order):**",
+                    "- `SELECT` — which columns to return",
+                    "- `FROM` — which table to query",
+                    "- `WHERE` — filter rows (optional)",
+                    "- `ORDER BY` — sort the result (optional)",
+                    "- `LIMIT` — cap the number of rows returned (optional)",
+                    "**Examples:**",
+                    "- `SELECT * FROM customers;` — all columns, all rows",
+                    "- `SELECT first_name, email FROM customers;` — specific columns",
+                    "- `SELECT * FROM customers ORDER BY last_name ASC LIMIT 10;`",
+                    "**Aliases** rename columns in output: `SELECT price * 1.1 AS price_with_tax`"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Writing and Reading Data (CRUD)",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**CREATE TABLE** — defines structure with data types and constraints",
+                    "- `SERIAL PRIMARY KEY` auto-increments the ID",
+                    "- `NOT NULL` rejects missing values",
+                    "- `UNIQUE` prevents duplicate values in a column",
+                    "- `DEFAULT` sets a fallback value (e.g. `CURRENT_TIMESTAMP`)",
+                    "**INSERT INTO** — adds one or multiple rows",
+                    "- Single row: `INSERT INTO table (col1) VALUES (val1);`",
+                    "- Multi-row: list multiple value tuples in one statement (more efficient)",
+                    "**UPDATE** — modifies existing rows (always use WHERE!)",
+                    "**DELETE** — removes rows (always use WHERE!)",
+                    "**Safety rule:** test your `WHERE` condition with a SELECT before running UPDATE or DELETE"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Filtering and Conditions",
+            "subtitle": "WHERE, AND/OR/NOT, BETWEEN, IN, LIKE, NULL"
+        },
+        {
+            "type": "content",
+            "title": "WHERE Clause and Logical Operators",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**WHERE** filters rows before they reach the output",
+                    "**Comparison operators:** `=`, `!=`, `<`, `>`, `<=`, `>=`",
+                    "**Logical operators:**",
+                    "- `AND` — both conditions must be true",
+                    "- `OR` — at least one condition must be true",
+                    "- `NOT` — inverts a condition",
+                    "**Range and membership:**",
+                    "- `BETWEEN 10 AND 50` — inclusive range check",
+                    "- `IN ('A', 'B', 'C')` — match any value in a list",
+                    "- `NOT IN (...)` — exclude a list of values",
+                    "**Pattern matching:**",
+                    "- `LIKE 'Jo%'` — starts with 'Jo' (% is wildcard for any characters)",
+                    "- `LIKE '_ohn'` — _ matches exactly one character",
+                    "- `ILIKE` — case-insensitive version (PostgreSQL)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Handling NULL Values",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**NULL** means the value is unknown or missing — not zero, not empty string",
+                    "NULL arithmetic always returns NULL: `NULL + 1 = NULL`",
+                    "**Checking for NULL:**",
+                    "- `WHERE column IS NULL` — find missing values",
+                    "- `WHERE column IS NOT NULL` — find present values",
+                    "- Never use `= NULL` — it always returns false",
+                    "**Working with NULL in output:**",
+                    "- `COALESCE(column, 0)` — return 0 if column is NULL",
+                    "- `NULLIF(a, b)` — return NULL if a equals b (useful to avoid divide-by-zero)",
+                    "**Aggregate functions skip NULLs:**",
+                    "- `COUNT(*)` counts all rows; `COUNT(column)` skips NULLs",
+                    "- `SUM`, `AVG`, `MIN`, `MAX` all ignore NULL values"
+                ]
+            }
+        },
+        {
+            "type": "title",
             "title": "Aggregations",
+            "subtitle": "GROUP BY, COUNT, SUM, AVG, MIN, MAX, HAVING"
+        },
+        {
+            "type": "content",
+            "title": "Aggregate Functions",
             "content": {
                 "type": "box",
                 "items": [
-                    "Raw data = Individual grocery receipts",
-                    "Aggregated data = Monthly spending summary",
-                    "[PostgreSQL Aggregation Documentation](https://www.postgresql.org/docs/current/functions-aggregate.html)",
-                    "[Window Functions Tutorial](https://mode.com/sql-tutorial/sql-window-functions/)",
-                    "[SQL Performance Tuning Guide](https://use-the-index-luke.com/)",
-                    "[Advanced SQL Recipes](https://modern-sql.com/)"
+                    "Aggregations collapse many rows into a **summary value**",
+                    "Think of it as: individual receipts → monthly spending report",
+                    "**Core aggregate functions:**",
+                    "- `COUNT(*)` — count all rows in the group",
+                    "- `COUNT(col)` — count non-NULL values",
+                    "- `COUNT(DISTINCT col)` — count unique non-NULL values",
+                    "- `SUM(col)` — total of a numeric column",
+                    "- `AVG(col)` — mean value (ignores NULLs)",
+                    "- `MIN(col)` / `MAX(col)` — lowest / highest value",
+                    "**Query execution order matters:**",
+                    "- FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT",
+                    "- WHERE filters rows *before* grouping; HAVING filters groups *after*"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Basic Operations",
+            "title": "GROUP BY and HAVING",
             "content": {
                 "type": "box",
                 "items": [
-                    "Data retrieval and analysis",
-                    "Database management",
-                    "Data integrity maintenance",
-                    "Application development"
+                    "**GROUP BY** partitions rows into groups before aggregation",
+                    "- Every column in SELECT must be either in GROUP BY or wrapped in an aggregate function",
+                    "- Example: `SELECT category, COUNT(*) FROM products GROUP BY category;`",
+                    "- Group by multiple columns: `GROUP BY year, month`",
+                    "**HAVING** filters groups after aggregation",
+                    "- `WHERE` cannot reference aggregate results — use `HAVING` instead",
+                    "- Example: find categories with more than 100 products:",
+                    "- `GROUP BY category HAVING COUNT(*) > 100`",
+                    "**Common patterns:**",
+                    "- Top N groups: `GROUP BY … ORDER BY SUM(amount) DESC LIMIT 5`",
+                    "- Conditional aggregation: `SUM(CASE WHEN status = 'done' THEN 1 ELSE 0 END)`",
+                    "- `COUNT(DISTINCT customer_id)` for unique buyer count per region"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "SQL Joins",
+            "subtitle": "INNER, LEFT, RIGHT, FULL OUTER"
+        },
+        {
+            "type": "content",
+            "title": "Why Joins Matter",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Almost every real question spans **more than one table**",
+                    "Examples: customers + orders, students + enrolments, products + reviews",
+                    "**The key decision:** which rows are you willing to *drop* from the result?",
+                    "Getting this wrong silently loses data or creates duplicates",
+                    "**Join syntax:**",
+                    "- `FROM table_a a JOIN table_b b ON a.id = b.a_id`",
+                    "- Use short aliases (`a`, `b`, `c`) to keep queries readable",
+                    "- Always qualify column names with their table alias in multi-table queries",
+                    "**Cartesian product warning:**",
+                    "- Missing `ON` clause → every row of A matched with every row of B",
+                    "- 1,000 × 1,000 rows = 1,000,000 rows — almost never what you want"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Intro Databases",
+            "title": "INNER JOIN",
             "content": {
                 "type": "box",
                 "items": [
-                    "Uses structured tables with rows and columns",
-                    "Enforces relationships between tables",
-                    "Examples: PostgreSQL, MySQL, Oracle",
-                    "Document Stores (MongoDB)",
-                    "Key-Value Stores (Redis)",
-                    "Column-Family Stores (Cassandra)",
-                    "Graph Databases (Neo4j)",
-                    "Time-Series Databases (InfluxDB)",
-                    "Search Engines (Elasticsearch)",
-                    "Vector Databases (Pinecone)",
-                    "Spatial Databases (PostGIS)",
-                    "Conceptual Model",
-                    "Logical Model",
-                    "Physical Model",
-                    "Data Storage",
-                    "Data Retrieval",
-                    "Data Update",
-                    "Administration",
-                    "Security"
+                    "**INNER JOIN** returns only rows that have a match in *both* tables",
+                    "Visual: the overlapping centre of two Venn diagram circles",
+                    "Rows with no match on *either* side are dropped from the result",
+                    "**Use when:** you only care about records that exist in both tables",
+                    "**Example:**",
+                    "- Orders with their customer name → only orders that have a matching customer",
+                    "- Customers with no orders and orders with no customer are both excluded",
+                    "**Syntax:**",
+                    "- `FROM orders o INNER JOIN customers c ON o.customer_id = c.customer_id`",
+                    "- `INNER` keyword is optional — plain `JOIN` defaults to INNER"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Joins",
+            "title": "LEFT JOIN and RIGHT JOIN",
             "content": {
                 "type": "box",
                 "items": [
-                    "Retrieving related data across tables",
-                    "Building comprehensive reports",
-                    "Analyzing relationships in data",
-                    "Creating meaningful insights"
+                    "**LEFT JOIN** — all rows from the *left* table, matched rows from the right",
+                    "- Unmatched right-side columns appear as NULL",
+                    "- Use when: you want all left-side records regardless of whether they have a match",
+                    "- Example: all customers, with order count (0 for customers with no orders)",
+                    "**RIGHT JOIN** — all rows from the *right* table, matched rows from the left",
+                    "- Mirror image of LEFT JOIN",
+                    "- Tip: rewrite any RIGHT JOIN as a LEFT JOIN by swapping table order — easier to read",
+                    "**LEFT JOIN anti-pattern (find missing matches):**",
+                    "- `LEFT JOIN … WHERE right_table.id IS NULL`",
+                    "- Returns only left-side rows that had *no* match in the right table",
+                    "- Example: customers who have never placed an order"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "FULL OUTER JOIN and Join Summary",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**FULL OUTER JOIN** — all rows from *both* tables",
+                    "- Unmatched columns from either side appear as NULL",
+                    "- Use when: you want a complete picture of both datasets with gaps visible",
+                    "- Example: audit two systems side-by-side to see where they disagree",
+                    "**Join type summary:**",
+                    "- INNER JOIN → only matching rows from both sides",
+                    "- LEFT JOIN → all left rows + matching right rows (NULL if no match)",
+                    "- RIGHT JOIN → all right rows + matching left rows (NULL if no match)",
+                    "- FULL OUTER JOIN → all rows from both sides (NULL where no match)",
+                    "**Self join:**",
+                    "- Join a table to itself using aliases (e.g. employee → manager)"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Advanced Concepts",
+            "subtitle": "Subqueries, CTEs, Window Functions"
+        },
+        {
+            "type": "content",
+            "title": "Subqueries",
+            "content": {
+                "type": "box",
+                "items": [
+                    "A **subquery** is a SELECT nested inside another SQL statement",
+                    "**In the WHERE clause:**",
+                    "- `WHERE customer_id IN (SELECT id FROM vip_customers)`",
+                    "- Returns rows where the column matches the subquery result",
+                    "**In the FROM clause (derived table):**",
+                    "- `FROM (SELECT … FROM …) AS sub` — treat a query result as a table",
+                    "- Useful for multi-step calculations before a final SELECT",
+                    "**Correlated subquery:**",
+                    "- References the outer query's current row — runs once per outer row",
+                    "- Powerful but can be slow on large tables",
+                    "**EXISTS / NOT EXISTS:**",
+                    "- `WHERE EXISTS (SELECT 1 FROM orders WHERE orders.customer_id = c.id)`",
+                    "- Stops scanning as soon as one match is found — often faster than IN"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "CTEs (Common Table Expressions)",
+            "content": {
+                "type": "box",
+                "items": [
+                    "A **CTE** (WITH clause) names a subquery so you can reference it like a table",
+                    "**Why use CTEs:**",
+                    "- Breaks a complex query into readable, named steps",
+                    "- Avoids repeating the same subquery multiple times",
+                    "- Easier to test each step individually",
+                    "- Supported by all major databases (PostgreSQL, MySQL 8+, SQL Server, BigQuery)",
+                    "**Syntax:**",
+                    "- `WITH step_name AS (SELECT …) SELECT … FROM step_name`",
+                    "- Chain multiple CTEs: `WITH a AS (…), b AS (… FROM a) SELECT … FROM b`",
+                    "**Recursive CTEs:**",
+                    "- Reference themselves to walk hierarchical data (org charts, folder trees)",
+                    "- `WITH RECURSIVE tree AS (base_case UNION ALL recursive_step)`"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Window Functions",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Window functions** compute values across a set of rows *related to the current row* without collapsing them into one",
+                    "Unlike GROUP BY, original rows are preserved in the output",
+                    "**Syntax:** `function() OVER (PARTITION BY … ORDER BY …)`",
+                    "**Ranking functions:**",
+                    "- `ROW_NUMBER()` — unique sequential rank (no ties)",
+                    "- `RANK()` — same rank for ties, gaps after tied ranks",
+                    "- `DENSE_RANK()` — same rank for ties, no gaps",
+                    "**Running totals and moving averages:**",
+                    "- `SUM(amount) OVER (PARTITION BY customer_id ORDER BY date)` — running total per customer",
+                    "- `AVG(amount) OVER (ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)` — 7-day moving average",
+                    "**LAG / LEAD** — access the previous or next row's value within a partition"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Best Practices and Query Optimisation",
+            "subtitle": "Write clean, fast, maintainable SQL"
+        },
+        {
+            "type": "content",
+            "title": "Writing Readable SQL",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Formatting conventions:**",
+                    "- Capitalise keywords: `SELECT`, `FROM`, `WHERE`, `JOIN`",
+                    "- One clause per line for queries longer than one line",
+                    "- Indent continuation lines consistently",
+                    "**Naming and aliases:**",
+                    "- Use descriptive aliases: `customers AS c`, not just `x`",
+                    "- Name calculated columns clearly: `SUM(amount) AS total_revenue`",
+                    "- Avoid `SELECT *` in production — list columns explicitly",
+                    "**CTEs over nested subqueries:**",
+                    "- Replace deeply nested subqueries with named CTEs",
+                    "- Each CTE should do one logical thing",
+                    "**Comments:**",
+                    "- `-- single line` and `/* block */` comments explain *why*, not just what",
+                    "- Document non-obvious business logic and edge cases"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Query Optimisation Tips",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Filter early:** push WHERE conditions as close to the source table as possible",
+                    "**SELECT only what you need:** retrieving fewer columns reduces I/O",
+                    "**Indexes:**",
+                    "- An index lets the database find rows without scanning the whole table",
+                    "- Index columns used in WHERE, JOIN ON, and ORDER BY",
+                    "- Too many indexes slow down INSERT/UPDATE/DELETE",
+                    "**Join order:** place the more selective (smaller result) table first in large joins",
+                    "**EXPLAIN / EXPLAIN ANALYZE:**",
+                    "- Shows the query execution plan before (or after) running",
+                    "- Look for `Seq Scan` on large tables — often a missing index",
+                    "- `EXPLAIN ANALYZE` runs the query and shows actual vs estimated row counts",
+                    "**Avoid functions on indexed columns in WHERE:**",
+                    "- `WHERE LOWER(email) = 'x'` cannot use a plain index on `email`",
+                    "- Use a functional index or rewrite the condition"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Data Integrity and Maintenance",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Constraints keep data trustworthy:**",
+                    "- `NOT NULL` — no missing required values",
+                    "- `UNIQUE` — no duplicate entries in a column",
+                    "- `FOREIGN KEY … REFERENCES` — no orphaned records",
+                    "- `CHECK` — custom business rules (e.g. `price > 0`)",
+                    "**Transactions:**",
+                    "- Wrap related changes in `BEGIN … COMMIT` so they succeed or fail together",
+                    "- Use `ROLLBACK` to undo on error",
+                    "**Schema changes:**",
+                    "- Version-control migration files (e.g. Flyway, Liquibase, Alembic)",
+                    "- Test migrations in a staging environment before production",
+                    "**Ongoing maintenance:**",
+                    "- Monitor slow queries with `pg_stat_statements`",
+                    "- Regular `ANALYZE` keeps query planner statistics current",
+                    "- Review and drop unused indexes to reduce write overhead"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Further Learning",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Official documentation:**",
+                    "- [PostgreSQL Aggregation Functions](https://www.postgresql.org/docs/current/functions-aggregate.html)",
+                    "- [PostgreSQL Window Functions](https://www.postgresql.org/docs/current/tutorial-window.html)",
+                    "**Interactive practice:**",
+                    "- [SQLZoo](https://sqlzoo.net/) — browser-based exercises from basics to advanced",
+                    "- [Mode SQL Tutorial](https://mode.com/sql-tutorial/) — window functions deep dive",
+                    "**Performance:**",
+                    "- [Use The Index, Luke](https://use-the-index-luke.com/) — indexing explained visually",
+                    "- [explain.dalibo.com](https://explain.dalibo.com/) — paste EXPLAIN output for a visual plan",
+                    "**Advanced patterns:**",
+                    "- [Modern SQL](https://modern-sql.com/) — CTEs, window functions, and beyond",
+                    "**Next in this module:** SQL Project — apply everything end-to-end on a real dataset"
                 ]
             }
         }

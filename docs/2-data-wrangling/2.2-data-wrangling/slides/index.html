@@ -251,19 +251,8 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Missing Values</h2>
-                        <div class="box">
-                            
-                            
-                    <div class="list-container">
-                        <ul>
-                            <li>Always investigate why data is missing</li>
-<li>Consider domain knowledge</li>
-<li>Document assumptions</li>
-                        </ul>
-                    </div>
-                
-                        </div>
+                        <h1>What Is Data Wrangling?</h1>
+                        <h3>And why it eats 80% of a data scientist's time</h3>
                     </div>
                     <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>
@@ -271,53 +260,380 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Project</h2>
-                        <div class="box">
-                            
-                            
-                    <div class="list-container">
-                        <ul>
-                            <li>Key findings</li>
-<li>Critical issues</li>
-<li>Recommendations</li>
-                        </ul>
-                    </div>
-                
-                        </div>
-                    </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
-                </section>
-            
-
-                <section>
-                    <div class="content-wrapper">
-                        <h2>Transformations</h2>
+                        <h2>What Is Data Wrangling?</h2>
                         <div class="box box--compact">
                             
                             
-                    <div class="two-column">
-                        
                     <div class="list-container">
                         <ul>
-                            <li><strong>Standard Scaling (Z-score)</strong></li>
-<li><strong>Min-Max Scaling</strong></li>
-<li><strong>Robust Scaling</strong></li>
-<li><strong>Log Transform</strong></li>
-<li><strong>Box-Cox Transform</strong></li>
+                            <li><strong>Definition</strong>: Transforming raw, messy data into a clean, reliable format ready for analysis</li>
+<li>Also called <strong>data munging</strong> or <strong>data preprocessing</strong></li>
+<li>Think of it as mise en place—a chef preps ingredients before cooking; an analyst preps tables before modelling</li>
+<li><strong>The 80/20 Rule</strong>: Data scientists typically spend ~80% of their time wrangling data and ~20% on actual analysis</li>
+<li><strong>Why it matters</strong>: Garbage in → garbage out; every downstream insight or model depends on wrangling quality</li>
+<li><strong>Core steps</strong>: Assess quality → handle missing values → treat outliers → transform features → validate</li>
                         </ul>
                     </div>
                 
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
 
+                <section>
+                    <div class="content-wrapper">
+                        <h2>The Data Wrangling Journey</h2>
+                        <div class="box box--compact">
+                            
+                            
                     <div class="list-container">
                         <ul>
-                            <li><strong>Yeo-Johnson Transform</strong></li>
-<li>Consider the data distribution</li>
-<li>Understand algorithm requirements</li>
-<li>Preserve important relationships</li>
-<li>Handle special cases (zeros, negatives)</li>
+                            <li><strong>1. Ingest</strong>: Load data from CSV, database, API, or spreadsheet</li>
+<li><strong>2. Assess</strong>: Profile the data—dtypes, missing counts, duplicates, value ranges</li>
+<li><strong>3. Clean</strong>: Fix missing values, remove duplicates, standardise formats</li>
+<li><strong>4. Treat outliers</strong>: Detect extreme values and decide: keep, cap, or remove</li>
+<li><strong>5. Transform</strong>: Scale, encode, and engineer features for analysis or modelling</li>
+<li><strong>6. Validate</strong>: Assert invariants hold; document every change made</li>
+<li><strong>Principle</strong>: Fix only what you can justify—document everything else</li>
                         </ul>
                     </div>
                 
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Data Quality</h1>
+                        <h3>You cannot fix what you do not measure</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Data Quality Dimensions</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Accuracy</strong>: Does the data correctly represent reality? (e.g. age should be 0–120)</li>
+<li><strong>Completeness</strong>: Are all required fields populated? (`df.isnull().sum()`)</li>
+<li><strong>Consistency</strong>: Are formats and codes uniform across the dataset? (e.g. date formats, category labels)</li>
+<li><strong>Validity</strong>: Does the data follow business rules? (e.g. email format, non-negative prices)</li>
+<li><strong>Uniqueness</strong>: Is the dataset free of duplicates? (`df.duplicated().sum()`)</li>
+<li><strong>Timeliness</strong>: Is the data recent enough for the question being asked?</li>
+<li><strong>Rule of thumb</strong>: Measure all six dimensions before touching a single value</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Quick Data Quality Audit</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Shape and types</strong>: `df.info()` — row count, column count, dtype per column</li>
+<li><strong>Missing values</strong>: `df.isnull().sum()` — count NaNs per column</li>
+<li><strong>Missing rate</strong>: `df.isnull().mean() * 100` — percentage missing</li>
+<li><strong>Duplicates</strong>: `df.duplicated().sum()` — number of duplicate rows</li>
+<li><strong>Numeric summary</strong>: `df.describe()` — min, max, mean, std, quartiles</li>
+<li><strong>Categorical cardinality</strong>: `df['col'].value_counts()` — frequency of each category</li>
+<li><strong>Common red flags</strong>: negative prices, impossible dates, all-zero columns, suspiciously round numbers</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Missing Values</h1>
+                        <h3>Why data is absent matters as much as how to fill it</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Missing Data Mechanisms</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>MCAR — Missing Completely at Random</strong>: Absence is unrelated to any variable; safe to drop rows or use simple imputation (e.g. server glitch drops random records)</li>
+<li><strong>MAR — Missing at Random</strong>: Absence depends on *other observed* columns; imputation using related columns is defensible (e.g. older respondents skip income field)</li>
+<li><strong>MNAR — Missing Not at Random</strong>: Absence depends on the *missing value itself*; hardest case, needs domain knowledge or sensitivity analysis (e.g. high earners skip income field)</li>
+<li><strong>Why it matters</strong>: Dropping MNAR rows introduces bias; filling MCAR rows with the mean is usually safe</li>
+<li><strong>Detection</strong>: Check whether missingness in column A correlates with values in column B (`df.isnull().corr()`)</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Missing Value Strategies</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Drop rows</strong>: Use when &lt;5% missing and mechanism is MCAR — `df.dropna(subset=['col'])`</li>
+<li><strong>Drop column</strong>: Use when &gt;50% of values are missing and the column adds little signal</li>
+<li><strong>Mean/median imputation</strong>: Quick fix for numeric, low missing rate (&lt;10%); median is robust to outliers</li>
+<li><strong>Mode imputation</strong>: Default for categorical columns — `df['col'].fillna(df['col'].mode()[0])`</li>
+<li><strong>KNN / MICE imputation</strong>: Multivariate method; better when columns are correlated</li>
+<li><strong>Flag + fill</strong>: Add a binary `col_was_missing` indicator, then fill — preserves missingness signal for models</li>
+<li><strong>Golden rule</strong>: Always investigate *why* data is missing before choosing a strategy</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Outliers</h1>
+                        <h3>Extreme values: errors, or the most interesting signal?</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Types of Outliers</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Point outliers</strong>: Individual values far from the rest (e.g. a $999,999 order in a $100 dataset)</li>
+<li><strong>Contextual outliers</strong>: Values unusual only in a specific context (e.g. 20°C in winter)</li>
+<li><strong>Collective outliers</strong>: A group of values that together form an unusual pattern (e.g. a sudden flat line in sensor data)</li>
+<li><strong>Key question</strong>: Is the outlier an *error* to fix, or *signal* to keep?</li>
+<li><strong>Examples of valuable outliers</strong>: Fraud transactions, record-breaking sales, equipment failure events</li>
+<li><strong>Principle</strong>: Never remove outliers without understanding what they represent</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Outlier Detection Methods</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Z-score</strong>: `z = (x − μ) / σ` — flag |z| &gt; 3; assumes roughly normal distribution</li>
+<li><strong>IQR rule</strong>: `IQR = Q3 − Q1`; flag values below `Q1 − 1.5×IQR` or above `Q3 + 1.5×IQR`; robust to skew</li>
+<li><strong>Visual — boxplot</strong>: `df.boxplot(column='price')` — whiskers show IQR bounds; dots are outliers</li>
+<li><strong>Visual — histogram</strong>: Reveals multi-modal distributions and long tails</li>
+<li><strong>Visual — scatter plot</strong>: Spot bivariate outliers invisible in univariate checks</li>
+<li><strong>Robust scaling check</strong>: Use median and IQR instead of mean and std when outliers are present</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Outlier Treatment Options</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Remove</strong>: Delete the row — only if the value is a confirmed data error</li>
+<li><strong>Cap (winsorise)</strong>: Clip to the 1st / 99th percentile — `df['col'].clip(lower=p1, upper=p99)`; preserves row count</li>
+<li><strong>Transform</strong>: Apply log or sqrt to compress the scale — effective for right-skewed distributions</li>
+<li><strong>Impute</strong>: Treat extreme values like missing data and impute with median</li>
+<li><strong>Keep</strong>: Do nothing — appropriate when the outlier is real signal (e.g. fraud, record sales)</li>
+<li><strong>Separate model</strong>: Train one model on normal data, another specifically on anomalies</li>
+<li><strong>Decision flow</strong>: Error? → Remove. Real but extreme? → Cap or transform. Signal? → Keep or separate</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Data Transformations</h1>
+                        <h3>Scaling, encoding, and reshaping features for analysis</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Numeric Scaling Methods</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Standard Scaling (Z-score)</strong>: `z = (x − μ) / σ` → mean 0, std 1; use for algorithms assuming normality (linear regression, PCA, SVM)</li>
+<li><strong>Min-Max Scaling</strong>: `x_scaled = (x − x_min) / (x_max − x_min)` → [0, 1] range; use for neural networks and KNN</li>
+<li><strong>Robust Scaling</strong>: Uses median and IQR instead of mean and std — best when outliers are present</li>
+<li><strong>When to scale</strong>: Distance-based models (KNN, SVM, k-means) require scaling; tree-based models (Random Forest, XGBoost) generally do not</li>
+<li><strong>Fit on train, apply on test</strong>: Always fit the scaler only on training data to avoid data leakage</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Distribution Fixes: Log &amp; Other Transforms</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Log transform</strong>: `np.log1p(x)` — compresses right-skewed distributions (salaries, prices, counts); use `log1p` to handle zeros safely</li>
+<li><strong>Square root transform</strong>: `np.sqrt(x)` — milder than log; works on non-negative data</li>
+<li><strong>Box-Cox</strong>: Finds the optimal power λ to normalise; requires strictly positive values</li>
+<li><strong>Yeo-Johnson</strong>: Extension of Box-Cox that handles zeros and negatives</li>
+<li><strong>Check after</strong>: Re-plot a histogram — a roughly bell-shaped curve means the transform worked</li>
+<li><strong>Rule</strong>: Apply distribution fixes *before* scaling</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Categorical Encoding</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>One-Hot Encoding</strong>: Creates a binary column per category — `pd.get_dummies(df, columns=['category'])`; use for nominal (unordered) categories with low cardinality</li>
+<li><strong>Label Encoding</strong>: Maps each category to an integer — use only for ordinal features (e.g. Low/Med/High → 0/1/2) or tree-based models</li>
+<li><strong>Ordinal Encoding</strong>: Like label encoding but respects a defined order</li>
+<li><strong>Target Encoding</strong>: Replaces category with mean target value — powerful but prone to leakage; use with cross-validation</li>
+<li><strong>High cardinality warning</strong>: One-hot encoding a column with 500 categories creates 500 new columns — consider hashing or embedding instead</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>String and Date Handling</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Normalise strings</strong>: `df['col'].str.lower().str.strip()` — removes case and whitespace inconsistencies</li>
+<li><strong>Fuzzy matching</strong>: Use `rapidfuzz` or `fuzzywuzzy` to merge near-duplicate categories (e.g. 'iPhone' vs 'i-phone')</li>
+<li><strong>Parse dates</strong>: `pd.to_datetime(df['date'])` — converts string dates to a proper datetime dtype</li>
+<li><strong>Extract date features</strong>: `df['month'] = df['date'].dt.month` — year, month, day, weekday, hour</li>
+<li><strong>Date arithmetic</strong>: `df['age_days'] = (pd.Timestamp.today() - df['signup_date']).dt.days`</li>
+<li><strong>Timezones</strong>: Always convert to UTC first when combining data from multiple sources</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Practical Pandas Workflow Tips</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Method chaining</strong>: Chain operations with `.pipe()` for readable, testable pipelines</li>
+<li><strong>Vectorise, don't loop</strong>: `df['total'] = df['price'] * df['quantity']` is orders of magnitude faster than a row-by-row loop</li>
+<li><strong>Downcast dtypes</strong>: `pd.to_numeric(df['col'], downcast='integer')` — halves memory on large datasets</li>
+<li><strong>Use `.copy()`</strong>: `df_clean = df.copy()` before modifying — avoids SettingWithCopyWarning and preserves originals</li>
+<li><strong>Document changes</strong>: Keep a `cleaning_log` dict recording rows dropped, columns imputed, and transforms applied</li>
+<li><strong>Assert invariants</strong>: Use `assert df.isnull().sum().sum() == 0` and `assert df['price'].min() &gt;= 0` after each step</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Putting It All Together</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Step 1 — Profile</strong>: `df.info()`, `df.describe()`, `df.isnull().sum()`, `df.duplicated().sum()`</li>
+<li><strong>Step 2 — Clean</strong>: Drop or impute missing values; remove confirmed duplicate rows</li>
+<li><strong>Step 3 — Outliers</strong>: Detect with IQR / Z-score; decide: cap, remove, or keep</li>
+<li><strong>Step 4 — Transform</strong>: Scale numerics; encode categoricals; parse dates; fix skew</li>
+<li><strong>Step 5 — Validate</strong>: Assert no nulls remain; check value ranges; compare distributions before/after</li>
+<li><strong>Step 6 — Document</strong>: Log every decision — what you changed, why, and what you left unchanged</li>
+<li><strong>Key mindset</strong>: Wrangling is not mechanical cleaning — every decision is a modelling assumption</li>
+                        </ul>
                     </div>
                 
                         </div>

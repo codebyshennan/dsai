@@ -22,14 +22,14 @@ Short Tableau Public install; pair with the written guides in this folder.
    - Select the sheet as your data source
 4. Click "Add" to connect the data
 
-> **Figure (add screenshot or diagram):** Looker Studio home page (lookerstudio.google.com) — the "Create" button highlighted, a list of recent reports, and a data source connector gallery showing Google Sheets, BigQuery, and Google Analytics options.
+![Looker Studio start page](assets/looker_start_page.png)
 
 
 ### 2. Understanding the Looker Studio Workspace
 
 {% include mermaid-diagram.html src="3-data-visualization/3.3-bi-with-tableau/diagrams/looker-studio-case-study-1.mmd" %}
 
-> **Figure (add screenshot or diagram):** Looker Studio workspace — annotated with Canvas, Toolbar, Properties panel (right), and Data panel showing connected fields.
+![Looker Studio workspace](assets/looker_workspace.png)
 
 The Looker Studio interface consists of several key areas:
 
@@ -56,7 +56,7 @@ The Looker Studio interface consists of several key areas:
    - Data source settings
    - Filter controls
 
-> **Figure (add screenshot or diagram):** Looker Studio report editor — the toolbar at the top with "Add a chart" and "Add a control" buttons, the canvas in the center with an empty page, and the Properties panel on the right showing the Data and Style tabs for a selected chart.
+![Looker Studio interface toolbar and properties panel](assets/looker_workspace.png)
 
 
 ## Project Overview
@@ -68,7 +68,7 @@ In this comprehensive case study, we'll analyze retail data to drive business de
 - A product profitability analysis
 - Interactive filters and controls
 
-> **Figure (add screenshot or diagram):** The completed Looker Studio SuperStore dashboard — a Sales by Category bar chart (top-left), a US geo map colored by Sales (top-right), a Profit by Sub-Category table (bottom-left), and date range and region filter controls along the top.
+![Completed SuperStore dashboard](assets/looker_dashboard.png)
 
 
 ## Dataset Introduction
@@ -80,7 +80,7 @@ We'll utilize the "Sample - Superstore" dataset adapted for Looker Studio. This 
 - It's easy to import into Google Sheets
 - It covers multiple analysis dimensions
 
-> **Figure (add screenshot or diagram):** The Superstore dataset in Google Sheets — column headers visible (Order ID, Order Date, Ship Mode, Category, Sales, Profit, etc.) with the first 10 rows of data, and the Looker Studio "Add a data source" dialog open and pointing to this sheet.
+![Superstore data source connector](assets/looker_data_source.png)
 
 
 ### Data Structure Overview
@@ -140,7 +140,7 @@ Data Structure:
    - Tracking Period: Full dataset
 ```
 
-> **Figure (add screenshot or diagram):** Looker Studio's data source configuration screen — the list of fields from the connected Google Sheet, each field showing its name, data type icon (text/number/date), and an "Aggregation" dropdown; the "Add a field" button visible for creating calculated fields.
+![Data source field configuration](assets/looker_data_source.png)
 
 
 ## Step-by-Step Visualization Guide
@@ -158,7 +158,7 @@ Data Structure:
    - Add a title
    - Configure tooltips
 
-> **Figure (add screenshot or diagram):** Looker Studio canvas with a bar chart selected — the Properties panel on the right showing "Category" in the Dimension field and "Sales" in the Metric field; a three-bar chart (Furniture, Office Supplies, Technology) rendered on the canvas.
+![First bar chart by category](assets/looker_first_chart.png)
 
 
 ### 2. Time Series Analysis
@@ -177,7 +177,7 @@ Data Structure:
    - Configure date range
    - Add trend lines
 
-> **Figure (add screenshot or diagram):** Looker Studio time series chart — Order Date on the x-axis, two metrics (Sales in blue, Profit in orange) as lines, the Properties panel showing "Order Date" as Dimension and both metrics in the Metric list, with "Compare to previous period" option enabled.
+![Time series chart with multiple metrics](assets/looker_timeseries.png)
 
 
 ### 3. Geographic Analysis
@@ -196,7 +196,7 @@ Data Structure:
    - Configure tooltips
    - Set zoom level
 
-> **Figure (add screenshot or diagram):** Looker Studio geo map of the US — state borders visible, each state shaded by Sales using a blue gradient, a tooltip open on California showing state name, Sales total, and Profit total; the Properties panel showing "State" as Location and "Sales" as Color metric.
+![Geo map of US sales by state](assets/looker_map.png)
 
 
 ### 4. Building a Dashboard
@@ -209,7 +209,7 @@ Data Structure:
    - Configure cross-filtering
    - Add navigation between pages
 
-> **Figure (add screenshot or diagram):** Looker Studio dashboard canvas in edit mode — a bar chart and geo map side by side on page 1, a date range control at the top, and a dropdown filter control for Region; the toolbar showing "Add a control" highlighted.
+![Dashboard canvas with charts and filter controls](assets/looker_dashboard.png)
 
 
 ## Advanced Features
@@ -333,7 +333,7 @@ SUM(Sales) /
 </aside>
 </div>
 
-> **Figure (add screenshot or diagram):** Looker Studio's calculated field editor — a formula bar showing the Profit Ratio expression `Profit / Sales`, the field named "Profit Ratio", and a green "Valid" indicator confirming the syntax; the field type set to "Metric" with "Percent" format selected.
+![Calculated field editor with Profit Ratio formula](assets/looker_calculations.png)
 
 
 ### 2. Parameters and Controls
@@ -393,7 +393,7 @@ END
 </aside>
 </div>
 
-> **Figure (add screenshot or diagram):** Looker Studio dashboard showing three filter controls at the top — a date range picker, a dropdown list control for Region, and a slider for a numeric threshold parameter — all positioned above the charts and applying cross-filtering to all visuals on the page.
+![Filter controls: date range, dropdown, and slider](assets/looker_controls.png)
 
 
 ## Data Blending and Integration
@@ -422,7 +422,7 @@ LEFT JOIN Customers c ON o.CustomerID = c.CustomerID
 LEFT JOIN Returns r ON o.OrderID = r.OrderID
 ```
 
-> **Figure (add screenshot or diagram):** Looker Studio's "Manage blends" dialog — two data source boxes (Orders from Google Sheets on the left, Returns from BigQuery on the right) connected by a join line; the join type set to LEFT OUTER and the common key field "Order ID" highlighted on both sides.
+![Data blending dialog with join configuration](assets/looker_blending.png)
 
 
 ### 2. Data Source Management
@@ -442,7 +442,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Real-time updates
    - Incremental refresh
 
-> **Figure (add screenshot or diagram):** Looker Studio's data source management panel — a list of connected sources (Google Sheets, BigQuery, Google Analytics) each with their last-refresh timestamp, a "Refresh fields" button, and an option to set "Data freshness" (real-time, 12h, 1d, custom).
+![Data source management panel with refresh options](assets/looker_source_mgmt.png)
 
 
 ## Advanced Visualizations
@@ -463,7 +463,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Tree maps
    - Sankey diagrams
 
-> **Figure (add screenshot or diagram):** Looker Studio chart type gallery showing the advanced options — a scorecard with a sparkline, a waterfall chart, a treemap, and a Sankey diagram; each with a tooltip showing its name when hovered.
+![Advanced chart types gallery](assets/looker_advanced_charts.png)
 
 
 ### 2. Interactive Features
@@ -480,7 +480,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Responsive layouts
    - Mobile optimization
 
-> **Figure (add screenshot or diagram):** Looker Studio dashboard in view mode — a bar chart with one category bar clicked, all other charts on the page automatically cross-filtered to show only that category's data; a tooltip visible showing Profit and Sales for the selected bar.
+![Cross-filter drill-down interactivity](assets/looker_interactivity.png)
 
 
 ## Collaboration and Sharing
@@ -499,7 +499,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Group access
    - Audit logs
 
-> **Figure (add screenshot or diagram):** Looker Studio's share dialog — a text field for entering collaborator email addresses, a role dropdown (Viewer / Editor), and a "Send invitation" button; the "Anyone with the link can view" toggle also visible for public sharing.
+![Share dialog with collaborator roles](assets/looker_collaboration.png)
 
 
 ### 2. Advanced Sharing Options
@@ -517,7 +517,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Data-driven triggers
    - Custom notifications
 
-> **Figure (add screenshot or diagram):** Looker Studio's advanced sharing screen — tabs for "Share as link", "Schedule email delivery" (with frequency options and recipient list), "Embed report" (showing an iframe code snippet), and "Download as PDF" option.
+![Advanced sharing and embedding options](assets/looker_sharing.png)
 
 
 ## Performance Optimization
@@ -536,7 +536,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Cache hit rates
    - Refresh performance
 
-> **Figure (add screenshot or diagram):** Looker Studio's report performance panel — a table listing each chart on the current page with its query execution time in milliseconds, a "Data freshness" timestamp, and a "Cache hit" indicator showing which charts used cached results versus live queries.
+![Report performance panel with query times and cache hits](assets/looker_performance.png)
 
 
 ### 2. Dashboard Optimization
@@ -553,7 +553,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Mobile-specific views
    - Offline capabilities
 
-> **Figure (add screenshot or diagram):** Looker Studio in "Mobile preview" mode — the same dashboard canvas shrunk to phone width, charts automatically reflowing into a single column; the mobile layout toggle highlighted in the toolbar.
+![Mobile preview with responsive layout optimization](assets/looker_optimization.png)
 
 
 ## AI and Automation
@@ -572,7 +572,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Data-driven actions
    - Scheduled tasks
 
-> **Figure (add screenshot or diagram):** Looker Studio's AI insights panel — an "Insights" button clicked on a time series chart; an auto-generated callout annotation visible on the chart pointing to an anomaly spike with the text "Unusual increase in Sales detected: +43% above trend on Dec 15."
+![AI-powered insights panel with anomaly detection](assets/looker_ai.png)
 
 
 ## Next Steps

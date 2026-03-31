@@ -1,253 +1,349 @@
 {
-    "title": "Mastering Data Storytelling: A Beginner's Guide 📊",
+    "title": "Mastering Data Storytelling",
     "subtitle": "",
     "slides": [
         {
             "type": "title",
-            "title": "Mastering Data Storytelling: A Beginner's Guide 📊",
-            "subtitle": ""
+            "title": "Mastering Data Storytelling",
+            "subtitle": "Turning numbers into narratives that drive action"
+        },
+        {
+            "type": "title",
+            "title": "What is Data Storytelling?",
+            "subtitle": "Why narrative matters in analytics"
         },
         {
             "type": "content",
-            "title": "Case Studies",
+            "title": "Data Alone is Not Enough",
             "content": {
                 "type": "box",
                 "items": [
-                    "**Too many metrics at once**: Managers were overwhelmed with 50+ KPIs, making it impossible to focus on what mattered most",
-                    "**Inconsistent color scheme**: Random colors made it difficult to quickly identify positive vs negative trends",
-                    "**No clear hierarchy**: All metrics appeared equally important, with no visual cues for prioritization",
-                    "**Missing context**: Numbers were presented without historical comparisons or industry benchmarks",
-                    "**Confusing layout**: Related metrics were scattered across different sections, breaking natural data relationships",
-                    "**Focused on key metrics**: Reduced to 5-7 critical KPIs that directly impact store performance",
-                    "**Clear visual hierarchy**: Used size, position, and color to guide attention to most important metrics",
-                    "**Consistent color scheme**: Green for positive trends, red for negative, blue for neutral",
-                    "**Added context and comparisons**: Included year-over-year changes and store performance rankings",
-                    "**Logical layout flow**: Grouped related metrics together (sales, inventory, customer satisfaction)",
-                    "**Text-heavy explanation**: Long paragraphs of text made it difficult to understand the flow",
-                    "**No visual flow**: Missing visual representation of the user journey",
-                    "**Missing key metrics**: Critical drop-off points weren't clearly identified",
-                    "**Hard to identify bottlenecks**: Couldn't quickly spot where users were getting stuck",
-                    "**No clear recommendations**: Analysis didn't lead to actionable insights",
-                    "**Visual flow diagram**: Created a clear path showing each step of the onboarding process",
-                    "**Color-coded stages**: Used colors to indicate success (green), warning (yellow), and critical (red) stages",
-                    "**Clear metrics at each step**: Added conversion rates and drop-off percentages",
-                    "**Highlighted pain points**: Clearly marked where users were abandoning the process",
-                    "**Actionable insights**: Included specific recommendations for each stage",
-                    "**Raw data dump**: Presented all metrics without filtering or prioritization",
-                    "**No clear story**: Failed to connect the data to business objectives",
-                    "**Missing context**: Lacked comparison to previous campaigns and industry benchmarks",
-                    "**Hard to compare channels**: Different metrics made it difficult to evaluate channel performance",
-                    "**No actionable insights**: Data didn't lead to clear recommendations",
-                    "**Clear narrative structure**: Started with objectives, showed results, ended with recommendations",
-                    "**Channel comparisons**: Used consistent metrics to compare performance across channels",
-                    "**Performance metrics**: Focused on ROI and customer acquisition cost",
-                    "**ROI calculations**: Showed return on investment for each channel",
-                    "**Actionable recommendations**: Provided specific budget allocation suggestions",
-                    "**Too many numbers**: Overwhelmed audience with raw financial data",
-                    "**No visual aids**: Relied solely on tables and text",
-                    "**Missing context**: Failed to explain the significance of the numbers",
-                    "**Hard to understand trends**: Made it difficult to see performance patterns",
-                    "**No clear message**: Didn't highlight key achievements or challenges",
-                    "**Key metrics highlighted**: Focused on revenue growth, profit margins, and cash flow",
-                    "**Visual trends**: Used line charts to show performance over time",
-                    "**Year-over-year comparisons**: Added context through historical data",
-                    "**Clear narrative**: Connected financial results to business strategy",
-                    "**Actionable insights**: Provided clear next steps and recommendations",
-                    "**Raw data tables**: Presented unprocessed usage statistics",
-                    "**No visualizations**: Failed to show patterns and trends",
-                    "**Missing patterns**: Couldn't identify user behavior patterns",
-                    "**Hard to identify issues**: Made it difficult to spot engagement problems",
-                    "**No clear insights**: Data didn't lead to actionable recommendations",
-                    "**User flow diagrams**: Showed how users navigated through the platform",
-                    "**Feature usage charts**: Highlighted most and least used features",
-                    "**Time-based patterns**: Revealed when and how users engaged with content",
-                    "**Clear insights**: Identified key opportunities for improvement",
-                    "**Actionable recommendations**: Provided specific suggestions for enhancing engagement",
-                    "**Show only what matters**: Each company found that focusing on key metrics led to better decisions",
-                    "**Create clear hierarchy**: Using visual hierarchy helped guide attention to important information",
-                    "**Guide the audience**: Clear storytelling helped stakeholders understand and act on insights",
-                    "**Add benchmarks**: Companies like Walmart and Tesla used industry benchmarks to provide context",
-                    "**Show comparisons**: Spotify and Netflix used historical data to show trends",
-                    "**Provide background**: Airbnb and others explained the business context for their data",
-                    "**Clear insights**: Each company focused on actionable insights rather than just data",
-                    "**Specific recommendations**: Provided concrete next steps for improvement",
-                    "**Measurable impact**: Showed the potential impact of recommended changes",
-                    "**What do they need to know?**: Understand your audience's key concerns and questions",
-                    "**What decisions do they need to make?**: Focus on data that supports decision-making",
-                    "**How can you help them?**: Provide clear, actionable insights",
-                    "**What's the main message?**: Identify the key takeaway",
-                    "**What evidence supports it?**: Use data to back up your story",
-                    "**What should happen next?**: Provide clear next steps",
-                    "**Choose the right charts**: Select visualizations that best represent your data",
-                    "**Use color purposefully**: Use color to highlight important information",
-                    "**Create clear hierarchy**: Guide your audience through the information",
-                    "**Clear recommendations**: Provide specific, actionable suggestions",
-                    "**Measurable impact**: Show the potential results of your recommendations",
-                    "**Next steps**: Outline immediate actions needed",
-                    "**What's working well?**: Identify successful elements",
-                    "**What could be improved?**: Look for areas of confusion or clutter",
-                    "**What's missing?**: Consider what additional context or insights would help",
-                    "**Focus on key messages**: Reduce to the most important points",
-                    "**Add visual elements**: Use charts and diagrams to illustrate key points",
-                    "**Create clear hierarchy**: Guide your audience through the information",
-                    "**Show to colleagues**: Get input from different perspectives",
-                    "**Ask specific questions**: Focus on clarity and actionability",
-                    "**Iterate and improve**: Use feedback to refine your work"
+                    "**Raw data** = raw ingredients (flour, sugar, eggs) — hard to digest on their own",
+                    "**Narrative** = the recipe — provides structure, flow, and meaning",
+                    "**Story** = the finished dish — engaging, memorable, and drives action",
+                    "Studies show people remember stories 22× more than facts alone",
+                    "Traditional reports: ~40% comprehension | Visualisation: ~65% | Data storytelling: ~85%",
+                    "Goal: transform numbers into insights that any audience can understand and act on"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Narrative Techniques",
+            "title": "The Three Pillars of Data Storytelling",
             "content": {
                 "type": "box",
                 "items": [
-                    "**Raw Data** = Raw ingredients (flour, sugar, eggs)",
-                    "**Narrative** = Recipe (instructions on how to combine ingredients)",
-                    "**Story** = Finished dish (delicious and easy to consume)",
-                    "**Situation**: Current state and context",
-                    "**Complication**: Challenge or problem to solve",
-                    "**Resolution**: Solution and next steps",
-                    "Primary Message: Your main insight or key finding",
-                    "Supporting Data: Evidence and data points that back up your message",
-                    "Additional Context: Background information that enriches understanding",
-                    "For comparisons between categories  Bar charts",
-                    "For trends over time  Line charts",
-                    "For distributions and spread  Histograms or box plots",
-                    "For outlier analysis  Box plots",
-                    "Sequential: For ordered data (e.g., low to high values)",
-                    "Categorical: For distinct categories that need clear differentiation",
-                    "Diverging: For data that spans positive and negative values",
-                    "Accessible: Color-blind friendly options for inclusive design",
-                    "Clear main message: Is your key point immediately apparent?",
-                    "Logical flow: Does your story progress naturally?",
-                    "Appropriate visuals: Do your visualizations support your message?",
-                    "Consistent styling: Is your design cohesive throughout?",
-                    "Accessible design: Can all audience members understand your content?",
-                    "Actionable insights: Are next steps clear?",
-                    "Engaging narrative: Does your story maintain interest?",
-                    "Proper context: Is necessary background provided?",
-                    "Clear call to action: Do people know what to do next?",
-                    "Impact measurement: Can results be tracked?",
-                    "No context or stakes",
-                    "No human element",
-                    "No clear action items",
-                    "Uses vivid analogy (stadium of fans)",
-                    "Provides clear cause (response time)",
-                    "Offers specific solution",
-                    "Quantifies the impact",
-                    "States obvious fact",
-                    "No actionable insight",
-                    "No compelling narrative",
-                    "Relates to personal experience",
-                    "Provides specific timing",
-                    "Quantifies the opportunity",
-                    "Offers clear solution",
-                    "Vague problem statement",
-                    "No context or comparison",
-                    "No clear path forward",
-                    "Uses relatable analogy",
-                    "Provides clear metrics",
-                    "Shows potential value",
-                    "Offers specific solution",
-                    "What do they already know?",
-                    "What do they care about?",
-                    "What decisions do they need to make?",
-                    "One main message per story",
-                    "3-5 supporting points",
-                    "Clear call to action",
-                    "Test your story on colleagues",
-                    "Get feedback early",
-                    "Refine based on reactions",
-                    "Choose appropriate charts",
-                    "Create clear diagrams",
-                    "Use consistent styling",
-                    "Track engagement metrics",
-                    "Collect feedback",
-                    "Monitor action taken",
-                    "\"Storytelling with Data\" by Cole Nussbaumer Knaflic",
-                    "\"Data Story\" by Nancy Duarte",
-                    "\"The Big Picture\" by Steve Wexler",
-                    "[Data Visualization Society](https://www.datavisualizationsociety.org/)",
-                    "[Storytelling with Data Blog](https://www.storytellingwithdata.com/blog)",
-                    "[Information is Beautiful](https://informationisbeautiful.net/)",
-                    "Tableau Public (Free)",
-                    "Power BI (Free)",
-                    "Python (matplotlib, seaborn)",
-                    "R (ggplot2)"
+                    "**Data**: accurate, relevant, well-sourced evidence that supports your message",
+                    "**Narrative**: a logical flow that guides the audience from context to insight to action",
+                    "**Visuals**: charts and diagrams that make patterns and relationships instantly visible",
+                    "Remove any pillar and the story weakens: data without narrative overwhelms; narrative without data is opinion; visuals without data misleads",
+                    "The strongest presentations combine all three deliberately"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Visual Storytelling Principles",
+            "subtitle": "One message per chart; hierarchy of emphasis"
+        },
+        {
+            "type": "content",
+            "title": "One Message Per Visualisation",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Every chart should answer exactly one question — if it answers two, split it",
+                    "The chart title should state the insight, not just describe the data (e.g. 'Revenue grew 30% after the product launch', not 'Revenue over time')",
+                    "Remove everything that does not support the one message: gridlines, borders, redundant legends",
+                    "Adequate white space helps the eye focus on the signal",
+                    "Cognitive load is real — simpler charts get read; cluttered ones get skipped"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Visual Storytelling",
+            "title": "Visual Hierarchy: Guide the Eye",
             "content": {
                 "type": "box",
                 "items": [
-                    "**Words** = One person speaking (linear, sequential)",
-                    "**Numbers** = Mathematical language (precise but abstract)",
-                    "**Visuals** = Universal language (instant understanding)",
-                    "**Bar Chart** = Simple statement (comparing quantities)",
-                    "**Line Chart** = Story over time (showing trends)",
-                    "**Pie Chart** = Parts of a whole (showing proportions)",
-                    "**Red**: Stop and pay attention (key metrics)",
-                    "**Yellow**: Caution and consider (supporting data)",
-                    "**Green**: Go ahead and explore (background info)",
-                    "**Focal Point**: The main piece (key insight)",
-                    "**Flow**: How people move through the space (story progression)",
-                    "**Balance**: Everything in its right place (visual harmony)",
-                    "Cluttered with too many charts",
-                    "Inconsistent colors",
-                    "No clear hierarchy",
-                    "Focused on key metrics",
-                    "Consistent color scheme",
-                    "Clear visual hierarchy",
-                    "Linear, text-heavy",
-                    "No visual cues",
-                    "Hard to follow",
-                    "Visual flow diagram",
-                    "Color-coded stages",
-                    "Clear progression",
-                    "Raw numbers only",
-                    "No visual elements",
-                    "Hard to understand",
-                    "Key metrics highlighted",
-                    "Trend visualizations",
-                    "Clear comparisons",
-                    "One message per visualization",
-                    "Clear, readable fonts",
-                    "Adequate white space",
-                    "Show to colleagues",
-                    "Get feedback",
-                    "Iterate and improve",
-                    "Technical vs. non-technical",
-                    "Color vision considerations",
-                    "Cultural context",
-                    "Tooltips for details",
-                    "Filters for exploration",
-                    "Drill-downs for depth",
-                    "Use templates",
-                    "Follow style guides",
-                    "Keep branding consistent",
-                    "\"The Visual Display of Quantitative Information\" by Edward Tufte",
-                    "\"Information Dashboard Design\" by Stephen Few",
-                    "\"Visualize This\" by Nathan Yau",
-                    "Coursera: \"Data Visualization and Communication\"",
-                    "Udemy: \"Data Visualization with Python\"",
-                    "DataCamp: \"Data Visualization with Tableau\"",
-                    "Tableau Public (Free)",
-                    "Power BI (Free)",
-                    "Python (matplotlib, seaborn)",
-                    "R (ggplot2)",
-                    "Pick a simple dataset",
-                    "Identify key metrics",
-                    "Define your message",
-                    "Select appropriate chart type",
-                    "Choose color scheme",
-                    "Plan layout",
-                    "Build initial visualization",
-                    "Get feedback",
-                    "Make improvements"
+                    "**Primary elements** (the insight): bold, bright, large — your key metric or finding",
+                    "**Secondary elements** (supporting data): medium weight and size — context that explains the insight",
+                    "**Background elements** (reference): light, neutral — axes, benchmarks, grid",
+                    "Use size, colour, and position to signal importance — not decoration",
+                    "The eye naturally moves top-left to bottom-right (Z-pattern) and down the left edge (F-pattern)",
+                    "Place the most important number or chart where the eye lands first"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Choosing Visuals for Your Story",
+            "subtitle": "Match the chart type to the narrative goal"
+        },
+        {
+            "type": "content",
+            "title": "Chart-to-Narrative Matching",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Comparison across categories** → bar chart (horizontal when labels are long)",
+                    "**Trend over time** → line chart (smooth for trends; sharp for actual values)",
+                    "**Distribution and spread** → histogram or box plot",
+                    "**Outlier analysis** → box plot (shows quartiles and whiskers)",
+                    "**Correlation between two variables** → scatter plot (add trend line for clarity)",
+                    "**Parts of a whole** → pie or donut chart (limit to 5–7 segments)",
+                    "**Flow or journey** → Sankey diagram or funnel chart"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Common Chart Mistakes to Avoid",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Using a pie chart for time-series data** — use a line chart instead",
+                    "**Too many categories in one chart** — group small slices into 'Other'",
+                    "**Dual y-axes** — almost always misleading; split into two separate charts",
+                    "**3D charts** — distort proportions; never use decorative 3D",
+                    "**Truncated y-axis** starting above zero — exaggerates differences; start at zero for bar charts",
+                    "**Missing labels and units** — always label axes and state the unit"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Colour and Annotation for Emphasis",
+            "subtitle": "Guide the eye to what matters"
+        },
+        {
+            "type": "content",
+            "title": "Using Colour Purposefully",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Sequential palette**: for ordered data (light → dark = low → high values)",
+                    "**Categorical palette**: for distinct groups that need clear differentiation",
+                    "**Diverging palette**: for data that spans positive and negative (e.g. profit/loss)",
+                    "Use one highlight colour to draw attention to the key data point — grey out everything else",
+                    "Semantic colour: red = bad/alert, green = good/safe, blue = neutral — be consistent throughout",
+                    "Always test for colour-blind accessibility — avoid red/green only distinctions"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Annotations: Direct Labels over Legends",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Direct labels on lines and bars remove the need for legends (which force eye movement)",
+                    "Callout annotations highlight the single most important data point with a short phrase",
+                    "Reference lines (averages, targets, benchmarks) add context without clutter",
+                    "Arrows and circles draw attention to anomalies, peaks, or turning points",
+                    "Keep annotation text short — one phrase, not a sentence",
+                    "The annotation should say what the data point means, not just what it is"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Narrative Frameworks",
+            "subtitle": "Structuring your message for maximum impact"
+        },
+        {
+            "type": "content",
+            "title": "The SCR Framework",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Situation**: the current state and context — what is happening right now?",
+                    "**Complication**: the challenge, problem, or change — what makes this interesting or urgent?",
+                    "**Resolution**: the insight and recommended action — what should we do about it?",
+                    "SCR is concise and works well for business stakeholders with limited time",
+                    "Example: 'Our churn is 5% (Situation). Half of churned users left in the first 7 days (Complication). We need an improved onboarding flow targeting the first week (Resolution).'",
+                    "Every data presentation can be reduced to one SCR statement — write it before building slides"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "The Classic Narrative Arc",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Hook**: the attention-grabbing opening — a surprising fact, bold question, or stakes statement",
+                    "**Setup**: context and background that the audience needs to understand the story",
+                    "**Journey**: guided discovery through data — build understanding one 'aha' moment at a time",
+                    "**Reveal**: the key insight — the main finding that changes how the audience thinks",
+                    "**Call to action**: specific, measurable next steps — who does what by when",
+                    "Use the arc for longer presentations; use SCR for executive summaries and dashboards"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Building the Narrative Arc",
+            "subtitle": "Hook → Context → Conflict → Resolution"
+        },
+        {
+            "type": "content",
+            "title": "Crafting a Strong Hook",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Question hook**: 'What if we could predict churn before it happens?' — creates curiosity",
+                    "**Surprise hook**: 'Our biggest competitor is actually our own website' — challenges assumptions",
+                    "**Stakes hook**: 'Every minute we wait costs us another 100 customers' — creates urgency",
+                    "The hook sets the frame for everything that follows — spend time on it",
+                    "Weak hook: 'Email open rates vary by time of day' (states the obvious, no stakes)",
+                    "Strong hook: 'By changing when we send emails, we could reach 45,000 more customers daily' (quantifies the opportunity)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "From Insight to Action",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Every insight should connect to a decision: what does the audience need to do differently?",
+                    "One main message per story — three to five supporting points maximum",
+                    "State the call to action explicitly: **What** (specific action), **When** (timeline), **How** (steps)",
+                    "Quantify the impact of inaction as well as action — 'if we do nothing, X happens'",
+                    "Weak ending: 'Feature X has low adoption rates' (vague, no path forward)",
+                    "Strong ending: 'Users who discover Feature X use it 3× more — we can increase adoption by 300% with one UX change' (clear insight + specific solution)"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Structuring a Data Presentation",
+            "subtitle": "Executive summary, details, appendix"
+        },
+        {
+            "type": "content",
+            "title": "The Pyramid Principle for Data Presentations",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Lead with the conclusion — busy stakeholders should see the answer on slide 1",
+                    "**Executive summary (top)**: one-sentence finding, one-sentence recommendation",
+                    "**Main body (middle)**: three to five supporting points with evidence charts",
+                    "**Appendix (bottom)**: detailed data tables, methodology, raw analysis for those who want to dig",
+                    "Most audiences only read the top — make the top enough to act on",
+                    "The appendix signals rigour without cluttering the main narrative"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Slide-by-Slide Structure",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Slide 1 — **Title**: topic and the one key message",
+                    "Slide 2 — **Context**: background the audience needs (situation)",
+                    "Slides 3–5 — **Evidence**: one chart per slide, each supporting the main message",
+                    "Slide 6 — **Insight**: the main finding stated plainly (the 'so what')",
+                    "Slide 7 — **Recommendation**: specific action with timeline and owner",
+                    "Appendix — **Detail**: methodology, full data tables, sensitivity analyses"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Adapting for Your Audience",
+            "subtitle": "Technical vs business stakeholders"
+        },
+        {
+            "type": "content",
+            "title": "Know Your Audience",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**What do they already know?** — calibrate complexity to their technical and domain expertise",
+                    "**What do they care about?** — connect insights to their KPIs, goals, or pain points",
+                    "**What decisions do they need to make?** — focus only on data that supports those decisions",
+                    "**Business stakeholders**: lead with business impact, defer methodology to the appendix",
+                    "**Technical stakeholders**: can handle model details, confidence intervals, and caveats in the main body",
+                    "When in doubt, lead with business language and offer technical depth on request"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Case Study 1",
+            "subtitle": "Walmart Sales Dashboard — before and after"
+        },
+        {
+            "type": "content",
+            "title": "Case Study 1: Walmart Sales Dashboard",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Challenge**: communicate monthly performance to 4,700+ store managers — original dashboard had 50+ KPIs",
+                    "**Bad version problems**: too many metrics, inconsistent colours, no hierarchy, no context, scattered layout",
+                    "**Good version fix**: reduced to 5–7 critical KPIs; green/red/neutral colour semantics; clear hierarchy by size and position; year-over-year comparisons; related metrics grouped together",
+                    "**Key lesson**: store managers made better decisions with fewer, more relevant metrics",
+                    "**Key lesson**: semantic colour (green = positive, red = negative) enabled instant scanning",
+                    "**Key lesson**: most important metrics (daily sales, customer count) placed top-left where the eye lands first"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Case Study 2",
+            "subtitle": "Spotify User Onboarding — making the journey visible"
+        },
+        {
+            "type": "content",
+            "title": "Case Study 2: Spotify User Onboarding",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Challenge**: 40% drop-off between signup and first playlist creation — original analysis was text-heavy paragraphs",
+                    "**Bad version problems**: no flow diagram, missing drop-off metrics, no visual progression, no recommendations",
+                    "**Good version fix**: funnel diagram showing each step with conversion rates; colour-coded stages (green/yellow/red); callout annotation at the worst step; specific recommendations per stage",
+                    "**Key lesson**: visual journey maps were 3× more effective at communicating insights than prose",
+                    "**Key lesson**: colour-coding by severity (green > 80%, yellow 50–80%, red < 50%) made bottlenecks instantly visible",
+                    "**Key lesson**: tying each insight directly to a recommendation made the analysis actionable"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Common Mistakes",
+            "subtitle": "Chart junk, misleading scales, and burying the insight"
+        },
+        {
+            "type": "content",
+            "title": "The Most Damaging Data Story Mistakes",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Chart junk**: decorative 3D effects, gradient fills, unnecessary borders — all obscure the data",
+                    "**Misleading scales**: truncated y-axis or inconsistent intervals exaggerate or minimise differences",
+                    "**Data overload**: showing every metric available forces the audience to decide what matters — your job is to do that for them",
+                    "**Burying the insight**: putting the key finding on slide 12 after 11 slides of context — lead with it",
+                    "**No clear action**: presenting analysis without a recommendation leaves the audience asking 'so what?'",
+                    "**Ignoring the audience**: using technical jargon with business stakeholders (or over-simplifying for analysts)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Pre-Presentation Checklist",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Is the key message visible on slide 1 without reading anything else?",
+                    "Does every chart have an insight-driven title (not just a description)?",
+                    "Is there one message per visualisation — no chart doing double duty?",
+                    "Are colours used consistently and with semantic meaning throughout?",
+                    "Have all unnecessary chart elements (gridlines, borders, legends) been removed?",
+                    "Does the presentation end with a specific, measurable call to action?",
+                    "Has a colleague reviewed it and can state the main message back to you in one sentence?"
                 ]
             }
         }

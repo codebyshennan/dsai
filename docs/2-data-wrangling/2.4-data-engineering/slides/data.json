@@ -9,185 +9,235 @@
         },
         {
             "type": "content",
+            "title": "What is Data Engineering?",
+            "content": {
+                "type": "box",
+                "items": [
+                    "Data engineering is the discipline of **designing, building, and maintaining** systems that collect, store, and serve data reliably at scale",
+                    "Goal: ensure downstream analysts and models receive **clean, timely, traceable data**",
+                    "Without it: analysts spend 80 % of their time cleaning data instead of analysing it",
+                    "**Core responsibilities**: pipeline development, storage design, data quality, orchestration",
+                    "**Common stack**: Python, SQL, Airflow (orchestration), dbt (transforms), Spark (scale), cloud object stores",
+                    "Sits between raw operational systems and data consumers (analysts, ML models, dashboards)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "The Data Engineer's Role",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Build pipelines** that move data from source systems to storage targets on a schedule",
+                    "**Design schemas** that balance query performance, flexibility, and maintainability",
+                    "**Enforce data quality** — validate, monitor, and alert on anomalies automatically",
+                    "**Maintain lineage** — trace every field back to its source for debugging and compliance",
+                    "**Collaborate with analysts** to understand access patterns and shape the data model",
+                    "Think in terms of **reliability, repeatability, and observability** — not just correctness"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Data Storage Types",
+            "subtitle": "Choosing the right store for the job"
+        },
+        {
+            "type": "content",
+            "title": "Relational Databases and NoSQL",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Relational (RDBMS)**: PostgreSQL, MySQL — tables with fixed schema, ACID transactions, best for structured operational data",
+                    "**Document stores**: MongoDB — schema-flexible JSON documents, good for nested or evolving data",
+                    "**Key-value stores**: Redis, DynamoDB — ultra-fast lookups by a single key, session/cache data",
+                    "**Column-family stores**: Cassandra, HBase — optimised for wide rows and time-series writes at scale",
+                    "**Graph databases**: Neo4j — nodes and edges, ideal for network/relationship data (fraud, recommendations)",
+                    "Choose based on **access patterns, schema stability, consistency needs, and scale**"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Data Warehouses and Data Lakes",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Data warehouse**: structured, schema-on-write, optimised for analytical queries — Snowflake, BigQuery, Redshift",
+                    "Organised in layers: **Staging → Core warehouse → Data marts**",
+                    "**Star schema**: one fact table surrounded by dimension tables — standard warehouse design pattern",
+                    "**Columnar storage** compresses and scans only the columns needed — 10–100× faster for analytics",
+                    "**Data lake**: raw data in object storage (S3, GCS) — schema-on-read, supports all formats (JSON, Parquet, CSV)",
+                    "**Data lakehouse** (Delta Lake, Iceberg) blends lake flexibility with warehouse-grade ACID guarantees",
+                    "Rule: warehouse for curated analytics; lake for raw archival and ML feature engineering"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "ETL Fundamentals",
+            "subtitle": "Extract, Transform, Load"
+        },
+        {
+            "type": "content",
+            "title": "Extract: Getting Data from Sources",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Extract** = read data from one or more source systems into the pipeline",
+                    "**Relational databases**: SQL query via SQLAlchemy / psycopg2; full or incremental by updated_at",
+                    "**REST APIs**: `requests.get(url, headers=...)` with pagination and rate-limit handling",
+                    "**Files**: CSV, JSON, Parquet from local disk, SFTP, or cloud object storage",
+                    "**Streaming sources**: Kafka topics, webhooks — consumed in near-real-time",
+                    "Key challenges: **authentication, pagination, schema drift, network failures, rate limits**",
+                    "Always implement **retry logic with exponential back-off** for API sources"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Transform: Cleaning and Enriching",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Transform** = apply business rules to turn raw data into analysis-ready data",
+                    "**Data cleaning**: fix types, standardise formats, handle nulls and duplicates",
+                    "**Data enrichment**: join with reference tables, derive new columns, apply business rules",
+                    "**Schema normalisation**: flatten nested structures, rename columns to a consistent convention",
+                    "**Aggregation**: roll up rows to the right grain (e.g. daily sales per product)",
+                    "Keep transforms **idempotent** — running the same transform twice should produce the same output",
+                    "Test transforms with **unit tests** before deploying to production pipelines"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Load: Delivering to Targets",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Load** = write transformed data to the target storage system",
+                    "**Full load**: truncate and reload the entire table — simple but slow for large tables",
+                    "**Incremental load**: append or upsert only new/changed rows — efficient for large datasets",
+                    "**Merge / upsert**: update matching rows, insert new ones — preserves history",
+                    "Use **transactions** to ensure the target is either fully updated or not at all — avoid partial writes",
+                    "**Bulk loading** (COPY, INSERT SELECT) is orders of magnitude faster than row-by-row inserts",
+                    "ELT alternative: load raw data first, then transform inside the warehouse with SQL or dbt"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Data Pipeline Design Patterns",
+            "subtitle": "Batch, streaming, idempotency, and lineage"
+        },
+        {
+            "type": "content",
+            "title": "Batch vs Streaming Pipelines",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Batch**: process data in fixed windows (hourly, daily) — simpler, lower cost, higher latency",
+                    "**Streaming**: process events as they arrive (Kafka, Flink) — low latency, higher complexity",
+                    "Most organisations start with batch; add streaming only when latency requirements demand it",
+                    "**Micro-batch** (Spark Structured Streaming) is a middle ground: short windows, near-real-time",
+                    "**Scheduling**: cron expressions (Airflow, cron) trigger batch runs; event triggers drive streaming",
+                    "Design for **failure tolerance**: pipelines will fail — build retry, alerting, and dead-letter handling in from day one"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Idempotency and Data Lineage",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Idempotency**: running a pipeline run multiple times produces the same result — critical for safe retries",
+                    "Achieve idempotency by using **insert-or-replace / merge** instead of plain INSERT",
+                    "**Partitioned tables**: write each run to a dated partition — re-running overwrites only that partition",
+                    "**Data lineage**: the ability to trace a field from its destination all the way back to its source system",
+                    "Lineage is essential for debugging data quality issues and satisfying compliance audits",
+                    "Tools like **dbt** auto-generate lineage graphs from SQL model dependencies",
+                    "Document **SLAs**: when should each dataset be available, and what happens if it is late?"
+                ]
+            }
+        },
+        {
+            "type": "title",
             "title": "Data Integration",
+            "subtitle": "Connecting disparate sources"
+        },
+        {
+            "type": "content",
+            "title": "Schemas, APIs, and Change Data Capture",
             "content": {
                 "type": "box",
                 "items": [
-                    "**Data Consolidation**:",
-                    "**Data Quality**:",
-                    "**Decision Making**:",
-                    "**Performance**:",
-                    "**Batch Processing**:",
-                    "**Real-time Processing**:",
-                    "**Data Validation**:",
-                    "**System Health**:",
-                    "**Structured**:",
-                    "**File Size**:",
-                    "**Format Validation**:",
-                    "**Error Handling**:",
-                    "**Structure Transformations**:",
-                    "**Content Transformations**:",
-                    "**Semantic Transformations**:",
-                    "**One-to-One**:",
-                    "**One-to-Many**:",
-                    "**Many-to-One**:",
-                    "**Documentation**:"
+                    "**Schema management**: define and version schemas (Avro, JSON Schema, Protobuf) to detect drift early",
+                    "**Schema evolution**: add nullable columns freely; removing or renaming columns is a breaking change",
+                    "**REST API integration**: pagination (cursor, offset), authentication (OAuth2, API keys), rate limits",
+                    "**Change Data Capture (CDC)**: stream only changed rows from a database (Debezium reads the WAL / binlog)",
+                    "CDC is far more efficient than polling — used to sync OLTP databases into data warehouses in near-real-time",
+                    "**Event-driven integration**: publish domain events to a message bus (Kafka); consumers subscribe independently",
+                    "Prefer **idempotent consumers** so duplicate events do not corrupt the target"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Data Quality in Pipelines",
+            "subtitle": "Validate, monitor, alert"
+        },
+        {
+            "type": "content",
+            "title": "Validation, Monitoring, and Alerting",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Validation rules** at ingestion: schema check, null check, range check, referential integrity",
+                    "Run checks **before** writing to the target — reject or quarantine bad records, never silently drop them",
+                    "**Row count checks**: compare source count to target count after each load run",
+                    "**Statistical monitoring**: alert if column mean, null rate, or unique count shifts beyond a threshold",
+                    "**Great Expectations**: open-source library for defining and running data validation suites",
+                    "**Alerting**: route failures to Slack / PagerDuty so the on-call team can respond within SLA",
+                    "Track **data freshness**: last updated timestamp — stale data is as bad as incorrect data"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Real-World Tools Overview",
+            "subtitle": "What each tool solves"
+        },
+        {
+            "type": "content",
+            "title": "Airflow, dbt, and Spark",
+            "content": {
+                "type": "box",
+                "items": [
+                    "**Apache Airflow**: workflow orchestration — define DAGs of tasks in Python, schedule and monitor runs",
+                    "Airflow solves: *how do I run task B only after task A succeeds, on a schedule, with retries?*",
+                    "**dbt (data build tool)**: SQL-first transformation layer inside the warehouse — `SELECT` in, table/view out",
+                    "dbt solves: *how do I manage, test, and document all my SQL transforms as version-controlled code?*",
+                    "**Apache Spark**: distributed in-memory compute for datasets too large for a single machine",
+                    "Spark solves: *how do I process terabytes of data across a cluster without writing custom MapReduce?*",
+                    "Most modern stacks combine all three: Airflow schedules, dbt transforms, Spark handles large-scale ETL"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Data Storage",
+            "title": "Data Engineering Best Practices",
             "content": {
                 "type": "box",
                 "items": [
-                    "**Volume**:",
-                    "**Velocity**:",
-                    "**Variety**:",
-                    "**Access Patterns**:",
-                    "**Scalability**:",
-                    "**Security**:",
-                    "**Data Quality**:",
-                    "**Maintenance**:",
-                    "**Cost Management**:",
-                    "**Use Cases**:",
-                    "**SLA Requirements**:",
-                    "**Data Model**:",
-                    "**Integration**:",
-                    "**Document Stores**:",
-                    "**Key-Value Stores**:",
-                    "**Column-Family Stores**:",
-                    "**Graph Databases**:",
-                    "**Document Stores**:",
-                    "**Key-Value Stores**:",
-                    "**Column-Family**:",
-                    "**Graph Databases**:",
-                    "**Staging Area**:",
-                    "**Core Warehouse**:",
-                    "**Data Marts**:",
-                    "**Star Schema**:",
-                    "**Snowflake Schema**:",
-                    "**Columnar Storage**:",
-                    "**Materialized Views**:"
-                ]
-            }
-        },
-        {
-            "type": "content",
-            "title": "Etl Fundamentals",
-            "content": {
-                "type": "box",
-                "items": [
-                    "**Data Sources**:",
-                    "**Extraction Methods**:",
-                    "**Data Cleaning**:",
-                    "**Data Enhancement**:",
-                    "**Loading Types**:",
-                    "**Target Systems**:",
-                    "**Decision Making**:",
-                    "**Operational Efficiency**:",
-                    "**Performance**:",
-                    "**Quality**:",
-                    "**Source Systems**:",
-                    "**Data Volume**:",
-                    "**Reliability**:",
-                    "**Relational Databases**:",
-                    "**NoSQL Databases**:",
-                    "**Local Files**:",
-                    "**Cloud Storage**:",
-                    "**REST APIs**:",
-                    "**Streaming APIs**:",
-                    "**Data Cleansing**:",
-                    "**Data Enrichment**:",
-                    "**Data Restructuring**:",
-                    "**Data Quality**:",
-                    "**Performance**:",
-                    "**Maintainability**:",
-                    "**Missing Values**:",
-                    "**Duplicates**:",
-                    "**Data Types**:",
-                    "**Batch Loading**:",
-                    "**Real-time Loading**:",
-                    "**Hybrid Loading**:",
-                    "**Performance**:",
-                    "**Data Integrity**:",
-                    "**Target Systems**:",
-                    "**Bulk Loading**:",
-                    "**Incremental Loading**:",
-                    "**File Management**:",
-                    "**Workflow Management**:",
-                    "**Pipeline Patterns**:",
-                    "**State Management**:",
-                    "**Scheduling**:",
-                    "**Monitoring**:",
-                    "**Error Handling**:",
-                    "**Source Config**:",
-                    "**Transform Config**:",
-                    "**Target Config**:"
-                ]
-            }
-        },
-        {
-            "type": "content",
-            "title": "Project",
-            "content": {
-                "type": "box",
-                "items": [
-                    "Master ETL pipeline development",
-                    "Implement data quality controls",
-                    "Handle complex transformations",
-                    "Ensure system reliability",
-                    "Optimize performance",
-                    "Monitor pipeline health",
-                    "**Sales Data**:",
-                    "**Transformation**:",
-                    "**Warehouse Design**:",
-                    "**Analytics Support**:",
-                    "Implement API client for sales data",
-                    "Handle authentication",
-                    "Implement error handling and retries",
-                    "Add rate limiting",
-                    "Connect to source database",
-                    "Implement efficient query patterns",
-                    "Handle large data volumes",
-                    "Implement connection pooling",
-                    "Handle different file formats",
-                    "Implement file validation",
-                    "Process files in batches",
-                    "Track processed files",
-                    "Add derived columns",
-                    "Calculate aggregations",
-                    "Join with reference data",
-                    "Apply business rules",
-                    "Implement data quality checks",
-                    "Generate quality metrics",
-                    "Handle validation failures",
-                    "Log quality issues",
-                    "Implement efficient load patterns",
-                    "Handle incremental loads",
-                    "Manage transactions",
-                    "Implement error recovery",
-                    "Implement indexing strategy",
-                    "Optimize query performance",
-                    "Manage data partitioning",
-                    "Monitor performance",
-                    "Implement logging",
-                    "Track metrics",
-                    "Monitor performance",
-                    "Generate alerts",
-                    "Code documentation",
-                    "Architecture diagram",
-                    "Setup instructions",
-                    "Maintenance guide",
-                    "Unit tests",
-                    "Integration tests",
-                    "Performance tests",
-                    "Error handling tests",
-                    "Code quality and organization (20%)",
-                    "Implementation completeness (30%)",
-                    "Error handling and resilience (20%)",
-                    "Documentation quality (15%)",
-                    "Test coverage (15%)"
+                    "**Modular pipelines**: each task does one thing well — easier to test, debug, and reuse",
+                    "**Version control everything**: pipeline code, SQL transforms, and schema definitions belong in git",
+                    "**Test before you deploy**: unit test transforms, integration test the full pipeline on a sample",
+                    "**Log everything**: task start/end, row counts, warnings — logs are your first debugging tool",
+                    "**Monitor proactively**: dashboards showing pipeline health, SLA status, and quality metrics",
+                    "**Automate quality gates**: block a load if the row count drops > 10 % versus yesterday",
+                    "Start simple, then scale: a well-structured batch job beats a complex streaming system that no one understands"
                 ]
             }
         }

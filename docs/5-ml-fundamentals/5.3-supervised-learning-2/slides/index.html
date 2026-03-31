@@ -243,7 +243,642 @@
                 <section>
                     <div class="content-wrapper">
                         <h1>Supervised Learning - Part 2</h1>
-                        
+                        <h3>Ensembles, Neural Networks &amp; Regularization</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Module Overview</h1>
+                        <h3>What we cover in Part 2</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>From Single Learners to Ensembles</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Part 1 recap</strong>: Decision trees, logistic regression, SVMs — one model, one prediction</li>
+<li><strong>Part 2 idea</strong>: Combine many models to beat any single learner</li>
+<li><strong>Two ensemble families</strong>: Bagging (parallel) and Boosting (sequential)</li>
+<li><strong>Deep learning</strong>: Neural networks learn feature representations automatically</li>
+<li><strong>Regularization</strong>: Controls complexity across all model families</li>
+<li><strong>Goal</strong>: Choose the right tool for the problem — tabular data, images, or text</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Learning Objectives</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>Explain how Random Forests reduce variance through bagging and feature randomness</li>
+<li>Describe the sequential error-correction logic behind Gradient Boosting</li>
+<li>Identify XGBoost and LightGBM as production-grade boosting libraries</li>
+<li>Trace the forward pass through a neural network layer by layer</li>
+<li>Explain how backpropagation uses the chain rule to update weights</li>
+<li>Apply L1, L2, dropout, and early stopping to prevent overfitting</li>
+<li>Select the right algorithm given data type, size, and interpretability needs</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Random Forests</h1>
+                        <h3>Bagging + Feature Randomness</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>What is a Random Forest?</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Core idea</strong>: Train many decision trees independently, then aggregate their predictions</li>
+<li><strong>Classification</strong>: majority vote across all trees</li>
+<li><strong>Regression</strong>: average of all tree outputs</li>
+<li><strong>Why better than one tree?</strong> Individual trees overfit; the ensemble averages out their errors</li>
+<li><strong>Analogy</strong>: Asking 100 experts instead of 1 — the crowd is smarter than any individual</li>
+<li><strong>Key ingredients</strong>: Bootstrap sampling (bagging) + random feature subsets at each split</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Bootstrap Aggregating (Bagging)</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Bootstrap sample</strong>: Draw N samples from the training set with replacement</li>
+<li>Each tree sees a different ~63% of the data; ~37% is left out (out-of-bag)</li>
+<li><strong>Diversity</strong>: Trees trained on different subsets make different errors</li>
+<li><strong>Aggregation</strong>: Averaging diverse errors reduces overall variance</li>
+<li><strong>Out-of-bag (OOB) error</strong>: Free validation estimate — no separate hold-out needed</li>
+<li>OOB samples act like a validation set for each tree; averaged OOB error approximates test error</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Random Feature Selection</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li>At each split, consider only a random subset of features (not all features)</li>
+<li><strong>Classification default</strong>: sqrt(n_features) features per split</li>
+<li><strong>Regression default</strong>: n_features / 3 features per split</li>
+<li><strong>Why randomize features?</strong> Prevents dominant features from appearing in every tree</li>
+<li>Decorrelates the trees — correlated trees don't reduce variance when averaged</li>
+<li><strong>Feature importance</strong>: Count how much each feature reduces impurity across all splits</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Random Forest — When to Use</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Great for</strong>: High-dimensional tabular data, mixed feature types, feature importance analysis</li>
+<li><strong>Handles</strong>: Missing values, non-linear relationships, both classification and regression</li>
+<li><strong>Stable</strong>: Less sensitive to hyperparameters than boosting methods</li>
+<li><strong>Parallelizable</strong>: Trees train independently — easy to distribute</li>
+<li><strong>Less suitable for</strong>: Real-time low-latency inference, very large datasets (try LightGBM), pure linear patterns</li>
+<li><strong>Key hyperparameters</strong>: n_estimators (more is usually better), max_features, max_depth</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Gradient Boosting</h1>
+                        <h3>Sequential Error Correction</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>How Gradient Boosting Works</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Core idea</strong>: Fit each new tree to the *residuals* (errors) of the current ensemble</li>
+<li><strong>Step 1</strong>: Start with a simple prediction (e.g., the mean of y)</li>
+<li><strong>Step 2</strong>: Compute residuals — where is the current model wrong?</li>
+<li><strong>Step 3</strong>: Train a shallow tree to predict those residuals</li>
+<li><strong>Step 4</strong>: Add the tree to the ensemble (scaled by learning rate)</li>
+<li><strong>Step 5</strong>: Repeat — each iteration corrects what the previous ensemble missed</li>
+<li><strong>Gradient descent in function space</strong>: We minimize loss by stepping in the direction of steepest descent</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Bagging vs Boosting</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Bagging (Random Forest)</strong>: Trees trained in parallel on bootstrap samples</li>
+<li><strong>Boosting (Gradient Boosting)</strong>: Trees trained sequentially; each fixes prior errors</li>
+<li><strong>Bagging reduces variance</strong> — good when individual trees overfit</li>
+<li><strong>Boosting reduces bias</strong> — good when individual trees underfit (weak learners)</li>
+<li><strong>Bagging</strong>: robust, parallelizable, fewer hyperparameters</li>
+<li><strong>Boosting</strong>: typically higher accuracy, but more parameters to tune and slower to train</li>
+<li><strong>Rule of thumb</strong>: Try Random Forest first; switch to boosting if you need the extra edge</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>XGBoost and LightGBM</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>XGBoost</strong>: Regularized gradient boosting — adds L1/L2 penalties on tree weights; dominated Kaggle ca. 2015–2018</li>
+<li><strong>LightGBM</strong>: Leaf-wise (best-first) tree growth instead of level-wise — faster and lower memory on large datasets</li>
+<li><strong>CatBoost</strong>: Native categorical feature handling with ordered boosting to reduce target leakage</li>
+<li><strong>Shared strengths</strong>: Built-in cross-validation, early stopping, feature importance, sparse data support</li>
+<li><strong>Key hyperparameters</strong>: learning_rate, n_estimators, max_depth, subsample, colsample_bytree, reg_alpha/lambda</li>
+<li><strong>Practical tip</strong>: Start with learning_rate=0.1 and use early stopping on a validation set</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Gradient Boosting — When to Use</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Best for</strong>: Structured / tabular data where accuracy is the priority</li>
+<li><strong>Common use cases</strong>: Credit scoring, churn prediction, sales forecasting, Kaggle competitions</li>
+<li><strong>Handles</strong>: Mixed types, missing values, imbalanced classes (with scale_pos_weight)</li>
+<li><strong>Less suitable for</strong>: Real-time systems (training is sequential), image/text (use neural networks)</li>
+<li><strong>Overfitting risk</strong>: High learning rate + too many trees → memorization; use early stopping</li>
+<li><strong>Interpretability</strong>: SHAP values give local feature attributions without sacrificing accuracy</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Neural Networks</h1>
+                        <h3>Layers, Activations, and the Forward Pass</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Building Blocks of a Neural Network</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Neuron</strong>: Computes a weighted sum of inputs then applies an activation function</li>
+<li><strong>Input layer</strong>: Receives raw features (pixel values, word embeddings, tabular columns)</li>
+<li><strong>Hidden layers</strong>: Learn increasingly abstract representations of the input</li>
+<li><strong>Output layer</strong>: Produces the final prediction (class probabilities or regression value)</li>
+<li><strong>Weights (W)</strong>: Learnable parameters connecting neurons between layers</li>
+<li><strong>Bias (b)</strong>: Shifts the activation — allows the model to fit data not centered at the origin</li>
+<li><strong>Depth</strong>: More hidden layers = more capacity to learn complex functions</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Activation Functions</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Why activations?</strong> Without them, stacking linear layers collapses to a single linear transform</li>
+<li><strong>ReLU</strong> (Rectified Linear Unit): max(0, x) — fast, default choice for hidden layers</li>
+<li><strong>Sigmoid</strong>: 1/(1+e^-x) — squashes to (0,1); used for binary output, prone to vanishing gradients in deep nets</li>
+<li><strong>Tanh</strong>: Squashes to (-1,1); zero-centered; better than sigmoid for hidden layers in shallow nets</li>
+<li><strong>Softmax</strong>: Converts raw scores to a probability distribution across K classes — use at the output layer for multi-class</li>
+<li><strong>Leaky ReLU / ELU</strong>: Fix the 'dying ReLU' problem where neurons get stuck at zero</li>
+<li><strong>Practical default</strong>: ReLU hidden layers + Softmax output (classification) or linear output (regression)</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>The Forward Pass</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Step 1</strong>: Feed input vector x into the input layer</li>
+<li><strong>Step 2</strong>: Each hidden layer computes z = Wx + b, then a = activation(z)</li>
+<li><strong>Step 3</strong>: Output layer produces prediction ŷ (e.g., class probabilities via softmax)</li>
+<li><strong>Step 4</strong>: Compute loss L(ŷ, y) — e.g., cross-entropy for classification, MSE for regression</li>
+<li><strong>All operations are differentiable</strong>: Enables gradients to flow backward through the network</li>
+<li><strong>Inference = forward pass only</strong>: After training, prediction is fast — just matrix multiplications</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Neural Network Architectures</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Feedforward (MLP)</strong>: Fully-connected layers — good for tabular data and general regression/classification</li>
+<li><strong>CNN (Convolutional)</strong>: Shared filters scan spatial regions — dominant for images and video</li>
+<li><strong>RNN / LSTM</strong>: Recurrent connections carry state across time steps — good for sequences (text, audio)</li>
+<li><strong>Transformer</strong>: Attention mechanism — current state-of-the-art for NLP, and increasingly vision</li>
+<li><strong>Transfer learning</strong>: Fine-tune a pretrained model (e.g., ResNet, BERT) instead of training from scratch</li>
+<li><strong>Practical heuristic</strong>: Tabular → MLP or boosting; images → CNN; text → Transformer</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Backpropagation</h1>
+                        <h3>Chain Rule, Gradients, and Weight Updates</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>How Neural Networks Learn</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Goal</strong>: Adjust weights W so that the loss L(ŷ, y) is minimized</li>
+<li><strong>Gradient descent</strong>: Move weights in the direction that decreases the loss — W ← W - α·∂L/∂W</li>
+<li><strong>α (learning rate)</strong>: Controls step size — too large = overshoot; too small = slow convergence</li>
+<li><strong>Challenge</strong>: Network has many layers — how do we compute ∂L/∂W for every weight?</li>
+<li><strong>Answer</strong>: Backpropagation — efficiently compute all gradients in one backward pass</li>
+<li><strong>Key insight</strong>: The chain rule lets us propagate error signals from output back to input</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>The Chain Rule in Practice</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Chain rule</strong>: ∂L/∂W₁ = (∂L/∂a₂) · (∂a₂/∂z₂) · (∂z₂/∂a₁) · (∂a₁/∂z₁) · (∂z₁/∂W₁)</li>
+<li><strong>Forward pass</strong>: Compute and cache all intermediate activations (z, a at each layer)</li>
+<li><strong>Backward pass</strong>: Starting from the loss, multiply local gradients layer by layer</li>
+<li><strong>Vanishing gradients</strong>: Sigmoid/tanh derivatives are small — multiplied many times → gradient ≈ 0 in early layers</li>
+<li><strong>Exploding gradients</strong>: Gradients grow exponentially — clip gradients or use batch normalization</li>
+<li><strong>Solution</strong>: ReLU activations, careful weight initialization (Xavier/He), gradient clipping, batch norm</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Optimizers and Learning Rate</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>SGD (Stochastic Gradient Descent)</strong>: Update weights on mini-batches — noisier but faster than full-batch</li>
+<li><strong>Momentum</strong>: Accumulate gradient direction over past steps to dampen oscillations</li>
+<li><strong>Adam</strong>: Adaptive learning rates per parameter using first and second gradient moments — default choice</li>
+<li><strong>Learning rate too high</strong>: Loss oscillates or diverges</li>
+<li><strong>Learning rate too low</strong>: Very slow convergence; may get stuck in local minima</li>
+<li><strong>Learning rate schedule</strong>: Start high, decay over time (step decay, cosine annealing, warm restarts)</li>
+<li><strong>Practical tip</strong>: Start with Adam at lr=1e-3; reduce on plateau or use a scheduler</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Regularization</h1>
+                        <h3>Controlling Complexity to Prevent Overfitting</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Why Regularization?</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Overfitting</strong>: Model memorizes training data — high training accuracy, poor test accuracy</li>
+<li><strong>Bias-variance tradeoff</strong>: More complex model → lower bias, higher variance</li>
+<li><strong>Regularization adds a penalty</strong> on model complexity to the loss function</li>
+<li><strong>Modified loss</strong>: L_total = L_data + λ · Complexity_penalty</li>
+<li><strong>λ (lambda)</strong>: Regularization strength — higher λ → simpler model (more bias, less variance)</li>
+<li><strong>Signs of overfitting</strong>: Large gap between training and validation curves, high feature weights</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>L1 and L2 Regularization</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>L2 (Ridge)</strong>: Penalty = λ·Σw² — shrinks all weights toward zero; keeps all features</li>
+<li>L2 is differentiable everywhere and works well when many features contribute a little</li>
+<li><strong>L1 (Lasso)</strong>: Penalty = λ·Σ|w| — drives some weights to exactly zero; automatic feature selection</li>
+<li>L1 is useful when you believe most features are irrelevant (sparse signal)</li>
+<li><strong>Elastic Net</strong>: Penalty = λ₁·Σ|w| + λ₂·Σw² — combines both; good for correlated features</li>
+<li><strong>In tree models</strong>: Regularization via max_depth, min_samples_leaf, or XGBoost's reg_alpha/reg_lambda</li>
+<li><strong>Practical tip</strong>: Default to L2; switch to L1 or Elastic Net when feature selection is important</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Dropout and Early Stopping</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Dropout</strong>: Randomly zero out neurons (rate 0.2–0.5) during each training step</li>
+<li>Forces the network to learn redundant representations — no single neuron can dominate</li>
+<li>Equivalent to training an ensemble of many thinned networks simultaneously</li>
+<li><strong>Dropout at test time</strong>: Turn off dropout; scale activations by keep probability</li>
+<li><strong>Early stopping</strong>: Monitor validation loss; stop training when it stops improving</li>
+<li>Saves a checkpoint of the best model; prevents wasted compute and overfitting</li>
+<li><strong>Patience parameter</strong>: Number of epochs to wait for improvement before stopping</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Other Regularization Techniques</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Batch normalization</strong>: Normalize layer inputs per mini-batch — stabilizes training, mild regularization effect</li>
+<li><strong>Data augmentation</strong>: Artificially expand training data (flips, crops, noise) — especially useful in vision</li>
+<li><strong>Weight decay</strong>: L2 penalty applied directly to optimizer (equivalent to L2 regularization in SGD)</li>
+<li><strong>Max-norm constraint</strong>: Clip weight vector norms during training</li>
+<li><strong>Reduce model capacity</strong>: Fewer layers, fewer neurons — simplest form of regularization</li>
+<li><strong>Cross-validation</strong>: Estimates true generalization error; guides hyperparameter tuning including λ</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Comparing Approaches</h1>
+                        <h3>Ensembles vs. Deep Learning</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Algorithm Comparison</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Random Forest</strong>: Fast training, robust defaults, interpretable feature importance — great starting point</li>
+<li><strong>Gradient Boosting (XGBoost/LightGBM)</strong>: Best accuracy on tabular data, requires careful tuning</li>
+<li><strong>Neural Networks (MLP)</strong>: Flexible, scales with data — competitive on tabular only with large datasets</li>
+<li><strong>CNN</strong>: Unmatched on image/video tasks — learn spatial hierarchies automatically</li>
+<li><strong>Transformer</strong>: State-of-the-art on text, increasingly vision and multimodal tasks</li>
+<li><strong>Training speed</strong>: Random Forest &gt; LightGBM &gt; XGBoost &gt; MLP (generally)</li>
+<li><strong>Interpretability</strong>: Random Forest &gt; Gradient Boosting (SHAP) &gt; Neural Networks (attribution methods)</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Decision Guide: Picking an Algorithm</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Image / video data?</strong> → CNN (ResNet, EfficientNet) or Vision Transformer</li>
+<li><strong>Text / sequence data?</strong> → Transformer (BERT, GPT fine-tune) or LSTM</li>
+<li><strong>Structured / tabular data + need interpretability?</strong> → Random Forest</li>
+<li><strong>Structured / tabular data + need best accuracy?</strong> → Gradient Boosting (XGBoost or LightGBM)</li>
+<li><strong>Large dataset + complex patterns?</strong> → Neural Network (MLP or domain-specific architecture)</li>
+<li><strong>Small dataset?</strong> → Simpler models (logistic regression, Random Forest) before neural networks</li>
+<li><strong>Always</strong>: Establish a simple baseline first; use cross-validation to compare fairly</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Key Takeaways</h1>
+                        <h3>Summary of Supervised Learning Part 2</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Summary</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Random Forest</strong>: Bagging + random features → low variance; OOB error gives free validation</li>
+<li><strong>Gradient Boosting</strong>: Sequential residual fitting → low bias; XGBoost/LightGBM are production-ready</li>
+<li><strong>Neural Networks</strong>: Stacked differentiable layers learn representations; architecture choice matters</li>
+<li><strong>Backpropagation</strong>: Chain rule enables efficient gradient computation; Adam is the go-to optimizer</li>
+<li><strong>Regularization</strong>: L1/L2 for weight penalties, dropout for networks, early stopping for all</li>
+<li><strong>Bias-variance tradeoff</strong> runs through everything: more complex → lower bias, higher variance</li>
+<li><strong>Next step</strong>: Practice on real datasets — compare models with proper cross-validation and metrics</li>
+                        </ul>
+                    </div>
+                
+                        </div>
                     </div>
                     <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>

@@ -243,7 +243,523 @@
                 <section>
                     <div class="content-wrapper">
                         <h1>5.2 Supervised Learning Part 1</h1>
+                        <h3>k-NN · Naive Bayes · Decision Trees · SVM</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Module Overview</h1>
+                        <h3>Four classical algorithms, when to use each</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>What is Supervised Learning?</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Supervised learning</strong>: the model learns from labelled examples — every training row has a known output $y$</li>
+<li><strong>Goal</strong>: learn a function $f$ such that $f(X) \approx y$ on unseen data</li>
+<li><strong>Classification</strong>: predict a discrete category (spam / not spam, disease / healthy)</li>
+<li><strong>Regression</strong>: predict a continuous number (house price, temperature tomorrow)</li>
+<li><strong>Key ingredients</strong>: features $X$, labels $y$, a training set, and a held-out test set</li>
+<li><strong>Workflow</strong>: collect data → split train/test → fit model → evaluate → iterate</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Classification vs Regression</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="two-column">
                         
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Classification</strong> — output is a category</li>
+<li>Email spam detection: spam or not spam</li>
+<li>Medical diagnosis: disease present or absent</li>
+<li>Image recognition: cat, dog, or bird</li>
+<li><strong>Regression</strong> — output is a number</li>
+                        </ul>
+                    </div>
+                
+
+                    <div class="list-container">
+                        <ul>
+                            <li>Predicting house sale price from square footage and location</li>
+<li>Forecasting tomorrow's temperature from today's weather</li>
+<li>Estimating delivery time from distance and traffic</li>
+<li><strong>Same algorithms, different loss functions</strong> — all four algorithms in this module support both tasks</li>
+                        </ul>
+                    </div>
+                
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>The Four Algorithms</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>k-Nearest Neighbours (kNN)</strong> — vote among the $k$ closest training points</li>
+<li><strong>Naive Bayes</strong> — apply Bayes' theorem with a feature-independence assumption</li>
+<li><strong>Decision Trees</strong> — split data with nested if/else rules on feature thresholds</li>
+<li><strong>Support Vector Machines (SVM)</strong> — find the maximum-margin hyperplane between classes</li>
+<li>Each algorithm makes different assumptions about the data — understanding these helps you choose wisely</li>
+<li>All four are available in scikit-learn with a consistent `fit` / `predict` API</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>k-Nearest Neighbours</h1>
+                        <h3>Learning by looking at your neighbours</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>kNN — The Core Idea</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Lazy learner</strong>: kNN stores the entire training set and does no explicit training phase</li>
+<li><strong>At prediction time</strong>: find the $k$ training points closest to the new point</li>
+<li><strong>Classification</strong>: take a majority vote among those $k$ neighbours</li>
+<li><strong>Regression</strong>: take the average of those $k$ neighbours' values</li>
+<li><strong>Analogy</strong>: asking your $k$ nearest friends for a restaurant recommendation and going with the majority</li>
+<li><strong>Key hyperparameter</strong>: $k$ — the number of neighbours to consult</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>kNN — Distance Metrics</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Euclidean distance</strong> (L2): $d = \sqrt{\sum_i (p_i - q_i)^2}$ — straight-line distance, default choice for continuous features</li>
+<li><strong>Manhattan distance</strong> (L1): $d = \sum_i |p_i - q_i|$ — sum of absolute differences, robust to outliers</li>
+<li><strong>Cosine similarity</strong>: measures the angle between two vectors — great for text (TF-IDF) features</li>
+<li><strong>Critical rule</strong>: always scale features before computing distances — a feature in thousands dominates one in units</li>
+<li>Use `StandardScaler` or `MinMaxScaler` from scikit-learn before fitting kNN</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>kNN — Choosing k</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>k = 1</strong>: perfectly fits training data but highly sensitive to noise — high variance</li>
+<li><strong>k = n</strong>: predicts the global majority class every time — high bias</li>
+<li><strong>Sweet spot</strong>: use cross-validation to search over k = 1, 3, 5, 7, … and pick the elbow</li>
+<li><strong>Rule of thumb</strong>: start with $k = \sqrt{n}$ as an initial guess</li>
+<li><strong>Prefer odd k</strong> for binary classification to avoid tied votes</li>
+<li><strong>Curse of dimensionality</strong>: distances become meaningless in high-dimensional spaces — consider dimensionality reduction first</li>
+<li><strong>Memory cost</strong>: kNN stores the full training set — can be expensive for large $n$</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Naive Bayes</h1>
+                        <h3>Probabilistic classification with Bayes' theorem</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Naive Bayes — Bayes' Theorem</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Bayes' theorem</strong>: $P(y \mid X) = \dfrac{P(X \mid y)\, P(y)}{P(X)}$</li>
+<li>$P(y \mid X)$ — <strong>posterior</strong>: probability of class $y$ given the observed features $X$</li>
+<li>$P(X \mid y)$ — <strong>likelihood</strong>: how probable is the data if $y$ is true</li>
+<li>$P(y)$ — <strong>prior</strong>: baseline frequency of class $y$ in training data</li>
+<li>$P(X)$ — <strong>evidence</strong>: normalising constant (same for all classes, so often ignored)</li>
+<li><strong>Decision rule</strong>: predict the class $y$ that maximises the posterior probability</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Naive Bayes — The Independence Assumption</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>The naive assumption</strong>: features are conditionally independent given the class label</li>
+<li>This lets us write: $P(X \mid y) = \prod_{j=1}^{d} P(x_j \mid y)$</li>
+<li>Instead of estimating one joint distribution over all features, we estimate $d$ simple univariate distributions</li>
+<li>The assumption is almost always violated in practice — but the classifier still works surprisingly well</li>
+<li><strong>Why it works</strong>: even if probabilities are wrong, the *ranking* of classes is often correct</li>
+<li><strong>Spam example</strong>: presence of 'free' and 'win' are not independent, yet the classifier separates spam effectively</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Naive Bayes — Variants</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Multinomial NB</strong> (`MultinomialNB`): features are word/token counts — standard for text classification</li>
+<li><strong>Bernoulli NB</strong> (`BernoulliNB`): features are binary presence/absence indicators — short documents</li>
+<li><strong>Gaussian NB</strong> (`GaussianNB`): features are continuous and modelled as Gaussian — general numeric data</li>
+<li><strong>Complement NB</strong>: adapts MultinomialNB for imbalanced classes</li>
+<li><strong>Laplace smoothing</strong>: adds a pseudocount to avoid zero probabilities for unseen feature values (the zero-frequency problem)</li>
+<li><strong>Strengths</strong>: very fast training, low memory, strong baseline for text; works well with small datasets</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Decision Trees</h1>
+                        <h3>Nested if/else rules learned from data</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Decision Trees — How They Work</h2>
+                        <div class="box">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Root node</strong>: starts with all training data</li>
+<li><strong>Splitting</strong>: at each node, choose the feature and threshold that best separates the classes</li>
+<li><strong>Branches</strong>: each branch represents one answer to the feature question</li>
+<li><strong>Leaf nodes</strong>: terminal nodes that output a class label (or mean value for regression)</li>
+<li><strong>Recursive</strong>: the same splitting process is applied to each child node until a stopping criterion is met</li>
+<li><strong>Result</strong>: a tree of axis-aligned rectangular decision regions — easy to visualise and explain</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Decision Trees — Splitting Criteria</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Gini impurity</strong>: $G = 1 - \sum_k p_k^2$ — measures how mixed the classes are in a node (0 = pure)</li>
+<li><strong>Entropy</strong>: $H = -\sum_k p_k \log_2 p_k$ — information-theoretic measure of disorder</li>
+<li><strong>Information gain</strong>: $IG = H(\text{parent}) - \sum_j \frac{N_j}{N} H(\text{child}_j)$ — how much entropy a split removes</li>
+<li><strong>Best split</strong>: the feature and threshold that maximises information gain (or minimises Gini after the split)</li>
+<li><strong>Gini vs Entropy</strong>: Gini is computationally cheaper; both usually give similar trees</li>
+<li>scikit-learn's `DecisionTreeClassifier` uses Gini by default; set `criterion='entropy'` to switch</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Decision Trees — Overfitting and Pruning</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Overfitting risk</strong>: an unconstrained tree will grow until every leaf is pure — memorising the training data</li>
+<li><strong>Pre-pruning</strong> (early stopping): limit `max_depth`, set `min_samples_split`, or `min_samples_leaf`</li>
+<li><strong>Post-pruning</strong>: grow the full tree, then remove branches that add little predictive value on a validation set</li>
+<li><strong>Cost-complexity pruning</strong> (`ccp_alpha`): penalises tree size; larger `ccp_alpha` = smaller tree</li>
+<li><strong>Feature importance</strong>: `feature_importances_` reports total impurity reduction per feature — useful for feature selection</li>
+<li><strong>Instability</strong>: a small change in training data can produce a very different tree — ensemble methods (Random Forests) solve this</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Support Vector Machines</h1>
+                        <h3>Maximum-margin decision boundaries</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>SVM — The Core Idea</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Goal</strong>: find the hyperplane that separates the two classes with the <strong>widest margin</strong></li>
+<li><strong>Hyperplane</strong>: a line in 2D, a flat plane in 3D, a $(d-1)$-dimensional surface in $d$ dimensions</li>
+<li><strong>Margin</strong>: the distance from the hyperplane to the nearest training point on each side</li>
+<li><strong>Support vectors</strong>: the training points that lie on the margin boundary — these are the only points that define the hyperplane</li>
+<li><strong>Memory efficient</strong>: only the support vectors are stored after training — the rest of the training set can be discarded</li>
+<li><strong>Analogy</strong>: building a fence between two types of plants, positioned as far as possible from both</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>SVM — The Margin and the C Parameter</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Hard-margin SVM</strong>: requires all points to be correctly classified — only works for linearly separable data</li>
+<li><strong>Soft-margin SVM</strong>: allows some points inside or on the wrong side of the margin — controlled by parameter $C$</li>
+<li><strong>Optimisation objective</strong>: $\min_{w,b} \frac{1}{2}\|w\|^2 + C \sum_i \xi_i$ subject to $y_i(w^T x_i + b) \geq 1 - \xi_i$</li>
+<li><strong>Small $C$</strong>: wider margin, more misclassifications tolerated — lower variance, higher bias</li>
+<li><strong>Large $C$</strong>: narrow margin, fewer misclassifications allowed — higher variance, lower bias</li>
+<li><strong>Scaling is essential</strong>: SVM is sensitive to feature scale — always use `StandardScaler` before fitting</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>SVM — Kernels</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Kernel trick</strong>: implicitly maps features into a higher-dimensional space where a linear boundary exists — no explicit transformation needed</li>
+<li><strong>Linear kernel</strong>: no mapping — fast, good default for high-dimensional text data</li>
+<li><strong>RBF (radial basis function) kernel</strong>: $K(x, x') = \exp(-\gamma \|x - x'\|^2)$ — general-purpose nonlinear boundary</li>
+<li><strong>Polynomial kernel</strong>: $K(x, x') = (x^T x' + r)^d$ — useful when feature interactions have known polynomial structure</li>
+<li><strong>Sigmoid kernel</strong>: resembles a two-layer neural network activation</li>
+<li><strong>Gamma ($\gamma$)</strong>: controls RBF kernel width — large $\gamma$ = tight fit to training points (overfitting risk)</li>
+<li><strong>Tip</strong>: start with linear SVM; switch to RBF if accuracy is insufficient</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Comparing the Four Algorithms</h1>
+                        <h3>Trade-offs and when to use each</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Algorithm Trade-offs</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Naive Bayes</strong> — training: very fast | prediction: fast | interpretability: moderate | memory: low</li>
+<li><strong>kNN</strong> — training: trivial (stores data) | prediction: slow as $n$ grows | interpretability: low | memory: high</li>
+<li><strong>Decision Trees</strong> — training: fast | prediction: fast | interpretability: high (rule lists) | memory: low</li>
+<li><strong>SVM</strong> — training: costly for large $n$ | prediction: moderate | interpretability: low–moderate | memory: moderate (support vectors only)</li>
+<li><strong>Scaling sensitivity</strong>: kNN and SVM require feature scaling; Naive Bayes and Decision Trees do not</li>
+<li><strong>Non-linearity</strong>: kNN, Decision Trees, and SVM (with kernel) handle non-linear boundaries; linear Naive Bayes does not</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>When to Use Each Algorithm</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Naive Bayes</strong> → text classification (spam, sentiment, topic), high-dimensional sparse data, fast real-time inference</li>
+<li><strong>kNN</strong> → recommendation systems, pattern recognition, anomaly detection, when data clusters are well-separated</li>
+<li><strong>Decision Trees</strong> → when interpretability is required (e.g., regulated domains), mixed feature types, feature importance ranking</li>
+<li><strong>SVM</strong> → complex classification with clear class separation, image recognition, high-dimensional spaces with relatively few samples</li>
+<li><strong>Start simple</strong>: always establish a logistic regression or linear SVM baseline before more complex models</li>
+<li><strong>Validate</strong>: never rely on a heuristic — always cross-validate and compare on your specific dataset</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Common Pitfalls</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>kNN</strong>: forgetting to scale features — distances are meaningless without normalisation</li>
+<li><strong>kNN</strong>: using on very large datasets without approximate nearest-neighbour indexing</li>
+<li><strong>Naive Bayes</strong>: zero-frequency problem — use Laplace smoothing (`alpha` parameter) to avoid zero probabilities</li>
+<li><strong>Naive Bayes</strong>: assuming the independence assumption holds — verify with domain knowledge</li>
+<li><strong>Decision Trees</strong>: growing too deep without pruning leads to overfitting and brittle models</li>
+<li><strong>SVM</strong>: not scaling features before fitting; also mismatching kernel choice (RBF for sparse text slows training)</li>
+<li><strong>All models</strong>: data leakage — never fit scalers or encoders on the test set</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h1>Summary</h1>
+                        <h3>Key takeaways from this module</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Key Takeaways</h2>
+                        <div class="box box--compact">
+                            
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Supervised learning</strong> maps labelled input-output pairs to a function $f(X) \approx y$</li>
+<li><strong>kNN</strong> is a lazy, distance-based voter — simple but memory-hungry and scale-sensitive</li>
+<li><strong>Naive Bayes</strong> applies Bayes' theorem with a feature-independence shortcut — fast and excellent for text</li>
+<li><strong>Decision Trees</strong> learn axis-aligned if/else rules — highly interpretable but prone to overfitting without pruning</li>
+<li><strong>SVM</strong> maximises the margin between classes and uses kernel tricks for non-linear boundaries</li>
+<li><strong>No free lunch</strong>: no single algorithm wins on all problems — always validate with cross-validation</li>
+<li><strong>Next</strong>: 5.3 covers ensemble methods (Random Forests, Gradient Boosting) that extend Decision Trees</li>
+                        </ul>
+                    </div>
+                
+                        </div>
                     </div>
                     <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
                 </section>

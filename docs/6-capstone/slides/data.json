@@ -1,0 +1,389 @@
+{
+    "title": "Data Science & AI Capstone Project",
+    "slides": [
+        {
+            "type": "title",
+            "title": "Data Science & AI Capstone Project",
+            "subtitle": "Putting it all together"
+        },
+        {
+            "type": "content",
+            "title": "What is the Capstone?",
+            "content": {
+                "items": [
+                    "A **end-to-end data science project** that integrates all course skills",
+                    "You choose a real-world problem, collect data, analyse it, build a model, and present findings",
+                    "Designed to demonstrate **industry-relevant** competency — not just technical exercises",
+                    "Completed over **2 weeks** (part-time), delivered as a 5-minute video presentation",
+                    "Three structured briefs are provided — or propose your own"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Capstone Goals",
+            "content": {
+                "items": [
+                    "**Problem framing** — translate a real-world question into a data science task",
+                    "**Reproducibility** — others can run your code end-to-end without hand-holding",
+                    "**Communication** — present findings clearly to a non-technical audience",
+                    "**Full pipeline** — data collection → cleaning → EDA → modelling → insights",
+                    "Demonstrate both **technical competency** and **business acumen**"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Prerequisites",
+            "subtitle": "What you need before starting"
+        },
+        {
+            "type": "content",
+            "title": "You Should Already Be Able To...",
+            "content": {
+                "items": [
+                    "Load and clean tabular data in **pandas** (Module 1–2)",
+                    "Build at least one **visualisation** with clear intent (Module 1, 3)",
+                    "Write and run **Python** scripts and Jupyter notebooks (Module 1.2)",
+                    "Explain the **limitations** of a model or summary statistic (Module 3–4)",
+                    "Apply basic **machine learning** techniques with scikit-learn (Module 5)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "A Reminder About Scope",
+            "content": {
+                "items": [
+                    "The capstone is **not** the place to learn pandas or SQL from scratch",
+                    "Use earlier modules to **refresh** concepts before diving in",
+                    "Focus your energy on **problem framing, reproducibility, and storytelling**",
+                    "Poor model performance is acceptable — **methodology and communication** matter more",
+                    "If you are unsure about prerequisites, revisit Modules 1–5 before Week 1"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Project Options",
+            "subtitle": "Three structured briefs — or bring your own"
+        },
+        {
+            "type": "content",
+            "title": "Option A: UN SDGs Data Analysis Pipeline",
+            "content": {
+                "items": [
+                    "**Goal**: Analyse progress towards specific UN Sustainable Development Goals",
+                    "**Data**: UN Data Commons API — 210+ indicators across 193+ countries",
+                    "**Complementary**: World Bank Open Data for socioeconomic context",
+                    "Pick **2–3 focused goals** (e.g., SDG 1: No Poverty, SDG 3: Good Health)",
+                    "Build predictive models to **forecast SDG progress** regionally or globally",
+                    "Deliverable includes **policy recommendations** backed by data"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Option A: Learning Objectives",
+            "content": {
+                "items": [
+                    "Integrate data from **multiple sources** via APIs and direct downloads",
+                    "Apply data preprocessing and **feature engineering** at scale",
+                    "Create **policy-relevant visualisations** from international datasets",
+                    "Build regression or classification models for **progress forecasting**"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Option B: Bahrain Vision 2030 Economic Analysis",
+            "content": {
+                "items": [
+                    "**Goal**: Assess Bahrain's economic progress towards Vision 2030 targets",
+                    "**Data**: data.gov.bh — general economic indicators, agricultural sector data",
+                    "**Complementary**: Ministry of Finance reports, World Bank Bahrain data",
+                    "Key indicators: GDP growth, private sector share, employment, trade diversification",
+                    "Build **forecasting models** to project indicators towards 2030 targets",
+                    "Deliverable includes an **interactive dashboard** and policy recommendations"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Option B: Learning Objectives",
+            "content": {
+                "items": [
+                    "Work with **government open data portals** and structured CSV exports",
+                    "Analyse **economic trends** and time series patterns",
+                    "Create visualisations that support **policy decision-making**",
+                    "Apply **statsmodels** or scikit-learn for economic indicator forecasting",
+                    "Conduct comparative analysis against **regional benchmarks**"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Option C: Web Scraping to Data Pipeline",
+            "content": {
+                "items": [
+                    "**Goal**: Build an end-to-end pipeline — scrape, process, model, present",
+                    "**Sub-option 1**: Real estate market analysis (property listings → price prediction)",
+                    "**Sub-option 2**: Financial markets dashboard (Yahoo Finance → stock performance)",
+                    "**Sub-option 3**: Weather & climate analysis (OpenWeatherMap → forecasting)",
+                    "Deliverable includes a **working web application or dashboard** (Streamlit/Flask)",
+                    "Must demonstrate a **complete, reproducible pipeline** from raw data to insight"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Option C: Ethical Guidelines",
+            "content": {
+                "items": [
+                    "Always **respect robots.txt** — check before scraping any site",
+                    "Implement **rate limiting** (delays between requests) to avoid overloading servers",
+                    "Use only **publicly available data** — do not bypass login walls",
+                    "Follow the **terms of service** for all APIs and data sources",
+                    "Document your data sources and access method in your README"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Proposing Your Own Project",
+            "content": {
+                "items": [
+                    "You may propose a custom project if you have a domain interest or dataset in mind",
+                    "It must satisfy **all general requirements** (collection, EDA, modelling, presentation)",
+                    "Python is **strongly recommended** — R is acceptable with clear justification",
+                    "Discuss your idea with your instructor **before committing** to avoid scope creep",
+                    "Pre-trained models are allowed if you demonstrate understanding and cite sources"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Project Requirements",
+            "subtitle": "Five core areas for all options"
+        },
+        {
+            "type": "content",
+            "title": "1. Data Collection & Preparation",
+            "content": {
+                "items": [
+                    "Source and document your dataset(s) — record origin URL and access date",
+                    "Identify and resolve **data quality issues** (missing values, duplicates, outliers)",
+                    "Apply appropriate **preprocessing** techniques (normalisation, encoding, etc.)",
+                    "Split data correctly — **no data leakage** between train and test sets",
+                    "Store raw and processed data in clearly labelled folders"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "2. Exploratory Data Analysis",
+            "content": {
+                "items": [
+                    "Conduct **statistical summaries** — distributions, correlations, skew",
+                    "Create **at least 3 meaningful visualisations** with clear titles and labels",
+                    "Extract and articulate **key insights** — what patterns surprised you?",
+                    "Explore relationships between features before modelling",
+                    "Document findings with markdown cells — notebooks should read like a report"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "3. Modelling & Analysis",
+            "content": {
+                "items": [
+                    "Apply at least one **appropriate ML technique** (regression, classification, clustering)",
+                    "Start with a **baseline model** before adding complexity",
+                    "Evaluate performance using **metrics appropriate to the problem** (e.g., RMSE vs. F1)",
+                    "Use **cross-validation** or a held-out test set — not just training accuracy",
+                    "Document your **model selection rationale** — why this algorithm?"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "4. Results & Insights",
+            "content": {
+                "items": [
+                    "Present **clear findings** — what does the data tell us about the problem?",
+                    "Support every conclusion with **evidence from the data or model output**",
+                    "Discuss **practical implications** — what actions could a stakeholder take?",
+                    "Acknowledge **limitations** — what can your model not do or predict reliably?",
+                    "Suggest **future improvements** — more data, different features, better models"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "5. Technical Implementation",
+            "content": {
+                "items": [
+                    "Use **industry-standard tools**: Python, pandas, scikit-learn, matplotlib / plotly",
+                    "Organise code across **numbered notebooks** (1-eda, 2-preprocessing, 3-modeling)",
+                    "Follow **PEP 8 style** and include comments explaining non-obvious steps",
+                    "Include a **requirements.txt** so others can reproduce your environment",
+                    "Test that your notebooks run **top-to-bottom without errors** in a clean environment"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Timeline & Deliverables",
+            "subtitle": "Two weeks, structured day by day"
+        },
+        {
+            "type": "content",
+            "title": "Week 1: Data Collection & Processing",
+            "content": {
+                "items": [
+                    "**Days 1–2**: Explore your data source — API docs, portal, or scraping target",
+                    "**Days 3–4**: Extract and load data — API calls, downloads, or scraping scripts",
+                    "**Days 5–7**: Data cleaning, preprocessing, and feature engineering",
+                    "By end of Week 1 you should have a **clean, analysis-ready dataset**",
+                    "Commit your work to GitHub daily — no last-minute uploads"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Week 2: Analysis, Modelling & Presentation",
+            "content": {
+                "items": [
+                    "**Days 8–10**: EDA — visualisations and statistical analysis",
+                    "**Days 11–12**: Model building, evaluation, and iteration",
+                    "**Days 13–14**: Final presentation recording and repository clean-up",
+                    "Record a **5-minute video** walking through your project (problem → results)",
+                    "Final check: does everything run cleanly in a fresh environment?"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Video Presentation Structure (5 min)",
+            "content": {
+                "ordered": true,
+                "items": [
+                    "**Problem Introduction (1 min)** — context, motivation, problem statement, expected impact",
+                    "**Technical Approach (2 min)** — data processing, analysis techniques, model development",
+                    "**Results & Insights (1.5 min)** — key findings, model performance, business recommendations",
+                    "**Conclusion (0.5 min)** — achievements, future improvements, lessons learned"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Assessment & Common Pitfalls",
+            "subtitle": "What markers look for — and what to avoid"
+        },
+        {
+            "type": "content",
+            "title": "Assessment Focus Areas",
+            "content": {
+                "items": [
+                    "**Data quality** — are issues identified and handled appropriately?",
+                    "**EDA depth** — do visualisations reveal genuine insight, not just describe data?",
+                    "**Modelling rigour** — is there a baseline? Is evaluation methodology sound?",
+                    "**Communication** — is the story clear to a non-technical audience?",
+                    "**Reproducibility** — can a marker clone and run the repo without modifications?",
+                    "**Documentation** — are decisions explained with reasoning, not just code?"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Common Pitfalls: Data & Modelling",
+            "content": {
+                "items": [
+                    "**Not exploring data before modelling** — always do EDA first",
+                    "**Ignoring missing values or outliers** — document what you found and what you did",
+                    "**Data leakage** — never let test-set information influence training",
+                    "**No baseline model** — always start simple before going complex",
+                    "**Overfitting** — validate on held-out data, not just training accuracy",
+                    "**Wrong metrics** — accuracy is misleading on imbalanced datasets; choose carefully"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Common Pitfalls: Presentation & Docs",
+            "content": {
+                "items": [
+                    "**Exceeding the 5-minute limit** — practice and time yourself beforehand",
+                    "**Too much technical jargon** — explain for a general business audience",
+                    "**Poor visual design** — clear labels, legible fonts, high contrast",
+                    "**No coherent story** — connect problem → data → findings → recommendation",
+                    "**Insufficient code comments** — explain the *why*, not just the *what*",
+                    "**No discussion of limitations** — acknowledging weaknesses shows critical thinking"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Submission Process",
+            "subtitle": "GitHub repository + video presentation"
+        },
+        {
+            "type": "content",
+            "title": "GitHub Repository Requirements",
+            "content": {
+                "items": [
+                    "Create a **public repository** named `capstone-project` (or similar)",
+                    "Folder structure: `data/`, `notebooks/` (1-eda, 2-preprocessing, 3-modeling), `src/`, `docs/`",
+                    "**README.md** must include: problem statement, dataset description, methodology, key findings, setup instructions",
+                    "Include **requirements.txt** listing all Python dependencies",
+                    "All notebooks must be committed with **outputs visible** (run before pushing)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Video Submission",
+            "content": {
+                "items": [
+                    "Record using **OBS Studio**, Loom, or any screen-recording tool",
+                    "Upload to **YouTube, Vimeo, or Google Drive** — unlisted or public",
+                    "Ensure the link is **accessible without login** before submitting",
+                    "Submit both the **repository URL** and **video URL** via the course platform",
+                    "Recommended: use **Canva or slides** to support your narrative visually"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Final Submission Checklist",
+            "content": {
+                "items": [
+                    "Repository is **public** and all code is committed",
+                    "Notebooks run **top-to-bottom without errors** from a fresh clone",
+                    "**requirements.txt** is present and complete",
+                    "README.md is **clear and complete** (problem, data, method, findings, setup)",
+                    "Video is **accessible**, within 5 minutes, and clearly structured",
+                    "Both URLs submitted via the **course platform** before the deadline"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Getting Help",
+            "content": {
+                "items": [
+                    "**Course discussion forums** — for technical implementation questions",
+                    "**Office hours** — for guidance on approach, scope, and methodology",
+                    "**Documentation** — pandas, scikit-learn, and plotly docs are your best friends",
+                    "If a dataset is inaccessible, document the issue and use a **Kaggle alternative**",
+                    "If finishing early, extend your analysis — better visualisations, additional models, new research questions"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Good Luck!",
+            "subtitle": "This is your chance to showcase everything you have learned"
+        }
+    ]
+}
