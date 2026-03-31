@@ -1,6 +1,5 @@
 .DS_Store
 .git
-.github
 .venv
 node_modules
 vendor
