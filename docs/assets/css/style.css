@@ -640,7 +640,6 @@ body {
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-    scrollbar-gutter: stable;
     border-radius: 10px;
     border: 1px solid var(--table-border);
     box-shadow: 0 1px 3px var(--shadow);
