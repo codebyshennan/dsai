@@ -40,25 +40,7 @@ The journey of EDA is both an art and a science. Like a skilled explorer, you ne
 3. Let those answers lead to more specific questions
 4. Iterate until you have a deep understanding of your dataset
 
-```mermaid
-graph TD
-    A[Raw Data] --> B[Initial Exploration]
-    B --> C[Distribution Analysis]
-    B --> D[Relationship Analysis]
-    B --> E[Pattern Discovery]
-    
-    C --> C1[Univariate]
-    C --> C2[Bivariate]
-    C --> C3[Multivariate]
-    
-    D --> D1[Correlations]
-    D --> D2[Dependencies]
-    D --> D3[Interactions]
-    
-    E --> E1[Trends]
-    E --> E2[Seasonality]
-    E --> E3[Anomalies]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.3-eda/diagrams/README-1.mmd" %}
 
 ## Comprehensive EDA Framework
 

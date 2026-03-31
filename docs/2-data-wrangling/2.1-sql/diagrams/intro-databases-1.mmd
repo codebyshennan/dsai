@@ -1,0 +1,24 @@
+erDiagram
+    CUSTOMERS {
+        int customer_id PK
+        string name
+        string email
+    }
+    ORDERS {
+        int order_id PK
+        int customer_id FK
+        date order_date
+    }
+    PRODUCTS {
+        int product_id PK
+        string name
+        decimal price
+    }
+    ORDER_ITEMS {
+        int order_id FK
+        int product_id FK
+        int quantity
+    }
+    CUSTOMERS ||--o{ ORDERS : places
+    ORDERS ||--|{ ORDER_ITEMS : contains
+    PRODUCTS ||--o{ ORDER_ITEMS : "appears in"

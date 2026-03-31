@@ -20,16 +20,7 @@ Think of choosing a Naive Bayes type like choosing the right tool for a job:
 - Counting things? Use a tally counter (Multinomial NB)
 - Checking if something is present? Use a checklist (Bernoulli NB)
 
-```mermaid
-graph TD
-    A["What's your data like?"] --> B{Numbers?}
-    B -->|Yes| C[Gaussian NB]
-    B -->|No| D{Counts?}
-    D -->|Yes| E[Multinomial NB]
-    D -->|No| F{Yes/No?}
-    F -->|Yes| G[Bernoulli NB]
-    F -->|No| H[Transform your data]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.2-supervised-learning-1/naive-bayes/diagrams/3-types-1.mmd" %}
 
 ## 1. Gaussian Naive Bayes: For Numbers
 
@@ -305,16 +296,7 @@ Bernoulli NB is great because:
 
 ### Decision Tree
 
-```mermaid
-graph TD
-    A["What's your data?"] --> B{Numbers?}
-    B -->|Yes| C[Use Gaussian NB]
-    B -->|No| D{Counts?}
-    D -->|Yes| E[Use Multinomial NB]
-    D -->|No| F{Yes/No?}
-    F -->|Yes| G[Use Bernoulli NB]
-    F -->|No| H[Transform your data first]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.2-supervised-learning-1/naive-bayes/diagrams/3-types-2.mmd" %}
 
 ### Quick Reference Table
 

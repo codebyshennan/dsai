@@ -24,22 +24,7 @@
 
 Function application in Pandas means applying a function to your data to transform or analyze it. Think of it like:
 
-```mermaid
-graph TD
-    Q{What do you\nwant to apply to?} -->|One Series\nelement-by-element| MAP["Series.map(fn)\nor Series.apply(fn)"]
-    Q -->|DataFrame rows\nor columns| APP["DataFrame.apply(fn, axis=0/1)"]
-    Q -->|Every cell\nin DataFrame| APMAP["DataFrame.map(fn)\n(pandas ≥ 2.1, was applymap)"]
-
-    MAP --> EX1["series.map(str.upper)\nseries.map({'A':1,'B':2})"]
-    APP --> EX2["df.apply(np.sum, axis=0)  # per column\ndf.apply(lambda r: r.max()-r.min(), axis=1)  # per row"]
-    APMAP --> EX3["df.map(lambda x: round(x, 2))"]
-
-    subgraph FAST["Prefer vectorised where possible"]
-        V1["df['col'] * 2  (not .apply)"]
-        V2["df['col'].str.upper()  (not .map)"]
-        V3["pd.to_datetime(df['date'])  (not .apply)"]
-    end
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.5-data-analysis-pandas/diagrams/function-mapping-1.mmd" %}
 
 *`apply` is flexible but slow on large DataFrames — prefer built-in vectorised methods (`.str`, `.dt`, arithmetic) whenever they exist.*
 

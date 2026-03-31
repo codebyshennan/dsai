@@ -24,25 +24,7 @@
 
 Sorting in Pandas helps you organize your data in a specific order. Think of it like:
 
-```mermaid
-graph LR
-    subgraph SORT["sort_values()"]
-        S1["Reorders rows\nby one or more columns"]
-        S2["ascending=True/False"]
-        S3["na_position='last'/'first'"]
-        S4["Result: new row order"]
-    end
-    subgraph RANK["rank()"]
-        R1["Assigns a position number\n(1 = smallest by default)"]
-        R2["method=\n'average','min','max','first','dense'"]
-        R3["pct=True → percentile (0–1)"]
-        R4["Result: new column of ranks"]
-    end
-    DF["DataFrame"] --> SORT
-    DF --> RANK
-    SORT --> EX1["df.sort_values('score',\nascending=False)"]
-    RANK --> EX2["df['score'].rank(\npct=True)"]
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.5-data-analysis-pandas/diagrams/sorting-ranking-1.mmd" %}
 
 *Use `sort_values` to reorder rows for display or iteration. Use `rank` when you need a numeric position (e.g. leaderboard position, percentile) as a new column alongside the original data.*
 

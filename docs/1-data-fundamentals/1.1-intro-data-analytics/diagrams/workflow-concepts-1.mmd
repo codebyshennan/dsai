@@ -1,0 +1,12 @@
+flowchart TD;
+    A[Business Understanding] --> B[Data Collection];
+    B --> C[Data Cleaning];
+    C --> D[Data Exploration];
+    D --> E[Data Analysis];
+    E --> F[Data Visualization];
+    F --> G[Decision Making];
+    G --> H[Feedback Loop];
+    H --> A;
+
+    classDef step fill:#f9f,stroke:#333,stroke-width:2px;
+    class A,B,C,D,E,F,G,H step;

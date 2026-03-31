@@ -47,22 +47,7 @@ Learning curves are like sports training:
 
 ## Understanding Learning Curves
 
-```mermaid
-graph LR
-    subgraph UNDERFIT["High bias  (underfitting)"]
-        U1["Train error: HIGH\nVal error: HIGH\nGap: SMALL\n\nBoth curves plateau high\nAdding data doesn't help much"]
-        U2["Fix: more complex model\nmore features\nless regularisation"]
-    end
-    subgraph IDEAL["Good fit"]
-        G1["Train error: LOW\nVal error: LOW\nGap: SMALL\n\nBoth converge as n grows\nAdding data may still help a bit"]
-    end
-    subgraph OVERFIT["High variance  (overfitting)"]
-        V1["Train error: LOW\nVal error: HIGH\nGap: LARGE\n\nCurves far apart\nAdding data DOES help"]
-        V2["Fix: more data\nregularisation\nsimpler model\ndropout"]
-    end
-    UNDERFIT -->|"increase capacity"| IDEAL
-    IDEAL -->|"too much capacity"| OVERFIT
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/learning-curves-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** Three side-by-side learning curve plots (x-axis = training set size, y-axis = error): underfitting (both curves high and close), good fit (both curves low and converging), overfitting (training curve low, validation curve high, large gap).
 

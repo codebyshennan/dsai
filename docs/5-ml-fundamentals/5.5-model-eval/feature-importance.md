@@ -25,29 +25,7 @@ Feature importance measures how much each feature contributes to the model's pre
 3. Understand model behavior
 4. Validate domain knowledge
 
-```mermaid
-graph LR
-    subgraph TREE["Tree / MDI importance  (fast)"]
-        T1["Sum mean impurity decrease\nacross all trees and splits"]
-        T1 --> T2["Built-in: rf.feature_importances_\nFast — no extra fit"]
-        T2 --> T3["Caveat: biased toward\nhigh-cardinality features\nCorrelated features split importance"]
-    end
-    subgraph PERM["Permutation importance  (reliable)"]
-        P1["1. Evaluate baseline score"]
-        P1 --> P2["2. Shuffle one feature column"]
-        P2 --> P3["3. Score drop = importance"]
-        P3 --> P4["Repeat for each feature\nn_repeats times"]
-        P4 --> P5["Model-agnostic\nWorks on any fitted estimator"]
-    end
-    subgraph SHAP["SHAP values  (most interpretable)"]
-        S1["Shapley values from game theory\nEach feature gets a fair credit share"]
-        S1 --> S2["Local (per prediction)\n+ Global (aggregated)\nBest for stakeholder explanations"]
-    end
-    CHOOSE{"Which to use?"}
-    CHOOSE -->|"Quick baseline"| TREE
-    CHOOSE -->|"Correlated features or need reliability"| PERM
-    CHOOSE -->|"Production / regulatory explanation"| SHAP
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/feature-importance-1.mmd" %}
 
 ## Types of Feature Importance
 

@@ -1,0 +1,19 @@
+flowchart TD
+    subgraph TSNE["t-SNE mechanics"]
+        T1["`Compute pairwise Similarities in high-D (Gaussian kernel → P_ij)`"]
+        T1 --> T2["Initialise 2D / 3D embedding randomly"]
+        T2 --> T3["`Compute similarities in low-D (Student-t kernel → Q_ij)`"]
+        T3 --> T4["Minimise KL divergence between P and Q via gradient descent"]
+        T4 --> T5["Repeat until converged"]
+    end
+    subgraph PERP["`Perplexity (key hyperparameter)`"]
+        PL["`Low perplexity (5–15) Focus on very local neighbours Fragmented clusters`"]
+        PH["`High perplexity (30–50) More global structure Typical default`"]
+    end
+    subgraph LIMITS["What t-SNE CANNOT tell you"]
+        N1["Cluster sizes are NOT meaningful Artifact of the algorithm"]
+        N2["Distances BETWEEN clusters are NOT interpretable"]
+        N3["Different runs → different layout always set random_state"]
+    end
+    T5 --> LIMITS
+    T2 --> PERP

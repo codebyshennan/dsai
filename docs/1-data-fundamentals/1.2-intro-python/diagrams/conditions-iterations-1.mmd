@@ -1,0 +1,11 @@
+flowchart TD
+    A[Value arrives] --> B{condition 1 if age < 0}
+    B -->|True| C["`Return NaN (invalid)`"]
+    B -->|False| D{condition 2 elif age > 120}
+    D -->|True| E["`Return NaN (suspect)`"]
+    D -->|False| F["`Return value (valid)`"]
+
+    subgraph FOR_LOOP["for row in dataset"]
+        G["Process row 0"] --> H["Process row 1"] --> I["..."] --> J["Process row N-1"]
+    end
+    F -.->|"Run this for every row"| FOR_LOOP

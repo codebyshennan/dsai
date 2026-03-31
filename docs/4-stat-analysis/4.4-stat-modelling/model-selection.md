@@ -30,26 +30,7 @@ Model selection is the process of choosing the best statistical model from a set
 
 *Model Selection & Boosting | Machine Learning Tutorial | Edureka*
 
-```mermaid
-graph TD
-    subgraph BIAS_VAR["Complexity tradeoff"]
-        SIMPLE["Simple model\nHigh bias\nLow variance\nUnderfits"]
-        COMPLEX["Complex model\nLow bias\nHigh variance\nOverfits"]
-        OPT["Optimal model\nMinimises val error\nGeneralises well"]
-    end
-    SIMPLE -->|"add features / degree"| OPT
-    OPT -->|"too complex"| COMPLEX
-
-    subgraph METHODS["Selection methods"]
-        CV["Cross-validation\nAverage CV score across folds\nMost reliable"]
-        AIC["AIC / BIC\nPenalise extra parameters\nGood for nested models"]
-        HOLD["Holdout val set\nFast, can overfit if reused\nmany times"]
-    end
-
-    subgraph PITFALL["Common mistake"]
-        P1["Using test error to select model\n→ leaks test set → overly optimistic\nAlways use train/val for selection\ntest for final report only"]
-    end
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.4-stat-modelling/diagrams/model-selection-1.mmd" %}
 
 ### Why Model Selection Matters
 

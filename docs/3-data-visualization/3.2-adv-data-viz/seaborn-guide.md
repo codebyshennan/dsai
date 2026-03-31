@@ -33,18 +33,7 @@ Key Advantages:
 └─────────────────────────┘
 ```
 
-```mermaid
-graph TD
-    subgraph SB["Seaborn plot families"]
-        REL["Relational\nscatterplot / lineplot\nRelationship between two numeric variables"]
-        DIST["Distribution\nhistplot / kdeplot / ecdfplot / rugplot\nShape of a single numeric variable"]
-        CAT["Categorical\nboxplot / violinplot / barplot\nstripplot / swarmplot / pointplot\nNumeric variable by category"]
-        MAT["Matrix\nheatmap / clustermap\nCorrelations or confusion matrices"]
-        PAIR["Multi-variable\npairplot — all pairs at once\nFacetGrid — any chart by group"]
-    end
-    DATA["Tidy DataFrame\n(one row per observation)"] --> SB
-    SB --> FIG["Matplotlib Figure\n(Seaborn wraps it — you can still call ax.set_*)"]
-```
+{% include mermaid-diagram.html src="3-data-visualization/3.2-adv-data-viz/diagrams/seaborn-guide-1.mmd" %}
 
 ## Getting Started
 

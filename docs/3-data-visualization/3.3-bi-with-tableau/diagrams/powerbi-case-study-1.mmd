@@ -1,0 +1,16 @@
+flowchart TD
+    subgraph VIEWS["`Three main views (left icon bar)`"]
+        RV["Report View Canvas + pages Create / format visuals"]
+        DV["Data View Table data Edit columns, types"]
+        MV["Model View Relationships Join tables"]
+    end
+    subgraph PANELS["Right panels"]
+        VIS["Visualizations Chart type picker Format pane"]
+        FLD["Fields Drag columns onto visuals"]
+        FLT["Filters Page / visual level filters"]
+    end
+    RV --- VIS
+    RV --- FLD
+    RV --- FLT
+    DV -->|"Power Query M language"| TRANS["Transform / clean data"]
+    MV -->|"Drag to join"| REL["Define relationships between tables"]

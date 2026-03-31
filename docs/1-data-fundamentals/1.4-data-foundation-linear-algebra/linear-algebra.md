@@ -14,29 +14,7 @@
 
 This page mixes **set-like** ideas (unique values, membership) with **matrix multiplication** and other **linear algebra** tools. That mirrors real workflows: you often **deduplicate** or **filter** arrays before you **combine** or **transform** them with matrices. Read top to bottom; each section’s code is short enough to run in a notebook as you go.
 
-```mermaid
-graph LR
-    subgraph VEC["Vectors (1D)"]
-        V["[1, 2, 3]\nshape: (3,)"]
-    end
-    subgraph MAT["Matrices (2D)"]
-        M["[[1,2],[3,4],[5,6]]\nshape: (3, 2)"]
-    end
-    subgraph OPS["Key operations"]
-        DOT["Dot product\na · b = Σ aᵢbᵢ\n(must match inner dim)"]
-        MATMUL["Matrix multiply\n(m×k) · (k×n) → (m×n)"]
-        TRANS["Transpose\n(m×n) → (n×m)"]
-        INV["Inverse A⁻¹\nA · A⁻¹ = I\n(solving Ax = b)"]
-    end
-    subgraph DSUSE["Why it matters in DS"]
-        W["Feature matrix X\n(n_samples × n_features)"]
-        PRED["Prediction: X · β\nMatrix-vector product"]
-        PCA2["PCA: eigendecomposition\nof covariance matrix"]
-    end
-    MAT --> OPS
-    VEC --> OPS
-    OPS --> DSUSE
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.4-data-foundation-linear-algebra/diagrams/linear-algebra-1.mmd" %}
 
 *Most sklearn algorithms reduce to matrix multiplications under the hood. Understanding shapes prevents the most common errors: mismatched dimensions in `np.dot` or `@`.*
 

@@ -1,0 +1,19 @@
+flowchart LR
+    subgraph Input["Input Layer"]
+        I1((x₁))
+        I2((x₂))
+        I3((x₃))
+    end
+    subgraph Hidden["Hidden Layer"]
+        H1((h₁))
+        H2((h₂))
+        H3((h₃))
+        H4((h₄))
+    end
+    subgraph Output["Output Layer"]
+        O1((ŷ))
+    end
+    I1 --> H1 & H2 & H3 & H4
+    I2 --> H1 & H2 & H3 & H4
+    I3 --> H1 & H2 & H3 & H4
+    H1 & H2 & H3 & H4 --> O1

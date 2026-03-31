@@ -48,27 +48,7 @@ Neural networks power many of the technologies we use daily:
    - Weights: How important each connection is
    - Biases: Like adjusting the difficulty level
 
-```mermaid
-graph LR
-    subgraph Input["Input Layer"]
-        I1((x₁))
-        I2((x₂))
-        I3((x₃))
-    end
-    subgraph Hidden["Hidden Layer"]
-        H1((h₁))
-        H2((h₂))
-        H3((h₃))
-        H4((h₄))
-    end
-    subgraph Output["Output Layer"]
-        O1((ŷ))
-    end
-    I1 --> H1 & H2 & H3 & H4
-    I2 --> H1 & H2 & H3 & H4
-    I3 --> H1 & H2 & H3 & H4
-    H1 & H2 & H3 & H4 --> O1
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.3-supervised-learning-2/neural-networks/diagrams/1-introduction-1.mmd" %}
 
 *Each arrow carries a **weight**. During training, weights are adjusted so the output ŷ gets closer to the true label.*
 
@@ -116,19 +96,7 @@ graph LR
 - Better at remembering important information
 - Used in: Language translation, weather forecasting
 
-```mermaid
-graph TD
-    A[Choose a Neural Network type] --> B{What kind of data?}
-    B -->|Tabular / structured| C[Feedforward NN]
-    B -->|Images / video| D[CNN]
-    B -->|Sequences / time-series / text| E{Memory needed?}
-    E -->|Short sequences| F[RNN]
-    E -->|Long-range dependencies| G[LSTM / GRU]
-    C --> C1["House prices, click-through rates"]
-    D --> D1["Face recognition, medical imaging"]
-    F --> F1["Next-word prediction"]
-    G --> G1["Translation, forecasting"]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.3-supervised-learning-2/neural-networks/diagrams/1-introduction-2.mmd" %}
 
 *Use this as a starting heuristic—real projects often combine types (e.g. CNN + LSTM for video captioning).*
 

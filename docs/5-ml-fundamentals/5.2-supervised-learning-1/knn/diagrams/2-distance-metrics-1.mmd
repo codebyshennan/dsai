@@ -1,0 +1,10 @@
+flowchart TD
+    Q{What kind of features?} -->|Continuous, same scale| EU["`Euclidean √Σ(xᵢ−yᵢ)² Straight-line distance`"]
+    Q -->|Continuous, different units| MAN["Manhattan Σ|xᵢ−yᵢ| City-block distance"]
+    Q -->|"General case (tunes p)"| MIN["`Minkowski (Σ|xᵢ−yᵢ|ᵖ)^(1/p) p=1→Manhattan, p=2→Euclidean`"]
+    Q -->|"Text or vectors (magnitude irrelevant)"| COS["`Cosine similarity cos θ = (x·y)/(‖x‖‖y‖) Angle between vectors`"]
+    Q -->|Binary / categorical| HAM["Hamming Count mismatches Used in NLP, genetics"]
+
+    EU --> WARN["⚠ Must scale features first! Otherwise large-range features dominate"]
+    MAN --> WARN
+    MIN --> WARN

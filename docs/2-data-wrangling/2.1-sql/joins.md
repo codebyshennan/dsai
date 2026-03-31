@@ -20,22 +20,7 @@ Almost every real question spans more than one table—customers and orders, stu
 
 ## Introduction to SQL Joins
 
-```mermaid
-graph LR
-    subgraph INNER["INNER JOIN — matching rows only"]
-        I1["Returns rows where\nON condition is TRUE in BOTH tables\nDrops unmatched rows from either side"]
-    end
-    subgraph LEFT["LEFT JOIN — keep all left rows"]
-        L1["Returns all rows from left table\nMatched columns from right or NULL\nMost common join in analytics"]
-    end
-    subgraph RIGHT["RIGHT JOIN — keep all right rows"]
-        R1["Returns all rows from right table\nMatched columns from left or NULL\nRare — usually rewrite as LEFT"]
-    end
-    subgraph FULL["FULL OUTER JOIN — keep everything"]
-        F1["Returns all rows from both tables\nNULL where no match\nUseful for reconciliation / audit"]
-    end
-    A["Table A"] & B["Table B"] --> INNER & LEFT & RIGHT & FULL
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.1-sql/diagrams/joins-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** Four Venn diagrams side by side — INNER (centre only), LEFT (left circle + centre), RIGHT (right circle + centre), FULL OUTER (both circles). Shade the returned region for each.
 

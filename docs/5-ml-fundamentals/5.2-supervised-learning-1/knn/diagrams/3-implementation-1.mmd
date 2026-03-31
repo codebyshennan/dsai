@@ -1,0 +1,15 @@
+flowchart LR
+    subgraph SMALL["`Small k  (k=1 or 2)`"]
+        S1["High sensitivity to noise Captures local patterns Low bias, HIGH variance"]
+        S2["Risk: overfitting Jagged decision boundary"]
+    end
+    subgraph LARGE["`Large k  (k=20+)`"]
+        L1["Stable — averages many points Smooths over noise High bias, LOW variance"]
+        L2["Risk: underfitting Misses local clusters"]
+    end
+    subgraph SWEET["`Sweet spot  (k = √n)`"]
+        G1["Balance bias and variance Start here, then tune with CV"]
+    end
+
+    SMALL -->|"increase k"| SWEET
+    SWEET -->|"increase k further"| LARGE

@@ -1,0 +1,10 @@
+flowchart TD
+    A[Missing Data] --> B[MCAR]
+    B --> B1[No systematic pattern]
+    B --> B2[True randomness]
+    A --> C[MAR]
+    C --> C1[Pattern exists]
+    C --> C2[Explainable by other variables]
+    A --> D[MNAR]
+    D --> D1[Systematic pattern]
+    D --> D2[Related to missing value itself]

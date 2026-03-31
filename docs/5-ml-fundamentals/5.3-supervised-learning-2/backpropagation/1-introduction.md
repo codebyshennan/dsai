@@ -48,18 +48,7 @@ Imagine you're teaching a friend to play darts. The process involves:
    - They get better with each throw
    - This is like the network improving with each training step
 
-```mermaid
-flowchart LR
-    subgraph FWD["Forward Pass →"]
-        X["Input X"] --> H1["Hidden\nlayer"] --> H2["..."] --> OUT["Output ŷ"]
-        OUT --> LOSS["Loss\nL(ŷ, y)"]
-    end
-    subgraph BWD["← Backward Pass"]
-        LOSS --> dL_dOut["∂L/∂ŷ"] --> dL_dH2["∂L/∂H2\n(chain rule)"] --> dL_dH1["∂L/∂H1\n(chain rule)"] --> dL_dW["∂L/∂W\nfor each weight"]
-    end
-    dL_dW --> UPDATE["Weight update\nW ← W − α · ∂L/∂W"]
-    UPDATE --> X
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.3-supervised-learning-2/backpropagation/diagrams/1-introduction-1.mmd" %}
 
 *The **chain rule** is why gradients can flow backward: each layer's gradient is the product of all downstream gradients. `α` is the learning rate — how big a step to take each update.*
 

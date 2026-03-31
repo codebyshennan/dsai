@@ -1,0 +1,8 @@
+flowchart LR
+    RAW["`Raw value (string from CSV)`"] -->|"int()"| I[int]
+    RAW -->|"float()"| F[float]
+    RAW -->|"pd.to_datetime()"| DT[datetime]
+    RAW -->|"pd.Categorical()"| CAT[category]
+    F -->|".astype(int)"| I
+    I -->|".astype(float)"| F
+    CAT -->|"pd.get_dummies()"| OHE[one-hot encoded DataFrame]

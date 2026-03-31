@@ -16,24 +16,7 @@ Crash Course AI: supervised learning for classical algorithms.
 
 Now that you've mastered the basics, let's explore some advanced techniques that will make your Naive Bayes models even better. Think of this as adding special tools to your machine learning toolbox!
 
-```mermaid
-graph TD
-    subgraph SMOOTH["Laplace / Additive Smoothing"]
-        SM1["Problem: unseen word in test\n→ P = 0 → posterior = 0"]
-        SM1 --> SM2["Fix: add α (usually 1) to all counts\nP(word|class) = (count+α)/(total+α·V)"]
-        SM2 --> SM3["Prevents zero-probability traps\nα=1 is Laplace; α<1 is Lidstone"]
-    end
-    subgraph FEAT["Feature Independence Assumption"]
-        FI1["NB assumes features are independent\ngiven class label"]
-        FI1 --> FI2["Works surprisingly well even\nwhen features ARE correlated"]
-        FI2 --> FI3["Mitigation: remove near-duplicate\nfeatures; use TF-IDF instead of counts"]
-    end
-    subgraph WHEN["When to use NB"]
-        W1["Text classification (spam, sentiment)\nVery fast, low memory"]
-        W2["Good baseline before trying\nSVM / RF / XGBoost"]
-        W3["Small data — NB generalises\nbetter than deep models here"]
-    end
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.2-supervised-learning-1/naive-bayes/diagrams/5-advanced-topics-1.mmd" %}
 
 ## 1. Feature Engineering: Making Your Data Work Better
 

@@ -44,59 +44,11 @@ Data storage is a fundamental aspect of data engineering that requires careful c
 
 ### Data Warehouse Architecture
 
-```mermaid
-graph TD
-    subgraph Sources
-        A[OLTP Database]
-        B[APIs]
-        C[Files]
-    end
-    subgraph Staging
-        D[Landing Zone]
-        E[Staging Area]
-    end
-    subgraph Warehouse
-        F[Raw Layer]
-        G[Integration Layer]
-        H[Data Marts]
-    end
-    A --> D
-    B --> D
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> H
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.4-data-engineering/diagrams/data-storage-1.mmd" %}
 
 ### Data Lake Organization
 
-```mermaid
-graph TD
-    subgraph bronze ["Bronze Layer"]
-        A[Raw Data]
-        B[Source Files]
-        C[Stream Data]
-    end
-    subgraph silver ["Silver Layer"]
-        D[Cleaned Data]
-        E[Validated Data]
-        F[Transformed Data]
-    end
-    subgraph gold ["Gold Layer"]
-        G[Aggregated Data]
-        H[Feature Sets]
-        I[Analytics Data]
-    end
-    A --> D
-    B --> D
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    F --> H
-    F --> I
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.4-data-engineering/diagrams/data-storage-2.mmd" %}
 
 ### Storage Performance Comparison (Tableau Dashboard)
 

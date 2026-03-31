@@ -1,0 +1,18 @@
+flowchart LR
+    subgraph OLS["`OLS  (no penalty)`"]
+        O1["`Minimise: Σ(y - ŷ)² No constraint on β size`"]
+        O1 --> O2["Large coefficients OK Overfits when p is high or features are correlated"]
+    end
+    subgraph RIDGE["`Ridge  (L2)`"]
+        R1["`Minimise: Σ(y - ŷ)² + λΣβ² Penalise sum of SQUARED coefficients`"]
+        R1 --> R2["Shrinks all β toward 0 None become exactly 0 Good: correlated features"]
+    end
+    subgraph LASSO["`Lasso  (L1)`"]
+        L1["`Minimise: Σ(y - ŷ)² + λΣ|β| Penalise sum of ABSOLUTE coefficients`"]
+        L1 --> L2["Some β become exactly 0 Built-in feature selection Good: sparse truth"]
+    end
+    subgraph EN["`Elastic Net  (L1 + L2)`"]
+        E1["λ₁Σ|β| + λ₂Σβ² Blend of both"]
+        E1 --> E2["Sparse AND stable High-dim correlated data"]
+    end
+    OLS --> RIDGE & LASSO & EN

@@ -1,0 +1,20 @@
+flowchart TD
+    subgraph MARGIN["Maximum margin hyperplane"]
+        H["Decision boundary: w·x + b = 0"]
+        P["Positive support vector: w·x + b = +1"]
+        N["Negative support vector: w·x + b = −1"]
+        MARGIN_W["Margin width = 2 / ||w|| Objective: maximise this = minimise ||w||²"]
+        H & P & N --> MARGIN_W
+    end
+    subgraph KERNEL["`Kernel trick  (non-linear SVM)`"]
+        LIN["`Linear kernel K(x,z) = x·z Fast, good for text/high-dim`"]
+        POLY["`Polynomial kernel K(x,z) = (x·z + c)^d Suitable for image features`"]
+        RBF["`RBF / Gaussian kernel K(x,z) = exp(-γ||x−z||²) Most flexible, default choice Tune γ and C together`"]
+        SIG["`Sigmoid kernel K(x,z) = tanh(κx·z + c) Neural-net-like (rarely needed)`"]
+    end
+    MARGIN_W --> KERNEL
+    subgraph TUNE["Hyperparameter effects"]
+        C_PARAM["`C (regularisation) Small C → wide margin, more misclassifications Large C → narrow margin, fewer mistakes on train`"]
+        GAMMA["`γ (RBF only) Small γ → smooth boundary (global) Large γ → complex boundary (local, overfits)`"]
+    end
+    KERNEL --> TUNE

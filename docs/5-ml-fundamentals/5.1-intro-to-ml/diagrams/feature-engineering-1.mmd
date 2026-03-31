@@ -1,0 +1,18 @@
+flowchart TD
+    RAW["Raw columns"] --> NUM["`Numeric (continuous / discrete)`"]
+    RAW --> CAT["`Categorical (nominal / ordinal)`"]
+    RAW --> DT["Datetime"]
+    RAW --> TXT["Text"]
+
+    NUM --> NS["Scaling StandardScaler → z-score MinMaxScaler → [0,1]"]
+    NUM --> NL["`Log / Box-Cox (fix right skew)`"]
+    NUM --> NI["Interactions X1 × X2 polynomial terms"]
+
+    CAT --> OHE["`One-hot encoding Nominal categories (no ordinal relationship)`"]
+    CAT --> LE["`Label / Ordinal encoding Ordered categories (S < M < L)`"]
+    CAT --> TE["`Target encoding High-cardinality: replace with mean target (with CV)`"]
+
+    DT --> DTF["Date parts year, month, day, weekday time since event"]
+
+    TXT --> TF["TF-IDF bag-of-words baseline"]
+    TXT --> EMB["`Embeddings (advanced — word2vec, BERT)`"]

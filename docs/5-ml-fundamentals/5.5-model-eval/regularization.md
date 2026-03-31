@@ -31,20 +31,7 @@ Regularization adds a penalty term to the model's loss function to discourage co
 
 ## Types of Regularization
 
-```mermaid
-flowchart TD
-    FIT["Model overfits\n(train >> val score)"] --> Q{What kind\nof model?}
-    Q -->|Linear / logistic\nregression| REG[Add regularization penalty]
-    Q -->|Tree-based| TREE["max_depth, min_samples_leaf,\nn_estimators limits"]
-    Q -->|Neural network| NN["Dropout, weight decay,\nbatch norm"]
-
-    REG --> L1["L1 / Lasso\n→ sparse weights\n(feature selection)"]
-    REG --> L2["L2 / Ridge\n→ small weights\n(keeps all features)"]
-    REG --> EN["Elastic Net\n→ both penalties\n(correlated features)"]
-
-    L1 & L2 & EN --> CV["Use cross-validation\nto choose λ (alpha)"]
-    CV --> PLOT["Plot val score vs log(α)\nPick peak"]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/regularization-1.mmd" %}
 
 *Higher `alpha` (λ) = stronger penalty = simpler model. Too high and you underfit. Use `RidgeCV` or `LassoCV` to search automatically.*
 

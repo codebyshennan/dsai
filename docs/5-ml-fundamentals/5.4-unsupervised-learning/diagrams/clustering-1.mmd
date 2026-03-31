@@ -1,0 +1,10 @@
+flowchart TD
+    A{What do you know about the data?} -->|Number of clusters known| B[K-Means]
+    A -->|Unknown clusters, no noise assumption| C[Hierarchical]
+    A -->|Arbitrary shapes, noise expected| D[DBSCAN]
+    A -->|Need probability of membership| E[Gaussian Mixture]
+
+    B --> B1["Fast, scalable Assumes spherical clusters Sensitive to k choice"]
+    C --> C1["No k needed upfront Dendrogram shows structure Slower on large data"]
+    D --> D1["Finds outliers naturally Handles odd shapes Needs ε and minPts tuning"]
+    E --> E1["Soft assignments More flexible shapes Expectation-Maximization"]

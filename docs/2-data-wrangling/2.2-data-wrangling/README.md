@@ -32,32 +32,7 @@ Data wrangling, also known as data munging or data preprocessing, is the art and
 
 Let's explore the essential steps in transforming messy data into analysis-ready datasets:
 
-```mermaid
-graph TD
-    A[Raw Data] --> B[Data Quality Assessment]
-    B --> C[Data Cleaning]
-    C --> D[Data Transformation]
-    D --> E[Data Validation]
-    E --> F[Analysis-Ready Data]
-    
-    subgraph qa ["Quality Assessment"]
-    B1[Completeness] --> B
-    B2[Accuracy] --> B
-    B3[Consistency] --> B
-    end
-    
-    subgraph clean ["Cleaning"]
-    C1[Missing Values] --> C
-    C2[Outliers] --> C
-    C3[Duplicates] --> C
-    end
-    
-    subgraph xform ["Transformation"]
-    D1[Scaling] --> D
-    D2[Encoding] --> D
-    D3[Feature Engineering] --> D
-    end
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.2-data-wrangling/diagrams/README-1.mmd" %}
 
 ## Learning Objectives
 

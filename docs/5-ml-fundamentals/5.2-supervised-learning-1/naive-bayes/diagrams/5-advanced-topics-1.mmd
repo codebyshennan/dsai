@@ -1,0 +1,16 @@
+flowchart TD
+    subgraph SMOOTH["Laplace / Additive Smoothing"]
+        SM1["Problem: unseen word in test → P = 0 → posterior = 0"]
+        SM1 --> SM2["`Fix: add α (usually 1) to all counts P(word|class) = (count+α)/(total+α·V)`"]
+        SM2 --> SM3["Prevents zero-probability traps α=1 is Laplace; α<1 is Lidstone"]
+    end
+    subgraph FEAT["Feature Independence Assumption"]
+        FI1["NB assumes features are independent given class label"]
+        FI1 --> FI2["Works surprisingly well even when features ARE correlated"]
+        FI2 --> FI3["Mitigation: remove near-duplicate features; use TF-IDF instead of counts"]
+    end
+    subgraph WHEN["When to use NB"]
+        W1["`Text classification (spam, sentiment) Very fast, low memory`"]
+        W2["Good baseline before trying SVM / RF / XGBoost"]
+        W3["Small data — NB generalises better than deep models here"]
+    end

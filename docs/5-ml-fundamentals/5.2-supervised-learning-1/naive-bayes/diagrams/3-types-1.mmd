@@ -1,0 +1,8 @@
+flowchart TD
+    A["`What's your data like?`"] --> B{Numbers?}
+    B -->|Yes| C[Gaussian NB]
+    B -->|No| D{Counts?}
+    D -->|Yes| E[Multinomial NB]
+    D -->|No| F{Yes/No?}
+    F -->|Yes| G[Bernoulli NB]
+    F -->|No| H[Transform your data]

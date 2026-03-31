@@ -165,20 +165,7 @@ This single query tells us:
 
 ### 1. Introduction to Databases
 
-```mermaid
-flowchart TD
-    A[Database] --> B[Tables]
-    B --> C["Rows / records"]
-    B --> D["Columns / fields"]
-    A --> E[Relationships]
-    E --> F[Primary Keys]
-    E --> G[Foreign Keys]
-    A --> H[Constraints]
-    H --> I[Data Integrity]
-    H --> J[Business Rules]
-    B --> K[Indexes]
-    K --> L[Performance]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.1-sql/diagrams/README-1.mmd" %}
 
 The diagram is intentionally high level: every topic below exists so that **queries return correct rows quickly** without letting bad writes corrupt other rows. Skim the bullets as a map; you will revisit each idea in the linked lessons.
 
@@ -341,13 +328,7 @@ $T_{memory} = O(k)$ where k = number of groups
 
 Master the art of combining data:
 
-```mermaid
-flowchart LR
-    A["INNER JOIN"] --> B["Matching rows"]
-    C["LEFT JOIN"] --> D["All left rows, matching right"]
-    E["RIGHT JOIN"] --> F["All right rows, matching left"]
-    G["FULL JOIN"] --> H["All rows"]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.1-sql/diagrams/README-2.mmd" %}
 
 Example of complex joins:
 

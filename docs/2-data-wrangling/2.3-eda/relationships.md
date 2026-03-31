@@ -41,25 +41,7 @@ Relationship analysis helps you:
 
 Follow this workflow to uncover meaningful relationships in your data:
 
-```mermaid
-graph TD
-    A[Data Variables] --> B{Variable Types}
-    B -->|Both Numeric| C[Numeric Analysis]
-    B -->|Both Categorical| D[Categorical Analysis]
-    B -->|Mixed| E[Mixed Analysis]
-    
-    C --> C1[Correlation]
-    C --> C2[Regression]
-    C --> C3[Non-linear]
-    
-    D --> D1[Chi-square]
-    D --> D2["Cramer's V"]
-    D --> D3[Mutual Info]
-    
-    E --> E1[ANOVA]
-    E --> E2[Point Biserial]
-    E --> E3[Effect Size]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.3-eda/diagrams/relationships-1.mmd" %}
 
 ## Mathematical Foundations
 

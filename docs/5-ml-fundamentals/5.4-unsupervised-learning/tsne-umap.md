@@ -34,25 +34,7 @@ UMAP is like a more efficient version of t-SNE - it's like having a GPS that can
 
 ## How Do They Work?
 
-```mermaid
-graph TD
-    subgraph PCA_COL["PCA (start here)"]
-        P1["Linear projection\nPreserves global variance\nFast, deterministic"]
-        P1 --> P2["Good for: preprocessing,\ndenoising, interpretable axes"]
-    end
-    subgraph TSNE_COL["t-SNE"]
-        T1["Models pairwise\nsimilarities as probabilities\nMinimizes KL divergence"]
-        T1 --> T2["Good for: revealing\ntight clusters\nSlow on large data"]
-        T2 --> T3["⚠ Distances between\nclusters not meaningful\nRun multiple times"]
-    end
-    subgraph UMAP_COL["UMAP"]
-        U1["Graph-based manifold\napproximation\nFaster than t-SNE"]
-        U1 --> U2["Good for: large datasets,\nbetter global structure\nthan t-SNE"]
-        U2 --> U3["⚠ Still non-linear —\naxes are not interpretable"]
-    end
-    PCA_COL -->|"reduce dims first\nthen visualize"| TSNE_COL
-    PCA_COL --> UMAP_COL
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.4-unsupervised-learning/diagrams/tsne-umap-1.mmd" %}
 
 *Always run PCA first to reduce to ~50 dimensions before feeding into t-SNE — it speeds up computation significantly and removes noise.*
 

@@ -18,19 +18,7 @@
 
 **How this fits together:** `if` / `elif` / `else` choose what runs once; `for` and `while` repeat work. Data pipelines use both: **validate** a row with branches, **scan** a table with loops, or prefer vectorized NumPy/pandas later. Master the ideas here so you can read any script that filters, iterates, or retries.
 
-```mermaid
-flowchart TD
-    A[Value arrives] --> B{condition 1\nif age < 0}
-    B -->|True| C["Return NaN\n(invalid)"]
-    B -->|False| D{condition 2\nelif age > 120}
-    D -->|True| E["Return NaN\n(suspect)"]
-    D -->|False| F["Return value\n(valid)"]
-
-    subgraph FOR_LOOP["for row in dataset"]
-        G["Process row 0"] --> H["Process row 1"] --> I["..."] --> J["Process row N-1"]
-    end
-    F -.->|"Run this\nfor every row"| FOR_LOOP
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.2-intro-python/diagrams/conditions-iterations-1.mmd" %}
 
 *`if/elif/else` picks one branch per value; a `for` loop runs the same block for every item in a collection.*
 

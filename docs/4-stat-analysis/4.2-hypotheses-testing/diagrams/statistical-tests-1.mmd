@@ -1,0 +1,13 @@
+flowchart TD
+    Q["What type of outcome?"]
+    Q -->|"Numeric / continuous"| N["How many groups?"]
+    Q -->|"Counts / frequencies"| C["`Chi-square test (goodness-of-fit or independence)`"]
+    Q -->|"Ranked / ordinal"| R["Non-parametric Mann-Whitney / Kruskal-Wallis"]
+
+    N -->|"1 group vs known value"| T1["`One-sample t-test or z-test (large n)`"]
+    N -->|"2 independent groups"| T2{"Normal? Same variance?"}
+    N -->|"2 paired / repeated"| T3["Paired t-test or Wilcoxon signed-rank"]
+    N -->|"3+ groups"| T4["`One-way ANOVA then post-hoc (Tukey)`"]
+
+    T2 -->|"Yes"| T2A["Independent-samples t-test"]
+    T2 -->|"No"| T2B["`Welch's t-test (unequal variance) or Mann-Whitney`"]

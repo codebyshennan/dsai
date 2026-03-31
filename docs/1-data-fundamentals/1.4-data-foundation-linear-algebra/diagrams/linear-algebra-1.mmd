@@ -1,0 +1,21 @@
+flowchart LR
+    subgraph VEC["`Vectors (1D)`"]
+        V["`[1, 2, 3] shape: (3,)`"]
+    end
+    subgraph MAT["`Matrices (2D)`"]
+        M["`[[1,2],[3,4],[5,6]] shape: (3, 2)`"]
+    end
+    subgraph OPS["Key operations"]
+        DOT["`Dot product a · b = Σ aᵢbᵢ (must match inner dim)`"]
+        MATMUL["`Matrix multiply (m×k) · (k×n) → (m×n)`"]
+        TRANS["`Transpose (m×n) → (n×m)`"]
+        INV["`Inverse A⁻¹ A · A⁻¹ = I (solving Ax = b)`"]
+    end
+    subgraph DSUSE["Why it matters in DS"]
+        W["`Feature matrix X (n_samples × n_features)`"]
+        PRED["Prediction: X · β Matrix-vector product"]
+        PCA2["PCA: eigendecomposition of covariance matrix"]
+    end
+    MAT --> OPS
+    VEC --> OPS
+    OPS --> DSUSE

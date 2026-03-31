@@ -43,20 +43,7 @@ Think of simple linear regression like trying to bake cookies with just flour. Y
 
 Multiple linear regression is like using a complete recipe with flour, sugar, butter, eggs, and vanilla. Each ingredient contributes to the final product, and the recipe tells you exactly how much of each to use!
 
-```mermaid
-graph TD
-    subgraph MLR["Multiple Linear Regression"]
-        X["Predictors\nX₁, X₂, … Xₚ"]
-        X --> MODEL["ŷ = β₀ + β₁X₁ + β₂X₂ + … + βₚXₚ"]
-        MODEL --> COEFF["Each βᵢ = effect of Xᵢ\n*holding all other predictors constant*"]
-    end
-    subgraph WATCH["Watch out for"]
-        MC["Multicollinearity\nCorrelated predictors → unstable βᵢ\nCheck VIF > 10"]
-        OVB["Omitted variable bias\nMissing confounder changes βᵢ\nDomain knowledge required"]
-        OVF["Overfitting\nToo many predictors → R² inflated\nUse adjusted R² or cross-validate"]
-    end
-    COEFF --> WATCH
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.3-rship-in-data/diagrams/multiple-linear-regression-1.mmd" %}
 
 ### The Math (Don't Worry, We'll Explain It Simply!)
 

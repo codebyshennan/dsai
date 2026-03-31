@@ -20,22 +20,7 @@
 
 A Pandas Series is like a column in a spreadsheet or a single list of data with labels. Think of it as a smart, one-dimensional array that knows the name of each item! It's perfect for:
 
-```mermaid
-graph LR
-    subgraph Series["pd.Series"]
-        direction TB
-        idx["Index (labels)"] --- vals["Values (data)"]
-        idx --- dtype["dtype (data type)"]
-        idx --- name["name (optional)"]
-    end
-    subgraph eg["Example: temperatures"]
-        direction TB
-        i0["Mon"] --> v0["20.5"]
-        i1["Tue"] --> v1["22.1"]
-        i2["Wed"] --> v2["23.4"]
-        i3["Thu"] --> v3["21.8"]
-    end
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.5-data-analysis-pandas/diagrams/series-1.mmd" %}
 
 *An index label sits next to each value — this is what makes a Series smarter than a plain Python list.*
 

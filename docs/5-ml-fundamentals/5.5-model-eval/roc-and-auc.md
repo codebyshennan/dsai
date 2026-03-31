@@ -42,22 +42,7 @@ Imagine you're a doctor diagnosing a disease:
 
 ROC and AUC help us find the right balance between catching all cases and avoiding false alarms.
 
-```mermaid
-graph LR
-    subgraph ROC["ROC Curve  (vary threshold 0 → 1)"]
-        AX["x-axis: FPR = FP / (FP + TN)\n= false alarm rate"]
-        AY["y-axis: TPR = TP / (TP + FN)\n= sensitivity / recall"]
-        LOW["Low threshold (predict + for almost all)\nHigh TPR — but high FPR too"]
-        HIGH["High threshold (predict + rarely)\nLow FPR — but misses many +"]
-    end
-    subgraph AUC["AUC interpretation"]
-        A1["AUC = 1.0\nPerfect ranking"]
-        A2["AUC ≈ 0.5\nRandom classifier\n(diagonal line)"]
-        A3["AUC < 0.5\nWorse than random\n(flip predictions)"]
-        A4["AUC ≈ 0.7–0.8\nTypically acceptable\nfor tabular models"]
-    end
-    ROC --> AUC
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/roc-and-auc-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** ROC curve plot with x-axis FPR (0–1), y-axis TPR (0–1): a diagonal dashed line for a random classifier, and a curve bowing toward the top-left for a good model, with the AUC shaded in green.
 

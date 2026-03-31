@@ -1,0 +1,18 @@
+flowchart TD
+    subgraph BIAS_VAR["Complexity tradeoff"]
+        SIMPLE["Simple model High bias Low variance Underfits"]
+        COMPLEX["Complex model Low bias High variance Overfits"]
+        OPT["Optimal model Minimises val error Generalises well"]
+    end
+    SIMPLE -->|"add features / degree"| OPT
+    OPT -->|"too complex"| COMPLEX
+
+    subgraph METHODS["Selection methods"]
+        CV["Cross-validation Average CV score across folds Most reliable"]
+        AIC["AIC / BIC Penalise extra parameters Good for nested models"]
+        HOLD["Holdout val set Fast, can overfit if reused many times"]
+    end
+
+    subgraph PITFALL["Common mistake"]
+        P1["Using test error to select model → leaks test set → overly optimistic Always use train/val for selection test for final report only"]
+    end

@@ -365,22 +365,7 @@ x = np.array([1,2,3])   # Unclear purpose
 
 Python data types commonly used in data science:
 
-```mermaid
-graph TD
-    PY[Python types] --> NUM[Numeric]
-    PY --> TXT[Text]
-    PY --> BOOL[Boolean]
-    PY --> MISS[Missing / special]
-    NUM --> INT["int\n1, 1000"]
-    NUM --> FLT["float\n3.14, 23.5"]
-    NUM --> NINT["numpy int32/int64\nnp.int32(1)"]
-    NUM --> NFLT["numpy float64\nnp.float64(1.1)"]
-    TXT --> STR["str\n'Hello'"]
-    BOOL --> B["bool\nTrue / False"]
-    MISS --> NONE["None\n(Python missing)"]
-    MISS --> NAN["np.nan\n(numeric missing)"]
-    MISS --> NATD["pd.NaT\n(datetime missing)"]
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.2-intro-python/diagrams/basic-syntax-data-types-1.mmd" %}
 
 *When you see a pandas `dtype` of `object`, it usually means string. `float64` columns often signal that pandas introduced NaN (which forces float) to hold missing values.*
 
@@ -595,16 +580,7 @@ F1 Score: 93.00%
 
 Common type conversions in data analysis:
 
-```mermaid
-flowchart LR
-    RAW["Raw value\n(string from CSV)"] -->|int()| I[int]
-    RAW -->|float()| F[float]
-    RAW -->|pd.to_datetime()| DT[datetime]
-    RAW -->|pd.Categorical()| CAT[category]
-    F -->|.astype(int)| I
-    I -->|.astype(float)| F
-    CAT -->|pd.get_dummies()| OHE[one-hot encoded\nDataFrame]
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.2-intro-python/diagrams/basic-syntax-data-types-2.mmd" %}
 
 *Always validate before converting — a stray `"N/A"` string will raise a `ValueError` if you call `int()` directly. Use `pd.to_numeric(errors='coerce')` to convert safely and let pandas turn failures into `NaN`.*
 

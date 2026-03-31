@@ -12,29 +12,7 @@ Crash Course AI: supervised learning framing (~15 min).
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-```mermaid
-graph TD
-    subgraph CLASSICAL["Classical penalties (linear / logistic)"]
-        L1["L1 / Lasso\nSparse coefficients\nBuilt-in feature selection"]
-        L2["L2 / Ridge\nShrinks all weights\nKeeps correlated features"]
-        EN["Elastic Net\nL1 + L2 blend\nSparse + stable"]
-        ADAPT["Adaptive Lasso\nPenalty ∝ 1/|OLS coef|\nMore aggressive on weak features"]
-        GROUP["Group Lasso\nSelect/drop groups together\nUseful for one-hot blocks"]
-    end
-    subgraph NN["Neural network regularisers"]
-        DROP["Dropout\nRandom unit masking\nduring training"]
-        BN["Batch Normalisation\nRe-centres each batch\nImplicit regulariser"]
-        WD["Weight Decay\n= L2 on weights\nCommon in SGD / Adam"]
-        EARLY["Early Stopping\nHold-out val loss\nStop before overfitting"]
-    end
-    subgraph WHEN["When to combine"]
-        C1["Start: L2 (Ridge) as default"]
-        C2["Need sparsity: switch to L1 / Elastic Net"]
-        C3["NNs: Dropout + Weight Decay + Early Stopping"]
-    end
-    CLASSICAL --> WHEN
-    NN --> WHEN
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.3-supervised-learning-2/regularization/diagrams/4-advanced-1.mmd" %}
 
 ## Adaptive Regularization
 

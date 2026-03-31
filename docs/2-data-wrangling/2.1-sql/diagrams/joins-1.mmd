@@ -1,0 +1,14 @@
+flowchart LR
+    subgraph INNER["INNER JOIN — matching rows only"]
+        I1["Returns rows where ON condition is TRUE in BOTH tables Drops unmatched rows from either side"]
+    end
+    subgraph LEFT["LEFT JOIN — keep all left rows"]
+        L1["Returns all rows from left table Matched columns from right or NULL Most common join in analytics"]
+    end
+    subgraph RIGHT["RIGHT JOIN — keep all right rows"]
+        R1["Returns all rows from right table Matched columns from left or NULL Rare — usually rewrite as LEFT"]
+    end
+    subgraph FULL["FULL OUTER JOIN — keep everything"]
+        F1["Returns all rows from both tables NULL where no match Useful for reconciliation / audit"]
+    end
+    A["Table A"] & B["Table B"] --> INNER & LEFT & RIGHT & FULL

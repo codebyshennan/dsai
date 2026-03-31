@@ -44,22 +44,7 @@ The rest of the module reuses these words constantly. Memorize the definitions, 
 
 Imagine you're a detective trying to understand a city's crime patterns. You can't investigate every single crime (population), but you can study a carefully selected set of cases (sample) to make informed conclusions about the whole city. This is the essence of sampling in statistics!
 
-```mermaid
-graph TD
-    POP["Population\nEverything we want to learn about\n(often impossible to fully measure)"]
-    POP --> SAMP["Sampling method\nSimple random / Stratified\nCluster / Systematic"]
-    SAMP --> SAM["Sample\nSubset actually measured\n(n observations)"]
-    SAM --> STAT["Sample statistics\nx̄, s, p …"]
-    STAT --> INFER["Statistical inference\nEstimate population parameters\nμ, σ, π …"]
-    INFER -->|"Generalize — if sample is representative"| POP
-
-    subgraph BIAS["Sampling bias risks"]
-        B1["Non-random selection\n→ sample not representative"]
-        B2["Non-response bias\n→ missing a systematic subgroup"]
-        B3["Convenience sampling\n→ easy to collect, hard to generalise"]
-    end
-    SAMP --> BIAS
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.1-inferential-stats/diagrams/population-sample-1.mmd" %}
 
 ## What is a Population?
 

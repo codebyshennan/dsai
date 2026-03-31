@@ -28,16 +28,7 @@ Think of each function as a reusable **input → process → output** pipeline:
 - Process: Data transformation, analysis, or modeling
 - Output: Processed data, statistics, or visualizations
 
-```mermaid
-flowchart LR
-    subgraph DEF["def analyze_numeric_column(data)"]
-        direction TB
-        P["Parameters\n(data: pd.Series)"] --> BODY["Function body\nmean, median, std…"]
-        BODY --> RET["return { stats }"]
-    end
-    CALL["Call site\nanalyze_numeric_column(df['age'])"] --> DEF
-    DEF --> OUT["Return value\n{'mean': 35.2, …}"]
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.2-intro-python/diagrams/functions-1.mmd" %}
 
 *Once defined, the same function can be called on any column — that's the reusability win.*
 

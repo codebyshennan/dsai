@@ -1,0 +1,14 @@
+flowchart TD
+    Q{What do you want to apply to?} -->|One Series element-by-element| MAP["`Series.map(fn) or Series.apply(fn)`"]
+    Q -->|DataFrame rows or columns| APP["`DataFrame.apply(fn, axis=0/1)`"]
+    Q -->|Every cell in DataFrame| APMAP["`DataFrame.map(fn) (pandas ≥ 2.1, was applymap)`"]
+
+    MAP --> EX1["`series.map(str.upper) series.map({'A':1,'B':2})`"]
+    APP --> EX2["`df.apply(np.sum, axis=0)  # per column df.apply(lambda r: r.max()-r.min(), axis=1)  # per row`"]
+    APMAP --> EX3["`df.map(lambda x: round(x, 2))`"]
+
+    subgraph FAST["Prefer vectorised where possible"]
+        V1["`df['col'] * 2  (not .apply)`"]
+        V2["`df['col'].str.upper()  (not .map)`"]
+        V3["`pd.to_datetime(df['date'])  (not .apply)`"]
+    end

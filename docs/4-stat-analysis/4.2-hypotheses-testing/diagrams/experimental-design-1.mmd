@@ -1,0 +1,13 @@
+flowchart TD
+    subgraph PILLARS["Three pillars of experimental design"]
+        CTRL["Control Hold confounds constant Control group as baseline Blinding to reduce observer bias"]
+        RAND["Randomization Random assignment to conditions Reduces selection bias Enables causal inference"]
+        REP["Replication Enough samples for power Repeat across settings Reduces random error"]
+    end
+    subgraph POWER["`Statistical power (1 − β)`"]
+        P1["`Sample size n (bigger → more power)`"]
+        P2["`Effect size δ (bigger → easier to detect)`"]
+        P3["`α significance threshold (lower → less power)`"]
+        P4["`Calculate n BEFORE running the experiment (power analysis)`"]
+    end
+    CTRL & RAND & REP --> POWER

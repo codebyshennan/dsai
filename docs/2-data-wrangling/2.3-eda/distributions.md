@@ -36,25 +36,7 @@ Understanding distributions helps you:
 
 The systematic process of understanding your data's distribution:
 
-```mermaid
-graph TD
-    A[Raw Data] --> B[Initial Assessment]
-    B --> C[Distribution Type]
-    B --> D[Distribution Shape]
-    B --> E[Distribution Parameters]
-    
-    C --> C1[Continuous]
-    C --> C2[Discrete]
-    C --> C3[Mixed]
-    
-    D --> D1[Symmetry]
-    D --> D2[Skewness]
-    D --> D3[Kurtosis]
-    
-    E --> E1[Location]
-    E --> E2[Scale]
-    E --> E3[Shape]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.3-eda/diagrams/distributions-1.mmd" %}
 
 ## Mathematical Foundations
 

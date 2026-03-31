@@ -1,0 +1,21 @@
+flowchart LR
+    subgraph RIGHTS["Individual rights"]
+        R1["`Access (see what you hold)`"]
+        R2["`Rectification (correct errors)`"]
+        R3["`Erasure (right to be forgotten)`"]
+        R4["`Portability (machine-readable copy)`"]
+    end
+    subgraph PRINCIPLES["Privacy principles"]
+        P1["`Data minimisation collect only what's needed`"]
+        P2["Purpose limitation use only as disclosed"]
+        P3["Storage limitation delete when done"]
+        P4["`Integrity & confidentiality`"]
+    end
+    subgraph RISK["Risk tiers"]
+        T1["Ordinary PII Name, email, address"]
+        T2["Sensitive / special category Health, biometric, race, religion"]
+        T3["`PHI (HIPAA) Health records + identifier`"]
+    end
+    RIGHTS --- YOU["Your responsibilities as an analyst"]
+    PRINCIPLES --- YOU
+    RISK --- YOU

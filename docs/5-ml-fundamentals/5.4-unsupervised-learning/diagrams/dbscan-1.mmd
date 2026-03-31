@@ -1,0 +1,19 @@
+flowchart TD
+    subgraph PARAMS["`Two parameters: ε (eps) and MinPts`"]
+        P1["ε — neighbourhood radius Small ε → many clusters / noise Large ε → fewer, larger clusters"]
+        P2["MinPts — min points in ε-ball Small → noisy clusters Large → only dense cores"]
+    end
+    subgraph LABELS["Point types"]
+        CORE["Core point ≥ MinPts neighbours within ε"]
+        BORDER["Border point Within ε of a core but fewer neighbours itself"]
+        NOISE["Noise / outlier label = −1"]
+    end
+    subgraph ALGO["`Algorithm (Lloyd-style)`"]
+        A1["Pick unvisited point"] --> A2{"≥ MinPts neighbours?"}
+        A2 -->|Yes| A3["Expand cluster add reachable points"]
+        A2 -->|No| A4["`Mark as noise (may become border later)`"]
+        A3 --> A1
+        A4 --> A1
+    end
+    CORE --- BORDER
+    BORDER --- NOISE

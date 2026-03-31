@@ -1,0 +1,14 @@
+flowchart TD
+    POP["`Population Everything we want to learn about (often impossible to fully measure)`"]
+    POP --> SAMP["Sampling method Simple random / Stratified Cluster / Systematic"]
+    SAMP --> SAM["`Sample Subset actually measured (n observations)`"]
+    SAM --> STAT["Sample statistics x̄, s, p …"]
+    STAT --> INFER["Statistical inference Estimate population parameters μ, σ, π …"]
+    INFER -->|"Generalize — if sample is representative"| POP
+
+    subgraph BIAS["Sampling bias risks"]
+        B1["Non-random selection → sample not representative"]
+        B2["Non-response bias → missing a systematic subgroup"]
+        B3["Convenience sampling → easy to collect, hard to generalise"]
+    end
+    SAMP --> BIAS

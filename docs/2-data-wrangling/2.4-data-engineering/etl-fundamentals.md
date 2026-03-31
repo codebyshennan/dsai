@@ -33,69 +33,19 @@ ETL (Extract, Transform, Load) is a fundamental process in data engineering that
 
 ### ETL Workflow Diagram
 
-```mermaid
-graph LR
-    subgraph Extract
-        A[Source Systems] --> B[Data Extraction]
-        B --> C[Raw Data]
-    end
-    subgraph Transform
-        C --> D[Data Cleaning]
-        D --> E[Data Enrichment]
-        E --> F[Data Validation]
-    end
-    subgraph Load
-        F --> G[Staging Area]
-        G --> H[Data Warehouse]
-    end
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.4-data-engineering/diagrams/etl-fundamentals-1.mmd" %}
 
 Read left to right: raw extracts land in **Transform** (clean, enrich, validate), then **Load** stages them before they become warehouse tables consumers trust. Missing any step is how “the pipeline ran green” still ships bad data.
 
 ### Data Pipeline Architecture with Airflow
 
-```mermaid
-graph TD
-    subgraph airflow_dag ["Airflow DAG"]
-        A[Start] --> B[Extract Task]
-        B --> C[Transform Task]
-        C --> D[Load Task]
-        D --> E[Validation Task]
-        E --> F[End]
-    end
-    subgraph monitoring ["Monitoring"]
-        G[Airflow UI]
-        H[Metrics Dashboard]
-        I[Alert System]
-    end
-    E -.-> G
-    E -.-> H
-    H -.-> I
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.4-data-engineering/diagrams/etl-fundamentals-2.mmd" %}
 
 Orchestrators such as Airflow model work as a **DAG**: tasks run in dependency order, retries apply per task, and the UI shows which step failed—so you fix the right layer (extract vs transform vs load).
 
 ### Error Handling Flowchart
 
-```mermaid
-graph TD
-    A[Task Start] --> B{Check Source}
-    B -->|Available| C[Extract Data]
-    B -->|Unavailable| D[Retry Logic]
-    D -->|Max Retries| E["Alert & Log"]
-    D -->|Retry| B
-    C --> F{Validate Data}
-    F -->|Valid| G[Process Data]
-    F -->|Invalid| H[Error Handler]
-    H --> I[Clean/Fix Data]
-    I --> F
-    G --> J[Load Data]
-    J --> K{Load Success}
-    K -->|Yes| L[Complete]
-    K -->|No| M[Rollback]
-    M --> N[Retry Load]
-    N --> J
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.4-data-engineering/diagrams/etl-fundamentals-3.mmd" %}
 
 Healthy pipelines assume **sources go away**, **rows fail validation**, and **loads partially complete**. Retries, rollback paths, and alerts are not optional polish—they define whether you can safely rerun without doubling data.
 

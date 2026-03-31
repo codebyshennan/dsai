@@ -27,19 +27,7 @@ Aggregations in SQL transform detailed data into meaningful summaries. Think of 
 - Raw data = Individual grocery receipts
 - Aggregated data = Monthly spending summary
 
-```mermaid
-graph TD
-    A[Raw Data] --> B[GROUP BY]
-    B --> C[Aggregate Functions]
-    C --> D[Summary Results]
-    C --> E[Statistical Insights]
-    
-    subgraph agg_proc ["Aggregation Process"]
-    F[Individual Records] --> G[Grouping]
-    G --> H[Calculation]
-    H --> I[Final Results]
-    end
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.1-sql/diagrams/aggregations-1.mmd" %}
 
 ## Aggregate Functions
 

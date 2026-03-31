@@ -1,0 +1,19 @@
+flowchart TD
+    subgraph AGG["`Agglomerative (bottom-up)`"]
+        A1["Start: each point is its own cluster"]
+        A1 --> A2["Merge two closest clusters at each step"]
+        A2 --> A3["Repeat until one cluster remains"]
+        A3 --> A4["Cut dendrogram at desired level → k clusters"]
+    end
+    subgraph LINK["`Linkage criteria (how to measure 'closest')`"]
+        L1["`Ward Minimise within-cluster variance (most common; spherical clusters)`"]
+        L2["`Complete Max distance between points (compact, even clusters)`"]
+        L3["`Average Mean pairwise distance (compromise)`"]
+        L4["`Single Min distance (chaining effect)`"]
+    end
+    A2 --> LINK
+    subgraph DEND["Reading the dendrogram"]
+        D1["Height of merge = distance Long vertical lines → natural gap"]
+        D1 --> D2["Horizontal cut = chosen k Count branches below cut"]
+    end
+    A4 --> DEND

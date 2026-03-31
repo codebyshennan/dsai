@@ -1,0 +1,22 @@
+flowchart TD
+    subgraph Sources
+        A[OLTP Database]
+        B[APIs]
+        C[Files]
+    end
+    subgraph Staging
+        D[Landing Zone]
+        E[Staging Area]
+    end
+    subgraph Warehouse
+        F[Raw Layer]
+        G[Integration Layer]
+        H[Data Marts]
+    end
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H

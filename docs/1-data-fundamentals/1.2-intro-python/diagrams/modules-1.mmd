@@ -1,0 +1,11 @@
+flowchart TD
+    NB["`notebook.ipynb (analysis / model)`"]
+    NB -->|"from preprocessing import"| PP["preprocessing.py clean, type-fix, outliers"]
+    NB -->|"from features import"| FE["features.py date parts, encodings, windows"]
+    NB -->|"from evaluation import"| EV["evaluation.py metrics, CV, plots"]
+    NB -->|"from plotting import"| PL["plotting.py chart defaults, brand colors"]
+
+    PP --> DATA["data/ raw/ processed/ external/"]
+    FE --> DATA
+    EV --> MODEL["models/ trained artefacts"]
+    PL --> MODEL

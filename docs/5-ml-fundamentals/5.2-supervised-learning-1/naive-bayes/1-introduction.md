@@ -64,19 +64,7 @@ Let's look at some everyday examples where Naive Bayes is used:
 
 ### How Naive Bayes Classifies: The Two Phases
 
-```mermaid
-flowchart LR
-    subgraph TRAIN["Training phase"]
-        T1["Labelled examples\n(e.g. 1000 emails)"] --> T2["Count word\nfrequencies per class"]
-        T2 --> T3["Compute P(word | spam)\nand P(word | not-spam)"]
-    end
-    subgraph PREDICT["Prediction phase"]
-        P1["New email arrives"] --> P2["Multiply P(word | class)\nfor each word"]
-        P2 --> P3["Apply Bayes' Theorem:\nP(class | words)"]
-        P3 --> P4{Spam or Not?}
-    end
-    TRAIN --> PREDICT
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.2-supervised-learning-1/naive-bayes/diagrams/1-introduction-1.mmd" %}
 
 *The "naive" assumption: multiplying individual word probabilities together as if they are independent. This is rarely true in practice, but it works surprisingly well for text classification.*
 

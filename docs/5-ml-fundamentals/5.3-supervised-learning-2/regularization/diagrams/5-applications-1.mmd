@@ -1,0 +1,11 @@
+flowchart LR
+    subgraph WHEN["When regularization is the main lever"]
+        FIN["Finance High-dim credit features → Elastic Net / Lasso to select relevant predictors"]
+        MED["`Healthcare / Genomics p >> n (more features than samples) → Lasso shrinks to sparse subset`"]
+        NLP["`Text / NLP (bag-of-words) Thousands of token features → L2 Ridge (LogReg default) or L1 for sparse text models`"]
+        NN["`Neural nets Dropout + Weight Decay + Early Stopping (all three together)`"]
+    end
+    subgraph TUNE["Tuning approach"]
+        CV["`Cross-validate α (lambda) Learning curve shows overfit vs underfit gap`"]
+    end
+    WHEN --> TUNE

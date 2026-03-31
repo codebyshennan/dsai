@@ -35,24 +35,7 @@ Key Features:
 
 ## Getting Started
 
-```mermaid
-graph LR
-    subgraph PX["Plotly Express  (px)  — start here"]
-        PX1["One-line charts\npx.scatter / px.line / px.bar / px.histogram"]
-        PX2["Auto colour, hover,\nlabels from column names"]
-        PX3["Returns a Figure\nyou can still update_layout"]
-    end
-    subgraph GO["Graph Objects  (go)  — fine-grained control"]
-        GO1["Build trace-by-trace\ngo.Scatter / go.Bar / go.Heatmap …"]
-        GO2["Full control of every\nmarker, axis, annotation"]
-        GO3["Required for subplots,\ncustom animations, mixed types"]
-    end
-    PX -->|"fig.update_layout / update_traces"| GO
-    DECIDE{"Need custom\nsubplots or mixed\ntrace types?"}
-    START["New chart"] --> DECIDE
-    DECIDE -->|"No"| PX
-    DECIDE -->|"Yes"| GO
-```
+{% include mermaid-diagram.html src="3-data-visualization/3.2-adv-data-viz/diagrams/plotly-guide-1.mmd" %}
 
 *Rule of thumb: always try `px` first. Drop to `go` only when Express can't express what you need.*
 

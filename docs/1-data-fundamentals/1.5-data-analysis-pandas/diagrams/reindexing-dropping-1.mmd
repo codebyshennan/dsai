@@ -1,0 +1,14 @@
+flowchart LR
+    subgraph REINDEX["`reindex(new_labels)`"]
+        R1["Adds new labels → NaN Removes absent labels Aligns to target index"]
+    end
+    subgraph RESET["`reset_index()`"]
+        RS1["`Moves index → column(s) Creates new 0,1,2… RangeIndex Useful after groupby`"]
+    end
+    subgraph SET["`set_index('col')`"]
+        S1["Promotes a column to index Label-based lookup after Required before join on that key"]
+    end
+    subgraph DROP["`drop(labels, axis=)`"]
+        D1["`axis=0 → remove rows axis=1 → remove columns inplace=False (returns copy)`"]
+    end
+    DF["DataFrame"] --> REINDEX & RESET & SET & DROP

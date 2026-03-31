@@ -1,0 +1,9 @@
+flowchart TD
+    Q["What does the column represent?"] --> NUM{Numeric?}
+    NUM -->|Whole numbers no NaN| I64["`int64 (or int32/int8 to save memory)`"]
+    NUM -->|Decimals or has NaN| F64["float64"]
+    NUM -->|No| CAT{Few unique values?}
+    CAT -->|Yes ≤ ~50| CATD["`category (saves memory, enables ordering)`"]
+    CAT -->|Free text| STR["`string (or object)`"]
+    CAT -->|True/False| BOOL["bool"]
+    CAT -->|Dates/times| DT["`datetime64 pd.to_datetime()`"]

@@ -20,25 +20,7 @@ Early stopping is a regularization technique that helps prevent overfitting by m
 
 Early stopping works by monitoring the model's performance on a validation set during training. When the performance stops improving or starts to degrade, training is stopped to prevent overfitting.
 
-```mermaid
-flowchart LR
-    subgraph TRAIN_LOOP["Training loop"]
-        E1["Epoch 1"] --> E2["Epoch 2"] --> E3["..."] --> EN["Epoch N"]
-    end
-    subgraph CHECK["After each epoch"]
-        VAL["Measure\nvalidation loss"]
-        BETTER{Better than\nbest so far?}
-        SAVE["Save checkpoint\n+ reset patience counter"]
-        WAIT["Increment patience\ncounter"]
-        STOP{Counter ≥\npatience limit?}
-        HALT["Stop training\nRestore best checkpoint"]
-    end
-    EN --> VAL --> BETTER
-    BETTER -->|Yes| SAVE --> E1
-    BETTER -->|No| WAIT --> STOP
-    STOP -->|No| E1
-    STOP -->|Yes| HALT
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/early-stopping-1.mmd" %}
 
 *`patience` controls how many epochs of no-improvement you tolerate before stopping. Typical values: 5–20 for neural networks, 10–50 for gradient boosting.*
 

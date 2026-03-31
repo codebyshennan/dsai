@@ -1,0 +1,8 @@
+flowchart TD
+    A[New data point arrives] --> B[Compute distance to every training point]
+    B --> C[Sort by distance, keep closest k]
+    C --> D{Task type?}
+    D -->|Classification| E[Majority vote among k neighbors]
+    D -->|Regression| F[Average of k neighbors' values]
+    E --> G[Predicted class label]
+    F --> H[Predicted numeric value]

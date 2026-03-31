@@ -1,0 +1,17 @@
+flowchart TD
+    subgraph PCA_COL["`PCA (start here)`"]
+        P1["Linear projection Preserves global variance Fast, deterministic"]
+        P1 --> P2["Good for: preprocessing, denoising, interpretable axes"]
+    end
+    subgraph TSNE_COL["t-SNE"]
+        T1["Models pairwise similarities as probabilities Minimizes KL divergence"]
+        T1 --> T2["Good for: revealing tight clusters Slow on large data"]
+        T2 --> T3["⚠ Distances between clusters not meaningful Run multiple times"]
+    end
+    subgraph UMAP_COL["UMAP"]
+        U1["Graph-based manifold approximation Faster than t-SNE"]
+        U1 --> U2["Good for: large datasets, better global structure than t-SNE"]
+        U2 --> U3["⚠ Still non-linear — axes are not interpretable"]
+    end
+    PCA_COL -->|"reduce dims first then visualize"| TSNE_COL
+    PCA_COL --> UMAP_COL

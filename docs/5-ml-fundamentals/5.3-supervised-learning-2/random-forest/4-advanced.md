@@ -14,24 +14,7 @@ Crash Course AI: supervised learning framing (~15 min).
 
 ## Ensemble Optimization
 
-```mermaid
-graph TD
-    subgraph BAG["Bagging (Random Forest base)"]
-        B1["Bootstrap samples"] --> B2["Independent trees"]
-        B2 --> B3["Average predictions"]
-    end
-    subgraph STACK["Stacking"]
-        S1["Level-0: RF1, RF2, RF3\n(base models on full data)"]
-        S1 --> S2["Level-1: Meta-model\n(e.g. LogisticRegression)"]
-        S2 --> S3["Learns *how to combine*\nbase model outputs"]
-    end
-    subgraph BOOST["Boosting (compare)"]
-        BO1["Sequential trees\nEach corrects prior errors"]
-        BO1 --> BO2["Weighted combination\n(GBM / XGBoost / LightGBM)"]
-    end
-    BAG -->|"different trees,\nsame algorithm"| STACK
-    BOOST -.->|"separate family —\nsequential not parallel"| STACK
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.3-supervised-learning-2/random-forest/diagrams/4-advanced-1.mmd" %}
 
 ### 1. Stacking with Random Forests
 

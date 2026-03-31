@@ -26,18 +26,7 @@ This is exactly what distance metrics do in KNN - they help us measure similarit
 
 ## Common Distance Metrics Explained
 
-```mermaid
-graph TD
-    Q{What kind\nof features?} -->|Continuous,\nsame scale| EU["Euclidean\n√Σ(xᵢ−yᵢ)²\nStraight-line distance"]
-    Q -->|Continuous,\ndifferent units| MAN["Manhattan\nΣ|xᵢ−yᵢ|\nCity-block distance"]
-    Q -->|General case\n(tunes p)| MIN["Minkowski\n(Σ|xᵢ−yᵢ|ᵖ)^(1/p)\np=1→Manhattan, p=2→Euclidean"]
-    Q -->|Text or vectors\n(magnitude irrelevant)| COS["Cosine similarity\ncos θ = (x·y)/(‖x‖‖y‖)\nAngle between vectors"]
-    Q -->|Binary /\ncategorical| HAM["Hamming\nCount mismatches\nUsed in NLP, genetics"]
-
-    EU --> WARN["⚠ Must scale features first!\nOtherwise large-range features dominate"]
-    MAN --> WARN
-    MIN --> WARN
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.2-supervised-learning-1/knn/diagrams/2-distance-metrics-1.mmd" %}
 
 *Always apply `StandardScaler` or `MinMaxScaler` before using any distance-based method — a salary column in dollars will dwarf an age column in years.*
 

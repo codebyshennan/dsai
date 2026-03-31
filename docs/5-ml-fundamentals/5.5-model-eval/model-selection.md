@@ -54,28 +54,7 @@ Model selection is like building a sports team:
 - You need to consider team chemistry (model ensemble)
 - You want the best performance within your budget
 
-```mermaid
-graph TD
-    subgraph CRITERIA["Selection criteria"]
-        PERF["Predictive performance\n(CV score on train set)"]
-        INTERP["Interpretability\n(Logistic < RF < NN)"]
-        SPEED["Inference speed\n(Linear: µs, NN: ms)"]
-        DATA["Data size\n(small → simpler model\nlarge → complex OK)"]
-    end
-    subgraph WORKFLOW["Safe model comparison workflow"]
-        SPLIT["Train / Val / Test split\n(or nested CV)"]
-        SPLIT --> CANDIDATES["Evaluate candidate\nmodel families on Val"]
-        CANDIDATES --> BEST["Select best family\n+ tune hyperparams\nwith inner CV"]
-        BEST --> FINAL["Evaluate once\non held-out Test set\n(report this number)"]
-    end
-    subgraph PITFALLS["Common mistakes"]
-        M1["Peeking at test set\nduring model selection"]
-        M2["Not baselining against\na naive predictor"]
-        M3["Optimizing val set score\nthen reporting it as test score"]
-    end
-    CRITERIA --> WORKFLOW
-    WORKFLOW -.-> PITFALLS
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/model-selection-1.mmd" %}
 
 *The test set is touched exactly once. Any decision made by looking at it inflates your reported performance.*
 

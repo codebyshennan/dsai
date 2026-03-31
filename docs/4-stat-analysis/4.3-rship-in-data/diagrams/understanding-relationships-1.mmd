@@ -1,0 +1,7 @@
+flowchart TD
+    OBS["You observe: X and Y move together"] --> Q1{Does X cause Y?}
+    Q1 -->|"Yes (established by experiment)"| CAUSAL["Causal relationship Change X → Change Y Example: drug → recovery"]
+    Q1 -->|"Can't tell yet"| Q2{Is there a third variable Z?}
+    Q2 -->|"Yes — Z drives both"| CONF["`Confounded Example: ice cream sales & drownings (both driven by hot weather)`"]
+    Q2 -->|"No obvious Z"| ASSOC["`Association only Correlation ≠ causation Example: shoe size & reading level (driven by age)`"]
+    Q1 -->|No| SPUR["`Spurious correlation Coincidence in the data Example: Nicolas Cage films & pool drownings`"]

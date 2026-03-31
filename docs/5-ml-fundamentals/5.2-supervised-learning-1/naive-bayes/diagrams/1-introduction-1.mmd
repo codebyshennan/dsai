@@ -1,0 +1,11 @@
+flowchart LR
+    subgraph TRAIN["Training phase"]
+        T1["`Labelled examples e.g. 1000 emails`"] --> T2["Count word frequencies per class"]
+        T2 --> T3["`Compute P(word given spam) and P(word given not-spam)`"]
+    end
+    subgraph PREDICT["Prediction phase"]
+        P1["New email arrives"] --> P2["`Multiply P(word given class) for each word`"]
+        P2 --> P3["`Apply Bayes Theorem: P(class given words)`"]
+        P3 --> P4{Spam or Not?}
+    end
+    TRAIN --> PREDICT

@@ -1,0 +1,15 @@
+flowchart TD
+    subgraph CIA["CIA + N triad"]
+        C["Confidentiality Only authorized access"]
+        I["`Integrity Accurate & tamper-evident`"]
+        A["Availability Reachable when needed"]
+        N["Non-repudiation Actions are traceable"]
+    end
+    subgraph DID["`Defense in depth (outer → inner)`"]
+        D1["Physical layer Facilities, badges"]
+        D2["Network layer Firewalls, VPN, IDS"]
+        D3["Application layer Authn, authz, input validation"]
+        D4["Data layer Encryption, masking, access control"]
+    end
+    D1 --> D2 --> D3 --> D4
+    D4 --> CIA

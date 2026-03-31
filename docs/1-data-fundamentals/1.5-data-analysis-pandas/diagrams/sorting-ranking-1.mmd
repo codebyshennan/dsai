@@ -1,0 +1,17 @@
+flowchart LR
+    subgraph SORT["`sort_values()`"]
+        S1["Reorders rows by one or more columns"]
+        S2["ascending=True/False"]
+        S3["`na_position='last'/'first'`"]
+        S4["Result: new row order"]
+    end
+    subgraph RANK["`rank()`"]
+        R1["`Assigns a position number (1 = smallest by default)`"]
+        R2["`method= 'average','min','max','first','dense'`"]
+        R3["`pct=True → percentile (0–1)`"]
+        R4["Result: new column of ranks"]
+    end
+    DF["DataFrame"] --> SORT
+    DF --> RANK
+    SORT --> EX1["`df.sort_values('score', ascending=False)`"]
+    RANK --> EX2["`df['score'].rank( pct=True)`"]

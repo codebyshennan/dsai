@@ -1,0 +1,19 @@
+flowchart LR
+    subgraph S1["Series A"]
+        A1["a → 10"]
+        A2["b → 20"]
+        A3["c → 30"]
+    end
+    subgraph S2["Series B"]
+        B1["b → 5"]
+        B2["c → 15"]
+        B3["d → 25"]
+    end
+    subgraph RESULT["`A + B (aligned by label)`"]
+        R1["`a → NaN  (no 'a' in B)`"]
+        R2["`b → 25   (20 + 5)`"]
+        R3["`c → 45   (30 + 15)`"]
+        R4["`d → NaN  (no 'd' in A)`"]
+    end
+    S1 --> RESULT
+    S2 --> RESULT

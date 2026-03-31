@@ -36,26 +36,7 @@ Regularization is a crucial technique in statistical modeling that helps prevent
 
 *StatQuest: Regularization Part 2: Lasso (L1) Regression by Josh Starmer*
 
-```mermaid
-graph LR
-    subgraph OLS["OLS  (no penalty)"]
-        O1["Minimise: Σ(y - ŷ)²\nNo constraint on β size"]
-        O1 --> O2["Large coefficients OK\nOverfits when p is high\nor features are correlated"]
-    end
-    subgraph RIDGE["Ridge  (L2)"]
-        R1["Minimise: Σ(y - ŷ)² + λΣβ²\nPenalise sum of SQUARED coefficients"]
-        R1 --> R2["Shrinks all β toward 0\nNone become exactly 0\nGood: correlated features"]
-    end
-    subgraph LASSO["Lasso  (L1)"]
-        L1["Minimise: Σ(y - ŷ)² + λΣ|β|\nPenalise sum of ABSOLUTE coefficients"]
-        L1 --> L2["Some β become exactly 0\nBuilt-in feature selection\nGood: sparse truth"]
-    end
-    subgraph EN["Elastic Net  (L1 + L2)"]
-        E1["λ₁Σ|β| + λ₂Σβ²\nBlend of both"]
-        E1 --> E2["Sparse AND stable\nHigh-dim correlated data"]
-    end
-    OLS --> RIDGE & LASSO & EN
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.4-stat-modelling/diagrams/regularization-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** Geometric interpretation — L1 constraint region (diamond) vs L2 constraint region (circle) in 2D coefficient space, showing why L1 produces exact zeros at corners while L2 does not.
 

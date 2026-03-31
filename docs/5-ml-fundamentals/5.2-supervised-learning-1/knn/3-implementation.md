@@ -32,23 +32,7 @@ Think of k like asking for advice:
 - k=5 is like asking your 5 closest friends
 - k=20 is like asking a larger group of friends
 
-```mermaid
-graph LR
-    subgraph SMALL["Small k  (k=1 or 2)"]
-        S1["High sensitivity to noise\nCaptures local patterns\nLow bias, HIGH variance"]
-        S2["Risk: overfitting\nJagged decision boundary"]
-    end
-    subgraph LARGE["Large k  (k=20+)"]
-        L1["Stable — averages many points\nSmooths over noise\nHigh bias, LOW variance"]
-        L2["Risk: underfitting\nMisses local clusters"]
-    end
-    subgraph SWEET["Sweet spot  (k = √n)"]
-        G1["Balance bias and variance\nStart here, then tune with CV"]
-    end
-
-    SMALL -->|"increase k"| SWEET
-    SWEET -->|"increase k further"| LARGE
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.2-supervised-learning-1/knn/diagrams/3-implementation-1.mmd" %}
 
 *The `√n` rule is a starting point. Always use cross-validation to find the optimal k for your dataset.*
 

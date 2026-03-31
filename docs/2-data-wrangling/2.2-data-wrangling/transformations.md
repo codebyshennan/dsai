@@ -44,24 +44,7 @@ Data transformations serve multiple purposes:
    - Use cases: Memory optimization, algorithm requirements
    - Examples: Categorical encoding, datetime parsing
 
-```mermaid
-graph TD
-    A[Data Transformation] --> B{Data Type?}
-    B -->|Numeric| C[Scale/Distribution]
-    B -->|Categorical| D[Encoding]
-    B -->|DateTime| E[Feature Extraction]
-    
-    C --> C1[Scaling]
-    C --> C2[Distribution]
-    C --> C3[Polynomial]
-    
-    D --> D1[Nominal]
-    D --> D2[Ordinal]
-    
-    E --> E1[Components]
-    E --> E2[Cyclical]
-    E --> E3[Lags]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.2-data-wrangling/diagrams/transformations-1.mmd" %}
 
 ## Mathematical Foundations
 

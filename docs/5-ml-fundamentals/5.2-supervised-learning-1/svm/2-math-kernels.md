@@ -23,28 +23,7 @@ By the end of this section, you will be able to:
 - Choose the right kernel for different problems
 - Implement and tune kernel parameters
 
-```mermaid
-graph TD
-    subgraph MARGIN["Maximum margin hyperplane"]
-        H["Decision boundary: w·x + b = 0"]
-        P["Positive support vector: w·x + b = +1"]
-        N["Negative support vector: w·x + b = −1"]
-        MARGIN_W["Margin width = 2 / ||w||\nObjective: maximise this\n= minimise ||w||²"]
-        H & P & N --> MARGIN_W
-    end
-    subgraph KERNEL["Kernel trick  (non-linear SVM)"]
-        LIN["Linear kernel\nK(x,z) = x·z\nFast, good for text/high-dim"]
-        POLY["Polynomial kernel\nK(x,z) = (x·z + c)^d\nSuitable for image features"]
-        RBF["RBF / Gaussian kernel\nK(x,z) = exp(-γ||x−z||²)\nMost flexible, default choice\nTune γ and C together"]
-        SIG["Sigmoid kernel\nK(x,z) = tanh(κx·z + c)\nNeural-net-like (rarely needed)"]
-    end
-    MARGIN_W --> KERNEL
-    subgraph TUNE["Hyperparameter effects"]
-        C_PARAM["C (regularisation)\nSmall C → wide margin, more misclassifications\nLarge C → narrow margin, fewer mistakes on train"]
-        GAMMA["γ (RBF only)\nSmall γ → smooth boundary (global)\nLarge γ → complex boundary (local, overfits)"]
-    end
-    KERNEL --> TUNE
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.2-supervised-learning-1/svm/diagrams/2-math-kernels-1.mmd" %}
 
 ## The Maximum Margin Concept
 
@@ -311,20 +290,7 @@ Sometimes data isn't perfectly separable. That's where soft margin comes in:
 
 ### Decision Guide
 
-```mermaid
-graph TD
-    A[Start] --> B{Is data linear?}
-    B -->|Yes| C[Use Linear Kernel]
-    B -->|No| D{How complex?}
-    D -->|Simple| E[Try Polynomial]
-    D -->|Complex| F[Use RBF]
-    C --> G[Check Performance]
-    E --> G
-    F --> G
-    G --> H{Good enough?}
-    H -->|Yes| I[Stop]
-    H -->|No| J[Try other kernels]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.2-supervised-learning-1/svm/diagrams/2-math-kernels-2.mmd" %}
 
 ### Practical Tips
 

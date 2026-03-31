@@ -1,0 +1,11 @@
+flowchart LR
+    subgraph FLOW["Logistic Regression pipeline"]
+        INPUT["Features X₁, X₂, … Xₙ"]
+        INPUT --> LINEAR["Linear score z = β₀ + β₁X₁ + … + βₙXₙ"]
+        LINEAR --> SIGMOID["`Sigmoid function p = 1 / (1 + e^{-z}) maps z → probability (0, 1)`"]
+        SIGMOID --> THRESH["`Threshold (default 0.5) p ≥ 0.5 → class 1 p < 0.5 → class 0`"]
+    end
+    subgraph COEFF["Coefficient interpretation"]
+        C1["β > 0: feature increases probability β < 0: feature decreases probability Odds ratio = e^β"]
+    end
+    SIGMOID --> COEFF

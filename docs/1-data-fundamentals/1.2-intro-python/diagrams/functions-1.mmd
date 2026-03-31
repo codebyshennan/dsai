@@ -1,0 +1,8 @@
+flowchart LR
+    subgraph DEF["`def analyze_numeric_column(data)`"]
+        direction TB
+        P["`Parameters (data: pd.Series)`"] --> BODY["Function body mean, median, std…"]
+        BODY --> RET["return { stats }"]
+    end
+    CALL["`Call site analyze_numeric_column(df['age'])`"] --> DEF
+    DEF --> OUT["`Return value {'mean': 35.2, …}`"]

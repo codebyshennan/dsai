@@ -1,0 +1,12 @@
+flowchart TD
+    subgraph MLR["Multiple Linear Regression"]
+        X["Predictors X₁, X₂, … Xₚ"]
+        X --> MODEL["ŷ = β₀ + β₁X₁ + β₂X₂ + … + βₚXₚ"]
+        MODEL --> COEFF["Each βᵢ = effect of Xᵢ *holding all other predictors constant*"]
+    end
+    subgraph WATCH["Watch out for"]
+        MC["Multicollinearity Correlated predictors → unstable βᵢ Check VIF > 10"]
+        OVB["Omitted variable bias Missing confounder changes βᵢ Domain knowledge required"]
+        OVF["Overfitting Too many predictors → R² inflated Use adjusted R² or cross-validate"]
+    end
+    COEFF --> WATCH

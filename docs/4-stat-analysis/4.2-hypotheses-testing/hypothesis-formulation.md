@@ -36,20 +36,7 @@ A hypothesis is your scientific roadmap—it guides your investigation and helps
 
 *StatQuest: Alternative Hypotheses: Main Ideas!!! by Josh Starmer*
 
-```mermaid
-graph TD
-    Q["Research question\n(formed before looking at data!)"] --> H0["Null hypothesis H₀\nDefault: no effect / no difference\nH₀: μ₁ = μ₂  or  β = 0"]
-    Q --> H1["Alternative hypothesis H₁\nWhat you want to detect\nTwo-sided: μ₁ ≠ μ₂\nOne-sided: μ₁ > μ₂  or  μ₁ < μ₂"]
-
-    subgraph ERRORS["Decision outcomes"]
-        OK1["Reject H₀, H₀ false → Correct decision"]
-        OK2["Fail to reject H₀, H₀ true → Correct decision"]
-        T1["Reject H₀, H₀ true → Type I error (α, false positive)"]
-        T2["Fail to reject H₀, H₀ false → Type II error (β, false negative)"]
-    end
-
-    H0 & H1 --> ERRORS
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.2-hypotheses-testing/diagrams/hypothesis-formulation-1.mmd" %}
 
 *Choose your hypotheses before you look at the data. Peeking (p-hacking) inflates Type I error.*
 

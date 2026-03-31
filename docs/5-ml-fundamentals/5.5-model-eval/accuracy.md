@@ -26,22 +26,7 @@ Accuracy is the ratio of correct predictions to total predictions:
 \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}}
 \\]
 
-```mermaid
-graph LR
-    subgraph CONF["Confusion matrix"]
-        TP["TP\n(correct positive)"]
-        TN["TN\n(correct negative)"]
-        FP["FP\n(false alarm)"]
-        FN["FN\n(missed positive)"]
-    end
-    ACC["Accuracy =\n(TP + TN) /\n(TP + TN + FP + FN)"]
-    CONF --> ACC
-    subgraph WHEN["When accuracy misleads"]
-        IMB["Imbalanced classes\n99% negative → predict all negative\n→ 99% accuracy, zero recall!"]
-    end
-    ACC --> WHEN
-    WHEN --> USE["Use Precision, Recall,\nF1, or PR-AUC instead"]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/accuracy-1.mmd" %}
 
 *Rule of thumb: if your dataset has < 80% majority class, accuracy is still OK as a sanity check. Beyond that, always report at least one additional metric.*
 

@@ -1,0 +1,12 @@
+flowchart LR
+    subgraph APPS["Industry applications of Gradient Boosting"]
+        FIN["Finance Credit risk Fraud detection Algorithmic trading"]
+        HLTH["Healthcare Disease prediction Patient readmission Drug response"]
+        RET["Retail / E-commerce Recommendation ranking Churn prediction Demand forecasting"]
+        NLP["`NLP (tabular features) Sentiment + metadata Search ranking Ad click-through`"]
+    end
+    subgraph DEPLOY["Deployment trade-offs"]
+        D1["`XGBoost / LightGBM Fast inference (<1 ms) Small model size (MB) Good for APIs & batch`"]
+        D2["Deep neural networks Slower, larger Better for images/audio/text Requires GPU serving"]
+    end
+    APPS --> DEPLOY

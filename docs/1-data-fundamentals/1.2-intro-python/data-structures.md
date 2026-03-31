@@ -50,18 +50,7 @@ In Python, we use different "containers" (data structures) to store and organize
 
 Let's start with a simple overview before we dive deep into each one:
 
-```mermaid
-graph TD
-    DS[Python Data Structures] --> LIST["List [ ]\nOrdered, mutable\nAllow duplicates\nAccess by index"]
-    DS --> DICT["Dict { }\nKey-value pairs\nFast lookup by key\nMutable"]
-    DS --> TUPLE["Tuple ( )\nOrdered, immutable\nAllow duplicates\nFast to create"]
-    DS --> SET["Set { }\nUnordered, mutable\nNo duplicates\nFast membership test"]
-
-    LIST --> LU["Use for: sequences,\ntemperature readings,\nordered pipeline steps"]
-    DICT --> DU["Use for: student grades,\nconfig, JSON data,\ncount maps"]
-    TUPLE --> TU["Use for: (x, y) coords,\nfunction return pairs,\ndict keys"]
-    SET --> SU["Use for: unique IDs,\ndef deduplication,\nset intersection"]
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.2-intro-python/diagrams/data-structures-1.mmd" %}
 
 **1. Lists `[ ]` - Ordered Collections You Can Change**
 ```python

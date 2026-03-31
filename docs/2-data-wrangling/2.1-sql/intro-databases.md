@@ -112,32 +112,7 @@ These engines optimize for one workload—time-ordered metrics, full-text search
 
 ER modeling is a sketch before you write DDL: **entities** (things you store), **relationships** (how they connect), and **cardinality** (one-to-many, many-to-many). The SQL below shows a classic many-to-many bridge table (`product_categories`) between `products` and `categories`.
 
-```mermaid
-erDiagram
-    CUSTOMERS {
-        int customer_id PK
-        string name
-        string email
-    }
-    ORDERS {
-        int order_id PK
-        int customer_id FK
-        date order_date
-    }
-    PRODUCTS {
-        int product_id PK
-        string name
-        decimal price
-    }
-    ORDER_ITEMS {
-        int order_id FK
-        int product_id FK
-        int quantity
-    }
-    CUSTOMERS ||--o{ ORDERS : places
-    ORDERS ||--|{ ORDER_ITEMS : contains
-    PRODUCTS ||--o{ ORDER_ITEMS : "appears in"
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.1-sql/diagrams/intro-databases-1.mmd" %}
 
 *Read `||--o{` as "one customer places zero or more orders". The bridge table `ORDER_ITEMS` resolves the many-to-many between `ORDERS` and `PRODUCTS`.*
 

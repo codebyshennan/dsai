@@ -1,0 +1,10 @@
+flowchart LR
+    subgraph FWD["Forward Pass →"]
+        X["Input X"] --> H1["Hidden layer"] --> H2["..."] --> OUT["Output ŷ"]
+        OUT --> LOSS["`Loss L(ŷ, y)`"]
+    end
+    subgraph BWD["← Backward Pass"]
+        LOSS --> dL_dOut["∂L/∂ŷ"] --> dL_dH2["`∂L/∂H2 (chain rule)`"] --> dL_dH1["`∂L/∂H1 (chain rule)`"] --> dL_dW["∂L/∂W for each weight"]
+    end
+    dL_dW --> UPDATE["Weight update W ← W − α · ∂L/∂W"]
+    UPDATE --> X

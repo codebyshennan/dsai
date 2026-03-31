@@ -1,0 +1,24 @@
+flowchart TD
+    subgraph bronze ["Bronze Layer"]
+        A[Raw Data]
+        B[Source Files]
+        C[Stream Data]
+    end
+    subgraph silver ["Silver Layer"]
+        D[Cleaned Data]
+        E[Validated Data]
+        F[Transformed Data]
+    end
+    subgraph gold ["Gold Layer"]
+        G[Aggregated Data]
+        H[Feature Sets]
+        I[Analytics Data]
+    end
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    F --> H
+    F --> I

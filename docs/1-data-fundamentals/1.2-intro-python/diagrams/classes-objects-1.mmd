@@ -1,0 +1,27 @@
+classDiagram
+    class Dataset {
+        +data: DataFrame
+        +name: str
+        +load(path)
+        +validate()
+        +describe()
+    }
+    class BaseModel {
+        <<abstract>>
+        +fit(X, y)
+        +predict(X)
+        +evaluate(X, y)
+    }
+    class RegressionModel {
+        +fit(X, y)
+        +predict(X)
+        +evaluate(X, y)
+    }
+    class ClassificationModel {
+        +fit(X, y)
+        +predict(X)
+        +evaluate(X, y)
+    }
+    BaseModel <|-- RegressionModel : inherits
+    BaseModel <|-- ClassificationModel : inherits
+    Dataset --> BaseModel : feeds data to

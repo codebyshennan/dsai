@@ -26,18 +26,7 @@ Missing data is one of the most common and challenging issues in data analysis. 
 
 Missing data can occur through different mechanisms, each requiring different handling approaches:
 
-```mermaid
-graph TD
-    A[Missing Data] --> B[MCAR]
-    B --> B1[No systematic pattern]
-    B --> B2[True randomness]
-    A --> C[MAR]
-    C --> C1[Pattern exists]
-    C --> C2[Explainable by other variables]
-    A --> D[MNAR]
-    D --> D1[Systematic pattern]
-    D --> D2[Related to missing value itself]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.2-data-wrangling/diagrams/missing-values-1.mmd" %}
 
 ### Missing Data Mechanisms Explained
 
@@ -261,20 +250,7 @@ rating                   5                10.0   float64
 
 ## Imputation Strategies Decision Tree
 
-```mermaid
-graph TD
-    A[Missing Values] --> B{Data Type?}
-    B -->|Numeric| C{Missing Pattern?}
-    B -->|Categorical| D{Cardinality?}
-    
-    C -->|MCAR| C1[Mean/Median]
-    C -->|MAR| C2[KNN/MICE]
-    C -->|MNAR| C3[Custom Rules]
-    
-    D -->|Low| D1[Mode]
-    D -->|High| D2[ML-based]
-    D -->|Time Series| D3[Forward/Backward Fill]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.2-data-wrangling/diagrams/missing-values-2.mmd" %}
 
 ## Advanced Imputation Techniques
 

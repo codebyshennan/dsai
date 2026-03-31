@@ -24,20 +24,7 @@ Validation curves plot the model's performance (typically error or accuracy) aga
 2. Validation score
 3. The relationship between them
 
-```mermaid
-graph LR
-    subgraph VC["Validation curve  (x = hyperparameter value)"]
-        LOW["Low complexity\n(small depth / large α)\nUnderfitting\nTrain ≈ Val, both high error"]
-        OPT["Optimal point\nSmall train-val gap\nBoth scores high"]
-        HIGH["High complexity\n(large depth / small α)\nOverfitting\nTrain high, Val drops"]
-    end
-    LOW -->|"increase complexity"| OPT
-    OPT -->|"too much complexity"| HIGH
-    subgraph DIFFER["Validation curve vs Learning curve"]
-        VC2["Validation curve:\nx-axis = hyperparameter\nDiagnoses: right complexity?"]
-        LC["Learning curve:\nx-axis = training set size\nDiagnoses: more data helps?"]
-    end
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/validation-curves-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** A validation curve for tree `max_depth` (x-axis 1–20): training score (blue, stays high) and CV score (orange, peaks around depth 5–8 then drops), showing where overfitting starts.
 

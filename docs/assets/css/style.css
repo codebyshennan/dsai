@@ -831,6 +831,25 @@ body {
     color: var(--text-muted);
 }
 
+/* --- Mermaid diagrams --- */
+.mermaid-diagram {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    text-align: center;
+}
+
+.mermaid-diagram svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.mermaid-diagram__loading {
+    color: var(--text-muted, #666);
+    font-style: italic;
+    font-size: 0.9em;
+    padding: 1rem 0;
+}
+
 /* --- Code explainer: long blocks + side callouts (line-range highlights) --- */
 .markdown-body .code-explainer {
     display: grid;

@@ -28,23 +28,7 @@ Let's say you want to organize your clothes. You might ask:
 
 This creates a clear organization system, just like a decision tree!
 
-```mermaid
-graph TD
-    A[Type of Clothing] -->|Shirt| B[Casual or Formal?]
-    A -->|Pants| C[Jeans or Dress?]
-    B -->|Casual| D[T-Shirt]
-    B -->|Formal| E[Dress Shirt]
-    C -->|Jeans| F[Denim]
-    C -->|Dress| G[Slacks]
-    
-    style A fill:#f9f,stroke:#333
-    style B fill:#bbf,stroke:#333
-    style C fill:#bbf,stroke:#333
-    style D fill:#bfb,stroke:#333
-    style E fill:#bfb,stroke:#333
-    style F fill:#bfb,stroke:#333
-    style G fill:#bfb,stroke:#333
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.2-supervised-learning-1/decision-trees/diagrams/2-tree-structure-1.mmd" %}
 
 ## How Trees Make Decisions
 

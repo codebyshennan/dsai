@@ -1,0 +1,14 @@
+flowchart TD
+    subgraph ASSUME["`Four OLS assumptions  (LINE)`"]
+        L["Linearity Residuals vs fitted: random scatter No curve = assumption met"]
+        I["Independence Residuals uncorrelated No time-series pattern"]
+        N["Normality of residuals QQ-plot: points on diagonal Required for inference CIs"]
+        E["`Equal variance (homoscedasticity) Scale-location plot: flat band Fan shapes → heteroscedasticity`"]
+    end
+    subgraph FIX["Common fixes"]
+        F1["`Curvature → log(y) or polynomial term`"]
+        F2["`Fan shape → log(y) or WLS (weighted regression)`"]
+        F3["`Outliers → robust regression or flag & re-check`"]
+        F4["`Non-normality → OK for large n (CLT); bootstrap CIs`"]
+    end
+    L & I & N & E --> FIX

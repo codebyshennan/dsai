@@ -20,20 +20,7 @@ Real projects are not linear. You revisit earlier steps when you discover bad da
 
 The **Data Analytics Lifecycle** is a structured way to turn a business question into a decision-ready answer. Each stage has a purpose; skipping one usually creates expensive rework later.
 
-```mermaid
-graph TD;
-    A[Business Understanding] --> B[Data Collection];
-    B --> C[Data Cleaning];
-    C --> D[Data Exploration];
-    D --> E[Data Analysis];
-    E --> F[Data Visualization];
-    F --> G[Decision Making];
-    G --> H[Feedback Loop];
-    H --> A;
-
-    classDef step fill:#f9f,stroke:#333,stroke-width:2px;
-    class A,B,C,D,E,F,G,H step;
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.1-intro-data-analytics/diagrams/workflow-concepts-1.mmd" %}
 
 ### What each stage means in practice
 
@@ -72,22 +59,7 @@ You do not need code to think this way; the lifecycle is about **order of thinki
 
 The **Data Science Lifecycle** describes projects whose main output is a **model or scoring system** that must work in production, not only a dashboard or report. It overlaps with analytics early on, then **branches** into engineering-heavy steps.
 
-```mermaid
-graph TD;
-    A[Business Understanding] --> B[Data Collection];
-    B --> C[Data Cleaning];
-    C --> D[Data Exploration];
-    D --> E[Feature Engineering];
-    E --> F[Model Training];
-    F --> G[Model Evaluation];
-    G --> H[Deployment];
-    H --> I[Monitoring];
-    I --> J[Feedback Loop];
-    J --> A;
-
-    classDef step fill:#f9f,stroke:#333,stroke-width:2px;
-    class A,B,C,D,E,F,G,H,I,J step;
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.1-intro-data-analytics/diagrams/workflow-concepts-2.mmd" %}
 
 ### Stages shared with analytics
 

@@ -57,29 +57,7 @@ These ideas appear in GDPR and similar frameworks:
 3. **Storage limitation** — Delete or anonymize when data is no longer needed for that purpose, per policy and law.
 4. **Integrity and confidentiality** — Keep data accurate enough for its use, and protect it against unauthorized access (see [Data security](./data-security.md)).
 
-```mermaid
-graph LR
-    subgraph RIGHTS[“Individual rights”]
-        R1[“Access\n(see what you hold)”]
-        R2[“Rectification\n(correct errors)”]
-        R3[“Erasure\n(right to be forgotten)”]
-        R4[“Portability\n(machine-readable copy)”]
-    end
-    subgraph PRINCIPLES[“Privacy principles”]
-        P1[“Data minimisation\ncollect only what's needed”]
-        P2[“Purpose limitation\nuse only as disclosed”]
-        P3[“Storage limitation\ndelete when done”]
-        P4[“Integrity &\nconfidentiality”]
-    end
-    subgraph RISK[“Risk tiers”]
-        T1[“Ordinary PII\nName, email, address”]
-        T2[“Sensitive / special category\nHealth, biometric, race, religion”]
-        T3[“PHI (HIPAA)\nHealth records + identifier”]
-    end
-    RIGHTS --- YOU[“Your\nresponsibilities\nas an analyst”]
-    PRINCIPLES --- YOU
-    RISK --- YOU
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.1-intro-data-analytics/diagrams/data-privacy-1.mmd" %}
 
 *Treat sensitive categories and PHI as their own tier — stricter access controls, minimal retention, and often explicit legal basis before you even touch the data.*
 

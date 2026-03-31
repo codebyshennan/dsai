@@ -1,0 +1,20 @@
+flowchart LR
+    subgraph L1["`L1 (Lasso) — Σ|βⱼ|`"]
+        L1A["`Penalty shape: Diamond (sharp corners)`"]
+        L1B["Effect: Shrinks small weights → exactly 0"]
+        L1C["`Produces: Sparse model (automatic feature selection)`"]
+        L1D["Use when: Few features actually matter"]
+    end
+    subgraph L2["`L2 (Ridge) — Σβⱼ²`"]
+        L2A["`Penalty shape: Circle (smooth)`"]
+        L2B["Effect: Shrinks all weights proportionally"]
+        L2C["`Produces: Small but non-zero weights (keeps all features)`"]
+        L2D["Use when: Many features each contribute a little"]
+    end
+    subgraph EN["`Elastic Net — αL1 + (1-α)L2`"]
+        ENA["Mix of both α controls the balance"]
+        ENB["Use when: Many correlated features"]
+    end
+    L1 --- LAMBDA["`λ (lambda) Controls strength for all three`"]
+    L2 --- LAMBDA
+    EN --- LAMBDA

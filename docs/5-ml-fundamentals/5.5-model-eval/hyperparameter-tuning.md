@@ -26,20 +26,7 @@ Hyperparameter tuning is crucial for several reasons:
 4. **Ensures model stability**: Consistent hyperparameters lead to reproducible results
 5. **Maximizes resource utilization**: Efficient parameter settings make better use of computational resources
 
-```mermaid
-graph TD
-    subgraph SEARCH["Search strategies"]
-        GS["Grid Search\nExhaustive: all combinations\nSafe, slow, scales poorly"]
-        RS["Random Search\nSample n random combos\nFaster, often as good"]
-        BO["Bayesian Optimisation\n(Optuna / HyperOpt)\nLearns from past trials\nBest for expensive models"]
-    end
-    subgraph SAFE["Leakage-free workflow"]
-        TRN["Train set"] --> CV["Inner CV\n(GridSearchCV / RandomizedSearchCV)\nFinds best hyperparams"]
-        CV --> REFIT["Refit on full train set\nwith best params"]
-        REFIT --> TEST["Evaluate on\nheld-out test set\n(touch ONCE)"]
-    end
-    GS & RS & BO --> CV
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/hyperparameter-tuning-1.mmd" %}
 
 *Always fit the search object on train data only. The test set is touched once, at the very end, to report final performance.*
 

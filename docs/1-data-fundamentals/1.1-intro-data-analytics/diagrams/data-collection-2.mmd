@@ -1,0 +1,9 @@
+flowchart TD
+    Q1{Do you need people's opinions or behaviors?} -->|Opinions / attitudes| Q2{Small group or large?}
+    Q1 -->|Observed behaviors| Q3{Digital or physical?}
+    Q1 -->|Data already exists| SEC[Secondary data / web scraping]
+    Q2 -->|Small / exploratory| INT[Interviews or Focus groups]
+    Q2 -->|Large / representative| SUR[Surveys / Questionnaires]
+    Q3 -->|Digital product| LOG[Data logging / Session recording]
+    Q3 -->|Physical space| OBS[In-store observation / Sensors]
+    Q1 -->|Causal claim needed| EXP[Experiment / A-B test]

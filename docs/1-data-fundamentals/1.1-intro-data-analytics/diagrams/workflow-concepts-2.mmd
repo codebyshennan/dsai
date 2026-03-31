@@ -1,0 +1,14 @@
+flowchart TD;
+    A[Business Understanding] --> B[Data Collection];
+    B --> C[Data Cleaning];
+    C --> D[Data Exploration];
+    D --> E[Feature Engineering];
+    E --> F[Model Training];
+    F --> G[Model Evaluation];
+    G --> H[Deployment];
+    H --> I[Monitoring];
+    I --> J[Feedback Loop];
+    J --> A;
+
+    classDef step fill:#f9f,stroke:#333,stroke-width:2px;
+    class A,B,C,D,E,F,G,H,I,J step;

@@ -20,22 +20,7 @@ Precision and Recall are fundamental metrics in machine learning for evaluating 
 
 ## What are Precision and Recall?
 
-```mermaid
-graph TD
-    subgraph CM["Confusion matrix"]
-        TP["TP\nTrue Positive\nCorrectly predicted positive"]
-        FP["FP\nFalse Positive\nPredicted positive — actually negative"]
-        FN["FN\nFalse Negative\nPredicted negative — actually positive"]
-        TN["TN\nTrue Negative\nCorrectly predicted negative"]
-    end
-    PREC["Precision\n= TP / (TP + FP)\nOf all predicted +,\nhow many were right?\nOptimise when FP is costly\n(spam filter, legal screening)"]
-    REC["Recall / Sensitivity\n= TP / (TP + FN)\nOf all actual +,\nhow many did we catch?\nOptimise when FN is costly\n(cancer screening, fraud)"]
-    F1["F1 Score\n= 2 × (P × R) / (P + R)\nHarmonic mean — balances both\nUse when classes are imbalanced"]
-    TP --> PREC & REC
-    FP --> PREC
-    FN --> REC
-    PREC & REC --> F1
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/precision-recall-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** A Precision-Recall curve (x-axis = Recall 0–1, y-axis = Precision 0–1) for a classification model, showing the area under the PR curve (PR-AUC) shaded, with the operating threshold point marked.
 

@@ -23,23 +23,7 @@
 - **Availability** — Authorized users can use systems and data when needed. Attacks and outages can target availability.
 - **Non-repudiation** — Actors cannot plausibly deny sending or receiving data; important for audits and contracts.
 
-```mermaid
-graph TD
-    subgraph CIA["CIA + N triad"]
-        C["Confidentiality\nOnly authorized access"]
-        I["Integrity\nAccurate & tamper-evident"]
-        A["Availability\nReachable when needed"]
-        N["Non-repudiation\nActions are traceable"]
-    end
-    subgraph DID["Defense in depth (outer → inner)"]
-        D1["Physical layer\nFacilities, badges"]
-        D2["Network layer\nFirewalls, VPN, IDS"]
-        D3["Application layer\nAuthn, authz, input validation"]
-        D4["Data layer\nEncryption, masking, access control"]
-    end
-    D1 --> D2 --> D3 --> D4
-    D4 --> CIA
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.1-intro-data-analytics/diagrams/data-security-1.mmd" %}
 
 *"Defense in depth" means one layer failing doesn't compromise the whole system. Each ring must be breached separately.*
 

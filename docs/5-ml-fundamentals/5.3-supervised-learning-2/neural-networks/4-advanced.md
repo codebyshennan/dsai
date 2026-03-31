@@ -27,27 +27,7 @@ Understanding advanced neural network techniques helps you:
 
 ## Advanced Architectures
 
-```mermaid
-graph TD
-    subgraph RESNET["ResNet — Skip connections"]
-        R1["Input x"] --> R2["Conv → BN → ReLU\nConv → BN"]
-        R1 -->|"shortcut (identity or 1×1 conv)"| R3["+  (add)"]
-        R2 --> R3
-        R3 --> R4["ReLU → next block"]
-    end
-    subgraph LSTM["LSTM — Sequence memory"]
-        L1["Cell state (long-term memory)"] --> L2["Forget gate\nInput gate\nOutput gate"]
-        L2 --> L3["Hidden state (short-term)"]
-    end
-    subgraph ATT["Attention / Transformer"]
-        A1["Query, Key, Value\nfrom input sequence"]
-        A1 --> A2["Scaled dot-product\nattention scores"]
-        A2 --> A3["Weighted sum\nof values"]
-    end
-    FW["Feedforward (MLP)"] -->|"add depth → vanishing gradients"| RESNET
-    FW -->|"time / sequence data"| LSTM
-    LSTM -->|"long-range dependencies"| ATT
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.3-supervised-learning-2/neural-networks/diagrams/4-advanced-1.mmd" %}
 
 ### 1. Residual Networks (ResNet)
 

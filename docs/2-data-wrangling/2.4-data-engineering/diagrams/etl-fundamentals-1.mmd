@@ -1,0 +1,14 @@
+flowchart LR
+    subgraph Extract
+        A[Source Systems] --> B[Data Extraction]
+        B --> C[Raw Data]
+    end
+    subgraph Transform
+        C --> D[Data Cleaning]
+        D --> E[Data Enrichment]
+        E --> F[Data Validation]
+    end
+    subgraph Load
+        F --> G[Staging Area]
+        G --> H[Data Warehouse]
+    end

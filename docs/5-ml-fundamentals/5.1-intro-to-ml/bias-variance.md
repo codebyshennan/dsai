@@ -29,25 +29,7 @@ In machine learning, we face similar challenges. Understanding bias and variance
 
 ## What are Bias and Variance?
 
-```mermaid
-graph LR
-    subgraph HB["High Bias  (Underfitting)"]
-        B1["Too-simple model\nCan't capture real patterns"]
-        B2["Train error HIGH\nVal error HIGH\nGap SMALL"]
-        B3["Fix: more features\nmore model complexity\nless regularisation"]
-    end
-    subgraph SWEET["Sweet spot"]
-        G1["Right complexity\nfor the data"]
-        G2["Train LOW\nVal LOW\nSmall gap"]
-    end
-    subgraph HV["High Variance  (Overfitting)"]
-        V1["Too-complex model\nMemorises noise"]
-        V2["Train error LOW\nVal error HIGH\nGap LARGE"]
-        V3["Fix: more data\nregularisation\nsimpler model"]
-    end
-    HB -->|"increase capacity"| SWEET
-    SWEET -->|"too much capacity"| HV
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.1-intro-to-ml/diagrams/bias-variance-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** The classic dart-board analogy — four panels: low bias/low variance (tight cluster on bullseye), low bias/high variance (spread around bullseye), high bias/low variance (tight cluster off-centre), high bias/high variance (spread and off-centre).
 

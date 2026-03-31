@@ -23,18 +23,7 @@ Clustering is like having a smart assistant who can look at a pile of items and 
 
 ## Types of Clustering Algorithms
 
-```mermaid
-graph TD
-    A{What do you know\nabout the data?} -->|Number of clusters known| B[K-Means]
-    A -->|Unknown clusters,\nno noise assumption| C[Hierarchical]
-    A -->|Arbitrary shapes,\nnoise expected| D[DBSCAN]
-    A -->|Need probability\nof membership| E[Gaussian Mixture]
-
-    B --> B1["Fast, scalable\nAssumes spherical clusters\nSensitive to k choice"]
-    C --> C1["No k needed upfront\nDendrogram shows structure\nSlower on large data"]
-    D --> D1["Finds outliers naturally\nHandles odd shapes\nNeeds ε and minPts tuning"]
-    E --> E1["Soft assignments\nMore flexible shapes\nExpectation-Maximization"]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.4-unsupervised-learning/diagrams/clustering-1.mmd" %}
 
 ### 1. K-Means Clustering
 

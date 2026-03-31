@@ -31,26 +31,7 @@ As a data scientist at "GlobalMart", you face a critical challenge: the company'
 
 ## Project Workflow
 
-```mermaid
-graph TD
-    A[Raw Data] --> B[Quality Assessment]
-    B --> C[Data Cleaning]
-    C --> D[Transformation]
-    D --> E[Validation]
-    E --> F[Final Dataset]
-    
-    B --> B1[Missing Values]
-    B --> B2[Outliers]
-    B --> B3[Inconsistencies]
-    
-    C --> C1[Handle Missing]
-    C --> C2[Treat Outliers]
-    C --> C3[Fix Formats]
-    
-    D --> D1[Scaling]
-    D --> D2[Encoding]
-    D --> D3[Engineering]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.2-data-wrangling/diagrams/project-1.mmd" %}
 
 ## Dataset Description
 

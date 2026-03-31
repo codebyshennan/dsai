@@ -1,0 +1,10 @@
+flowchart TD
+    DS[Python Data Structures] --> LIST["List [ ] Ordered, mutable Allow duplicates Access by index"]
+    DS --> DICT["Dict { } Key-value pairs Fast lookup by key Mutable"]
+    DS --> TUPLE["`Tuple ( ) Ordered, immutable Allow duplicates Fast to create`"]
+    DS --> SET["Set { } Unordered, mutable No duplicates Fast membership test"]
+
+    LIST --> LU["Use for: sequences, temperature readings, ordered pipeline steps"]
+    DICT --> DU["Use for: student grades, config, JSON data, count maps"]
+    TUPLE --> TU["`Use for: (x, y) coords, function return pairs, dict keys`"]
+    SET --> SU["Use for: unique IDs, def deduplication, set intersection"]

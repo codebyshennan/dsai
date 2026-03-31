@@ -1,0 +1,10 @@
+flowchart TD
+    subgraph SB["Seaborn plot families"]
+        REL["Relational scatterplot / lineplot Relationship between two numeric variables"]
+        DIST["Distribution histplot / kdeplot / ecdfplot / rugplot Shape of a single numeric variable"]
+        CAT["Categorical boxplot / violinplot / barplot stripplot / swarmplot / pointplot Numeric variable by category"]
+        MAT["Matrix heatmap / clustermap Correlations or confusion matrices"]
+        PAIR["Multi-variable pairplot — all pairs at once FacetGrid — any chart by group"]
+    end
+    DATA["`Tidy DataFrame (one row per observation)`"] --> SB
+    SB --> FIG["`Matplotlib Figure (Seaborn wraps it — you can still call ax.set_*)`"]

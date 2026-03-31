@@ -1,0 +1,14 @@
+flowchart TD
+    INIT["`1. Choose k Initialise k centroids (random or k-means++)`"]
+    INIT --> ASSIGN["`2. Assign Each point → nearest centroid (Euclidean distance)`"]
+    ASSIGN --> UPDATE["3. Update Recompute centroid as cluster mean"]
+    UPDATE --> CHECK{Centroids changed?}
+    CHECK -->|Yes| ASSIGN
+    CHECK -->|No| DONE["Converged Return labels + centroids"]
+
+    subgraph LIMITS["Common failure modes"]
+        F1["`Sensitive to initialisation Fix: k-means++ (sklearn default)`"]
+        F2["Assumes spherical clusters Fix: DBSCAN or GMM for irregular shapes"]
+        F3["Must specify k Fix: Elbow / silhouette to choose k"]
+        F4["Sensitive to scale Fix: StandardScaler before fitting"]
+    end

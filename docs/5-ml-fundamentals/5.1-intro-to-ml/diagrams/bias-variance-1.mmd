@@ -1,0 +1,17 @@
+flowchart LR
+    subgraph HB["`High Bias  (Underfitting)`"]
+        B1["`Too-simple model Can't capture real patterns`"]
+        B2["Train error HIGH Val error HIGH Gap SMALL"]
+        B3["Fix: more features more model complexity less regularisation"]
+    end
+    subgraph SWEET["Sweet spot"]
+        G1["Right complexity for the data"]
+        G2["Train LOW Val LOW Small gap"]
+    end
+    subgraph HV["`High Variance  (Overfitting)`"]
+        V1["Too-complex model Memorises noise"]
+        V2["Train error LOW Val error HIGH Gap LARGE"]
+        V3["Fix: more data regularisation simpler model"]
+    end
+    HB -->|"increase capacity"| SWEET
+    SWEET -->|"too much capacity"| HV

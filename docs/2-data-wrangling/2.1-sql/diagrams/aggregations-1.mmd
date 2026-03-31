@@ -1,0 +1,11 @@
+flowchart TD
+    A[Raw Data] --> B[GROUP BY]
+    B --> C[Aggregate Functions]
+    C --> D[Summary Results]
+    C --> E[Statistical Insights]
+    
+    subgraph agg_proc ["Aggregation Process"]
+    F[Individual Records] --> G[Grouping]
+    G --> H[Calculation]
+    H --> I[Final Results]
+    end

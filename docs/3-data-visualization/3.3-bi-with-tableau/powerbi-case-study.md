@@ -27,24 +27,7 @@ Short Tableau Public install; pair with the written guides in this folder.
 
 ### 2. Understanding the Power BI Workspace
 
-```mermaid
-graph TD
-    subgraph VIEWS["Three main views (left icon bar)"]
-        RV["Report View\nCanvas + pages\nCreate / format visuals"]
-        DV["Data View\nTable data\nEdit columns, types"]
-        MV["Model View\nRelationships\nJoin tables"]
-    end
-    subgraph PANELS["Right panels"]
-        VIS["Visualizations\nChart type picker\nFormat pane"]
-        FLD["Fields\nDrag columns\nonto visuals"]
-        FLT["Filters\nPage / visual\nlevel filters"]
-    end
-    RV --- VIS
-    RV --- FLD
-    RV --- FLT
-    DV -->|"Power Query\nM language"| TRANS["Transform / clean data"]
-    MV -->|"Drag to join"| REL["Define relationships\nbetween tables"]
-```
+{% include mermaid-diagram.html src="3-data-visualization/3.3-bi-with-tableau/diagrams/powerbi-case-study-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** Power BI Desktop workspace — annotated with Report View canvas, left icon bar (Report / Data / Model), Visualizations panel, Fields panel, and Filters panel.
 

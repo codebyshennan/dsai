@@ -27,35 +27,7 @@
 - **Polymorphism** — Call the same method name on different types (`fit`, `transform`) and let each class implement the details.
 - **Abstraction** — Expose a simple interface (`model.predict(X)`) while hiding optimization details inside the class.
 
-```mermaid
-classDiagram
-    class Dataset {
-        +data: DataFrame
-        +name: str
-        +load(path)
-        +validate()
-        +describe()
-    }
-    class BaseModel {
-        <<abstract>>
-        +fit(X, y)
-        +predict(X)
-        +evaluate(X, y)
-    }
-    class RegressionModel {
-        +fit(X, y)
-        +predict(X)
-        +evaluate(X, y)
-    }
-    class ClassificationModel {
-        +fit(X, y)
-        +predict(X)
-        +evaluate(X, y)
-    }
-    BaseModel <|-- RegressionModel : inherits
-    BaseModel <|-- ClassificationModel : inherits
-    Dataset --> BaseModel : feeds data to
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.2-intro-python/diagrams/classes-objects-1.mmd" %}
 
 *`BaseModel` defines the **interface** (`fit`, `predict`, `evaluate`); subclasses override the details. This is exactly how scikit-learn estimators are structured.*
 

@@ -1,0 +1,17 @@
+flowchart TD
+    A[Task Start] --> B{Check Source}
+    B -->|Available| C[Extract Data]
+    B -->|Unavailable| D[Retry Logic]
+    D -->|Max Retries| E["`Alert & Log`"]
+    D -->|Retry| B
+    C --> F{Validate Data}
+    F -->|Valid| G[Process Data]
+    F -->|Invalid| H[Error Handler]
+    H --> I[Clean/Fix Data]
+    I --> F
+    G --> J[Load Data]
+    J --> K{Load Success}
+    K -->|Yes| L[Complete]
+    K -->|No| M[Rollback]
+    M --> N[Retry Load]
+    N --> J

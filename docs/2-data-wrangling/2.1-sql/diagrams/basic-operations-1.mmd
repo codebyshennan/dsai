@@ -1,0 +1,11 @@
+flowchart LR
+    subgraph CRUD["SQL CRUD"]
+        C["`CREATE / INSERT Add structure & rows`"]
+        R["`SELECT … WHERE Read & filter rows`"]
+        U["UPDATE … SET … WHERE Modify specific rows"]
+        D["DELETE … WHERE Remove specific rows"]
+    end
+    C --> TABLE[(Table)]
+    TABLE --> R
+    TABLE --> U --> TABLE
+    TABLE --> D

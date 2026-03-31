@@ -30,26 +30,7 @@ Imagine you're a chef trying to improve a recipe. Instead of guessing what chang
 
 ## The Basics: Control vs Treatment
 
-```mermaid
-graph TD
-    subgraph DESIGN["A/B Test Design"]
-        Q["Business question:\nDoes variant B improve metric M?"]
-        Q --> HYPO["H₀: μ_B = μ_A\nH₁: μ_B ≠ μ_A  (or > for one-sided)"]
-        HYPO --> POWER["Power analysis\nChoose α, power (1-β)\nCompute required sample size n"]
-    end
-    subgraph RUN["Running the test"]
-        RAND["Random assignment\nControl A ← 50%\nTreatment B ← 50%"]
-        RAND --> COLLECT["Collect data\nuntil n reached\n(no peeking!)"]
-        COLLECT --> ANALYSE["t-test / z-test / chi-squared\nCompute p-value and CI"]
-    end
-    subgraph INTERPRET["Interpreting results"]
-        ANALYSE --> DEC{p < α\nAND CI excludes 0?}
-        DEC -->|"Yes"| SHIP["Ship variant B\n(statistical AND practical significance)"]
-        DEC -->|"No"| HOLD["Keep A\nor redesign experiment"]
-    end
-    DESIGN --> RUN
-    RUN --> INTERPRET
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.2-hypotheses-testing/diagrams/ab-testing-1.mmd" %}
 
 ### What is A/B Testing?
 

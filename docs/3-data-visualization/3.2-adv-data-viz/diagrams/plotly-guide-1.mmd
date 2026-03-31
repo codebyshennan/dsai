@@ -1,0 +1,16 @@
+flowchart LR
+    subgraph PX["`Plotly Express  (px)  — start here`"]
+        PX1["One-line charts px.scatter / px.line / px.bar / px.histogram"]
+        PX2["Auto colour, hover, labels from column names"]
+        PX3["Returns a Figure you can still update_layout"]
+    end
+    subgraph GO["`Graph Objects  (go)  — fine-grained control`"]
+        GO1["Build trace-by-trace go.Scatter / go.Bar / go.Heatmap …"]
+        GO2["Full control of every marker, axis, annotation"]
+        GO3["Required for subplots, custom animations, mixed types"]
+    end
+    PX -->|"fig.update_layout / update_traces"| GO
+    DECIDE{"Need custom subplots or mixed trace types?"}
+    START["New chart"] --> DECIDE
+    DECIDE -->|"No"| PX
+    DECIDE -->|"Yes"| GO

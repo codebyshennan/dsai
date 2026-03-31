@@ -39,23 +39,7 @@ Outliers can be classified into several types, each requiring different detectio
    - Example: Unusual patterns in time series data
    - Detection: Pattern analysis, clustering
 
-```mermaid
-graph TD
-    A[Outlier Detection] --> B{Type of Outlier?}
-    B -->|Point Outlier| C[Statistical Methods]
-    B -->|Contextual Outlier| D[Domain-Specific Rules]
-    B -->|Collective Outlier| E[Pattern Analysis]
-    
-    C --> C1[Z-score]
-    C --> C2[IQR Method]
-    C --> C3[MAD Method]
-    
-    D --> D1[Business Rules]
-    D --> D2[Expert Knowledge]
-    
-    E --> E1[Clustering]
-    E --> E2[Density Methods]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.2-data-wrangling/diagrams/outliers-1.mmd" %}
 
 ## Mathematical Foundations and Implementation
 

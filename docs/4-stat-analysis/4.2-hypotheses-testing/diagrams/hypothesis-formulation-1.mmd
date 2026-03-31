@@ -1,0 +1,12 @@
+flowchart TD
+    Q["`Research question (formed before looking at data!)`"] --> H0["Null hypothesis H₀ Default: no effect / no difference H₀: μ₁ = μ₂  or  β = 0"]
+    Q --> H1["Alternative hypothesis H₁ What you want to detect Two-sided: μ₁ ≠ μ₂ One-sided: μ₁ > μ₂  or  μ₁ < μ₂"]
+
+    subgraph ERRORS["Decision outcomes"]
+        OK1["Reject H₀, H₀ false → Correct decision"]
+        OK2["Fail to reject H₀, H₀ true → Correct decision"]
+        T1["`Reject H₀, H₀ true → Type I error (α, false positive)`"]
+        T2["`Fail to reject H₀, H₀ false → Type II error (β, false negative)`"]
+    end
+
+    H0 & H1 --> ERRORS

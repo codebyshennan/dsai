@@ -1,0 +1,21 @@
+flowchart TD
+    subgraph CLASSICAL["`Classical penalties (linear / logistic)`"]
+        L1["L1 / Lasso Sparse coefficients Built-in feature selection"]
+        L2["L2 / Ridge Shrinks all weights Keeps correlated features"]
+        EN["Elastic Net L1 + L2 blend Sparse + stable"]
+        ADAPT["Adaptive Lasso Penalty ∝ 1/|OLS coef| More aggressive on weak features"]
+        GROUP["Group Lasso Select/drop groups together Useful for one-hot blocks"]
+    end
+    subgraph NN["Neural network regularisers"]
+        DROP["Dropout Random unit masking during training"]
+        BN["Batch Normalisation Re-centres each batch Implicit regulariser"]
+        WD["Weight Decay = L2 on weights Common in SGD / Adam"]
+        EARLY["Early Stopping Hold-out val loss Stop before overfitting"]
+    end
+    subgraph WHEN["When to combine"]
+        C1["`Start: L2 (Ridge) as default`"]
+        C2["Need sparsity: switch to L1 / Elastic Net"]
+        C3["NNs: Dropout + Weight Decay + Early Stopping"]
+    end
+    CLASSICAL --> WHEN
+    NN --> WHEN

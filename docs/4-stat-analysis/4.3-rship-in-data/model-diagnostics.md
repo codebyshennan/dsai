@@ -38,22 +38,7 @@ Model check-ups help us:
 3. Ensure our predictions will be reliable
 4. Gain confidence in our results
 
-```mermaid
-graph TD
-    subgraph ASSUME["Four OLS assumptions  (LINE)"]
-        L["Linearity\nResiduals vs fitted: random scatter\nNo curve = assumption met"]
-        I["Independence\nResiduals uncorrelated\nNo time-series pattern"]
-        N["Normality of residuals\nQQ-plot: points on diagonal\nRequired for inference CIs"]
-        E["Equal variance (homoscedasticity)\nScale-location plot: flat band\nFan shapes → heteroscedasticity"]
-    end
-    subgraph FIX["Common fixes"]
-        F1["Curvature → log(y) or polynomial term"]
-        F2["Fan shape → log(y) or WLS (weighted regression)"]
-        F3["Outliers → robust regression or flag & re-check"]
-        F4["Non-normality → OK for large n (CLT); bootstrap CIs"]
-    end
-    L & I & N & E --> FIX
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.3-rship-in-data/diagrams/model-diagnostics-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** Four standard residual diagnostic plots in a 2×2 grid: Residuals vs Fitted, Normal QQ, Scale-Location, Residuals vs Leverage — with labels on what each plot reveals.
 

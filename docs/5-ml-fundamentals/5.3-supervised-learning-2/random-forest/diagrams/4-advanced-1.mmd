@@ -1,0 +1,16 @@
+flowchart TD
+    subgraph BAG["`Bagging (Random Forest base)`"]
+        B1["Bootstrap samples"] --> B2["Independent trees"]
+        B2 --> B3["Average predictions"]
+    end
+    subgraph STACK["Stacking"]
+        S1["`Level-0: RF1, RF2, RF3 (base models on full data)`"]
+        S1 --> S2["`Level-1: Meta-model (e.g. LogisticRegression)`"]
+        S2 --> S3["Learns *how to combine* base model outputs"]
+    end
+    subgraph BOOST["`Boosting (compare)`"]
+        BO1["Sequential trees Each corrects prior errors"]
+        BO1 --> BO2["`Weighted combination (GBM / XGBoost / LightGBM)`"]
+    end
+    BAG -->|"different trees, same algorithm"| STACK
+    BOOST -.->|"separate family — sequential not parallel"| STACK

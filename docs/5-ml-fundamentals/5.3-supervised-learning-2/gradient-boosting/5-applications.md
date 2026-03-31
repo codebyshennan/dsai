@@ -12,20 +12,7 @@ Crash Course AI: supervised learning framing (~15 min).
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-```mermaid
-graph LR
-    subgraph APPS["Industry applications of Gradient Boosting"]
-        FIN["Finance\nCredit risk\nFraud detection\nAlgorithmic trading"]
-        HLTH["Healthcare\nDisease prediction\nPatient readmission\nDrug response"]
-        RET["Retail / E-commerce\nRecommendation ranking\nChurn prediction\nDemand forecasting"]
-        NLP["NLP (tabular features)\nSentiment + metadata\nSearch ranking\nAd click-through"]
-    end
-    subgraph DEPLOY["Deployment trade-offs"]
-        D1["XGBoost / LightGBM\nFast inference (<1 ms)\nSmall model size (MB)\nGood for APIs & batch"]
-        D2["Deep neural networks\nSlower, larger\nBetter for images/audio/text\nRequires GPU serving"]
-    end
-    APPS --> DEPLOY
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.3-supervised-learning-2/gradient-boosting/diagrams/5-applications-1.mmd" %}
 
 ## 1. Financial Applications: Making Smart Money Decisions
 

@@ -58,15 +58,7 @@ Think of data like ingredients and narrative like a recipe:
 
 ## Story Structure Frameworks
 
-```mermaid
-graph LR
-    subgraph ARC["Classic Narrative Arc"]
-        H["Hook\nSurprising fact\nor question"] --> S["Setup\nContext &\nbackground"] --> R["Rising action\nDeepen the\nproblem"] --> C["Climax\nKey insight\nor finding"] --> RE["Resolution\nRecommendation\nor call to action"]
-    end
-    subgraph SCR["SCR Framework  (business)"]
-        SIT["Situation\nWhat is true\ntoday"] --> COM["Complication\nWhat changed\nor challenges us"] --> RES["Resolution\nWhat we\nshould do"]
-    end
-```
+{% include mermaid-diagram.html src="3-data-visualization/3.4-data-storytelling/diagrams/narrative-techniques-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** A visual comparison of the Classic Narrative Arc and the SCR (Situation–Complication–Resolution) framework side by side, showing how each maps to a typical data presentation flow.
 

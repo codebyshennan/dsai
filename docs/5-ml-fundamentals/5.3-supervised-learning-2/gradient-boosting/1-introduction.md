@@ -48,20 +48,7 @@ Gradient Boosting is particularly powerful because:
    - Third doctor adds specialized knowledge
    - Final diagnosis combines all insights
 
-```mermaid
-graph TD
-    subgraph BOOST["Gradient Boosting  (sequential)"]
-        T1["Tree 1\nFit on original targets y\nResiduals = y − ŷ₁"]
-        T1 --> T2["Tree 2\nFit on residuals r₁\nResiduals = r₁ − ŷ₂"]
-        T2 --> T3["Tree 3\nFit on residuals r₂\n…"]
-        T3 --> TM["Tree M\n…"]
-        TM --> FINAL["Final prediction\nF(x) = η·T₁(x) + η·T₂(x) + … + η·Tₘ(x)\n(η = learning rate)"]
-    end
-    subgraph COMPARE["vs Random Forest"]
-        RF["Random Forest\nParallel: trees are independent\nReduce VARIANCE (overfitting)\nAverage predictions"]
-        GB["Gradient Boosting\nSequential: each corrects last\nReduce BIAS (underfitting)\nAdditive combination"]
-    end
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.3-supervised-learning-2/gradient-boosting/diagrams/1-introduction-1.mmd" %}
 
 ## When to Use Gradient Boosting?
 

@@ -36,17 +36,7 @@ Let's break it down into simple steps:
 
 3. **Project the Data**: We rotate our data to align with these main directions.
 
-```mermaid
-flowchart LR
-    A["Raw data\nN samples × P features"] --> B["Standardize\n(zero mean, unit variance)"]
-    B --> C["Compute covariance\nmatrix (P × P)"]
-    C --> D["Eigen-decompose\n→ eigenvectors & eigenvalues"]
-    D --> E["Sort by explained variance\n(scree plot)"]
-    E --> F{How many\ncomponents?}
-    F -->|"Keep k where\ncumulative variance ≥ 95%"| G["Project onto top-k\nprincipal components"]
-    G --> H["Reduced data\nN samples × k"]
-    H --> I["Visualise (k=2/3)\nor feed into model"]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.4-unsupervised-learning/diagrams/pca-1.mmd" %}
 
 *The output components are **uncorrelated** — PC1 captures the most variance, PC2 the next most, and so on. The scree plot shows where adding more components stops being useful.*
 

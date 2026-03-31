@@ -21,17 +21,7 @@ Pipelines help us:
 3. Simplify model deployment
 4. Make code more maintainable
 
-```mermaid
-flowchart LR
-    subgraph PIPELINE["sklearn Pipeline"]
-        direction LR
-        S1["Step 1\nStandardScaler\n(fit on train only)"] --> S2["Step 2\nPCA / Selector\n(optional)"] --> S3["Step 3\nClassifier /\nRegressor"]
-    end
-    RAW["Raw X_train"] --> PIPELINE
-    PIPELINE -->|"pipeline.fit(X_train, y_train)"| MODEL["Fitted pipeline\n(all steps learned)"]
-    RAWTST["Raw X_test"] --> MODEL
-    MODEL -->|"pipeline.predict(X_test)"| PRED["Predictions\n(leakage-free)"]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/sklearn-pipelines-1.mmd" %}
 
 *Without a pipeline, if you `StandardScaler.fit(X_all)` before splitting, test-set statistics leak into the scaler — the pipeline prevents this by fitting each step only on training data.*
 

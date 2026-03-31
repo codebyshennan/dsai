@@ -24,27 +24,7 @@
 
 Data alignment is one of Pandas' most powerful features! It automatically matches up data by their index labels when performing operations. Think of it like:
 
-```mermaid
-graph LR
-    subgraph S1["Series A"]
-        A1["a → 10"]
-        A2["b → 20"]
-        A3["c → 30"]
-    end
-    subgraph S2["Series B"]
-        B1["b → 5"]
-        B2["c → 15"]
-        B3["d → 25"]
-    end
-    subgraph RESULT["A + B (aligned by label)"]
-        R1["a → NaN  (no 'a' in B)"]
-        R2["b → 25   (20 + 5)"]
-        R3["c → 45   (30 + 15)"]
-        R4["d → NaN  (no 'd' in A)"]
-    end
-    S1 --> RESULT
-    S2 --> RESULT
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.5-data-analysis-pandas/diagrams/arithmetic-alignment-1.mmd" %}
 
 *Pandas matches by **label**, not position. Unmatched labels become `NaN`. Always check `.isna()` after arithmetic on two Series with potentially different indexes.*
 

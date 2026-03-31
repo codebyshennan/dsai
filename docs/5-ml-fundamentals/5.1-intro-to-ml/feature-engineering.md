@@ -31,26 +31,7 @@ Think of feature engineering as the secret sauce that can make or break your mac
 3. **Data Understanding**: The process helps you understand your data better
 4. **Problem-Solving**: It can help solve common data problems like missing values or different scales
 
-```mermaid
-graph TD
-    RAW["Raw columns"] --> NUM["Numeric\n(continuous / discrete)"]
-    RAW --> CAT["Categorical\n(nominal / ordinal)"]
-    RAW --> DT["Datetime"]
-    RAW --> TXT["Text"]
-
-    NUM --> NS["Scaling\nStandardScaler → z-score\nMinMaxScaler → [0,1]"]
-    NUM --> NL["Log / Box-Cox\n(fix right skew)"]
-    NUM --> NI["Interactions\nX1 × X2\npolynomial terms"]
-
-    CAT --> OHE["One-hot encoding\nNominal categories\n(no ordinal relationship)"]
-    CAT --> LE["Label / Ordinal encoding\nOrdered categories\n(S < M < L)"]
-    CAT --> TE["Target encoding\nHigh-cardinality: replace\nwith mean target (with CV)"]
-
-    DT --> DTF["Date parts\nyear, month, day, weekday\ntime since event"]
-
-    TXT --> TF["TF-IDF\nbag-of-words baseline"]
-    TXT --> EMB["Embeddings\n(advanced — word2vec, BERT)"]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.1-intro-to-ml/diagrams/feature-engineering-1.mmd" %}
 
 ## Types of Features: Understanding Your Ingredients
 

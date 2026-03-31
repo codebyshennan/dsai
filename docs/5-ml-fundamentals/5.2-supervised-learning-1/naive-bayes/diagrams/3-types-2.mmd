@@ -1,0 +1,8 @@
+flowchart TD
+    A["`What's your data?`"] --> B{Numbers?}
+    B -->|Yes| C[Use Gaussian NB]
+    B -->|No| D{Counts?}
+    D -->|Yes| E[Use Multinomial NB]
+    D -->|No| F{Yes/No?}
+    F -->|Yes| G[Use Bernoulli NB]
+    F -->|No| H[Transform your data first]

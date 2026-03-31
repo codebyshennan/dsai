@@ -14,27 +14,7 @@ StatQuest overview of K-means clustering.
 
 ## Quick Reference
 
-```mermaid
-graph TD
-    subgraph TSNE["t-SNE mechanics"]
-        T1["Compute pairwise\nSimilarities in high-D\n(Gaussian kernel → P_ij)"]
-        T1 --> T2["Initialise 2D / 3D\nembedding randomly"]
-        T2 --> T3["Compute similarities\nin low-D\n(Student-t kernel → Q_ij)"]
-        T3 --> T4["Minimise KL divergence\nbetween P and Q\nvia gradient descent"]
-        T4 --> T5["Repeat until\nconverged"]
-    end
-    subgraph PERP["Perplexity (key hyperparameter)"]
-        PL["Low perplexity (5–15)\nFocus on very local neighbours\nFragmented clusters"]
-        PH["High perplexity (30–50)\nMore global structure\nTypical default"]
-    end
-    subgraph LIMITS["What t-SNE CANNOT tell you"]
-        N1["Cluster sizes are NOT meaningful\nArtifact of the algorithm"]
-        N2["Distances BETWEEN clusters\nare NOT interpretable"]
-        N3["Different runs → different layout\nalways set random_state"]
-    end
-    T5 --> LIMITS
-    T2 --> PERP
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.4-unsupervised-learning/diagrams/t-sne-1.mmd" %}
 
 t-SNE is ideal when:
 - You need to visualize high-dimensional data

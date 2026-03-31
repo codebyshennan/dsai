@@ -42,25 +42,7 @@ Time series analysis helps you:
 
 Follow this workflow to uncover temporal patterns in your data:
 
-```mermaid
-graph TD
-    A[Time Series Data] --> B[Data Preparation]
-    B --> C[Component Analysis]
-    B --> D[Pattern Analysis]
-    B --> E[Anomaly Detection]
-    
-    C --> C1[Trend]
-    C --> C2[Seasonality]
-    C --> C3[Residuals]
-    
-    D --> D1[Cycles]
-    D --> D2[Correlations]
-    D --> D3[Stationarity]
-    
-    E --> E1[Statistical]
-    E --> E2[Machine Learning]
-    E --> E3[Domain-Specific]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.3-eda/diagrams/time-series-1.mmd" %}
 
 ## Mathematical Foundations
 

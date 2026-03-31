@@ -44,21 +44,7 @@ Model evaluation is like weather forecasting:
 
 ## Metrics Comparison and Selection Guide
 
-```mermaid
-flowchart TD
-    A{What kind\nof problem?} -->|Classification| B{Are classes\nbalanced?}
-    A -->|Regression| R[MSE / RMSE / MAE / R²]
-    B -->|Yes, roughly balanced| C{Do false positives\ncost more?}
-    B -->|No, imbalanced| D[PR-AUC or F1-score]
-    C -->|Yes — e.g. spam filter| E[Precision]
-    C -->|No — false negatives cost more| F[Recall]
-    C -->|Need a single balanced number| G[F1-score]
-    C -->|Evaluating across all thresholds| H[ROC-AUC]
-    R --> R2{Are outliers\na concern?}
-    R2 -->|Yes, ignore large errors| MAE[MAE]
-    R2 -->|No, penalize large errors| RMSE[RMSE / MSE]
-    R2 -->|Need % interpretation| MAPE[MAPE]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/metrics-1.mmd" %}
 
 *Always report more than one metric — a model with high accuracy on an imbalanced dataset can still be nearly useless.*
 

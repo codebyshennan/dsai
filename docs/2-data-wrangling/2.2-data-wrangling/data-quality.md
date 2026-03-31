@@ -48,33 +48,7 @@ Data quality is multifaceted and can be evaluated across several key dimensions.
    - Example: Each customer should have one unique ID
    - Impact: Duplicates skew analytics results
 
-```mermaid
-graph TD
-    A[Data Quality] --> B[Accuracy]
-    A --> C[Completeness]
-    A --> D[Consistency]
-    A --> E[Timeliness]
-    A --> F[Validity]
-    A --> G[Uniqueness]
-    
-    B --> B1[Correctness]
-    B --> B2[Precision]
-    
-    C --> C1[No Missing Values]
-    C --> C2[Required Fields]
-    
-    D --> D1[Format Consistency]
-    D --> D2[Value Consistency]
-    
-    E --> E1[Up-to-date]
-    E --> E2[Temporal Validity]
-    
-    F --> F1[Business Rules]
-    F --> F2[Domain Constraints]
-    
-    G --> G1[No Duplicates]
-    G --> G2[Unique Identifiers]
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.2-data-wrangling/diagrams/data-quality-1.mmd" %}
 
 ## Data Quality Metrics and Formulas
 

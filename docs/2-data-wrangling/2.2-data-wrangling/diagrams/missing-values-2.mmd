@@ -1,0 +1,12 @@
+flowchart TD
+    A[Missing Values] --> B{Data Type?}
+    B -->|Numeric| C{Missing Pattern?}
+    B -->|Categorical| D{Cardinality?}
+    
+    C -->|MCAR| C1[Mean/Median]
+    C -->|MAR| C2[KNN/MICE]
+    C -->|MNAR| C3[Custom Rules]
+    
+    D -->|Low| D1[Mode]
+    D -->|High| D2[ML-based]
+    D -->|Time Series| D3[Forward/Backward Fill]

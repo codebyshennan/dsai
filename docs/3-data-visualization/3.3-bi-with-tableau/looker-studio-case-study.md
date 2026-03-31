@@ -27,19 +27,7 @@ Short Tableau Public install; pair with the written guides in this folder.
 
 ### 2. Understanding the Looker Studio Workspace
 
-```mermaid
-graph TD
-    subgraph LS["Looker Studio (browser-based)"]
-        CANVAS["Canvas\nDrag-and-drop visual area\nMultiple pages"]
-        TOOLBAR["Toolbar\nAdd chart / image / text\nTheme & layout settings"]
-        PROPS["Properties panel  (right)\nData — dimensions & metrics\nStyle — colors, fonts, borders"]
-        DATA["Data panel\nAvailable fields\nCalculated fields\nFilter controls"]
-    end
-    DS["Data Source\n(Google Sheets / BigQuery / etc.)"] -->|"Connect"| DATA
-    DATA -->|"Drag dimension / metric"| CANVAS
-    CANVAS -->|"Click chart to edit"| PROPS
-    TOOLBAR -->|"Insert"| CANVAS
-```
+{% include mermaid-diagram.html src="3-data-visualization/3.3-bi-with-tableau/diagrams/looker-studio-case-study-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** Looker Studio workspace — annotated with Canvas, Toolbar, Properties panel (right), and Data panel showing connected fields.
 

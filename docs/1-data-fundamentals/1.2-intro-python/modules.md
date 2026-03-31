@@ -29,19 +29,7 @@ Typical building blocks you might split out:
 
 Together these pieces form a **library** your team imports instead of copy-pasting cells.
 
-```mermaid
-graph TD
-    NB["notebook.ipynb\n(analysis / model)"]
-    NB -->|"from preprocessing import"| PP["preprocessing.py\nclean, type-fix, outliers"]
-    NB -->|"from features import"| FE["features.py\ndate parts, encodings, windows"]
-    NB -->|"from evaluation import"| EV["evaluation.py\nmetrics, CV, plots"]
-    NB -->|"from plotting import"| PL["plotting.py\nchart defaults, brand colors"]
-
-    PP --> DATA["data/\nraw/ processed/ external/"]
-    FE --> DATA
-    EV --> MODEL["models/\ntrained artefacts"]
-    PL --> MODEL
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.2-intro-python/diagrams/modules-1.mmd" %}
 
 *Each `.py` module does one job. The notebook stays readable because all the boilerplate is imported, not copy-pasted.*
 

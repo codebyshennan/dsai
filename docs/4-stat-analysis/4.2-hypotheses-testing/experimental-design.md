@@ -37,21 +37,7 @@ This guide will help you understand the basics of experimental design, with simp
 
 ---
 
-```mermaid
-graph TD
-    subgraph PILLARS["Three pillars of experimental design"]
-        CTRL["Control\nHold confounds constant\nControl group as baseline\nBlinding to reduce observer bias"]
-        RAND["Randomization\nRandom assignment to conditions\nReduces selection bias\nEnables causal inference"]
-        REP["Replication\nEnough samples for power\nRepeat across settings\nReduces random error"]
-    end
-    subgraph POWER["Statistical power (1 − β)"]
-        P1["Sample size n (bigger → more power)"]
-        P2["Effect size δ (bigger → easier to detect)"]
-        P3["α significance threshold (lower → less power)"]
-        P4["Calculate n BEFORE running the experiment\n(power analysis)"]
-    end
-    CTRL & RAND & REP --> POWER
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.2-hypotheses-testing/diagrams/experimental-design-1.mmd" %}
 
 ## The Three Pillars of Experimental Design
 

@@ -34,9 +34,12 @@
         try {
           var id = 'mmd-' + (idCounter++);
           var result = await mermaid.render(id, text);
-          c.innerHTML = result.svg;
+          // Remove Mermaid's temporary rendering element BEFORE inserting the SVG
+          // into the container — otherwise getElementById finds the copy we just
+          // inserted (earlier in document order) and deletes the visible diagram.
           var stray = document.getElementById(id);
           if (stray) stray.remove();
+          c.innerHTML = result.svg;
         } catch (e) {
           console.warn('Mermaid render failed:', c.dataset.mermaidSrc, e);
         }
@@ -53,12 +56,12 @@
         try {
           var id = 'mmd-' + (idCounter++);
           var result = await mermaid.render(id, text);
+          var stray = document.getElementById(id);
+          if (stray) stray.remove();
           var wrapper = document.createElement('div');
           wrapper.className = 'mermaid-diagram';
           wrapper.innerHTML = result.svg;
           pre.replaceWith(wrapper);
-          var stray = document.getElementById(id);
-          if (stray) stray.remove();
         } catch (e) {
           console.warn('Mermaid render failed (legacy block):', e);
         }

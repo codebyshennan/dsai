@@ -22,21 +22,7 @@ Most pipeline incidents are integration problems: **schema drift**, **duplicate 
 
 ### Integration Patterns Diagram
 
-```mermaid
-graph TD
-    subgraph batch_int ["Batch Integration"]
-        A[Extract] --> B[Transform]
-        B --> C[Load]
-    end
-    subgraph rt_int ["Real-time Integration"]
-        D[Stream] --> E[Process]
-        E --> F[Store]
-    end
-    subgraph hyb_int ["Hybrid Integration"]
-        G[Batch Layer] --> I[Serving Layer]
-        H[Speed Layer] --> I
-    end
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.4-data-engineering/diagrams/data-integration-1.mmd" %}
 
 ### Real-time vs Batch Processing Comparison
 

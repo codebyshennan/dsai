@@ -38,17 +38,7 @@ Following a structured workflow helps us:
 
 ## The Machine Learning Workflow Steps
 
-```mermaid
-graph TD
-    P["1. Problem definition\nBusiness/research question\nDefine success metric"]
-    P --> D["2. Data collection & EDA\nGather, explore, understand\nbias / quality / volume"]
-    D --> PR["3. Data preparation\nClean, transform, split\nTrain / Val / Test — no leakage!"]
-    PR --> M["4. Model selection & training\nBaseline → complexity\nFit on train only"]
-    M --> E["5. Evaluation\nVal set performance\nHyperparameter tuning"]
-    E --> DEP["6. Deployment & monitoring\nServe predictions\nMonitor for drift"]
-    E -->|"Performance not good enough"| PR
-    DEP -->|"Data changes / degradation"| P
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.1-intro-to-ml/diagrams/ml-workflow-1.mmd" %}
 
 The workflow consists of six main steps:
 

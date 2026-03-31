@@ -1,0 +1,16 @@
+flowchart TD
+    subgraph airflow_dag ["Airflow DAG"]
+        A[Start] --> B[Extract Task]
+        B --> C[Transform Task]
+        C --> D[Load Task]
+        D --> E[Validation Task]
+        E --> F[End]
+    end
+    subgraph monitoring ["Monitoring"]
+        G[Airflow UI]
+        H[Metrics Dashboard]
+        I[Alert System]
+    end
+    E -.-> G
+    E -.-> H
+    H -.-> I

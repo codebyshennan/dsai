@@ -1,0 +1,11 @@
+flowchart TD
+    subgraph LS["`Looker Studio (browser-based)`"]
+        CANVAS["Canvas Drag-and-drop visual area Multiple pages"]
+        TOOLBAR["`Toolbar Add chart / image / text Theme & layout settings`"]
+        PROPS["`Properties panel  (right) Data — dimensions & metrics Style — colors, fonts, borders`"]
+        DATA["Data panel Available fields Calculated fields Filter controls"]
+    end
+    DS["`Data Source (Google Sheets / BigQuery / etc.)`"] -->|"Connect"| DATA
+    DATA -->|"Drag dimension / metric"| CANVAS
+    CANVAS -->|"Click chart to edit"| PROPS
+    TOOLBAR -->|"Insert"| CANVAS

@@ -29,19 +29,7 @@ Logistic regression is one of the most fundamental and widely used classificatio
 
 *StatQuest: Logistic Regression by Josh Starmer*
 
-```mermaid
-graph LR
-    subgraph FLOW["Logistic Regression pipeline"]
-        INPUT["Features\nX₁, X₂, … Xₙ"]
-        INPUT --> LINEAR["Linear score\nz = β₀ + β₁X₁ + … + βₙXₙ"]
-        LINEAR --> SIGMOID["Sigmoid function\np = 1 / (1 + e^{-z})\nmaps z → probability (0, 1)"]
-        SIGMOID --> THRESH["Threshold (default 0.5)\np ≥ 0.5 → class 1\np < 0.5 → class 0"]
-    end
-    subgraph COEFF["Coefficient interpretation"]
-        C1["β > 0: feature increases probability\nβ < 0: feature decreases probability\nOdds ratio = e^β"]
-    end
-    SIGMOID --> COEFF
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.4-stat-modelling/diagrams/logistic-regression-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** Sigmoid curve — x-axis is the linear score z (−6 to +6), y-axis is probability (0 to 1), showing the characteristic S-shape with p=0.5 at z=0 and the decision boundary marked.
 

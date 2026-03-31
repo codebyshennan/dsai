@@ -1,0 +1,9 @@
+flowchart LR
+    A["Raw data N samples × P features"] --> B["`Standardize (zero mean, unit variance)`"]
+    B --> C["`Compute covariance matrix (P × P)`"]
+    C --> D["`Eigen-decompose → eigenvectors & eigenvalues`"]
+    D --> E["`Sort by explained variance (scree plot)`"]
+    E --> F{How many components?}
+    F -->|"Keep k where cumulative variance ≥ 95%"| G["Project onto top-k principal components"]
+    G --> H["Reduced data N samples × k"]
+    H --> I["`Visualise (k=2/3) or feed into model`"]

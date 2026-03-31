@@ -12,19 +12,7 @@ Crash Course AI: supervised learning framing (~15 min).
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4qVRBYAdLAo" title="Supervised Learning: Crash Course AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-```mermaid
-graph LR
-    subgraph WHEN["When regularization is the main lever"]
-        FIN["Finance\nHigh-dim credit features\n→ Elastic Net / Lasso\nto select relevant predictors"]
-        MED["Healthcare / Genomics\np >> n (more features than samples)\n→ Lasso shrinks to sparse subset"]
-        NLP["Text / NLP (bag-of-words)\nThousands of token features\n→ L2 Ridge (LogReg default)\nor L1 for sparse text models"]
-        NN["Neural nets\nDropout + Weight Decay\n+ Early Stopping\n(all three together)"]
-    end
-    subgraph TUNE["Tuning approach"]
-        CV["Cross-validate α (lambda)\nLearning curve shows\noverfit vs underfit gap"]
-    end
-    WHEN --> TUNE
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.3-supervised-learning-2/regularization/diagrams/5-applications-1.mmd" %}
 
 ## 1. Financial Applications
 

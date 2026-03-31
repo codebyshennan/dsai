@@ -1,0 +1,18 @@
+flowchart TD
+    subgraph DESIGN["A/B Test Design"]
+        Q["Business question: Does variant B improve metric M?"]
+        Q --> HYPO["`H₀: μ_B = μ_A H₁: μ_B ≠ μ_A  (or > for one-sided)`"]
+        HYPO --> POWER["`Power analysis Choose α, power (1-β) Compute required sample size n`"]
+    end
+    subgraph RUN["Running the test"]
+        RAND["Random assignment Control A ← 50% Treatment B ← 50%"]
+        RAND --> COLLECT["`Collect data until n reached (no peeking!)`"]
+        COLLECT --> ANALYSE["t-test / z-test / chi-squared Compute p-value and CI"]
+    end
+    subgraph INTERPRET["Interpreting results"]
+        ANALYSE --> DEC{p < α AND CI excludes 0?}
+        DEC -->|"Yes"| SHIP["`Ship variant B (statistical AND practical significance)`"]
+        DEC -->|"No"| HOLD["Keep A or redesign experiment"]
+    end
+    DESIGN --> RUN
+    RUN --> INTERPRET

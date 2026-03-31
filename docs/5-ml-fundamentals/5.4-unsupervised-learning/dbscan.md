@@ -14,27 +14,7 @@ StatQuest overview of K-means clustering.
 
 ## Quick Reference
 
-```mermaid
-graph TD
-    subgraph PARAMS["Two parameters: ε (eps) and MinPts"]
-        P1["ε — neighbourhood radius\nSmall ε → many clusters / noise\nLarge ε → fewer, larger clusters"]
-        P2["MinPts — min points in ε-ball\nSmall → noisy clusters\nLarge → only dense cores"]
-    end
-    subgraph LABELS["Point types"]
-        CORE["Core point\n≥ MinPts neighbours within ε"]
-        BORDER["Border point\nWithin ε of a core\nbut fewer neighbours itself"]
-        NOISE["Noise / outlier\nlabel = −1"]
-    end
-    subgraph ALGO["Algorithm (Lloyd-style)"]
-        A1["Pick unvisited point"] --> A2{"≥ MinPts\nneighbours?"}
-        A2 -->|Yes| A3["Expand cluster\nadd reachable points"]
-        A2 -->|No| A4["Mark as noise\n(may become border later)"]
-        A3 --> A1
-        A4 --> A1
-    end
-    CORE --- BORDER
-    BORDER --- NOISE
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.4-unsupervised-learning/diagrams/dbscan-1.mmd" %}
 
 DBSCAN is ideal when:
 - Clusters have arbitrary shapes (not spherical)

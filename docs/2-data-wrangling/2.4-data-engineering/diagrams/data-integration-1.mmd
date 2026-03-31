@@ -1,0 +1,13 @@
+flowchart TD
+    subgraph batch_int ["Batch Integration"]
+        A[Extract] --> B[Transform]
+        B --> C[Load]
+    end
+    subgraph rt_int ["Real-time Integration"]
+        D[Stream] --> E[Process]
+        E --> F[Store]
+    end
+    subgraph hyb_int ["Hybrid Integration"]
+        G[Batch Layer] --> I[Serving Layer]
+        H[Speed Layer] --> I
+    end

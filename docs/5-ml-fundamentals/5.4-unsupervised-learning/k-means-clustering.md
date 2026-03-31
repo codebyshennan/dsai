@@ -14,22 +14,7 @@ StatQuest overview of K-means clustering.
 
 ## Quick Reference
 
-```mermaid
-graph TD
-    INIT["1. Choose k\nInitialise k centroids\n(random or k-means++)"]
-    INIT --> ASSIGN["2. Assign\nEach point → nearest centroid\n(Euclidean distance)"]
-    ASSIGN --> UPDATE["3. Update\nRecompute centroid\nas cluster mean"]
-    UPDATE --> CHECK{Centroids\nchanged?}
-    CHECK -->|Yes| ASSIGN
-    CHECK -->|No| DONE["Converged\nReturn labels + centroids"]
-
-    subgraph LIMITS["Common failure modes"]
-        F1["Sensitive to initialisation\nFix: k-means++ (sklearn default)"]
-        F2["Assumes spherical clusters\nFix: DBSCAN or GMM for irregular shapes"]
-        F3["Must specify k\nFix: Elbow / silhouette to choose k"]
-        F4["Sensitive to scale\nFix: StandardScaler before fitting"]
-    end
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.4-unsupervised-learning/diagrams/k-means-clustering-1.mmd" %}
 
 K-means is ideal when:
 - You know the approximate number of clusters

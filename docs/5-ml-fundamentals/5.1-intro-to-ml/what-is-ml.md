@@ -31,18 +31,7 @@ Machine Learning (ML) is a way to teach computers to learn from experience witho
 
 ## Types of Machine Learning
 
-```mermaid
-graph TD
-    ML["Machine Learning"] --> SL["Supervised Learning\nLabeled data\nInput → Target"]
-    ML --> UL["Unsupervised Learning\nNo labels\nFind patterns"]
-    ML --> RL["Reinforcement Learning\nAgent + environment\nReward signal"]
-
-    SL --> REG["Regression\nNumeric output\nHouse price, demand forecast"]
-    SL --> CLS["Classification\nDiscrete output\nSpam, fraud, disease"]
-    UL --> CLU["Clustering\nGroup similar points\nCustomer segments"]
-    UL --> DIM["Dimensionality reduction\nCompress features\nPCA, t-SNE, UMAP"]
-    RL --> GAME["Games & robotics\nAlphaGo, self-driving\n(advanced topic)"]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.1-intro-to-ml/diagrams/what-is-ml-1.mmd" %}
 
 There are three main types of machine learning:
 

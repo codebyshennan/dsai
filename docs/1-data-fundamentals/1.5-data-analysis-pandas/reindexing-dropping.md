@@ -24,22 +24,7 @@
 
 Think of reindexing like reorganizing your data to match a new set of labels. It's a powerful tool for:
 
-```mermaid
-flowchart LR
-    subgraph REINDEX["reindex(new_labels)"]
-        R1["Adds new labels → NaN\nRemoves absent labels\nAligns to target index"]
-    end
-    subgraph RESET["reset_index()"]
-        RS1["Moves index → column(s)\nCreates new 0,1,2… RangeIndex\nUseful after groupby"]
-    end
-    subgraph SET["set_index('col')"]
-        S1["Promotes a column to index\nLabel-based lookup after\nRequired before join on that key"]
-    end
-    subgraph DROP["drop(labels, axis=)"]
-        D1["axis=0 → remove rows\naxis=1 → remove columns\ninplace=False (returns copy)"]
-    end
-    DF["DataFrame"] --> REINDEX & RESET & SET & DROP
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.5-data-analysis-pandas/diagrams/reindexing-dropping-1.mmd" %}
 
 *`reindex` is the low-level primitive; `reset_index` and `set_index` are the high-level shortcuts you'll use most often.*
 

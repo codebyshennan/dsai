@@ -40,21 +40,7 @@ Statistical tests are essential tools for analyzing data. They help you determin
 
 Choosing the correct test depends on your research question, the type of data you have, and the assumptions your data meets. Use the decision tree below to guide your choice:
 
-```mermaid
-graph TD
-    Q["What type of outcome?"]
-    Q -->|"Numeric / continuous"| N["How many groups?"]
-    Q -->|"Counts / frequencies"| C["Chi-square test\n(goodness-of-fit or independence)"]
-    Q -->|"Ranked / ordinal"| R["Non-parametric\nMann-Whitney / Kruskal-Wallis"]
-
-    N -->|"1 group vs known value"| T1["One-sample t-test\nor z-test (large n)"]
-    N -->|"2 independent groups"| T2{"Normal?\nSame variance?"}
-    N -->|"2 paired / repeated"| T3["Paired t-test\nor Wilcoxon signed-rank"]
-    N -->|"3+ groups"| T4["One-way ANOVA\nthen post-hoc (Tukey)"]
-
-    T2 -->|"Yes"| T2A["Independent-samples t-test"]
-    T2 -->|"No"| T2B["Welch's t-test\n(unequal variance)\nor Mann-Whitney"]
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.2-hypotheses-testing/diagrams/statistical-tests-1.mmd" %}
 
 > **Figure (add screenshot or diagram):** Full statistical test decision tree poster — numeric vs categorical, parametric vs non-parametric, one-sample vs two-sample vs k-sample branches.
 

@@ -1,0 +1,12 @@
+flowchart TD
+    A[Start] --> B{Is data linear?}
+    B -->|Yes| C[Use Linear Kernel]
+    B -->|No| D{How complex?}
+    D -->|Simple| E[Try Polynomial]
+    D -->|Complex| F[Use RBF]
+    C --> G[Check Performance]
+    E --> G
+    F --> G
+    G --> H{Good enough?}
+    H -->|Yes| I[Stop]
+    H -->|No| J[Try other kernels]

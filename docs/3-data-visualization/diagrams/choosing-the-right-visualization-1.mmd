@@ -1,0 +1,24 @@
+flowchart TD
+    START["What do you want to show?"] --> C[Compare values]
+    START --> D[Show distribution]
+    START --> R[Show relationship]
+    START --> K[Show composition]
+    START --> T[Show change over time]
+
+    C --> C1{How many categories?}
+    C1 -->|≤ 7| BAR[Bar / Column chart]
+    C1 -->|Many| DOT[Dot plot / Lollipop]
+    C --> C2{Ranking matter?} -->|Yes| RANK[Horizontal bar, sorted]
+
+    D --> D1{One variable?} -->|Yes| HIST[Histogram or Box plot]
+    D1 -->|Multiple groups| VIO[Violin or Ridge plot]
+
+    R --> R1{How many variables?}
+    R1 -->|2| SCAT[Scatter plot]
+    R1 -->|Many| PAIR[Pair plot or Heat map]
+
+    K --> PIE{Few categories?} -->|Yes| WPIE["`Pie / Donut (use sparingly)`"]
+    PIE -->|No| STACKED[Stacked bar or Treemap]
+
+    T --> LINE[Line chart]
+    T --> AREA["`Area chart (for cumulative)`"]

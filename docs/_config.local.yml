@@ -1,0 +1,14 @@
+baseurl: ""
+url: "http://127.0.0.1:4000"
+safe: false
+local_dev: true
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-default-layout
+
+github: {}

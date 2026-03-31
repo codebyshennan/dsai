@@ -30,24 +30,7 @@ Imagine you're a detective trying to understand the average height of all trees 
 
 In statistical inference, we distinguish between parameters and statistics. Parameters are numerical characteristics of a population, while statistics are numerical characteristics of a sample. Understanding this distinction is crucial for making valid inferences about populations based on sample data.
 
-```mermaid
-graph LR
-    subgraph POP["Population  (usually unknown)"]
-        PARAM["Parameters\n(Greek letters)\nμ = population mean\nσ = population std dev\nπ = population proportion"]
-    end
-    subgraph SAM["Sample  (what you measure)"]
-        STAT["Statistics\n(Latin letters)\nx̄ = sample mean\ns = sample std dev\np = sample proportion"]
-    end
-    PARAM -->|"Sample from population"| STAT
-    STAT -->|"Estimate parameters\n(point estimate + CI)"| PARAM
-
-    subgraph PROPS["Good estimator properties"]
-        E1["Unbiased: E(statistic) = parameter"]
-        E2["Consistent: error → 0 as n → ∞"]
-        E3["Efficient: minimum variance"]
-    end
-    STAT --> PROPS
-```
+{% include mermaid-diagram.html src="4-stat-analysis/4.1-inferential-stats/diagrams/parameters-statistics-1.mmd" %}
 
 ## Definitions
 

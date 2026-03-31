@@ -1,0 +1,18 @@
+flowchart TD
+    subgraph VG["Vanishing Gradients"]
+        VG1["Sigmoid/tanh saturate → tiny derivatives"]
+        VG1 --> VG2["Gradient × gradient × … → ≈ 0 in early layers"]
+        VG2 --> VG3["Fix: ReLU activations Xavier/He init Batch normalisation Residual connections"]
+    end
+    subgraph EG["Exploding Gradients"]
+        EG1["Large weights or deep RNNs"]
+        EG1 --> EG2["`Gradient × gradient × … → ∞  (NaN loss)`"]
+        EG2 --> EG3["Fix: Gradient clipping Weight regularisation LSTM gates"]
+    end
+    subgraph ARCH["Architecture mitigations"]
+        A1["`Residual / skip connections (gradient highway)`"]
+        A2["`Batch Normalisation (re-centres activations each layer)`"]
+        A3["`Layer Normalisation (preferred in Transformers)`"]
+    end
+    VG --> ARCH
+    EG --> ARCH

@@ -38,24 +38,7 @@ Underfitting happens when a model is too simple to capture the underlying patter
 3. Model fails to capture important patterns
 4. Simple decision boundaries
 
-```mermaid
-graph LR
-    subgraph UNDERFIT["Underfitting\n(high bias)"]
-        U1["Model too simple"] --> U2["Low train accuracy\nLow test accuracy"]
-        U2 --> U3["Gap: small\n(both bad)"]
-    end
-    subgraph GOODFIT["Good fit"]
-        G1["Right complexity"] --> G2["High train accuracy\nHigh test accuracy"]
-        G2 --> G3["Gap: small\n(both good)"]
-    end
-    subgraph OVERFIT["Overfitting\n(high variance)"]
-        O1["Model too complex"] --> O2["Very high train accuracy\nLow test accuracy"]
-        O2 --> O3["Gap: large\n(memorised noise)"]
-    end
-
-    FIX1["Fix underfitting:\nmore features, larger model,\nless regularization"] -.-> UNDERFIT
-    FIX2["Fix overfitting:\nmore data, dropout,\nmore regularization"] -.-> OVERFIT
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/overfitting-underfitting-1.mmd" %}
 
 *The learning curve is the fastest diagnostic: plot train and validation error vs training set size. A large gap between the two curves signals overfitting; both curves high signals underfitting.*
 

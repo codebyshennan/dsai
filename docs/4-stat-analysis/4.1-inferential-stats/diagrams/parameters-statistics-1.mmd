@@ -1,0 +1,16 @@
+flowchart LR
+    subgraph POP["`Population  (usually unknown)`"]
+        PARAM["`Parameters (Greek letters) μ = population mean σ = population std dev π = population proportion`"]
+    end
+    subgraph SAM["`Sample  (what you measure)`"]
+        STAT["`Statistics (Latin letters) x̄ = sample mean s = sample std dev p = sample proportion`"]
+    end
+    PARAM -->|"Sample from population"| STAT
+    STAT -->|"Estimate parameters (point estimate + CI)"| PARAM
+
+    subgraph PROPS["Good estimator properties"]
+        E1["`Unbiased: E(statistic) = parameter`"]
+        E2["Consistent: error → 0 as n → ∞"]
+        E3["Efficient: minimum variance"]
+    end
+    STAT --> PROPS

@@ -99,14 +99,7 @@ NumPy Array:
 
 NumPy arrays can have any number of dimensions. Here is how 1D, 2D, and 3D arrays relate to data science concepts:
 
-```mermaid
-graph TD
-    A["np.array([1, 2, 3, 4])\nshape: (4,)  — 1D"] -->|"np.reshape(2, 2)"| B["np.array([[1,2],[3,4]])\nshape: (2, 2)  — 2D / matrix"]
-    B -->|"np.stack([...])"| C["shape: (n, rows, cols)  — 3D\ne.g. image batch or time-series"]
-    A --- DS1["Use for: a single feature column"]
-    B --- DS2["Use for: a DataFrame or weight matrix"]
-    C --- DS3["Use for: image pixels (H × W × channels)"]
-```
+{% include mermaid-diagram.html src="1-data-fundamentals/1.4-data-foundation-linear-algebra/diagrams/intro-numpy-1.mmd" %}
 
 *`array.shape` is the first thing to check when something goes wrong — most dimension errors come from passing a 1D array where a 2D one is expected (or vice versa).*
 

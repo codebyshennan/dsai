@@ -49,30 +49,7 @@ Think of cross validation like a sports team's practice games:
 - The validation data is like the practice game
 - The final model is like your team going into the real season
 
-```mermaid
-graph TD
-    subgraph KF["k-Fold CV  (k=5)"]
-        K1["Fold 1: [VAL | train | train | train | train]"]
-        K2["Fold 2: [train | VAL | train | train | train]"]
-        K3["Fold 3: [train | train | VAL | train | train]"]
-        K4["Fold 4: [train | train | train | VAL | train]"]
-        K5["Fold 5: [train | train | train | train | VAL]"]
-        MEAN["Average score across 5 folds\n= CV score (report ± std)"]
-        K1 & K2 & K3 & K4 & K5 --> MEAN
-    end
-    subgraph STRAT["Stratified k-Fold"]
-        S1["Each fold preserves\nclass proportion\nUse for imbalanced classes"]
-    end
-    subgraph TIME["TimeSeriesSplit"]
-        T1["Train on past → val on future\nNever let future data train on past\nRequired for time series"]
-    end
-    subgraph LOO["Leave-One-Out (LOO)"]
-        L1["k = n_samples\nExpensive, low bias\nSmall datasets only"]
-    end
-    KF -.->|"imbalanced data"| STRAT
-    KF -.->|"ordered data"| TIME
-    KF -.->|"tiny dataset"| LOO
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.5-model-eval/diagrams/cross-validation-1.mmd" %}
 
 ## Types of Cross-Validation
 

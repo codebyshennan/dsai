@@ -1,0 +1,10 @@
+flowchart TD
+    A[Your Organization] -->|Collects directly| B[First-party data Website events, CRM, surveys]
+    A -->|Receives via agreement| C[Second-party data Partner sharing]
+    A -->|Purchases or licenses| D[Third-party data Data brokers, aggregators]
+    A -->|Downloads or accesses freely| E[Public data Government, research repos]
+
+    B -->|Highest trust| F[✓ You know how it was collected]
+    C -->|Medium trust| G[⚠ You inherit their definitions]
+    D -->|Lower trust| H[⚠ Provenance may be opaque]
+    E -->|Varies| I[Check license & refresh cadence]

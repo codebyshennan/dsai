@@ -63,16 +63,7 @@ Let's break it down into simple steps:
    - For classification: Take a vote among the neighbors
    - For regression: Take the average of the neighbors' values
 
-```mermaid
-flowchart TD
-    A[New data point arrives] --> B[Compute distance to every training point]
-    B --> C[Sort by distance, keep closest k]
-    C --> D{Task type?}
-    D -->|Classification| E[Majority vote among k neighbors]
-    D -->|Regression| F[Average of k neighbors' values]
-    E --> G[Predicted class label]
-    F --> H[Predicted numeric value]
-```
+{% include mermaid-diagram.html src="5-ml-fundamentals/5.2-supervised-learning-1/knn/diagrams/1-introduction-1.mmd" %}
 
 *At prediction time KNN does all the work — it never builds an explicit model. That's why it's called a **lazy** learner.*
 

@@ -1,0 +1,12 @@
+flowchart TD
+    subgraph BOOST["`Gradient Boosting  (sequential)`"]
+        T1["Tree 1 Fit on original targets y Residuals = y − ŷ₁"]
+        T1 --> T2["Tree 2 Fit on residuals r₁ Residuals = r₁ − ŷ₂"]
+        T2 --> T3["Tree 3 Fit on residuals r₂ …"]
+        T3 --> TM["Tree M …"]
+        TM --> FINAL["`Final prediction F(x) = η·T₁(x) + η·T₂(x) + … + η·Tₘ(x) (η = learning rate)`"]
+    end
+    subgraph COMPARE["vs Random Forest"]
+        RF["`Random Forest Parallel: trees are independent Reduce VARIANCE (overfitting) Average predictions`"]
+        GB["`Gradient Boosting Sequential: each corrects last Reduce BIAS (underfitting) Additive combination`"]
+    end

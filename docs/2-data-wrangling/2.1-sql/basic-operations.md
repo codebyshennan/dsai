@@ -31,19 +31,7 @@ SQL (Structured Query Language) is the standard language for managing and manipu
 
 The sections below follow the same order most people learn: define a table, put rows in, read them back, then update or delete with a **scoped** `WHERE` so you do not touch the whole table by accident.
 
-```mermaid
-flowchart LR
-    subgraph CRUD["SQL CRUD"]
-        C["CREATE / INSERT\nAdd structure & rows"]
-        R["SELECT … WHERE\nRead & filter rows"]
-        U["UPDATE … SET … WHERE\nModify specific rows"]
-        D["DELETE … WHERE\nRemove specific rows"]
-    end
-    C --> TABLE[("Table")]
-    TABLE --> R
-    TABLE --> U --> TABLE
-    TABLE --> D
-```
+{% include mermaid-diagram.html src="2-data-wrangling/2.1-sql/diagrams/basic-operations-1.mmd" %}
 
 > **Warning:** Always include a `WHERE` clause with `UPDATE` and `DELETE`. Without one, the operation applies to **every row** in the table. Test your `WHERE` condition with a `SELECT` first.
 
