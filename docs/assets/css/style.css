@@ -1133,18 +1133,26 @@ body {
         transform: none;
         width: auto;
         max-width: none;
+        flex-wrap: nowrap;
+        border-top: 1px solid var(--border-muted);
     }
 
     .lesson-nav__btn--prev,
     .lesson-nav__btn--next {
-        flex: 0 0 40px;
-        max-width: 40px;
+        flex: 0 0 44px;
+        max-width: 44px;
+        min-width: 44px;
         padding-left: 0;
         padding-right: 0;
     }
 
     .lesson-nav__btn-label {
         display: none;
+    }
+
+    .lesson-nav__dropdown {
+        flex: 1 1 0;
+        min-width: 0;
     }
 }
 
@@ -1629,8 +1637,8 @@ body.site-search-open {
     max-width: min(1040px, 100vw - 4px);
     padding: 0.5rem 12px calc(0.5rem + env(safe-area-inset-bottom, 0));
     background: var(--bg-page);
-    border-top: none;
-    box-shadow: none;
+    border-top: 1px solid var(--border-muted);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
     z-index: 150;
     box-sizing: border-box;
 }
