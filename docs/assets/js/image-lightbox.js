@@ -46,7 +46,14 @@
     var svgEl = containerEl.querySelector('svg');
     if (!svgEl) return;
     try {
-      var svgData = new XMLSerializer().serializeToString(svgEl);
+      var clone = svgEl.cloneNode(true);
+      // Inject white background so the diagram is readable on any overlay colour
+      var bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      bg.setAttribute('width', '100%');
+      bg.setAttribute('height', '100%');
+      bg.setAttribute('fill', '#ffffff');
+      clone.insertBefore(bg, clone.firstChild);
+      var svgData = new XMLSerializer().serializeToString(clone);
       var b64 = btoa(unescape(encodeURIComponent(svgData)));
       openLightbox('data:image/svg+xml;base64,' + b64, 'Diagram');
     } catch (e) {
