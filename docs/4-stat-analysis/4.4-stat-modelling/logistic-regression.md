@@ -125,7 +125,6 @@ plt.show()
 print(exam_data.head())
 ```
 
-
 ![logistic-regression](assets/logistic-regression_fig_1.png)
 
 ```
@@ -219,7 +218,6 @@ def plot_logistic_curve():
 plot_logistic_curve()
 ```
 
-
 ![logistic-regression](assets/logistic-regression_fig_2.png)
 
 When you run this code, you'll see a visualization of the logistic function (saved as `logistic_curve_annotated.png`):
@@ -303,7 +301,6 @@ def plot_coefficient_effects():
 plot_coefficient_effects()
 ```
 
-
 ![logistic-regression](assets/logistic-regression_fig_3.png)
 
 When you run this code, you'll see how different coefficients affect the probability curve (saved as `coefficient_effects.png`):
@@ -378,7 +375,6 @@ def plot_odds_ratios():
 plot_odds_ratios()
 ```
 
-
 ![logistic-regression](assets/logistic-regression_fig_4.png)
 
 When you run this code, you'll see a visualization of odds ratios (saved as `odds_ratios.png`):
@@ -436,8 +432,6 @@ print(f"Training set shape: {X_train.shape}")
 print(f"Test set shape: {X_test.shape}")
 ```
 
-**Captured output (example):**
-
 ```
 Data preparation complete.
 Training set shape: (75, 2)
@@ -473,8 +467,6 @@ print(f"\nIntercept: {model.intercept_[0]:.4f}")
 # z = β₀ + β₁x₁ + β₂x₂ = 0
 # Solving for x₂ (AptitudeScore): x₂ = -(β₀ + β₁x₁) / β₂
 ```
-
-**Captured output (example):**
 
 ```
 Model trained successfully!
@@ -537,7 +529,6 @@ def plot_decision_boundary(X, y, model, scaler):
 X_scaled = scaler.transform(X)
 plot_decision_boundary(X_scaled, y, model, scaler)
 ```
-
 
 ![logistic-regression](assets/logistic-regression_fig_5.png)
 
@@ -612,9 +603,7 @@ def evaluate_model(model, X_test, y_test):
 evaluate_model(model, X_test_scaled, y_test)
 ```
 
-
 ![logistic-regression](assets/logistic-regression_fig_6.png)
-
 
 ![logistic-regression](assets/logistic-regression_fig_7.png)
 
@@ -723,9 +712,7 @@ print(loan_coefficients)
 evaluate_model(loan_model, X_test_scaled, y_test)
 ```
 
-
 ![logistic-regression](assets/logistic-regression_fig_8.png)
-
 
 ![logistic-regression](assets/logistic-regression_fig_9.png)
 
@@ -812,7 +799,6 @@ def plot_feature_importance(model, feature_names):
 # Plot feature importance
 plot_feature_importance(loan_model, X_loan.columns)
 ```
-
 
 ![logistic-regression](assets/logistic-regression_fig_10.png)
 
@@ -939,7 +925,6 @@ compare_models_on_imbalanced_data(models, X_test, y_test)
 
 When you run this code, you'll see a comparison of regular and balanced models on imbalanced data (saved as `imbalanced_comparison.png`):
 
-
 This comparison shows that:
 
 1. The **balanced model** (which gives more weight to the minority class) typically has better recall
@@ -977,9 +962,7 @@ class_weights = {0: 1, 1: 10}  # Give 10x importance to class 1
 weighted_model = LogisticRegression(class_weight=class_weights)
 ```
 
-
 ![logistic-regression](assets/logistic-regression_fig_11.png)
-
 
 ![logistic-regression](assets/logistic-regression_fig_12.png)
 
@@ -1040,8 +1023,6 @@ poly_model = make_pipeline(
 )
 poly_model.fit(X_train, y_train)
 ```
-
-**Captured output (example):**
 
 ```
 Pipeline(steps=[('polynomialfeatures', PolynomialFeatures(include_bias=False)),
@@ -1217,8 +1198,6 @@ print("\nFeature Importance:")
 print(coefficients)
 ```
 
-**Captured output (example):**
-
 ```
 <class 'pandas.DataFrame'>
 RangeIndex: 768 entries, 0 to 767
@@ -1262,7 +1241,6 @@ Classification Report:
     accuracy                           0.73       192
    macro avg       0.71      0.71      0.71       192
 weighted avg       0.73      0.73      0.73       192
-
 
 Feature Importance:
                     Feature  Coefficient  Odds_Ratio

@@ -190,8 +190,6 @@ analyze_clinical_trial()
 </aside>
 </div>
 
-**Captured output (example):** With `seed(42)` the printed mean and bounds are stable across runs.
-
 ```
 Clinical Trial Analysis
 Average BP Reduction: 9.7 mm Hg
@@ -309,8 +307,6 @@ demonstrate_sample_size_effect()
 </aside>
 </div>
 
-**Captured output (example):** Stochastic; expect narrower widths as `n` increases.
-
 ```
 
 Sample Size Effect on CI Width
@@ -418,8 +414,6 @@ demonstrate_confidence_level_effect()
   </div>
 </aside>
 </div>
-
-**Captured output (example):** One run’s widths; 99% should be widest.
 
 ```
 
@@ -533,8 +527,6 @@ print(f"95% CI: ({ci[0]:.1f}, {ci[1]:.1f})")
 </aside>
 </div>
 
-**Captured output (example):** Random `scores` vector each run unless you add `np.random.seed`.
-
 ```
 
 Test Score Analysis
@@ -625,8 +617,6 @@ print(f"95% CI: ({ci[0]:.1%}, {ci[1]:.1%})")
   </div>
 </aside>
 </div>
-
-**Captured output (example):** Fixed `responses/total` here yields repeatable percentages.
 
 ```
 
@@ -719,8 +709,6 @@ print(f"95% CI: ({ci[0]:.1f}, {ci[1]:.1f})")
   </div>
 </aside>
 </div>
-
-**Captured output (example):** Random method scores each run; interval may or may not cover zero.
 
 ```
 

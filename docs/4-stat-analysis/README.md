@@ -38,10 +38,6 @@ Without inference and disciplined comparisons, analytics stays descriptive: char
 | [4.3 Relationships in data](./4.3-rship-in-data/README.md) | Correlation and regression, diagnostics | [Understanding relationships](./4.3-rship-in-data/understanding-relationships.md) |
 | [4.4 Statistical modelling](./4.4-stat-modelling/README.md) | Logistic and polynomial models, selection, regularization, interpretation | [Logistic regression](./4.4-stat-modelling/logistic-regression.md) |
 
-## Code examples (maintainers)
-
-Substantive `python` fenced blocks in this module pair with a short **bold title**, **Purpose:** (what the learner gains), and **Walkthrough:** when pointing at specific lines or APIs helps. Bare stdout fences that immediately follow a snippet are labeled **Captured output (example):** so they are not orphaned. Reference style: [Statistical tests](./4.2-hypotheses-testing/statistical-tests.md). Do not mirror these annotations in companion `*_output.md` files (they duplicate lesson code for execution logs). For [tutorial notebooks](./4.2-hypotheses-testing/tutorial.ipynb) and other `.ipynb` files, use the same structure in markdown cells above the relevant code cells.
-
 ## Practice and assessment
 
 - [Module assignments](./_assignments/module-assignment.md) — consolidated assignment for module 4.

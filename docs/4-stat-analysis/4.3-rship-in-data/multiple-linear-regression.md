@@ -228,8 +228,6 @@ print(check_predictor_similarity(X))
 </aside>
 </div>
 
-**Captured output (example):** Coefficients and VIFs stay stable with `seed(42)`; last-decimal noise can differ by platform.
-
 ```
 Contribution of each factor:
 study_hours: 1.82 points
@@ -245,7 +243,6 @@ Multicollinearity Check (VIF values):
 1     prev_gpa  1.019570
 2  sleep_hours  1.034520
 ```
-
 
 ### Understanding the Results
 
@@ -272,9 +269,7 @@ Let's interpret what our model is telling us:
 
 It's harder to visualize a multiple regression model because it exists in more than two dimensions. However, we can look at the relationship between predicted scores and actual scores:
 
-
 We can also see how our exam score relates to each individual predictor while holding the others constant:
-
 
 ## Choosing the Right Predictors
 
@@ -308,12 +303,9 @@ selected_features = X.columns[selector.get_support()].tolist()
 print("\nStatistically strongest features:", selected_features)
 ```
 
-**Captured output (example):** Which two features win can depend on the random draw; with `np.random.seed(42)` as in the snippet you should match the pair below.
-
 ```
 Statistically strongest features: ['prev_gpa', 'sleep_hours']
 ```
-
 
 ### 3. Stepwise Selection
 
@@ -337,12 +329,9 @@ selected_features = X.columns[selector.support_].tolist()
 print("\nFeatures selected by stepwise method:", selected_features)
 ```
 
-**Captured output (example):** RFE can disagree with `SelectKBest` because it uses the joint model; expect a different pair than univariate ranking alone.
-
 ```
 Features selected by stepwise method: ['study_hours', 'prev_gpa']
 ```
-
 
 Notice how different methods can select different predictors! This shows why it's important to combine statistical methods with subject knowledge.
 
@@ -397,8 +386,6 @@ check_model_validity(model, X, y)
 ```
 
 ![multiple-linear-regression_fig_4](assets/multiple-linear-regression_fig_4.png)
-
-
 
 ### What Good Diagnostic Plots Look Like:
 

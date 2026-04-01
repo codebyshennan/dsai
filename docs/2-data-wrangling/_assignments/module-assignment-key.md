@@ -223,7 +223,3 @@
     - Maintain historical records
     - Enable business intelligence
 
-## Next steps (maintainers)
-
-- Keep [module-assignment-student.md](module-assignment-student.md) in sync when you add or reorder questions.
-- Cross-check wording against lesson updates in Module 2 READMEs and concept pages so distractors stay fair.

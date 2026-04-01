@@ -131,8 +131,6 @@ print(result)
 </aside>
 </div>
 
-**Captured output (example):** Numeric types may print as `np.float64`; check `significant` and that `effect_size` exceeds your stated minimum.
-
 ```
 {'effect_size': np.float64(3.200000000000001), 't_statistic': np.float64(2.121320343559645), 'p_value': np.float64(0.03334399999999982), 'significant': np.True_}
 ```
@@ -211,8 +209,6 @@ print(result)
 </aside>
 </div>
 
-**Captured output (example):** With a mean only slightly above 4, the two-sided p-value may be large—failing to reject does *not* prove the mean equals the target.
-
 ```
 {'mean_score': np.float64(4.1), 'median_score': np.float64(4.0), 'std_dev': np.float64(0.7000000000000001), 'satisfaction_rate': np.float64(0.8), 'sample_size': 10, 't_statistic': np.float64(0.42857142857142705), 'p_value': np.float64(0.6783097418055807)}
 ```
@@ -289,8 +285,6 @@ print(result)
 </aside>
 </div>
 
-**Captured output (example):** With these draws, the one-sided “mean > 9.5” check may or may not fire; the vague branch always returns the same string.
-
 ```
 {'falsifiable_result': np.False_, 'non_falsifiable': 'Statement too vague to test statistically'}
 ```
@@ -350,8 +344,6 @@ print(result)
   </div>
 </aside>
 </div>
-
-**Captured output (example):** A p-value of 1.0 for the toy data means the sample mean equals the tested null exactly in this construction; interpret composite flags separately from the p-value.
 
 ```
 {'simple_p_value': np.float64(1.0), 'composite_result': np.True_}

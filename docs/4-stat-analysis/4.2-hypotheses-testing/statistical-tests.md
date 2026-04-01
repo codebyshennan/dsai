@@ -145,8 +145,6 @@ print(result['explanation'])
 </aside>
 </div>
 
-**Captured output (example):** Exact numbers can differ slightly by SciPy version; you should still see a negative t-statistic, a small p-value, and a “significant difference” message for these toy groups.
-
 ```
 T-statistic: -5.27, P-value: 0.001. Effect size: 3.73. Significant difference between group means at alpha=0.05.
 ```
@@ -244,8 +242,6 @@ print(result['explanation'])
   </div>
 </aside>
 </div>
-
-**Captured output (example):** F should be large and p near zero for these clearly separated toy groups; \\(\eta^2\\) stays high because most variation is between groups.
 
 ```
 F-statistic: 44.67, P-value: 0.000. Effect size (eta-squared): 0.88. At least one group mean is significantly different at alpha=0.05.
@@ -351,8 +347,6 @@ print(result['explanation'])
 </aside>
 </div>
 
-**Captured output (example):** With observed counts close to uniform expected counts, chi-square is small and p is large—no evidence against the “fair die” style null.
-
 ```
 Chi-square: 0.00, P-value: 1.000. Effect size (Cramer's V): 0.00. No significant association at alpha=0.05.
 ```
@@ -457,8 +451,6 @@ print(result['explanation'])
   </div>
 </aside>
 </div>
-
-**Captured output (example):** Both correlations should be strongly positive with p-values below 0.05 for this nearly monotonic toy data.
 
 ```
 Pearson correlation: 0.88, P-value: 0.021. Significant correlation at alpha=0.05.

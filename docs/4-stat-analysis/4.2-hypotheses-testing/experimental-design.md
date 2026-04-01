@@ -123,8 +123,6 @@ print("Treatment group:", treatment_group)
 </aside>
 </div>
 
-**Captured output (example):** With seed 42, group membership is fixed; your run should list all ten IDs across the two arrays.
-
 ```
 Control group: ['P9' 'P2' 'P6' 'P1' 'P8']
 Treatment group: ['P3' 'P10' 'P5' 'P4' 'P7']
@@ -245,8 +243,6 @@ for unit, treatment in assignment.items():
 </aside>
 </div>
 
-**Captured output (example):** Each plant ID should appear once with either A or B; counts may be slightly uneven with independent draws.
-
 ```
 Assignments:
 Plant_1: A
@@ -356,8 +352,6 @@ for unit, treatment in assignment.items():
   </div>
 </aside>
 </div>
-
-**Captured output (example):** You should see two A and two B within each of `Sunny_*` and `Shady_*` when block sizes match treatment replications as coded.
 
 ```
 Assignments:

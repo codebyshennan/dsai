@@ -44,7 +44,6 @@ Imagine you're trying to explain to a friend that taller people tend to weigh mo
 
 The result is a single number called a **correlation coefficient** that ranges from -1 to +1:
 
-
 - **+1**: Perfect positive correlation (when one goes up, the other goes up by a proportional amount)
 - **0**: No linear relationship (knowing one tells you nothing about the other)
 - **-1**: Perfect negative correlation (when one goes up, the other goes down by a proportional amount)
@@ -103,13 +102,10 @@ print(f"Pearson correlation: {r:.2f}")
 print(f"P-value: {p_value:.4f}")
 ```
 
-**Captured output (example):** Exact floating-point formatting may differ slightly by SciPy version; you should still see \\(r\\) very close to 1 and a small p-value for this toy data.
-
 ```
 Pearson correlation: 0.99
 P-value: 0.0010
 ```
-
 
 This tells us there's a very strong positive relationship (0.99 is very close to 1) between study time and exam scores. The p-value of 0.0010 tells us this relationship is statistically significant (very unlikely to happen by chance).
 
@@ -140,13 +136,10 @@ print(f"Spearman correlation: {rho:.2f}")
 print(f"P-value: {p_value:.4f}")
 ```
 
-**Captured output (example):** For strictly increasing paired data, Spearman \\(\rho\\) is often 1.0; p-value formatting may differ in the last decimal place.
-
 ```
 Spearman correlation: 1.00
 P-value: 0.0000
 ```
-
 
 The Spearman correlation of 1.00 tells us there's a perfect rank correlation - as study time ranks increase, exam score ranks increase in perfect step.
 
@@ -176,13 +169,10 @@ print(f"Kendall correlation: {tau:.2f}")
 print(f"P-value: {p_value:.4f}")
 ```
 
-**Captured output (example):** With only five points, the exact p-value can differ slightly; perfect rank agreement should still yield \\(\tau = 1\\).
-
 ```
 Kendall correlation: 1.00
 P-value: 0.0167
 ```
-
 
 The Kendall correlation of 1.00 also indicates a perfect agreement in the rankings.
 
@@ -206,7 +196,6 @@ Let's decode what those correlation values actually tell us:
 ### Visual Interpretation
 
 Here's what different correlation strengths look like:
-
 
 ## Correlation in the Real World: Practical Applications
 
@@ -303,8 +292,6 @@ plt.show()
 
 ![correlation-analysis_fig_4](assets/correlation-analysis_fig_4.png)
 
-
-
 **How to read this**: Each cell shows the correlation between the row and column variable. Red indicates positive correlation, blue indicates negative correlation, and the intensity of the color shows the strength.
 
 ### What This Matrix Tells Us:
@@ -333,7 +320,6 @@ A single unusual data point can dramatically change correlation values, especial
 - **Solution**: Always visualize your data with scatter plots before calculating correlation
 - **Better approach**: Consider using Spearman correlation which is less sensitive to outliers
 
-
 ### 3. Correlation Only Captures Linear Relationships
 
 Sometimes two variables have a strong relationship, but not a straight-line one.
@@ -342,7 +328,6 @@ Sometimes two variables have a strong relationship, but not a straight-line one.
 - **Pearson correlation might show**: Close to 0 (suggesting no relationship)
 - **Reality**: There's a strong relationship, but it's curved (non-linear)
 - **Solution**: Always visualize your data or use other methods for non-linear relationships
-
 
 ### 4. Small Sample Sizes Can Be Misleading
 
@@ -422,8 +407,6 @@ plt.show()
 </div>
 
 ![correlation-analysis_fig_5](assets/correlation-analysis_fig_5.png)
-
-
 
 **What this shows**: There's a strong positive correlation (0.72) between temperature and ice cream sales. As temperature goes up, ice cream sales tend to increase as well.
 

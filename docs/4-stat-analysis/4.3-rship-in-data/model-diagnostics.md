@@ -585,8 +585,6 @@ results = give_model_complete_checkup(model, X, y)
 
 ![model-diagnostics_fig_8](assets/model-diagnostics_fig_8.png)
 
-**Captured output (example):** Section order and wording come from the helper `print` calls; Durbin–Watson, Shapiro p-value, and counts depend on the synthetic data and may differ slightly if you change `X`, `y`, or the seed.
-
 ```
 === MODEL CHECK-UP RESULTS ===
 
@@ -618,8 +616,6 @@ If p-value < 0.05, errors likely don't follow a bell curve
 Points with unusual X values: 5
 Points with too much overall influence: 8
 ```
-
-
 
 ## Common Problems and How to Fix Them
 

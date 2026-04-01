@@ -199,15 +199,11 @@ plt.show()
 
 ![simple-linear-regression_fig_1](assets/simple-linear-regression_fig_1.png)
 
-**Captured output (example):** With `np.random.seed(42)`, intercept, slope, and R² should stay close to the values below; tiny differences can appear across sklearn or NumPy versions.
-
 ```
 Starting point (intercept): 0.83
 Rate of change (slope): 2.01
 Accuracy (R-squared): 0.98
 ```
-
-
 
 ```
 Starting point (intercept): 0.83
@@ -316,8 +312,6 @@ plot_diagnostics(X, y, y_pred)
 ```
 
 ![simple-linear-regression_fig_2](assets/simple-linear-regression_fig_2.png)
-
-
 
 ### What to Look for in Diagnostic Plots:
 ### 1. Residuals vs Predicted/Fitted (Top Left)
@@ -477,8 +471,6 @@ print(data.head())
 # 6. Interpret what the intercept and slope mean in real-world terms
 ```
 
-**Captured output (example):** Row values are random draws from the uniform and normal generators; with `seed(42)` you should reproduce these first five lines unless you change the generator calls.
-
 ```
 hours_studied  exam_scores
 0       3.745401    74.928536
@@ -487,7 +479,6 @@ hours_studied  exam_scores
 3       5.986585    76.454236
 4       1.560186    57.287949
 ```
-
 
 ### Suggested Solution:
 
