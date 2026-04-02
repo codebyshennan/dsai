@@ -580,7 +580,7 @@ def setup_professional_plot():
       <span class="code-callout__title">Style Application</span>
     </div>
     <div class="code-callout__body">
-      <p><code>plt.style.use('seaborn')</code> applies a complete pre-built theme—clean backgrounds, muted palette, and subtle grid.</p>
+      <p><code>plt.style.use('seaborn-v0_8-whitegrid')</code> applies a complete pre-built theme—clean backgrounds, muted palette, and subtle grid.</p>
     </div>
   </div>
   <div class="code-callout" data-lines="5-6" data-tint="2">
