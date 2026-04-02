@@ -38,7 +38,7 @@ import numpy as np
 %matplotlib inline
 
 # Set a professional style - like choosing a good canvas
-plt.style.use('seaborn')
+plt.style.use('seaborn-v0_8-whitegrid')
 ```
 
 {% include mermaid-diagram.html src="3-data-visualization/3.1-intro-data-viz/diagrams/matplotlib-basics-1.mmd" %}
