@@ -251,11 +251,11 @@ plt.bar(months, expenses, color='skyblue', edgecolor='navy')
 
 **Purpose:** Apply a bundled Matplotlib style sheet so typography and colors stay consistent across figures.
 
-**Walkthrough:** `plt.style.use('seaborn')` selects a named style; run once per session or notebook.
+**Walkthrough:** `plt.style.use('seaborn-v0_8-whitegrid')` selects a named style; run once per session or notebook.
 
 ```python
 # Make it look nicer
-plt.style.use('seaborn')  # Uses a pre-made style
+plt.style.use('seaborn-v0_8-whitegrid')  # Uses a pre-made style
 ```
 
 ### 3. Add Explanations
