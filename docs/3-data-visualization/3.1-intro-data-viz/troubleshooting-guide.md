@@ -556,7 +556,7 @@ Think of this as having a checklist before starting:
 {% highlight python %}
 def setup_professional_plot():
     """Setup template for professional plots"""
-    plt.style.use('seaborn')
+    plt.style.use('seaborn-v0_8-whitegrid')
 
     # Figure size and DPI
     plt.figure(figsize=(10, 6), dpi=100)
