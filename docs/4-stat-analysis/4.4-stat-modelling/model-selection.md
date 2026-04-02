@@ -246,8 +246,6 @@ This plot illustrates:
 3. **Total error** (green line) is minimized at an intermediate level of complexity
 4. The **optimal complexity** (vertical dashed line) represents the best tradeoff
 
-> **Teacher's Note**: A helpful analogy is learning to play darts. A high-bias player always misses in the same direction (systematic error). A high-variance player is all over the board (inconsistent). The best player has both low bias (aim is centered) and low variance (throws are clustered).
-
 ### Overfitting vs Underfitting
 
 ### Video Tutorial: Overfitting and Underfitting
@@ -400,8 +398,6 @@ This visualization shows three key scenarios:
    - Very low training error but high test error
    - The model "memorizes" the training data but fails to generalize
    - Signs: Excellent performance on training data but poor performance on test data
-
-> **Teacher's Note**: Point out that real-world overfitting is often more subtle than in this example. Emphasize that we need systematic ways to detect it, which is what cross-validation helps with.
 
 ## Model Selection Techniques
 

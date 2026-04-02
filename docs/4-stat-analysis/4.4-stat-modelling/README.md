@@ -214,8 +214,6 @@ Before starting this module, you should have:
 
 Don't worry if you're not an expert in all these areas! We'll provide refreshers and additional resources where needed, and each concept is explained from first principles.
 
-> **Teacher's Note**: For students who need additional background, consider assigning the prerequisite modules as review before starting this one. Alternatively, you can use the first session to quickly recap key concepts from previous modules.
-
 ## Why This Matters
 
 Statistical modeling is essential for:
@@ -304,7 +302,5 @@ As you progress through the module, you'll notice how each topic connects to the
 - [Kaggle Learn](https://www.kaggle.com/learn)
 - [3Blue1Brown - YouTube Channel](https://www.youtube.com/c/3blue1brown) (for visual explanations of mathematical concepts)
 - [StatQuest - YouTube Channel](https://www.youtube.com/c/joshstarmer) (for accessible explanations of statistical concepts)
-
-> **Teacher's Note**: Consider creating a discussion forum or channel where students can share additional resources they find helpful, ask questions, and help each other troubleshoot issues.
 
 Remember: Learning statistical modeling is a journey. Take your time, practice regularly, and don't hesitate to ask questions!

@@ -374,8 +374,6 @@ This geometric interpretation explains:
 
 3. **How regularization works**: The optimization finds the point where the loss function contours (blue dashed lines) touch the constraint region.
 
-> **Teacher's Note**: The visual difference between the diamond (L1) and circle (L2) constraints helps students understand why Lasso can zero out coefficients while Ridge only shrinks them.
-
 ## Implementing Regularization
 
 ### Video Tutorial: Elastic Net Regularization

@@ -194,8 +194,7 @@ While significant improvements have been made, here are some recommendations for
 ### For Instructors
 
 1. Use the README.md to understand the overall structure and learning objectives
-2. Review the "Teacher's Notes" throughout the material for instructional guidance
-3. Use run_markdown_code.py to demonstrate code examples in class:
+2. Use run_markdown_code.py to demonstrate code examples in class:
    ```
    ./run_markdown_code.py logistic-regression.md
    ```

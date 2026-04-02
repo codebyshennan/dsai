@@ -1416,9 +1416,9 @@ body.site-search-open {
     inset: 0;
     z-index: 300;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    padding: 4vh 1rem;
+    padding: 1rem;
 }
 
 .site-search__backdrop {

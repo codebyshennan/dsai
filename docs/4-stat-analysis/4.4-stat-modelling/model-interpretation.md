@@ -456,8 +456,6 @@ When you run this code, you'll see a visualization of the random forest feature 
 
 ![Feature Importance](assets/feature_importance.png)
 
-> **Teacher's Note**: Point out that different models may rank feature importance differently. Linear models look at global impact on the target, while tree-based models measure how much each feature reduces prediction errors when used in splits.
-
 ### 3. Comparing Categorical Levels
 
 When dealing with categorical features, we often need to interpret the effect of different categories:
