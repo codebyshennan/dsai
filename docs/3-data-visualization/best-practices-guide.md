@@ -285,7 +285,7 @@ plt.savefig('plot.pdf', dpi=300)
 
 ```python
 # Use colorblind-friendly palette
-plt.style.use('seaborn')
+plt.style.use('seaborn-v0_8-whitegrid')
 colors = sns.color_palette("colorblind")
 plt.plot(data1, color=colors[0], linestyle='-', marker='o')
 plt.plot(data2, color=colors[1], linestyle='--', marker='s')
