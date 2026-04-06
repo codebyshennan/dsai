@@ -1,12 +1,12 @@
 # Mastering Statistical Visualization with Seaborn
 
-**After this lesson:** you can explain the core ideas in “Mastering Statistical Visualization with Seaborn” and reproduce the examples here in your own notebook or environment.
+**After this lesson:** you can explain the core ideas in "Mastering Statistical Visualization with Seaborn" and reproduce the examples here in your own notebook or environment.
 
 > **Note:** This lesson is **code-first**. You should understand [Matplotlib basics](../3.1-intro-data-viz/matplotlib-basics.md) and [visualization principles](../3.1-intro-data-viz/visualization-principles.md) first so you can interpret what Seaborn is doing.
 
 ## Introduction
 
-Seaborn is your statistical visualization powerhouse - think of it as Matplotlib with a PhD in Statistics. It's designed to make complex statistical visualizations both beautiful and informative, while requiring minimal code.
+Seaborn is your statistical visualization powerhouse — think of it as Matplotlib with a PhD in Statistics. It makes complex statistical visualizations both beautiful and informative with minimal code.
 
 ### Video Tutorial: Seaborn Data Visualization
 
@@ -15,12 +15,6 @@ Seaborn is your statistical visualization powerhouse - think of it as Matplotlib
 </div>
 
 *Seaborn Tutorial - Data Visualization in Python*
-
-**Seaborn at a glance**
-
-**Purpose:** Summarize why Seaborn is used on top of Matplotlib for statistical plots and tidy data.
-
-**Walkthrough:** Not executable code—a schematic of strengths (defaults, stats, pandas integration).
 
 ```yaml
 Key Advantages:
@@ -35,13 +29,29 @@ Key Advantages:
 
 {% include mermaid-diagram.html src="3-data-visualization/3.2-adv-data-viz/diagrams/seaborn-guide-1.mmd" %}
 
+## Which chart for which question?
+
+Pick the right chart before writing any code. The wrong chart can hide the very thing you are trying to show.
+
+| Chart type | Use it when… | Skip it when… |
+|---|---|---|
+| **histplot + KDE** | Showing the shape of one numeric variable | Comparing > 3 groups — bars overlap badly |
+| **boxplot** | Comparing median and spread across 2–10 groups | You need to see the distribution shape (use violin) |
+| **violinplot** | You want full distribution shape per group | Sample size < 30 per group — KDE becomes unreliable |
+| **ecdfplot** | Reading off exact percentiles directly | Presenting to audiences unfamiliar with cumulative charts |
+| **scatterplot / regplot** | Exploring a linear relationship between two variables | > 5,000 points — use hexbin or sample down first |
+| **heatmap** | Correlation matrix or a pivot of two categoricals | More than ~15 variables — cells become unreadable |
+| **clustermap** | Heatmap + revealing which variables cluster together | You need a fixed variable order (clustering reorders rows) |
+| **pairplot** | Quick multivariate overview of ≤ 6 variables | More than 8 variables — too slow and unreadable |
+| **FacetGrid / relplot col=** | Same chart repeated per category | More than ~8 panels — scrolling becomes the story |
+
 ## Getting Started
 
 ### Professional Setup
 
-**Purpose:** Import Seaborn and Matplotlib and set global theme, palette, font scale, and `rcParams` for figure size and label sizes.
+> **Level:** Beginner — run this cell before any Seaborn code.
 
-**Walkthrough:** `sns.set_theme` wraps style + palette + font; `plt.rcParams.update` aligns Matplotlib defaults with the same look.
+Import Seaborn and Matplotlib and set global theme, palette, font scale, and `rcParams` for figure size and label sizes.
 
 ```python
 import seaborn as sns
@@ -74,9 +84,7 @@ setup_plotting_defaults()
 
 ### Data Loading & Inspection
 
-**Purpose:** Load a built-in Seaborn dataset and return both the frame and a small dict of diagnostics (shape, dtypes, nulls, `describe`).
-
-**Walkthrough:** `sns.load_dataset` ships sample CSVs; the dict pattern is handy for teaching EDA before plotting.
+Load a built-in Seaborn dataset and return both the frame and a small dict of diagnostics. `sns.load_dataset` ships sample CSVs — no download needed.
 
 ```python
 def load_and_inspect_data(dataset_name="tips"):
@@ -101,11 +109,11 @@ tips, tips_summary = load_and_inspect_data("tips")
 
 ## Distribution Analysis
 
+> **Level:** Beginner — start here. Understanding your variable's distribution is the first step in any analysis.
+
 ### 1. Single Variable Distributions
 
-**Purpose:** Compare four views of one numeric column—histogram+KDE, box, violin, and ECDF—on one canvas.
-
-**Walkthrough:** `histplot`/`boxplot`/`violinplot`/`ecdfplot` share `data=` and `x=` or `y=`; `GridSpec` lays out four axes.
+Four views of one numeric column — histogram+KDE, box, violin, and ECDF — on one canvas. Each view reveals different things.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -220,9 +228,9 @@ dist_fig = plot_distribution_suite(tips, "total_bill")
 
 ### 2. Categorical Distributions
 
-**Purpose:** Show how a numeric outcome varies across a category using box, violin, strip, and swarm plots.
+Show how a numeric outcome varies across a category using box, violin, strip, and swarm plots.
 
-**Walkthrough:** Categorical encodings use `x=` for the grouping column and `y=` for the measurement; swarm can be slow on large *n*.
+> Note: swarm can be slow on large datasets (> 1,000 points per group). Use strip with `jitter` instead.
 
 ```python
 def plot_categorical_analysis(data, cat_var, num_var):
@@ -283,13 +291,23 @@ cat_fig = plot_categorical_analysis(tips, "day", "total_bill")
 
 ![seaborn-guide](assets/seaborn-guide_fig_2.png)
 
+> **Try it**
+>
+> Using the built-in `penguins` dataset (`sns.load_dataset("penguins")`):
+>
+> 1. Plot a histogram with KDE for `flipper_length_mm`. Does the distribution look unimodal or bimodal?
+> 2. Use a box plot to compare `body_mass_g` across the three species. Which species is heaviest? Which has the most spread?
+> 3. Switch the box plot to a violin. What extra information does the violin reveal that the box plot hides?
+
 ## Relationship Analysis
+
+> **Level:** Intermediate — adds regression and multivariate views. Useful once you know the basic distribution of each variable.
 
 ### 1. Scatter Plot Suite
 
-**Purpose:** Explore bivariate relationship with scatter, regression line, residuals, and hexbin density in one figure.
+Explore a bivariate relationship with scatter, regression line, residuals, and hexbin density.
 
-**Walkthrough:** `regplot` fits OLS; `residplot` shows errors; `hexbin` handles overlap—watch `kde`/`regplot` defaults for large data.
+`regplot` fits OLS. `residplot` shows errors around the line — if residuals fan out, OLS assumptions are violated. `hexbin` handles overplotting for large datasets.
 
 ```python
 def create_scatter_analysis(data, x_var, y_var, hue_var=None):
@@ -355,9 +373,9 @@ scatter_fig = create_scatter_analysis(tips, "total_bill", "tip", "time")
 
 ### 2. Complex Relationships
 
-**Purpose:** Combine `PairGrid` (same y vs x with hue) and `FacetGrid` (small multiples by category) for multivariate views.
+`PairGrid` and `FacetGrid` for multivariate views.
 
-**Walkthrough:** `PairGrid.map` applies a plotting function row-wise; `FacetGrid.map_dataframe` passes column names to `scatterplot`.
+`PairGrid.map` applies a plotting function row-wise. `FacetGrid.map_dataframe` passes column names to `scatterplot` and creates a panel per category level.
 
 ```python
 def analyze_complex_relationships(data, x_var, y_var, cat_vars):
@@ -405,14 +423,23 @@ pair_g, facet_g = analyze_complex_relationships(
 
 ![seaborn-guide](assets/seaborn-guide_fig_5.png)
 
+> **Try it**
+>
+> Still using `penguins`:
+>
+> 1. Create a scatter of `bill_length_mm` vs `bill_depth_mm` with `species` as the hue. Do the clusters separate cleanly by species?
+> 2. Add `regplot` to the same axes (use `scatter=False` to avoid duplicate dots). Does the overall trend line slope the same way within each species?
+> 3. Create a `FacetGrid` with one panel per island (`col="island"`). Does the species mix look different across islands?
 
 ## Matrix Visualizations
 
+> **Level:** Intermediate — heatmaps and clustermaps for correlation analysis. Most useful after you have a well-structured numeric dataset.
+
 ### 1. Correlation Analysis
 
-**Purpose:** Numeric correlation matrix as a labeled heatmap and as a clustered heatmap to reveal variable groups.
+Numeric correlation matrix as a labeled heatmap, and as a clustered heatmap to reveal variable groups.
 
-**Walkthrough:** `select_dtypes` keeps numeric columns; `heatmap` vs `clustermap`—second reorders rows/columns by similarity.
+`select_dtypes` keeps only numeric columns. `heatmap` preserves your column order. `clustermap` reorders rows and columns by similarity — useful for spotting groups of related variables.
 
 ```python
 def create_correlation_analysis(data, method='pearson'):
@@ -478,13 +505,20 @@ corr_fig = create_correlation_analysis(tips)
 **Line Plot:**
 
 ![seaborn-guide](assets/seaborn_lineplot.png)
+
+> **Try it**
+>
+> Using `penguins` (drop non-numeric columns first: `penguins.select_dtypes(include='number')`):
+>
+> 1. Create a correlation heatmap. Which two variables are most strongly correlated?
+> 2. Create a `clustermap` of the same data. Does it group variables differently from the raw correlation matrix order?
+> 3. Run `sns.pairplot(penguins, hue="species")`. Pick the two variables that best separate the three species and explain your choice.
+
 ## Best Practices
 
 ### 1. Style Management
 
-**Purpose:** Switch Seaborn themes for slides (`presentation`), papers (`paper`), or notebooks (`notebook`) from one function.
-
-**Walkthrough:** Dict holds kwargs for `sns.set_theme`; unknown keys fall back to `notebook`.
+Switch Seaborn themes for slides (`presentation`), papers (`paper`), or notebooks (`notebook`) from one function.
 
 ```python
 def set_plot_style(style_type='presentation'):
@@ -520,9 +554,7 @@ style = set_plot_style('presentation')
 
 ### 2. Export Settings
 
-**Purpose:** Write the same figure to PDF, PNG, and SVG with tight bounding boxes for documents and web.
-
-**Walkthrough:** Loop over extensions; `savefig` on the Matplotlib `Figure` returned by Seaborn plotting functions.
+Write the same figure to PDF, PNG, and SVG with tight bounding boxes for documents and web.
 
 ```python
 def save_publication_quality(fig, filename, dpi=300):
