@@ -277,6 +277,15 @@ def find_best_parameters(X, y):
 3. **Interpreting Distances**: Remember that distances in the visualization are not always meaningful
 4. **Over-interpreting Results**: These are visualization tools, not clustering algorithms
 
+## Gotchas
+
+- **Cluster sizes and inter-cluster distances in t-SNE plots are not meaningful** — t-SNE distorts global structure to preserve local neighborhoods; two clusters appearing close together or one cluster appearing larger than another does not mean they are more similar or more spread out in the original space.
+- **Different runs of t-SNE produce different layouts** — even with `random_state` set, changing `perplexity` or the number of iterations yields a completely different-looking plot. Always fix the seed and treat the layout as one possible visualization, not a unique ground truth.
+- **t-SNE does not support `transform` on new data** — unlike PCA or UMAP, sklearn's `TSNE` has no `transform` method; you must refit the entire embedding if a new point arrives, making it unsuitable for production pipelines.
+- **Running t-SNE on raw high-dimensional data is slow and noisy** — the recommendation (noted in the lesson) to run PCA first down to ~50 dimensions is critical: skipping it on data with hundreds of features multiplies runtime significantly and can degrade embedding quality.
+- **UMAP embeddings can look deceptively clean with random data** — UMAP is prone to finding structure even in pure noise; always verify that clusters visible in a UMAP plot correspond to real structure by checking cluster quality in the original feature space.
+- **Perplexity must be smaller than the number of samples** — setting `perplexity` larger than `n_samples - 1` raises a `ValueError`; a rule of thumb is perplexity between 5 and 50 for most datasets.
+
 ## Further Reading
 
 1. [t-SNE Documentation](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html)
