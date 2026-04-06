@@ -528,6 +528,15 @@ manhattan: 0.947
 cosine: 0.860
 ```
 
+## Gotchas
+
+- **Using `weights='distance'` without scaling first** — Distance-based weighting amplifies the dominance of unscaled features: if one feature has values in the thousands, it will virtually eliminate the contribution of all other features to the weight calculation. Always scale before enabling distance weighting.
+- **Applying SMOTE outside the cross-validation loop** — The `imblearn.pipeline.Pipeline` example is deliberately correct, but a common mistake is to `SMOTE.fit_resample(X, y)` on the entire dataset before splitting into folds. This leaks synthetic minority-class information into validation folds, inflating reported CV accuracy on imbalanced problems.
+- **Reducing dimensions before splitting train and test** — Fitting PCA on `X` (combined train+test) before splitting leaks test distribution information into the PCA components. Always `pca.fit_transform(X_train)` and `pca.transform(X_test)` using the same fitted object.
+- **Selecting the best k from a CV curve then re-evaluating on the same test set** — The `find_best_k` function uses CV (correct), but if you then also report accuracy on a held-out `X_test` that was used to verify the chosen k, the test estimate is optimistically biased. Reserve the test set strictly for final reporting.
+- **Using `np.bincount` in `FastKNN` when labels are not consecutive integers** — `np.bincount` requires non-negative integer labels starting from 0. If your class labels are arbitrary integers (e.g., `[-1, 1]` or `[2, 5, 10]`), `bincount` either errors or produces wrong argmax results. Use `Counter` or remap labels to 0-based indices first.
+- **Ignoring that BallTree fails on high-dimensional data** — `BallTree` and `KDTree` lose their speed advantage over brute force once dimensionality exceeds roughly 20. In high dimensions, the tree degenerates and query time approaches O(n), so the `FastKNN` class provides no benefit without prior dimensionality reduction.
+
 ## Additional Resources
 
 For more learning:
