@@ -143,6 +143,15 @@ In the following sections, we'll explore:
 3. [Advanced Techniques](4-advanced.md) - Making KNN work better
 4. [Applications](5-applications.md) - Real-world uses of KNN
 
+## Gotchas
+
+- **Assuming KNN "trains" like other models** — KNN stores the entire training set and does all computation at prediction time. This means `fit` is instantaneous but `predict` is slow, and memory usage scales linearly with training data size. With 1 million rows, every prediction scans all 1 million points.
+- **Skipping feature scaling** — If one feature spans 0–100,000 (e.g., salary) and another spans 0–5 (e.g., rating), distance is almost entirely determined by salary. KNN will silently ignore the rating feature, producing misleading results without any error.
+- **Using an even k with binary classification** — An even k can produce exact ties (e.g., 2 neighbors in each class), and scikit-learn breaks ties by choosing the lower class index rather than raising an error. Use odd k values for binary problems to avoid non-deterministic-looking results.
+- **Testing KNN on the same data used to find k** — If you loop over k values and pick the best on the test set, you've leaked the test set into model selection. Use cross-validation on the training set to choose k, then evaluate on the held-out test set once.
+- **Ignoring the curse of dimensionality** — With many features, all pairwise distances tend toward the same value, making "nearest" neighbors meaningless. KNN typically degrades above ~20 relevant features unless you apply dimensionality reduction first.
+- **Treating KNN as memory-free after training** — Unlike tree or linear models, the entire `X_train` array lives in memory for the lifetime of the fitted object. Storing a KNN model does not discard training data, so deployment memory costs are much higher than for parametric models.
+
 ## Additional Resources
 
 For further learning:
