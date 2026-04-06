@@ -112,6 +112,14 @@ You can create:
 - Medical diagnosis tools
 - And much more!
 
+## Gotchas
+
+- **Thinking "naive" means the model is inaccurate** — The independence assumption is almost always violated in practice (words in text are highly correlated, symptoms co-occur), yet Naive Bayes often rivals much more complex models on text classification. The model is naive about dependencies but not about overall performance.
+- **Applying Naive Bayes to regression problems** — Naive Bayes is a probabilistic classifier, not a regressor. Using it to predict continuous outputs (like house prices) is not directly possible with `GaussianNB`, `MultinomialNB`, or `BernoulliNB` in scikit-learn. For regression, use Gaussian Process regression or other methods.
+- **Confusing the prior with class frequency in a balanced training set** — Even if you construct a balanced training dataset (equal class sizes), the real-world prior may be very different (e.g., spam is 1% of email). Forcing a 50/50 prior by balancing your training data bakes incorrect priors into the model; pass `class_prior` explicitly if the true class distribution differs from your training distribution.
+- **Expecting Naive Bayes to work out-of-the-box on mixed feature types** — scikit-learn's NB variants each require a specific input type: `GaussianNB` for continuous, `MultinomialNB` for non-negative counts, `BernoulliNB` for binary. Passing the wrong feature type (e.g., negative values to `MultinomialNB`) raises errors or produces silently wrong probability estimates.
+- **Forgetting that Naive Bayes cannot learn feature interactions** — Because of the independence assumption, Naive Bayes will miss patterns that only emerge when two features occur together (e.g., "not good" having opposite sentiment to "good"). When such interactions are important, logistic regression or tree-based models will outperform it.
+
 ## Next Steps
 
 Ready to dive deeper? Let's start with the [Mathematical Foundation](2-math-foundation.md) to understand how Naive Bayes makes its predictions.
