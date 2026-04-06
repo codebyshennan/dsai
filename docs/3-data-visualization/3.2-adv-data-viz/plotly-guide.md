@@ -226,7 +226,9 @@ scatter_fig = create_interactive_scatter(
 </div>
 
 **Output (Animation Frames):**
-![plotly-guide](assets/plotly_animated_scatter_frames.png)
+<div class="plotly-embed" style="width:100%;height:500px;margin:1.5rem 0;">
+<iframe src="assets/plotly_animated_scatter.html" width="100%" height="500px" frameborder="0" style="border:none;border-radius:4px;"></iframe>
+</div>
 ### 2. Time Series Visualization
 
 **Purpose:** Interactive line chart with optional range slider and quick “YTD vs full range” relayout buttons.
