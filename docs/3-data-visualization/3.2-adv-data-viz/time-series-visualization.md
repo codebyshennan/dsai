@@ -523,7 +523,9 @@ fig.show()
 </aside>
 </div>
 
-![Plotly range slider](assets/ts_plotly_rangeslider.png)
+<div class="plotly-embed" style="width:100%;height:500px;margin:1.5rem 0;">
+<iframe src="assets/ts_plotly_rangeslider.html" width="100%" height="500px" frameborder="0" style="border:none;border-radius:4px;"></iframe>
+</div>
 
 The range slider at the bottom lets the viewer drag to focus on any window. Use Plotly for dashboards and stakeholder reports where the audience will explore the data — use Matplotlib/Seaborn for static reports and presentations.
 
