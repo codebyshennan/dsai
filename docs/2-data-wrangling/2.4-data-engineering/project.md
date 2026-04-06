@@ -592,6 +592,15 @@ if __name__ == "__main__":
 </aside>
 </div>
 
+## Gotchas
+
+- **`SalesAPIClient` constructor stores credentials as plain instance attributes** — hardcoding `api_key` as `self.api_key` means it appears in `repr()`, log output, and tracebacks; use environment variables or a secrets manager and never log the key directly.
+- **`run_pipeline` re-raises exceptions but leaves no checkpoint** — if the load step fails partway through, re-running the pipeline from `start_date` will re-extract and re-transform data that was already partially loaded; add a staging table or idempotency key so reruns are safe.
+- **`conn.execute(dim_date)` then `conn.execute(fact_sales)` without `conn.commit()`** — in SQLAlchemy 2.x, DDL within a connection context is not auto-committed; omitting `conn.commit()` (or using `engine.begin()`) means tables are created inside a rolled-back transaction and the schema silently disappears.
+- **Incremental loads without a watermark column will re-insert all historical rows** — the `DataLoading` task in the assignment requires handling incremental loads, but the `load_to_warehouse` stub has no logic for filtering already-loaded records; without a `last_updated_at` or batch ID check, every daily run duplicates the full dataset.
+- **`logger.error(f"Daily load failed: {str(e)}")` then `raise` logs the message but loses the stack trace context** — wrapping exceptions with `str(e)` discards the original traceback; use `logger.exception("Daily load failed")` inside the `except` block to log the full stack automatically.
+- **File integration with no deduplication on reprocessing** — the assignment requires tracking processed files, but without a persistent manifest (e.g., a database table or a `.done` marker file), restarting after a crash will reprocess already-loaded files and silently double-count records.
+
 ## Bonus Challenges
 
 1. **Real-time Processing**
