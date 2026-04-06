@@ -167,6 +167,10 @@ Chart Selection:
     - Connected scatter (paths)
 ```
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "I want to show [describe your goal, e.g. 'how monthly revenue has changed across 4 product categories over the past 2 years']. What chart type should I use in Tableau, and how do I set it up — which fields go on Rows, Columns, and Marks?"
+
 #### Visual Best Practices
 
 **Purpose:** Encode color role (sequential, diverging, categorical) and reinforce hierarchy with layout and type.
