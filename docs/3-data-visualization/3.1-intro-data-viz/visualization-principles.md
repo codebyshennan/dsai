@@ -314,6 +314,15 @@ Think of this as organizing your layout:
 - Verify accuracy
 - Get feedback
 
+## Gotchas
+
+- **Pre-attentive attributes lose their power when overused** — color pops out because everything else is grey; if you highlight five different categories in five bright colors, none of them are pre-attentive anymore and the viewer must read every element carefully, defeating the purpose.
+- **Gestalt proximity can work against you in subplot grids** — when axes are spaced too tightly, viewers perceive the top and bottom panels as one chart rather than two separate ones; increase `hspace` in `plt.subplots` or add a visible divider so the grouping matches your intent.
+- **Sequential color schemes are the wrong choice for categorical data** — using a blue gradient (light to dark) for unordered categories such as "Fruits", "Vegetables", "Grains" implies that darker means more or higher, misleading viewers; use a qualitative palette (equal brightness, distinct hues) for categories with no inherent order.
+- **Chart junk and data-ink are separate problems** — removing a decorative 3D shadow reduces chart junk; adding a second grid line reduces data-ink ratio; conflating them causes people to remove useful elements (like reference lines) when they should only remove decorative ones.
+- **The Figure/Ground principle means your background color becomes part of the message** — a dark background pushes bright data marks forward visually, which can increase perceived contrast but also makes small differences in similar colors harder to distinguish; test your chart on the actual background it will be displayed against.
+- **Visual hierarchy is undone by uniform font sizes** — setting every text element (title, axis labels, tick labels, annotations) to the same `fontsize=12` removes the hierarchy that guides the viewer's eye; the title should be noticeably larger than axis labels, which should be noticeably larger than tick labels.
+
 ## Next steps
 
 1. Apply these ideas in [Matplotlib basics](matplotlib-basics.md) and [Choosing the right visualization](../choosing-the-right-visualization.md).
