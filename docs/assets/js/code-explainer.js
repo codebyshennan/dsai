@@ -21,6 +21,11 @@
   }
 
   function lineCountFromPre(pre) {
+    var codeEl = pre.querySelector('code');
+    if (codeEl) {
+      var codeLineEls = codeEl.querySelectorAll('.code-line');
+      if (codeLineEls.length > 0) return codeLineEls.length;
+    }
     var t = pre.textContent || '';
     if (!t) return 0;
     return t.split(/\r\n|\r|\n/).length;
