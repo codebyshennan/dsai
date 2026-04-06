@@ -395,7 +395,9 @@ dist_fig = create_distribution_dashboard(
 ### Additional Interactive Features
 
 **3D Scatter Plot:**
-![plotly-guide](assets/plotly_3d_scatter.png)
+<div class="plotly-embed" style="width:100%;height:500px;margin:1.5rem 0;">
+<iframe src="assets/plotly_3d_scatter.html" width="100%" height="500px" frameborder="0" style="border:none;border-radius:4px;"></iframe>
+</div>
 
 **Dashboard Layout:**
 ![plotly-guide](assets/plotly_dashboard_layout.png)
