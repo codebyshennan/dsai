@@ -460,19 +460,24 @@ corr_fig = create_correlation_analysis(tips)
 ### Additional Visualization Examples
 
 **Bar Plot with Error Bars:**
-> **Figure (add screenshot or diagram):** Horizontal bar chart showing mean tip amount by day of the week (Thu–Sun), with 95% bootstrap confidence interval error bars on each bar and values labeled.
+
+![seaborn-guide](assets/seaborn_barplot.png)
 
 **Count Plot:**
-> **Figure (add screenshot or diagram):** Count plot (frequency bar chart) of diners per day split by sex — side-by-side bars per day with a legend showing Female (blue) and Male (orange).
+
+![seaborn-guide](assets/seaborn_countplot.png)
 
 **Joint Plot:**
-> **Figure (add screenshot or diagram):** Joint plot of total_bill vs tip: a scatter plot in the center panel, histogram marginal distributions on the top (total_bill) and right (tip) edges, with a Pearson r and p-value annotation.
+
+![seaborn-guide](assets/seaborn_jointplot.png)
 
 **Time Series Heatmap:**
-> **Figure (add screenshot or diagram):** Seaborn heatmap of the flights dataset — years 1949–1960 on the x-axis, months Jan–Dec on the y-axis, cell color representing passenger count; warmer colors toward the bottom-right show growth over time.
+
+![seaborn-guide](assets/seaborn_flights_heatmap.png)
 
 **Line Plot:**
-> **Figure (add screenshot or diagram):** Seaborn line plot of monthly average values over a year, with a shaded 95% confidence interval band around the mean line; multiple lines colored by group (e.g. by year) with a clear legend.
+
+![seaborn-guide](assets/seaborn_lineplot.png)
 ## Best Practices
 
 ### 1. Style Management
