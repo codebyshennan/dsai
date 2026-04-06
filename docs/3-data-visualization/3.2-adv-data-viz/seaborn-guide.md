@@ -449,7 +449,7 @@ def create_correlation_analysis(data, method='pearson'):
     corr = data.select_dtypes(include=[np.number]).corr(method=method)
     
     # Create figure
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7))
+    fig, ax1 = plt.subplots(1, 1, figsize=(8, 7))
     
     # Heatmap
     sns.heatmap(
@@ -462,7 +462,7 @@ def create_correlation_analysis(data, method='pearson'):
     )
     ax1.set_title('Correlation Heatmap')
     
-    # Clustermap
+    # Clustermap (creates its own figure)
     sns.clustermap(
         corr,
         annot=True,
