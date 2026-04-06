@@ -45,6 +45,10 @@ The Tableau interface consists of several key areas:
 
 ![Tableau worksheet interface with annotated areas](assets/tableau_workspace.png)
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "In Tableau, I have a field called [field name] that shows up as a Measure (green) but I want to use it as a Dimension (blue) — for example, a numeric order ID I want to group by. How do I change it, and when should I do this?"
+
 
 ## Project Overview
 
