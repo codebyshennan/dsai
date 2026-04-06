@@ -705,6 +705,15 @@ Now that you understand how to check if your model is reliable, you can:
 
 Remember: A good model isn't just about getting a high R-squared value. It's about creating a tool that works reliably for the question you're trying to answer!
 
+## Gotchas
+
+- **Running diagnostics on training-set residuals only** — Diagnostic plots computed on the same data used to fit the model can look acceptable even when the model generalises poorly. Always check residual patterns on a held-out validation set if generalisation is your goal.
+- **Shapiro–Wilk rejects normality for large samples trivially** — With n > 5,000 the test flags tiny, irrelevant departures from normality as significant. At that scale, inspect the Q-Q plot visually instead of relying on the p-value alone.
+- **The Durbin–Watson test only catches lag-1 autocorrelation** — A DW value near 2 does not guarantee independence; it only checks whether adjacent residuals are correlated. Seasonal patterns (lag 12, lag 52) will pass Durbin–Watson while still violating independence.
+- **High leverage is not the same as high influence** — A point can sit far out in predictor space (high leverage) but still fall exactly on the regression surface, giving it near-zero Cook's distance. Only combine leverage with large residuals makes a point truly influential.
+- **Deleting influential points without investigating them** — Automatically removing observations above the 4/n Cook's threshold destroys valid data. First check whether the point is a data-entry error, an out-of-scope observation, or a real signal the model is failing to capture.
+- **Ignoring heteroscedasticity and still reporting standard errors** — OLS standard errors assume constant variance; heteroscedastic residuals make those errors (and therefore p-values and confidence intervals) wrong. Use heteroscedasticity-robust standard errors (`HC3` in statsmodels) or transform the response before trusting inference.
+
 ## Helpful Resources for Going Deeper
 
 - [STHDA Regression Diagnostics](https://www.sthda.com/english/articles/39-regression-model-diagnostics/) - With code examples and visuals
