@@ -405,11 +405,6 @@ pair_g, facet_g = analyze_complex_relationships(
 
 ![seaborn-guide](assets/seaborn-guide_fig_5.png)
 
-**Output - Pair Grid:**
-> **Figure (add screenshot or diagram):** PairGrid showing total_bill (x) vs tip (y) scatter in a single column, with points colored by `time` (Lunch/Dinner) and a legend in the upper right.
-
-**Output - Facet Grid:**
-> **Figure (add screenshot or diagram):** FacetGrid of 2×4 panels (rows = time, columns = day) each showing a total_bill vs tip scatter — demonstrating how small multiples split data by two categorical variables simultaneously.
 
 ## Matrix Visualizations
 
