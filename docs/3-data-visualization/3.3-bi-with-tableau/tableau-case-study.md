@@ -221,6 +221,10 @@ Data Structure:
 
 ![Tableau Create Calculated Field dialog for Profit Ratio](assets/tableau_calculated_field.png)
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "Write three useful Tableau calculated fields for retail sales analysis using the Sample Superstore fields: Order Date, Sales, Profit, Discount, Quantity, Category, Sub-Category, State, Customer ID. Include: (1) a profit margin %, (2) a flag for high-discount orders above 30%, and (3) days between order date and ship date."
+
 
 ### 2. Parameters
 
