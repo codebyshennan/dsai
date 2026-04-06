@@ -401,6 +401,15 @@ def predict_customer_churn(customer_data):
 
 Ready to try these applications? Start with the credit risk example and gradually move to more complex projects. Remember, the key is to understand both the technical aspects and the real-world context!
 
+## Gotchas
+
+- **`StandardScaler` is fit on the full dataset, then applied to test data** — In `train_credit_model`, `scaler.fit_transform(X_train)` is correct but easy to accidentally replace with `scaler.fit_transform(X_test)` during debugging. Fitting the scaler on test data leaks test-set statistics into preprocessing and inflates reported performance.
+- **The walk-forward stock predictor retrains a fresh model each step** — `model.fit(X_train, y_train)` inside the loop discards the previous model entirely and trains from scratch on each sliding window. This is correct for a strict walk-forward evaluation, but the loop is very slow on large datasets; warm-starting or caching model state would speed it up.
+- **`cross_val_score` with a final `model.fit(X, y)` trains on the full data after cross-validation** — In `train_disease_predictor`, the CV scores evaluate generalization, but the returned model is re-fitted on all labels, including the test fold it was evaluated against. This is standard practice, but reporting the CV score *and* the final model's training accuracy side by side will show inflated in-sample performance.
+- **Operator precedence in the churn label rule produces surprising results** — `(data['tenure'] < 12) & (data['monthly_charges'] > 80) | (data['contract_type'] == 'Month-to-month')` is evaluated as `((A & B) | C)` due to Python's operator precedence. The intended logic may be `A & (B | C)`. Always add explicit parentheses when mixing `&` and `|` in pandas boolean conditions.
+- **`yfinance` data may have NaNs from rolling windows** — `create_stock_features` calls `.dropna()` after computing rolling indicators like SMA-50. If the downloaded history is shorter than 50 days (e.g., newly listed stocks), `dropna` removes most of the data silently. Always check `len(df)` after the drop.
+- **`pd.cut` risk buckets are sensitive to the chosen thresholds** — The `[0, 0.3, 0.6, 1]` bins in the churn prediction example are arbitrary. Changing the threshold from 0.3 to 0.4 can flip a large segment of customers between "Low" and "Medium" risk. Thresholds should be calibrated on actual business outcomes, not chosen by convention.
+
 ## Additional Resources
 
 For more learning:
