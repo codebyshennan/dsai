@@ -409,6 +409,15 @@ To enhance understanding of results analysis, we recommend adding the following 
    - Acknowledge limitations
    - Make actionable recommendations
 
+## Gotchas
+
+- **Conflating statistical significance with business importance** — the `SignificanceAnalyzer` buckets evidence as "Very Strong / Strong / Moderate" based solely on the p-value; a "Very Strong" result with a Cohen's d of 0.01 may be economically worthless. Always pair the significance label with an effect-size interpretation before making a recommendation.
+- **Applying Cohen's d thresholds (0.2 / 0.5 / 0.8) across all domains** — the `EffectSizeAnalyzer._get_magnitude` thresholds are conventions from psychology; in medicine a d of 0.2 may be clinically irrelevant, while in education research even a d of 0.1 is sometimes considered meaningful. Match the threshold to your domain's accepted standards.
+- **Reporting p-values without confidence intervals** — a p-value tells you direction and rough rarity; an interval tells you the *plausible range* of the true effect. The lesson builds a `SignificanceAnalyzer` that visualizes the null distribution but does not automatically produce a CI; add one before presenting to stakeholders.
+- **Stopping at "fail to reject H₀" without a power check** — a non-significant result in a small study may simply mean the test lacked power to detect the effect. Before concluding "no difference," compute post-hoc power or report the minimum detectable effect at your observed n; otherwise "no evidence of effect" is easily misread as "evidence of no effect."
+- **Using `_get_evidence_strength` thresholds as hard rules for action** — the p < 0.001 "Very Strong" band is a presentation aid; it does not override business context, cost-benefit analysis, or the number of other tests run in the same analysis. Always describe how many comparisons were made when reporting strength.
+- **Not checking assumptions before interpreting results** — the `SignificanceAnalyzer` accepts any p-value and t-statistic without verifying that the underlying test's assumptions (normality, equal variances, independence) were met. A visually clean significance plot built on a violated assumption is still a misleading output.
+
 ## Next steps
 
 - Start [Relationships in data (module 4.3)](../4.3-rship-in-data/README.md) with [Understanding relationships](../4.3-rship-in-data/understanding-relationships.md).
