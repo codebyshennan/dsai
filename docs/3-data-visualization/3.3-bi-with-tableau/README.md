@@ -132,6 +132,10 @@ Extract:
     - Manual/scheduled refresh
 ```
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "I'm connecting Tableau to a [describe your data source, e.g. 'MySQL database with 5 million rows updated hourly']. Should I use a live connection or an extract? What are the trade-offs for my specific situation?"
+
 ### 2. Visual Grammar
 
 #### Basic Charts
