@@ -299,6 +299,14 @@ Now that you understand the basics of how things can be related, you're also rea
 
 Remember: Finding relationships in data is a bit like being a detective. You look for clues, patterns, and connections – but you always need to think critically about what those connections really mean!
 
+## Gotchas
+
+- **Confusing association with causation from a scatter plot alone** — A scatter plot showing two variables moving together does not mean one drives the other; a third confounding variable (like season, income, or geography) may be causing both. Always ask "what else could explain this pattern?" before drawing conclusions.
+- **Missing non-linear relationships by looking only at correlation numbers** — A strong U-shaped or cyclical relationship between two variables can produce a Pearson r near zero, making you conclude there is no relationship. Plot the data first; a single number never replaces a visualisation.
+- **Interpreting ordinal data as ratio-scale** — Customer satisfaction on a 1–5 scale is ordinal: the gap between 1 and 2 is not necessarily the same as between 4 and 5. Treating it as ratio data and computing arithmetic means or Pearson correlations can produce meaningless results.
+- **Ignoring outliers in scatter plots** — One extreme data point can dominate the visual impression of a relationship (or lack of one). Always check whether a perceived pattern survives after investigating unusual points; a single billionaire in a neighborhood income dataset can make a flat relationship look steeply positive.
+- **Assuming a relationship is stable across all subgroups (Simpson's Paradox)** — An overall positive relationship can reverse or disappear within subgroups of the data. For example, a drug might appear effective overall while being ineffective (or harmful) in every individual age group. Always stratify by key variables before accepting an aggregate finding.
+
 ## Additional Resources for Curious Minds
 
 - [Python Data Science Handbook - Visualization](https://jakevdp.github.io/PythonDataScienceHandbook/04.00-introduction-to-matplotlib.html) - For when you're ready to create visualizations
