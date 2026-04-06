@@ -30,3 +30,11 @@ labels = kmeans.fit_predict(X)
 ```
 
 For the complete tutorial, see [Clustering Guide](clustering.md).
+
+## Gotchas
+
+- **Random initialization can produce poor local minima** — K-Means converges to the nearest local optimum; two runs with different random seeds can give very different cluster assignments. Use `n_init` (default 10 in sklearn) to run multiple restarts and pick the best inertia.
+- **K-Means assumes spherical, equally-sized clusters** — if your real clusters are elongated, ring-shaped, or very different in size, K-Means will split or merge them incorrectly. Always visualize the result and consider DBSCAN or GMM for non-spherical data.
+- **`fit_predict` on the same data vs `predict` on new data** — K-Means assigns training points during `fit`, but calling `predict` on held-out data uses nearest-centroid assignment, which differs subtly from the training loop result; the two are equivalent after convergence but learners sometimes mix up when to use each.
+- **Inertia always decreases with more clusters** — K=n (one cluster per point) gives inertia=0, which is useless. The elbow method helps, but if there's no clear elbow, silhouette score or domain constraints should guide the final k choice.
+- **Not scaling before K-Means** — a feature with large magnitude will dominate the Euclidean distance calculation, causing K-Means to effectively ignore smaller-magnitude features entirely.
