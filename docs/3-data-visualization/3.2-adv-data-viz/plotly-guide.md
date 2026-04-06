@@ -1,6 +1,6 @@
 # Interactive Visualization with Plotly
 
-**After this lesson:** you can explain the core ideas in “Interactive Visualization with Plotly” and reproduce the examples here in your own notebook or environment.
+**After this lesson:** you can explain the core ideas in "Interactive Visualization with Plotly" and reproduce the examples here in your own notebook or environment.
 
 > **Note:** This lesson is **code-first**. Comfortable **pandas** plots or [Seaborn](seaborn-guide.md) help, but you can follow along if you know Matplotlib basics.
 
@@ -15,12 +15,6 @@ Plotly transforms static visualizations into dynamic, interactive web experience
 </div>
 
 *Plotly Express - Interactive Visualization made easy in Python*
-
-**Plotly at a glance**
-
-**Purpose:** Highlight interactivity, web output, and live-update patterns versus static Matplotlib.
-
-**Walkthrough:** Schematic only—not runnable Python.
 
 ```yaml
 Key Features:
@@ -41,9 +35,11 @@ Key Features:
 
 ### Professional Setup
 
-**Purpose:** Import Plotly Express and Graph Objects, set a default template and size, and initialize notebook mode for inline HTML.
+> **Level:** Beginner — run this cell once per notebook session.
 
-**Walkthrough:** `pio.templates.default` sets global styling; `init_notebook_mode(connected=True)` loads JS from CDN in Jupyter.
+Import Plotly Express and Graph Objects, set a default template and size, and initialize notebook mode for inline HTML.
+
+`pio.templates.default` sets global styling. `init_notebook_mode(connected=True)` loads JS from CDN in Jupyter.
 
 ```python
 import plotly.express as px      # High-level interface
@@ -72,9 +68,9 @@ setup_plotly_environment()
 
 ### Data Loading & Inspection
 
-**Purpose:** Load Plotly’s sample Gapminder-style frame, drop nulls, and add a log GDP column when present.
+Load Plotly's bundled Gapminder dataset, drop nulls, and add a log GDP column.
 
-**Walkthrough:** `px.data.gapminder()` is bundled; pattern extends to other `px.data` loaders via `getattribute`.
+`px.data.gapminder()` is bundled with Plotly — no download needed. The same pattern works for `px.data.tips()`, `px.data.iris()`, and others.
 
 ```python
 def load_and_prepare_data(dataset_name="gapminder"):
@@ -100,11 +96,13 @@ df = load_and_prepare_data()
 
 ## Basic Interactive Plots
 
+> **Level:** Beginner — these are the core Plotly Express patterns you will use most often.
+
 ### 1. Enhanced Scatter Plots
 
-**Purpose:** Build a scatter with size and color encodings, optional animation by year, formatted hovers, and a centered title.
+Build a scatter with size and color encodings, optional animation by year, formatted hovers, and a centered title.
 
-**Walkthrough:** `px.scatter` handles encoding; `update_layout` sets paper/plot background and gridline colors.
+`px.scatter` handles all encoding in one call. `update_layout` controls the surrounding canvas — title position, background color, gridline style.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -229,11 +227,12 @@ scatter_fig = create_interactive_scatter(
 <div class="plotly-embed" style="width:100%;height:500px;margin:1.5rem 0;">
 <iframe src="assets/plotly_animated_scatter.html" width="100%" height="500px" frameborder="0" style="border:none;border-radius:4px;"></iframe>
 </div>
+
 ### 2. Time Series Visualization
 
-**Purpose:** Interactive line chart with optional range slider and quick “YTD vs full range” relayout buttons.
+Interactive line chart with optional range slider and quick "YTD vs full range" relayout buttons.
 
-**Walkthrough:** `update_xaxes(rangeslider_visible=True)` adds the mini navigator; `updatemenus` injects Plotly `relayout` buttons.
+`update_xaxes(rangeslider_visible=True)` adds the mini navigator below the chart. `updatemenus` injects `relayout` buttons that update the x-axis range without reloading the page.
 
 ```python
 def create_time_series_plot(data, x_col, y_col, 
@@ -298,13 +297,23 @@ time_fig = create_time_series_plot(
 <iframe src="assets/plotly_timeseries_rangeslider.html" width="100%" height="500px" frameborder="0" style="border:none;border-radius:4px;"></iframe>
 </div>
 
+> **Try it**
+>
+> Using `px.data.gapminder()`:
+>
+> 1. Create a scatter of `gdpPercap` vs `lifeExp` for the year 2007 only (filter first: `df[df.year == 2007]`). Add `size="pop"` and `color="continent"`. What does bubble size show that the axes alone don't?
+> 2. Add `animation_frame="year"` to the same chart. Run the animation — which continent shows the most change between 1952 and 2007?
+> 3. Try adding `log_x=True` to the scatter. Does the relationship look more linear? Why might that be?
+
 ## Statistical Visualizations
+
+> **Level:** Intermediate — uses `go` (Graph Objects) directly for finer control over subplot layouts.
 
 ### 1. Distribution Analysis
 
-**Purpose:** Four-cell dashboard: histogram, box, violin, and normal QQ plot using Graph Objects subplots.
+Four-cell dashboard: histogram, box, violin, and normal QQ plot using Graph Objects subplots.
 
-**Walkthrough:** `make_subplots` builds the grid; `go.Histogram`/`Box`/`Violin`/`Scatter` add traces; `scipy.stats.probplot` feeds QQ points—ensure `scipy` is installed.
+`make_subplots` builds the grid. `go.Histogram`/`Box`/`Violin`/`Scatter` add traces. `scipy.stats.probplot` feeds QQ points — ensure `scipy` is installed (`pip install scipy`).
 
 ```python
 def create_distribution_dashboard(data, numeric_col, 
@@ -418,13 +427,22 @@ dist_fig = create_distribution_dashboard(
 <div class="plotly-embed" style="width:100%;height:500px;margin:1.5rem 0;">
 <iframe src="assets/plotly_theme_comparison.html" width="100%" height="500px" frameborder="0" style="border:none;border-radius:4px;"></iframe>
 </div>
+
+> **Try it**
+>
+> Using `px.data.tips()`:
+>
+> 1. Run `create_distribution_dashboard` on `total_bill`. Compare the histogram and violin — what does each one tell you that the other doesn't?
+> 2. Use `px.box(tips, x="day", y="total_bill", color="time", points="outliers")`. Which day has the most outliers? Does time of day (lunch vs dinner) change the pattern?
+> 3. Add `facet_col="sex"` to the box plot. Does the day-of-week pattern hold for both sexes?
+
 ## Advanced Features
+
+> **Level:** Advanced — custom themes and interactive controls. Use these when presentation quality matters or when your audience needs to filter data.
 
 ### 1. Custom Themes
 
-**Purpose:** Toggle light vs dark presentation themes by updating paper/plot background, font, and gridline colors.
-
-**Walkthrough:** `fig.update_layout` merges dicts; extend `themes` with your brand colors.
+Toggle light vs dark presentation themes by updating paper/plot background, font, and gridline colors.
 
 ```python
 def apply_custom_theme(fig, theme='modern'):
@@ -473,9 +491,9 @@ def apply_custom_theme(fig, theme='modern'):
 
 ### 2. Interactive Features
 
-**Purpose:** Standardize hover behavior, modebar styling, and add simple restyle buttons for trace visibility.
+Standardize hover behavior, modebar styling, and add simple restyle buttons for trace visibility.
 
-**Walkthrough:** `hovermode='closest'`; `updatemenus` with `method='restyle'` toggles `visible` arrays—align indices with `fig.data`.
+`hovermode='closest'` snaps the tooltip to the nearest point. `updatemenus` with `method='restyle'` toggles `visible` arrays — align the indices with `fig.data`.
 
 ```python
 def add_interactive_features(fig):
@@ -527,9 +545,9 @@ def add_interactive_features(fig):
 
 ### 1. Performance Optimization
 
-**Purpose:** Downsample traces that exceed a point budget and prefer WebGL markers for large scatters.
+Downsample traces that exceed a point budget and prefer WebGL markers for large scatters.
 
-**Walkthrough:** Mutates `trace.x`/`y` in place—copy the figure first if you need the full data elsewhere; WebGL path depends on trace types.
+This mutates `trace.x`/`y` in place — copy the figure first if you need the full data elsewhere.
 
 ```python
 def optimize_for_web(fig, max_points=1000):
@@ -556,9 +574,9 @@ def optimize_for_web(fig, max_points=1000):
 
 ### 2. Export Settings
 
-**Purpose:** Export self-contained HTML (CDN JS) and static images when `kaleido` is available for raster/vector write.
+Export self-contained HTML (CDN JS) and static images when `kaleido` is available.
 
-**Walkthrough:** `write_html` for sharing; `write_image` needs the Kaleido package for PNG/SVG/PDF.
+`write_html` for sharing interactively. `write_image` needs the `kaleido` package (`pip install kaleido`) for PNG/SVG/PDF.
 
 ```python
 def export_figure(fig, filename, formats=None):
