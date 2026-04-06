@@ -405,6 +405,10 @@ Day 5:
   - Next steps
 ```
 
+## Using Claude Code with Tableau
+
+See [claude-code-integration.md](claude-code-integration.md) for a practical guide on using Claude Code as an AI pair partner: writing calculated fields, debugging LOD expressions, generating sample data, and preparing data in Python before connecting to Tableau.
+
 ## Assignment
 
 Use the [module assignment](../_assignments/module-assignment.md) when you are ready for the graded work.
