@@ -75,10 +75,15 @@ function itemsCharTotal(items) {
  * @param {boolean} ordered
  * @param {number} [startAt] 1-based start for <ol>
  */
+/** Strip redundant leading bullet marker (`- ` or `* `) from a list-item string. */
+function stripBulletPrefix(s) {
+    return String(s).replace(/^[-*]\s+/, '');
+}
+
 function renderList(items, ordered, startAt = 1) {
     const listType = ordered ? 'ol' : 'ul';
     const startAttr = ordered && startAt > 1 ? ` start="${startAt}"` : '';
-    const lis = items.map((item) => `<li>${formatInline(item)}</li>`).join('\n');
+    const lis = items.map((item) => `<li>${formatInline(stripBulletPrefix(item))}</li>`).join('\n');
     return `
                     <div class="list-container">
                         <${listType}${startAttr}>
