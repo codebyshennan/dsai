@@ -1094,6 +1094,15 @@ Cross-validation helps us get a more reliable estimate of model performance by:
 
 Stratified cross-validation specifically ensures that each fold maintains the same class distribution as the original dataset, which is especially important for imbalanced data.
 
+## Gotchas
+
+- **Choosing `ccp_alpha` from the pruning path without cross-validation** — the post-pruning example prints the optimal alpha based on a single 70/30 split; with small datasets, the "best" alpha can vary substantially across splits; use `cross_val_score` at several candidate alpha values before committing.
+- **Assuming `class_weight='balanced'` always improves results** — balanced weighting forces the model to pay equal attention to all classes regardless of their true prevalence; if the majority class is genuinely the correct answer most of the time, balanced weights can hurt both precision and overall accuracy by over-correcting.
+- **Comparing accuracy of Gini vs entropy trees on training data only** — both built-in criteria produce perfect 1.000 in-sample accuracy on the synthetic 1,000-sample dataset; the meaningful comparison is cross-validated test accuracy and tree compactness (node count), not in-sample score.
+- **Mutating `boosting.n_estimators` in a loop and calling `fit` each iteration** — this works but refits the full model from scratch each time, which is O(n × T) instead of O(T); the correct approach is to fit once with the maximum `n_estimators` and use `staged_predict` to extract scores at intermediate stages without re-fitting.
+- **Using the decision path trace as a full explanation of confidence** — `decision_path` shows which nodes fired for a sample, but a leaf with 1 sample from training has 100% confidence for the majority class even though no generalisation evidence supports that certainty; high `predict_proba` at a small-sample leaf is unreliable.
+- **Selecting features by tree importance and then using cross-validation on the reduced feature set without re-running the selection inside each fold** — fitting the feature selector on all data and then cross-validating inflates performance because the CV folds have already "seen" the importance ranking; the feature selection step must be inside the CV pipeline to avoid leakage.
+
 ## Practice Exercise
 
 Try these advanced techniques on your own:
