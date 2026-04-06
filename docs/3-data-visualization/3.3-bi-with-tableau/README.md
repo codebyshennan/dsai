@@ -311,6 +311,10 @@ T_TEST(
 └─────────┴─────────────────┘
 ```
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "I'm designing a Tableau dashboard for [describe your audience and goal, e.g. 'a weekly sales review for a regional manager who wants to spot underperforming territories quickly']. Suggest a layout: which KPIs to show at the top, what the main chart should be, and what filters to include."
+
 #### Interactive Elements
 
 **Purpose:** Checklist of filter widgets, dashboard actions, and parameter types you can combine for interactivity.
