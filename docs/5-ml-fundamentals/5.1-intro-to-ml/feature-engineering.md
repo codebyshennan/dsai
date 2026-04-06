@@ -606,3 +606,12 @@ Label Encoded Data:
 2. **Consider Cardinality**: Think about how many unique values each category has
 3. **Handle Missing Values**: Decide how to handle missing categories
 4. **Document Your Choices**: Keep track of how you encoded each category
+
+## Gotchas
+
+- **Fitting the scaler on the full dataset before splitting** — `StandardScaler` and `MinMaxScaler` must be `fit` on training data only, then `transform` applied to both train and test; fitting on all data leaks test statistics into the model and produces optimistic evaluation scores.
+- **Using label encoding for nominal (unordered) categories** — assigning integers 0, 1, 2 to `red`, `blue`, `green` implies an ordering (`green > blue > red`) that doesn't exist; most linear and distance-based models will treat the numbers as meaningful, introducing false relationships.
+- **One-hot encoding high-cardinality columns without capping** — a column with 500 unique city names expands to 500 binary columns, increasing memory use and giving tree-based models many near-zero-importance splits to waste time on; consider target encoding, frequency encoding, or grouping rare values into an "other" bucket.
+- **Forgetting to apply the same transformations to new data at inference time** — the scaler fitted during training must be saved (e.g., with `joblib`) and reused on every new batch; re-fitting on new data changes the reference statistics and breaks calibration.
+- **Creating interaction features that include the target column** — dividing price by square footage is fine when both are features, but deriving a feature that is mathematically dependent on your target variable (`y`) introduces data leakage and produces inflated training scores.
+- **Deriving time-based features without respecting temporal order** — if you compute `day_of_week` or `hour_of_day` without first sorting and splitting on time, future information can appear in training folds and the model will not generalise to truly unseen future dates.
