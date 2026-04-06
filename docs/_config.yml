@@ -4,9 +4,9 @@ baseurl: "/dsai"
 url: "https://codebyshennan.github.io"
 
 # Repository information
-repository: codebyshennan/tamkeen-data
+repository: codebyshennan/dsai
 github:
-  repository_url: https://github.com/codebyshennan/tamkeen-data
+  repository_url: https://github.com/codebyshennan/dsai
 
 # Build settings
 # Use CommonMarkGhPages explicitly (same libcmark-gfm stack as `markdown: GFM`).
