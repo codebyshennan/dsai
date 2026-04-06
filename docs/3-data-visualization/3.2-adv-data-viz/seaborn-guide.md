@@ -350,17 +350,18 @@ def create_scatter_analysis(data, x_var, y_var, hue_var=None):
     )
     ax3.set_title('Residual Plot')
     
-    # Hex bin for density
+    # 2D KDE density plot
     ax4 = fig.add_subplot(gs[1, 1])
-    sns.hexbin(
+    sns.kdeplot(
         data=data,
         x=x_var,
         y=y_var,
         ax=ax4,
-        gridsize=20,
-        cmap='YlOrRd'
+        fill=True,
+        cmap='YlOrRd',
+        levels=10
     )
-    ax4.set_title('Hexbin Density Plot')
+    ax4.set_title('2D KDE Density Plot')
     
     plt.tight_layout()
     return fig
