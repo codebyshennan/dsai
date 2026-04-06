@@ -189,6 +189,14 @@ print(f"Predicted price for {new_size[0][0]} sq ft: ${predicted_price[0]:,.2f}")
 Predicted price for 1750 sq ft: $350,000.00
 ```
 
+## Gotchas
+
+- **Passing a 1D array to sklearn estimators** — `model.fit(sizes, prices)` requires `sizes` to be 2D (shape `(n, 1)`), which is why the example uses `[[1000], [1500], …]`; passing a plain list like `[1000, 1500, …]` raises a `ValueError` about a 1D feature array that confuses many beginners.
+- **Treating "more data always helps" as universal** — collecting more data is the right fix for high-variance (overfitting) models, but it does not help a high-bias (underfitting) model; adding data to a linear model on non-linear data just confirms the same bad fit at larger scale.
+- **Assuming supervised learning requires a "correct" answer for every case** — the labels in supervised learning represent a ground truth decided at the time of data collection; if those labels are noisy, biased, or stale, the model will learn those biases faithfully, and high accuracy on training data will not save you.
+- **Conflating unsupervised clustering output with ground truth classes** — cluster labels from k-means or similar algorithms are arbitrary integers (cluster 0 and cluster 1 have no inherent meaning) and should not be compared to class labels without an explicit alignment step.
+- **Skipping problem definition before writing code** — jumping straight to model selection without deciding what metric to optimise (and why) routinely leads to models that score well on a proxy metric but fail the actual business goal; the problem spec is not optional overhead.
+
 ## Next Steps
 
 Now that you understand the basics of machine learning:
