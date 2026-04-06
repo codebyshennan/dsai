@@ -469,6 +469,8 @@ def create_advanced_visualization(data):
 </aside>
 </div>
 
+![README](assets/README_fig_2.png)
+
 ### Applied practice
 
 After completing both lessons, work through the two applied pieces in order:
