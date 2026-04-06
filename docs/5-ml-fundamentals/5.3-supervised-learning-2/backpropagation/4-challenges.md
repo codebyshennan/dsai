@@ -229,3 +229,14 @@ The network memorizes training data instead of learning general patterns.
    - Gradient checking
    - Activation visualization
    - Weight distribution plots
+
+## Gotchas
+
+- **Gradient clipping clips the wrong norm** — The `clip_gradients` function clips each parameter tensor independently. The standard practice (used in PyTorch's `clip_grad_norm_`) clips the *global* norm across all parameters. Clipping per-tensor can over-constrain small gradients while still permitting an exploding global norm.
+- **Xavier and He init are not interchangeable** — `xavier_init` divides by `n_in + n_out` and suits tanh/sigmoid. `he_init` divides only by `n_in` and is designed for ReLU. Using Xavier with ReLU systematically under-initializes the variance, causing slow convergence indistinguishable from a vanishing gradient problem.
+- **Residual connections require matching dimensions** — The `residual_block` snippet adds `identity` directly to the output of the main path. If the two tensors have different shapes (different number of filters or spatial size), you'll get a shape mismatch error; the fix is a 1×1 convolution on the shortcut, as used in standard ResNet implementations.
+- **Dropout masks must be inverted (inverted dropout)** — The `dropout` function divides by `keep_prob` to rescale surviving activations so the expected value stays the same at test time. Forgetting the `/ keep_prob` rescaling means test-time predictions are systematically smaller than training predictions, inflating the apparent test error.
+- **`MomentumOptimizer` initializes velocity lazily** — The velocity dict is empty until the first `update` call. If you accidentally call `update` with a different parameter set on the first step (e.g., after re-initializing the model), existing velocity keys carry over from the old model and corrupt future updates.
+- **NaN loss usually means exploding gradients, not a bug in the loss function** — When loss suddenly becomes `nan`, the instinct is to check the loss function code. In practice, exploding gradients upstream make activations infinite before reaching the loss. Check gradient magnitudes or add gradient clipping before investigating the loss formula.
+
+
