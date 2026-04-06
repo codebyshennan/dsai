@@ -554,6 +554,15 @@ Before publishing a time chart:
 3. Replace the 12-line month chart above with a `sns.relplot` small-multiples version grouped by month instead of season.
 4. Pick a year and annotate it with a made-up event label. What does the annotation make the viewer assume?
 
+## Gotchas
+
+- **`resample()` silently produces wrong results if the date column is not the index** — you must call `.set_index("date")` before `.resample("MS")`. If you forget, pandas raises a `TypeError`; but if your index happens to be a DatetimeIndex from a prior operation, resample runs without complaint on the wrong column.
+- **`rolling(window=3)` without `min_periods=1` fills the first N-1 rows with NaN** — this is the correct statistical behaviour, but it means your smoothed line starts later than your raw line on the chart. The gap looks like missing data to an audience. Always decide explicitly: fill early NaNs with `min_periods=1` or drop them and annotate the chart.
+- **`pd.to_datetime()` with ambiguous formats guesses month/day order based on locale** — the string `"01/02/2025"` becomes January 2nd in US locale and February 1st in European locale. Pass `dayfirst=True` or `format="%d/%m/%Y"` explicitly when your data source is ambiguous.
+- **A second y-axis makes percentage-point differences appear identical to absolute differences** — synchronising two y-axes is technically available in both Matplotlib and Plotly, but the visual scale mismatch routinely misleads audiences into thinking two trends are more correlated than they are. Use separate panels or normalise to a common scale instead.
+- **Comparing a partial current period to full prior periods makes recency look worse** — if the current month is only half over, its bar or line point will sit below prior complete months even if the pace is identical. Always exclude incomplete periods or label them with "(partial)" directly on the chart.
+- **`line_shape='spline'` in Plotly interpolates between data points, inventing values that never existed** — a spline curve implies continuity and can show a dip or peak between two real points that isn't in your data. Use `line_shape='linear'` for factual time series; spline is for aesthetics only.
+
 ## Next steps
 
 1. [Plotly guide](plotly-guide.md) — richer interactive controls for time exploration.
