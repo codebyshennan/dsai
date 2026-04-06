@@ -205,9 +205,6 @@ def create_realtime_dashboard(data_stream):
 </aside>
 </div>
 
-
-![README](assets/README_fig_1.png)
-
 #### 3. Statistical communication
 
 One 2×2 Seaborn panel covering the four most common statistical views — distribution, box, regression, and time series — in a single figure.
