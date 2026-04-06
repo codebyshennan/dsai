@@ -602,6 +602,15 @@ print(f"Corrected significant results: {sum(corrected_p < 0.05)}")
 6. Always consider both statistical and practical importance
 7. Visualize your data to better understand the results
 
+## Gotchas
+
+- **Choosing α after seeing the data** — setting your significance threshold to 0.05 (or any value) *after* computing the p-value invalidates the Type I error guarantee. Always fix α before you run the test; changing it post-hoc to make a result "significant" is p-hacking.
+- **p = 0.049 is not meaningfully different from p = 0.051** — the binary significant/not-significant framing treats a bright line as though the underlying evidence is radically different on either side. Report exact p-values and consider the full context rather than the threshold alone.
+- **A large p-value does not prove the null hypothesis** — "fail to reject H₀" means the data are consistent with no effect, not that no effect exists. Underpowered studies routinely produce large p-values even when a real effect is present.
+- **Confusing p-value with the probability that H₀ is true** — the p-value is computed *assuming* H₀ is true; it cannot tell you how likely H₀ is. Bayesian posterior probabilities answer that different question.
+- **Running multiple tests without correction inflates false-positive rate** — if you run 20 independent tests at α=0.05, you expect about one false positive by chance alone. Use Bonferroni or FDR corrections (as shown in the lesson's `multipletests` example) whenever you test several hypotheses.
+- **Treating `ttest_ind` as the only option for comparing two groups** — `ttest_ind` assumes approximately normal data with independent observations. For paired measurements use `ttest_rel`; for non-normal data with small samples prefer `mannwhitneyu`; the wrong test can produce a misleading p-value silently.
+
 ## Next steps
 
 - Continue to [Parameters and statistics](./parameters-statistics.md) to consolidate notation and estimation, then finish the submodule and move on to [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md).
