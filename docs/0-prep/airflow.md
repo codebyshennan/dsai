@@ -316,6 +316,8 @@ docker compose ps
 
 ## Gotchas
 
+- **Windows: `AIRFLOW_HOME` resets every terminal** — PowerShell `$env:AIRFLOW_HOME` only lasts for the current session. If you open a new terminal and forget to set it, Airflow initializes a fresh instance in `~/airflow`. Fix: add `$env:AIRFLOW_HOME = "C:\...\airflow_home"` to your PowerShell profile (`$PROFILE`), or use WSL2 where `export` in `.bashrc` persists.
+- **Windows: bash install script won't run in PowerShell or cmd** — the multi-line variable expansion in Option 1 uses bash syntax. Use Option 1b (PowerShell) or WSL2.
 - **Never install without constraint files** — plain `pip install apache-airflow` or `uv pip install apache-airflow` almost always produces a broken install due to conflicting transitive dependencies. Always use the official `--constraint` URL for your Airflow version and Python version.
 - **`AIRFLOW_HOME` must be consistent** — Airflow stores its database, config, and DAGs relative to `AIRFLOW_HOME`. If you open a new terminal and forget to set it, `airflow standalone` initializes a *fresh* second Airflow instance in `~/airflow`, and your DAGs won't appear. Set `AIRFLOW_HOME` in your shell profile or always `cd` to the project folder and export before running Airflow.
 - **Airflow 3.x uses `airflow api-server`, not `airflow webserver`** — guides written for Airflow 2.x say `airflow webserver`. In Airflow 3.x, the web UI is served by `airflow api-server --port 8080`. Using the old command will fail or start nothing.
