@@ -1232,6 +1232,15 @@ This exercise lets you:
 3. Practice calculating impurity
 4. Build a tree by hand to understand the process
 
+## Gotchas
+
+- **Selecting `max_depth` based on the training accuracy curve alone** — the depth sweep shows training accuracy monotonically increasing with depth; you must look at the *test* accuracy curve (which peaks then drops) and use that peak as your depth guide, not the training curve.
+- **Confusing information gain of zero with a useless feature** — `find_best_split` will return zero gain if no feature can improve purity at all (e.g., the node is already pure); this is a valid stopping condition, not a bug in the implementation.
+- **Assuming Gini and entropy always produce the same tree structure** — the custom-impurity comparison shows Gini produces 127 nodes and entropy produces 117 on the same dataset; the split chosen at each node can differ, leading to structurally different trees even when final accuracy is similar.
+- **Picking `best_depth` via `np.argmax(test_scores)` on a single held-out split** — this optimises for one random 70/30 split and will overfit to that particular test partition; use cross-validation to select depth in practice rather than picking the single best score from one split.
+- **Misinterpreting impurity-based feature importance for correlated features** — if `proline` and `alcohol` are correlated in the Wine dataset, the tree may assign all importance to one and zero to the other depending on which it splits on first; this is a known limitation of single-tree importance (random forests with permutation importance are more reliable).
+- **Treating the threshold printed in `find_best_split` as a universal threshold** — the greedy algorithm finds the best split threshold for the *current node's subset* of data; a threshold of `temperature <= 3` at the root does not mean that threshold is meaningful deeper in the tree where the data distribution has already changed.
+
 ## Next Steps
 
 Now that you understand how trees are built, let's learn how to [implement them in Python](3-implementation.md)!
