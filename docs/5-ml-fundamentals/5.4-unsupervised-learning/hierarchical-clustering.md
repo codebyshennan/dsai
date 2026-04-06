@@ -37,3 +37,11 @@ dendrogram(Z)
 ```
 
 For the complete tutorial, see [Clustering Guide](clustering.md).
+
+## Gotchas
+
+- **Ward linkage requires Euclidean distance** — `method='ward'` in `scipy.cluster.hierarchy.linkage` only works with Euclidean distance; passing a precomputed distance matrix or using it with Manhattan distance will produce incorrect or error-prone results.
+- **Cutting the dendrogram at the wrong height** — the horizontal cut on a dendrogram determines the number of clusters, but learners often cut at an aesthetically pleasing point rather than the largest vertical gap; look for the longest vertical line with no horizontal cuts crossing it.
+- **Scalability wall** — agglomerative clustering is O(n²) in memory and O(n² log n) in time; on datasets larger than ~10,000 points it becomes impractically slow and scikit-learn's `AgglomerativeClustering` may raise a memory error without warning.
+- **No `predict` for new points** — `AgglomerativeClustering` has no `predict` method, unlike K-Means; if you need to assign new data points to existing clusters you must re-run the full fit on the combined dataset.
+- **Linkage choice silently changes cluster shapes** — `single` linkage tends to produce long chained clusters, `complete` tends toward compact ones, and `average` is a compromise. Swapping linkage without re-inspecting the dendrogram can produce completely different groupings on the same data.
