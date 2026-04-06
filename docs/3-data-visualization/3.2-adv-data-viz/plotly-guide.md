@@ -226,7 +226,7 @@ scatter_fig = create_interactive_scatter(
 </div>
 
 **Output (Animation Frames):**
-> **Figure (add screenshot or diagram):** Animated bubble chart — GDP per capita (x) vs life expectancy (y), bubble size = population, color = continent, with a year playback slider at the bottom; show frames for 1952, 1977, and 2002 side by side to illustrate the play button and animation controls.
+![plotly-guide](assets/plotly_animated_scatter_frames.png)
 ### 2. Time Series Visualization
 
 **Purpose:** Interactive line chart with optional range slider and quick “YTD vs full range” relayout buttons.
