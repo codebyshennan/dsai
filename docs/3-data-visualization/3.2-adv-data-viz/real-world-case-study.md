@@ -647,6 +647,15 @@ For any real visualization task:
 3. Replace the static device comparison with an interactive Plotly version and explain when each format is better.
 4. Write a one-paragraph recommendation based on three charts only.
 
+## Gotchas
+
+- **Computing conversion rate before aggregation gives the wrong answer** — if you average per-row rates instead of dividing total orders by total sessions after grouping, high-volume rows get the same weight as low-volume ones. The lesson demonstrates this correctly with derived metrics calculated after `groupby`, but skipping that step is the most common bug in marketing analytics.
+- **`dt.to_period("W").dt.start_time` snaps dates to Monday regardless of your actual week definition** — if your business defines weeks starting Sunday or Saturday, the weekly grouping will straddle boundaries and mix data from two calendar weeks. Verify the snap day matches your business calendar before publishing weekly charts.
+- **Using the same `redesign_date` variable across multiple code cells requires running them in order** — if a learner runs Step 5's chart cells before Step 2, `redesign_date` is undefined and the annotation call raises a `NameError`. Notebooks don't enforce execution order; always re-run from top when sharing.
+- **Bubble size encoded with `s=value / constant` encodes area proportional to orders, but audiences perceive radius** — humans underestimate differences in area and overestimate differences in radius. If the business needs precise comparisons from the bubble chart, add direct labels; don't rely on bubble size alone to convey magnitude.
+- **`hovermode="x unified"` in the Plotly channel view flattens all channels to the same tooltip even when they have different values on the same week** — for channels with very similar rates, the unified tooltip shows them stacked in the order traces were added, which may not match the legend order. Confirm the tooltip order matches what you describe in the recommendation.
+- **Annotating an event with `axvline` does not prove causation** — the chart visually implies the redesign caused the Q2 lift, but external factors (seasonality, a concurrent campaign) could also explain it. Always note the limitation in the recommendation text, as the "Common failure modes" section of this lesson already flags.
+
 ## Next steps
 
 1. [3.4 Data storytelling](../3.4-data-storytelling/README.md) — turn case-study evidence into a polished narrative.
