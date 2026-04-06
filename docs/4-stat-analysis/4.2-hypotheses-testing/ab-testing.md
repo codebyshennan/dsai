@@ -448,6 +448,45 @@ def analyze_results(control_data, treatment_data, alpha=0.05):
 
 ### 2. Making the Call
 
+Statistical significance alone doesn't justify shipping. Use a two-axis check:
+
+| | Stat. significant | Not stat. significant |
+|---|---|---|
+| **Practically significant** | Ship it | Underpowered — re-run with more data |
+| **Not practically significant** | Don't ship — real but trivial | Don't ship |
+
+**Step 1: Set a minimum practical effect upfront.** Before the test starts, define the smallest effect worth shipping (e.g., "≥ 2% lift in conversion"). Without this, any positive result feels meaningful.
+
+**Step 2: Read the confidence interval, not just the p-value.** A 95% CI of [0.001%, 3.9%] straddles a 2% threshold — you can't confidently claim the treatment meets your bar, even if p < 0.05.
+
+**Step 3: Factor in implementation costs.** A statistically and practically significant result still has an engineering and ops cost. Estimate the expected value before committing:
+
+```python
+def expected_value(lift, baseline_rate, daily_users, revenue_per_conversion, implementation_cost):
+    """
+    Estimate 30-day expected value of shipping treatment.
+
+    lift: relative improvement (e.g. 0.02 for 2%)
+    """
+    daily_conversions_gained = daily_users * baseline_rate * lift
+    monthly_revenue_gain = daily_conversions_gained * revenue_per_conversion * 30
+    return monthly_revenue_gain - implementation_cost
+
+# Example: 2% lift, 10% baseline, 10k users/day, $5 per conversion, $20k implementation
+ev = expected_value(0.02, 0.10, 10_000, 5, 20_000)
+print(f"Expected 30-day value: ${ev:,.0f}")  # Expected 30-day value: $10,000
+```
+
+**Step 4: Document the decision.** Record what you shipped and why — future tests on the same surface need this context to avoid re-testing the same thing.
+
+**Decision checklist:**
+- [ ] p-value < α (statistical significance confirmed)
+- [ ] Effect size ≥ minimum practical threshold
+- [ ] CI lower bound above zero (or your MDE)
+- [ ] Sample ratio check passed (`check_sample_ratio` returned `is_valid: True`)
+- [ ] No external events during the test window that could confound results
+- [ ] Cost-benefit analysis positive
+
 ## Common Pitfalls and Solutions
 
 ### 1. Peeking Problem
