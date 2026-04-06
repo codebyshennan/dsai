@@ -522,6 +522,15 @@ Now that you've seen several implementations, let's review some best practices a
 
 Ready to try these implementations? Start with the spam detection example and gradually move to more complex projects. Remember, practice makes perfect!
 
+## Gotchas
+
+- **Using the sklearn API vs the native XGBoost API interchangeably** — `xgb.train` (native) takes a `DMatrix` and a params dict; `XGBClassifier` (sklearn API) takes numpy arrays and uses `fit`. Mixing them (e.g., passing a `DMatrix` to `XGBClassifier.fit`) raises confusing type errors. Pick one API per project and stick with it.
+- **`early_stopping_rounds` in the native XGBoost API uses the last entry in `evals`** — XGBoost monitors the *last* evaluation set passed to `evals` for early stopping. If you list `[(dtrain, 'train'), (dtest, 'test')]`, it correctly watches the test set. Reversing the order means early stopping fires on training loss and almost never stops.
+- **LightGBM's `reference=train_data` in `Dataset` is not optional** — Passing `reference=train_data` when building the test `Dataset` ensures the two datasets share the same feature binning histogram. Omitting it can cause silent prediction drift, especially on categorical features.
+- **CatBoost's `Pool` with `cat_features` expects column *names*, not integer indices, for DataFrames** — When your input is a pandas DataFrame, pass string column names to `cat_features`. Passing integer positions works for numpy arrays but silently misidentifies columns when a DataFrame has a non-default index.
+- **`predict_proba` column ordering differs between sklearn and CatBoost** — In sklearn, `predict_proba(X)[:, 1]` gives P(positive class). In CatBoost, the column order depends on class ordering in the training labels. Always check `model.classes_` before slicing a specific column to avoid swapping the positive and negative class probabilities.
+- **`scale_pos_weight` in XGBClassifier is not the same as SMOTE or resampling** — `scale_pos_weight` adjusts the gradient contribution of minority-class samples; it does not create new samples. For severe imbalance (>100:1), it helps but may still underperform proper resampling or threshold tuning on `predict_proba` output.
+
 ## Additional Resources
 
 For more learning:
