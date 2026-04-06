@@ -500,6 +500,15 @@ plt.show()
 
 ![2-math-foundation](assets/2-math-foundation_fig_1.png)
 
+## Gotchas
+
+- **Applying He initialization to sigmoid/tanh layers** — `he_init` divides by $n_{in}$ and is designed for ReLU networks (where neurons are "half dead"). Using it with sigmoid or tanh causes over-large initial activations that push neurons into saturation immediately, making early gradients near zero before any training begins.
+- **Forgetting bias correction in Adam at the first few steps** — The bias correction terms `1 - beta1^t` and `1 - beta2^t` are close to 0 at step 1, making the corrected moments large. Skipping this correction in a custom Adam implementation causes a very large first step that can destabilize training — the effect disappears after ~10 steps but the model may never recover.
+- **Using `dropout_forward` during inference without removing the mask** — The `dropout_forward` function applies a random mask and rescales by `1 - p_drop` (inverted dropout). At inference time the mask must not be applied. Forgetting to disable dropout during evaluation produces predictions that are randomly noisy — the model appears to have high variance across identical inputs.
+- **Applying L2 regularization to biases** — The `l2_regularization` function sums squared norms over all weight matrices. Best practice is to regularize only weight matrices, not bias vectors; regularizing biases adds a spurious pull toward zero that can shift decision boundaries and is rarely helpful.
+- **Using a raw dot product for the single-neuron forward pass with batched input** — The `forward_neuron` snippet computes `np.dot(w, x)`. For a single sample this works fine, but with a batch of inputs $X$ of shape `(n_features, batch_size)`, the dot should be `np.dot(w, X)` not `np.dot(X, w)`. The transposition error silently produces a scalar instead of a `(batch_size,)` vector.
+- **Momentum's `1 - beta` factor changes gradient contribution** — The update rule here is $v_t = \beta v_{t-1} + (1 - \beta)\nabla J$. Some implementations omit `(1 - beta)` and write $v_t = \beta v_{t-1} + \nabla J$ instead. The two formulations have the same fixed point but different effective learning rates; mixing them when porting code between frameworks silently changes convergence speed.
+
 ## Next Steps
 
 Now that you understand the mathematics behind Neural Networks, let's move on to [Implementation](3-implementation.md) to see how to put these concepts into practice!
