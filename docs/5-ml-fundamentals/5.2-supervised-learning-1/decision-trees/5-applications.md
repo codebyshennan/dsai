@@ -945,6 +945,15 @@ This example shows:
 
 Predictive maintenance helps companies avoid costly downtime while also preventing unnecessary maintenance, optimizing their maintenance schedules and reducing costs.
 
+## Gotchas
+
+- **Interpreting 100% classification report scores on 5-row test sets** — the churn, credit, and fraud examples all show perfect metrics on 5-sample test sets; these numbers are statistically meaningless and purely a consequence of the tiny toy datasets; never cite them as evidence of real-world performance.
+- **Using accuracy as the primary metric for fraud detection** — the fraud model achieves a good accuracy score even before `class_weight` tuning, because predicting "legitimate" for every transaction gives high accuracy on imbalanced data; always use precision, recall, and the precision-recall curve for fraud and other rare-event problems.
+- **Applying `decision_path` reasoning verbatim to stakeholders as if it were a rule system** — the diagnosis example maps ordinal integers back to text labels (`"none"`, `"mild"`) to produce human-readable reasoning, but the underlying splits are learned from only 8 patients; the narrative looks authoritative but is not clinically validated.
+- **Setting `class_weight={0: 1, 1: 5}` without business justification** — the 5x fraud weight is illustrative; the correct multiplier depends on the relative cost of a false negative (missed fraud) vs a false positive (blocked legitimate transaction), which is a business decision, not a modelling default.
+- **Choosing the optimal threshold from `precision_recall_curve` on the same test set you evaluate on** — the fraud example computes `best_threshold` by maximising F1 on `y_probs` from the test set; this is threshold-shopping on the test set and produces optimistic F1 estimates; use a separate validation set or cross-validated threshold selection.
+- **Treating feature importance from a single churn tree as a stable business insight** — the churn example shows `Contract Length: 1.0` and all other features at `0.0`; on a 15-row dataset, this is almost certainly a data artefact from the toy data rather than a genuine signal, and presenting it to business stakeholders as "only contract length matters" would be misleading.
+
 ## Best Practices for Real-World Applications
 
 1. **Data Quality**
