@@ -324,6 +324,15 @@ def find_optimal_clusters(X, max_clusters=10):
 3. **Using Wrong Algorithm**: Consider your data's characteristics
 4. **Ignoring Outliers**: Some algorithms are sensitive to outliers
 
+## Gotchas
+
+- **Cluster labels are arbitrary integers** — running K-Means twice with different random seeds can produce the same clusters but with swapped label numbers (e.g., cluster 0 and cluster 2 swap). Never compare raw label values across runs; use metrics like silhouette score instead.
+- **The elbow method is subjective and sometimes has no clear elbow** — on real-world data the inertia curve often decreases smoothly without a visible kink. Pair it with silhouette scores or domain knowledge rather than relying on it alone.
+- **Forgetting to scale before clustering** — Euclidean distance is scale-sensitive; a feature in thousands will dominate a feature measured in units, and K-Means/DBSCAN will cluster on that dominant feature almost exclusively.
+- **DBSCAN's `eps` is not unitless** — its meaning depends entirely on the scale of your features, so after standardization the same `eps=0.5` behaves very differently than on raw data. Always tune `eps` on scaled data, not the raw values.
+- **AgglomerativeClustering can't predict new points** — unlike K-Means, `AgglomerativeClustering` has no `predict` method; you must refit on the combined old + new data to assign labels to unseen points.
+- **Assuming clusters found equal ground-truth classes** — clustering is unsupervised, so a "4-cluster" result on the Iris dataset doesn't map cleanly to 3 true species. Validate with adjusted rand index if labels are available, or with domain expertise if they're not.
+
 ## Further Reading
 
 1. [Scikit-learn Clustering Documentation](https://scikit-learn.org/stable/modules/clustering.html)
