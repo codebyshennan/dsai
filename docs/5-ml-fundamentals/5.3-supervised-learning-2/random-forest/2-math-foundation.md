@@ -319,6 +319,15 @@ def information_gain(parent, left, right):
 ![Decision Tree vs Random Forest](assets/decision_tree_boundary.png)
 *Figure 4: A single decision tree (left) makes simple, piecewise linear decisions, while a Random Forest (right) combines multiple trees to create more complex decision boundaries.*
 
+## Gotchas
+
+- **The 63.2% rule only holds for large datasets** — each bootstrap sample contains ~63.2% unique observations when n is large; for small datasets (n < 100) this fraction varies significantly, so OOB estimates become unreliable and a proper validation split is still needed.
+- **Gini importance double-counts correlated features** — when two features carry the same information, each will steal splits from the other across trees, making both appear less important than they truly are; this is why permutation importance on a held-out set is preferred.
+- **`max_features='sqrt'` is the default for classification but `max_features=1.0` is the default for regression** — forgetting that defaults differ between `RandomForestClassifier` and `RandomForestRegressor` leads to silently different variance-reduction behaviour.
+- **Information gain in this implementation uses Gini, not entropy** — sklearn's `RandomForestClassifier` uses Gini impurity by default; switching to `criterion='entropy'` changes split decisions and can produce slightly different trees, but neither is universally better.
+- **Adding trees beyond convergence wastes memory without reducing bias** — the Law of Large Numbers guarantees variance converges as tree count grows, but bias is fixed by individual tree depth; no amount of additional trees can fix underfitting caused by shallow `max_depth`.
+- **Feature importance scores sum to 1.0 but are not probabilities** — the normalised sum-to-one property is an artefact of the calculation, not a probabilistic statement; a feature with importance 0.4 is not "40% responsible" for predictions.
+
 ## Next Steps
 
 Now that you understand the mathematics behind Random Forests, let's move on to [Implementation](3-implementation.md) to see how to put these concepts into practice!
