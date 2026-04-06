@@ -586,4 +586,12 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
 7. Master AI-powered features
 8. Implement advanced automation
 
+## Gotchas
+
+- **Data blending in Looker Studio is a left join by default and silently drops unmatched rows** — when you blend a Google Sheet with a BigQuery source, only rows where the join key matches both sources appear in the chart. Missing rows produce no warning. Always verify row counts before and after blending with a scorecard showing record count.
+- **Calculated fields that use `SUM()` are evaluated per-row before aggregation unless you explicitly aggregate** — `Profit / Sales` computes a ratio at row level and then Looker Studio averages those ratios, which is different from `SUM(Profit) / SUM(Sales)`. Use the latter form for accurate margin or rate calculations.
+- **Date range controls only filter charts that are connected to the same data source** — if your dashboard blends two sources, a date control wired to source A won't filter charts backed by source B. You need a separate date control for each distinct source, or reconfigure blending so both charts share one source.
+- **`@parameter` syntax for parameter references is only valid inside calculated fields, not in native filter widgets** — learners often try to write a filter condition using a parameter name directly in the filter dialog and get no result. Parameters must be consumed inside a `CASE` or conditional calculated field, which then drives the chart or filter.
+- **Scheduled email reports always send the cached snapshot, not a live query** — if your data refreshes every hour but your scheduled report runs at 6 AM, recipients get whatever the cache held at 6 AM, which may be hours stale. Set the data source refresh schedule to run just before the report time.
+
 Remember: Practice makes perfect! Try recreating these visualizations and experiment with different options to build your Looker Studio skills.
