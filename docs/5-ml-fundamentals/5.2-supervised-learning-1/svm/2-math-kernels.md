@@ -342,6 +342,15 @@ Sometimes data isn't perfectly separable. That's where soft margin comes in:
    - Be careful with polynomial degree
    - Consider computational cost
 
+## Gotchas
+
+- **Using `gamma='auto'` (deprecated default) instead of `gamma='scale'`** — In scikit-learn ≥ 0.22, `gamma='scale'` is the default (uses `1 / (n_features * X.var())`), replacing the old `'auto'` (`1 / n_features`). Code written before this change will produce a `FutureWarning` or silently use a different gamma, making results non-reproducible across versions. Always specify `gamma` explicitly or verify which default your version uses.
+- **Setting a high polynomial degree without checking for numerical overflow** — The polynomial kernel computes `(x1·x2 + r)^d`. For degree ≥ 4 with unscaled features, intermediate values can overflow 64-bit floats, producing `NaN` in the kernel matrix and causing training to fail silently or with confusing convergence warnings. Scale features and keep degree ≤ 3 unless you have a strong reason.
+- **Tuning `C` and `gamma` independently instead of together** — `C` and `gamma` interact strongly for the RBF kernel: high `C` + high `gamma` = extreme overfitting; low `C` + low `gamma` = extreme underfitting. Tuning them in separate 1D sweeps misses the optimal combination. Always use a 2D grid search (`GridSearchCV` over both simultaneously).
+- **Assuming the linear kernel is always fastest** — For very high-dimensional sparse data (e.g., text with TF-IDF), `SVC(kernel='linear')` builds an O(n²) kernel matrix and is slower than `LinearSVC`, which directly solves the primal. When you have more features than samples and a linear decision boundary is appropriate, use `LinearSVC` instead.
+- **Confusing `SVC` `decision_function` scores with probabilities** — `decision_function` returns signed distances from the hyperplane, not probabilities. Positive values indicate one class, negative the other, but the magnitude is not calibrated. Students sometimes interpret a distance of 2.5 as "2.5 times more likely to be class 1," which is incorrect.
+- **Forgetting to scale the mesh grid points before calling `svm.predict`** — The `plot_kernel_effects` function fits the SVM on raw `X` and predicts on raw mesh points, which is consistent. But if you fit on `X_scaled` and then forget to apply `scaler.transform` to the mesh grid points, the decision boundary plot will appear in the wrong location, creating a misleading visualization.
+
 ## Next Steps
 
 1. [Implementation Basics](3-implementation.md) - Learn how to code SVM
