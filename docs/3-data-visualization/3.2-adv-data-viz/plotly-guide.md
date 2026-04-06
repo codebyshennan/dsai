@@ -415,7 +415,9 @@ dist_fig = create_distribution_dashboard(
 </div>
 
 **Theme Comparison:**
-![plotly-guide](assets/plotly_theme_comparison.png)
+<div class="plotly-embed" style="width:100%;height:500px;margin:1.5rem 0;">
+<iframe src="assets/plotly_theme_comparison.html" width="100%" height="500px" frameborder="0" style="border:none;border-radius:4px;"></iframe>
+</div>
 ## Advanced Features
 
 ### 1. Custom Themes
