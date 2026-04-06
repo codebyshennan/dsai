@@ -2399,6 +2399,15 @@ Try applying these model interpretation techniques to your own dataset:
 
 - Try the [module 4 assignments](../_assignments/module-assignment.md) to consolidate inference, testing, relationships, and modelling.
 
+## Gotchas
+
+- **Comparing raw coefficients across features with different scales** — A coefficient of 120 for square footage and 25,000 for number of rooms does not mean rooms matter more; square footage is measured in single units while rooms are counted in small integers. Standardise features before comparing coefficient magnitudes.
+- **Interpreting linear regression coefficients causally** — A positive coefficient for `distance_downtown` does not prove that moving farther from downtown raises house prices; it only describes the observed association given the other variables in the model. Omitting a correlated confounder (e.g., lot size) can reverse or inflate any coefficient.
+- **Treating feature importance from a bar chart as a ranking of causal drivers** — Permutation importance and coefficient magnitude both measure association within the fitted model, not independent causal effects. Features that are correlated with each other will split importance arbitrarily between them.
+- **Computing SHAP values and ignoring the baseline** — SHAP values are additive contributions *relative to the expected model output* (the base value). A positive SHAP of +5,000 means this observation pushes price $5,000 above the average prediction—not above zero or above the intercept.
+- **Using partial dependence plots when features are strongly correlated** — PDPs average predictions over the marginal distribution of other features, which can create unrealistic feature combinations (e.g., very high income with very young age). Use individual conditional expectation (ICE) plots or check feature correlation before trusting a PDP.
+- **Assuming a more complex model always gives more trustworthy SHAP explanations** — SHAP values faithfully explain whatever the model has learned, including its errors and biases. If the model itself overfits or captures a spurious pattern, the SHAP explanation will accurately describe a wrong model.
+
 ## Additional Resources
 
 - [Interpretable Machine Learning (Book)](https://christophm.github.io/interpretable-ml-book/)
