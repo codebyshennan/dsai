@@ -226,6 +226,15 @@ The chart already shows the raw value. The annotation should explain why it matt
 3. Mark an intervention date on a line chart and explain the post-event pattern.
 4. Rewrite three annotations so they explain meaning, not just values.
 
+## Gotchas
+
+- **`ax.annotate` coordinates use data space by default, not pixel space** — `xy=(x[peak_idx], y[peak_idx])` points at the data value, which is what you want; but if you accidentally set `xycoords='axes fraction'` for one argument while leaving `textcoords` at default, the arrow and text will be anchored in different coordinate systems and appear in unexpected positions.
+- **Arrows created with `arrowprops` can cover the data point they point to** — if `xytext` is very close to `xy`, the arrowhead sits on top of the mark; add at least 1–2 data-unit offset in both dimensions or use `shrinkA`/`shrinkB` in `arrowprops` to shorten the arrow away from the endpoints.
+- **`ax.axhline` and `ax.axvline` span the entire axis width/height by default** — this is usually correct for reference lines, but if you only want the line to span part of the chart (e.g. to mark a range), use `ax.hlines(y, xmin, xmax)` or `ax.vlines(x, ymin, ymax)` with explicit start and end coordinates.
+- **Selective color with `colors[peak_idx] = "#e34a33"` breaks if the data changes** — the index of the peak is computed once when `colors` is built; if you rerun the cell with different data, `peak_idx` must be recomputed too, otherwise you highlight the wrong bar without any error or warning.
+- **Annotation text that states a raw value ("Value = 176") is redundant** — the chart already encodes the value visually; annotation text that only repeats the number adds no information; as this lesson notes, the text should explain why the value matters, not what the value is.
+- **`axhspan` alpha stacking can wash out the data underneath** — using `alpha=0.5` for a shaded band over a dense scatter or line chart will lighten the marks that fall inside the band, reducing their contrast against the background; lower alpha (0.2–0.3) or choose a band color that complements the data color rather than competing with it.
+
 ## Next steps
 
 1. Use [Troubleshooting guide](troubleshooting-guide.md) when annotations overlap or layout breaks.
