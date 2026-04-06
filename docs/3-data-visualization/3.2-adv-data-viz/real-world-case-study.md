@@ -40,9 +40,36 @@ import seaborn as sns
 
 sns.set_theme(style="whitegrid", palette="deep", font_scale=1.1)
 
-# Load and parse dates immediately
-df = pd.read_csv("marketing_performance.csv")
-df["date"] = pd.to_datetime(df["date"])
+# --- Synthetic dataset (replace with pd.read_csv if you have real data) ---
+np.random.seed(42)
+
+channels = ["Paid Search", "Email", "Organic", "Social"]
+devices  = ["Mobile", "Desktop"]
+dates    = pd.date_range("2025-01-06", periods=26, freq="W-MON")
+
+base_sessions = {"Paid Search": 2000, "Email": 800, "Organic": 1500, "Social": 1200}
+base_conv     = {"Paid Search": 0.028, "Email": 0.058, "Organic": 0.035, "Social": 0.020}
+device_sess   = {"Mobile": 1.2, "Desktop": 0.8}
+device_conv   = {"Mobile": 0.85, "Desktop": 1.0}
+redesign_date = pd.Timestamp("2025-04-07")
+
+rows = []
+for date in dates:
+    for channel in channels:
+        for device in devices:
+            q2_lift  = 1.18 if (date >= redesign_date and device == "Mobile") else 1.0
+            sessions = max(int(np.random.normal(
+                base_sessions[channel] * device_sess[device], 150)), 50)
+            conv     = (base_conv[channel] * device_conv[device]
+                        * q2_lift * np.random.uniform(0.90, 1.10))
+            orders   = max(int(sessions * conv), 0)
+            revenue  = round(orders * np.random.uniform(48, 72), 2)
+            rows.append({"date": date, "channel": channel,
+                         "device": device, "sessions": sessions,
+                         "orders": orders, "revenue": revenue})
+
+df = pd.DataFrame(rows)
+# -------------------------------------------------------------------------
 
 # Aggregate by week and channel
 weekly_channel = (
