@@ -209,16 +209,36 @@ For production or shared networks, follow [Production deployment](https://airflo
 
 **Option A — one command (simplest):**
 
+<details>
+<summary><b>macOS / Linux / WSL2</b></summary>
+
 ```bash
-cd airflow-local   # or your project folder
+cd airflow-local
 source .venv/bin/activate
 export AIRFLOW_HOME=...   # same as when you installed
 airflow standalone
 ```
 
+</details>
+
+<details>
+<summary><b>Windows (PowerShell)</b></summary>
+
+```powershell
+cd airflow-local
+.venv\Scripts\Activate.ps1
+$env:AIRFLOW_HOME = "$PWD\airflow_home"
+airflow standalone
+```
+
+</details>
+
 **Option B — separate processes** (typical when you have already run `airflow db migrate` and created a user):
 
 **Terminal 1 — API server (web UI):**
+
+<details>
+<summary><b>macOS / Linux / WSL2</b></summary>
 
 ```bash
 cd airflow-local
@@ -226,13 +246,44 @@ source .venv/bin/activate
 airflow api-server --port 8080
 ```
 
+</details>
+
+<details>
+<summary><b>Windows (PowerShell)</b></summary>
+
+```powershell
+cd airflow-local
+.venv\Scripts\Activate.ps1
+$env:AIRFLOW_HOME = "$PWD\airflow_home"
+airflow api-server --port 8080
+```
+
+</details>
+
 **Terminal 2 — scheduler:**
+
+<details>
+<summary><b>macOS / Linux / WSL2</b></summary>
 
 ```bash
 cd airflow-local
 source .venv/bin/activate
 airflow scheduler
 ```
+
+</details>
+
+<details>
+<summary><b>Windows (PowerShell)</b></summary>
+
+```powershell
+cd airflow-local
+.venv\Scripts\Activate.ps1
+$env:AIRFLOW_HOME = "$PWD\airflow_home"
+airflow scheduler
+```
+
+</details>
 
 **Terminal 3 — DAG processor and triggerer** (required in multi-process setups; often started for you by `standalone`):
 
