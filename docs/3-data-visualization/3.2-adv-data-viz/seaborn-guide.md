@@ -583,6 +583,15 @@ Remember:
 - Use consistent styling
 - Save high-quality outputs
 
+## Gotchas
+
+- **`sns.set_theme()` applies globally and permanently for the session** — calling it once at the top changes every subsequent Matplotlib figure too, not just Seaborn charts. If a later cell uses plain `plt.subplots`, it will still inherit the Seaborn theme, which can surprise you when mixing libraries.
+- **`clustermap` creates its own figure and ignores the `ax` parameter** — unlike `heatmap`, you cannot embed a `clustermap` into a subplot grid using `ax=`. Trying to do so silently produces a separate floating figure rather than an error.
+- **`violinplot` with very small groups gives misleading KDE shapes** — the kernel density estimator will still produce a smooth, wide violin even with 3–5 data points, implying a distribution that isn't there. The chart header in this lesson warns about groups under 30, but the visual looks confident regardless.
+- **`heatmap(annot=True)` on a DataFrame with object columns throws a formatting error** — `fmt='.2f'` requires all annotated values to be numeric. If your pivot table has NaN cells or mixed types, the call crashes. Pass `annot=True` without `fmt` first, or fill NaNs before calling `heatmap`.
+- **`pairplot` with `hue` drops rows that have NaN in the hue column silently** — you may think your full dataset is plotted when actually a subset is. Always check `.value_counts(dropna=False)` on your hue column before relying on a pairplot for counts.
+- **Saving with `fig.savefig` after a `clustermap` saves the wrong figure** — `sns.clustermap` returns a `ClusterGrid` object, not a `Figure`. Use `g.savefig(...)` on the returned object rather than `plt.savefig` or `fig.savefig` to avoid saving a blank canvas.
+
 ## Next steps
 
 - Continue with [Interactive visualization with Plotly](plotly-guide.md).
