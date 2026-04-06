@@ -112,6 +112,10 @@ Real-World Use:
 3. Identify VIP customers
 ```
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "My Tableau FIXED LOD expression `{FIXED [Customer Name] : AVG([Sales])}` is not changing when I apply a Region filter. Why is this happening, and how do I make the expression respect my filter?"
+
 #### INCLUDE: Add Extra Detail
 
 **Purpose:** Add a dimension to the LOD grain beyond what the view already groups by—here product within each region context.
