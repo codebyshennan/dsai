@@ -6,6 +6,8 @@ Welcome to the Data Science and AI bootcamp. The pages in this folder get your *
 
 **Start here:** if you have done nothing yet, do only this sequence today: (1) install [Anaconda](./anaconda.md) or [uv](./anaconda.md), (2) install the [Python data science stack](./python-ds-stack.md), (3) open [Jupyter](./jupyter-notebook.md) and run a one-cell “hello” notebook. Add [VS Code](./vscode.md) when you want a full editor for `.py` files. Everything else on this page is optional until a module tells you to install it.
 
+> **On Windows?** Follow the [Windows setup guide](./windows.md) — it consolidates all Windows-specific steps and gotchas into one place.
+
 ## Helpful video
 
 Short overview of **what data science is** and how teams use data (about 8 minutes)—context before setup, not a substitute for the lessons.
