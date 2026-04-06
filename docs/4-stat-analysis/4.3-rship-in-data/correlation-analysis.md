@@ -462,6 +462,15 @@ Now that you understand correlation, you're also ready to:
 
 Remember: Correlation is a powerful tool, but it's just the beginning of understanding relationships in data!
 
+## Gotchas
+
+- **Pearson on non-normal or ordinal data** — Pearson's r assumes interval/ratio data with roughly normal distributions; applying it to Likert-scale survey ratings (1–5) or heavily skewed income data will produce a misleading coefficient. Use Spearman or Kendall instead.
+- **A near-zero r does not mean no relationship** — Pearson only detects linear association. Two variables can have a perfect U-shaped (quadratic) relationship and still return r ≈ 0. Always plot the scatterplot before interpreting the number.
+- **`df.corr()` silently drops NaN rows per pair** — Pandas computes pairwise correlations using only rows where both columns are non-null, so different cells in a correlation matrix may be based on different sample sizes. This can make some pairs appear stronger than they really are.
+- **Interpreting r² from a correlation as "explained variance" in a model** — r² from a Pearson correlation equals R² only in simple linear regression. Quoting it as "explained variance" in any other context (multiple predictors, non-linear models) is incorrect.
+- **Statistical significance ≠ practical significance** — With large samples (n > 1,000) a correlation of r = 0.05 can be statistically significant (tiny p-value) while being practically meaningless. Always report the coefficient value alongside the p-value.
+- **Correlation matrices inflate with repeated testing** — A 20-variable matrix contains 190 unique pairs; at α = 0.05 you expect roughly 9–10 spuriously significant correlations by chance alone. Apply a Bonferroni correction or treat exploratory results as hypotheses to confirm.
+
 ## Additional Resources for the Curious
 
 - [Spurious Correlations](https://www.tylervigen.com/spurious-correlations) - A fun website showing absurd correlations that highlight why correlation ≠ causation
