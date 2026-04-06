@@ -266,6 +266,14 @@ Visualization Guidelines:
    - Enable drill-down capabilities
 ```
 
+## Gotchas
+
+- **Dragging a date field to Columns defaults to YEAR, not the full date** — Tableau automatically aggregates `Order Date` to the year level. To see monthly or daily trends, right-click the pill on the Columns shelf and select the exact date part you need (e.g., Month/Year continuous). Many learners spend time wondering why their line chart shows only a few points.
+- **Dimensions and Measures are assigned at connection time, not always correctly** — Tableau classifies numeric fields as Measures and string fields as Dimensions by default. Fields like `Postal Code` or `Order ID` are numeric but should be Dimensions. Drag them to the Dimensions section of the Data pane before building any view that groups by them.
+- **LOD expressions are filtered by context filters, not regular filters** — a `FIXED` LOD calculates before dimension filters are applied. If you add a Region filter and expect the LOD to respect it, it won't unless you promote that filter to a context filter (right-click the filter pill → Add to Context). This is one of the most common sources of wrong totals in Tableau.
+- **`SUM([Profit])/SUM([Sales])` in a calculated field is not the same as `[Profit]/[Sales]`** — the first computes the ratio of aggregated totals, which is the correct profit margin. The second computes a row-level ratio and then aggregates it, giving a different (usually wrong) result. Always aggregate numerator and denominator independently when computing rates.
+- **Published workbooks to Tableau Public expose all data in the extract** — when you publish to Tableau Public, all rows in the underlying extract are downloadable by anyone who views the workbook. Never publish workbooks connected to sensitive or proprietary data sources to Tableau Public.
+
 ## Next steps
 
 - Continue with [Tableau case study](tableau-case-study.md) or [advanced analytics](advanced-analytics.md).
