@@ -285,6 +285,14 @@ The best way to understand these concepts is to practice:
 3. Compare the results with and without scaling
 4. See how the algorithm behaves with different datasets
 
+## Gotchas
+
+- **Numeric underflow from multiplying raw probabilities** — The `tech_score` and `sports_score` example multiplies three small probabilities together. With real documents containing dozens of words, the product quickly underflows to `0.0` in floating-point, making it impossible to compare classes. Always work in log-space (`log(P(y)) + Σ log(P(xi|y))`) in production code; scikit-learn does this internally via `predict_log_proba`.
+- **Ignoring the zero-probability problem before seeing smoothing** — If a word in the test document never appeared in training data for a class, the entire product for that class becomes zero, regardless of all other evidence. The `alpha=1.0` (Laplace smoothing) parameter in scikit-learn handles this, but the manual calculation in the lesson does not, so learners reproducing it on real data will get zero scores for unseen vocabulary.
+- **Confusing likelihood and posterior** — `P(X|y)` (likelihood) and `P(y|X)` (posterior) are different quantities. A common mistake is to compare raw likelihoods across classes without multiplying by the prior, which gives wrong answers whenever class frequencies are not equal. The Bayes formula is required to get the correct posterior.
+- **Misreading the `evidence` term as needing per-class computation** — `P(X)` (the evidence denominator) is the same for all classes, so for classification purposes it is a constant that cancels out when comparing `P(y|X)` across classes. Students sometimes compute a different evidence for each class, leading to probabilities that don't sum to 1.
+- **Treating the Gaussian PDF value as a probability** — The `gaussian_probability` function returns a probability density, not a probability. Densities can exceed 1 for narrow distributions. The decision rule (comparing densities) is correct, but quoting the raw density value as "a 0.08 probability" in an explanation is technically wrong.
+
 ## Next Steps
 
 Ready to see these concepts in action? Let's move on to [Types of Naive Bayes](3-types.md) to learn about the different versions of the algorithm and when to use each one.
