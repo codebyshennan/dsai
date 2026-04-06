@@ -1898,6 +1898,19 @@ body.site-search-open {
     color: #6e7681;
 }
 
+:root[data-theme="dark"] .markdown-body .code-fold-btn {
+    color: #6e7681;
+}
+
+:root[data-theme="dark"] .markdown-body .code-fold-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #e6edf3;
+}
+
+:root[data-theme="dark"] .markdown-body .code-block__body .code-line--fold-collapsed::after {
+    color: #6e7681;
+}
+
 :root[data-theme="dark"] .katex {
     color: var(--text);
 }
