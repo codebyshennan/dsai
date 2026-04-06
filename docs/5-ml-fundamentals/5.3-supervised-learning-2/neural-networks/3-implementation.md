@@ -914,6 +914,15 @@ def create_data_pipeline(data_dir, batch_size=32):
    )
    ```
 
+## Gotchas
+
+- **Fitting `StandardScaler` on both train and test** — The implementation correctly calls `scaler.fit_transform(X_train)` then `scaler.transform(X_test)`. A very common mistake is calling `fit_transform` on the test set too, which leaks test-set statistics into scaling and inflates reported accuracy with no runtime error.
+- **`validation_split` in `model.fit` uses the *last* fraction of the data** — Keras takes the final 20% of rows as validation data without shuffling. If your data is ordered (e.g., by class or time), the validation set will be unrepresentative. Pass a manually shuffled dataset or use `validation_data=(X_val, y_val)` with a pre-shuffled split.
+- **Using both `clipnorm` and `clipvalue` simultaneously at strong values** — Setting both `clipnorm=1.0` and `clipvalue=0.5` applies two independent clipping operations. In most cases, using one is sufficient; using both aggressively can over-constrain gradients and significantly slow convergence.
+- **`base_model.trainable = False` must be set *before* `model.compile`** — Setting a layer's `trainable` attribute after compiling has no effect on the current training run. If you freeze the ResNet base after compiling, all ResNet weights will still be updated. Always set `trainable` flags, then compile.
+- **`ImageDataGenerator` augmentation is applied to validation data if not careful** — The `test_datagen` only rescales, which is correct. But if you accidentally pass `train_datagen` to `flow_from_directory('validation_dir', ...)`, random augmentations will be applied to validation images, making the validation metric noisy and misleadingly optimistic.
+- **`EarlyStopping` without `restore_best_weights=True` returns the *last* model, not the best** — By default, `EarlyStopping` stops training but does not roll back to the checkpoint with the lowest validation loss. The `restore_best_weights=True` flag shown in the classification example is essential; omitting it often means the returned model has slightly degraded validation performance.
+
 ## Next Steps
 
 Ready to explore advanced techniques? Continue to [Advanced Topics](4-advanced.md)!
