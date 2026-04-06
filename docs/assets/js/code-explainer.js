@@ -120,7 +120,19 @@
 
     var codeEl = pre.querySelector('code') || pre;
     var text = codeEl.textContent || '';
-    var charRange = charRangeForLogicalLines(text, s, e);
+
+    // When code-blocks.js has split lines into .code-line spans, textContent has no \n.
+    // Compute character ranges from the spans' individual lengths instead.
+    var lineLengths = null;
+    var codeLineEls = codeEl.querySelectorAll('.code-line');
+    if (codeLineEls.length > 0) {
+      lineLengths = [];
+      for (var li = 0; li < codeLineEls.length; li++) {
+        lineLengths.push(codeLineEls[li].textContent.length);
+      }
+    }
+
+    var charRange = charRangeForLogicalLines(text, s, e, lineLengths);
     if (charRange && text.length > 0) {
       charRange.start = Math.max(0, Math.min(charRange.start, text.length));
       charRange.end = Math.max(charRange.start, Math.min(charRange.end, text.length));
