@@ -460,6 +460,15 @@ Matrix formulation is important because:
    - Use broadcasting carefully
    - Verify your matrix multiplications
 
+## Gotchas
+
+- **Applying the chain rule in the wrong order** — The chain rule requires multiplying $\partial f/\partial g$ by $\partial g/\partial x$, not the reverse. Swapping the order produces incorrect gradients that still have plausible-looking magnitudes, making this mistake hard to spot without gradient checking.
+- **Using the pre-activation $z$ where the activation $a$ is expected (or vice versa)** — The weight gradient is $\delta^{(l)} (a^{(l-1)})^T$, using the previous layer's *activation*. Accidentally substituting $z$ produces subtly wrong gradients that converge more slowly or not at all.
+- **Overlooking the element-wise vs. matrix multiplication distinction** — The $\odot$ (Hadamard) product in $\Delta^{(l)} = (W^{(l+1)})^T\Delta^{(l+1)} \odot f'(Z^{(l)})$ is element-wise, not a dot product. Using `np.dot` here silently produces wrong shapes or values.
+- **Sigmoid's vanishing gradient in deep networks** — The sigmoid derivative peaks at 0.25, so multiplying it through many layers shrinks gradients exponentially. The math in this file shows this clearly in the activation derivative plots; in practice, switching to ReLU for hidden layers is the standard fix.
+- **Forgetting to sum bias gradients across the batch** — The bias gradient is $\sum_i \Delta^{(l)}_i$, a sum over the batch dimension. Missing the sum gives a gradient shaped (batch, neurons) instead of (neurons,), causing a shape error or (worse) silent broadcasting.
+- **Using MSE loss with a sigmoid output for classification** — MSE paired with sigmoid produces a non-convex loss surface with slow-moving gradients near 0 and 1. Use binary cross-entropy instead, whose derivative cancels the sigmoid's saturation and gives a cleaner gradient signal.
+
 ## Additional Resources
 
 - [3Blue1Brown: Calculus](https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr) - Visual calculus explanations
