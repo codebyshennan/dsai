@@ -508,6 +508,15 @@ Now that you understand simple linear regression, you can also explore:
 
 Remember: Simple linear regression is just the beginning of your predictive modeling journey, but it's a powerful foundation that appears in many more complex methods!
 
+## Gotchas
+
+- **Forgetting `.reshape(-1, 1)` for a 1D predictor** — sklearn's `LinearRegression.fit` requires a 2D feature matrix. Passing a plain 1D NumPy array raises a `ValueError`; use `X.reshape(-1, 1)` or `X[:, np.newaxis]` before calling `.fit`.
+- **Trusting R² without checking residual plots** — A high R² (e.g., 0.98) can appear even when the true relationship is curved, because OLS minimises squared error regardless of shape. The residuals-vs-fitted plot will reveal systematic curvature that R² hides.
+- **Confusing training R² with generalization quality** — `r2_score(y, y_pred)` computed on the same data used to fit the model always paints an optimistic picture. Evaluate on a held-out test set or use cross-validation to get an honest estimate.
+- **Over-interpreting the intercept** — The intercept is the predicted y when x = 0. When x = 0 is outside the observed data range (e.g., predicting exam score for 0 study hours from a dataset where everyone studied at least 2 hours), the intercept is a mathematical extrapolation, not a meaningful baseline.
+- **Predicting outside the training range (extrapolation)** — The least-squares line is valid within the range of x values seen during training. Using it to predict far beyond that range assumes the linear relationship continues indefinitely, which is rarely true in practice.
+- **Ignoring the equal-variance assumption before comparing groups** — When residuals fan out (heteroscedasticity), standard errors and p-values for the slope are wrong even if the line looks like a reasonable fit. Always check the scale-location plot before reporting inference results.
+
 ## Additional Resources for the Curious Mind
 
 - [Khan Academy's Regression Course](https://www.khanacademy.org/math/statistics-probability/describing-relationships-quantitative-data) - Free interactive lessons
