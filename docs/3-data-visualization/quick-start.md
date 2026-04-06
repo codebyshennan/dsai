@@ -233,6 +233,15 @@ plt.plot(data)
 plt.plot(data, color='#2ecc71', alpha=0.7)
 ```
 
+## Gotchas
+
+- **`plt.show()` clears the figure state** — any call to `plt.title`, `plt.ylabel`, or `plt.plot` made after `plt.show()` starts a brand-new blank figure; build the entire chart before calling `show()`.
+- **Pie charts distort perception when slices are close in size** — human eyes judge angles poorly, so values like 22% and 25% look nearly identical in a pie slice; use a bar chart instead when differences are small.
+- **Missing `plt.figure()` causes charts to stack on each other** — if you run multiple cells in a notebook without `plt.figure()` at the start of each, Matplotlib draws new elements onto the previous axes, producing a jumbled multi-series chart you did not intend.
+- **`figsize` is in inches, not pixels** — `figsize=(10, 6)` at 100 DPI produces a 1000×600 pixel image; at 72 DPI it produces 720×432; always pair `figsize` with an explicit `dpi` when pixel dimensions matter (e.g. for web exports).
+- **`plt.xticks(rotation=45)` does not right-align the rotated labels** — the default anchor point leaves labels off-center under their ticks; add `ha='right'` to `plt.xticks(rotation=45, ha='right')` for clean alignment.
+- **Line charts imply continuity between points** — connecting `months` list items with a line implies a meaningful progression between them; if the categories are unordered (e.g. cities, product names) use a bar chart to avoid implying a trend that does not exist.
+
 ## Practice Exercises
 
 **Note:** These are offline prompts—complete them in your own environment; there is no autograder in this repo.
