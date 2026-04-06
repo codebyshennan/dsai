@@ -498,6 +498,15 @@ where:
 
 ---
 
+## Gotchas
+
+- **Setting a random seed only in demos, not in real assignment code** — the lesson uses `np.random.seed(42)` to make splits reproducible in course materials, but production randomization should use a *cryptographically secure* or independently auditable mechanism, not a fixed seed, to prevent anyone from predicting which group a user will land in.
+- **Completely randomized design when units are not exchangeable** — `np.random.choice(treatments, size=len(units))` in the CRD example draws each label independently, which can accidentally assign all of one treatment to the "sunny" side of your garden. If a known nuisance factor (location, time, batch) exists, you should block for it rather than hope randomization balances it by chance.
+- **Mistaking the block label for the treatment label** — in the `randomized_block_design` function, the dict key is the *unit ID*, not the block; when you later merge treatment assignments back to outcome data, joining on the wrong column silently assigns every unit the wrong condition.
+- **Under-powering by ignoring the effect of blocking on required sample size** — blocking reduces within-group variance, which typically allows a smaller n for the same power. Using the un-blocked formula `n = 2(z_α + z_β)²/d²` when you have a blocked design overestimates the required sample size; use a model that accounts for block variance instead.
+- **Confounding experimental units with observational units** — if you assign treatment at the *classroom* level but measure outcomes at the *student* level, students within the same classroom are not independent. Ignoring this clustering (i.e., treating each student as a separate replication) inflates degrees of freedom and produces misleadingly small p-values.
+- **Collecting data before finalizing the design** — deciding to add a third treatment arm or extend the study duration after seeing early results introduces bias that no amount of post-hoc correction fully removes. The experimental design, including stopping rules, must be locked before data collection begins.
+
 ## Next steps
 
 - Continue to [Formulating hypotheses](./hypothesis-formulation.md).

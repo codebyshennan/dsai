@@ -1150,6 +1150,15 @@ FROM products;
 
 Remember: "Clean, efficient queries lead to better performance and maintainability!"
 
+## Gotchas
+
+- **Running UPDATE or DELETE without a WHERE clause** — Without a filter, every row in the table is modified or removed. Before writing a destructive statement, run the equivalent SELECT with the same WHERE to confirm the affected rows, then substitute UPDATE/DELETE.
+- **TRUNCATE is not the same as DELETE with no WHERE** — `TRUNCATE TABLE` is much faster but cannot be rolled back in some databases (and in PostgreSQL it can be, but it bypasses row-level triggers and resets sequences). Use `DELETE` when you need triggers to fire or when a partial rollback is possible.
+- **Relying on the written order of SQL clauses as the execution order** — SQL is processed as FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT. That means a column alias defined in SELECT is not yet available in WHERE or HAVING; reference the original expression instead.
+- **Using LIKE with a leading wildcard and expecting fast queries** — `LIKE '%@email.com'` cannot use a standard B-tree index because the pattern starts with a wildcard; the database must scan every row. Anchor patterns to the left (`LIKE 'john%'`) or add a full-text or trigram index for suffix searches.
+- **Assuming COUNT(*) and COUNT(column) are interchangeable** — `COUNT(*)` counts all rows including those with NULLs; `COUNT(column)` skips rows where that column is NULL. Using the wrong form in an aggregation gives a silently incorrect count.
+- **Inserting rows without listing the column names** — `INSERT INTO t VALUES (1, 'foo')` breaks silently or inserts wrong data the moment a column is added, reordered, or has a different default. Always list column names explicitly in every INSERT statement.
+
 ## Next steps
 
 - [Joins](joins.md) — combine rows from multiple tables (next in the lesson sequence)
