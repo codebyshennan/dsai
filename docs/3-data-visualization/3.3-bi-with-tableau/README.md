@@ -218,6 +218,10 @@ Running_Sum =
 RUNNING_SUM(SUM([Sales]))
 ```
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "Write a Tableau calculated field that [describe what you need, e.g. ‘calculates the 3-month moving average of profit, expressed as a percentage of the category total’]. My data has these fields: [list your field names]."
+
 #### Advanced Analytics
 
 **Purpose:** Illustrate built-in forecasting, clustering, and statistical test functions—availability varies by Tableau version.
