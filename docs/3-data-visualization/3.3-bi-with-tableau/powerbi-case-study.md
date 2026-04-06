@@ -540,6 +540,15 @@ SWITCH(
 ![Power BI Service scheduled refresh settings](assets/powerbi_refresh.png)
 
 
+## Gotchas
+
+- **DAX measures are evaluated in filter context, not row context** — `DIVIDE(SUM([Profit]), SUM([Sales]))` gives the correct profit margin for the current slicer selection, but writing `[Profit] / [Sales]` without aggregation evaluates at row level and then averages the ratios, producing a different and usually wrong number. Always aggregate explicitly in measures.
+- **Relationships in the Model view default to bidirectional filtering, which can cause double-counting** — when you set cross-filter direction to "Both" between two tables, filters propagate in both directions and can inflate totals unexpectedly. Use single-direction filtering unless you have a specific reason for bidirectional, and test totals against known values.
+- **`DATESYTD` requires a Date table with contiguous dates** — if your Date table has gaps (e.g., weekends missing for a business-day-only table), `DATESYTD` and other time intelligence functions will produce incorrect results. Power BI's time intelligence functions assume a complete, unbroken date sequence.
+- **DirectQuery mode disables most DAX time intelligence functions** — `SAMEPERIODLASTYEAR`, `DATESYTD`, and `DATESINPERIOD` are not supported in DirectQuery against most sources. If you need time intelligence, you must import the data or use a calculated table. This limitation is not surfaced as an error at design time in all versions.
+- **Publishing to Power BI Service requires a gateway for on-premise data sources** — workbooks that connect to local files or on-premise databases will show stale data in the Service after publishing unless an on-premise data gateway is configured and running. Reports connected only to cloud sources (SharePoint, Azure, etc.) do not need a gateway.
+- **Incremental refresh policy requires `RangeStart` and `RangeEnd` parameters spelled exactly** — the parameter names are case-sensitive and must match `RangeStart` and `RangeEnd` precisely. Any variation (e.g., `range_start`, `Start`) causes the incremental refresh to silently fall back to a full refresh on every scheduled run.
+
 ## Security and Governance
 
 ### 1. Row-Level Security
