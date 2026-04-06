@@ -1056,6 +1056,15 @@ ORDER BY avg_total_spent DESC;
 
 Remember: "Efficient joins are the key to unlocking insights from your data!"
 
+## Gotchas
+
+- **Using INNER JOIN when you need LEFT JOIN silently drops rows** — If any customer has no orders, an INNER JOIN will exclude them from the result without an error. Decide which table is the "source of truth" first; if you want all rows from it, you need a LEFT JOIN, not the default INNER JOIN.
+- **Adding a WHERE filter on the right-side table converts a LEFT JOIN into an INNER JOIN** — `LEFT JOIN orders o ON … WHERE o.status = 'shipped'` eliminates unmatched left rows because NULL does not equal `'shipped'`. Move the condition into the ON clause (`ON c.customer_id = o.customer_id AND o.status = 'shipped'`) to preserve left-side rows with no shipped orders.
+- **Joining on a non-unique column causes row multiplication** — If `orders.customer_id` has duplicates (multiple orders per customer) and you join to another table that also has duplicates on the same key, each pair matches, producing more output rows than either source table. Always check cardinality with COUNT before joining on a column you haven't verified is unique on one side.
+- **Forgetting to handle NULL after an outer join when aggregating** — After a LEFT JOIN, unmatched right-side columns are NULL. `SUM(o.total_amount)` returns NULL (not 0) for customers with no orders. Wrap aggregates with `COALESCE(SUM(…), 0)` to get meaningful values.
+- **Using a comma in FROM instead of JOIN accidentally creates a Cartesian product** — `FROM orders, customers` (old-style) returns every order paired with every customer — M × N rows. The query runs without error and can silently produce billions of rows. Always use explicit `JOIN … ON` syntax.
+- **Aliasing ambiguity when two joined tables have a column with the same name** — If both `orders` and `customers` have a `created_at` column, writing `SELECT created_at` raises an error or returns the wrong table's value depending on the database. Prefix every column reference with its table alias to avoid this.
+
 ## Next steps
 
 - [Aggregations](aggregations.md) — **GROUP BY** and summaries on joined result sets
