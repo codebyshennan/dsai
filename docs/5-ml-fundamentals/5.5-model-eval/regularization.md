@@ -299,6 +299,15 @@ plt.show()
 </aside>
 </div>
 
+## Gotchas
+
+- **Applying regularization without scaling features** — L1 and L2 penalties are applied to raw coefficient magnitudes, so a feature with a large numeric range (e.g., income in thousands) will attract a disproportionately large penalty compared to a small-range feature; always run `StandardScaler` before regularized models.
+- **Choosing the penalty type by name rather than task** — Lasso sets some coefficients to exactly zero (useful for feature selection), while Ridge keeps all features but shrinks them; using Ridge when you actually want to select features will give a denser, harder-to-interpret model with no zero coefficients.
+- **Treating `alpha=1.0` as a neutral default** — sklearn's default `alpha` for `Lasso` and `Ridge` is 1.0, which is often far too large for your specific dataset scale; always use `LassoCV` or `RidgeCV` to select alpha via cross-validation rather than accepting the default.
+- **Comparing regularized models without the same solver** — For `LogisticRegression`, switching from `penalty='l2'` (default solver `lbfgs`) to `penalty='l1'` (requires `solver='liblinear'` or `'saga'`) silently falls back or errors; always set the solver explicitly to match the penalty type.
+- **Expecting Elastic Net to always outperform L1 or L2 alone** — Elastic Net adds a second hyperparameter (`l1_ratio`) that must itself be tuned; with only a small dataset and no CV over `l1_ratio`, you can easily get a worse model than simple Lasso or Ridge.
+- **Forgetting that regularization interacts with the loss function** — The `alpha` that works well for MSE regression may be wildly inappropriate for logistic loss; re-tune the regularization strength whenever you change the model family or target type.
+
 ## Additional Resources
 
 1. Scikit-learn documentation
