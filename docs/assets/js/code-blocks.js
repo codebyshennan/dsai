@@ -207,6 +207,7 @@
   /**
    * Build the gutter column with line numbers and optional fold chevrons.
    * `foldRegions` is an array of { start, end } (0-based) from detectFoldRegions.
+   * Returns { col, cells } where cells[i] is the line-number cell for codeLines[i].
    */
   function buildLineNumbersColumn(codeLines, foldRegions) {
     var n = codeLines.length;
@@ -222,6 +223,7 @@
       foldMap[foldRegions[r].start] = foldRegions[r].end;
     }
 
+    var cells = [];
     var frag = document.createDocumentFragment();
     for (var i = 0; i < n; i++) {
       var cell = document.createElement('span');
@@ -243,10 +245,11 @@
       numSpan.textContent = String(i + 1);
       cell.appendChild(numSpan);
 
+      cells.push(cell);
       frag.appendChild(cell);
     }
     col.appendChild(frag);
-    return col;
+    return { col: col, cells: cells };
   }
 
   function findRoots() {
