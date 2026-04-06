@@ -96,6 +96,45 @@ airflow triggerer
 
 The `users create` flow requires the [FAB auth manager](https://airflow.apache.org/docs/apache-airflow-providers-fab/stable/auth-manager/index.html) as in a default install; if your org uses a different auth setup, follow your administrator’s docs.
 
+### Option 1b: Windows — PowerShell (if you cannot use WSL2)
+
+The bash multi-line variable expansion in Option 1 doesn't work in PowerShell. Use the equivalent PowerShell commands instead:
+
+```powershell
+# Step 1: Create and enter a new directory
+mkdir airflow-local
+cd airflow-local
+
+# Step 2: Create and activate a virtual environment
+uv venv
+.venv\Scripts\Activate.ps1
+# If blocked by execution policy, run once: Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Step 3: Set AIRFLOW_HOME for this session
+$env:AIRFLOW_HOME = "$PWD\airflow_home"
+
+# Step 4: Install Airflow with the official constraint file
+$AIRFLOW_VERSION = "3.1.8"
+$PYTHON_VERSION = python -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')"
+$CONSTRAINT_URL = "https://raw.githubusercontent.com/apache/airflow/constraints-$AIRFLOW_VERSION/constraints-$PYTHON_VERSION.txt"
+uv pip install "apache-airflow==$AIRFLOW_VERSION" --constraint $CONSTRAINT_URL
+```
+
+> **Make `AIRFLOW_HOME` permanent:** PowerShell `$env:` variables reset when the terminal closes. To persist it, add a line to your PowerShell profile (`notepad $PROFILE`):
+> ```powershell
+> $env:AIRFLOW_HOME = "C:\Users\YourName\airflow-local\airflow_home"
+> ```
+
+**Start Airflow:**
+
+```powershell
+airflow standalone
+```
+
+Open `http://localhost:8080` in your browser. Sign in with the admin credentials printed in the terminal.
+
+> **Known limitation:** Some Airflow features (file watchers, Unix sockets) behave differently on Windows. For production-like testing, WSL2 is still recommended. For learning DAGs and the web UI, PowerShell is fine.
+
 ### Option 2: Using Docker
 
 1. Create a new directory:
