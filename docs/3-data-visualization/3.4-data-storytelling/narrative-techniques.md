@@ -450,6 +450,14 @@ Why it's strong:
   - Lessons learned
      (Informs future stories)
 
+## Gotchas
+
+- **The SCR framework assumes your audience already agrees on the problem** — "Situation → Complication → Resolution" works well for internal teams who share context, but collapses if the audience disputes the Complication. If you're presenting to skeptical stakeholders, spend more time on Situation (building shared understanding) before naming the problem.
+- **A compelling hook that overpromises will damage credibility if the data doesn't deliver** — "We have a $2M opportunity hiding in our support tickets" is a strong stakes hook, but if the analysis shows only $200K, the audience feels misled. Match the hook's magnitude to what the data can actually support.
+- **"One main message per story" is a structure goal, not a slide count** — learners often interpret this as "one slide, one chart" and produce decks with too many slides. The single message should thread through all supporting evidence; multiple charts can and should support the same central claim without each chart needing its own separate narrative.
+- **Vivid analogies (stadium of fans, restaurant menu) can distort scale perception** — analogies make abstract numbers concrete, but they also anchor the audience to the wrong comparison. A "stadium of fans" for 500 customers implies a sports-scale problem; if your company only has 600 total customers, the loss is catastrophic, not the punchline of an analogy. Check that the analogy's implied scale matches reality.
+- **Audience expertise calibration is usually wrong in the direction of over-explaining** — analysts tend to simplify too much for technical audiences and use too much jargon for executives. The "Know Your Audience" section lists calibration signals, but the practical fix is to draft at one level and have someone from the target audience read it before presenting.
+
 ## Additional Resources
 
 ### Books
