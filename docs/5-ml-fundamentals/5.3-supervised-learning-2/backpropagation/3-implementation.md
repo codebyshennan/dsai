@@ -659,6 +659,15 @@ plot_training_process(network, X, y)
    - Use broadcasting carefully
    - Verify your matrix multiplications
 
+## Gotchas
+
+- **Shape convention mismatch between examples** — The `NeuralNetwork` class uses the `(features, samples)` convention (columns are samples), which is the *opposite* of the pandas/sklearn convention. Passing an `(n_samples, n_features)` array directly into `network.train` silently transposes the learning problem and produces garbage gradients.
+- **Recomputing loss from the forward pass cache instead of re-running forward** — In the `train` method, `compute_loss` reads `cache['a…']` from the *same* forward pass that generated the current gradients. Calling `forward` again would be wasteful but also consistent; mixing cache reads with extra forward calls is a common source of subtle training-loop bugs.
+- **Initializing weights with `randn * 0.01` for every architecture** — Scaling by 0.01 keeps initial activations small for shallow nets but starves gradients in deep nets. Use Xavier init for tanh/sigmoid layers and He init for ReLU; the scaffolding here always uses `* 0.01`, which will fail silently on deeper architectures.
+- **The training loop doesn't shuffle data between epochs** — The `train` method runs gradient descent on the full dataset in a single step each epoch. Without mini-batching or shuffling, the gradient estimate is just full-batch GD; on real data this means the model sees the same ordering every time, which can introduce bias.
+- **`activation_derivative` is hard-coded to sigmoid throughout** — The `NeuralNetwork` class uses sigmoid both as the activation and for its derivative. Swapping `activation` to ReLU without also updating `activation_derivative` produces incorrect gradients with no error — the network trains silently with the wrong math.
+- **Gradient checking is described but not wired up** — The "Best Practices" section recommends gradient checking, but there is no utility function for it in this file. Without a numerical gradient check, a subtle sign error or index-off-by-one in the backward pass can go undetected for many training runs.
+
 ## Additional Resources
 
 - [Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com/) - Free online book with interactive examples
