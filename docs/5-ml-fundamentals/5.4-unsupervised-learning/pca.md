@@ -446,6 +446,15 @@ def validate_pca_results(X, n_components):
 3. **Noise Reduction**: When your data has a lot of noise
 4. **Data Compression**: When you need to reduce storage requirements
 
+## Gotchas
+
+- **PCA on unscaled data is dominated by high-variance features** — a feature measured in thousands will produce a principal component that is almost entirely that feature. Always apply `StandardScaler` before `PCA`, unless the features are already in the same units and you deliberately want to weight by raw variance.
+- **`fit_transform` on the full dataset leaks test information** — calling `pca.fit_transform(X_all)` before splitting means the PCA directions are computed using test data. Fit PCA on training data only and use `pca.transform(X_test)` to avoid data leakage.
+- **Explained variance ratio does not equal model performance** — keeping 95% of variance sounds safe, but the discarded 5% may contain exactly the signal a downstream classifier needs. Treat the variance threshold as a starting point and validate by measuring downstream task performance at several k values.
+- **PC axes have no interpretable unit after projection** — the numbers in `X_pca` are coordinates in an abstract rotated space, not original feature values. Avoid statements like "PC1 is income" — instead, inspect `pca.components_` loadings to understand which original features contribute most.
+- **`inverse_transform` does not recover the original data exactly** — unless you keep all components, the reconstruction is lossy. The pixels look similar but are not identical; reconstruction error (MSE) quantifies how much information was dropped.
+- **PCA is linear — it cannot capture non-linear structure** — if your data lies on a curved manifold (e.g., a Swiss roll), PCA will produce a poor low-dimensional embedding; use kernel PCA, t-SNE, or UMAP instead.
+
 ## Further Reading
 
 1. [Scikit-learn PCA Documentation](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html)
