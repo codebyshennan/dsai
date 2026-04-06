@@ -5,223 +5,340 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Wrangling: From Raw Data to Reliable Insights</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <style>
+        :root {
+            --brand-bg:         #F5F0E8;
+            --brand-blue:       #2563EB;
+            --brand-blue-dark:  #1D4ED8;
+            --brand-dark:       #1E293B;
+            --brand-mid:        #64748B;
+            --brand-light:      #EFF6FF;
+            --brand-border:     #BFDBFE;
+            --brand-white:      #FFFFFF;
+            --brand-orange:     #F59E0B;
+            --brand-pink:       rgba(249, 168, 212, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--brand-bg);
         }
 
+        /* ── Reveal core overrides ─────────────────────────────── */
         .reveal {
-            font-size: 1.45em;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 1.3em;
+            color: var(--brand-dark);
+            background: var(--brand-bg);
         }
 
-        /* Dense slides: smaller type so more bullets fit without overflow */
-        .reveal .box.box--compact {
-            font-size: 0.88em;
-            max-width: 92%;
-        }
-
-        .reveal .box.box--compact h3 {
-            font-size: 1.15em;
-        }
-
-        .reveal .box.box--compact li {
-            margin-bottom: 0.35em;
-            line-height: 1.35;
-        }
+        .reveal .slides { text-align: left; }
 
         .reveal h1,
         .reveal h2,
         .reveal h3 {
+            font-family: 'Inter', -apple-system, sans-serif;
             text-transform: none;
-            margin-bottom: 0.5em;
-            text-align: center;
+            letter-spacing: -0.02em;
+            text-align: left;
+            margin-bottom: 0.45em;
+            color: var(--brand-blue);
         }
 
-        .reveal h1 {
-            font-size: 2em;
-        }
-
-        .reveal h2 {
-            font-size: 1.6em;
-        }
-
-        .reveal h3 {
-            font-size: 1.3em;
-        }
+        .reveal h1 { font-size: 2.4em;  font-weight: 700; line-height: 1.1; }
+        .reveal h2 { font-size: 1.65em; font-weight: 700; line-height: 1.2; }
+        .reveal h3 { font-size: 1.15em; font-weight: 600; line-height: 1.3; color: var(--brand-dark); }
 
         .reveal p {
-            margin-bottom: 1em;
-            line-height: 1.4;
-            text-align: center;
+            line-height: 1.6;
+            text-align: left;
+            color: var(--brand-dark);
+            margin-bottom: 0.8em;
         }
 
-        .reveal ul {
-            margin: 0 auto;
+        .reveal ul,
+        .reveal ol {
+            margin: 0 0 0 1.4em;
             text-align: left;
-            max-width: 80%;
         }
 
         .reveal li {
             margin-bottom: 0.5em;
+            line-height: 1.55;
+            color: var(--brand-dark);
             overflow-wrap: anywhere;
             word-wrap: break-word;
         }
 
         .reveal code {
-            padding: 0.2em 0.4em;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue-dark);
+            padding: 0.15em 0.4em;
             border-radius: 4px;
+            font-size: 0.87em;
         }
 
         .reveal pre {
-            padding: 1em;
-            border-radius: 8px;
-            max-width: 80%;
-            margin: 0 auto;
+            background: var(--brand-dark);
+            color: #E2E8F0;
+            padding: 1em 1.2em;
+            border-radius: 10px;
+            max-width: 90%;
+            margin: 0.8em auto;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
 
-        .reveal .slides {
-            text-align: center;
+        .reveal pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
         }
 
-        .reveal .center {
-            text-align: center;
+        .reveal a {
+            color: var(--brand-blue);
+            text-decoration: underline;
         }
 
-        .reveal .right {
-            text-align: right;
+        .reveal a:hover { color: var(--brand-blue-dark); }
+
+        /* ── Reveal chrome ─────────────────────────────────────── */
+        .reveal .progress         { background: rgba(37, 99, 235, 0.15); }
+        .reveal .progress span    { background: var(--brand-blue); }
+        .reveal .controls button  { color: var(--brand-blue); }
+        .reveal .slide-number {
+            background: transparent;
+            color: var(--brand-mid);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75em;
         }
 
+        /* ── Section base ──────────────────────────────────────── */
+        section {
+            padding: 3em 3.5em 4.5em;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+            background: var(--brand-bg);
+        }
+
+        .content-wrapper { width: 100%; }
+
+        /* ── Title slide ───────────────────────────────────────── */
+        section.slide-title {
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative circles echoing the brand PDF */
+        section.slide-title::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -80px;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.09);
+            pointer-events: none;
+        }
+
+        section.slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            right: 100px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--brand-pink);
+            pointer-events: none;
+        }
+
+        section.slide-title .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        section.slide-title h1 {
+            font-size: 2.8em;
+            margin-bottom: 0.25em;
+        }
+
+        section.slide-title h3 {
+            color: var(--brand-mid);
+            font-weight: 500;
+            font-size: 1.05em;
+            margin-top: 0;
+        }
+
+        /* Orange accent dot before title-slide h1 */
+        section.slide-title h1::before {
+            content: '';
+            display: inline-block;
+            width: 0.2em;
+            height: 0.9em;
+            background: var(--brand-orange);
+            border-radius: 3px;
+            margin-right: 0.3em;
+            vertical-align: middle;
+            transform: translateY(-0.05em);
+        }
+
+        /* ── Content box ───────────────────────────────────────── */
         .reveal .box {
-            padding: 1em;
-            border-radius: 8px;
-            margin: 1em auto;
-            max-width: 88%;
+            background: var(--brand-white);
+            border: 1px solid var(--brand-border);
+            border-left: 4px solid var(--brand-blue);
+            border-radius: 10px;
+            padding: 1.1em 1.4em;
+            margin: 0.6em 0;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.07);
         }
 
+        .reveal .box h3 {
+            font-size: 1.0em;
+            color: var(--brand-blue);
+            margin-bottom: 0.55em;
+            margin-top: 0;
+        }
+
+        /* Dense slides */
+        .reveal .box.box--compact { font-size: 0.88em; }
+        .reveal .box.box--compact h3 { font-size: 1.0em; }
+        .reveal .box.box--compact li {
+            margin-bottom: 0.3em;
+            line-height: 1.3;
+        }
+
+        /* ── Column layouts ────────────────────────────────────── */
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.25em 2em;
-            max-width: 92%;
-            margin: 0 auto;
-            align-items: start;
+            gap: 1em 2em;
+            width: 100%;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 1em 1.25em;
-            max-width: 96%;
-            margin: 0 auto;
-            align-items: start;
-        }
-
-        .reveal .two-column .list-container,
-        .reveal .three-column .list-container {
-            max-width: 100%;
+            gap: 0.8em 1.2em;
+            width: 100%;
         }
 
         .reveal .two-column ul,
         .reveal .two-column ol,
         .reveal .three-column ul,
         .reveal .three-column ol {
-            max-width: 100%;
+            margin-left: 1em;
         }
 
+        .list-container { width: 100%; }
+
+        /* ── Navigation bar ────────────────────────────────────── */
         .slide-nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.78em;
-            color: #555;
+            top: 0; left: 0; right: 0;
+            font-size: 0.76em;
             z-index: 2000;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(4px);
-            padding: 0.4em 1em;
-            border-bottom: 1px solid #e0e0e0;
+            background: rgba(245, 240, 232, 0.96);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 0.38em 1.1em;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.12);
             display: flex;
             align-items: center;
-            gap: 0.75em;
+            gap: 0.6em;
         }
 
         .slide-nav a {
-            color: #555;
+            color: var(--brand-mid);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 0.3em;
-            padding: 0.2em 0.5em;
-            border-radius: 4px;
-            transition: background 0.15s;
+            padding: 0.2em 0.55em;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
         }
 
         .slide-nav a:hover {
-            background: rgba(0,0,0,0.07);
-            color: #222;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue);
         }
 
         .slide-nav__title {
             flex: 1;
             text-align: center;
-            font-weight: 500;
-            color: #444;
+            font-weight: 600;
+            color: var(--brand-dark);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        .slide-nav__logo {
+            height: 20px;
+            width: auto;
+            opacity: 0.9;
+            flex-shrink: 0;
         }
 
         .slide-nav__btn {
             background: none;
             border: none;
             cursor: pointer;
-            color: #555;
+            color: var(--brand-mid);
             font-size: 1em;
             display: inline-flex;
             align-items: center;
             gap: 0.3em;
-            padding: 0.2em 0.5em;
-            border-radius: 4px;
-            transition: background 0.15s;
+            padding: 0.2em 0.55em;
+            border-radius: 5px;
+            font-family: inherit;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
         }
 
         .slide-nav__btn:hover {
-            background: rgba(0,0,0,0.07);
-            color: #222;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue);
         }
 
+        /* ── Footer ────────────────────────────────────────────── */
         .slide-footer {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.8em;
-            color: #666;
+            bottom: 0; left: 0; right: 0;
+            font-size: 0.72em;
+            color: var(--brand-mid);
             z-index: 1000;
-            background: white;
-            padding: 0.5em 1em;
-            border-top: 1px solid #eee;
-            text-align: left;
-        }
-
-        section {
-            padding: 2em;
-            padding-top: 3.5em;
-            padding-bottom: 4em;
+            background: rgba(245, 240, 232, 0.96);
+            padding: 0.42em 1.4em;
+            border-top: 1px solid rgba(37, 99, 235, 0.1);
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            box-sizing: border-box;
+            gap: 0.4em;
         }
 
-        .list-container {
-            width: 100%;
-            max-width: 80%;
-            margin: 0 auto;
+        .slide-footer::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--brand-blue);
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -229,32 +346,45 @@
 <body>
     <nav class="slide-nav" id="slide-nav">
         <a href="../" title="Back to lesson">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
             Back
         </a>
         <span class="slide-nav__title">Data Wrangling: From Raw Data to Reliable Insights</span>
         <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
         </button>
+        <!-- Skills Union brand mark (inline SVG — no external file dependency) -->
+        <svg class="slide-nav__logo" viewBox="0 0 160 28" height="20" xmlns="http://www.w3.org/2000/svg" aria-label="Localized | Skills Union" role="img">
+            <path d="M8.5 5a5.5 5.5 0 0 1 3.3 9.9l-.5 1.1v.5H5.7v-.5l-.5-1.1A5.5 5.5 0 0 1 8.5 5z" fill="none" stroke="#06B6D4" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M6.5 16.5h4M7.2 18.5h2.6" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="8.5" y1="2" x2="8.5" y2="3.5" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="2.5" y1="7" x2="3.7" y2="8.2" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="14.5" y1="7" x2="13.3" y2="8.2" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <text x="20" y="19" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="700" fill="#1E293B">Localized</text>
+            <line x1="83" y1="5" x2="83" y2="23" stroke="#CBD5E1" stroke-width="1"/>
+            <text x="89" y="19" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="700" fill="#1E293B">Skills</text>
+            <rect x="116" y="4" width="44" height="20" rx="3" fill="#1E293B"/>
+            <text x="138" y="18.5" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Union</text>
+        </svg>
     </nav>
     <div class="reveal">
         <div class="slides">
             
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Data Wrangling: From Raw Data to Reliable Insights</h1>
                         
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>What Is Data Wrangling?</h1>
                         <h3>And why it eats 80% of a data scientist's time</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -305,12 +435,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Data Quality</h1>
                         <h3>You cannot fix what you do not measure</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -323,10 +453,10 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Accuracy</strong>: Does the data correctly represent reality? (e.g. age should be 0–120)</li>
-<li><strong>Completeness</strong>: Are all required fields populated? (`df.isnull().sum()`)</li>
+<li><strong>Completeness</strong>: Are all required fields populated? (<code>df.isnull().sum()</code>)</li>
 <li><strong>Consistency</strong>: Are formats and codes uniform across the dataset? (e.g. date formats, category labels)</li>
 <li><strong>Validity</strong>: Does the data follow business rules? (e.g. email format, non-negative prices)</li>
-<li><strong>Uniqueness</strong>: Is the dataset free of duplicates? (`df.duplicated().sum()`)</li>
+<li><strong>Uniqueness</strong>: Is the dataset free of duplicates? (<code>df.duplicated().sum()</code>)</li>
 <li><strong>Timeliness</strong>: Is the data recent enough for the question being asked?</li>
 <li><strong>Rule of thumb</strong>: Measure all six dimensions before touching a single value</li>
                         </ul>
@@ -346,12 +476,12 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Shape and types</strong>: `df.info()` — row count, column count, dtype per column</li>
-<li><strong>Missing values</strong>: `df.isnull().sum()` — count NaNs per column</li>
-<li><strong>Missing rate</strong>: `df.isnull().mean() * 100` — percentage missing</li>
-<li><strong>Duplicates</strong>: `df.duplicated().sum()` — number of duplicate rows</li>
-<li><strong>Numeric summary</strong>: `df.describe()` — min, max, mean, std, quartiles</li>
-<li><strong>Categorical cardinality</strong>: `df['col'].value_counts()` — frequency of each category</li>
+                            <li><strong>Shape and types</strong>: <code>df.info()</code> — row count, column count, dtype per column</li>
+<li><strong>Missing values</strong>: <code>df.isnull().sum()</code> — count NaNs per column</li>
+<li><strong>Missing rate</strong>: <code>df.isnull().mean() * 100</code> — percentage missing</li>
+<li><strong>Duplicates</strong>: <code>df.duplicated().sum()</code> — number of duplicate rows</li>
+<li><strong>Numeric summary</strong>: <code>df.describe()</code> — min, max, mean, std, quartiles</li>
+<li><strong>Categorical cardinality</strong>: <code>df['col'].value_counts()</code> — frequency of each category</li>
 <li><strong>Common red flags</strong>: negative prices, impossible dates, all-zero columns, suspiciously round numbers</li>
                         </ul>
                     </div>
@@ -362,12 +492,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Missing Values</h1>
                         <h3>Why data is absent matters as much as how to fill it</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -383,7 +513,7 @@
 <li><strong>MAR — Missing at Random</strong>: Absence depends on *other observed* columns; imputation using related columns is defensible (e.g. older respondents skip income field)</li>
 <li><strong>MNAR — Missing Not at Random</strong>: Absence depends on the *missing value itself*; hardest case, needs domain knowledge or sensitivity analysis (e.g. high earners skip income field)</li>
 <li><strong>Why it matters</strong>: Dropping MNAR rows introduces bias; filling MCAR rows with the mean is usually safe</li>
-<li><strong>Detection</strong>: Check whether missingness in column A correlates with values in column B (`df.isnull().corr()`)</li>
+<li><strong>Detection</strong>: Check whether missingness in column A correlates with values in column B (<code>df.isnull().corr()</code>)</li>
                         </ul>
                     </div>
                 
@@ -401,12 +531,12 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Drop rows</strong>: Use when &lt;5% missing and mechanism is MCAR — `df.dropna(subset=['col'])`</li>
+                            <li><strong>Drop rows</strong>: Use when &lt;5% missing and mechanism is MCAR — <code>df.dropna(subset=['col'])</code></li>
 <li><strong>Drop column</strong>: Use when &gt;50% of values are missing and the column adds little signal</li>
 <li><strong>Mean/median imputation</strong>: Quick fix for numeric, low missing rate (&lt;10%); median is robust to outliers</li>
-<li><strong>Mode imputation</strong>: Default for categorical columns — `df['col'].fillna(df['col'].mode()[0])`</li>
+<li><strong>Mode imputation</strong>: Default for categorical columns — <code>df['col'].fillna(df['col'].mode()[0])</code></li>
 <li><strong>KNN / MICE imputation</strong>: Multivariate method; better when columns are correlated</li>
-<li><strong>Flag + fill</strong>: Add a binary `col_was_missing` indicator, then fill — preserves missingness signal for models</li>
+<li><strong>Flag + fill</strong>: Add a binary <code>col_was_missing</code> indicator, then fill — preserves missingness signal for models</li>
 <li><strong>Golden rule</strong>: Always investigate *why* data is missing before choosing a strategy</li>
                         </ul>
                     </div>
@@ -417,12 +547,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Outliers</h1>
                         <h3>Extreme values: errors, or the most interesting signal?</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -457,9 +587,9 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Z-score</strong>: `z = (x − μ) / σ` — flag |z| &gt; 3; assumes roughly normal distribution</li>
-<li><strong>IQR rule</strong>: `IQR = Q3 − Q1`; flag values below `Q1 − 1.5×IQR` or above `Q3 + 1.5×IQR`; robust to skew</li>
-<li><strong>Visual — boxplot</strong>: `df.boxplot(column='price')` — whiskers show IQR bounds; dots are outliers</li>
+                            <li><strong>Z-score</strong>: <code>z = (x − μ) / σ</code> — flag |z| &gt; 3; assumes roughly normal distribution</li>
+<li><strong>IQR rule</strong>: <code>IQR = Q3 − Q1</code>; flag values below <code>Q1 − 1.5×IQR</code> or above <code>Q3 + 1.5×IQR</code>; robust to skew</li>
+<li><strong>Visual — boxplot</strong>: <code>df.boxplot(column='price')</code> — whiskers show IQR bounds; dots are outliers</li>
 <li><strong>Visual — histogram</strong>: Reveals multi-modal distributions and long tails</li>
 <li><strong>Visual — scatter plot</strong>: Spot bivariate outliers invisible in univariate checks</li>
 <li><strong>Robust scaling check</strong>: Use median and IQR instead of mean and std when outliers are present</li>
@@ -481,7 +611,7 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Remove</strong>: Delete the row — only if the value is a confirmed data error</li>
-<li><strong>Cap (winsorise)</strong>: Clip to the 1st / 99th percentile — `df['col'].clip(lower=p1, upper=p99)`; preserves row count</li>
+<li><strong>Cap (winsorise)</strong>: Clip to the 1st / 99th percentile — <code>df['col'].clip(lower=p1, upper=p99)</code>; preserves row count</li>
 <li><strong>Transform</strong>: Apply log or sqrt to compress the scale — effective for right-skewed distributions</li>
 <li><strong>Impute</strong>: Treat extreme values like missing data and impute with median</li>
 <li><strong>Keep</strong>: Do nothing — appropriate when the outlier is real signal (e.g. fraud, record sales)</li>
@@ -496,12 +626,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Data Transformations</h1>
                         <h3>Scaling, encoding, and reshaping features for analysis</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -513,8 +643,8 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Standard Scaling (Z-score)</strong>: `z = (x − μ) / σ` → mean 0, std 1; use for algorithms assuming normality (linear regression, PCA, SVM)</li>
-<li><strong>Min-Max Scaling</strong>: `x_scaled = (x − x_min) / (x_max − x_min)` → [0, 1] range; use for neural networks and KNN</li>
+                            <li><strong>Standard Scaling (Z-score)</strong>: <code>z = (x − μ) / σ</code> → mean 0, std 1; use for algorithms assuming normality (linear regression, PCA, SVM)</li>
+<li><strong>Min-Max Scaling</strong>: <code>x_scaled = (x − x_min) / (x_max − x_min)</code> → [0, 1] range; use for neural networks and KNN</li>
 <li><strong>Robust Scaling</strong>: Uses median and IQR instead of mean and std — best when outliers are present</li>
 <li><strong>When to scale</strong>: Distance-based models (KNN, SVM, k-means) require scaling; tree-based models (Random Forest, XGBoost) generally do not</li>
 <li><strong>Fit on train, apply on test</strong>: Always fit the scaler only on training data to avoid data leakage</li>
@@ -535,8 +665,8 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Log transform</strong>: `np.log1p(x)` — compresses right-skewed distributions (salaries, prices, counts); use `log1p` to handle zeros safely</li>
-<li><strong>Square root transform</strong>: `np.sqrt(x)` — milder than log; works on non-negative data</li>
+                            <li><strong>Log transform</strong>: <code>np.log1p(x)</code> — compresses right-skewed distributions (salaries, prices, counts); use <code>log1p</code> to handle zeros safely</li>
+<li><strong>Square root transform</strong>: <code>np.sqrt(x)</code> — milder than log; works on non-negative data</li>
 <li><strong>Box-Cox</strong>: Finds the optimal power λ to normalise; requires strictly positive values</li>
 <li><strong>Yeo-Johnson</strong>: Extension of Box-Cox that handles zeros and negatives</li>
 <li><strong>Check after</strong>: Re-plot a histogram — a roughly bell-shaped curve means the transform worked</li>
@@ -558,7 +688,7 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>One-Hot Encoding</strong>: Creates a binary column per category — `pd.get_dummies(df, columns=['category'])`; use for nominal (unordered) categories with low cardinality</li>
+                            <li><strong>One-Hot Encoding</strong>: Creates a binary column per category — <code>pd.get_dummies(df, columns=['category'])</code>; use for nominal (unordered) categories with low cardinality</li>
 <li><strong>Label Encoding</strong>: Maps each category to an integer — use only for ordinal features (e.g. Low/Med/High → 0/1/2) or tree-based models</li>
 <li><strong>Ordinal Encoding</strong>: Like label encoding but respects a defined order</li>
 <li><strong>Target Encoding</strong>: Replaces category with mean target value — powerful but prone to leakage; use with cross-validation</li>
@@ -580,11 +710,11 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Normalise strings</strong>: `df['col'].str.lower().str.strip()` — removes case and whitespace inconsistencies</li>
-<li><strong>Fuzzy matching</strong>: Use `rapidfuzz` or `fuzzywuzzy` to merge near-duplicate categories (e.g. 'iPhone' vs 'i-phone')</li>
-<li><strong>Parse dates</strong>: `pd.to_datetime(df['date'])` — converts string dates to a proper datetime dtype</li>
-<li><strong>Extract date features</strong>: `df['month'] = df['date'].dt.month` — year, month, day, weekday, hour</li>
-<li><strong>Date arithmetic</strong>: `df['age_days'] = (pd.Timestamp.today() - df['signup_date']).dt.days`</li>
+                            <li><strong>Normalise strings</strong>: <code>df['col'].str.lower().str.strip()</code> — removes case and whitespace inconsistencies</li>
+<li><strong>Fuzzy matching</strong>: Use <code>rapidfuzz</code> or <code>fuzzywuzzy</code> to merge near-duplicate categories (e.g. 'iPhone' vs 'i-phone')</li>
+<li><strong>Parse dates</strong>: <code>pd.to_datetime(df['date'])</code> — converts string dates to a proper datetime dtype</li>
+<li><strong>Extract date features</strong>: <code>df['month'] = df['date'].dt.month</code> — year, month, day, weekday, hour</li>
+<li><strong>Date arithmetic</strong>: <code>df['age_days'] = (pd.Timestamp.today() - df['signup_date']).dt.days</code></li>
 <li><strong>Timezones</strong>: Always convert to UTC first when combining data from multiple sources</li>
                         </ul>
                     </div>
@@ -603,12 +733,12 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Method chaining</strong>: Chain operations with `.pipe()` for readable, testable pipelines</li>
-<li><strong>Vectorise, don't loop</strong>: `df['total'] = df['price'] * df['quantity']` is orders of magnitude faster than a row-by-row loop</li>
-<li><strong>Downcast dtypes</strong>: `pd.to_numeric(df['col'], downcast='integer')` — halves memory on large datasets</li>
-<li><strong>Use `.copy()`</strong>: `df_clean = df.copy()` before modifying — avoids SettingWithCopyWarning and preserves originals</li>
-<li><strong>Document changes</strong>: Keep a `cleaning_log` dict recording rows dropped, columns imputed, and transforms applied</li>
-<li><strong>Assert invariants</strong>: Use `assert df.isnull().sum().sum() == 0` and `assert df['price'].min() &gt;= 0` after each step</li>
+                            <li><strong>Method chaining</strong>: Chain operations with <code>.pipe()</code> for readable, testable pipelines</li>
+<li><strong>Vectorise, don't loop</strong>: <code>df['total'] = df['price'] * df['quantity']</code> is orders of magnitude faster than a row-by-row loop</li>
+<li><strong>Downcast dtypes</strong>: <code>pd.to_numeric(df['col'], downcast='integer')</code> — halves memory on large datasets</li>
+<li><strong>Use `.copy()`</strong>: <code>df_clean = df.copy()</code> before modifying — avoids SettingWithCopyWarning and preserves originals</li>
+<li><strong>Document changes</strong>: Keep a <code>cleaning_log</code> dict recording rows dropped, columns imputed, and transforms applied</li>
+<li><strong>Assert invariants</strong>: Use <code>assert df.isnull().sum().sum() == 0</code> and <code>assert df['price'].min() &gt;= 0</code> after each step</li>
                         </ul>
                     </div>
                 
@@ -626,7 +756,7 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Step 1 — Profile</strong>: `df.info()`, `df.describe()`, `df.isnull().sum()`, `df.duplicated().sum()`</li>
+                            <li><strong>Step 1 — Profile</strong>: <code>df.info()</code>, <code>df.describe()</code>, <code>df.isnull().sum()</code>, <code>df.duplicated().sum()</code></li>
 <li><strong>Step 2 — Clean</strong>: Drop or impute missing values; remove confirmed duplicate rows</li>
 <li><strong>Step 3 — Outliers</strong>: Detect with IQR / Z-score; decide: cap, remove, or keep</li>
 <li><strong>Step 4 — Transform</strong>: Scale numerics; encode categoricals; parse dates; fix skew</li>
@@ -650,7 +780,7 @@
             hash: true,
             center: false,
             transition: 'slide',
-            slideNumber: true,
+            slideNumber: 'c/t',
             plugins: []
         });
 
@@ -662,7 +792,6 @@
             }
         }
 
-        // Swap fullscreen icon when state changes
         document.addEventListener('fullscreenchange', function () {
             var icon = document.getElementById('fs-icon');
             if (document.fullscreenElement) {

@@ -5,223 +5,340 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exploratory Data Analysis: From Data to Insights</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <style>
+        :root {
+            --brand-bg:         #F5F0E8;
+            --brand-blue:       #2563EB;
+            --brand-blue-dark:  #1D4ED8;
+            --brand-dark:       #1E293B;
+            --brand-mid:        #64748B;
+            --brand-light:      #EFF6FF;
+            --brand-border:     #BFDBFE;
+            --brand-white:      #FFFFFF;
+            --brand-orange:     #F59E0B;
+            --brand-pink:       rgba(249, 168, 212, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--brand-bg);
         }
 
+        /* ── Reveal core overrides ─────────────────────────────── */
         .reveal {
-            font-size: 1.45em;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 1.3em;
+            color: var(--brand-dark);
+            background: var(--brand-bg);
         }
 
-        /* Dense slides: smaller type so more bullets fit without overflow */
-        .reveal .box.box--compact {
-            font-size: 0.88em;
-            max-width: 92%;
-        }
-
-        .reveal .box.box--compact h3 {
-            font-size: 1.15em;
-        }
-
-        .reveal .box.box--compact li {
-            margin-bottom: 0.35em;
-            line-height: 1.35;
-        }
+        .reveal .slides { text-align: left; }
 
         .reveal h1,
         .reveal h2,
         .reveal h3 {
+            font-family: 'Inter', -apple-system, sans-serif;
             text-transform: none;
-            margin-bottom: 0.5em;
-            text-align: center;
+            letter-spacing: -0.02em;
+            text-align: left;
+            margin-bottom: 0.45em;
+            color: var(--brand-blue);
         }
 
-        .reveal h1 {
-            font-size: 2em;
-        }
-
-        .reveal h2 {
-            font-size: 1.6em;
-        }
-
-        .reveal h3 {
-            font-size: 1.3em;
-        }
+        .reveal h1 { font-size: 2.4em;  font-weight: 700; line-height: 1.1; }
+        .reveal h2 { font-size: 1.65em; font-weight: 700; line-height: 1.2; }
+        .reveal h3 { font-size: 1.15em; font-weight: 600; line-height: 1.3; color: var(--brand-dark); }
 
         .reveal p {
-            margin-bottom: 1em;
-            line-height: 1.4;
-            text-align: center;
+            line-height: 1.6;
+            text-align: left;
+            color: var(--brand-dark);
+            margin-bottom: 0.8em;
         }
 
-        .reveal ul {
-            margin: 0 auto;
+        .reveal ul,
+        .reveal ol {
+            margin: 0 0 0 1.4em;
             text-align: left;
-            max-width: 80%;
         }
 
         .reveal li {
             margin-bottom: 0.5em;
+            line-height: 1.55;
+            color: var(--brand-dark);
             overflow-wrap: anywhere;
             word-wrap: break-word;
         }
 
         .reveal code {
-            padding: 0.2em 0.4em;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue-dark);
+            padding: 0.15em 0.4em;
             border-radius: 4px;
+            font-size: 0.87em;
         }
 
         .reveal pre {
-            padding: 1em;
-            border-radius: 8px;
-            max-width: 80%;
-            margin: 0 auto;
+            background: var(--brand-dark);
+            color: #E2E8F0;
+            padding: 1em 1.2em;
+            border-radius: 10px;
+            max-width: 90%;
+            margin: 0.8em auto;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
 
-        .reveal .slides {
-            text-align: center;
+        .reveal pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
         }
 
-        .reveal .center {
-            text-align: center;
+        .reveal a {
+            color: var(--brand-blue);
+            text-decoration: underline;
         }
 
-        .reveal .right {
-            text-align: right;
+        .reveal a:hover { color: var(--brand-blue-dark); }
+
+        /* ── Reveal chrome ─────────────────────────────────────── */
+        .reveal .progress         { background: rgba(37, 99, 235, 0.15); }
+        .reveal .progress span    { background: var(--brand-blue); }
+        .reveal .controls button  { color: var(--brand-blue); }
+        .reveal .slide-number {
+            background: transparent;
+            color: var(--brand-mid);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75em;
         }
 
+        /* ── Section base ──────────────────────────────────────── */
+        section {
+            padding: 3em 3.5em 4.5em;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+            background: var(--brand-bg);
+        }
+
+        .content-wrapper { width: 100%; }
+
+        /* ── Title slide ───────────────────────────────────────── */
+        section.slide-title {
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative circles echoing the brand PDF */
+        section.slide-title::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -80px;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.09);
+            pointer-events: none;
+        }
+
+        section.slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            right: 100px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--brand-pink);
+            pointer-events: none;
+        }
+
+        section.slide-title .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        section.slide-title h1 {
+            font-size: 2.8em;
+            margin-bottom: 0.25em;
+        }
+
+        section.slide-title h3 {
+            color: var(--brand-mid);
+            font-weight: 500;
+            font-size: 1.05em;
+            margin-top: 0;
+        }
+
+        /* Orange accent dot before title-slide h1 */
+        section.slide-title h1::before {
+            content: '';
+            display: inline-block;
+            width: 0.2em;
+            height: 0.9em;
+            background: var(--brand-orange);
+            border-radius: 3px;
+            margin-right: 0.3em;
+            vertical-align: middle;
+            transform: translateY(-0.05em);
+        }
+
+        /* ── Content box ───────────────────────────────────────── */
         .reveal .box {
-            padding: 1em;
-            border-radius: 8px;
-            margin: 1em auto;
-            max-width: 88%;
+            background: var(--brand-white);
+            border: 1px solid var(--brand-border);
+            border-left: 4px solid var(--brand-blue);
+            border-radius: 10px;
+            padding: 1.1em 1.4em;
+            margin: 0.6em 0;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.07);
         }
 
+        .reveal .box h3 {
+            font-size: 1.0em;
+            color: var(--brand-blue);
+            margin-bottom: 0.55em;
+            margin-top: 0;
+        }
+
+        /* Dense slides */
+        .reveal .box.box--compact { font-size: 0.88em; }
+        .reveal .box.box--compact h3 { font-size: 1.0em; }
+        .reveal .box.box--compact li {
+            margin-bottom: 0.3em;
+            line-height: 1.3;
+        }
+
+        /* ── Column layouts ────────────────────────────────────── */
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.25em 2em;
-            max-width: 92%;
-            margin: 0 auto;
-            align-items: start;
+            gap: 1em 2em;
+            width: 100%;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 1em 1.25em;
-            max-width: 96%;
-            margin: 0 auto;
-            align-items: start;
-        }
-
-        .reveal .two-column .list-container,
-        .reveal .three-column .list-container {
-            max-width: 100%;
+            gap: 0.8em 1.2em;
+            width: 100%;
         }
 
         .reveal .two-column ul,
         .reveal .two-column ol,
         .reveal .three-column ul,
         .reveal .three-column ol {
-            max-width: 100%;
+            margin-left: 1em;
         }
 
+        .list-container { width: 100%; }
+
+        /* ── Navigation bar ────────────────────────────────────── */
         .slide-nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.78em;
-            color: #555;
+            top: 0; left: 0; right: 0;
+            font-size: 0.76em;
             z-index: 2000;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(4px);
-            padding: 0.4em 1em;
-            border-bottom: 1px solid #e0e0e0;
+            background: rgba(245, 240, 232, 0.96);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 0.38em 1.1em;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.12);
             display: flex;
             align-items: center;
-            gap: 0.75em;
+            gap: 0.6em;
         }
 
         .slide-nav a {
-            color: #555;
+            color: var(--brand-mid);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 0.3em;
-            padding: 0.2em 0.5em;
-            border-radius: 4px;
-            transition: background 0.15s;
+            padding: 0.2em 0.55em;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
         }
 
         .slide-nav a:hover {
-            background: rgba(0,0,0,0.07);
-            color: #222;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue);
         }
 
         .slide-nav__title {
             flex: 1;
             text-align: center;
-            font-weight: 500;
-            color: #444;
+            font-weight: 600;
+            color: var(--brand-dark);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        .slide-nav__logo {
+            height: 20px;
+            width: auto;
+            opacity: 0.9;
+            flex-shrink: 0;
         }
 
         .slide-nav__btn {
             background: none;
             border: none;
             cursor: pointer;
-            color: #555;
+            color: var(--brand-mid);
             font-size: 1em;
             display: inline-flex;
             align-items: center;
             gap: 0.3em;
-            padding: 0.2em 0.5em;
-            border-radius: 4px;
-            transition: background 0.15s;
+            padding: 0.2em 0.55em;
+            border-radius: 5px;
+            font-family: inherit;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
         }
 
         .slide-nav__btn:hover {
-            background: rgba(0,0,0,0.07);
-            color: #222;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue);
         }
 
+        /* ── Footer ────────────────────────────────────────────── */
         .slide-footer {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.8em;
-            color: #666;
+            bottom: 0; left: 0; right: 0;
+            font-size: 0.72em;
+            color: var(--brand-mid);
             z-index: 1000;
-            background: white;
-            padding: 0.5em 1em;
-            border-top: 1px solid #eee;
-            text-align: left;
-        }
-
-        section {
-            padding: 2em;
-            padding-top: 3.5em;
-            padding-bottom: 4em;
+            background: rgba(245, 240, 232, 0.96);
+            padding: 0.42em 1.4em;
+            border-top: 1px solid rgba(37, 99, 235, 0.1);
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            box-sizing: border-box;
+            gap: 0.4em;
         }
 
-        .list-container {
-            width: 100%;
-            max-width: 80%;
-            margin: 0 auto;
+        .slide-footer::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--brand-blue);
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -229,23 +346,36 @@
 <body>
     <nav class="slide-nav" id="slide-nav">
         <a href="../" title="Back to lesson">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
             Back
         </a>
         <span class="slide-nav__title">Exploratory Data Analysis: From Data to Insights</span>
         <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
         </button>
+        <!-- Skills Union brand mark (inline SVG — no external file dependency) -->
+        <svg class="slide-nav__logo" viewBox="0 0 160 28" height="20" xmlns="http://www.w3.org/2000/svg" aria-label="Localized | Skills Union" role="img">
+            <path d="M8.5 5a5.5 5.5 0 0 1 3.3 9.9l-.5 1.1v.5H5.7v-.5l-.5-1.1A5.5 5.5 0 0 1 8.5 5z" fill="none" stroke="#06B6D4" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M6.5 16.5h4M7.2 18.5h2.6" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="8.5" y1="2" x2="8.5" y2="3.5" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="2.5" y1="7" x2="3.7" y2="8.2" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="14.5" y1="7" x2="13.3" y2="8.2" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <text x="20" y="19" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="700" fill="#1E293B">Localized</text>
+            <line x1="83" y1="5" x2="83" y2="23" stroke="#CBD5E1" stroke-width="1"/>
+            <text x="89" y="19" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="700" fill="#1E293B">Skills</text>
+            <rect x="116" y="4" width="44" height="20" rx="3" fill="#1E293B"/>
+            <text x="138" y="18.5" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Union</text>
+        </svg>
     </nav>
     <div class="reveal">
         <div class="slides">
             
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Exploratory Data Analysis: From Data to Insights</h1>
                         
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -284,7 +414,7 @@
                         <ul>
                             <li><strong>Step 1 — Load &amp; inspect</strong>: shape, dtypes, memory, first/last rows</li>
 <li><strong>Step 2 — Univariate analysis</strong>: distribution of each column individually</li>
-<li><strong>Step 3 — Summary statistics</strong>: `describe()`, `value_counts()`, missing counts</li>
+<li><strong>Step 3 — Summary statistics</strong>: <code>describe()</code>, <code>value_counts()</code>, missing counts</li>
 <li><strong>Step 4 — Missing data</strong>: patterns, heatmaps, decide MCAR / MAR / MNAR</li>
 <li><strong>Step 5 — Outlier detection</strong>: visual (box plot) + statistical (IQR, z-score)</li>
                         </ul>
@@ -308,12 +438,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Univariate Analysis</h1>
                         <h3>Understanding one variable at a time</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -328,7 +458,7 @@
                     <div class="list-container">
                         <ul>
                             <li>A <strong>histogram</strong> bins values and counts frequency — first visual check for any numeric column</li>
-<li>Add a <strong>KDE curve</strong> (`sns.histplot(kde=True)`) to see the smooth density estimate</li>
+<li>Add a <strong>KDE curve</strong> (<code>sns.histplot(kde=True)</code>) to see the smooth density estimate</li>
 <li><strong>Normal (bell)</strong>: mean ≈ median, symmetric tails — parametric methods safe</li>
 <li><strong>Right-skewed</strong>: long right tail, mean &gt; median — common in revenue, income</li>
                         </ul>
@@ -340,7 +470,7 @@
                             <li><strong>Left-skewed</strong>: long left tail, mean &lt; median — common in ratings, scores</li>
 <li><strong>Bimodal</strong>: two peaks — often a hidden sub-population or mixing of groups</li>
 <li>Rule of thumb: |skewness| &gt; 1 is significant and usually needs a transform</li>
-<li>`df['col'].hist(bins=30)` or `sns.histplot(df['col'], bins=30, kde=True)`</li>
+<li><code>df['col'].hist(bins=30)</code> or <code>sns.histplot(df['col'], bins=30, kde=True)</code></li>
                         </ul>
                     </div>
                 
@@ -366,7 +496,7 @@
 <li><strong>Skewness</strong>: $\gamma_1 = \frac{m_3}{m_2^{3/2}}$ — positive means right tail is longer</li>
 <li><strong>Kurtosis</strong>: $\gamma_2 = \frac{m_4}{m_2^2} - 3$ — heavy tails have positive excess kurtosis</li>
 <li>When median is close to Q1, the distribution is right-skewed (long upper whisker)</li>
-<li>`sns.boxplot(y=df['col'])` or `df.boxplot(column='col')`</li>
+<li><code>sns.boxplot(y=df['col'])</code> or <code>df.boxplot(column='col')</code></li>
                         </ul>
                     </div>
                 
@@ -376,12 +506,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Summary Statistics</h1>
                         <h3>Numbers that summarise a column</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -417,13 +547,13 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>`df.describe()` → count, mean, std, min, 25 %, 50 %, 75 %, max for all numeric columns</li>
-<li>`df.describe(include='all')` → also includes top/freq/unique for categoricals</li>
-<li>`df['col'].value_counts()` → frequency table for categorical or discrete columns</li>
-<li>`df['col'].value_counts(normalize=True)` → proportion instead of count</li>
-<li>`df.info()` → dtypes and non-null counts in one call — first sanity check</li>
+                            <li><code>df.describe()</code> → count, mean, std, min, 25 %, 50 %, 75 %, max for all numeric columns</li>
+<li><code>df.describe(include='all')</code> → also includes top/freq/unique for categoricals</li>
+<li><code>df['col'].value_counts()</code> → frequency table for categorical or discrete columns</li>
+<li><code>df['col'].value_counts(normalize=True)</code> → proportion instead of count</li>
+<li><code>df.info()</code> → dtypes and non-null counts in one call — first sanity check</li>
 <li>Compare <strong>min/max to domain expectations</strong> — spot impossible values early</li>
-<li>Check `count` vs `len(df)` per column to surface missing data quickly</li>
+<li>Check <code>count</code> vs <code>len(df)</code> per column to surface missing data quickly</li>
                         </ul>
                     </div>
                 
@@ -433,12 +563,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Outlier Detection During EDA</h1>
                         <h3>Visual and statistical methods</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -488,12 +618,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Missing Data Patterns</h1>
                         <h3>Understand before imputing</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -508,10 +638,10 @@
                             <li><strong>MCAR</strong> (Missing Completely At Random): no pattern — safe to drop or impute</li>
 <li><strong>MAR</strong> (Missing At Random): missingness depends on other columns — impute carefully</li>
 <li><strong>MNAR</strong> (Missing Not At Random): missingness depends on the missing value itself — hardest case</li>
-<li>`df.isnull().sum()` → count per column; `/ len(df) * 100` for percentage</li>
-<li><strong>Missingness heatmap</strong>: `sns.heatmap(df.isnull(), cbar=False)` — spots row-level patterns</li>
-<li><strong>Correlation of missingness</strong>: `df.isnull().corr()` — finds columns that go missing together</li>
-<li>Never blindly `dropna()` — always profile the pattern first to avoid silent bias</li>
+<li><code>df.isnull().sum()</code> → count per column; <code>/ len(df) * 100</code> for percentage</li>
+<li><strong>Missingness heatmap</strong>: <code>sns.heatmap(df.isnull(), cbar=False)</code> — spots row-level patterns</li>
+<li><strong>Correlation of missingness</strong>: <code>df.isnull().corr()</code> — finds columns that go missing together</li>
+<li>Never blindly <code>dropna()</code> — always profile the pattern first to avoid silent bias</li>
                         </ul>
                     </div>
                 
@@ -521,12 +651,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Bivariate Analysis</h1>
                         <h3>Exploring relationships between two variables</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -539,10 +669,10 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Scatter plot</strong>: plot two numeric columns against each other to see linear or non-linear patterns</li>
-<li>Add a regression line (`sns.regplot`) to estimate the direction and slope at a glance</li>
+<li>Add a regression line (<code>sns.regplot</code>) to estimate the direction and slope at a glance</li>
 <li><strong>Pearson r</strong>: $r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i-\bar{x})^2}\sqrt{\sum(y_i-\bar{y})^2}}$ — linear only, −1 to 1</li>
 <li><strong>Spearman ρ</strong>: rank-based, handles monotonic non-linear relationships</li>
-<li><strong>Correlation heatmap</strong>: `sns.heatmap(df.corr(), annot=True, cmap='coolwarm')` — overview of all pairs</li>
+<li><strong>Correlation heatmap</strong>: <code>sns.heatmap(df.corr(), annot=True, cmap='coolwarm')</code> — overview of all pairs</li>
 <li>r &gt; 0.7 or &lt; −0.7 is usually considered <strong>strong</strong>; always visualise to confirm</li>
 <li><strong>Correlation ≠ causation</strong> — lurking variables and reverse causality are common</li>
                         </ul>
@@ -554,12 +684,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Categorical Relationships</h1>
                         <h3>Bar charts, cross-tabs, and group comparisons</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -571,13 +701,13 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Bar chart</strong>: `df['col'].value_counts().plot(kind='bar')` — frequency of each category</li>
+                            <li><strong>Bar chart</strong>: <code>df['col'].value_counts().plot(kind='bar')</code> — frequency of each category</li>
 <li><strong>Grouped bar chart</strong>: compare one numeric metric across categories side by side</li>
 <li><strong>Stacked bar chart</strong>: shows proportions within each category</li>
-<li><strong>Cross-tabulation</strong>: `pd.crosstab(df['A'], df['B'])` — joint frequency table for two categoricals</li>
+<li><strong>Cross-tabulation</strong>: <code>pd.crosstab(df['A'], df['B'])</code> — joint frequency table for two categoricals</li>
 <li><strong>Chi-square test</strong>: $\chi^2 = \sum \frac{(O - E)^2}{E}$ — test independence between two categorical columns</li>
 <li><strong>Cramér's V</strong>: $V = \sqrt{\frac{\chi^2}{n \cdot \min(r-1, c-1)}}$ — effect size, 0 (no association) to 1 (perfect)</li>
-<li><strong>Box plot by category</strong>: `sns.boxplot(x='category', y='numeric', data=df)` — compare distributions</li>
+<li><strong>Box plot by category</strong>: <code>sns.boxplot(x='category', y='numeric', data=df)</code> — compare distributions</li>
                         </ul>
                     </div>
                 
@@ -587,12 +717,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Time Series EDA</h1>
                         <h3>Exploring temporal patterns</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -606,8 +736,8 @@
                         
                     <div class="list-container">
                         <ul>
-                            <li><strong>Parse dates first</strong>: `pd.to_datetime(df['date'])` → set as index for resampling</li>
-<li><strong>Line plot</strong>: `df.set_index('date')['value'].plot()` — first check for trends and spikes</li>
+                            <li><strong>Parse dates first</strong>: <code>pd.to_datetime(df['date'])</code> → set as index for resampling</li>
+<li><strong>Line plot</strong>: <code>df.set_index('date')['value'].plot()</code> — first check for trends and spikes</li>
 <li><strong>Decomposition</strong>: separate Trend ($T_t$), Seasonality ($S_t$), Residuals ($R_t$)</li>
 <li>Additive: $Y_t = T_t + S_t + R_t$ — use when seasonal amplitude is constant</li>
                         </ul>
@@ -619,7 +749,7 @@
                             <li>Multiplicative: $Y_t = T_t \times S_t \times R_t$ — use when amplitude grows with the trend</li>
 <li><strong>Simple moving average</strong>: $MA_t = \frac{1}{n}\sum_{i=0}^{n-1} Y_{t-i}$ — smooths noise, reveals trend</li>
 <li><strong>EMA</strong>: $EMA_t = \alpha Y_t + (1-\alpha)EMA_{t-1}$ — reacts faster to recent changes</li>
-<li>`df.resample('M').mean()` — aggregate to monthly; `rolling(7).mean()` — 7-day smoothing</li>
+<li><code>df.resample('M').mean()</code> — aggregate to monthly; <code>rolling(7).mean()</code> — 7-day smoothing</li>
                         </ul>
                     </div>
                 
@@ -640,9 +770,9 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Rolling z-score</strong>: flag points beyond rolling_mean ± 3 × rolling_std</li>
-<li>`rolling_mean = series.rolling(window=30).mean()`</li>
-<li>`rolling_std  = series.rolling(window=30).std()`</li>
-<li>Anomaly = value outside `rolling_mean ± threshold × rolling_std`</li>
+<li><code>rolling_mean = series.rolling(window=30).mean()</code></li>
+<li><code>rolling_std  = series.rolling(window=30).std()</code></li>
+<li>Anomaly = value outside <code>rolling_mean ± threshold × rolling_std</code></li>
 <li><strong>Seasonal anomaly</strong>: compare same period across years (e.g. December week vs prior Decembers)</li>
 <li><strong>ACF plot</strong>: autocorrelation function reveals the dominant seasonal period</li>
 <li>Plot anomalies as <strong>red markers</strong> on the original line chart for immediate visibility</li>
@@ -655,12 +785,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>EDA Workflow Summary</h1>
                         <h3>A repeatable checklist</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -675,7 +805,7 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Load</strong>: confirm shape, dtypes, memory; scan first and last rows</li>
-<li><strong>Profile</strong>: `describe(include='all')`, `info()`, missing counts per column</li>
+<li><strong>Profile</strong>: <code>describe(include='all')</code>, <code>info()</code>, missing counts per column</li>
 <li><strong>Univariate</strong>: histogram + box plot for every numeric; bar chart for every categorical</li>
 <li><strong>Outliers</strong>: IQR fence or z-score; visualise and decide keep / cap / remove</li>
                         </ul>
@@ -742,7 +872,7 @@
             hash: true,
             center: false,
             transition: 'slide',
-            slideNumber: true,
+            slideNumber: 'c/t',
             plugins: []
         });
 
@@ -754,7 +884,6 @@
             }
         }
 
-        // Swap fullscreen icon when state changes
         document.addEventListener('fullscreenchange', function () {
             var icon = document.getElementById('fs-icon');
             if (document.fullscreenElement) {

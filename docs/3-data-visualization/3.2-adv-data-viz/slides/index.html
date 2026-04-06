@@ -5,223 +5,340 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Data Visualization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <style>
+        :root {
+            --brand-bg:         #F5F0E8;
+            --brand-blue:       #2563EB;
+            --brand-blue-dark:  #1D4ED8;
+            --brand-dark:       #1E293B;
+            --brand-mid:        #64748B;
+            --brand-light:      #EFF6FF;
+            --brand-border:     #BFDBFE;
+            --brand-white:      #FFFFFF;
+            --brand-orange:     #F59E0B;
+            --brand-pink:       rgba(249, 168, 212, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--brand-bg);
         }
 
+        /* ── Reveal core overrides ─────────────────────────────── */
         .reveal {
-            font-size: 1.45em;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 1.3em;
+            color: var(--brand-dark);
+            background: var(--brand-bg);
         }
 
-        /* Dense slides: smaller type so more bullets fit without overflow */
-        .reveal .box.box--compact {
-            font-size: 0.88em;
-            max-width: 92%;
-        }
-
-        .reveal .box.box--compact h3 {
-            font-size: 1.15em;
-        }
-
-        .reveal .box.box--compact li {
-            margin-bottom: 0.35em;
-            line-height: 1.35;
-        }
+        .reveal .slides { text-align: left; }
 
         .reveal h1,
         .reveal h2,
         .reveal h3 {
+            font-family: 'Inter', -apple-system, sans-serif;
             text-transform: none;
-            margin-bottom: 0.5em;
-            text-align: center;
+            letter-spacing: -0.02em;
+            text-align: left;
+            margin-bottom: 0.45em;
+            color: var(--brand-blue);
         }
 
-        .reveal h1 {
-            font-size: 2em;
-        }
-
-        .reveal h2 {
-            font-size: 1.6em;
-        }
-
-        .reveal h3 {
-            font-size: 1.3em;
-        }
+        .reveal h1 { font-size: 2.4em;  font-weight: 700; line-height: 1.1; }
+        .reveal h2 { font-size: 1.65em; font-weight: 700; line-height: 1.2; }
+        .reveal h3 { font-size: 1.15em; font-weight: 600; line-height: 1.3; color: var(--brand-dark); }
 
         .reveal p {
-            margin-bottom: 1em;
-            line-height: 1.4;
-            text-align: center;
+            line-height: 1.6;
+            text-align: left;
+            color: var(--brand-dark);
+            margin-bottom: 0.8em;
         }
 
-        .reveal ul {
-            margin: 0 auto;
+        .reveal ul,
+        .reveal ol {
+            margin: 0 0 0 1.4em;
             text-align: left;
-            max-width: 80%;
         }
 
         .reveal li {
             margin-bottom: 0.5em;
+            line-height: 1.55;
+            color: var(--brand-dark);
             overflow-wrap: anywhere;
             word-wrap: break-word;
         }
 
         .reveal code {
-            padding: 0.2em 0.4em;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue-dark);
+            padding: 0.15em 0.4em;
             border-radius: 4px;
+            font-size: 0.87em;
         }
 
         .reveal pre {
-            padding: 1em;
-            border-radius: 8px;
-            max-width: 80%;
-            margin: 0 auto;
+            background: var(--brand-dark);
+            color: #E2E8F0;
+            padding: 1em 1.2em;
+            border-radius: 10px;
+            max-width: 90%;
+            margin: 0.8em auto;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
 
-        .reveal .slides {
-            text-align: center;
+        .reveal pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
         }
 
-        .reveal .center {
-            text-align: center;
+        .reveal a {
+            color: var(--brand-blue);
+            text-decoration: underline;
         }
 
-        .reveal .right {
-            text-align: right;
+        .reveal a:hover { color: var(--brand-blue-dark); }
+
+        /* ── Reveal chrome ─────────────────────────────────────── */
+        .reveal .progress         { background: rgba(37, 99, 235, 0.15); }
+        .reveal .progress span    { background: var(--brand-blue); }
+        .reveal .controls button  { color: var(--brand-blue); }
+        .reveal .slide-number {
+            background: transparent;
+            color: var(--brand-mid);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75em;
         }
 
+        /* ── Section base ──────────────────────────────────────── */
+        section {
+            padding: 3em 3.5em 4.5em;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+            background: var(--brand-bg);
+        }
+
+        .content-wrapper { width: 100%; }
+
+        /* ── Title slide ───────────────────────────────────────── */
+        section.slide-title {
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative circles echoing the brand PDF */
+        section.slide-title::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -80px;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.09);
+            pointer-events: none;
+        }
+
+        section.slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            right: 100px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--brand-pink);
+            pointer-events: none;
+        }
+
+        section.slide-title .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        section.slide-title h1 {
+            font-size: 2.8em;
+            margin-bottom: 0.25em;
+        }
+
+        section.slide-title h3 {
+            color: var(--brand-mid);
+            font-weight: 500;
+            font-size: 1.05em;
+            margin-top: 0;
+        }
+
+        /* Orange accent dot before title-slide h1 */
+        section.slide-title h1::before {
+            content: '';
+            display: inline-block;
+            width: 0.2em;
+            height: 0.9em;
+            background: var(--brand-orange);
+            border-radius: 3px;
+            margin-right: 0.3em;
+            vertical-align: middle;
+            transform: translateY(-0.05em);
+        }
+
+        /* ── Content box ───────────────────────────────────────── */
         .reveal .box {
-            padding: 1em;
-            border-radius: 8px;
-            margin: 1em auto;
-            max-width: 88%;
+            background: var(--brand-white);
+            border: 1px solid var(--brand-border);
+            border-left: 4px solid var(--brand-blue);
+            border-radius: 10px;
+            padding: 1.1em 1.4em;
+            margin: 0.6em 0;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.07);
         }
 
+        .reveal .box h3 {
+            font-size: 1.0em;
+            color: var(--brand-blue);
+            margin-bottom: 0.55em;
+            margin-top: 0;
+        }
+
+        /* Dense slides */
+        .reveal .box.box--compact { font-size: 0.88em; }
+        .reveal .box.box--compact h3 { font-size: 1.0em; }
+        .reveal .box.box--compact li {
+            margin-bottom: 0.3em;
+            line-height: 1.3;
+        }
+
+        /* ── Column layouts ────────────────────────────────────── */
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.25em 2em;
-            max-width: 92%;
-            margin: 0 auto;
-            align-items: start;
+            gap: 1em 2em;
+            width: 100%;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 1em 1.25em;
-            max-width: 96%;
-            margin: 0 auto;
-            align-items: start;
-        }
-
-        .reveal .two-column .list-container,
-        .reveal .three-column .list-container {
-            max-width: 100%;
+            gap: 0.8em 1.2em;
+            width: 100%;
         }
 
         .reveal .two-column ul,
         .reveal .two-column ol,
         .reveal .three-column ul,
         .reveal .three-column ol {
-            max-width: 100%;
+            margin-left: 1em;
         }
 
+        .list-container { width: 100%; }
+
+        /* ── Navigation bar ────────────────────────────────────── */
         .slide-nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.78em;
-            color: #555;
+            top: 0; left: 0; right: 0;
+            font-size: 0.76em;
             z-index: 2000;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(4px);
-            padding: 0.4em 1em;
-            border-bottom: 1px solid #e0e0e0;
+            background: rgba(245, 240, 232, 0.96);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 0.38em 1.1em;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.12);
             display: flex;
             align-items: center;
-            gap: 0.75em;
+            gap: 0.6em;
         }
 
         .slide-nav a {
-            color: #555;
+            color: var(--brand-mid);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 0.3em;
-            padding: 0.2em 0.5em;
-            border-radius: 4px;
-            transition: background 0.15s;
+            padding: 0.2em 0.55em;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
         }
 
         .slide-nav a:hover {
-            background: rgba(0,0,0,0.07);
-            color: #222;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue);
         }
 
         .slide-nav__title {
             flex: 1;
             text-align: center;
-            font-weight: 500;
-            color: #444;
+            font-weight: 600;
+            color: var(--brand-dark);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        .slide-nav__logo {
+            height: 20px;
+            width: auto;
+            opacity: 0.9;
+            flex-shrink: 0;
         }
 
         .slide-nav__btn {
             background: none;
             border: none;
             cursor: pointer;
-            color: #555;
+            color: var(--brand-mid);
             font-size: 1em;
             display: inline-flex;
             align-items: center;
             gap: 0.3em;
-            padding: 0.2em 0.5em;
-            border-radius: 4px;
-            transition: background 0.15s;
+            padding: 0.2em 0.55em;
+            border-radius: 5px;
+            font-family: inherit;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
         }
 
         .slide-nav__btn:hover {
-            background: rgba(0,0,0,0.07);
-            color: #222;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue);
         }
 
+        /* ── Footer ────────────────────────────────────────────── */
         .slide-footer {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.8em;
-            color: #666;
+            bottom: 0; left: 0; right: 0;
+            font-size: 0.72em;
+            color: var(--brand-mid);
             z-index: 1000;
-            background: white;
-            padding: 0.5em 1em;
-            border-top: 1px solid #eee;
-            text-align: left;
-        }
-
-        section {
-            padding: 2em;
-            padding-top: 3.5em;
-            padding-bottom: 4em;
+            background: rgba(245, 240, 232, 0.96);
+            padding: 0.42em 1.4em;
+            border-top: 1px solid rgba(37, 99, 235, 0.1);
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            box-sizing: border-box;
+            gap: 0.4em;
         }
 
-        .list-container {
-            width: 100%;
-            max-width: 80%;
-            margin: 0 auto;
+        .slide-footer::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--brand-blue);
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -229,23 +346,36 @@
 <body>
     <nav class="slide-nav" id="slide-nav">
         <a href="../" title="Back to lesson">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
             Back
         </a>
         <span class="slide-nav__title">Advanced Data Visualization</span>
         <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
         </button>
+        <!-- Skills Union brand mark (inline SVG — no external file dependency) -->
+        <svg class="slide-nav__logo" viewBox="0 0 160 28" height="20" xmlns="http://www.w3.org/2000/svg" aria-label="Localized | Skills Union" role="img">
+            <path d="M8.5 5a5.5 5.5 0 0 1 3.3 9.9l-.5 1.1v.5H5.7v-.5l-.5-1.1A5.5 5.5 0 0 1 8.5 5z" fill="none" stroke="#06B6D4" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M6.5 16.5h4M7.2 18.5h2.6" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="8.5" y1="2" x2="8.5" y2="3.5" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="2.5" y1="7" x2="3.7" y2="8.2" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="14.5" y1="7" x2="13.3" y2="8.2" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <text x="20" y="19" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="700" fill="#1E293B">Localized</text>
+            <line x1="83" y1="5" x2="83" y2="23" stroke="#CBD5E1" stroke-width="1"/>
+            <text x="89" y="19" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="700" fill="#1E293B">Skills</text>
+            <rect x="116" y="4" width="44" height="20" rx="3" fill="#1E293B"/>
+            <text x="138" y="18.5" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Union</text>
+        </svg>
     </nav>
     <div class="reveal">
         <div class="slides">
             
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Advanced Data Visualization</h1>
                         <h3>Seaborn, Plotly, Time Series, and Real-World Practice</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -294,12 +424,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Seaborn</h1>
                         <h3>Statistical Visualization with Beautiful Defaults</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -314,9 +444,9 @@
                             <li><strong>Beautiful defaults</strong>: Professional look out-of-the-box with no manual styling</li>
 <li><strong>Statistical power</strong>: Built-in KDE, regression lines, confidence bands, and bootstrapping</li>
 <li><strong>Pandas integration</strong>: Pass a DataFrame and column names — no need to extract arrays manually</li>
-<li><strong>Themes</strong>: `whitegrid`, `darkgrid`, `ticks`, `white`, `dark` — switch context with one call</li>
+<li><strong>Themes</strong>: <code>whitegrid</code>, <code>darkgrid</code>, <code>ticks</code>, <code>white</code>, <code>dark</code> — switch context with one call</li>
 <li><strong>Palette control</strong>: Qualitative, sequential, and diverging palettes; colorblind-safe options built in</li>
-<li><strong>Figure-level functions</strong>: `relplot`, `displot`, `catplot`, `lmplot` handle faceting automatically</li>
+<li><strong>Figure-level functions</strong>: <code>relplot</code>, <code>displot</code>, <code>catplot</code>, <code>lmplot</code> handle faceting automatically</li>
                         </ul>
                     </div>
                 
@@ -334,11 +464,11 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>`sns.set_theme(style='whitegrid', palette='deep', font_scale=1.1)` — one call sets global style</li>
-<li>`plt.rcParams.update({'figure.figsize': (10, 6), 'figure.dpi': 100})` — aligns Matplotlib defaults</li>
-<li>Context presets: `sns.set_context('notebook')` for exploration, `'presentation'` for slides, `'paper'` for print</li>
-<li>Use `sns.color_palette('colorblind')` when publishing for accessibility</li>
-<li>Always call `plt.tight_layout()` before saving to prevent label clipping</li>
+                            <li><code>sns.set_theme(style='whitegrid', palette='deep', font_scale=1.1)</code> — one call sets global style</li>
+<li><code>plt.rcParams.update({'figure.figsize': (10, 6), 'figure.dpi': 100})</code> — aligns Matplotlib defaults</li>
+<li>Context presets: <code>sns.set_context('notebook')</code> for exploration, <code>'presentation'</code> for slides, <code>'paper'</code> for print</li>
+<li>Use <code>sns.color_palette('colorblind')</code> when publishing for accessibility</li>
+<li>Always call <code>plt.tight_layout()</code> before saving to prevent label clipping</li>
                         </ul>
                     </div>
                 
@@ -356,12 +486,12 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>histplot</strong>: Binned counts with optional KDE overlay — `kde=True` adds the density curve in one argument</li>
+                            <li><strong>histplot</strong>: Binned counts with optional KDE overlay — <code>kde=True</code> adds the density curve in one argument</li>
 <li><strong>boxplot</strong>: Median, IQR box, whiskers (1.5×IQR), and outlier points — best for comparing groups</li>
 <li><strong>violinplot</strong>: KDE mirrored on both sides — shows the full distribution shape, not just quartiles</li>
 <li><strong>ecdfplot</strong>: Empirical cumulative distribution — read off any percentile directly from the x-axis</li>
-<li>Use `hue=` to split any plot by a categorical variable — Seaborn handles colors and a legend automatically</li>
-<li>Combine `stripplot` on top of `boxplot` to show both the summary and the raw data points</li>
+<li>Use <code>hue=</code> to split any plot by a categorical variable — Seaborn handles colors and a legend automatically</li>
+<li>Combine <code>stripplot</code> on top of <code>boxplot</code> to show both the summary and the raw data points</li>
                         </ul>
                     </div>
                 
@@ -382,7 +512,7 @@
                             <li><strong>scatterplot</strong>: Encode up to five dimensions — x, y, hue, size, style — without extra code</li>
 <li><strong>regplot</strong>: Scatter plus OLS regression line and 95% confidence band in one call</li>
 <li><strong>residplot</strong>: Shows regression residuals — a flat band around zero means the linear fit is appropriate</li>
-<li><strong>heatmap</strong>: Correlation matrix as a color grid — `annot=True` adds the numeric values in each cell</li>
+<li><strong>heatmap</strong>: Correlation matrix as a color grid — <code>annot=True</code> adds the numeric values in each cell</li>
 <li><strong>clustermap</strong>: Reorders rows and columns by similarity, revealing variable groups the standard heatmap hides</li>
 <li><strong>pairplot / PairGrid</strong>: All pairwise scatter or distribution plots — fast for multivariate EDA</li>
 <li><strong>FacetGrid</strong>: Small multiples — the same plot repeated per category level without manual subplots</li>
@@ -403,12 +533,12 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>`hue=`: Assigns a distinct color per category — the most common third dimension</li>
-<li>`size=`: Scales marker area by a numeric column — good for volume or importance</li>
-<li>`style=`: Uses different marker shapes or line dashes per category — helps colorblind readers</li>
-<li>Combine `hue` + `style` on `lineplot` for multi-series time charts that are readable in grayscale</li>
-<li>`hue_order=` controls the legend and color assignment order</li>
-<li>`palette=` accepts named palettes, lists of hex codes, or `sns.color_palette()` objects</li>
+                            <li><code>hue=</code>: Assigns a distinct color per category — the most common third dimension</li>
+<li><code>size=</code>: Scales marker area by a numeric column — good for volume or importance</li>
+<li><code>style=</code>: Uses different marker shapes or line dashes per category — helps colorblind readers</li>
+<li>Combine <code>hue</code> + <code>style</code> on <code>lineplot</code> for multi-series time charts that are readable in grayscale</li>
+<li><code>hue_order=</code> controls the legend and color assignment order</li>
+<li><code>palette=</code> accepts named palettes, lists of hex codes, or <code>sns.color_palette()</code> objects</li>
 <li>Avoid using all three encodings simultaneously — cognitive overload cancels the clarity gain</li>
                         </ul>
                     </div>
@@ -419,12 +549,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Plotly</h1>
                         <h3>Interactive Charts for Exploration and Sharing</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -438,10 +568,10 @@
                         <ul>
                             <li><strong>Plotly Express (px)</strong>: High-level API — one function call produces a complete interactive figure</li>
 <li><strong>Graph Objects (go)</strong>: Low-level API — build every trace, axis, and annotation manually</li>
-<li>Start with `px` for 90% of charts; drop to `go` only when Express cannot express what you need</li>
-<li>`px.scatter`, `px.line`, `px.bar`, `px.histogram`, `px.box` — all return a `go.Figure` you can further modify</li>
-<li>`fig.update_layout(...)` and `fig.update_traces(...)` work on both Express and Graph Objects figures</li>
-<li>Set `pio.templates.default = 'plotly_white'` once to give every figure a clean background</li>
+<li>Start with <code>px</code> for 90% of charts; drop to <code>go</code> only when Express cannot express what you need</li>
+<li><code>px.scatter</code>, <code>px.line</code>, <code>px.bar</code>, <code>px.histogram</code>, <code>px.box</code> — all return a <code>go.Figure</code> you can further modify</li>
+<li><code>fig.update_layout(...)</code> and <code>fig.update_traces(...)</code> work on both Express and Graph Objects figures</li>
+<li>Set <code>pio.templates.default = 'plotly_white'</code> once to give every figure a clean background</li>
                         </ul>
                     </div>
                 
@@ -460,12 +590,12 @@
                     <div class="list-container">
                         <ul>
                             <li>Every Plotly chart includes zoom, pan, and reset by default — no extra code needed</li>
-<li>`hover_data={'col': ':.2f'}` — controls which columns appear in the tooltip and how they are formatted</li>
-<li>`hovermode='x unified'` — snaps all traces to the same x position, useful for time series</li>
-<li>`hovertemplate=` — full control over tooltip HTML and formatting strings</li>
+<li><code>hover_data={'col': ':.2f'}</code> — controls which columns appear in the tooltip and how they are formatted</li>
+<li><code>hovermode='x unified'</code> — snaps all traces to the same x position, useful for time series</li>
+<li><code>hovertemplate=</code> — full control over tooltip HTML and formatting strings</li>
 <li>Click a legend entry to hide or show that trace; double-click to isolate it</li>
-<li>`update_xaxes(rangeslider_visible=True)` adds a mini navigator below the x-axis for time charts</li>
-<li>`fig.write_html('report.html', include_plotlyjs='cdn')` exports a self-contained interactive file</li>
+<li><code>update_xaxes(rangeslider_visible=True)</code> adds a mini navigator below the x-axis for time charts</li>
+<li><code>fig.write_html('report.html', include_plotlyjs='cdn')</code> exports a self-contained interactive file</li>
                         </ul>
                     </div>
                 
@@ -483,12 +613,12 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>`px.scatter(df, x=..., y=..., size=..., color=..., animation_frame='year')` — five dimensions in one call</li>
-<li>`animation_frame=` adds a playback slider — the Gapminder bubble chart is the canonical example</li>
-<li>`make_subplots(rows=2, cols=2, specs=[[...], [...]])` — lay out mixed chart types in one figure</li>
-<li>`fig.add_trace(go.Bar(...), row=1, col=2)` — place traces into specific grid cells</li>
-<li>`updatemenus` with `method='relayout'` — add YTD / All range buttons above a time chart</li>
-<li>`updatemenus` with `method='restyle'` — add Show / Hide buttons to toggle trace visibility</li>
+                            <li><code>px.scatter(df, x=..., y=..., size=..., color=..., animation_frame='year')</code> — five dimensions in one call</li>
+<li><code>animation_frame=</code> adds a playback slider — the Gapminder bubble chart is the canonical example</li>
+<li><code>make_subplots(rows=2, cols=2, specs=[[...], [...]])</code> — lay out mixed chart types in one figure</li>
+<li><code>fig.add_trace(go.Bar(...), row=1, col=2)</code> — place traces into specific grid cells</li>
+<li><code>updatemenus</code> with <code>method='relayout'</code> — add YTD / All range buttons above a time chart</li>
+<li><code>updatemenus</code> with <code>method='restyle'</code> — add Show / Hide buttons to toggle trace visibility</li>
                         </ul>
                     </div>
                 
@@ -498,12 +628,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Time Series Visualization</h1>
                         <h3>Trends, Aggregation, and Event Annotation</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -520,7 +650,7 @@
 <li><strong>Aggregation level determines the message</strong>: Daily noise vs weekly trend vs monthly business rhythm</li>
 <li><strong>Seasonality can hide or exaggerate trends</strong>: A rising annual trend can look flat on a monthly chart</li>
 <li><strong>Partial periods mislead</strong>: A current incomplete month compared to finished prior months will always look low</li>
-<li>Use `pd.to_datetime()` and `sort_values('date')` before any time chart — always</li>
+<li>Use <code>pd.to_datetime()</code> and <code>sort_values('date')</code> before any time chart — always</li>
                         </ul>
                     </div>
                 
@@ -538,12 +668,12 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Trend line</strong>: `ax.plot(dates, values)` — keep it simple, label axes clearly, limit overlapping series</li>
-<li><strong>Resampling</strong>: `.resample('W').agg(...)` to convert daily data to weekly before plotting</li>
-<li><strong>Rolling average</strong>: `series.rolling(window=4).mean()` — smooths noise without hiding raw variation when both are shown</li>
-<li><strong>Multiple series</strong>: Use `sns.lineplot(hue='channel')` for up to 5 series; more than that, use small multiples</li>
-<li><strong>Small multiples</strong>: `sns.relplot(col='channel', col_wrap=2)` — one panel per group, shared x-axis</li>
-<li><strong>Event markers</strong>: `ax.axvline(date)` + `ax.annotate('Launch', ...)` — often more informative than the line itself</li>
+                            <li><strong>Trend line</strong>: <code>ax.plot(dates, values)</code> — keep it simple, label axes clearly, limit overlapping series</li>
+<li><strong>Resampling</strong>: <code>.resample('W').agg(...)</code> to convert daily data to weekly before plotting</li>
+<li><strong>Rolling average</strong>: <code>series.rolling(window=4).mean()</code> — smooths noise without hiding raw variation when both are shown</li>
+<li><strong>Multiple series</strong>: Use <code>sns.lineplot(hue='channel')</code> for up to 5 series; more than that, use small multiples</li>
+<li><strong>Small multiples</strong>: <code>sns.relplot(col='channel', col_wrap=2)</code> — one panel per group, shared x-axis</li>
+<li><strong>Event markers</strong>: <code>ax.axvline(date)</code> + <code>ax.annotate('Launch', ...)</code> — often more informative than the line itself</li>
                         </ul>
                     </div>
                 
@@ -561,9 +691,9 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>`px.line(df, x='date', y='visits')` then `fig.update_xaxes(rangeslider_visible=True)` — range navigator in two lines</li>
+                            <li><code>px.line(df, x='date', y='visits')</code> then <code>fig.update_xaxes(rangeslider_visible=True)</code> — range navigator in two lines</li>
 <li>Useful when stakeholders need to inspect exact values, zoom into anomalies, or compare sub-periods</li>
-<li>Add `hovermode='x unified'` so all series show their values at the same date on hover</li>
+<li>Add <code>hovermode='x unified'</code> so all series show their values at the same date on hover</li>
 <li>Static Matplotlib chart for the final report; interactive Plotly version for stakeholder exploration</li>
 <li><strong>Checklist before publishing a time chart</strong>: dates parsed and sorted | aggregation level matches the question | incomplete periods excluded or labeled | key events annotated directly on the chart</li>
                         </ul>
@@ -575,12 +705,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Real-World Case Study</h1>
                         <h3>From Business Question to Polished Recommendation</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -616,7 +746,7 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Step 2 — Prepare data</strong>: Aggregate to the right grain (`weekly_channel`), compute derived metrics (`conversion_rate`, `revenue_per_session`)</li>
+                            <li><strong>Step 2 — Prepare data</strong>: Aggregate to the right grain (<code>weekly_channel</code>), compute derived metrics (<code>conversion_rate</code>, <code>revenue_per_session</code>)</li>
 <li><strong>Step 3 — Explore</strong>: Use a small set of charts with distinct purposes — one per sub-question</li>
 <li><strong>Step 4 — Identify the takeaway</strong>: Suppose paid search drove volume, email drove efficiency, mobile improved after a redesign</li>
 <li><strong>Step 5 — Build final visuals</strong>: Fewer charts than the exploration phase — usually 2 or 3</li>
@@ -655,12 +785,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Choosing the Right Library</h1>
                         <h3>A Decision Framework</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -696,7 +826,7 @@
             hash: true,
             center: false,
             transition: 'slide',
-            slideNumber: true,
+            slideNumber: 'c/t',
             plugins: []
         });
 
@@ -708,7 +838,6 @@
             }
         }
 
-        // Swap fullscreen icon when state changes
         document.addEventListener('fullscreenchange', function () {
             var icon = document.getElementById('fs-icon');
             if (document.fullscreenElement) {

@@ -5,223 +5,340 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Querying with SQL: Your Gateway to Data Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <style>
+        :root {
+            --brand-bg:         #F5F0E8;
+            --brand-blue:       #2563EB;
+            --brand-blue-dark:  #1D4ED8;
+            --brand-dark:       #1E293B;
+            --brand-mid:        #64748B;
+            --brand-light:      #EFF6FF;
+            --brand-border:     #BFDBFE;
+            --brand-white:      #FFFFFF;
+            --brand-orange:     #F59E0B;
+            --brand-pink:       rgba(249, 168, 212, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--brand-bg);
         }
 
+        /* ── Reveal core overrides ─────────────────────────────── */
         .reveal {
-            font-size: 1.45em;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 1.3em;
+            color: var(--brand-dark);
+            background: var(--brand-bg);
         }
 
-        /* Dense slides: smaller type so more bullets fit without overflow */
-        .reveal .box.box--compact {
-            font-size: 0.88em;
-            max-width: 92%;
-        }
-
-        .reveal .box.box--compact h3 {
-            font-size: 1.15em;
-        }
-
-        .reveal .box.box--compact li {
-            margin-bottom: 0.35em;
-            line-height: 1.35;
-        }
+        .reveal .slides { text-align: left; }
 
         .reveal h1,
         .reveal h2,
         .reveal h3 {
+            font-family: 'Inter', -apple-system, sans-serif;
             text-transform: none;
-            margin-bottom: 0.5em;
-            text-align: center;
+            letter-spacing: -0.02em;
+            text-align: left;
+            margin-bottom: 0.45em;
+            color: var(--brand-blue);
         }
 
-        .reveal h1 {
-            font-size: 2em;
-        }
-
-        .reveal h2 {
-            font-size: 1.6em;
-        }
-
-        .reveal h3 {
-            font-size: 1.3em;
-        }
+        .reveal h1 { font-size: 2.4em;  font-weight: 700; line-height: 1.1; }
+        .reveal h2 { font-size: 1.65em; font-weight: 700; line-height: 1.2; }
+        .reveal h3 { font-size: 1.15em; font-weight: 600; line-height: 1.3; color: var(--brand-dark); }
 
         .reveal p {
-            margin-bottom: 1em;
-            line-height: 1.4;
-            text-align: center;
+            line-height: 1.6;
+            text-align: left;
+            color: var(--brand-dark);
+            margin-bottom: 0.8em;
         }
 
-        .reveal ul {
-            margin: 0 auto;
+        .reveal ul,
+        .reveal ol {
+            margin: 0 0 0 1.4em;
             text-align: left;
-            max-width: 80%;
         }
 
         .reveal li {
             margin-bottom: 0.5em;
+            line-height: 1.55;
+            color: var(--brand-dark);
             overflow-wrap: anywhere;
             word-wrap: break-word;
         }
 
         .reveal code {
-            padding: 0.2em 0.4em;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue-dark);
+            padding: 0.15em 0.4em;
             border-radius: 4px;
+            font-size: 0.87em;
         }
 
         .reveal pre {
-            padding: 1em;
-            border-radius: 8px;
-            max-width: 80%;
-            margin: 0 auto;
+            background: var(--brand-dark);
+            color: #E2E8F0;
+            padding: 1em 1.2em;
+            border-radius: 10px;
+            max-width: 90%;
+            margin: 0.8em auto;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
 
-        .reveal .slides {
-            text-align: center;
+        .reveal pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
         }
 
-        .reveal .center {
-            text-align: center;
+        .reveal a {
+            color: var(--brand-blue);
+            text-decoration: underline;
         }
 
-        .reveal .right {
-            text-align: right;
+        .reveal a:hover { color: var(--brand-blue-dark); }
+
+        /* ── Reveal chrome ─────────────────────────────────────── */
+        .reveal .progress         { background: rgba(37, 99, 235, 0.15); }
+        .reveal .progress span    { background: var(--brand-blue); }
+        .reveal .controls button  { color: var(--brand-blue); }
+        .reveal .slide-number {
+            background: transparent;
+            color: var(--brand-mid);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75em;
         }
 
+        /* ── Section base ──────────────────────────────────────── */
+        section {
+            padding: 3em 3.5em 4.5em;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+            background: var(--brand-bg);
+        }
+
+        .content-wrapper { width: 100%; }
+
+        /* ── Title slide ───────────────────────────────────────── */
+        section.slide-title {
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative circles echoing the brand PDF */
+        section.slide-title::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -80px;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.09);
+            pointer-events: none;
+        }
+
+        section.slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            right: 100px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--brand-pink);
+            pointer-events: none;
+        }
+
+        section.slide-title .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        section.slide-title h1 {
+            font-size: 2.8em;
+            margin-bottom: 0.25em;
+        }
+
+        section.slide-title h3 {
+            color: var(--brand-mid);
+            font-weight: 500;
+            font-size: 1.05em;
+            margin-top: 0;
+        }
+
+        /* Orange accent dot before title-slide h1 */
+        section.slide-title h1::before {
+            content: '';
+            display: inline-block;
+            width: 0.2em;
+            height: 0.9em;
+            background: var(--brand-orange);
+            border-radius: 3px;
+            margin-right: 0.3em;
+            vertical-align: middle;
+            transform: translateY(-0.05em);
+        }
+
+        /* ── Content box ───────────────────────────────────────── */
         .reveal .box {
-            padding: 1em;
-            border-radius: 8px;
-            margin: 1em auto;
-            max-width: 88%;
+            background: var(--brand-white);
+            border: 1px solid var(--brand-border);
+            border-left: 4px solid var(--brand-blue);
+            border-radius: 10px;
+            padding: 1.1em 1.4em;
+            margin: 0.6em 0;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.07);
         }
 
+        .reveal .box h3 {
+            font-size: 1.0em;
+            color: var(--brand-blue);
+            margin-bottom: 0.55em;
+            margin-top: 0;
+        }
+
+        /* Dense slides */
+        .reveal .box.box--compact { font-size: 0.88em; }
+        .reveal .box.box--compact h3 { font-size: 1.0em; }
+        .reveal .box.box--compact li {
+            margin-bottom: 0.3em;
+            line-height: 1.3;
+        }
+
+        /* ── Column layouts ────────────────────────────────────── */
         .reveal .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.25em 2em;
-            max-width: 92%;
-            margin: 0 auto;
-            align-items: start;
+            gap: 1em 2em;
+            width: 100%;
         }
 
         .reveal .three-column {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 1em 1.25em;
-            max-width: 96%;
-            margin: 0 auto;
-            align-items: start;
-        }
-
-        .reveal .two-column .list-container,
-        .reveal .three-column .list-container {
-            max-width: 100%;
+            gap: 0.8em 1.2em;
+            width: 100%;
         }
 
         .reveal .two-column ul,
         .reveal .two-column ol,
         .reveal .three-column ul,
         .reveal .three-column ol {
-            max-width: 100%;
+            margin-left: 1em;
         }
 
+        .list-container { width: 100%; }
+
+        /* ── Navigation bar ────────────────────────────────────── */
         .slide-nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.78em;
-            color: #555;
+            top: 0; left: 0; right: 0;
+            font-size: 0.76em;
             z-index: 2000;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(4px);
-            padding: 0.4em 1em;
-            border-bottom: 1px solid #e0e0e0;
+            background: rgba(245, 240, 232, 0.96);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 0.38em 1.1em;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.12);
             display: flex;
             align-items: center;
-            gap: 0.75em;
+            gap: 0.6em;
         }
 
         .slide-nav a {
-            color: #555;
+            color: var(--brand-mid);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 0.3em;
-            padding: 0.2em 0.5em;
-            border-radius: 4px;
-            transition: background 0.15s;
+            padding: 0.2em 0.55em;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
         }
 
         .slide-nav a:hover {
-            background: rgba(0,0,0,0.07);
-            color: #222;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue);
         }
 
         .slide-nav__title {
             flex: 1;
             text-align: center;
-            font-weight: 500;
-            color: #444;
+            font-weight: 600;
+            color: var(--brand-dark);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        .slide-nav__logo {
+            height: 20px;
+            width: auto;
+            opacity: 0.9;
+            flex-shrink: 0;
         }
 
         .slide-nav__btn {
             background: none;
             border: none;
             cursor: pointer;
-            color: #555;
+            color: var(--brand-mid);
             font-size: 1em;
             display: inline-flex;
             align-items: center;
             gap: 0.3em;
-            padding: 0.2em 0.5em;
-            border-radius: 4px;
-            transition: background 0.15s;
+            padding: 0.2em 0.55em;
+            border-radius: 5px;
+            font-family: inherit;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
         }
 
         .slide-nav__btn:hover {
-            background: rgba(0,0,0,0.07);
-            color: #222;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--brand-blue);
         }
 
+        /* ── Footer ────────────────────────────────────────────── */
         .slide-footer {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.8em;
-            color: #666;
+            bottom: 0; left: 0; right: 0;
+            font-size: 0.72em;
+            color: var(--brand-mid);
             z-index: 1000;
-            background: white;
-            padding: 0.5em 1em;
-            border-top: 1px solid #eee;
-            text-align: left;
-        }
-
-        section {
-            padding: 2em;
-            padding-top: 3.5em;
-            padding-bottom: 4em;
+            background: rgba(245, 240, 232, 0.96);
+            padding: 0.42em 1.4em;
+            border-top: 1px solid rgba(37, 99, 235, 0.1);
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            box-sizing: border-box;
+            gap: 0.4em;
         }
 
-        .list-container {
-            width: 100%;
-            max-width: 80%;
-            margin: 0 auto;
+        .slide-footer::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--brand-blue);
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -229,23 +346,36 @@
 <body>
     <nav class="slide-nav" id="slide-nav">
         <a href="../" title="Back to lesson">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
             Back
         </a>
         <span class="slide-nav__title">Data Querying with SQL: Your Gateway to Data Mastery</span>
         <button class="slide-nav__btn" id="fs-btn" title="Toggle fullscreen" onclick="toggleFullscreen()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
         </button>
+        <!-- Skills Union brand mark (inline SVG — no external file dependency) -->
+        <svg class="slide-nav__logo" viewBox="0 0 160 28" height="20" xmlns="http://www.w3.org/2000/svg" aria-label="Localized | Skills Union" role="img">
+            <path d="M8.5 5a5.5 5.5 0 0 1 3.3 9.9l-.5 1.1v.5H5.7v-.5l-.5-1.1A5.5 5.5 0 0 1 8.5 5z" fill="none" stroke="#06B6D4" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M6.5 16.5h4M7.2 18.5h2.6" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="8.5" y1="2" x2="8.5" y2="3.5" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="2.5" y1="7" x2="3.7" y2="8.2" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="14.5" y1="7" x2="13.3" y2="8.2" stroke="#06B6D4" stroke-width="1.4" stroke-linecap="round"/>
+            <text x="20" y="19" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="700" fill="#1E293B">Localized</text>
+            <line x1="83" y1="5" x2="83" y2="23" stroke="#CBD5E1" stroke-width="1"/>
+            <text x="89" y="19" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" font-weight="700" fill="#1E293B">Skills</text>
+            <rect x="116" y="4" width="44" height="20" rx="3" fill="#1E293B"/>
+            <text x="138" y="18.5" font-family="Inter,-apple-system,BlinkMacSystemFont,sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Union</text>
+        </svg>
     </nav>
     <div class="reveal">
         <div class="slides">
             
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Data Querying with SQL: Your Gateway to Data Mastery</h1>
                         <h3>From fundamentals to advanced patterns</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -262,19 +392,19 @@
                             <li><strong>SQL</strong> (Structured Query Language) is the standard language for working with relational databases</li>
 <li>SQL lets you ask questions of structured data at scale—from 100 to 100 million rows, the same query works</li>
 <li><strong>Where SQL appears in practice:</strong></li>
-<li>- Reports and dashboards</li>
-<li>- ML feature pipelines and data preparation</li>
+<li>Reports and dashboards</li>
+<li>ML feature pipelines and data preparation</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>- Application backends and APIs</li>
-<li>- Business intelligence and analytics</li>
+                            <li>Application backends and APIs</li>
+<li>Business intelligence and analytics</li>
 <li><strong>Why it matters for data science:</strong></li>
-<li>- Most organisations store structured data in relational databases</li>
-<li>- Pull trustworthy slices without waiting on someone else</li>
+<li>Most organisations store structured data in relational databases</li>
+<li>Pull trustworthy slices without waiting on someone else</li>
                         </ul>
                     </div>
                 
@@ -294,8 +424,8 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- 90% of Fortune 500 companies use SQL-based databases</li>
-<li>- Required skill for data analysts, engineers, and scientists</li>
+                            <li>90% of Fortune 500 companies use SQL-based databases</li>
+<li>Required skill for data analysts, engineers, and scientists</li>
                         </ul>
                     </div>
                 
@@ -316,9 +446,9 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Tables, Rows, and Columns:</strong></li>
-<li>- A <strong>table</strong> is like a spreadsheet: rows are records, columns are attributes</li>
-<li>- Every row represents one entity (e.g. one customer, one order)</li>
-<li>- Every column holds one type of value (e.g. name, date, amount)</li>
+<li>A <strong>table</strong> is like a spreadsheet: rows are records, columns are attributes</li>
+<li>Every row represents one entity (e.g. one customer, one order)</li>
+<li>Every column holds one type of value (e.g. name, date, amount)</li>
 <li><strong>Keys and Relationships:</strong></li>
                         </ul>
                     </div>
@@ -326,11 +456,11 @@
 
                     <div class="list-container">
                         <ul>
-                            <li>- <strong>Primary key</strong> — uniquely identifies each row in a table</li>
-<li>- <strong>Foreign key</strong> — a column that references the primary key of another table</li>
-<li>- Keys enforce <strong>referential integrity</strong> — no orphaned records</li>
+                            <li><strong>Primary key</strong> — uniquely identifies each row in a table</li>
+<li><strong>Foreign key</strong> — a column that references the primary key of another table</li>
+<li>Keys enforce <strong>referential integrity</strong> — no orphaned records</li>
 <li><strong>Schema:</strong></li>
-<li>- The blueprint of a database: table names, column names, data types, constraints</li>
+<li>The blueprint of a database: table names, column names, data types, constraints</li>
                         </ul>
                     </div>
                 
@@ -350,7 +480,7 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- Good schema design reduces redundancy and makes queries predictable</li>
+                            <li>Good schema design reduces redundancy and makes queries predictable</li>
                         </ul>
                     </div>
                 
@@ -371,9 +501,9 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Relational (RDBMS) — focus of this module:</strong></li>
-<li>- Structured tables with enforced relationships</li>
-<li>- Examples: PostgreSQL, MySQL, SQLite, Oracle</li>
-<li>- Best for: transactional data, reports, analytics</li>
+<li>Structured tables with enforced relationships</li>
+<li>Examples: PostgreSQL, MySQL, SQLite, Oracle</li>
+<li>Best for: transactional data, reports, analytics</li>
 <li><strong>NoSQL — alternative families:</strong></li>
                         </ul>
                     </div>
@@ -381,10 +511,10 @@
 
                     <div class="list-container">
                         <ul>
-                            <li>- Document Stores (MongoDB) — flexible JSON documents</li>
-<li>- Key-Value Stores (Redis) — fast cache and counters</li>
-<li>- Column-Family (Cassandra) — wide-column time-series</li>
-<li>- Graph Databases (Neo4j) — connected entities</li>
+                            <li>Document Stores (MongoDB) — flexible JSON documents</li>
+<li>Key-Value Stores (Redis) — fast cache and counters</li>
+<li>Column-Family (Cassandra) — wide-column time-series</li>
+<li>Graph Databases (Neo4j) — connected entities</li>
 <li><strong>Specialised:</strong></li>
                         </ul>
                     </div>
@@ -405,9 +535,9 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- Vector Databases (Pinecone) — embeddings for ML</li>
-<li>- Time-Series (InfluxDB) — sensor and metric streams</li>
-<li>- Search Engines (Elasticsearch) — full-text search</li>
+                            <li>Vector Databases (Pinecone) — embeddings for ML</li>
+<li>Time-Series (InfluxDB) — sensor and metric streams</li>
+<li>Search Engines (Elasticsearch) — full-text search</li>
                         </ul>
                     </div>
                 
@@ -417,12 +547,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Basic SQL Operations</h1>
                         <h3>SELECT, FROM, WHERE, ORDER BY, LIMIT</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -438,20 +568,20 @@
                         <ul>
                             <li><strong>SELECT</strong> retrieves data — the most common SQL operation</li>
 <li><strong>Core clauses (in writing order):</strong></li>
-<li>- `SELECT` — which columns to return</li>
-<li>- `FROM` — which table to query</li>
-<li>- `WHERE` — filter rows (optional)</li>
+<li><code>SELECT</code> — which columns to return</li>
+<li><code>FROM</code> — which table to query</li>
+<li><code>WHERE</code> — filter rows (optional)</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>- `ORDER BY` — sort the result (optional)</li>
-<li>- `LIMIT` — cap the number of rows returned (optional)</li>
+                            <li><code>ORDER BY</code> — sort the result (optional)</li>
+<li><code>LIMIT</code> — cap the number of rows returned (optional)</li>
 <li><strong>Examples:</strong></li>
-<li>- `SELECT * FROM customers;` — all columns, all rows</li>
-<li>- `SELECT first_name, email FROM customers;` — specific columns</li>
+<li><code>SELECT * FROM customers;</code> — all columns, all rows</li>
+<li><code>SELECT first_name, email FROM customers;</code> — specific columns</li>
                         </ul>
                     </div>
                 
@@ -471,8 +601,8 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- `SELECT * FROM customers ORDER BY last_name ASC LIMIT 10;`</li>
-<li><strong>Aliases</strong> rename columns in output: `SELECT price * 1.1 AS price_with_tax`</li>
+                            <li><code>SELECT * FROM customers ORDER BY last_name ASC LIMIT 10;</code></li>
+<li><strong>Aliases</strong> rename columns in output: <code>SELECT price * 1.1 AS price_with_tax</code></li>
                         </ul>
                     </div>
                 
@@ -493,10 +623,10 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>CREATE TABLE</strong> — defines structure with data types and constraints</li>
-<li>- `SERIAL PRIMARY KEY` auto-increments the ID</li>
-<li>- `NOT NULL` rejects missing values</li>
-<li>- `UNIQUE` prevents duplicate values in a column</li>
-<li>- `DEFAULT` sets a fallback value (e.g. `CURRENT_TIMESTAMP`)</li>
+<li><code>SERIAL PRIMARY KEY</code> auto-increments the ID</li>
+<li><code>NOT NULL</code> rejects missing values</li>
+<li><code>UNIQUE</code> prevents duplicate values in a column</li>
+<li><code>DEFAULT</code> sets a fallback value (e.g. <code>CURRENT_TIMESTAMP</code>)</li>
                         </ul>
                     </div>
                 
@@ -504,8 +634,8 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>INSERT INTO</strong> — adds one or multiple rows</li>
-<li>- Single row: `INSERT INTO table (col1) VALUES (val1);`</li>
-<li>- Multi-row: list multiple value tuples in one statement (more efficient)</li>
+<li>Single row: <code>INSERT INTO table (col1) VALUES (val1);</code></li>
+<li>Multi-row: list multiple value tuples in one statement (more efficient)</li>
 <li><strong>UPDATE</strong> — modifies existing rows (always use WHERE!)</li>
 <li><strong>DELETE</strong> — removes rows (always use WHERE!)</li>
                         </ul>
@@ -527,7 +657,7 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li><strong>Safety rule:</strong> test your `WHERE` condition with a SELECT before running UPDATE or DELETE</li>
+                            <li><strong>Safety rule:</strong> test your <code>WHERE</code> condition with a SELECT before running UPDATE or DELETE</li>
                         </ul>
                     </div>
                 
@@ -537,12 +667,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Filtering and Conditions</h1>
                         <h3>WHERE, AND/OR/NOT, BETWEEN, IN, LIKE, NULL</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -557,21 +687,21 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>WHERE</strong> filters rows before they reach the output</li>
-<li><strong>Comparison operators:</strong> `=`, `!=`, `&lt;`, `&gt;`, `&lt;=`, `&gt;=`</li>
+<li><strong>Comparison operators:</strong> <code>=</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></li>
 <li><strong>Logical operators:</strong></li>
-<li>- `AND` — both conditions must be true</li>
-<li>- `OR` — at least one condition must be true</li>
+<li><code>AND</code> — both conditions must be true</li>
+<li><code>OR</code> — at least one condition must be true</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>- `NOT` — inverts a condition</li>
+                            <li><code>NOT</code> — inverts a condition</li>
 <li><strong>Range and membership:</strong></li>
-<li>- `BETWEEN 10 AND 50` — inclusive range check</li>
-<li>- `IN ('A', 'B', 'C')` — match any value in a list</li>
-<li>- `NOT IN (...)` — exclude a list of values</li>
+<li><code>BETWEEN 10 AND 50</code> — inclusive range check</li>
+<li><code>IN ('A', 'B', 'C')</code> — match any value in a list</li>
+<li><code>NOT IN (...)</code> — exclude a list of values</li>
                         </ul>
                     </div>
                 
@@ -592,9 +722,9 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Pattern matching:</strong></li>
-<li>- `LIKE 'Jo%'` — starts with 'Jo' (% is wildcard for any characters)</li>
-<li>- `LIKE '_ohn'` — _ matches exactly one character</li>
-<li>- `ILIKE` — case-insensitive version (PostgreSQL)</li>
+<li><code>LIKE 'Jo%'</code> — starts with 'Jo' (% is wildcard for any characters)</li>
+<li><code>LIKE '_ohn'</code> — _ matches exactly one character</li>
+<li><code>ILIKE</code> — case-insensitive version (PostgreSQL)</li>
                         </ul>
                     </div>
                 
@@ -615,20 +745,20 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>NULL</strong> means the value is unknown or missing — not zero, not empty string</li>
-<li>NULL arithmetic always returns NULL: `NULL + 1 = NULL`</li>
+<li>NULL arithmetic always returns NULL: <code>NULL + 1 = NULL</code></li>
 <li><strong>Checking for NULL:</strong></li>
-<li>- `WHERE column IS NULL` — find missing values</li>
-<li>- `WHERE column IS NOT NULL` — find present values</li>
+<li><code>WHERE column IS NULL</code> — find missing values</li>
+<li><code>WHERE column IS NOT NULL</code> — find present values</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>- Never use `= NULL` — it always returns false</li>
+                            <li>Never use <code>= NULL</code> — it always returns false</li>
 <li><strong>Working with NULL in output:</strong></li>
-<li>- `COALESCE(column, 0)` — return 0 if column is NULL</li>
-<li>- `NULLIF(a, b)` — return NULL if a equals b (useful to avoid divide-by-zero)</li>
+<li><code>COALESCE(column, 0)</code> — return 0 if column is NULL</li>
+<li><code>NULLIF(a, b)</code> — return NULL if a equals b (useful to avoid divide-by-zero)</li>
 <li><strong>Aggregate functions skip NULLs:</strong></li>
                         </ul>
                     </div>
@@ -649,8 +779,8 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- `COUNT(*)` counts all rows; `COUNT(column)` skips NULLs</li>
-<li>- `SUM`, `AVG`, `MIN`, `MAX` all ignore NULL values</li>
+                            <li><code>COUNT(*)</code> counts all rows; <code>COUNT(column)</code> skips NULLs</li>
+<li><code>SUM</code>, <code>AVG</code>, <code>MIN</code>, <code>MAX</code> all ignore NULL values</li>
                         </ul>
                     </div>
                 
@@ -660,12 +790,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Aggregations</h1>
                         <h3>GROUP BY, COUNT, SUM, AVG, MIN, MAX, HAVING</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -682,18 +812,18 @@
                             <li>Aggregations collapse many rows into a <strong>summary value</strong></li>
 <li>Think of it as: individual receipts → monthly spending report</li>
 <li><strong>Core aggregate functions:</strong></li>
-<li>- `COUNT(*)` — count all rows in the group</li>
-<li>- `COUNT(col)` — count non-NULL values</li>
+<li><code>COUNT(*)</code> — count all rows in the group</li>
+<li><code>COUNT(col)</code> — count non-NULL values</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>- `COUNT(DISTINCT col)` — count unique non-NULL values</li>
-<li>- `SUM(col)` — total of a numeric column</li>
-<li>- `AVG(col)` — mean value (ignores NULLs)</li>
-<li>- `MIN(col)` / `MAX(col)` — lowest / highest value</li>
+                            <li><code>COUNT(DISTINCT col)</code> — count unique non-NULL values</li>
+<li><code>SUM(col)</code> — total of a numeric column</li>
+<li><code>AVG(col)</code> — mean value (ignores NULLs)</li>
+<li><code>MIN(col)</code> / <code>MAX(col)</code> — lowest / highest value</li>
 <li><strong>Query execution order matters:</strong></li>
                         </ul>
                     </div>
@@ -714,8 +844,8 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT</li>
-<li>- WHERE filters rows *before* grouping; HAVING filters groups *after*</li>
+                            <li>FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT</li>
+<li>WHERE filters rows *before* grouping; HAVING filters groups *after*</li>
                         </ul>
                     </div>
                 
@@ -736,9 +866,9 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>GROUP BY</strong> partitions rows into groups before aggregation</li>
-<li>- Every column in SELECT must be either in GROUP BY or wrapped in an aggregate function</li>
-<li>- Example: `SELECT category, COUNT(*) FROM products GROUP BY category;`</li>
-<li>- Group by multiple columns: `GROUP BY year, month`</li>
+<li>Every column in SELECT must be either in GROUP BY or wrapped in an aggregate function</li>
+<li>Example: <code>SELECT category, COUNT(*) FROM products GROUP BY category;</code></li>
+<li>Group by multiple columns: <code>GROUP BY year, month</code></li>
 <li><strong>HAVING</strong> filters groups after aggregation</li>
                         </ul>
                     </div>
@@ -746,11 +876,11 @@
 
                     <div class="list-container">
                         <ul>
-                            <li>- `WHERE` cannot reference aggregate results — use `HAVING` instead</li>
-<li>- Example: find categories with more than 100 products:</li>
-<li>- `GROUP BY category HAVING COUNT(*) &gt; 100`</li>
+                            <li><code>WHERE</code> cannot reference aggregate results — use <code>HAVING</code> instead</li>
+<li>Example: find categories with more than 100 products:</li>
+<li><code>GROUP BY category HAVING COUNT(*) &gt; 100</code></li>
 <li><strong>Common patterns:</strong></li>
-<li>- Top N groups: `GROUP BY … ORDER BY SUM(amount) DESC LIMIT 5`</li>
+<li>Top N groups: <code>GROUP BY … ORDER BY SUM(amount) DESC LIMIT 5</code></li>
                         </ul>
                     </div>
                 
@@ -770,8 +900,8 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- Conditional aggregation: `SUM(CASE WHEN status = 'done' THEN 1 ELSE 0 END)`</li>
-<li>- `COUNT(DISTINCT customer_id)` for unique buyer count per region</li>
+                            <li>Conditional aggregation: <code>SUM(CASE WHEN status = 'done' THEN 1 ELSE 0 END)</code></li>
+<li><code>COUNT(DISTINCT customer_id)</code> for unique buyer count per region</li>
                         </ul>
                     </div>
                 
@@ -781,12 +911,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>SQL Joins</h1>
                         <h3>INNER, LEFT, RIGHT, FULL OUTER</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -811,11 +941,11 @@
 
                     <div class="list-container">
                         <ul>
-                            <li>- `FROM table_a a JOIN table_b b ON a.id = b.a_id`</li>
-<li>- Use short aliases (`a`, `b`, `c`) to keep queries readable</li>
-<li>- Always qualify column names with their table alias in multi-table queries</li>
+                            <li><code>FROM table_a a JOIN table_b b ON a.id = b.a_id</code></li>
+<li>Use short aliases (<code>a</code>, <code>b</code>, <code>c</code>) to keep queries readable</li>
+<li>Always qualify column names with their table alias in multi-table queries</li>
 <li><strong>Cartesian product warning:</strong></li>
-<li>- Missing `ON` clause → every row of A matched with every row of B</li>
+<li>Missing <code>ON</code> clause → every row of A matched with every row of B</li>
                         </ul>
                     </div>
                 
@@ -835,7 +965,7 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- 1,000 × 1,000 rows = 1,000,000 rows — almost never what you want</li>
+                            <li>1,000 × 1,000 rows = 1,000,000 rows — almost never what you want</li>
                         </ul>
                     </div>
                 
@@ -866,11 +996,11 @@
 
                     <div class="list-container">
                         <ul>
-                            <li>- Orders with their customer name → only orders that have a matching customer</li>
-<li>- Customers with no orders and orders with no customer are both excluded</li>
+                            <li>Orders with their customer name → only orders that have a matching customer</li>
+<li>Customers with no orders and orders with no customer are both excluded</li>
 <li><strong>Syntax:</strong></li>
-<li>- `FROM orders o INNER JOIN customers c ON o.customer_id = c.customer_id`</li>
-<li>- `INNER` keyword is optional — plain `JOIN` defaults to INNER</li>
+<li><code>FROM orders o INNER JOIN customers c ON o.customer_id = c.customer_id</code></li>
+<li><code>INNER</code> keyword is optional — plain <code>JOIN</code> defaults to INNER</li>
                         </ul>
                     </div>
                 
@@ -893,9 +1023,9 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>LEFT JOIN</strong> — all rows from the *left* table, matched rows from the right</li>
-<li>- Unmatched right-side columns appear as NULL</li>
-<li>- Use when: you want all left-side records regardless of whether they have a match</li>
-<li>- Example: all customers, with order count (0 for customers with no orders)</li>
+<li>Unmatched right-side columns appear as NULL</li>
+<li>Use when: you want all left-side records regardless of whether they have a match</li>
+<li>Example: all customers, with order count (0 for customers with no orders)</li>
 <li><strong>RIGHT JOIN</strong> — all rows from the *right* table, matched rows from the left</li>
                         </ul>
                     </div>
@@ -903,11 +1033,11 @@
 
                     <div class="list-container">
                         <ul>
-                            <li>- Mirror image of LEFT JOIN</li>
-<li>- Tip: rewrite any RIGHT JOIN as a LEFT JOIN by swapping table order — easier to read</li>
+                            <li>Mirror image of LEFT JOIN</li>
+<li>Tip: rewrite any RIGHT JOIN as a LEFT JOIN by swapping table order — easier to read</li>
 <li><strong>LEFT JOIN anti-pattern (find missing matches):</strong></li>
-<li>- `LEFT JOIN … WHERE right_table.id IS NULL`</li>
-<li>- Returns only left-side rows that had *no* match in the right table</li>
+<li><code>LEFT JOIN … WHERE right_table.id IS NULL</code></li>
+<li>Returns only left-side rows that had *no* match in the right table</li>
                         </ul>
                     </div>
                 
@@ -927,7 +1057,7 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- Example: customers who have never placed an order</li>
+                            <li>Example: customers who have never placed an order</li>
                         </ul>
                     </div>
                 
@@ -948,9 +1078,9 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>FULL OUTER JOIN</strong> — all rows from *both* tables</li>
-<li>- Unmatched columns from either side appear as NULL</li>
-<li>- Use when: you want a complete picture of both datasets with gaps visible</li>
-<li>- Example: audit two systems side-by-side to see where they disagree</li>
+<li>Unmatched columns from either side appear as NULL</li>
+<li>Use when: you want a complete picture of both datasets with gaps visible</li>
+<li>Example: audit two systems side-by-side to see where they disagree</li>
 <li><strong>Join type summary:</strong></li>
                         </ul>
                     </div>
@@ -958,10 +1088,10 @@
 
                     <div class="list-container">
                         <ul>
-                            <li>- INNER JOIN → only matching rows from both sides</li>
-<li>- LEFT JOIN → all left rows + matching right rows (NULL if no match)</li>
-<li>- RIGHT JOIN → all right rows + matching left rows (NULL if no match)</li>
-<li>- FULL OUTER JOIN → all rows from both sides (NULL where no match)</li>
+                            <li>INNER JOIN → only matching rows from both sides</li>
+<li>LEFT JOIN → all left rows + matching right rows (NULL if no match)</li>
+<li>RIGHT JOIN → all right rows + matching left rows (NULL if no match)</li>
+<li>FULL OUTER JOIN → all rows from both sides (NULL where no match)</li>
 <li><strong>Self join:</strong></li>
                         </ul>
                     </div>
@@ -982,7 +1112,7 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- Join a table to itself using aliases (e.g. employee → manager)</li>
+                            <li>Join a table to itself using aliases (e.g. employee → manager)</li>
                         </ul>
                     </div>
                 
@@ -992,12 +1122,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Advanced Concepts</h1>
                         <h3>Subqueries, CTEs, Window Functions</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -1013,8 +1143,8 @@
                         <ul>
                             <li>A <strong>subquery</strong> is a SELECT nested inside another SQL statement</li>
 <li><strong>In the WHERE clause:</strong></li>
-<li>- `WHERE customer_id IN (SELECT id FROM vip_customers)`</li>
-<li>- Returns rows where the column matches the subquery result</li>
+<li><code>WHERE customer_id IN (SELECT id FROM vip_customers)</code></li>
+<li>Returns rows where the column matches the subquery result</li>
 <li><strong>In the FROM clause (derived table):</strong></li>
                         </ul>
                     </div>
@@ -1022,11 +1152,11 @@
 
                     <div class="list-container">
                         <ul>
-                            <li>- `FROM (SELECT … FROM …) AS sub` — treat a query result as a table</li>
-<li>- Useful for multi-step calculations before a final SELECT</li>
+                            <li><code>FROM (SELECT … FROM …) AS sub</code> — treat a query result as a table</li>
+<li>Useful for multi-step calculations before a final SELECT</li>
 <li><strong>Correlated subquery:</strong></li>
-<li>- References the outer query's current row — runs once per outer row</li>
-<li>- Powerful but can be slow on large tables</li>
+<li>References the outer query's current row — runs once per outer row</li>
+<li>Powerful but can be slow on large tables</li>
                         </ul>
                     </div>
                 
@@ -1047,8 +1177,8 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>EXISTS / NOT EXISTS:</strong></li>
-<li>- `WHERE EXISTS (SELECT 1 FROM orders WHERE orders.customer_id = c.id)`</li>
-<li>- Stops scanning as soon as one match is found — often faster than IN</li>
+<li><code>WHERE EXISTS (SELECT 1 FROM orders WHERE orders.customer_id = c.id)</code></li>
+<li>Stops scanning as soon as one match is found — often faster than IN</li>
                         </ul>
                     </div>
                 
@@ -1070,19 +1200,19 @@
                         <ul>
                             <li>A <strong>CTE</strong> (WITH clause) names a subquery so you can reference it like a table</li>
 <li><strong>Why use CTEs:</strong></li>
-<li>- Breaks a complex query into readable, named steps</li>
-<li>- Avoids repeating the same subquery multiple times</li>
-<li>- Easier to test each step individually</li>
+<li>Breaks a complex query into readable, named steps</li>
+<li>Avoids repeating the same subquery multiple times</li>
+<li>Easier to test each step individually</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>- Supported by all major databases (PostgreSQL, MySQL 8+, SQL Server, BigQuery)</li>
+                            <li>Supported by all major databases (PostgreSQL, MySQL 8+, SQL Server, BigQuery)</li>
 <li><strong>Syntax:</strong></li>
-<li>- `WITH step_name AS (SELECT …) SELECT … FROM step_name`</li>
-<li>- Chain multiple CTEs: `WITH a AS (…), b AS (… FROM a) SELECT … FROM b`</li>
+<li><code>WITH step_name AS (SELECT …) SELECT … FROM step_name</code></li>
+<li>Chain multiple CTEs: <code>WITH a AS (…), b AS (… FROM a) SELECT … FROM b</code></li>
 <li><strong>Recursive CTEs:</strong></li>
                         </ul>
                     </div>
@@ -1103,8 +1233,8 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- Reference themselves to walk hierarchical data (org charts, folder trees)</li>
-<li>- `WITH RECURSIVE tree AS (base_case UNION ALL recursive_step)`</li>
+                            <li>Reference themselves to walk hierarchical data (org charts, folder trees)</li>
+<li><code>WITH RECURSIVE tree AS (base_case UNION ALL recursive_step)</code></li>
                         </ul>
                     </div>
                 
@@ -1126,20 +1256,20 @@
                         <ul>
                             <li><strong>Window functions</strong> compute values across a set of rows *related to the current row* without collapsing them into one</li>
 <li>Unlike GROUP BY, original rows are preserved in the output</li>
-<li><strong>Syntax:</strong> `function() OVER (PARTITION BY … ORDER BY …)`</li>
+<li><strong>Syntax:</strong> <code>function() OVER (PARTITION BY … ORDER BY …)</code></li>
 <li><strong>Ranking functions:</strong></li>
-<li>- `ROW_NUMBER()` — unique sequential rank (no ties)</li>
+<li><code>ROW_NUMBER()</code> — unique sequential rank (no ties)</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>- `RANK()` — same rank for ties, gaps after tied ranks</li>
-<li>- `DENSE_RANK()` — same rank for ties, no gaps</li>
+                            <li><code>RANK()</code> — same rank for ties, gaps after tied ranks</li>
+<li><code>DENSE_RANK()</code> — same rank for ties, no gaps</li>
 <li><strong>Running totals and moving averages:</strong></li>
-<li>- `SUM(amount) OVER (PARTITION BY customer_id ORDER BY date)` — running total per customer</li>
-<li>- `AVG(amount) OVER (ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)` — 7-day moving average</li>
+<li><code>SUM(amount) OVER (PARTITION BY customer_id ORDER BY date)</code> — running total per customer</li>
+<li><code>AVG(amount) OVER (ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)</code> — 7-day moving average</li>
                         </ul>
                     </div>
                 
@@ -1169,12 +1299,12 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>Best Practices and Query Optimisation</h1>
                         <h3>Write clean, fast, maintainable SQL</h3>
                     </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
@@ -1189,9 +1319,9 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Formatting conventions:</strong></li>
-<li>- Capitalise keywords: `SELECT`, `FROM`, `WHERE`, `JOIN`</li>
-<li>- One clause per line for queries longer than one line</li>
-<li>- Indent continuation lines consistently</li>
+<li>Capitalise keywords: <code>SELECT</code>, <code>FROM</code>, <code>WHERE</code>, <code>JOIN</code></li>
+<li>One clause per line for queries longer than one line</li>
+<li>Indent continuation lines consistently</li>
 <li><strong>Naming and aliases:</strong></li>
                         </ul>
                     </div>
@@ -1199,11 +1329,11 @@
 
                     <div class="list-container">
                         <ul>
-                            <li>- Use descriptive aliases: `customers AS c`, not just `x`</li>
-<li>- Name calculated columns clearly: `SUM(amount) AS total_revenue`</li>
-<li>- Avoid `SELECT *` in production — list columns explicitly</li>
+                            <li>Use descriptive aliases: <code>customers AS c</code>, not just <code>x</code></li>
+<li>Name calculated columns clearly: <code>SUM(amount) AS total_revenue</code></li>
+<li>Avoid <code>SELECT *</code> in production — list columns explicitly</li>
 <li><strong>CTEs over nested subqueries:</strong></li>
-<li>- Replace deeply nested subqueries with named CTEs</li>
+<li>Replace deeply nested subqueries with named CTEs</li>
                         </ul>
                     </div>
                 
@@ -1223,10 +1353,10 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- Each CTE should do one logical thing</li>
+                            <li>Each CTE should do one logical thing</li>
 <li><strong>Comments:</strong></li>
-<li>- `-- single line` and `/* block */` comments explain *why*, not just what</li>
-<li>- Document non-obvious business logic and edge cases</li>
+<li><code>-- single line</code> and <code>/* block */</code> comments explain *why*, not just what</li>
+<li>Document non-obvious business logic and edge cases</li>
                         </ul>
                     </div>
                 
@@ -1249,19 +1379,19 @@
                             <li><strong>Filter early:</strong> push WHERE conditions as close to the source table as possible</li>
 <li><strong>SELECT only what you need:</strong> retrieving fewer columns reduces I/O</li>
 <li><strong>Indexes:</strong></li>
-<li>- An index lets the database find rows without scanning the whole table</li>
-<li>- Index columns used in WHERE, JOIN ON, and ORDER BY</li>
+<li>An index lets the database find rows without scanning the whole table</li>
+<li>Index columns used in WHERE, JOIN ON, and ORDER BY</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>- Too many indexes slow down INSERT/UPDATE/DELETE</li>
+                            <li>Too many indexes slow down INSERT/UPDATE/DELETE</li>
 <li><strong>Join order:</strong> place the more selective (smaller result) table first in large joins</li>
 <li><strong>EXPLAIN / EXPLAIN ANALYZE:</strong></li>
-<li>- Shows the query execution plan before (or after) running</li>
-<li>- Look for `Seq Scan` on large tables — often a missing index</li>
+<li>Shows the query execution plan before (or after) running</li>
+<li>Look for <code>Seq Scan</code> on large tables — often a missing index</li>
                         </ul>
                     </div>
                 
@@ -1281,10 +1411,10 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- `EXPLAIN ANALYZE` runs the query and shows actual vs estimated row counts</li>
+                            <li><code>EXPLAIN ANALYZE</code> runs the query and shows actual vs estimated row counts</li>
 <li><strong>Avoid functions on indexed columns in WHERE:</strong></li>
-<li>- `WHERE LOWER(email) = 'x'` cannot use a plain index on `email`</li>
-<li>- Use a functional index or rewrite the condition</li>
+<li><code>WHERE LOWER(email) = 'x'</code> cannot use a plain index on <code>email</code></li>
+<li>Use a functional index or rewrite the condition</li>
                         </ul>
                     </div>
                 
@@ -1305,10 +1435,10 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Constraints keep data trustworthy:</strong></li>
-<li>- `NOT NULL` — no missing required values</li>
-<li>- `UNIQUE` — no duplicate entries in a column</li>
-<li>- `FOREIGN KEY … REFERENCES` — no orphaned records</li>
-<li>- `CHECK` — custom business rules (e.g. `price &gt; 0`)</li>
+<li><code>NOT NULL</code> — no missing required values</li>
+<li><code>UNIQUE</code> — no duplicate entries in a column</li>
+<li><code>FOREIGN KEY … REFERENCES</code> — no orphaned records</li>
+<li><code>CHECK</code> — custom business rules (e.g. <code>price &gt; 0</code>)</li>
                         </ul>
                     </div>
                 
@@ -1316,10 +1446,10 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Transactions:</strong></li>
-<li>- Wrap related changes in `BEGIN … COMMIT` so they succeed or fail together</li>
-<li>- Use `ROLLBACK` to undo on error</li>
+<li>Wrap related changes in <code>BEGIN … COMMIT</code> so they succeed or fail together</li>
+<li>Use <code>ROLLBACK</code> to undo on error</li>
 <li><strong>Schema changes:</strong></li>
-<li>- Version-control migration files (e.g. Flyway, Liquibase, Alembic)</li>
+<li>Version-control migration files (e.g. Flyway, Liquibase, Alembic)</li>
                         </ul>
                     </div>
                 
@@ -1339,11 +1469,11 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- Test migrations in a staging environment before production</li>
+                            <li>Test migrations in a staging environment before production</li>
 <li><strong>Ongoing maintenance:</strong></li>
-<li>- Monitor slow queries with `pg_stat_statements`</li>
-<li>- Regular `ANALYZE` keeps query planner statistics current</li>
-<li>- Review and drop unused indexes to reduce write overhead</li>
+<li>Monitor slow queries with <code>pg_stat_statements</code></li>
+<li>Regular <code>ANALYZE</code> keeps query planner statistics current</li>
+<li>Review and drop unused indexes to reduce write overhead</li>
                         </ul>
                     </div>
                 
@@ -1364,20 +1494,20 @@
                     <div class="list-container">
                         <ul>
                             <li><strong>Official documentation:</strong></li>
-<li>- <a href="https://www.postgresql.org/docs/current/functions-aggregate.html" target="_blank" rel="noopener">PostgreSQL Aggregation Functions</a></li>
-<li>- <a href="https://www.postgresql.org/docs/current/tutorial-window.html" target="_blank" rel="noopener">PostgreSQL Window Functions</a></li>
+<li><a href="https://www.postgresql.org/docs/current/functions-aggregate.html" target="_blank" rel="noopener">PostgreSQL Aggregation Functions</a></li>
+<li><a href="https://www.postgresql.org/docs/current/tutorial-window.html" target="_blank" rel="noopener">PostgreSQL Window Functions</a></li>
 <li><strong>Interactive practice:</strong></li>
-<li>- <a href="https://sqlzoo.net/" target="_blank" rel="noopener">SQLZoo</a> — browser-based exercises from basics to advanced</li>
+<li><a href="https://sqlzoo.net/" target="_blank" rel="noopener">SQLZoo</a> — browser-based exercises from basics to advanced</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>- <a href="https://mode.com/sql-tutorial/" target="_blank" rel="noopener">Mode SQL Tutorial</a> — window functions deep dive</li>
+                            <li><a href="https://mode.com/sql-tutorial/" target="_blank" rel="noopener">Mode SQL Tutorial</a> — window functions deep dive</li>
 <li><strong>Performance:</strong></li>
-<li>- <a href="https://use-the-index-luke.com/" target="_blank" rel="noopener">Use The Index, Luke</a> — indexing explained visually</li>
-<li>- <a href="https://explain.dalibo.com/" target="_blank" rel="noopener">explain.dalibo.com</a> — paste EXPLAIN output for a visual plan</li>
+<li><a href="https://use-the-index-luke.com/" target="_blank" rel="noopener">Use The Index, Luke</a> — indexing explained visually</li>
+<li><a href="https://explain.dalibo.com/" target="_blank" rel="noopener">explain.dalibo.com</a> — paste EXPLAIN output for a visual plan</li>
 <li><strong>Advanced patterns:</strong></li>
                         </ul>
                     </div>
@@ -1398,7 +1528,7 @@
                             
                     <div class="list-container">
                         <ul>
-                            <li>- <a href="https://modern-sql.com/" target="_blank" rel="noopener">Modern SQL</a> — CTEs, window functions, and beyond</li>
+                            <li><a href="https://modern-sql.com/" target="_blank" rel="noopener">Modern SQL</a> — CTEs, window functions, and beyond</li>
 <li><strong>Next in this module:</strong> SQL Project — apply everything end-to-end on a real dataset</li>
                         </ul>
                     </div>
@@ -1417,7 +1547,7 @@
             hash: true,
             center: false,
             transition: 'slide',
-            slideNumber: true,
+            slideNumber: 'c/t',
             plugins: []
         });
 
@@ -1429,7 +1559,6 @@
             }
         }
 
-        // Swap fullscreen icon when state changes
         document.addEventListener('fullscreenchange', function () {
             var icon = document.getElementById('fs-icon');
             if (document.fullscreenElement) {
