@@ -151,6 +151,15 @@ To get the most out of this module:
    - Monitor for overfitting
    - Validate on a separate test set
 
+## Gotchas
+
+- **Confusing backpropagation with gradient descent** — Backpropagation is the algorithm that computes gradients; gradient descent is the optimizer that uses those gradients to update weights. Mixing up the two leads to misdiagnosed bugs (e.g., blaming the wrong step when loss doesn't decrease).
+- **Assuming the forward pass stores nothing** — The backward pass needs activations and pre-activations from the forward pass. If you don't cache them during the forward pass, you'll either recompute them (expensive) or get incorrect gradients.
+- **Forgetting that the chain rule multiplies** — Each additional layer multiplies another local gradient into the chain. For deep networks this multiplication can drive gradients toward zero (vanishing) or infinity (exploding) before you notice, especially with sigmoid activations.
+- **Treating backpropagation as equivalent to training** — Running one forward + backward pass computes gradients for a single batch; you still need an optimizer step, and many such iterations, for the network to actually learn. A single call to `backward()` changes nothing until you call `update_parameters`.
+- **Using the same learning rate for every problem** — The introduction mentions starting small, but learners often pick 0.01 and never revisit it. Too large a rate causes loss to oscillate or diverge; too small means thousands of unnecessary epochs.
+- **Skipping data normalization before any training** — Unnormalized inputs (e.g., pixel values in [0, 255]) cause the first-layer gradients to be scaled wildly differently from those of later layers, slowing convergence or causing instability even before vanishing/exploding gradient problems appear.
+
 ## Additional Resources
 
 - [3Blue1Brown: Neural Networks](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) - Excellent visual explanations
