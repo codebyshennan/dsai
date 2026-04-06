@@ -1277,6 +1277,15 @@ This shows how regularization helps control the model's complexity, even with a 
 2. **Ridge (L2)**: Smooths the curve by constraining coefficient sizes
 3. **Lasso (L1)**: Creates an even simpler model by setting some coefficients to zero
 
+## Gotchas
+
+- **Applying `PolynomialFeatures` before splitting data** — If you call `poly.fit_transform(X)` on the whole dataset and then split, you are computing polynomial statistics from test observations before training. Always place `PolynomialFeatures` inside a `Pipeline` so it is only fitted on the training fold.
+- **Selecting the polynomial degree by training error** — Training MSE decreases monotonically as degree increases; a degree-15 polynomial will appear better than degree-2 in training but catastrophically overfit. Always use cross-validated error or a held-out test set to pick the degree.
+- **Forgetting to scale features after polynomial expansion** — Adding x², x³, and interaction terms creates columns on wildly different scales (x is 0–10, x² is 0–100, x³ is 0–1000). Without `StandardScaler`, gradient-based solvers converge slowly and coefficient comparisons are meaningless.
+- **Interpreting polynomial coefficients directly** — The coefficient on x² in `y = β₀ + β₁x + β₂x²` does not mean "each unit increase in x² adds β₂ to y"; the marginal effect of x on y is `β₁ + 2β₂x` and varies at every point. Compute the first derivative to understand how y changes with x.
+- **Extrapolating polynomial fits beyond the training range** — High-degree polynomials often explode or dive steeply outside the observed data range (Runge's phenomenon). Even if the fit looks perfect in-sample, predictions for x-values beyond the training range should be treated with extreme caution.
+- **Confusing `PolynomialFeatures(degree=2)` output count with the original features** — For p original features, degree-2 expansion adds interaction terms and squares, producing `(p + 2)! / (2! × p!)` columns. With just 10 features, degree-2 expansion creates 66 columns; higher degrees explode combinatorially, making regularization essential.
+
 ## Next steps
 
 - Continue to [Model selection](./model-selection.md).
