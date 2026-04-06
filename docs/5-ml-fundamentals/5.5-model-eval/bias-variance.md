@@ -61,6 +61,15 @@ Let's look at some real-world examples:
 4. Use regularization techniques
 5. Consider ensemble methods
 
+## Gotchas
+
+- **Conflating training error with bias** — A model can have near-zero training error and still have high bias if the training set is tiny; always check validation error, not just training error, to diagnose bias.
+- **Assuming more data always fixes variance** — Adding data reduces variance only when the model is actually overfitting; if both train and validation error are high (high bias), more data will not help and you need a more complex model.
+- **Treating regularization and bias as independent** — Adding L1/L2 regularization to reduce variance simultaneously increases bias; the tradeoff is intentional, but learners often add regularization expecting only gains without realising accuracy on the training set will drop.
+- **Ignoring variance in the error estimate itself** — A single train/test split gives one variance sample; use cross-validation to see whether the gap between train and validation scores is stable or fluctuates, which reveals variance in the *evaluation*, not just the model.
+- **Confusing irreducible error with high bias** — Even a perfect model cannot beat noise inherent in the data; diagnosing "high bias" incorrectly as irreducible error (or vice versa) leads to wasted complexity tuning.
+- **Using only model complexity as the bias-variance dial** — Dataset size, feature engineering quality, and regularization strength all shift the tradeoff; fixing overfitting by switching to a simpler model family often discards useful capacity that regularization could preserve.
+
 ## Additional Resources
 
 1. Scikit-learn documentation
