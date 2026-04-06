@@ -212,6 +212,12 @@ body {
     padding-right: 10px;
     white-space: nowrap;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.markdown-body .code-block__line-number--hidden {
+    display: none;
 }
 
 .markdown-body .code-block__line-number-text {
