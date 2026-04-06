@@ -370,6 +370,14 @@ plt.show()
 
 ![confusion-matrix](assets/confusion-matrix_fig_3.png)
 
+## Gotchas
+
+- **Row vs column orientation** — sklearn's `confusion_matrix` places **true labels on rows** and **predicted labels on columns** (the standard mathematical convention), but some plotting libraries and papers swap these axes; always label the heatmap explicitly and verify which axis is which before reading FP and FN counts.
+- **Raw counts mislead on imbalanced data** — A matrix showing 950 TNs and 5 TPs might look acceptable, but the model is nearly useless if there are 45 actual positives; always compute normalized rates (precision, recall) alongside raw counts when class sizes differ significantly.
+- **`sklearn.metrics.plot_confusion_matrix` is deprecated** — It was removed in sklearn 1.2; use `ConfusionMatrixDisplay.from_estimator` or `ConfusionMatrixDisplay.from_predictions` instead, otherwise your code silently breaks on updated environments.
+- **Multi-class off-diagonals require row-wise reading** — In an N×N matrix, row *i* shows all predictions for true class *i*; an off-diagonal at row 1, column 2 means true class 1 was predicted as class 2, not the reverse; confusing direction leads to misidentifying which classes are confused.
+- **Comparing confusion matrices across differently-sized test sets** — Absolute counts from a 200-sample test set cannot be compared directly to counts from a 2000-sample set; normalize by row (`normalize='true'` in sklearn) to compare recall rates on a level playing field.
+
 ## Additional Resources
 
 1. Scikit-learn documentation on confusion matrices
