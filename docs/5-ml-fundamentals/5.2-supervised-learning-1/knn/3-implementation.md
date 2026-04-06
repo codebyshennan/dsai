@@ -673,6 +673,15 @@ Remember: Successful KNN implementation requires careful consideration of:
 - Systematic hyperparameter optimization
 - Comprehensive model evaluation
 
+## Gotchas
+
+- **Calling `scaler.fit_transform` on `X_test`** — A very common bug in implementation. The scaler must be fitted on `X_train` only; applying `fit_transform` to `X_test` produces a differently scaled test set, invalidating any accuracy metric you compute afterward.
+- **Using `sparse=False` with `OneHotEncoder` in newer scikit-learn** — The `sparse` parameter was renamed to `sparse_output` in scikit-learn 1.2. Code using `sparse=False` raises a `TypeError` on newer versions; use `sparse_output=False` or let it default and call `.toarray()` on the result.
+- **Selecting k on the test set instead of via cross-validation** — The `GridSearchCV` examples use `fit(X_train_scaled, y_train)`, but if you check `best_score_` and then also evaluate on the same `X_test`, the test score is no longer a fair generalization estimate. The test set must be touched only after all parameter selection is final.
+- **Forgetting to pass `target_names` to `classification_report`** — Without `target_names`, the report prints numeric class indices (0, 1, 2…) instead of human-readable labels. On imbalanced datasets, misreading which index maps to which class leads to interpreting the wrong class's precision/recall.
+- **Passing `X_with_categories` (strings) directly to `KNeighborsClassifier`** — scikit-learn's KNN cannot compute distances on string features and will raise a `ValueError`. You must encode categorical columns first; skipping this step gives a clear error at `fit` time, but using `LabelEncoder` on nominal (unordered) categories creates false ordinal relationships.
+- **Comparing `GridSearchCV` scores from differently scaled data** — If you run one grid search on scaled data and another on raw data to compare, the `best_score_` values are not comparable. Always apply the same preprocessing pipeline inside `GridSearchCV` so all folds use the same feature distribution.
+
 ## Additional Resources
 
 For more learning:
