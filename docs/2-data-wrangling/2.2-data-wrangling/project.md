@@ -477,6 +477,15 @@ project/
    - Performance metrics
 ```
 
+## Gotchas
+
+- **Filling missing ages with the median before validating the range** — if you call `fillna(median)` first and then null out out-of-range values, you may silently re-introduce the median as a valid age for rows whose original value was actually invalid; validate first, then impute.
+- **Z-score outlier detection breaks on skewed `amount` distributions** — z-scores assume approximate normality; transaction amounts are often right-skewed, so a z-score threshold of 3 may miss extreme high-value outliers while flagging legitimate high spenders. Consider IQR or domain-based caps instead.
+- **Deduplicating on `(customer_id, timestamp, amount)` misses near-duplicate rows** — two rows with the same customer and amount but slightly different timestamps (e.g., from retry logic) are not caught; add `product_id` to the subset or round timestamps before deduplication.
+- **`pd.Timestamp.now()` is timezone-naive by default** — computing `days_since_last_purchase` against a timezone-aware `timestamp` column raises a TypeError; use `pd.Timestamp.now(tz='UTC')` or strip timezone info from the column consistently.
+- **`calculate_elasticity` divides by zero silently** — if `price_pct_change` is 0 (no price change in the period), the division produces `inf` or `NaN` without raising an error; add a guard or filter out groups with no price variation before computing elasticity.
+- **Quality reports serialise to nested dicts, not DataFrames** — the `assess_data_quality` return value contains Series and scalar objects that may not render cleanly in a Jupyter notebook or export to JSON without explicit conversion; call `.to_dict()` on Series before packaging the report.
+
 ## Best Practices
 
 1. **Version Control**
