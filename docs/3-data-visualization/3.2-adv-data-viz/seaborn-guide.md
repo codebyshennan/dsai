@@ -351,8 +351,7 @@ def create_scatter_analysis(data, x_var, y_var, hue_var=None):
 scatter_fig = create_scatter_analysis(tips, "total_bill", "tip", "time")
 ```
 
-**Output:**
-> **Figure (add screenshot or diagram):** 2×2 scatter analysis of total_bill vs tip: basic scatter with hue by time (top-left), scatter with red OLS regression line and 95% band (top-right), residual plot with a dashed zero-line (bottom-left), and a hexbin density plot with a YlOrRd color scale (bottom-right).
+![seaborn-guide](assets/seaborn_scatter_analysis.png)
 
 ### 2. Complex Relationships
 
