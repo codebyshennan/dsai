@@ -609,6 +609,15 @@ Remember:
 - Test interactivity across browsers
 - Include clear documentation for users
 
+## Gotchas
+
+- **`fig.write_image()` fails silently without `kaleido` installed** — Plotly's static image export depends on the `kaleido` package (`pip install kaleido`). Without it the call raises a `ValueError` that looks like a Plotly bug, not a missing dependency. Install `kaleido` before expecting PNG/SVG/PDF output.
+- **`animation_frame` requires the column to be pre-sorted** — `px.scatter` with `animation_frame="year"` will animate frames in the order the values appear in the DataFrame, not numerically. If your data isn't sorted by year, frames can jump backwards in time. Sort before calling `px.scatter`.
+- **`pio.templates.default` is a global setting that persists across all cells in the session** — setting `pio.templates.default = "plotly_white"` in a setup cell means every subsequent figure uses that template even in unrelated notebooks. If you share notebook cells, the template affects colleagues' charts too unless they reset it.
+- **`update_traces(mode='webgl')` silently ignores incompatible trace types** — `mode='webgl'` is only valid for `Scattergl` traces. Applying it to a `Bar` or `Histogram` trace via `update_traces` doesn't raise an error but has no effect; you need `go.Scattergl` from the start for WebGL rendering.
+- **`hovermode="x unified"` collapses tooltips in a way that hides individual trace names for closely spaced points** — when multiple traces share the same x value, unified hover can truncate or merge labels unpredictably. Test with your real data density before shipping to stakeholders.
+- **`make_subplots` row/col indexing is 1-based, not 0-based** — passing `row=0` raises a `ValueError`. Learners coming from NumPy arrays consistently start at 0, which fails here. Always start subplot coordinates at `row=1, col=1`.
+
 ## Next steps
 
 - Pair this with [Seaborn](seaborn-guide.md) when you need strong statistical defaults in Python.
