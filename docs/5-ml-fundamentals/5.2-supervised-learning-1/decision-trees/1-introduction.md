@@ -404,6 +404,14 @@ Prediction: Pass
 Most important factor: Previous Score
 ```
 
+## Gotchas
+
+- **Fitting a `DecisionTreeClassifier` without `max_depth` on tiny toy data** — the unrestrained tree in the student exercise will memorise the 8 training rows perfectly (training accuracy 1.0) but will often fail on any new student; always set a depth limit or use cross-validation to see through the perfect training score.
+- **Misreading `feature_importances_` as a global ranking** — importance values are specific to this fitted tree on this training set; a feature with zero importance was not useful given the *other* features present, not necessarily unimportant in general; run the same data with a different split and the ranking can change.
+- **Assuming the "Go for a Walk" labels are deterministic** — the training data has only 8 rows with mixed outcomes for similar conditions; the learned tree may predict confidently for a new scenario simply because it memorised an adjacent training row, not because it found a true pattern.
+- **Calling `plot_tree` without naming features and classes** — the default output shows numeric feature indices and class integers, which are nearly unreadable; always pass `feature_names` and `class_names` before sharing or debugging a tree.
+- **Treating `feature_importances_` totalling 1.0 as a percentage of predictive power** — importance measures impurity reduction, not correlation with the target; a single dominant feature (e.g., "Temperature: 0.51") does not mean the other features are useless, only that they contributed less to this tree's splits.
+
 ## Next Steps
 
 Now that you understand the basics of decision trees, let's explore:
