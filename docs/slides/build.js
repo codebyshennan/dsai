@@ -199,14 +199,14 @@ function generateContentSlideHtml(slide, index) {
 function generateSlideHtml(slide, index) {
     switch (slide.type) {
         case 'title': {
-            const footerHtml = `<div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>`;
+            const footerHtml = `<div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>`;
             const title = formatInline(slide.title ?? '');
             const subtitle = formatInline(slide.subtitle ?? '');
             const subtitleBlock = subtitle
                 ? `<h3>${subtitle}</h3>`
                 : '';
             return `
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>${title}</h1>
                         ${subtitleBlock}
