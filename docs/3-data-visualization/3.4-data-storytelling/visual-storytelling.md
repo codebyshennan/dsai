@@ -452,6 +452,14 @@ Design a layout for:
 
 Remember: The best visualizations are those that make complex data simple and actionable. Start with these basics, practice regularly, and watch your visual storytelling skills grow!
 
+## Gotchas
+
+- **Truncating the y-axis at a non-zero baseline exaggerates differences visually** — a bar chart where the y-axis starts at 90 makes a difference from 92 to 95 look massive compared to one starting at 0. The "Scale Problem" section mentions this, but the specific trap is that Matplotlib and Tableau sometimes auto-scale axes starting near the data minimum. Always verify axis origin before publishing.
+- **Pie charts with more than 5–7 slices are unreadable, and the "limit to 5-7 segments" tip doesn't solve the underlying problem** — if you have 12 product categories, the right solution is not a pie with "Other" collapsed; it's a bar chart sorted by value. Pie charts are only appropriate when proportions are the literal story and the parts sum to a meaningful whole.
+- **The Z-pattern and F-pattern describe how people scan, not how you should fill the canvas** — placing the most important chart top-left based on reading patterns assumes a Western left-to-right audience and a non-interactive display. Dashboard tools let users click and filter, which breaks linear scan paths. Design for the decision, not the reading pattern.
+- **Consistent color "across charts" breaks down when two charts encode different variables in the same color** — if blue means "Desktop" in a device chart and blue also means "Q1" in a quarterly chart on the same dashboard, the audience learns nothing from the color. Map colors to semantic meaning (device type, region, status) not to chart position or order.
+- **"Test with colleagues" only helps if you ask specific questions** — showing a draft to a colleague and asking "does this look okay?" produces no useful signal. Ask instead: "What is the main message?" and "What would you do differently based on this?" Their answers reveal whether the story is landing, not their politeness.
+
 ## Additional Resources
 
 ### Books
