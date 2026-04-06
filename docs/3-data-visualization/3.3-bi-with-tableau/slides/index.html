@@ -373,7 +373,16 @@
                 <section class="slide-title">
                     <div class="content-wrapper">
                         <h1>3.3 Business Intelligence with Tableau</h1>
-                        
+                        <h3>Drag-and-drop analytics for real-world business decisions</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
+                </section>
+            
+
+                <section class="slide-title">
+                    <div class="content-wrapper">
+                        <h1>Why Business Intelligence Tools?</h1>
+                        <h3>When to go beyond Python and pandas</h3>
                     </div>
                     <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
@@ -381,54 +390,17 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Advanced Analytics (1/2)</h2>
-                        <div class="box box--compact">
-                            
-                            
-                    <div class="two-column">
-                        
-                    <div class="list-container">
-                        <ul>
-                            <li>Compare values over time</li>
-<li>Calculate growth rates</li>
-<li>Rank and analyze performance</li>
-<li>Bars for Sales</li>
-<li>Line for Profit</li>
-                        </ul>
-                    </div>
-                
-
-                    <div class="list-container">
-                        <ul>
-                            <li>Top N selector</li>
-<li>Date range picker</li>
-<li>Threshold setter</li>
-<li>Tableau Help: <a href="https://help.tableau.com" target="_blank" rel="noopener">help.tableau.com</a></li>
-<li>Community: <a href="https://community.tableau.com" target="_blank" rel="noopener">community.tableau.com</a></li>
-                        </ul>
-                    </div>
-                
-                    </div>
-                
-                        </div>
-                    </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
-                </section>
-            
-
-                <section>
-                    <div class="content-wrapper">
-                        <h2>Advanced Analytics (2/2)</h2>
+                        <h2>Python vs BI Tools</h2>
                         <div class="box">
-                            
+                            <h3>Choosing the right tool</h3>
                             
                     <div class="list-container">
                         <ul>
-                            <li>Video Tutorials: <a href="https://www.youtube.com/user/tableausoftware" target="_blank" rel="noopener">Tableau YouTube</a></li>
-<li>Start with simple calculations</li>
-<li>Build complexity gradually</li>
-<li>Practice with sample data</li>
-<li>Don't be afraid to experiment!</li>
+                            <li><strong>Python (Matplotlib / Seaborn / Plotly)</strong>: best for custom analysis, ML pipelines, and code-first reproducibility</li>
+<li><strong>BI Tools (Tableau / Looker Studio / Power BI)</strong>: best for live dashboards, stakeholder self-service, and fast iteration without code</li>
+<li>BI tools connect directly to databases and refresh automatically — no re-running notebooks</li>
+<li>Non-technical stakeholders can filter and explore without asking a data analyst</li>
+<li>Both approaches are complementary: Python for analysis, BI for communication and monitoring</li>
                         </ul>
                     </div>
                 
@@ -440,29 +412,83 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Looker Studio Case Study</h2>
+                        <h2>What Makes Tableau Powerful?</h2>
                         <div class="box box--compact">
+                            <h3>Key capabilities</h3>
                             
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Drag-and-drop interface</strong>: map fields to visual encodings instantly — no syntax to remember</li>
+<li><strong>Automatic chart recommendations</strong>: Tableau suggests chart types based on the data you drop</li>
+<li><strong>Live + extract connections</strong>: query your database in real time or cache a snapshot for speed</li>
+<li><strong>Row-level security</strong>: control which rows each user sees — essential for multi-team dashboards</li>
+<li><strong>Server and Cloud deployment</strong>: publish once, share with thousands via browser or embedded links</li>
+<li><strong>Tableau Public</strong>: free platform to publish and share visualisations with the world</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section class="slide-title">
+                    <div class="content-wrapper">
+                        <h1>Data Architecture</h1>
+                        <h3>How Tableau connects to and models your data</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>The Tableau Data Pipeline</h2>
+                        <div class="box box--compact">
+                            <h3>From source to worksheet</h3>
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Step 1 — Connect</strong>: point Tableau at a source (CSV, Excel, SQL database, Google Sheets, cloud warehouse)</li>
+<li><strong>Step 2 — Prepare</strong>: join tables, rename fields, set data types, create calculated fields</li>
+<li><strong>Step 3 — Visualise</strong>: drag dimensions and measures onto shelves to build views</li>
+<li><strong>Step 4 — Dashboard</strong>: combine multiple views, add filters and actions</li>
+<li><strong>Step 5 — Publish</strong>: share to Tableau Server, Cloud, or Public for stakeholder access</li>
+<li>Dimensions = categorical fields (Region, Product, Date); Measures = numeric fields (Sales, Profit, Quantity)</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Live Connection vs Extract</h2>
+                        <div class="box box--compact">
+                            <h3>Choose based on data freshness vs performance needs</h3>
                             
                     <div class="two-column">
                         
                     <div class="list-container">
                         <ul>
-                            <li>A dynamic sales performance dashboard</li>
-<li>A geographical distribution analysis</li>
-<li>A product profitability analysis</li>
-<li>Interactive filters and controls</li>
-<li>It contains clean, pre-formatted data</li>
+                            <li><strong>Live</strong>: queries the database on every interaction</li>
+<li><strong>Live</strong>: always reflects the latest data</li>
+<li><strong>Live</strong>: no additional storage required</li>
+<li><strong>Live</strong>: slower on large tables; requires network access</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>It includes realistic business scenarios</li>
-<li>It's easy to import into Google Sheets</li>
-<li>It covers multiple analysis dimensions</li>
-<li>1</li>
+                            <li><strong>Extract (.hyper)</strong>: a cached snapshot stored locally</li>
+<li><strong>Extract</strong>: dramatically faster for large datasets</li>
+<li><strong>Extract</strong>: works offline; reduces database load</li>
+<li><strong>Extract</strong>: data is point-in-time; needs scheduled refresh</li>
                         </ul>
                     </div>
                 
@@ -474,30 +500,227 @@
                 </section>
             
 
+                <section class="slide-title">
+                    <div class="content-wrapper">
+                        <h1>Visual Grammar</h1>
+                        <h3>Matching chart types to analysis tasks</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
+                </section>
+            
+
                 <section>
                     <div class="content-wrapper">
-                        <h2>Powerbi Case Study</h2>
+                        <h2>Chart Type Selection</h2>
                         <div class="box box--compact">
+                            <h3>Analysis task → chart type</h3>
                             
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Comparison</strong>: bar chart (categories), line chart (time series), bullet chart (vs target)</li>
+<li><strong>Distribution</strong>: histogram (frequency), box plot (spread + outliers), heat map (density across two dimensions)</li>
+<li><strong>Composition</strong>: pie chart (parts of a whole ≤5 categories), treemap (hierarchical parts), stacked bar (parts over time)</li>
+<li><strong>Relationship</strong>: scatter plot (correlation between two measures), bubble chart (three measures), connected scatter (path over time)</li>
+<li>When in doubt, default to a bar chart for comparison and a line chart for time — they are the most readable</li>
+<li>See <a href="../../3.1-intro-data-viz/" target="_blank" rel="noopener">3.1 Visualization Principles</a> for deeper guidance on chart selection</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Visual Best Practices in Tableau</h2>
+                        <div class="box box--compact">
+                            <h3>Principles that apply regardless of tool</h3>
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Sequential colour</strong> (light → dark): for ordered data like sales volume or temperature</li>
+<li><strong>Diverging colour</strong> (two hues meeting at a midpoint): for data with a meaningful centre like profit/loss or NPS</li>
+<li><strong>Categorical colour</strong> (distinct hues): for unordered groups like product categories or regions</li>
+<li>Limit to 6–8 colours on one view — beyond that, the legend becomes unreadable</li>
+<li>Align elements to a grid; consistent margins and white space reduce cognitive load</li>
+<li>Use a clear font hierarchy: large title, medium axis labels, small tooltips</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section class="slide-title">
+                    <div class="content-wrapper">
+                        <h1>Calculations</h1>
+                        <h3>Extending your data with Tableau's formula language</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Basic Calculated Fields</h2>
+                        <div class="box box--compact">
+                            <h3>Common patterns you will use often</h3>
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><code>[Profit Margin] = SUM([Profit]) / SUM([Sales])</code> — ratio calculation; always aggregate both sides consistently</li>
+<li><code>[YoY Growth] = ([Sales] - LOOKUP([Sales], -1)) / ABS(LOOKUP([Sales], -1))</code> — year-over-year using table calculation</li>
+<li><code>[Moving Avg] = WINDOW_AVG(SUM([Sales]), -3, 0)</code> — 4-period rolling average</li>
+<li><code>[Running Total] = RUNNING_SUM(SUM([Sales]))</code> — cumulative sum along the table</li>
+<li>Table calculations (LOOKUP, RUNNING_SUM, WINDOW_AVG) compute <strong>after</strong> aggregation — the compute direction and partitioning matter</li>
+<li>LOD expressions (FIXED, INCLUDE, EXCLUDE) let you control the level of detail independently of the view</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Advanced Analytics</h2>
+                        <div class="box box--compact">
+                            <h3>Built-in statistical and predictive tools</h3>
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Forecasting</strong>: drag a date field + measure → Analytics pane → Forecast. Tableau fits exponential smoothing automatically</li>
+<li><strong>Trend lines</strong>: Analytics pane → Trend Line. Supports linear, polynomial, exponential, logarithmic, and power models</li>
+<li><strong>Clustering</strong>: Analytics pane → Cluster. K-means on selected measures; Tableau chooses k or you specify it</li>
+<li><strong>Reference lines and bands</strong>: add average, median, or custom constant lines directly from the Analytics pane — no calculation needed</li>
+<li><strong>Box plots</strong>: show distribution, IQR, and outliers in a single mark — built into Show Me</li>
+<li>These tools require no formula writing — they are point-and-click, making them accessible to non-coders</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section class="slide-title">
+                    <div class="content-wrapper">
+                        <h1>Dashboard Design</h1>
+                        <h3>Combining views into a coherent, interactive experience</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Layout Patterns</h2>
+                        <div class="box box--compact">
+                            <h3>Two proven structures</h3>
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Executive dashboard</strong>: KPI tiles across the top → main trend chart in the centre → detail breakdowns at the bottom</li>
+<li><strong>Analysis dashboard</strong>: filter rail on the left → overview chart top-right → drill-down detail bottom-right</li>
+<li>Place the most important number or insight where the eye lands first (top-left for LTR readers)</li>
+<li>Use Tableau's <strong>tiled</strong> layout for precise grid alignment; use <strong>floating</strong> sparingly for overlays</li>
+<li>Keep each dashboard to one scrollable screen — if it requires scrolling, split into tabs</li>
+<li>Use device preview (phone / tablet / desktop) to check responsive behaviour before publishing</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Interactivity: Filters, Actions, Parameters</h2>
+                        <div class="box box--compact">
+                            <h3>Making dashboards explorable</h3>
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Filters</strong>: Single value, multiple values, range, relative date, Top N — add via the Filters shelf or Show Filter</li>
+<li><strong>Filter actions</strong>: clicking a mark in one sheet filters another sheet — the most common dashboard interaction</li>
+<li><strong>Highlight actions</strong>: clicking dims unselected marks rather than removing them — good for keeping context visible</li>
+<li><strong>URL actions</strong>: clicking a mark opens a URL — useful for linking to CRM records or external reports</li>
+<li><strong>Parameters</strong>: user-controlled variables (numeric, string, date, boolean) that drive calculated fields or reference lines</li>
+<li>Example: a parameter for metric selection lets one chart swap between Revenue, Profit, and Units sold</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section class="slide-title">
+                    <div class="content-wrapper">
+                        <h1>BI Tool Comparison</h1>
+                        <h3>Tableau, Looker Studio, and Power BI — strengths and trade-offs</h3>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Tableau vs Looker Studio vs Power BI</h2>
+                        <div class="box box--compact">
+                            <h3>Choose based on your ecosystem and use case</h3>
+                            
+                    <div class="list-container">
+                        <ul>
+                            <li><strong>Tableau</strong>: strongest visual flexibility and chart variety; best-in-class for exploratory analysis; requires a paid licence (Public is free)</li>
+<li><strong>Looker Studio</strong> (formerly Data Studio): free, Google-native; excellent for Google Analytics, Ads, and Sheets data; simpler than Tableau</li>
+<li><strong>Power BI</strong>: Microsoft-native; deep integration with Excel, Azure, and Teams; DAX formula language is powerful but steep learning curve</li>
+<li>All three support live database connections, scheduled refreshes, and embedded dashboards</li>
+<li>All three have active community galleries with thousands of reusable templates</li>
+<li>If your org is Google-first → Looker Studio. Microsoft-first → Power BI. Mixed or advanced analytics → Tableau</li>
+                        </ul>
+                    </div>
+                
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
+
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Decision Framework</h2>
+                        <div class="box box--compact">
+                            <h3>Quick reference for tool selection</h3>
                             
                     <div class="two-column">
                         
                     <div class="list-container">
                         <ul>
-                            <li>A dynamic sales performance dashboard</li>
-<li>A geographical distribution analysis</li>
-<li>A product profitability analysis</li>
-<li>Interactive filters and drill-downs</li>
+                            <li>Need it free? → Looker Studio or Tableau Public</li>
+<li>Already paying for Microsoft 365? → Power BI</li>
+<li>Need the widest chart variety? → Tableau</li>
+<li>Data lives in Google products? → Looker Studio</li>
                         </ul>
                     </div>
                 
 
                     <div class="list-container">
                         <ul>
-                            <li>It contains clean, pre-formatted data</li>
-<li>It includes realistic business scenarios</li>
-<li>It's readily available in Power BI</li>
-<li>It covers multiple analysis dimensions</li>
+                            <li>Need row-level security at scale? → Tableau or Power BI</li>
+<li>Stakeholders use Excel heavily? → Power BI</li>
+<li>Building for public sharing? → Tableau Public</li>
+<li>Need embedded analytics in a web app? → All three support iframe embed</li>
                         </ul>
                     </div>
                 
@@ -509,52 +732,28 @@
                 </section>
             
 
-                <section>
+                <section class="slide-title">
                     <div class="content-wrapper">
-                        <h2>Tableau Basics (1/2)</h2>
-                        <div class="box box--compact">
-                            
-                            
-                    <div class="two-column">
-                        
-                    <div class="list-container">
-                        <ul>
-                            <li>Tableau's intuitive visualization interface</li>
-<li>Real-time data analysis without coding</li>
-<li>Interactive dashboard creation</li>
-<li>Advanced visualization techniques</li>
-<li><a href="https://help.tableau.com/current/guides/get-started-tutorial/en-us/get-started-tutorial-home.htm" target="_blank" rel="noopener">Tableau Documentation</a></li>
-                        </ul>
+                        <h1>Case Study: Retail Sales Dashboard</h1>
+                        <h3>Applying BI concepts to a real-world scenario</h3>
                     </div>
-                
-
-                    <div class="list-container">
-                        <ul>
-                            <li><a href="https://public.tableau.com/app/discover" target="_blank" rel="noopener">Tableau Public Gallery</a></li>
-<li><a href="https://community.tableau.com/s/" target="_blank" rel="noopener">Tableau Community</a></li>
-<li>Tableau Technical Support</li>
-<li>Community Forums</li>
-<li>Knowledge Base</li>
-                        </ul>
-                    </div>
-                
-                    </div>
-                
-                        </div>
-                    </div>
-                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                    <div class="slide-footer">Data Science &amp; AI | Skills Union &times; Localized</div>
                 </section>
             
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Tableau Basics (2/2)</h2>
+                        <h2>The Scenario</h2>
                         <div class="box">
-                            
+                            <h3>A retail chain wants to monitor regional performance</h3>
                             
                     <div class="list-container">
                         <ul>
-                            <li>Training Resources</li>
+                            <li><strong>Business question</strong>: which regions and product categories are driving (or dragging) overall profit margin?</li>
+<li><strong>Data source</strong>: transactional sales data — Order ID, Date, Region, Category, Sub-Category, Sales, Profit, Quantity</li>
+<li><strong>Stakeholders</strong>: VP of Sales (executive summary), regional managers (drill-down by their region), finance team (margin focus)</li>
+<li><strong>Refresh cadence</strong>: daily extract from the data warehouse — real-time not required</li>
+<li><strong>Constraint</strong>: dashboard must work on mobile for field managers</li>
                         </ul>
                     </div>
                 
@@ -566,31 +765,42 @@
 
                 <section>
                     <div class="content-wrapper">
-                        <h2>Tableau Case Study</h2>
+                        <h2>Design Decisions and Outcomes</h2>
                         <div class="box box--compact">
+                            <h3>What the team built and why</h3>
                             
-                            
-                    <div class="two-column">
-                        
                     <div class="list-container">
                         <ul>
-                            <li>A dynamic sales performance dashboard</li>
-<li>A geographical distribution analysis</li>
-<li>A product profitability analysis</li>
-<li>Interactive filters and drill-downs</li>
+                            <li><strong>KPI tiles</strong> (top row): Total Sales, Total Profit, Profit Margin % — each with a prior-period comparison arrow</li>
+<li><strong>Map view</strong>: profit margin by region using a diverging colour scale (red = loss, green = profit) — instant geographic pattern recognition</li>
+<li><strong>Bar chart</strong>: top/bottom 10 sub-categories by profit margin — sorted descending so outliers are immediately visible</li>
+<li><strong>Trend line</strong>: monthly sales and profit on dual-axis line chart — reveals seasonal patterns and the impact of promotions</li>
+<li><strong>Filter action</strong>: clicking a region on the map updates all other views — one interaction, full context</li>
+<li><strong>Result</strong>: regional managers self-serve answers in minutes; analyst time freed for deeper modelling</li>
                         </ul>
                     </div>
                 
+                        </div>
+                    </div>
+                    <div class="slide-footer">Data Science &amp; Analytics | Skills Union</div>
+                </section>
+            
 
+                <section>
+                    <div class="content-wrapper">
+                        <h2>Key Takeaways</h2>
+                        <div class="box box--compact">
+                            <h3>What to remember from this submodule</h3>
+                            
                     <div class="list-container">
                         <ul>
-                            <li>It contains clean, pre-formatted data</li>
-<li>It includes realistic business scenarios</li>
-<li>It's readily available in Tableau</li>
-<li>It covers multiple analysis dimensions</li>
+                            <li>BI tools are not replacements for Python — they are communication and monitoring layers on top of your analysis</li>
+<li>Choose Live vs Extract based on data freshness requirements, not habit</li>
+<li>Match chart type to analysis task; default to bar (comparison) and line (time) when unsure</li>
+<li>Dashboard layout follows eye movement — important metrics top-left, supporting detail below</li>
+<li>Interactivity (filter actions, parameters) should reduce clicks, not add them</li>
+<li>The best dashboard is the one stakeholders actually use — optimise for their mental model, not yours</li>
                         </ul>
-                    </div>
-                
                     </div>
                 
                         </div>
