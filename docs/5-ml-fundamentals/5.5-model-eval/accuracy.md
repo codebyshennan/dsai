@@ -315,6 +315,14 @@ Accuracy: 0.970
 Baseline Accuracy: 0.555
 ```
 
+## Gotchas
+
+- **High accuracy on an imbalanced dataset feels like success** — A dataset with 95% negative samples lets a classifier that always predicts "negative" achieve 95% accuracy; this is the accuracy paradox, and the model has learned nothing; always compare model accuracy to the majority-class baseline before declaring success.
+- **`model.score(X_test, y_test)` returns accuracy by default for classifiers** — This is easy to overlook when you later switch to a regression problem where `.score` returns R², not MSE; explicitly call `accuracy_score` or the relevant metric function to make your intent clear and avoid silent metric changes.
+- **Balanced accuracy is not the same as accuracy on balanced data** — `sklearn.metrics.balanced_accuracy_score` averages recall per class and is appropriate for imbalanced data; it will differ from standard accuracy even on a balanced dataset if per-class recalls are unequal; choose the right function deliberately.
+- **Comparing accuracy across different test set sizes** — Accuracy from a 50-sample test is far noisier than accuracy from a 5000-sample test; a 2% gap between two models may be statistically insignificant on 50 samples; always report confidence intervals or use statistical tests when comparing models on small test sets.
+- **Using accuracy as the scoring metric inside `GridSearchCV` for imbalanced problems** — Setting `scoring='accuracy'` in `GridSearchCV` selects the model that maximises accuracy, which on imbalanced data rewards the model that best predicts the majority class; use `scoring='f1'`, `'roc_auc'`, or a custom scorer aligned with your actual objective.
+
 ## Additional Resources
 
 1. Scikit-learn documentation on accuracy metrics
