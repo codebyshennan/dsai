@@ -659,6 +659,15 @@ Try building your own decision tree:
 4. Make predictions and evaluate the model
 5. Visualize the tree and feature importance
 
+## Gotchas
+
+- **Trusting 100% training R² as a sign of a good model** — the house regression example prints `Training R² Score: 1.000` with only 7 training rows; a perfect in-sample fit on tiny data almost always means the tree memorised individual values rather than learning a general rule, which the lower `Testing R² Score: 0.782` confirms.
+- **Passing `class_names` in the wrong order to `plot_tree`** — `class_names` must match sklearn's internal label encoding order (alphabetical for string targets, sorted integers for numeric ones), not the order you listed them in the data; a mismatch silently swaps the leaf labels in the visualization without raising an error.
+- **Interpreting 100% test accuracy on the Iris example as realistic** — `iris_clf` achieves 100% on that particular 30% split due to a small test set and a clean separable dataset; re-run with a different `random_state` and you will see the score drop, a reminder that a single split is not a reliable estimate.
+- **Using `clf.score` as the only evaluation for classification** — `score` returns mean accuracy, which is misleading on imbalanced targets; even the small disease-diagnosis example has only 5 rows, making accuracy meaningless; `classification_report` or `predict_proba` give more actionable information.
+- **Forgetting that decision tree boundaries are always axis-aligned rectangles** — the meshgrid visualizations show step-like boundaries, not smooth curves; this means decision trees will need many splits (deep trees, more overfitting risk) to approximate a genuinely diagonal or circular decision boundary.
+- **Reusing `X_train`/`X_test` from a previous cell (Iris) in the regressor cell** — the house-price `DecisionTreeRegressor` example calls `train_test_split` referencing the same variable names; if you run cells out of order, the regressor silently trains on Iris data and produces nonsense predictions.
+
 ## Next Steps
 
 Ready to learn more? Check out:
