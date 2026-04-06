@@ -448,6 +448,10 @@ RANK(SUM([Sales]), 'desc')
 
 ![Tableau Performance Recorder results with flame chart](assets/tableau_performance.png)
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "My Tableau dashboard is loading slowly. It has 8 sheets, uses a live connection to a database with 2 million rows, and has 3 LOD expressions. What steps should I take to speed it up, in priority order?"
+
 
 ## Security and Governance
 
