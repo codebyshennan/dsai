@@ -845,6 +845,15 @@ Hyperparameter tuning is a critical step in machine learning that can significan
 
 Remember that hyperparameter tuning is just one part of the machine learning pipeline. Good data quality, feature engineering, and algorithm selection often have more impact than perfect hyperparameter tuning.
 
+## Gotchas
+
+- **Evaluating on the test set during tuning** — Running `best_estimator_.score(X_test, y_test)` after every trial and picking the highest-scoring trial effectively makes the test set a validation set; reserve the test set for a single final report after all tuning is done.
+- **Best CV score higher than test score is expected, not a bug** — Cross-validation optimistically inflates scores slightly because the search selects the best-scoring configuration; a small drop on the true held-out test is normal and not a sign of leakage.
+- **Grid boundaries that contain the optimum** — If the best parameter is at the edge of your grid (e.g., `max_depth=30` when you searched `[10, 20, 30]`), the true optimum likely lies outside the range; always inspect `best_params_` and extend ranges that hit boundaries.
+- **Forgetting `random_state` in `RandomizedSearchCV`** — Without a fixed seed, re-running the search yields different best parameters each time, making results non-reproducible; always pass `random_state=42` (or any fixed integer) when you need stable comparisons.
+- **Fitting preprocessing outside the search object** — Calling `scaler.fit_transform(X_train)` before passing data to `GridSearchCV` leaks validation-fold statistics into training; wrap the scaler in a `Pipeline` so it re-fits on each CV training fold independently.
+- **Combinatorial explosion with grid search** — Three hyperparameters with 5 values each and 5-fold CV already requires 375 model fits; adding a fourth 5-value parameter multiplies that to 1875 fits; use `RandomizedSearchCV` or Bayesian optimization once the grid exceeds ~100 combinations.
+
 ## Additional Resources
 
 ### Documentation
