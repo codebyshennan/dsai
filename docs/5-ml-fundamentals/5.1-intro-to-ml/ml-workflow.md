@@ -758,6 +758,15 @@ print(f"\nPredicted House Price: ${predicted_price:,.2f}")
 </aside>
 </div>
 
+## Gotchas
+
+- **Calling `fit_transform` on test data instead of `transform`** — `DataCleaner` and scalers compute statistics (mean, std, min, max) during `fit`; applying `fit_transform` to `X_test` re-computes those statistics from the test set, leaking test distribution information into preprocessing and invalidating the evaluation.
+- **Cleaning data before the train/test split** — imputing missing values or removing outliers across the full dataset uses information from test rows to influence training-set statistics; always split first, then fit your cleaning pipeline on `X_train` only.
+- **Accepting a high validation R² or MAE without examining the actual-vs-predicted scatter** — a good scalar metric can hide systematic over-prediction at high values or heteroscedastic errors that matter in production; the scatter plot against the diagonal is a mandatory sanity check.
+- **Selecting the best model by comparing only training scores** — `results[name]['train_mae']` says how well the model memorised the training data, not how well it generalises; always rank models by their `val_mae` or cross-validation score and treat `train_mae` only as a diagnostic for overfitting.
+- **Saving only the model file and not the scaler or feature list** — `predict_house_price` reloads all three artifacts; deploying just `model.joblib` means the scoring function cannot apply the same column order and scaling the training pipeline used, silently producing wrong predictions.
+- **Using `df.corr()` as the only feature-selection signal** — the correlation heatmap detects *linear* relationships; features with near-zero Pearson correlation can still carry strong non-linear predictive signal that a tree-based model or polynomial feature would capture.
+
 ## Best Practices and Tips
 
 These habits support the same workflow: reproducibility (version control), trust (documentation), and sustainability (monitoring and error analysis).
