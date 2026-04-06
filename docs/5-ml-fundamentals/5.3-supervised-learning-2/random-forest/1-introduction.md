@@ -116,6 +116,15 @@ Before diving deeper, make sure you understand:
 3. **Cross-validation**: How to properly evaluate model performance
 4. **Model Evaluation Metrics**: How to measure how well your model is doing
 
+## Gotchas
+
+- **"More trees always helps"** — beyond a few hundred trees, adding more estimators yields diminishing accuracy returns while training time and memory grow linearly; always plot OOB error vs `n_estimators` to find where improvement flattens.
+- **Random Forest is not immune to overfitting** — on very noisy datasets, fully-grown trees (the default `max_depth=None`) can still memorise noise; setting `min_samples_leaf` or `max_depth` is often needed even though bagging reduces variance.
+- **Feature importances are biased toward high-cardinality features** — a feature with many unique values (e.g., a numeric ID or timestamp) gets more split opportunities, inflating its Gini importance; prefer permutation importance for reliable rankings.
+- **Bootstrap sampling changes the effective training set size** — each tree only sees ~63.2% unique samples, so a 1 000-row dataset effectively trains each tree on ~632 rows; this matters when your dataset is already small.
+- **"Random Forest handles missing values" is misleading** — sklearn's implementation does not accept `NaN` by default; the common claim applies to specialised libraries (e.g., `MissForest`, H2O RF); you must impute before passing data to scikit-learn.
+- **Not setting `random_state` makes results non-reproducible** — both the bootstrap sampling and feature subsampling depend on random state; omitting it means every re-run may give a slightly different model and feature importance ranking.
+
 ## Next Steps
 
 Ready to understand the math behind Random Forests? Continue to [Mathematical Foundation](2-math-foundation.md) to learn how these concepts work in practice!
