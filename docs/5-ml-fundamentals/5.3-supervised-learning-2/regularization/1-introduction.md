@@ -152,6 +152,14 @@ Before diving deeper, ensure you understand:
 
 Ready to dive deeper? Continue to [Mathematical Foundation](2-math-foundation.md) to understand the theory behind Regularization!
 
+## Gotchas
+
+- **L1 and L2 behave very differently when features are correlated** — Lasso tends to arbitrarily pick one of a correlated pair and zero out the rest, which can make results unstable across datasets; Ridge distributes the penalty evenly across correlated features, so if correlated predictors are all meaningful, Ridge is the safer default.
+- **λ in sklearn is inverted: larger `alpha` means stronger regularization** — this matches the math in this lesson; but in sklearn's `LogisticRegression`, the parameter is `C = 1/λ`, so a *larger* `C` means *less* regularization — the opposite direction from `Ridge`, `Lasso`, and `ElasticNet`.
+- **Regularization without feature scaling penalizes unfairly** — the penalty is applied to raw coefficient magnitudes; a feature measured in thousands (e.g., income) will have a naturally smaller coefficient than one measured in single digits (e.g., number of bedrooms), receiving a smaller penalty and effectively being regularized less.
+- **"L1 performs feature selection" is only true at the right λ** — at very small λ, Lasso barely shrinks any coefficient; at very large λ, it zeros out everything; feature selection only happens in the middle range, which requires careful tuning rather than using an arbitrary default.
+- **Elastic Net has two hyperparameters to tune, not one** — both `alpha` (overall penalty strength) and `l1_ratio` (L1/L2 mix) need to be optimised together, making the search space 2D; a grid over only `alpha` while fixing `l1_ratio` may miss the best combination entirely.
+
 ## Additional Resources
 
 - [Scikit-learn Regularization Documentation](https://scikit-learn.org/stable/modules/linear_model.html)
