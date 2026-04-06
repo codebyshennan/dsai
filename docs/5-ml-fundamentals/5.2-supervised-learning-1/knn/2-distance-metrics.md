@@ -251,6 +251,15 @@ for metric, score in results.items():
 </aside>
 </div>
 
+## Gotchas
+
+- **Applying `fit_transform` to the test set** — Calling `scaler.fit_transform(X_test)` re-computes the mean and standard deviation from the test data, so test features are on a different scale than training features. Always call `scaler.fit_transform(X_train)` once and `scaler.transform(X_test)` thereafter.
+- **Using cosine similarity as a drop-in distance for KNN** — Cosine similarity is bounded between -1 and 1, not 0 to ∞. Passing `metric='cosine'` to `KNeighborsClassifier` actually computes cosine distance (`1 - cosine_similarity`), which is valid, but raw cosine similarity values are not distances and will produce wrong neighbor rankings if used directly.
+- **Expecting Euclidean distance to work for high-cardinality one-hot features** — One-hot encoding a categorical column with 50 values adds 50 binary dimensions. Euclidean distance treats each as equally spaced, which inflates distances for categories even if two points differ by only one category. Manhattan distance is often a better fit here.
+- **Forgetting that MinMaxScaler is sensitive to outliers** — If your data contains outliers, `MinMaxScaler` compresses all non-outlier values into a tiny range, distorting distances. `StandardScaler` (z-score) is less affected; consider clipping outliers first when using MinMaxScaler.
+- **Mixing scaled and unscaled features accidentally** — A common mistake when adding engineered features is to forget to include them in the scaler's input. Features added after `fit_transform` bypass scaling entirely and dominate distance calculations silently.
+- **Treating Minkowski distance with p=1 and Manhattan as identical but forgetting `p` must be set explicitly** — `KNeighborsClassifier` defaults to `metric='minkowski'` with `p=2` (Euclidean). If you want Manhattan distance, you must pass `p=1` or `metric='manhattan'`; changing only `metric` to `'minkowski'` without changing `p` leaves you with Euclidean.
+
 ## Additional Resources
 
 For more learning:
