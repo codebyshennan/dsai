@@ -316,6 +316,14 @@ Make It Clear:
 - Community: [community.tableau.com](https://community.tableau.com)
 - Video Tutorials: [Tableau YouTube](https://www.youtube.com/user/tableausoftware)
 
+## Gotchas
+
+- **`FIXED` LODs ignore dimension filters but not context filters** — a `{FIXED [Customer Name] : AVG([Sales])}` expression ignores any Region or Category filter you've added to the view, so the customer average won't change when the viewer filters. Promote filters to context filters (right-click → Add to Context) if you need the LOD to respect them.
+- **Table calculations like `RUNNING_SUM` recalculate when the viewer sorts the view** — the running total is computed along the current sort order, not the data order. If a stakeholder clicks a column header to re-sort, the running total changes silently and shows a different number for the same row. Lock the sort or add a note explaining this dependency.
+- **Parameters don't filter data automatically — they only feed calculations** — creating a parameter and adding it to the dashboard does nothing until a calculated field or filter references `[Parameter Name]`. Learners often add a parameter control and wonder why the view doesn't change; the parameter needs a corresponding formula that uses it.
+- **`LOOKUP([Sales], -1)` for growth rate returns NULL for the first period** — because there is no prior period to look back to, the first row always shows NULL for percent difference. If your chart has many periods this is invisible, but for short date ranges (e.g., 3 months) NULL on the first bar can make it disappear or show as zero depending on how Tableau handles nulls in the mark type.
+- **Combo chart axes are not synchronised by default even when they appear to overlap** — when you create a dual axis with Sales (thousands) and Profit Ratio (0–1), the y-axis scales are independent. Tableau does not warn you. Always right-click the secondary axis and inspect the scale range before publishing, otherwise the overlap is visually meaningless.
+
 Remember:
 
 - Start with simple calculations
