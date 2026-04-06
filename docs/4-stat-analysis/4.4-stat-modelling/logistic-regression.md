@@ -1254,6 +1254,15 @@ Feature Importance:
 2             BloodPressure    -0.222390    0.800603
 ```
 
+## Gotchas
+
+- **Applying a 0.5 threshold blindly on imbalanced classes** — sklearn's default `predict` uses p ≥ 0.5 as the decision boundary. When the positive class is rare (e.g., 5% fraud), this threshold produces near-zero recall for the minority class. Evaluate the full ROC or precision-recall curve and choose a threshold that matches your business cost of false negatives vs. false positives.
+- **Forgetting to scale features** — Logistic regression uses gradient-based optimisation (or its equivalent); features on very different scales (e.g., income in thousands vs. age in tens) cause slow convergence and poorly comparable coefficients. Always apply `StandardScaler` before fitting.
+- **Interpreting coefficients as probabilities instead of log-odds** — A coefficient of 1.13 for Glucose means the log-odds of diabetes increases by 1.13 per unit—not that probability increases by 1.13. Convert to an odds ratio with `exp(coef)` and then back to a probability change only at a specific baseline.
+- **Using accuracy as the sole metric for imbalanced datasets** — A model that predicts "no diabetes" for every patient achieves 65% accuracy on the Pima dataset while being completely useless. Report precision, recall, F1, or AUC-ROC alongside accuracy.
+- **Assuming the model converges with the default `max_iter=100`** — sklearn will print a `ConvergenceWarning` silently if the solver hasn't converged, and the returned coefficients are unreliable. Increase `max_iter` or switch to `solver='lbfgs'` with looser tolerance after scaling features.
+- **Treating predicted probabilities as calibrated without checking** — A model that outputs p = 0.8 does not necessarily mean 80% of those cases are positive. Use `sklearn.calibration.calibration_curve` or Platt scaling to verify and fix probability calibration before using raw probabilities for ranking or thresholding.
+
 ## Next steps
 
 - Continue to [Polynomial regression](./polynomial-regression.md).
