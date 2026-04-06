@@ -23,31 +23,79 @@ This lesson shows you how to avoid each of these, and how to build charts that c
 
 The examples below use the `flights` dataset — monthly airline passengers from 1949 to 1960. It is built into Seaborn so there is nothing to download.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 sns.set_theme(style="whitegrid", palette="deep", font_scale=1.1)
 
-# Load and prepare the dataset
+# Load the built-in flights dataset
 flights = sns.load_dataset("flights")
 
-# Turn year + month into a proper datetime column
-month_num = {"Jan":1,"Feb":2,"Mar":3,"Apr":4,"May":5,"Jun":6,
-             "Jul":7,"Aug":8,"Sep":9,"Oct":10,"Nov":11,"Dec":12}
+# The month column contains abbreviated names like "Jan", "Feb" —
+# map them to numbers so pandas can build a proper datetime
+month_num = {
+    "Jan":1, "Feb":2, "Mar":3, "Apr":4,
+    "May":5, "Jun":6, "Jul":7, "Aug":8,
+    "Sep":9, "Oct":10,"Nov":11,"Dec":12
+}
 flights["month_num"] = flights["month"].astype(str).map(month_num)
 flights["date"] = pd.to_datetime(
     dict(year=flights["year"], month=flights["month_num"], day=1)
 )
+
+# Sort immediately — every time-series operation depends on order
 flights = flights.sort_values("date").reset_index(drop=True)
 
-# Annual totals for trend examples
+# Roll up to annual totals for the simpler trend examples
 annual = flights.groupby("year")["passengers"].sum().reset_index()
 annual["date"] = pd.to_datetime(annual["year"].astype(str))
-```
+{% endhighlight %}
 
-Always parse dates with `pd.to_datetime` and sort immediately. Everything else — resampling, rolling averages, grouping — depends on the data being in chronological order.
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-5" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Imports and theme</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Set <code>sns.set_theme</code> once at the top so all charts in the session share the same grid, font, and colour palette.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="7-21" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Build a datetime column</span>
+    </div>
+    <div class="code-callout__body">
+      <p>The flights dataset stores months as strings ("Jan", "Feb"…). Map them to integers first, then use <code>pd.to_datetime(dict(...))</code> to build a proper date. This enables resampling, rolling windows, and time-based groupby.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="23-24" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Sort immediately</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Always sort by date right after parsing. Rolling averages, resampling, and line plots all assume chronological order — unsorted data produces wrong results silently.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="26-27" data-tint="4">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Annual rollup</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Aggregating to annual totals reduces 144 monthly rows to 12 yearly rows — cleaner for the first trend chart, where the broad direction matters more than monthly detail.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ## Choose the right time grain
 
@@ -60,19 +108,35 @@ Match the aggregation level to the question being asked.
 | What is the trend this quarter? | Weekly |
 | How did we do this year? | Monthly or quarterly |
 
-```python
-# Resample daily data to weekly sums
-# (illustrative — flights data is already monthly)
-weekly = (
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+# Resample monthly data to quarterly sums
+quarterly = (
     flights
     .set_index("date")
-    .resample("W")
+    .resample("QS")                         # QS = quarter start
     .agg(passengers=("passengers", "sum"))
     .reset_index()
 )
-```
+{% endhighlight %}
 
-Two rules before publishing:
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-7" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">resample</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>resample</code> requires the date column to be the index. <code>"QS"</code> means quarter-start — each output row represents one quarter. Other useful offsets: <code>"W"</code> (weekly), <code>"MS"</code> (month-start), <code>"A"</code> (annual).</p>
+    </div>
+  </div>
+</aside>
+</div>
+
+Two rules before publishing any time chart:
 
 1. Do not compare a partial current period to complete prior periods — either exclude it or label it clearly.
 2. Explain missing periods instead of silently skipping them.
@@ -83,15 +147,58 @@ Two rules before publishing:
 
 The simplest useful time chart: one line, clear axes, no clutter.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 fig, ax = plt.subplots(figsize=(11, 5))
-ax.plot(annual["date"], annual["passengers"],
-        color="#2b8cbe", linewidth=2.5, marker="o", markersize=5)
+
+ax.plot(
+    annual["date"],
+    annual["passengers"],
+    color="#2b8cbe",
+    linewidth=2.5,
+    marker="o",     # dot at each data point
+    markersize=5
+)
+
 ax.set_title("Annual Airline Passengers (1949–1960)")
 ax.set_xlabel("Year")
 ax.set_ylabel("Total Passengers")
-ax.grid(True, alpha=0.3)
-```
+ax.grid(True, alpha=0.3)   # subtle grid — don't fight the data
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Figure size</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>figsize=(11, 5)</code> gives a wide, shallow aspect ratio — the standard for time series because it makes horizontal trends easier to follow than a square chart.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="3-10" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Markers on a line</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>marker="o"</code> places a dot at each data point. With annual data (12 points) the dots help the reader count years. With hundreds of daily points, omit them to avoid clutter.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="12-15" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Grid opacity</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>alpha=0.3</code> makes the grid lines faint. The grid should help the reader estimate values — it should never compete with the data line for attention.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Time series trend line](assets/ts_trend_line.png)
 
@@ -101,71 +208,195 @@ The upward slope is immediately obvious. A plain line is usually the right start
 
 Raw data often has short-term noise that hides the longer trend. A rolling average smooths this out.
 
-```python
-annual["rolling_3y"] = annual["passengers"].rolling(window=3, min_periods=1).mean()
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+# Add a 3-year rolling average column
+annual["rolling_3y"] = (
+    annual["passengers"]
+    .rolling(window=3, min_periods=1)
+    .mean()
+)
 
 fig, ax = plt.subplots(figsize=(11, 5))
+
+# Raw series — lighter, thinner, stays visible
 ax.plot(annual["date"], annual["passengers"],
         color="#9ecae1", linewidth=1.5, label="Annual passengers")
+
+# Smoothed series — darker, thicker, carries the trend message
 ax.plot(annual["date"], annual["rolling_3y"],
         color="#08519c", linewidth=2.5, label="3-year rolling average")
+
 ax.set_title("Smoothing with a Rolling Average")
 ax.set_xlabel("Year")
 ax.set_ylabel("Total Passengers")
 ax.legend()
 ax.grid(True, alpha=0.3)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-6" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">rolling().mean()</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>window=3</code> averages the current year and the two preceding years. <code>min_periods=1</code> prevents the first two rows from becoming NaN — useful when your series starts at a hard boundary.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="8-16" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Two-line contrast</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Make the raw series light and thin, the smoothed series dark and thick. The reader immediately understands which carries the main message and which is context.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Rolling average](assets/ts_rolling_average.png)
 
-Keep the original series visible (lighter colour, thinner line) so the reader can see both the noise and the trend. If you only show the smoothed line, you hide information.
+Keep the original series visible — if you only show the smoothed line, you hide information that may matter (like a sudden spike or a missing period).
 
 ### 3. Multiple series
 
-Compare groups on the same time axis — but only when the number of lines is manageable (roughly five or fewer). Beyond that, use small multiples instead.
+Compare groups on the same time axis — but only when the number of lines is manageable (roughly five or fewer). Beyond that, use small multiples.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 fig, ax = plt.subplots(figsize=(11, 5))
+
+# 12 distinct colours — one per month
 palette = sns.color_palette("tab10", n_colors=12)
 
-for i, (month_num, month_df) in enumerate(flights.groupby("month_num")):
-    label = month_df["month"].iloc[0]
-    ax.plot(month_df["year"], month_df["passengers"],
-            color=palette[i], linewidth=1.5, label=label,
-            marker="o", markersize=3)
+for i, (month_n, month_df) in enumerate(flights.groupby("month_num")):
+    label = month_df["month"].iloc[0]      # "Jan", "Feb", …
+    ax.plot(
+        month_df["year"],
+        month_df["passengers"],
+        color=palette[i],
+        linewidth=1.5,
+        label=label,
+        marker="o", markersize=3
+    )
 
 ax.set_title("Passengers by Month Across Years")
 ax.set_xlabel("Year")
 ax.set_ylabel("Passengers")
 ax.legend(loc="upper left", fontsize=7, ncol=2)
 ax.grid(True, alpha=0.3)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-3" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Colour palette</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>sns.color_palette("tab10", n_colors=12)</code> returns 12 visually distinct colours. Access them by index inside the loop so each month gets a consistent colour throughout the session.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="5-14" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">groupby loop</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Looping over <code>groupby("month_num")</code> gives one subset per month in numeric order. <code>month_df["month"].iloc[0]</code> retrieves the abbreviated month name for the legend label.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="16-20" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Compact legend</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>fontsize=7</code> and <code>ncol=2</code> fit 12 month labels into two columns without overflowing the chart. With this many series, the chart is already at the limit — use small multiples if you need more.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Multiple series](assets/ts_multiple_series.png)
 
-With 12 months on one chart the legend is already crowded. This is the point where small multiples become the better choice.
+With 12 months the legend is already crowded. This is the point where small multiples become the better choice.
 
 ## Small multiples for clarity
 
-When you have too many series for one chart, split them into separate panels with a shared axis. The viewer can scan across panels and still make comparisons.
+When you have too many series for one chart, split them into separate panels. The viewer can compare patterns across panels without the lines overlapping.
 
-```python
-season_map = {1:"Winter",2:"Winter",3:"Spring",4:"Spring",5:"Spring",
-              6:"Summer",7:"Summer",8:"Summer",9:"Autumn",10:"Autumn",11:"Autumn",12:"Winter"}
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
+# Group months into seasons
+season_map = {
+    1:"Winter", 2:"Winter",  3:"Spring",
+    4:"Spring", 5:"Spring",  6:"Summer",
+    7:"Summer", 8:"Summer",  9:"Autumn",
+    10:"Autumn",11:"Autumn", 12:"Winter"
+}
 flights["season"] = flights["month_num"].map(season_map)
-season_data = flights.groupby(["year","season"])["passengers"].sum().reset_index()
+
+season_data = (
+    flights
+    .groupby(["year","season"])["passengers"]
+    .sum()
+    .reset_index()
+)
 
 sns.relplot(
     data=season_data,
     kind="line",
     x="year",
     y="passengers",
-    col="season",
-    col_wrap=2,
+    col="season",      # one panel per season
+    col_wrap=2,        # two panels per row
     height=3.5,
-    facet_kws={"sharey": False}
+    facet_kws={"sharey": False}   # each panel scales independently
 )
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Season mapping</span>
+    </div>
+    <div class="code-callout__body">
+      <p>A dictionary maps month numbers to season names. <code>flights["month_num"].map(season_map)</code> applies it in one step — no loops needed.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-15" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Seasonal aggregation</span>
+    </div>
+    <div class="code-callout__body">
+      <p>Group by year and season, then sum passengers. This collapses the 12-month series into four seasonal series — much easier to show in small multiples.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="17-25" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">relplot with col</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>col="season"</code> creates one panel per season automatically. <code>col_wrap=2</code> wraps after two panels so you get a 2×2 grid. <code>sharey=False</code> lets each panel use its own y-axis scale — important when summer totals are much larger than winter totals.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Small multiples](assets/ts_small_multiples.png)
 
@@ -175,26 +406,59 @@ Each season gets its own panel. The growth trend is visible in every panel, and 
 
 A vertical line at an event date often tells more of the story than the data alone.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 fig, ax = plt.subplots(figsize=(11, 5))
+
 ax.plot(annual["date"], annual["passengers"],
         color="#2b8cbe", linewidth=2.5, marker="o", markersize=5)
 
+# Vertical dashed line at the event date
 event_date = pd.Timestamp("1955-01-01")
 ax.axvline(event_date, color="#636363", linestyle="--", linewidth=1.8)
+
+# Arrow + label annotation
+event_y = annual.loc[annual["year"]==1955, "passengers"].values[0]
 ax.annotate(
     "Jet age begins\n(1955)",
-    xy=(event_date, annual.loc[annual["year"]==1955, "passengers"].values[0]),
-    xytext=(pd.Timestamp("1956-06-01"), 8500),
+    xy=(event_date, event_y),          # arrow tip
+    xytext=(pd.Timestamp("1956-06-01"), 8500),  # label position
     fontsize=10,
     arrowprops=dict(arrowstyle="->", color="#636363"),
-    bbox=dict(boxstyle="round,pad=0.3", facecolor="#fff3cd", alpha=0.9)
+    bbox=dict(boxstyle="round,pad=0.3",
+              facecolor="#fff3cd", alpha=0.9)
 )
+
 ax.set_title("Annotating a Key Event on a Time Chart")
 ax.set_xlabel("Year")
 ax.set_ylabel("Total Passengers")
 ax.grid(True, alpha=0.3)
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="6-8" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">axvline</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>ax.axvline</code> draws a vertical line across the full y-axis at the given x-position. Use a dashed style and a neutral grey so it reads as context rather than data.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="10-19" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">annotate</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>xy</code> is where the arrow points; <code>xytext</code> is where the label sits. Separate them so the label does not overlap the line. <code>bbox</code> adds a light background that makes the text readable over the chart grid.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Event annotation](assets/ts_event_annotation.png)
 
@@ -204,22 +468,64 @@ The annotation explains *why* growth accelerated — without it the reader has t
 
 Plotly is useful when your audience needs to zoom in, hover for exact values, or explore a date range themselves.
 
-```python
+<div class="code-explainer" data-code-explainer>
+<div class="code-explainer__code">
+
+{% highlight python %}
 import plotly.express as px
 
 fig = px.line(
     annual,
     x="date",
     y="passengers",
-    title="Annual Airline Passengers"
+    title="Annual Airline Passengers",
+    labels={"date": "Year", "passengers": "Total Passengers"}
 )
+
+# Add a range slider below the chart
 fig.update_xaxes(rangeslider_visible=True)
+
+# Format y-axis with comma separators
+fig.update_yaxes(tickformat=",")
+
 fig.show()
-```
+{% endhighlight %}
+
+</div>
+<aside class="code-explainer__callouts" aria-label="Code walkthrough">
+  <div class="code-callout" data-lines="1-9" data-tint="1">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">px.line</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>px.line</code> is the Plotly Express equivalent of Matplotlib's <code>ax.plot</code>. The <code>labels</code> dict replaces column names with readable strings in the axis and hover tooltip.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="11-12" data-tint="2">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Range slider</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>rangeslider_visible=True</code> adds a miniature navigator below the x-axis. The viewer can drag the handles to zoom into any time window without writing any code.</p>
+    </div>
+  </div>
+  <div class="code-callout" data-lines="14-15" data-tint="3">
+    <div class="code-callout__meta">
+      <span class="code-callout__lines"></span>
+      <span class="code-callout__title">Tick format</span>
+    </div>
+    <div class="code-callout__body">
+      <p><code>tickformat=","</code> adds thousand-separator commas to large numbers (e.g. 15,000 instead of 15000). For percentages use <code>".1%"</code>; for currency use <code>"$,.0f"</code>.</p>
+    </div>
+  </div>
+</aside>
+</div>
 
 ![Plotly range slider](assets/ts_plotly_rangeslider.png)
 
-The range slider at the bottom lets the viewer drag to focus on any window. Use this for dashboards and stakeholder reports where the audience will explore the data, not just read a static chart.
+The range slider at the bottom lets the viewer drag to focus on any window. Use Plotly for dashboards and stakeholder reports where the audience will explore the data — use Matplotlib/Seaborn for static reports and presentations.
 
 ## Common mistakes
 
@@ -243,7 +549,7 @@ Before publishing a time chart:
 
 1. Turn the monthly `flights` data into quarterly totals and compare readability with the monthly version.
 2. Add a 6-month rolling average to the monthly series and keep the raw line visible.
-3. Replace the 12-line month chart above with a `sns.relplot` small-multiples version.
+3. Replace the 12-line month chart above with a `sns.relplot` small-multiples version grouped by month instead of season.
 4. Pick a year and annotate it with a made-up event label. What does the annotation make the viewer assume?
 
 ## Next steps
