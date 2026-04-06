@@ -40,6 +40,8 @@ If any box fails, stay on that step until it passes—adding more tools rarely f
 
 ### Must have
 
+0. **[Windows setup guide](./windows.md)** *(Windows users only)* — start here before anything else  
+
 1. **[Anaconda or uv](./anaconda.md)** — isolates project packages  
    - **Time:** about 15–20 minutes  
    - Prefer Anaconda if you are new to programming.
