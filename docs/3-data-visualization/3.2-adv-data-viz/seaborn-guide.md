@@ -283,9 +283,6 @@ cat_fig = plot_categorical_analysis(tips, "day", "total_bill")
 
 ![seaborn-guide](assets/seaborn-guide_fig_2.png)
 
-**Output:**
-> **Figure (add screenshot or diagram):** 2×2 categorical analysis of `total_bill` by `day`: box plot showing quartiles and outliers (top-left), violin plot with embedded box (top-right), strip plot with jittered points (bottom-left), and swarm plot with non-overlapping points (bottom-right).
-
 ## Relationship Analysis
 
 ### 1. Scatter Plot Suite
