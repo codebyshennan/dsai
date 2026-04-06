@@ -770,6 +770,15 @@ Mean difference: 0.1
 6. Visualize your data to better understand the results
 7. Report complete information about your intervals
 
+## Gotchas
+
+- **"95% confidence" means the interval contains the parameter with 95% probability** — this is the most common misreading. The correct interpretation is that 95% of *intervals constructed this way* will contain the true parameter across repeated samples; any specific interval either contains it or it doesn't.
+- **Using `ddof=0` instead of `ddof=1` for the sample standard deviation** — `np.std(data)` defaults to population SD (`ddof=0`), which underestimates variability in small samples. Always pass `ddof=1` when computing a sample SD for a t-interval, or use `scipy.stats.sem` which handles this automatically.
+- **Plugging a z-critical value when you should use t** — when the population standard deviation is unknown (almost always), the t-distribution is correct for small-to-moderate samples. The z and t critical values converge only as n grows large; for n=10 the difference is substantial.
+- **Wider interval does not mean better estimate** — raising the confidence level from 95% to 99% makes the interval wider but does *not* make the point estimate more accurate; it only means you are casting a wider net.
+- **Treating a CI for the mean as a CI for individual values** — the interval bounds the *population mean*, not the range where most individual observations fall. A prediction interval is the right tool when you need to say where a new single observation will land.
+- **Interpreting a CI that excludes zero as proof of an important effect** — a CI that does not contain zero indicates statistical significance, but the interval bounds also need to be checked for practical relevance; a CI of (0.001, 0.003) excludes zero but may be meaningless in context.
+
 ## Next steps
 
 - Continue to [Sampling distributions](./sampling-distributions.md), then [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md).
