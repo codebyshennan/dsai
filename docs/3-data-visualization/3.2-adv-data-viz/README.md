@@ -6,14 +6,6 @@
 
 This submodule is **code-first**: you will write Python with **Seaborn** (statistical plots on top of Matplotlib) and **Plotly** (interactive charts and small dashboards). Think of it as moving from simple static plots to richer, exploratory, and interactive visuals, then applying them to time-based analysis and a realistic business case.
 
-> **Time needed:** Plan several hours to work through both guides and run the examples in a notebook.
-
-**Submodule map**
-
-**Purpose:** Show how this folder splits statistical (Seaborn) work, interactive (Plotly) work, and applied practice.
-
-**Walkthrough:** Diagram only—not code.
-
 ```yaml
 Module Structure:
 ┌─────────────────────────┐
@@ -33,13 +25,24 @@ Module Structure:
 - [3.1 Preparing data for visualization](../3.1-intro-data-viz/data-prep-for-visualization.md): chart-ready summaries and reshaping.
 - Python environment with **matplotlib**, **pandas**, and (after install) **seaborn** and **plotly**.
 
+## Which library for which job?
+
+| Task | Use |
+|---|---|
+| Statistical exploration — distributions, correlation, regression | **Seaborn** |
+| Faceted views comparing many categories side by side | **Seaborn** |
+| Charts that need zoom, hover, or interactive filtering | **Plotly** |
+| Time series with a range slider or date-range buttons | **Plotly** |
+| Browser-ready output or a stakeholder report | **Plotly** |
+| Static export for print or a slide deck | **Seaborn / Matplotlib** |
+
+Rule of thumb: **Seaborn for understanding your data, Plotly for sharing it.**
+
 ## Why advanced visualization?
 
-### Data Communication Impact
+### Moving beyond a single static line
 
-**Purpose:** Contrast a single static line on `x`/`y` with a Plotly Express scatter that adds size, color, animation, hover fields, and a trendline.
-
-**Walkthrough:** Assumes `plt` and `data` exist; `trendline='ols'` requires `statsmodels` in the environment for Plotly 5+.
+Compare a basic Matplotlib line to a Plotly scatter that encodes four extra dimensions — size, color, animation, and a trendline — all in one call.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -95,13 +98,11 @@ fig = px.scatter(data,
 </aside>
 </div>
 
-### Key Benefits
+### Key capabilities
 
-#### 1. Complex Story Simplification
+#### 1. Complex story simplification
 
-**Purpose:** List visualization strategies you gain moving beyond single static charts—facets, interaction, layering.
-
-**Walkthrough:** Reference checklist when scoping a dashboard or report.
+Multi-panel facets, layered annotations, and interactive filters let a single chart carry information that would otherwise need three separate charts.
 
 ```yaml
 Techniques:
@@ -121,11 +122,9 @@ Techniques:
     - Annotations
 ```
 
-#### 2. Modern Data Solutions
+#### 2. Interactive and real-time patterns
 
-**Purpose:** Sketch a Plotly figure with a live-updatable trace and an animation-style menu hook—pattern for streaming dashboards.
-
-**Walkthrough:** `update_data` would be wired to your data source; `method: animate` expects frames if you use Plotly’s animation API fully.
+A Plotly figure with an animation-style control — a useful starting pattern for streaming dashboards.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -209,11 +208,9 @@ def create_realtime_dashboard(data_stream):
 
 ![README](assets/README_fig_1.png)
 
-#### 3. Enhanced Communication
+#### 3. Statistical communication
 
-**Purpose:** One 2×2 Seaborn panel: stacked histogram, box plot by category, regression overlay, and multi-series line plot.
-
-**Walkthrough:** Expects columns `value`, `category`, `x`, `y`, `time` in `data`; tighten column names to match your frame.
+One 2×2 Seaborn panel covering the four most common statistical views — distribution, box, regression, and time series — in a single figure.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -297,9 +294,7 @@ def create_statistical_plot(data):
 
 ### 1. Statistical Visualization with Seaborn
 
-**Purpose:** Outline which Seaborn families appear in [seaborn-guide.md](seaborn-guide.md).
-
-**Walkthrough:** Use as a checklist while reading the guide.
+Topics covered in [seaborn-guide.md](seaborn-guide.md):
 
 ```yaml
 Topics:
@@ -326,9 +321,7 @@ Topics:
 
 ### 2. Interactive Visualization with Plotly
 
-**Purpose:** Outline Plotly capabilities covered in [plotly-guide.md](plotly-guide.md).
-
-**Walkthrough:** Pair each bullet with the matching section when studying.
+Topics covered in [plotly-guide.md](plotly-guide.md):
 
 ```yaml
 Features:
@@ -350,11 +343,13 @@ Features:
 
 ## Learning path
 
-### Week 1: Foundation
+This submodule has two lessons followed by two applied pieces. Complete them in order — each builds on the previous.
 
-**Purpose:** One-time environment setup aligning Seaborn theme, Matplotlib `rcParams`, and Plotly’s default template.
+### Lesson 1: Seaborn — statistical visualization
 
-**Walkthrough:** Run once per notebook kernel; import `sns`, `plt`, then `plotly.io`.
+Start here. The Seaborn guide covers environment setup, all major chart families, and best practices for exploratory and academic output.
+
+A one-time environment setup aligning Seaborn theme, Matplotlib `rcParams`, and Plotly's default template — run once per notebook kernel.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -416,11 +411,11 @@ def setup_visualization_env():
 </aside>
 </div>
 
-### Week 2: Advanced Techniques
+### Lesson 2: Plotly — interactive visualization
 
-**Purpose:** Combine `JointGrid` marginals with a regression line on the joint axes only.
+Move here after Seaborn. The Plotly guide adds hover, animation, and web-ready output on top of the statistical understanding you built in Lesson 1.
 
-**Walkthrough:** `plot_joint`/`plot_marginals` populate the grid; second `regplot` with `scatter=False` draws the line without duplicating points.
+The example below shows Seaborn's composable `JointGrid` API — a good bridge concept before moving into Plotly's figure-and-trace model.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -475,11 +470,14 @@ def create_advanced_visualization(data):
 </aside>
 </div>
 
-### Week 3: Real-World Applications
+### Applied practice
 
-**Purpose:** `make_subplots` with mixed trace types (3D scatter, heatmap, bar) and selection/hover modes for linked exploration.
+After completing both lessons, work through the two applied pieces in order:
 
-**Walkthrough:** `specs` declares subplot types; traces are added by `row`/`col`; extend with real data columns.
+- **[Time series visualization](time-series-visualization.md)** — apply both libraries to trend analysis, rolling averages, and event annotation on the built-in `flights` dataset.
+- **[Real-world case study](real-world-case-study.md)** — connect data prep, chart selection, and recommendation writing in one end-to-end e-commerce analysis.
+
+The following shows a `make_subplots` dashboard combining mixed trace types — a preview of what the Plotly guide and case study build toward.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -547,9 +545,7 @@ def create_dashboard(data):
 
 ### 1. Performance Optimization
 
-**Purpose:** Cap total rows by stratified sampling per category so large class imbalance does not disappear.
-
-**Walkthrough:** `groupby('category').apply` samples up to a per-group budget; fix the lambda if `data.category` should be `data['category']` in your version of pandas.
+Cap total rows by stratified sampling per category so large class imbalance does not disappear.
 
 ```python
 def optimize_visualization(data, max_points=10000):
@@ -565,9 +561,7 @@ def optimize_visualization(data, max_points=10000):
 
 ### 2. Design Excellence
 
-**Purpose:** High-level design checklist spanning color, layout, and interaction—applies to Python and BI tools.
-
-**Walkthrough:** Use as a pre-flight list before publishing.
+High-level checklist spanning color, layout, and interaction — applies to Python and BI tools.
 
 ```yaml
 Principles:
