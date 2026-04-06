@@ -388,7 +388,9 @@ dist_fig = create_distribution_dashboard(
 ```
 
 **Output:**
-![plotly-guide](assets/plotly_distribution_dashboard.png)
+<div class="plotly-embed" style="width:100%;height:700px;margin:1.5rem 0;">
+<iframe src="assets/plotly_distribution_dashboard.html" width="100%" height="700px" frameborder="0" style="border:none;border-radius:4px;"></iframe>
+</div>
 
 ### Additional Interactive Features
 
