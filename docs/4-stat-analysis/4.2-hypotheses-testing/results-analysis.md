@@ -333,42 +333,134 @@ class EffectSizeAnalyzer:
 </aside>
 </div>
 
-## Recommended Visualizations
+## From Results to Decisions
 
-To enhance understanding of results analysis, we recommend adding the following visualizations:
+Results don't make decisions — people do. The job of results analysis is to give the decision-maker the right framing.
 
-1. **Statistical vs Practical Significance**
-   - Side-by-side comparison of statistical and practical significance
-   - Show relationship between p-values and effect sizes
-   - Include real-world impact assessment
+### The Four-Quadrant Decision Framework
 
-2. **Confidence Interval Diagram**
-   - Visual explanation of confidence intervals
-   - Show relationship between sample size and interval width
-   - Demonstrate interpretation
+Map every result onto two axes: statistical significance and practical significance.
 
-3. **Effect Size Visualization**
-   - Visual representation of different effect sizes
-   - Show relationship between effect size and power
-   - Include practical significance thresholds
+```
+                    Statistically Significant?
+                    NO                  YES
+                 ┌─────────────────────────────────┐
+   Practically   │  Don't ship.        Ship it.     │
+   Significant?  │  Underpowered?      Clear win.   │
+   YES           │  Collect more data. Document why.│
+                 ├─────────────────────────────────┤
+   Practically   │  Don't ship.        Don't ship.  │
+   Significant?  │  No evidence of     Real effect, │
+   NO            │  any effect.        too small to  │
+                 │                     matter.       │
+                 └─────────────────────────────────┘
+```
 
-4. **Results Dashboard**
-   - Comprehensive view of all test results
-   - Include key metrics and visualizations
-   - Show trends over time
-   - Highlight significant findings
+The dangerous quadrant is **bottom-right**: statistically significant but practically trivial. With enough data, a 0.001% conversion lift will have p < 0.05 — that doesn't mean you should spend engineering resources shipping it.
 
-![Results Dashboard](assets/results_dashboard.png)
+### Building a Results Summary
 
-5. **Decision Framework**
-   - Visual guide for making decisions
-   - Show relationship between:
-     - Statistical significance
-     - Practical significance
-     - Implementation cost
-     - Potential benefit
+A complete results summary answers three questions: What did we find? Is it real? Does it matter?
 
-![Decision Framework](assets/decision_framework.png)
+```python
+def summarize_results(control_data, treatment_data, mde, alpha=0.05):
+    """
+    Produce a decision-ready results summary.
+
+    mde: minimum detectable effect (practical significance threshold),
+         expressed as absolute difference in the metric
+    """
+    from scipy import stats
+    import numpy as np
+
+    n_c, n_t = len(control_data), len(treatment_data)
+    mean_c, mean_t = np.mean(control_data), np.mean(treatment_data)
+    absolute_diff = mean_t - mean_c
+    relative_lift = absolute_diff / mean_c
+
+    # Statistical significance
+    t_stat, p_value = stats.ttest_ind(treatment_data, control_data)
+    stat_sig = p_value < alpha
+
+    # Effect size (Cohen's d)
+    pooled_std = np.sqrt(
+        ((n_c - 1) * np.var(control_data, ddof=1) +
+         (n_t - 1) * np.var(treatment_data, ddof=1)) / (n_c + n_t - 2)
+    )
+    cohens_d = absolute_diff / pooled_std
+
+    # 95% CI on the difference
+    se_diff = np.sqrt(
+        np.var(control_data, ddof=1) / n_c +
+        np.var(treatment_data, ddof=1) / n_t
+    )
+    df = n_c + n_t - 2
+    ci = stats.t.interval(1 - alpha, df, loc=absolute_diff, scale=se_diff)
+
+    # Practical significance: does CI lower bound clear the MDE?
+    prac_sig = ci[0] >= mde
+
+    # Decision
+    if stat_sig and prac_sig:
+        decision = "SHIP — statistically and practically significant"
+    elif stat_sig and not prac_sig:
+        decision = "HOLD — significant but effect may be below practical threshold"
+    elif not stat_sig and prac_sig:
+        decision = "RERUN — effect looks meaningful but underpowered"
+    else:
+        decision = "NO GO — no evidence of a meaningful effect"
+
+    return {
+        'n_control': n_c, 'n_treatment': n_t,
+        'control_mean': round(mean_c, 4),
+        'treatment_mean': round(mean_t, 4),
+        'absolute_diff': round(absolute_diff, 4),
+        'relative_lift_pct': round(relative_lift * 100, 2),
+        'cohens_d': round(cohens_d, 3),
+        'p_value': round(p_value, 4),
+        'ci_95': (round(ci[0], 4), round(ci[1], 4)),
+        'statistically_significant': stat_sig,
+        'practically_significant': prac_sig,
+        'decision': decision,
+    }
+
+# Example
+np.random.seed(42)
+control = np.random.binomial(1, 0.10, 5000).astype(float)
+treatment = np.random.binomial(1, 0.115, 5000).astype(float)
+
+summary = summarize_results(control, treatment, mde=0.01)
+for k, v in summary.items():
+    print(f"{k:30s}: {v}")
+```
+
+```
+n_control                     : 5000
+n_treatment                   : 5000
+control_mean                  : 0.1006
+treatment_mean                : 0.115
+absolute_diff                 : 0.0144
+relative_lift_pct             : 14.31
+cohens_d                      : 0.045
+p_value                       : 0.0031
+ci_95                         : (0.005, 0.0238)
+statistically_significant     : True
+practically_significant       : True
+decision                      : SHIP — statistically and practically significant
+```
+
+### Communicating Results to Non-Specialists
+
+Translate statistics into stakes. Different audiences need different framings:
+
+| Audience | What they care about | How to frame it |
+|---|---|---|
+| **Engineers** | Is the result robust? Will it hold at scale? | CI width, sample size, assumptions met |
+| **Product managers** | Should we ship? What's the business impact? | Relative lift %, CI, decision recommendation |
+| **Executives** | What's the revenue/cost impact? | Expected value calculation, risk if we're wrong |
+| **Analysts** | Can we trust the methodology? | Test selection rationale, assumption checks |
+
+A good one-paragraph summary covers: what changed, how much (with interval), confidence level, and the recommended action. Avoid raw p-values in executive summaries — "we're 95% confident the new checkout reduces cart abandonment by 1.4–2.4 percentage points" is more useful than "p = 0.003".
 
 ## Common Mistakes to Avoid
 
