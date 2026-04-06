@@ -323,8 +323,11 @@
     parent.insertBefore(wrapper, root);
 
     var gutterCol = null;
+    var gutterCells = [];
     if (!isOutput) {
-      gutterCol = buildLineNumbersColumn(codeLines, foldRegions);
+      var gutter = buildLineNumbersColumn(codeLines, foldRegions);
+      gutterCol = gutter.col;
+      gutterCells = gutter.cells;
       inner.appendChild(gutterCol);
     }
     inner.appendChild(root);
