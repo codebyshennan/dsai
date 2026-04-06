@@ -123,6 +123,14 @@ Before diving deeper, you should be familiar with:
 
 Ready to learn more? Continue to [Mathematical Foundation](2-math-foundation.md) where we'll explore the theory behind Gradient Boosting in a beginner-friendly way!
 
+## Gotchas
+
+- **Treating gradient boosting like a black box that needs no tuning** — The default parameters (e.g., `n_estimators=100`, `learning_rate=0.1`) work for demos but rarely for real problems. At minimum, you should tune `n_estimators` with early stopping and adjust `max_depth` and `learning_rate` together — lower `learning_rate` almost always requires more trees.
+- **Conflating random forests and gradient boosting** — Both use ensembles of trees, but random forests train trees *independently in parallel*, while gradient boosting trains them *sequentially on residuals*. This distinction matters for debugging: a gradient boosting model that diverges in later rounds is overfitting the residuals, not the raw labels.
+- **Over-trusting feature importance scores** — The built-in "gain" importance scores reflect how much each feature improved splits in the training trees. Correlated features split the importance between them, so a feature can appear unimportant even if it's highly predictive. Use SHAP values for more reliable attribution.
+- **Using too many trees without early stopping** — Adding more trees always reduces training loss, so the training curve looks great. Without a validation set and `early_stopping_rounds`, you'll routinely overfit. The "overfitting risk" listed as a limitation is almost entirely mitigated by early stopping on a held-out set.
+- **Assuming gradient boosting handles missing values automatically everywhere** — XGBoost learns a default direction for missing values; LightGBM does the same. But scikit-learn's `GradientBoostingClassifier` does *not* — it requires imputation beforehand. Which library you're using determines whether you need to handle NaNs manually.
+
 ## Additional Resources
 
 For further learning:
