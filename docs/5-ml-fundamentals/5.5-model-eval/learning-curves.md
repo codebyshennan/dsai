@@ -343,6 +343,15 @@ plt.show()
    - Not considering feature engineering
    - Insufficient training time
 
+## Gotchas
+
+- **Confusing learning curves with validation curves** — Learning curves vary *training set size* on the x-axis; validation curves vary a *hyperparameter* on the x-axis; mixing them up leads to wrong diagnoses (e.g., concluding "more data won't help" when you're actually looking at a validation curve showing overfitting onset).
+- **Interpreting a converging gap as always meaning "good fit"** — Train and validation curves that converge at a *low* value both indicate underfitting, not a good model; a converging gap only confirms a good fit when the convergence point is also *high* (close to your target performance).
+- **Using too few or too many training size points** — With `train_sizes=np.linspace(0.1, 1.0, 5)` you get only 5 data points and miss the curve's shape; with 50 points the computation time multiplies; 8–15 points (the default 5 in sklearn is often too few) balances resolution and cost.
+- **Not shuffling before calling `learning_curve`** — If data is sorted by class or time, small training subsets may contain only one class, causing artificially low scores at the left end of the curve; pass `shuffle=True` (or use a pre-shuffled dataset) to get representative subsamples at each size.
+- **Assuming more data always closes an overfitting gap** — For a high-capacity model like an unregularised deep tree, adding data eventually helps, but the convergence may require far more samples than you have; if the gap is still wide at 100% of your data, regularisation or a simpler model is the right lever, not more data collection.
+- **Drawing the curve with training set size in samples vs fractions** — `learning_curve` returns raw sample counts in `train_sizes`; plotting fractions (0 to 1) without dividing by `n_samples` compresses the x-axis and makes it hard to know whether you need 500 or 5000 additional examples to close the gap.
+
 ## Additional Resources
 
 1. Scikit-learn documentation
