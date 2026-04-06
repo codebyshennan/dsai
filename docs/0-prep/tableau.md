@@ -80,11 +80,16 @@ Short **Tableau Public** setup: sign up, download, and install (under one minute
 <details>
 <summary><b>For Windows</b></summary>
 
-1. Find the downloaded **.exe** file (usually in Downloads folder)
+1. Find the downloaded **.exe** file (usually in your Downloads folder)
 2. Double-click to run the installer
-3. Follow the installation wizard (just click "Next" through the steps)
-4. Click "Install" and wait for it to finish
-5. Click "Finish"
+3. If Windows asks for permission (UAC prompt), click **"Yes"**
+4. Follow the installation wizard — click **"Next"** through the steps
+5. Click **"Install"** and wait 2–5 minutes
+6. Click **"Finish"**
+
+**Verify:**
+
+Open **Tableau Public** from the Start menu. The splash screen should appear and prompt you to sign in. If it doesn't launch, try right-clicking the shortcut and choosing **"Run as administrator"** once.
 
 </details>
 
