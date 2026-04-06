@@ -272,8 +272,24 @@ class EffectSizeAnalyzer:
 
     def _plot_effect_size_scale(self, effect_size, type):
         """Create effect size scale visualization"""
+        if type == 'cohen':
+            thresholds = [0.0, 0.2, 0.5, 0.8, 1.2]
+            labels = ['negligible', 'small', 'medium', 'large', 'very large']
+        else:
+            thresholds = [0.0, 0.1, 0.3, 0.5, 0.7]
+            labels = ['negligible', 'small', 'medium', 'large', 'very large']
+
+        colors = ['#d3d3d3', '#90ee90', '#ffd700', '#ff8c00', '#ff4500']
+        for i in range(len(thresholds) - 1):
+            plt.barh(0, thresholds[i + 1] - thresholds[i],
+                     left=thresholds[i], color=colors[i], alpha=0.6,
+                     label=labels[i])
+        plt.axvline(abs(effect_size), color='black', linewidth=2,
+                    label=f'Your effect ({effect_size:.2f})')
+        plt.yticks([])
+        plt.xlabel('Effect Size')
         plt.title('Effect Size Scale')
-        # Implementation details...
+        plt.legend(loc='upper right', fontsize=8)
 {% endhighlight %}
 
 </div>
