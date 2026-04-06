@@ -1003,6 +1003,15 @@ ORDER BY revenue DESC;
 
 Remember: "A well-designed database is the foundation of any successful application!"
 
+## Gotchas
+
+- **Confusing NULL with an empty string or zero** — NULL means "value unknown"; it is not `''` or `0`. Comparing with `= NULL` always returns NULL (not true), so rows with missing values silently disappear from results. Always use `IS NULL` or `IS NOT NULL` to test for absence of a value.
+- **Forgetting that a foreign key only prevents orphaned child rows, not NULL** — A column declared `REFERENCES customers(customer_id)` will accept NULL unless you also add `NOT NULL`. Without that extra constraint, a child row can exist with no parent reference at all and the database will not complain.
+- **Treating normalization as always-good** — 3NF eliminates redundancy but every extra table requires a JOIN at query time. On read-heavy analytics tables it is common to intentionally denormalize (store `product_name` on the order line) to avoid expensive joins; the "right" form depends on your read/write ratio.
+- **Assuming `SERIAL` / `AUTO_INCREMENT` IDs are gap-free** — When an INSERT fails or a transaction is rolled back, the sequence counter still advances. Real tables have gaps in their primary keys; code that depends on IDs being contiguous (e.g., `WHERE id BETWEEN 1 AND 100`) will miss rows.
+- **Conflating the physical, logical, and conceptual models** — An ER diagram is a design sketch; the actual PostgreSQL schema may differ due to performance trade-offs (e.g., denormalized columns, materialized views). Always verify constraints in the DDL rather than trusting the diagram alone.
+- **Creating indexes on every column "just in case"** — Indexes speed up reads but slow down every INSERT/UPDATE/DELETE because each index must be maintained. Add indexes only on columns that appear in frequent WHERE, JOIN ON, or ORDER BY clauses, and measure the impact with EXPLAIN ANALYZE before and after.
+
 ## Next steps
 
 - [Basic SQL Operations](basic-operations.md) — **SELECT**, filters, and sorting
