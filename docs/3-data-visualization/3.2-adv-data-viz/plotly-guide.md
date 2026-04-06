@@ -384,7 +384,7 @@ dist_fig = create_distribution_dashboard(
 ```
 
 **Output:**
-> **Figure (add screenshot or diagram):** 2×2 dashboard of distribution charts for life expectancy: histogram with bar counts (top-left), box plot grouped by continent (top-right), violin plot with embedded box and mean line (bottom-left), and a normal QQ plot with points following the theoretical line (bottom-right).
+![plotly-guide](assets/plotly_distribution_dashboard.png)
 
 ### Additional Interactive Features
 
