@@ -218,9 +218,6 @@ dist_fig = plot_distribution_suite(tips, "total_bill")
 
 ![seaborn-guide](assets/seaborn-guide_fig_1.png)
 
-**Output:**
-> **Figure (add screenshot or diagram):** Four-panel distribution suite for the tips `total_bill` column: histogram with bar counts (top-left), KDE density curve (top-right), ECDF plot (bottom-left), and a rug plot showing individual observation ticks on the x-axis (bottom-right).
-
 ### 2. Categorical Distributions
 
 **Purpose:** Show how a numeric outcome varies across a category using box, violin, strip, and swarm plots.
