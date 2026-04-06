@@ -519,6 +519,15 @@ def check_sample_ratio(control_size, treatment_size, expected_ratio=0.5):
     }
 ```
 
+## Gotchas
+
+- **Peeking at results and stopping early** — checking the p-value repeatedly as data accumulates inflates the false-positive rate well above your stated α. The lesson's `monitor_test` helper naively ANDs size and p-value; in production, use sequential methods (e.g., alpha spending functions or Bayesian stopping rules) instead of a plain `p < 0.05` gate.
+- **Calculating sample size after collecting data** — the `calculate_sample_size` function must be called *before* the experiment starts. Running it post-hoc and adjusting the target to match what you collected is p-hacking masquerading as power analysis.
+- **Sample ratio mismatch going undetected** — if your randomization mechanism is broken (e.g., a caching layer serves one variant more often), your observed groups will be unequal in ways that invalidate the independence assumption. Always run `check_sample_ratio` before interpreting results; a chi-square p-value below 0.05 on the assignment counts is a red flag.
+- **Using a t-test when your metric is a proportion** — the lesson's `analyze_results` function calls `ttest_ind` on raw arrays. For binary conversion outcomes (0/1), a two-proportion z-test or chi-square test on the contingency table (as shown in the A/B chi-square example) is the more principled choice, especially for small or imbalanced samples.
+- **Interpreting the `recommendation: 'accept'` flag as a deployment decision** — the flag in `analyze_results` fires when `p_value < alpha and relative_change > 0`. A positive relative change of 0.01% is statistically significant with enough traffic but may not justify the engineering cost; always pair the flag with a minimum practical effect threshold agreed on before the test.
+- **Ignoring novelty effect and network effects** — users interacting with a new variant immediately after launch may behave differently than they will once the novelty wears off, and in social or referral products, treatment users may influence control users. Both effects bias effect-size estimates and are invisible to standard two-arm analysis.
+
 ## Next steps
 
 - Continue to [Results analysis](./results-analysis.md).
