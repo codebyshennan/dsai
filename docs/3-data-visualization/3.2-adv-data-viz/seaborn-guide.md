@@ -456,11 +456,6 @@ corr_fig = create_correlation_analysis(tips)
 
 ![seaborn-guide](assets/seaborn-guide_fig_7.png)
 
-**Output - Heatmap:**
-> **Figure (add screenshot or diagram):** Annotated Pearson correlation heatmap for the numeric columns in the tips dataset — a 4×4 grid with values from −1 to +1 shown in each cell using a blue-white-red diverging colormap, strong correlations immediately visible in dark red.
-
-**Output - Clustermap:**
-> **Figure (add screenshot or diagram):** Seaborn clustermap of the same correlation matrix with dendrograms on both axes — rows and columns reordered so highly correlated variables cluster together, making variable groups visually obvious.
 
 ### Additional Visualization Examples
 
