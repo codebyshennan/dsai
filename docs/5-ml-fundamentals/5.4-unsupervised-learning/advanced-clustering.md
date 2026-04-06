@@ -503,6 +503,15 @@ def optimize_hdbscan(X):
    - Consider data sampling
    - Implement parallel processing
 
+## Gotchas
+
+- **Ensemble clustering with naive majority voting is broken by label misalignment** — different clustering algorithms assign arbitrary integers to clusters, so cluster "0" in HDBSCAN and cluster "0" in GMM may refer to completely different groups. A majority vote on raw labels is meaningless; use a proper consensus method like co-association matrices.
+- **GMM's `n_components` is not the same as the true number of clusters** — GMM fits a mixture of Gaussians regardless of whether your data is actually Gaussian. Setting `n_components` too high causes it to split one real cluster into multiple Gaussian blobs, inflating the apparent cluster count.
+- **HDBSCAN's `min_cluster_size` has a large impact on results** — setting it too small produces many tiny clusters and noise, too large merges distinct groups. Unlike DBSCAN's `eps`, there is no k-distance plot guide; validate with silhouette scores while excluding noise points (`labels != -1`).
+- **Spectral clustering is not scalable** — it computes an n×n affinity matrix, making it O(n²) in memory and O(n³) in the eigendecomposition. On more than a few thousand points it becomes impractical; use `SpectralClustering(n_components=..., eigen_solver='amg')` or switch to HDBSCAN for large datasets.
+- **`GaussianMixture.fit` can fail to converge** — EM for GMM can collapse when a Gaussian component shrinks to fit a single point (covariance → 0). Add `reg_covar=1e-6` to regularize covariance matrices and prevent `ConvergenceWarning` or `NaN` outputs.
+- **`MiniBatchKMeans` for online clustering produces slightly different centroids each run** — mini-batch updates introduce randomness beyond the initial seed; results will vary across runs even with `random_state` set, which is expected behavior, not a bug.
+
 ## Next Steps
 
 Now that you've mastered clustering techniques, try the [assignment](./assignment.md) to apply these concepts to real-world problems!
