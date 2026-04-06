@@ -79,6 +79,10 @@ Example: **Sales by Category** bar chart.
 
 - Adjust axis labels, colors, title, and number formats.
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "I've built a bar chart in Tableau showing Sales by Category. What else can I add to make it more informative — e.g. reference lines, labels, or secondary measures? Walk me through each enhancement step by step."
+
 #### 3. Adding Filters and Interactivity
 
 1. Add filters.
