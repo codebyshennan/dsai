@@ -530,6 +530,15 @@ choose_optimal_k(X, y)
 </aside>
 </div>
 
+## Gotchas
+
+- **Fitting preprocessing on the full dataset before CV** — Calling `scaler.fit_transform(X)` before passing `X` to `cross_val_score` leaks test-fold statistics into the training folds; the scaler has "seen" the test samples during fitting, inflating CV scores; always wrap preprocessing inside a `Pipeline` so each fold's scaler fits only on that fold's training data.
+- **Using plain `KFold` on imbalanced classification data** — Random splits can create folds where a minority class appears in only one or two folds, causing wildly variable CV scores; use `StratifiedKFold` for classification tasks so each fold preserves the original class distribution.
+- **Shuffling time-series data before CV** — For temporal data, randomly shuffling rows before `KFold` creates future-leakage: the model trains on data from next week and validates on data from last week; use `TimeSeriesSplit` to ensure validation always comes after the training window.
+- **Treating cross-validation score as an unbiased test set estimate** — CV score is an unbiased estimate of *model-selection* performance, but if you use it to also pick hyperparameters, the score is optimistic; use nested CV or a held-out test set that is never touched during model selection.
+- **Choosing `k=2` or `k=3` to save time** — Very small `k` means each fold uses only 33–50% of the data for training, producing high-variance score estimates with wide confidence intervals; `k=5` or `k=10` is standard and typically adds little extra computation for tabular data.
+- **Ignoring the standard deviation across folds** — Reporting only mean CV accuracy hides instability; a mean of 0.85 with std of 0.12 is far less trustworthy than a mean of 0.83 with std of 0.02; always report `mean ± 2*std` to convey the reliability of the estimate.
+
 ## Additional Resources
 
 For more information on cross-validation techniques and best practices, check out:
