@@ -411,6 +411,15 @@ except Exception as e:
 4. Accessibility confirmed
 5. Documentation complete
 
+## Gotchas
+
+- **`plt.tight_layout(rect=[0, 0.03, 1, 0.95])` must be called after all subplot content is added** — calling it before `plt.plot` or `ax.set_title` means the layout engine does not know about those elements yet and cannot account for their size; always call it last, after all drawing and labeling is complete.
+- **`sns.color_palette("Blues", as_cmap=True)` and `sns.color_palette("Blues", n_colors=5)` return different objects** — the first returns a `LinearSegmentedColormap` for continuous data (use as `cmap=`); the second returns a list of RGB tuples for discrete categories; confusing them causes either a `TypeError` or a flat single-color plot.
+- **`data.rolling(window=7).mean()` produces NaN for the first 6 rows** — the rolling average only has enough data starting at position 7; plotting both the raw and smoothed series will show a gap at the beginning of the smoothed line unless you set `min_periods=1` or trim the raw data to the same range.
+- **`assert data.min() >= 0` raises an `AssertionError` but does not tell you which rows are invalid** — in a production chart pipeline, a failing assertion will abort the notebook without printing the offending values; use `data[data < 0]` to inspect violations before asserting, or replace the assertion with a logged warning.
+- **`plt.savefig('plot.png', dpi=72, optimize=True)` — the `optimize` parameter is silently ignored by most Matplotlib backends** — it is a hint for image compression libraries; DPI is the reliable lever for file size on raster exports.
+- **Dual y-axes created with `twinx()` share the x-axis tick positions but draw two independent y-scales** — the visual alignment of the two lines will depend entirely on your axis limits, making it easy to imply a correlation or ratio that is purely an artifact of scaling; always label both y-axes clearly and consider whether two separate charts would be less misleading.
+
 ## Next steps
 
 - Deepen design intuition in [Visualization principles](3.1-intro-data-viz/visualization-principles.md).
