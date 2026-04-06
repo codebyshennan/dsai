@@ -1220,6 +1220,15 @@ Remember: "Performance optimization is an iterative process - measure, analyze, 
 - Monitor query performance
 - Regular code reviews and optimization
 
+## Gotchas
+
+- **Recursive CTEs without a termination condition can loop forever** — If the recursive step never produces an empty result set (e.g., a cycle in a hierarchy table), the query will run until it hits `max_recursion_depth` or exhausts memory. Always include a depth counter or path-cycle guard (like the `ARRAY[name]` path in the employee hierarchy example) so the recursion terminates cleanly.
+- **RANK() vs DENSE_RANK() vs ROW_NUMBER() give different results for ties** — `RANK()` leaves gaps (1, 2, 2, 4); `DENSE_RANK()` does not (1, 2, 2, 3); `ROW_NUMBER()` assigns a unique number regardless of ties. Picking the wrong one produces incorrect rankings that are hard to spot because they look plausible.
+- **Window functions are evaluated after WHERE and GROUP BY, not before** — You cannot filter rows by the result of a window function in the same query's WHERE clause. Wrap the query in a CTE or subquery, then filter on the window column in the outer query.
+- **The `->` and `->>` operators for JSON return different types** — In PostgreSQL, `->` returns a JSONB value and `->>` returns text. Using `->` where you need a text comparison (e.g., `WHERE data -> 'status' = 'active'`) will fail or behave unexpectedly; use `->>` to extract as text before comparing.
+- **EXPLAIN shows estimated costs; EXPLAIN ANALYZE shows actual runtime** — A query can look cheap in EXPLAIN (based on planner statistics) but run slowly because statistics are stale. Run `ANALYZE <table>` to refresh statistics, then use `EXPLAIN (ANALYZE, BUFFERS)` to see real row counts and buffer hits vs misses.
+- **Using ROWS BETWEEN instead of RANGE for date-based rolling windows** — `ROWS BETWEEN 6 PRECEDING AND CURRENT ROW` counts the 6 physical rows before the current one, which is wrong when there are gaps in the date series (e.g., no data on weekends). Use `RANGE BETWEEN INTERVAL '6 days' PRECEDING AND CURRENT ROW` to define the window by value rather than row position when the column is a date or timestamp.
+
 ## Additional Resources
 
 1. **Documentation**
