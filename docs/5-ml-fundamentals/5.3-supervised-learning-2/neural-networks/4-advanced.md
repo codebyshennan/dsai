@@ -401,6 +401,15 @@ def create_mixed_precision_model():
    - Use appropriate hardware
    - Implement efficient data pipelines
 
+## Gotchas
+
+- **Residual block dimension mismatch crashes silently on some TF versions** — The `residual_block` function adjusts the shortcut with a 1×1 convolution when `shortcut.shape[-1] != filters`. This check only covers channel dimension mismatches. If you add `strides=2` to the main-path convolutions (for downsampling), the spatial size also mismatches, and the `Add` layer will fail at runtime with a cryptic shape error.
+- **Setting `base_model.trainable = True` unfreezes all layers, not just the last few** — The fine-tuning pattern requires unfreezing only the tail of ResNet (e.g., `base_model.layers[-4:]`). Writing `base_model.trainable = True` unfreezes all 175+ ResNet layers, causing a dramatically larger parameter space that overfits quickly on small datasets.
+- **`mixed_float16` silently keeps BatchNorm in float32** — Keras automatically keeps normalization layers in float32 even under `mixed_float16` policy, which is correct. But learners often check layer dtypes and assume the policy isn't working because they see float32 layers. This is intentional; the compute-intensive Dense and Conv layers run in float16.
+- **`CurriculumDataGenerator` can produce empty batches** — If `threshold` is low (early training) and the `difficulty_fn` scores most samples above that threshold, `eligible_data` can be empty. `np.random.choice(0, size=batch_size)` will raise a `ValueError`. Always add a fallback (e.g., `if len(eligible_data) < batch_size: ...`) before production use.
+- **Attention weights are summed, not concatenated** — In the `AttentionLayer`, the context vector is computed as `tf.reduce_sum(attention_weights * values, axis=1)`. Replacing `reduce_sum` with concatenation produces a tensor with the wrong shape for downstream layers and typically a large performance drop, since positional information is lost.
+- **`scaled_dot_product_attention` mask convention uses large negative values, not zeros** — The mask adds `-1e9` to masked positions so softmax assigns near-zero weight to them. Adding 0 to masked positions (a common mistake) means those positions contribute equally to the output, breaking causal attention in decoder models.
+
 ## Next Steps
 
 Ready to apply these techniques to real-world problems? Continue to [Applications](5-applications.md) to see how these advanced techniques are used in practice!
