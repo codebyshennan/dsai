@@ -1160,3 +1160,14 @@ Number of features selected: 4 out of 30
 - We use LinearSVC with L1 regularization to encourage sparsity (many coefficients become zero)
 - The SelectFromModel transformer keeps only features with importance above a threshold
 - By default, the 'mean' threshold keeps features with importance above the mean importance
+
+## Gotchas
+
+- **Setting `max_iter` in the early-stopping loop to a very low value** — The early-stopping sketch re-creates a new `SVC` with `max_iter=i` on every iteration, which is an expensive workaround. More critically, very small `max_iter` values (e.g., 1–5) will consistently trigger `ConvergenceWarning`, and the returned model's `score` reflects an unconverged fit, making the convergence check unreliable. Use `LinearSVC` with `max_iter` if you need true early-stopping behavior.
+- **Using `LinearSVC` with L1 penalty and forgetting that `dual=True` is incompatible** — `LinearSVC(penalty='l1')` requires `dual=False`. Leaving the default `dual=True` raises a `ValueError`. This is a common copy-paste error when switching between L1 and L2 regularization in the feature selection pipeline.
+- **Interpreting `SelectFromModel` threshold as a percentile** — The `threshold` parameter accepts absolute coefficient magnitude values or string shortcuts like `'mean'` or `'median'`. It does not accept percentile strings like `'75%'`. Passing a string other than `'mean'`/`'median'` raises a `ValueError` rather than silently selecting a fraction of features.
+- **Comparing parallel grid search results with `GridSearchCV` scores directly** — The parallel parameter search in the performance optimization section uses manual `cross_val_score` calls. These results may differ slightly from `GridSearchCV` because of different random state handling, fold stratification, and pre-dispatch ordering. They are not drop-in replacements for evaluating best parameters.
+- **Using `NuSVC` and treating `nu` as equivalent to `1/C`** — `NuSVC` takes a `nu` parameter (0, 1] controlling the upper bound on the fraction of margin errors and the lower bound on the fraction of support vectors. It is not simply the inverse of `C`; the two formulations optimize different objective functions and will produce different decision boundaries on the same data.
+- **Applying `PCA` for visualization after fitting SVM on the full feature space** — If you train an SVM on 30 features and then project to 2D with PCA for a decision boundary plot, the 2D projection does not correspond to the SVM's actual decision boundary (which lives in 30D). The plot is misleading because the SVM never saw or used the 2D coordinates.
+
+
