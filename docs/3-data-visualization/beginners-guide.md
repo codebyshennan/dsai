@@ -360,4 +360,13 @@ plt.figtext(0.99, 0.01, 'Data source: My Budget App',
 
 Remember: The best visualization is one that helps your audience understand the data quickly and clearly. Start simple, practice often, and don't be afraid to experiment!
 
+## Gotchas
+
+- **`plt.style.use('seaborn-v0_8-whitegrid')` must be called before any plotting** — if you call it after `plt.figure()` or `plt.plot()`, the style applies to the next figure, not the one already open; move style calls to the top of your setup cell.
+- **Pie charts with `hours = [8, 8, 5, 3]` hide that slices are unequal even when they look similar** — 8 hours of "Sleep" and 8 hours of "Work" produce identical wedges, making it hard to spot difference; when two categories are close in value, a bar chart communicates the gap far more clearly.
+- **Color lists must match the number of bars exactly** — passing `color=['#e74c3c', '#3498db', '#2ecc71', '#9b59b6']` to `plt.bar` works only when there are exactly 4 bars; adding or removing a category without updating the color list raises a silent mismatch or a `ValueError`.
+- **`plt.figtext` coordinates are figure-relative (0–1), not data or axes coordinates** — a note placed at `(0.99, 0.01)` sits at the bottom-right of the whole figure canvas, not the chart area; if your figure has a large bottom margin, the note may appear far below the chart.
+- **No x-axis label on bar charts creates ambiguity** — the bar chart examples here label only the y-axis (`'Number of People'`) but omit an x-axis label; viewers who see the chart without the title cannot tell what the categories represent.
+- **`marker='o'` on line charts works for small datasets but clutters dense time series** — once you have more than ~20 points on a line, markers overlap and obscure the trend; omit the marker or reduce its size with `markersize=3` for denser data.
+
 - Structured follow-on: [3.1 Intro to data visualization](3.1-intro-data-viz/README.md) and [Choosing the right visualization](choosing-the-right-visualization.md).
