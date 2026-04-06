@@ -589,6 +589,15 @@ Plot the regularization path to understand how different features are affected b
 
 Now that you understand how to implement regularization, let's move on to [Advanced Topics](4-advanced.md) to explore more sophisticated techniques!
 
+## Gotchas
+
+- **`scaler.fit_transform(X)` on the whole dataset before splitting leaks test statistics** — the house pricing example calls `scaler.fit_transform(X)` then splits, so test-set mean and variance are baked into the scaler; always fit the scaler on `X_train` only and apply `transform` to `X_test`.
+- **`Lasso` with very small `alpha` can fail to converge within the default `max_iter=1000`** — sklearn prints a `ConvergenceWarning` silently in some environments; if coefficients look unexpectedly large, increase `max_iter` or scale features more aggressively before fitting.
+- **`GridSearchCV` with `scoring='neg_mean_squared_error'` returns negative scores** — `best_score_` will be a negative number (e.g., `-2.7e9`); learners who check this directly may think the model is broken when it is working correctly; take `abs()` or negate to get the actual MSE.
+- **`select_features_lasso` comparing `lasso.coef_ != 0` is sensitive to floating-point noise** — at some alpha values, Lasso leaves near-zero coefficients like `1e-15` that are not exactly zero; use a small threshold (`abs(coef) > 1e-6`) rather than strict `!= 0` to avoid retaining numerically negligible features.
+- **`compare_alphas` applies the same `alpha` to Ridge, Lasso, and ElasticNet, but the scales are not equivalent** — `alpha=10` on Lasso is far more aggressive than `alpha=10` on Ridge because L1 and L2 penalties have different magnitudes; a fair comparison requires tuning each method's alpha range independently.
+- **`n_nonzero_coef` counting on Ridge will always equal the number of features** — Ridge never produces exact zero coefficients; reporting sparsity for a Ridge model as a meaningful metric misleads learners into thinking Ridge performs feature selection.
+
 ## Additional Resources
 
 - [Scikit-learn Regularization Documentation](https://scikit-learn.org/stable/modules/linear_model.html)
