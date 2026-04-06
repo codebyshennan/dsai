@@ -691,6 +691,15 @@ loaded_rf = joblib.load('random_forest_model.joblib')
    )
    ```
 
+## Gotchas
+
+- **`oob_score=True` requires `bootstrap=True`** — setting `bootstrap=False` and `oob_score=True` together raises a `ValueError`; OOB scoring is only meaningful when bootstrap sampling is active because the out-of-bag samples are the ones not selected by bootstrap.
+- **`SelectFromModel` with `prefit=True` freezes the importance threshold at fit time** — if you retrain the forest on new data and call `transform` again without recreating the selector, it still uses the old importance threshold and selected columns, silently producing wrong results.
+- **`predict_proba` columns are ordered by `classes_`, not by label value** — on an imbalanced dataset where class 0 happens to be the minority, `predict_proba[:, 1]` is still the probability of class 1 (the one with higher index in `classes_`); always check `rf.classes_` before indexing into the probability matrix.
+- **`RandomizedSearchCV` does not set `random_state` on the estimator** — the `random_state=42` in `RandomizedSearchCV` controls which parameter combinations are drawn, not the forest's internal randomness; the `RandomForestClassifier` inside also needs its own `random_state` for reproducible trees.
+- **`BalancedRandomForestClassifier` from imbalanced-learn may not be installed** — unlike sklearn estimators, `imblearn` is a separate package; calling it without `pip install imbalanced-learn` raises an `ImportError` with no clear hint about the fix.
+- **`joblib.load` on a model saved with a different sklearn version may silently give wrong predictions** — sklearn pickles embed the version; loading across minor versions (e.g., 1.2 → 1.4) usually works but can break if internal estimator structure changed; always record the sklearn version alongside saved models.
+
 ## Next Steps
 
 Ready to explore advanced techniques? Continue to [Advanced Topics](4-advanced.md)!
