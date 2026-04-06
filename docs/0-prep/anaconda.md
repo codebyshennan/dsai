@@ -100,6 +100,16 @@ Short install walkthrough (download, run the installer, open Jupyter from Anacon
 
 > **Note:** If you see a warning about PATH, that's okay - you checked the box to add it automatically.
 
+**Verify Installation:**
+
+1. Open **Anaconda Prompt** from the Start menu (search "Anaconda Prompt")
+2. Type: `conda --version` and press Enter
+3. You should see something like `conda 24.x` or `25.x`
+
+If you see a version number, Anaconda is installed correctly.
+
+> **Troubleshooting:** If `conda` is not recognized, restart your computer and open Anaconda Prompt (not PowerShell or cmd) — it sets PATH automatically.
+
 </details>
 
 <details>
