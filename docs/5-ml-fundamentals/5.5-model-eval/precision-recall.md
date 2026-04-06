@@ -412,6 +412,15 @@ plt.show()
 
 ![precision-recall](assets/precision-recall_fig_3.png)
 
+## Gotchas
+
+- **Calling `precision_recall_curve` with hard predictions instead of probabilities** — `precision_recall_curve` requires continuous probability scores from `predict_proba[:, 1]`, not binary `predict` output; with hard labels the function returns only two operating points and the resulting "curve" cannot guide threshold selection.
+- **Average Precision is not the same as area under a smoothed PR curve** — `average_precision_score` uses a step-function interpolation (trapezoidal with right endpoints), which is slightly different from integrating a smooth curve; do not compare AP scores computed by different libraries that may interpolate differently.
+- **Precision is undefined when the model predicts zero positives** — If your threshold is so high that the model never predicts the positive class, `TP + FP = 0` and precision is undefined (sklearn returns 0 with a warning); this silent 0 can mislead if you scan thresholds programmatically without checking prediction counts.
+- **F1 score hides severe imbalance in precision and recall** — An F1 of 0.67 could represent precision=1.0, recall=0.5 (never wrong but misses half) or precision=0.5, recall=1.0 (catches everything but half are false alarms); always report precision and recall separately in addition to F1 so the direction of the tradeoff is visible.
+- **Interpreting a high-recall model as "safe" for all use cases** — A spam filter with recall=0.99 for spam sounds great, but if precision=0.30 then 70% of flagged emails are legitimate; high recall at low precision is only acceptable when the cost of false negatives vastly outweighs false positives.
+- **Using the default 0.5 threshold without justification** — sklearn's `predict` uses 0.5 as the decision boundary, which is optimal only for balanced classes with equal misclassification costs; for fraud detection, medical screening, or any asymmetric-cost problem, plot the full PR curve and choose the threshold that minimises your actual cost function.
+
 ## Additional Resources
 
 1. Scikit-learn documentation on precision-recall curves
