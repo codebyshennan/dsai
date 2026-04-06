@@ -524,6 +524,15 @@ def ab_testing_example():
 5. Confidence intervals provide a range of plausible values for population parameters
 6. Real-world applications include quality control, A/B testing, and market research
 
+## Gotchas
+
+- **Swapping Greek and Latin notation in code comments** — writing `mu` when you mean `x_bar` (or vice versa) is not just cosmetic; it signals a conceptual confusion between the unknown population parameter and the computed sample statistic. Parameters are fixed but unknown; statistics are noisy estimates that change with every new sample.
+- **Using `np.std(data)` to compute the sample SD for a confidence interval** — NumPy's default is `ddof=0` (population formula), which underestimates the variance for samples. Use `np.std(data, ddof=1)` or `scipy.stats.sem(data)` wherever you need the sample standard deviation.
+- **Believing a biased estimator is always worse** — a biased estimator with lower variance can produce estimates closer to the truth (lower MSE) than an unbiased one with high variance. The lesson's trimmed mean example illustrates this: trimming biases the mean slightly but reduces variance when outliers are present.
+- **Forgetting that consistency is a large-sample property** — a consistent estimator is not guaranteed to be close to the parameter for small n; it only converges as n → ∞. Drawing a single sample of size 10 and observing that x̄ ≈ μ does not demonstrate consistency.
+- **Ignoring the finite population correction factor** — when you sample more than about 5–10% of a finite population *without* replacement, the standard error formula `σ/√n` overstates variability. Apply the FPC multiplier `√((N−n)/(N−1))` to get an accurate SE.
+- **Treating x̄ as the population mean** — software often prints the sample mean prominently; it is easy to start writing "the average is 12.3" when the correct statement is "the sample estimate of the average is 12.3, with uncertainty." This distinction matters every time you communicate results.
+
 ## Additional Resources
 
 - [Interactive Sampling Distribution Simulator](https://seeing-theory.brown.edu/sampling-distributions/index.html)
