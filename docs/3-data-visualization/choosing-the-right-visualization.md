@@ -276,7 +276,14 @@ plt.ylabel('Frequency')
    - Label axes
    - Include units
 
-Remember: The best visualization is one that effectively communicates your message to your audience. When in doubt, choose clarity over complexity!
+## Gotchas
+
+- **Pie charts with more than 6 slices become unreadable even when the rule is nominally followed** — six segments is a ceiling, not a target; if any slice is under ~5% of the total it will be impossible to label clearly and should be folded into an "Other" category or replaced with a sorted bar chart.
+- **Bar charts and column charts are not interchangeable** — vertical bars (column charts) are conventional for time-ordered data; horizontal bar charts read better when category labels are long or when there are more than ~8 categories; mixing orientations on the same dashboard creates visual inconsistency.
+- **Histograms are not bar charts** — a histogram shows the distribution of one continuous variable by binning it; using `plt.bar` with pre-counted data looks similar but requires you to already know the bin edges and counts, while `plt.hist` computes them automatically.
+- **Scatter plots require both variables to be on a ratio or interval scale** — plotting an ordinal variable (e.g. satisfaction: low/medium/high) on a scatter plot axis implies equal spacing between categories, which is often false; use a strip plot or box plot instead.
+- **Heat maps hide the shape of distributions** — showing a correlation matrix as a heat map tells you the strength of relationships but not whether the underlying relationship is linear, curved, or driven by outliers; always back up a heat map with individual scatter plots for strong correlations.
+- **Line charts with a non-zero y-axis exaggerate trends** — starting the y-axis well above zero makes small changes appear dramatic; this is appropriate for some financial contexts but should always be explicitly noted in the axis label or title.
 
 ## Next steps
 
