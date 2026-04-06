@@ -1293,6 +1293,15 @@ Pipeline failed: [Errno 2] No such file or directory: 'data.csv'
 </aside>
 </div>
 
+## Gotchas
+
+- **`catchup=False` silently skips all historical runs** — when you first deploy an Airflow DAG with a past `start_date`, Airflow will back-fill by default; setting `catchup=False` prevents this, but if you forget it on a pipeline that processes yesterday's data you may ship incomplete history without any error.
+- **Passing data between tasks with `return` values does not work in Airflow by default** — `PythonOperator` callables return values via XCom, but XCom has a size limit (48 KB by default); passing large DataFrames between extract and transform tasks will silently truncate or fail—write intermediate results to shared storage (S3, a temp table) instead.
+- **`retries: 3` retries the entire task, including any side effects** — if your load task partially wrote rows before failing, retrying without an idempotency guard (e.g., `INSERT OR REPLACE`, a staging table, or a delete-then-insert pattern) will duplicate data in the target.
+- **`validate_dataset` raising inside `transform` skips the load but leaves the partial state** — if transform validates row-by-row and raises on the first bad row, any rows already written to a staging area are orphaned; structure validation as an all-or-nothing pass/fail before any writes.
+- **`schedule_interval='0 0 * * *'` runs at midnight UTC, not the analyst's local timezone** — this is a common source of off-by-one day errors in daily aggregations; explicitly set `timezone` in the DAG definition or document the UTC assumption.
+- **`DataTransformer.transform_data` applying a lambda silently coerces `NaN`** — operations like `lambda x: x * 2` will propagate `NaN` without warning; rows nulled out during cleaning will produce `NaN` derived columns that look valid until a downstream model or BI tool chokes on them.
+
 Remember: A well-designed ETL pipeline is crucial for reliable data processing!
 
 ## Next steps
