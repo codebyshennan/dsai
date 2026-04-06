@@ -372,6 +372,8 @@
 
             for (var i = region.start + 1; i <= region.end; i++) {
               codeLines[i].classList.toggle('code-line--hidden', !nowExpanded);
+              // Keep gutter line-number cells in sync with code lines.
+              gutterCells[i].classList.toggle('code-block__line-number--hidden', !nowExpanded);
             }
             // Show/hide the "..." ellipsis appended after the opening line.
             codeLines[region.start].classList.toggle('code-line--fold-collapsed', !nowExpanded);
