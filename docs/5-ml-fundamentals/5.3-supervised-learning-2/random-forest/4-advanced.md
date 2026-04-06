@@ -690,6 +690,15 @@ class OnlineRandomForest:
 </aside>
 </div>
 
+## Gotchas
+
+- **`StackingClassifier` leaks if base models are trained on the full training set** — sklearn's `StackingClassifier` uses `cv` to generate out-of-fold predictions for the meta-learner by default; manually fitting base models on the whole training set and then stacking them allows the meta-learner to see training predictions, inflating performance estimates.
+- **Permutation importance can be misleading when features are correlated** — shuffling one correlated feature still leaves its information accessible through the correlated partner, so both features will look less important than they truly are; prefer partial dependence plots for correlated settings.
+- **The `DynamicFeatureSelector` refits on a subset without re-tuning hyperparameters** — after dropping low-importance features and refitting, the original `max_depth` or `n_estimators` may no longer be optimal for the reduced feature set; the two-pass approach needs its own hyperparameter validation.
+- **`OnlineRandomForest.partial_fit` loses all historical data on each buffer flush** — the implementation retrains from scratch on the current buffer window only, discarding older examples; this is not true online learning but windowed batch retraining, which can cause catastrophic forgetting on drifting data.
+- **SHAP's `TreeExplainer` returns a list of arrays for multi-class classifiers** — `shap_values` is a list of length `n_classes`, not a single 2D array; passing the raw return value to `shap.summary_plot` for a binary classifier will work, but for multi-class you must index into the list (e.g., `shap_values[1]` for class 1).
+- **`partial_dependence` with `kind='average'` averages over the marginal distribution of other features** — this can produce unrealistic feature combinations (e.g., a very high income with a very low credit score) that the model was never trained on, leading to extrapolated PDP curves that don't reflect real-world behaviour.
+
 ## Next Steps
 
 Ready to see Random Forests in action? Continue to [Applications](5-applications.md) to explore real-world use cases!
