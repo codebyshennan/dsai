@@ -1142,6 +1142,15 @@ def show_important_features(model, vectorizer, n=10):
 2. **Linear Kernel**: Best for high-dimensional sparse data like text
 3. **Feature Importance**: Coefficients of the linear SVM indicate the importance of each word for classification
 
+## Gotchas
+
+- **Calling `scaler.transform` on unscaled test data after fitting on already-scaled train data** — If you accidentally call `scaler.fit_transform(X_train_scaled)` a second time (i.e., the input is already scaled), the scaler fits to a near-zero-mean near-unit-variance distribution and rescales it again, producing subtly wrong features without raising any error.
+- **Using `SVC` without `probability=True` then calling `predict_proba`** — `SVC` raises `AttributeError: predict_proba is not available when probability=False` if you call `predict_proba` on a default `SVC`. You must set `probability=True` at construction, which triggers Platt scaling via cross-validation — noticeably slowing training.
+- **Setting `max_iter` too low and getting a `ConvergenceWarning`** — The default `max_iter=-1` (no limit) is correct for most cases, but tutorials sometimes set `max_iter=100` to speed up demos. If the solver hasn't converged, scikit-learn raises a `ConvergenceWarning` and returns a partially fitted model that may have poor accuracy. Never ignore this warning.
+- **Using `SVC` for multiclass without knowing its default strategy** — `SVC` uses one-vs-one (OVO) by default for multiclass problems. With k classes this creates k(k-1)/2 binary classifiers, which scales quadratically. For many classes, `LinearSVC` with one-vs-rest or `decision_function_shape='ovr'` is faster and often equally accurate.
+- **Applying SVR with the default `epsilon=0.1` for data on very different scales** — `SVR`'s epsilon-insensitive tube is in the same units as the target variable. If your target is in the thousands (e.g., house prices), `epsilon=0.1` means the tube is essentially zero-width and the model will overfit. Scale both features and the target before using `SVR`.
+- **Plotting decision boundaries on unscaled coordinates when the model was trained on scaled data** — The mesh grid in visualization examples must be built in the original feature space and then transformed with `scaler.transform` before prediction. Building the mesh on scaled coordinates and plotting on raw axes shifts the boundary visually, making it look like the model drew a wrong boundary.
+
 ## Common Mistakes to Avoid
 
 1. **Forgetting to Scale Features**
