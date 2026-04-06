@@ -322,6 +322,10 @@ Make It Clear:
    3. Seasonal patterns
    ```
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "I've built a [describe your dashboard, e.g. 'customer lifetime value dashboard in Tableau using the Sample Superstore dataset']. Here's what I see: [describe what the charts show]. What business insights can I draw from this, and what additional views should I add to support those conclusions?"
+
 ## Need Help?
 
 - Tableau Help: [help.tableau.com](https://help.tableau.com)
