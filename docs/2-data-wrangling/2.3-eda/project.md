@@ -429,6 +429,15 @@ if __name__ == "__main__":
 </aside>
 </div>
 
+## Gotchas
+
+- **Pearson correlation hides non-linear relationships** — the default `numeric_data.corr()` only captures linear association; two variables with a clear U-shaped relationship will show near-zero Pearson r, so always pair the heatmap with scatter plots for suspicious pairs.
+- **`resample('D')['sales'].sum()` drops days with zero sales** — if a day has no transactions it simply doesn't appear in the daily Series, which distorts trend lines and decomposition; use `.asfreq('D', fill_value=0)` after resampling to make gaps explicit.
+- **Seasonal decomposition requires a complete, regular time series** — `seasonal_decompose` raises or produces garbage if there are missing dates or the period is shorter than two full cycles; ensure your date index is monotonic and dense before calling it.
+- **Plotting every numeric column in a loop pollutes the notebook** — calling `plt.show()` inside the distribution loop creates a new figure per column, which works fine locally but produces dozens of static images in a PDF report; aggregate small-multiple grids with `plt.subplots` for deliverables.
+- **Chi-square tests assume expected frequencies ≥ 5** — for sparse category combinations (rare product categories × rare countries), expected counts may fall below this threshold and the p-value becomes unreliable; collapse infrequent levels before running the test.
+- **Confusing correlation with causation in the executive summary** — EDA can only surface associations; writing "X causes Y" based on a correlation is a common grading deduction; always frame findings as "X is associated with Y" and flag what confounders might exist.
+
 ## Tips for Success
 
 1. **Start with Questions**
