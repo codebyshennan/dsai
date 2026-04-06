@@ -296,3 +296,12 @@ plt.hist2d(x, y, bins=50)
    - Test on target platforms
    - Use appropriate backends
    - Handle path differences
+
+## Gotchas
+
+- **`%matplotlib inline` must appear before `import matplotlib.pyplot as plt`** — if the magic runs after the import, it does not switch the already-loaded backend; restart the kernel and put `%matplotlib inline` in the first cell to guarantee inline rendering.
+- **`plt.savefig('plot.pdf', dpi=300)` — `dpi` is ignored for PDF exports** — PDFs are vector formats and have no native DPI; the `dpi` argument only affects raster elements (e.g. images embedded inside the figure); use `bbox_inches='tight'` to control margins, not DPI.
+- **`np.random.choice(len(data), sample_size)` samples indices, not values** — the call returns integer positions that you must then use to index `data`; passing the returned array directly into a plot function will plot the index numbers, not your original data values.
+- **`plt.hist2d(x, y, bins=50)` returns a tuple, not a figure** — the function plots the heatmap and also returns `(counts, xedges, yedges, image)`; if you store the return value expecting a figure object and then call `.savefig()` on it, you will get an `AttributeError`.
+- **Seaborn palettes used as `cmap=` expect a Colormap object, not a list** — `sns.color_palette("Blues", n_colors=5)` returns a list of RGB tuples; passing it to `cmap=` in `scatter` or `imshow` will raise a `TypeError`; use `sns.color_palette("Blues", as_cmap=True)` or `matplotlib.colors.ListedColormap(...)` to wrap the list.
+- **The `"Clipping input data to the valid range"` warning from `imshow` is silent data loss** — it means values outside `[0, 1]` (float) or `[0, 255]` (int) are being clamped before display; normalize your array first with `(arr - arr.min()) / (arr.max() - arr.min())` rather than letting the clip happen invisibly.
