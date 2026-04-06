@@ -539,6 +539,15 @@ Now that you understand multiple linear regression, you can explore:
 3. **Regularization Techniques**: Ridge, Lasso, and Elastic Net for handling many predictors
 4. **Categorical Variables**: Using dummy variables to include non-numeric factors
 
+## Gotchas
+
+- **Misreading coefficients when predictors are correlated** — Each MLR coefficient answers "how much does y change with this predictor, *holding all others fixed*?" When predictors are correlated (e.g., square footage and number of rooms), the coefficient can flip sign or shrink dramatically compared to a simple regression, confusing learners who expect it to match a pairwise correlation.
+- **Adding more predictors always raises training R²** — sklearn's `model.score(X, y)` is in-sample R², which can only increase as you add columns. Use adjusted R² or cross-validated R² to check whether extra predictors actually improve generalization.
+- **VIF does not detect nonlinear multicollinearity** — VIF measures linear dependencies between predictors. Two predictors that are related by a square (e.g., age and age²) can produce near-zero pairwise correlation yet still cause coefficient instability; check condition numbers as well.
+- **`SelectKBest` selects features before splitting data, causing data leakage** — Running `SelectKBest.fit_transform(X, y)` on the full dataset and then splitting incorporates label information from the test set into feature selection. Always perform selection inside a pipeline or only on the training fold.
+- **Interpreting the intercept as a meaningful baseline** — When predictor ranges do not include zero (e.g., house age, square footage), the intercept is purely a mathematical anchor and has no physical interpretation. Contextualising it as a "starting price" misleads stakeholders.
+- **Forgetting to encode categorical predictors** — Including a raw categorical column (e.g., neighborhood as a string) will silently fail or coerce to meaningless integers. Use one-hot encoding and drop one dummy level to avoid the dummy variable trap.
+
 ## Helpful Resources for Learning More
 
 - [StatQuest Videos](https://www.youtube.com/c/joshstarmer) - Excellent visual explanations of regression concepts
