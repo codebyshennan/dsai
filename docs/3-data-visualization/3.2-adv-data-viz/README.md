@@ -287,6 +287,8 @@ def create_statistical_plot(data):
 </aside>
 </div>
 
+![README](assets/README_fig_1.png)
+
 ## Module content
 
 ### 1. Statistical Visualization with Seaborn
