@@ -169,6 +169,10 @@ Data Structure:
 
 ![Tableau dual-axis line chart with Sales and Profit](assets/tableau_line_chart.png)
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "I'm looking at a Tableau time series showing monthly Sales and Profit on a dual axis for the Sample Superstore dataset. Sales is trending up but Profit is flat. What are three possible explanations, and what additional charts should I build to investigate each one?"
+
 
 ### 3. Geographic Analysis
 
