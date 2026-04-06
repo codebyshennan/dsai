@@ -59,8 +59,22 @@
     return null;
   }
 
-  /** Half-open [start, end) character indices for logical lines startLine..endLine (1-based). */
-  function charRangeForLogicalLines(text, startLine, endLine) {
+  /**
+   * Half-open [start, end) character indices for logical lines startLine..endLine (1-based).
+   * When `lineLengths` is provided (from `.code-line` spans, no \n in textContent),
+   * offsets are computed from those lengths directly instead of splitting by \n.
+   */
+  function charRangeForLogicalLines(text, startLine, endLine, lineLengths) {
+    if (lineLengths && lineLengths.length > 0) {
+      var n2 = lineLengths.length;
+      var s2 = Math.max(1, Math.min(startLine, n2));
+      var e2 = Math.max(s2, Math.min(endLine, n2));
+      var start2 = 0;
+      for (var ii = 0; ii < s2 - 1; ii++) start2 += lineLengths[ii];
+      var end2 = start2;
+      for (var jj = s2 - 1; jj <= e2 - 1; jj++) end2 += lineLengths[jj];
+      return { start: start2, end: end2 };
+    }
     var lines = text.split(/\r\n|\r|\n/);
     var n = lines.length;
     if (n === 0) return null;
