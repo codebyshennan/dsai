@@ -5,101 +5,269 @@
         {
             "type": "title",
             "title": "3.3 Business Intelligence with Tableau",
-            "subtitle": ""
+            "subtitle": "Drag-and-drop analytics for real-world business decisions"
+        },
+        {
+            "type": "title",
+            "title": "Why Business Intelligence Tools?",
+            "subtitle": "When to go beyond Python and pandas"
+        },
+        {
+            "type": "content",
+            "title": "Python vs BI Tools",
+            "content": {
+                "title": "Choosing the right tool",
+                "items": [
+                    "**Python (Matplotlib / Seaborn / Plotly)**: best for custom analysis, ML pipelines, and code-first reproducibility",
+                    "**BI Tools (Tableau / Looker Studio / Power BI)**: best for live dashboards, stakeholder self-service, and fast iteration without code",
+                    "BI tools connect directly to databases and refresh automatically — no re-running notebooks",
+                    "Non-technical stakeholders can filter and explore without asking a data analyst",
+                    "Both approaches are complementary: Python for analysis, BI for communication and monitoring"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "What Makes Tableau Powerful?",
+            "content": {
+                "title": "Key capabilities",
+                "items": [
+                    "**Drag-and-drop interface**: map fields to visual encodings instantly — no syntax to remember",
+                    "**Automatic chart recommendations**: Tableau suggests chart types based on the data you drop",
+                    "**Live + extract connections**: query your database in real time or cache a snapshot for speed",
+                    "**Row-level security**: control which rows each user sees — essential for multi-team dashboards",
+                    "**Server and Cloud deployment**: publish once, share with thousands via browser or embedded links",
+                    "**Tableau Public**: free platform to publish and share visualisations with the world"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Data Architecture",
+            "subtitle": "How Tableau connects to and models your data"
+        },
+        {
+            "type": "content",
+            "title": "The Tableau Data Pipeline",
+            "content": {
+                "title": "From source to worksheet",
+                "items": [
+                    "**Step 1 — Connect**: point Tableau at a source (CSV, Excel, SQL database, Google Sheets, cloud warehouse)",
+                    "**Step 2 — Prepare**: join tables, rename fields, set data types, create calculated fields",
+                    "**Step 3 — Visualise**: drag dimensions and measures onto shelves to build views",
+                    "**Step 4 — Dashboard**: combine multiple views, add filters and actions",
+                    "**Step 5 — Publish**: share to Tableau Server, Cloud, or Public for stakeholder access",
+                    "Dimensions = categorical fields (Region, Product, Date); Measures = numeric fields (Sales, Profit, Quantity)"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Live Connection vs Extract",
+            "content": {
+                "title": "Choose based on data freshness vs performance needs",
+                "columns": 2,
+                "items": [
+                    "**Live**: queries the database on every interaction",
+                    "**Live**: always reflects the latest data",
+                    "**Live**: no additional storage required",
+                    "**Live**: slower on large tables; requires network access",
+                    "**Extract (.hyper)**: a cached snapshot stored locally",
+                    "**Extract**: dramatically faster for large datasets",
+                    "**Extract**: works offline; reduces database load",
+                    "**Extract**: data is point-in-time; needs scheduled refresh"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Visual Grammar",
+            "subtitle": "Matching chart types to analysis tasks"
+        },
+        {
+            "type": "content",
+            "title": "Chart Type Selection",
+            "content": {
+                "title": "Analysis task → chart type",
+                "items": [
+                    "**Comparison**: bar chart (categories), line chart (time series), bullet chart (vs target)",
+                    "**Distribution**: histogram (frequency), box plot (spread + outliers), heat map (density across two dimensions)",
+                    "**Composition**: pie chart (parts of a whole ≤5 categories), treemap (hierarchical parts), stacked bar (parts over time)",
+                    "**Relationship**: scatter plot (correlation between two measures), bubble chart (three measures), connected scatter (path over time)",
+                    "When in doubt, default to a bar chart for comparison and a line chart for time — they are the most readable",
+                    "See [3.1 Visualization Principles](../../3.1-intro-data-viz/) for deeper guidance on chart selection"
+                ]
+            }
+        },
+        {
+            "type": "content",
+            "title": "Visual Best Practices in Tableau",
+            "content": {
+                "title": "Principles that apply regardless of tool",
+                "items": [
+                    "**Sequential colour** (light → dark): for ordered data like sales volume or temperature",
+                    "**Diverging colour** (two hues meeting at a midpoint): for data with a meaningful centre like profit/loss or NPS",
+                    "**Categorical colour** (distinct hues): for unordered groups like product categories or regions",
+                    "Limit to 6–8 colours on one view — beyond that, the legend becomes unreadable",
+                    "Align elements to a grid; consistent margins and white space reduce cognitive load",
+                    "Use a clear font hierarchy: large title, medium axis labels, small tooltips"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Calculations",
+            "subtitle": "Extending your data with Tableau's formula language"
+        },
+        {
+            "type": "content",
+            "title": "Basic Calculated Fields",
+            "content": {
+                "title": "Common patterns you will use often",
+                "items": [
+                    "`[Profit Margin] = SUM([Profit]) / SUM([Sales])` — ratio calculation; always aggregate both sides consistently",
+                    "`[YoY Growth] = ([Sales] - LOOKUP([Sales], -1)) / ABS(LOOKUP([Sales], -1))` — year-over-year using table calculation",
+                    "`[Moving Avg] = WINDOW_AVG(SUM([Sales]), -3, 0)` — 4-period rolling average",
+                    "`[Running Total] = RUNNING_SUM(SUM([Sales]))` — cumulative sum along the table",
+                    "Table calculations (LOOKUP, RUNNING_SUM, WINDOW_AVG) compute **after** aggregation — the compute direction and partitioning matter",
+                    "LOD expressions (FIXED, INCLUDE, EXCLUDE) let you control the level of detail independently of the view"
+                ]
+            }
         },
         {
             "type": "content",
             "title": "Advanced Analytics",
             "content": {
-                "type": "box",
+                "title": "Built-in statistical and predictive tools",
                 "items": [
-                    "Compare values over time",
-                    "Calculate growth rates",
-                    "Rank and analyze performance",
-                    "Bars for Sales",
-                    "Line for Profit",
-                    "Top N selector",
-                    "Date range picker",
-                    "Threshold setter",
-                    "Tableau Help: [help.tableau.com](https://help.tableau.com)",
-                    "Community: [community.tableau.com](https://community.tableau.com)",
-                    "Video Tutorials: [Tableau YouTube](https://www.youtube.com/user/tableausoftware)",
-                    "Start with simple calculations",
-                    "Build complexity gradually",
-                    "Practice with sample data",
-                    "Don't be afraid to experiment!"
+                    "**Forecasting**: drag a date field + measure → Analytics pane → Forecast. Tableau fits exponential smoothing automatically",
+                    "**Trend lines**: Analytics pane → Trend Line. Supports linear, polynomial, exponential, logarithmic, and power models",
+                    "**Clustering**: Analytics pane → Cluster. K-means on selected measures; Tableau chooses k or you specify it",
+                    "**Reference lines and bands**: add average, median, or custom constant lines directly from the Analytics pane — no calculation needed",
+                    "**Box plots**: show distribution, IQR, and outliers in a single mark — built into Show Me",
+                    "These tools require no formula writing — they are point-and-click, making them accessible to non-coders"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Dashboard Design",
+            "subtitle": "Combining views into a coherent, interactive experience"
+        },
+        {
+            "type": "content",
+            "title": "Layout Patterns",
+            "content": {
+                "title": "Two proven structures",
+                "items": [
+                    "**Executive dashboard**: KPI tiles across the top → main trend chart in the centre → detail breakdowns at the bottom",
+                    "**Analysis dashboard**: filter rail on the left → overview chart top-right → drill-down detail bottom-right",
+                    "Place the most important number or insight where the eye lands first (top-left for LTR readers)",
+                    "Use Tableau's **tiled** layout for precise grid alignment; use **floating** sparingly for overlays",
+                    "Keep each dashboard to one scrollable screen — if it requires scrolling, split into tabs",
+                    "Use device preview (phone / tablet / desktop) to check responsive behaviour before publishing"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Looker Studio Case Study",
+            "title": "Interactivity: Filters, Actions, Parameters",
             "content": {
-                "type": "box",
+                "title": "Making dashboards explorable",
                 "items": [
-                    "A dynamic sales performance dashboard",
-                    "A geographical distribution analysis",
-                    "A product profitability analysis",
-                    "Interactive filters and controls",
-                    "It contains clean, pre-formatted data",
-                    "It includes realistic business scenarios",
-                    "It's easy to import into Google Sheets",
-                    "It covers multiple analysis dimensions",
-                    "1"
+                    "**Filters**: Single value, multiple values, range, relative date, Top N — add via the Filters shelf or Show Filter",
+                    "**Filter actions**: clicking a mark in one sheet filters another sheet — the most common dashboard interaction",
+                    "**Highlight actions**: clicking dims unselected marks rather than removing them — good for keeping context visible",
+                    "**URL actions**: clicking a mark opens a URL — useful for linking to CRM records or external reports",
+                    "**Parameters**: user-controlled variables (numeric, string, date, boolean) that drive calculated fields or reference lines",
+                    "Example: a parameter for metric selection lets one chart swap between Revenue, Profit, and Units sold"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "BI Tool Comparison",
+            "subtitle": "Tableau, Looker Studio, and Power BI — strengths and trade-offs"
+        },
+        {
+            "type": "content",
+            "title": "Tableau vs Looker Studio vs Power BI",
+            "content": {
+                "title": "Choose based on your ecosystem and use case",
+                "items": [
+                    "**Tableau**: strongest visual flexibility and chart variety; best-in-class for exploratory analysis; requires a paid licence (Public is free)",
+                    "**Looker Studio** (formerly Data Studio): free, Google-native; excellent for Google Analytics, Ads, and Sheets data; simpler than Tableau",
+                    "**Power BI**: Microsoft-native; deep integration with Excel, Azure, and Teams; DAX formula language is powerful but steep learning curve",
+                    "All three support live database connections, scheduled refreshes, and embedded dashboards",
+                    "All three have active community galleries with thousands of reusable templates",
+                    "If your org is Google-first → Looker Studio. Microsoft-first → Power BI. Mixed or advanced analytics → Tableau"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Powerbi Case Study",
+            "title": "Decision Framework",
             "content": {
-                "type": "box",
+                "title": "Quick reference for tool selection",
+                "columns": 2,
                 "items": [
-                    "A dynamic sales performance dashboard",
-                    "A geographical distribution analysis",
-                    "A product profitability analysis",
-                    "Interactive filters and drill-downs",
-                    "It contains clean, pre-formatted data",
-                    "It includes realistic business scenarios",
-                    "It's readily available in Power BI",
-                    "It covers multiple analysis dimensions"
+                    "Need it free? → Looker Studio or Tableau Public",
+                    "Already paying for Microsoft 365? → Power BI",
+                    "Need the widest chart variety? → Tableau",
+                    "Data lives in Google products? → Looker Studio",
+                    "Need row-level security at scale? → Tableau or Power BI",
+                    "Stakeholders use Excel heavily? → Power BI",
+                    "Building for public sharing? → Tableau Public",
+                    "Need embedded analytics in a web app? → All three support iframe embed"
+                ]
+            }
+        },
+        {
+            "type": "title",
+            "title": "Case Study: Retail Sales Dashboard",
+            "subtitle": "Applying BI concepts to a real-world scenario"
+        },
+        {
+            "type": "content",
+            "title": "The Scenario",
+            "content": {
+                "title": "A retail chain wants to monitor regional performance",
+                "items": [
+                    "**Business question**: which regions and product categories are driving (or dragging) overall profit margin?",
+                    "**Data source**: transactional sales data — Order ID, Date, Region, Category, Sub-Category, Sales, Profit, Quantity",
+                    "**Stakeholders**: VP of Sales (executive summary), regional managers (drill-down by their region), finance team (margin focus)",
+                    "**Refresh cadence**: daily extract from the data warehouse — real-time not required",
+                    "**Constraint**: dashboard must work on mobile for field managers"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Tableau Basics",
+            "title": "Design Decisions and Outcomes",
             "content": {
-                "type": "box",
+                "title": "What the team built and why",
                 "items": [
-                    "Tableau's intuitive visualization interface",
-                    "Real-time data analysis without coding",
-                    "Interactive dashboard creation",
-                    "Advanced visualization techniques",
-                    "[Tableau Documentation](https://help.tableau.com/current/guides/get-started-tutorial/en-us/get-started-tutorial-home.htm)",
-                    "[Tableau Public Gallery](https://public.tableau.com/app/discover)",
-                    "[Tableau Community](https://community.tableau.com/s/)",
-                    "Tableau Technical Support",
-                    "Community Forums",
-                    "Knowledge Base",
-                    "Training Resources"
+                    "**KPI tiles** (top row): Total Sales, Total Profit, Profit Margin % — each with a prior-period comparison arrow",
+                    "**Map view**: profit margin by region using a diverging colour scale (red = loss, green = profit) — instant geographic pattern recognition",
+                    "**Bar chart**: top/bottom 10 sub-categories by profit margin — sorted descending so outliers are immediately visible",
+                    "**Trend line**: monthly sales and profit on dual-axis line chart — reveals seasonal patterns and the impact of promotions",
+                    "**Filter action**: clicking a region on the map updates all other views — one interaction, full context",
+                    "**Result**: regional managers self-serve answers in minutes; analyst time freed for deeper modelling"
                 ]
             }
         },
         {
             "type": "content",
-            "title": "Tableau Case Study",
+            "title": "Key Takeaways",
             "content": {
-                "type": "box",
+                "title": "What to remember from this submodule",
                 "items": [
-                    "A dynamic sales performance dashboard",
-                    "A geographical distribution analysis",
-                    "A product profitability analysis",
-                    "Interactive filters and drill-downs",
-                    "It contains clean, pre-formatted data",
-                    "It includes realistic business scenarios",
-                    "It's readily available in Tableau",
-                    "It covers multiple analysis dimensions"
+                    "BI tools are not replacements for Python — they are communication and monitoring layers on top of your analysis",
+                    "Choose Live vs Extract based on data freshness requirements, not habit",
+                    "Match chart type to analysis task; default to bar (comparison) and line (time) when unsure",
+                    "Dashboard layout follows eye movement — important metrics top-left, supporting detail below",
+                    "Interactivity (filter actions, parameters) should reduce clicks, not add them",
+                    "The best dashboard is the one stakeholders actually use — optimise for their mental model, not yours"
                 ]
             }
         }
