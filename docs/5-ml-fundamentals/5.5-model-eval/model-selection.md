@@ -610,6 +610,15 @@ Best model: Neural Network with accuracy: 0.945
 
 The model selection process identifies the Neural Network as the best performing model and shows learning curves for all three model types, helping us understand their behavior with different amounts of training data.
 
+## Gotchas
+
+- **Selecting the best model based on the same test set you report** — If you try 10 models and pick the one with the highest test accuracy, your reported test accuracy is optimistically biased; reserve the test set for a single final evaluation and use cross-validation or a validation split for model selection decisions.
+- **Choosing model family before exploring the data** — Jumping straight to a neural network because it achieves state-of-the-art on benchmarks often leads to an over-engineered solution; always establish a simple baseline (e.g., logistic regression or linear regression) first to understand the baseline difficulty and whether complexity is warranted.
+- **Comparing models with different preprocessing pipelines** — Evaluating Model A on raw features and Model B on scaled features is not a fair comparison; wrap each model in an identical pipeline so preprocessing differences do not confound the comparison.
+- **Picking the highest single-split accuracy** — One train/test split can favour a model due to sampling luck; a model that beats a competitor by 0.3% on one split may lose by 0.5% on a different random seed; use cross-validation mean ± std across multiple splits to make robust comparisons.
+- **Ignoring inference time and model size in selection** — A model with 0.2% higher accuracy but 100× slower inference may be undeployable in production; always include latency, memory footprint, and interpretability requirements alongside accuracy metrics when making a final selection.
+- **Reusing `X_train`/`y_train` across sequential model fits in the same session** — In the comparison loop above, each model is fit on the same `X_train`; if any earlier step modified `X_train` in-place (e.g., imputation without copying), later models see corrupted data; always verify that transformations produce new arrays rather than mutating the input.
+
 ## Additional Resources
 
 1. **Online Courses**
