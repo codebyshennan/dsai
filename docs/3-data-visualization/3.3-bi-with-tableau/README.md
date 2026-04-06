@@ -423,7 +423,7 @@ Day 5:
 
 ## Using AI Tools with Tableau
 
-See [claude-code-integration.md](claude-code-integration.md) for a practical guide on using Claude Desktop or ChatGPT as an AI pair partner: writing calculated fields, debugging LOD expressions, generating sample data, and preparing data in Python before connecting to Tableau.
+See [ai-tools-integration.md](ai-tools-integration.md) for a practical guide on using Claude Desktop or ChatGPT as an AI pair partner: writing calculated fields, debugging LOD expressions, generating sample data, and preparing data in Python before connecting to Tableau.
 
 ## Assignment
 
