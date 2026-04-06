@@ -389,19 +389,19 @@ dist_fig = create_distribution_dashboard(
 ### Additional Interactive Features
 
 **3D Scatter Plot:**
-> **Figure (add screenshot or diagram):** 3D scatter plot with x/y/z numeric axes, points colored by a categorical group, shown from an angled perspective — and the Plotly modebar in the top-right showing the orbit/pan/zoom buttons for 3D interaction.
+![plotly-guide](assets/plotly_3d_scatter.png)
 
 **Dashboard Layout:**
-> **Figure (add screenshot or diagram):** Multi-panel Plotly dashboard combining a bar chart (top-left), scatter plot (top-right), and a choropleth map (bottom), all with a consistent white theme, matching color palette, and hover tooltips visible on one panel.
+![plotly-guide](assets/plotly_dashboard_layout.png)
 
 **Interactive Hover Information:**
-> **Figure (add screenshot or diagram):** A scatter plot with one data point hovered — the tooltip popup showing formatted values for x, y, and two additional hover_data fields (e.g. country name and population), demonstrating the custom hover template.
+![plotly-guide](assets/plotly_hover_example.png)
 
 **Hierarchical Visualization (Sunburst-style):**
-> **Figure (add screenshot or diagram):** Sunburst chart with three levels of hierarchy — e.g. World → Continent → Country — inner rings for higher levels and outer arcs for countries, sized by population and colored by continent.
+![plotly-guide](assets/plotly_sunburst_style.png)
 
 **Theme Comparison:**
-> **Figure (add screenshot or diagram):** Two identical scatter plots side by side: left using the 'modern' white theme (white background, light-gray grid, black font) and right using the 'dark' theme (dark slate background, muted grid, light font) — same data, contrasting appearances.
+![plotly-guide](assets/plotly_theme_comparison.png)
 ## Advanced Features
 
 ### 1. Custom Themes
