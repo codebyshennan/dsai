@@ -183,6 +183,14 @@ Example: **Sales by Category** bar chart.
 - Example: `(SUM([Sales]) - LOOKUP(SUM([Sales]), -1))/ABS(LOOKUP(SUM([Sales]), -1))`
 - Set up as a table calculation and format as a percentage.
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "I'm getting an error in this Tableau calculated field: `[paste your formula here]`. The error message says: [paste the error]. My fields are: [list relevant field names and types]. What's wrong and how do I fix it?"
+
+> **Ask AI (Claude or ChatGPT)**
+>
+> "Write a Tableau calculated field that flags orders where the profit margin is below 10%. My data has [Sales] and [Profit] fields. I want to use it to color-code marks on a scatter plot."
+
 #### 2. Level of Detail Expressions
 
 1. Fixed LOD.
