@@ -296,6 +296,15 @@ plt.show()
 </aside>
 </div>
 
+## Gotchas
+
+- **Tree-based impurity importance is biased toward high-cardinality features** — `feature_importances_` from Random Forest sums mean impurity decrease over splits; features with many unique values (e.g., a continuous numeric column) get more split opportunities and can appear more important than they truly are; use permutation importance or SHAP for a less biased view.
+- **Permutation importance computed on training data is misleading** — Shuffling a feature on the training set measures how much the model *relied* on it during training, not how useful it is for new data; always compute permutation importance on a held-out validation or test set to measure true generalisation contribution.
+- **Correlated features split importance between them** — If `income` and `wealth_score` are strongly correlated, the model may use one or the other interchangeably; both features will show lower individual importances than either deserves alone, and removing one may not hurt performance; cluster correlated features before interpreting rankings.
+- **SHAP values require the model, not just predictions** — `shap.TreeExplainer` needs the fitted estimator object; if you only serialised `predict` output without saving the model, you cannot compute SHAP values retrospectively; always save the full fitted model, not just predictions.
+- **Treating feature importance as a ranking for causal inference** — A high-importance feature in a predictive model tells you the model uses that feature, not that it causally drives the outcome; recommending business actions based on feature importances alone (e.g., "increase credit score to get approved") conflates correlation with causation.
+- **Negative permutation importance does not mean the feature hurts** — A small negative value (near zero) for permutation importance usually means the feature adds negligible predictive value and the drop in score is within random noise, not that the feature actively harms the model; check confidence intervals before removing features with slightly negative scores.
+
 ## Additional Resources
 
 1. Scikit-learn documentation on feature importance
