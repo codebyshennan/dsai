@@ -26,6 +26,10 @@ Think of them as Excel formulas that work across your entire visualization. They
 
 ### Common Table Calculations (With Real Examples!)
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "I want to show [describe your goal, e.g. ‘how each salesperson’s cumulative revenue builds up over the year compared to their target’]. Which Tableau table calculation should I use — Running Total, Percent Difference, or Moving Average? Walk me through setting it up."
+
 #### Running Total (Like a Growing Bank Balance)
 
 **Purpose:** Express a cumulative sum of sales along the visualization’s sort order (often date).
