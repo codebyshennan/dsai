@@ -1653,6 +1653,15 @@ plt.show()
 
 - Continue to [Regularization](./regularization.md).
 
+## Gotchas
+
+- **Choosing the best degree or feature set by looking at the test set repeatedly** — Every time you adjust the model based on test-set performance, you are effectively training on that test set. Reserve it for a single final evaluation; use a validation set or cross-validation for all intermediate comparisons.
+- **Comparing models with training MSE instead of cross-validated MSE** — Training error always decreases as you add polynomial terms or features. A degree-15 polynomial will have lower training MSE than a degree-2 polynomial while generalising far worse; always compare out-of-sample error.
+- **Treating k-fold cross-validation score as a single "true" estimate** — CV scores have variance; a model with CV MSE of 10.2 vs. 10.4 is not meaningfully better unless the difference exceeds one standard error of the fold scores. Use `cross_val_score` and inspect the standard deviation, not just the mean.
+- **Data leakage through preprocessing before splitting** — Fitting a `StandardScaler` or `SelectKBest` on the full dataset before cross-validation leaks test information into training folds, making scores overly optimistic. Always wrap preprocessing in a `Pipeline` so it is re-fit on each training fold independently.
+- **Selecting the model with the highest AIC/BIC without understanding the scale** — AIC and BIC differences below ~2 are not meaningful; only differences greater than 10 constitute strong evidence. Picking between two models where ΔAIC = 1.3 based on AIC alone is not statistically justified.
+- **Ignoring the bias-variance tradeoff in very small datasets** — With few observations, k-fold cross-validation itself becomes unreliable because each fold is tiny. Use leave-one-out CV (LOOCV) or bootstrap resampling instead, and be conservative about model complexity.
+
 ## Additional Resources
 
 - [Scikit-learn Model Selection Guide](https://scikit-learn.org/stable/model_selection.html)
