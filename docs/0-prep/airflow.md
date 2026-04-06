@@ -25,6 +25,8 @@ High-level introduction to **DAGs**, tasks, operators, scheduling, and the web U
 - 10GB free disk space
 - POSIX-compliant operating system (Linux/macOS preferred, Windows via WSL2)
 
+> **Windows users:** Airflow's install scripts use bash syntax that doesn't work in PowerShell or cmd. The easiest path is **WSL2** (Windows Subsystem for Linux), which gives you a real Linux environment. See the [Windows setup guide](./windows.md) for WSL2 install steps, then follow Option 1 below inside your WSL2 terminal. A native PowerShell option is also documented below if you cannot use WSL2.
+
 Airflow is pinned to **tested dependency sets** via official **constraints** files. A plain `pip install apache-airflow` or `uv pip install apache-airflow` without constraints often fails or yields a broken install—use the commands below.
 
 ## Installation Options
