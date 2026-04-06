@@ -207,6 +207,10 @@ Example: **Sales by Category** bar chart.
 - Example: `{INCLUDE [Region] : AVG([Profit])}`
 - Add to the view and format as needed.
 
+> **Ask AI (Claude or ChatGPT)**
+>
+> "Explain the difference between FIXED, INCLUDE, and EXCLUDE LOD expressions in Tableau with a simple analogy. Then tell me which one I should use if I want to [describe your goal, e.g. 'compare each customer's total spend to the overall average spend, regardless of what filters are applied']."
+
 ### Best Practices for High-Performance Visualizations
 
 #### 1. Data Source Optimization
