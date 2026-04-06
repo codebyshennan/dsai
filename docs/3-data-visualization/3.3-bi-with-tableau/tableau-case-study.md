@@ -518,4 +518,12 @@ RANK(SUM([Sales]), 'desc')
 5. Explore Tableau extensions
 6. Practice with real-world datasets
 
+## Gotchas
+
+- **"Use as Filter" on a dashboard sheet filters all other sheets by default, including ones you didn't intend** — when you enable a chart as a filter, it acts on every compatible sheet on the dashboard unless you configure a targeted filter action. Go to Dashboard → Actions to restrict the source and target sheets explicitly.
+- **Dual-axis charts require synchronised axes or the chart visually lies** — if Sales is in the thousands and Profit is in the hundreds, an unsynchronised dual axis makes the two lines appear to track each other closely when they may not. Right-click the secondary axis and choose "Synchronize Axis" or use separate panels to avoid misleading comparisons.
+- **Table calculations like `RUNNING_SUM` depend on the sort order of the view, not the data** — if a viewer reorders the table by clicking a column header, the running total recomputes along the new sort order, producing a completely different result. Always label running total charts with the sort assumption or lock the view.
+- **Tableau Prep flows do not automatically re-run when source data changes** — a Prep flow is a manual or scheduled operation, not a live query. If you clean your data in Prep and then update the source file, the downstream Tableau workbook still shows the old cleaned data until you re-run the flow and refresh the extract.
+- **Saving as `.twb` (not `.twbx`) leaves data behind** — a `.twb` file is just XML; it references the data source path but does not embed the data. When you share a `.twb` with a colleague who doesn't have access to the same data path, the workbook opens empty. Use `.twbx` to bundle the extract for portability.
+
 Remember: Practice makes perfect! Try recreating these visualizations and experiment with different options to build your Tableau skills.
