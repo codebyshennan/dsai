@@ -1024,6 +1024,15 @@ storage.store_data(
 </aside>
 </div>
 
+## Gotchas
+
+- **Schema-on-read in a data lake does not mean schema-free** — dropping raw files into S3 without documenting the schema defers the pain, not eliminates it; analysts querying the lake later will infer conflicting schemas from different file vintages, producing silent join errors.
+- **`session.add_all` followed by `session.commit` is not atomic across multiple batches** — if your RDBMS load iterates over chunks and the second chunk fails, the first chunk is already committed; wrap the entire load in a single transaction or use a staging table with a final swap.
+- **Storing DataFrames as CSV in a data lake loses dtype information** — column types (especially dates and nullable integers) revert to object/string on every read; use Parquet (`.to_parquet`) to preserve schema and compress storage significantly.
+- **Vertical scaling of a data warehouse hits a ceiling faster than expected** — the comparison chart lists warehouses as "vertical" scalable; most modern warehouse products (Snowflake, Redshift) do scale horizontally, but if you design for single-node vertical growth you may hit cost and size limits before switching architectures is easy.
+- **MongoDB `insert_many` with `to_dict('records')` includes the pandas index as a field** — if the DataFrame has a non-default index (e.g., `customer_id`), the index column appears in each document; call `reset_index()` first or explicitly exclude the index with `df.to_dict('records')` after resetting.
+- **Data versioning writes a new copy per `store_data` call** — if the `DataStorage` class versions every write unconditionally, frequent small loads will multiply storage consumption and version metadata rapidly; version at logical checkpoints (e.g., end-of-day load), not on every append.
+
 Remember: Choose your data storage solution based on your specific requirements and use cases!
 
 ## Next steps
