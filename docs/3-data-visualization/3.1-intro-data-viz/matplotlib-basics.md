@@ -412,6 +412,15 @@ def save_plot(fig, filename, dpi=300):
 - Poor color choices
 - Missing labels or context
 
+## Gotchas
+
+- **Mixing the pyplot (`plt.`) and object-oriented (`ax.`) APIs on the same figure causes subtle bugs** — calling `plt.title("...")` after `fig, ax = plt.subplots(...)` sets the title on the current active axes, which is usually `ax`, but if you have created multiple subplots, `plt.title` may target the last-created axes rather than the one you intended; stick to `ax.set_title(...)` once you have an explicit `ax` reference.
+- **`plt.subplots(figsize=(10, 6))` creates the figure at import time, not at display time** — if you define the figure in one cell and populate it across multiple cells, resizing the window or re-running only some cells will produce an inconsistent figure; build and display the entire figure in a single cell.
+- **`ax.legend()` only shows series that were plotted with a `label=` argument** — if you call `ax.plot(x, y)` without `label='...'`, the legend will be empty or show only a blank entry; the legend call does not automatically name unlabeled series.
+- **`ax.scatter` with `c=colors` and `cmap=` requires `colors` to be numeric, not a list of strings** — passing `c=['red', 'blue', 'green']` to set per-point colors works, but passing `c=values` alongside `cmap=` requires `values` to be a numeric array; mixing the two conventions causes a `ValueError` or incorrect color mapping.
+- **`fig.add_gridspec(2, 2)` and `gs[1, :]` will raise an `IndexError` if you pass `ncols=1` elsewhere in the same figure** — the gridspec is created at figure level; if you later add a subplot that exceeds the grid dimensions, the error appears at subplot creation time, not at gridspec creation time, making it harder to trace.
+- **`save_plot` with `transparent=True` exports a transparent background PNG, which displays as white in most browsers but as no background in presentation tools** — if you then place the chart on a dark slide, text labels set in black become invisible; check saved exports on the actual target background before distributing.
+
 ## Next steps
 
 1. Continue to [3.2 Advanced data visualization](../3.2-adv-data-viz/README.md) (Seaborn and Plotly).
