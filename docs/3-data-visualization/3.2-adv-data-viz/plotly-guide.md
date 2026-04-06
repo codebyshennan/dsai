@@ -292,7 +292,7 @@ time_fig = create_time_series_plot(
 ```
 
 **Output (with Range Slider):**
-> **Figure (add screenshot or diagram):** Interactive line chart showing life expectancy over time by continent (1952–2007), with a compact range-slider navigator below the x-axis and "YTD" / "All" dropdown buttons in the upper left for quick zoom controls.
+![plotly-guide](assets/plotly_timeseries_rangeslider.png)
 
 ## Statistical Visualizations
 
