@@ -408,6 +408,15 @@ print(result)
 - Report all tests conducted
 - Share data and code
 
+## Gotchas
+
+- **Choosing a one-tailed vs two-tailed test based on seeing the data** — the lesson's `test_specific_hypothesis` uses a one-tailed test because the alternative was stated as "reduces by *at least* 2 days" *before* data were collected. Switching from two-tailed to one-tailed after observing which direction the effect went halves the p-value without scientific justification.
+- **Writing the alternative hypothesis as the complement of the null** — `H₁: μ₁ ≠ μ₂` is not simply "H₀ is false"; it must be a specific, testable claim tied to a particular test and effect direction. Vague alternatives like "something changed" cannot guide test selection or power calculations.
+- **Testing whether the sample mean is above a target when the correct frame is a one-sample t-test** — `ttest_1samp(ratings, target_score)` in `measure_customer_satisfaction` is two-sided by default; if your hypothesis is directional (mean *above* 4.0), the p-value should be halved (or you should use `alternative='greater'` in newer SciPy versions) to match the stated H₁.
+- **Treating "statistically significant" as the same as "the hypothesis is correct"** — rejecting H₀ only means the data are unlikely under H₀; it does not confirm H₁ or rule out other explanations. The lesson's `falsifiable_result: True` means evidence exceeded the threshold, not that the mechanism is proven.
+- **Formulating composite hypotheses without a formal test for the range** — the lesson shows `95 <= mean <= 105` as a Python comparison, not a proper statistical equivalence test (TOST). For truly asserting that a parameter falls within bounds you need two one-sided tests; the simple range check is a descriptive screen, not a rigorous inference procedure.
+- **Forgetting to pre-register hypotheses before seeing outcomes** — the file warns explicitly against peeking, but in practice learners often run exploratory analysis first and then pick the hypothesis that matches the interesting result. Pre-registration (even in a notebook cell timestamped before data load) is the simplest safeguard.
+
 ## Next steps
 
 - Continue to [Statistical tests](./statistical-tests.md), then [A/B testing](./ab-testing.md) and [Results analysis](./results-analysis.md).
