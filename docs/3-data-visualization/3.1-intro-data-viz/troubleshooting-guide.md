@@ -637,6 +637,15 @@ def setup_professional_plot():
 
 Remember: The best way to learn is by doing. Start with simple plots and gradually add complexity as you become more comfortable with Matplotlib.
 
+## Gotchas
+
+- **`matplotlib.use('Agg')` must be called before any `import matplotlib.pyplot` statement** — once `pyplot` is imported, the backend is locked for the session; calling `matplotlib.use(...)` afterwards raises a warning and has no effect; if you cannot guarantee import order, restart the kernel and add the backend call to the very top of your script.
+- **`plt.close('all')` inside a `finally` block will also close figures you opened intentionally before the loop** — if you have a figure already displayed in a notebook and then run a loop with `plt.close('all')` in the cleanup, the previously open figure disappears silently; use `plt.close(fig)` to close only the specific figure you created in that iteration.
+- **`plt.tight_layout()` and `constrained_layout=True` cannot be used simultaneously** — enabling both will trigger a warning and constrained layout will be ignored; pick one: pass `layout='constrained'` to `plt.subplots()` for automatic spacing, or call `plt.tight_layout()` manually after plotting.
+- **`twinx()` creates a second y-axis that does not appear in `ax.legend()`** — the twin axis is a separate `Axes` object, so its lines only appear in `ax2.legend()`, not in `ax1.legend()`; to combine legends from both axes, collect handles and labels from both and pass them to one `legend()` call: `ax1.legend(*[a + b for a, b in zip(ax1.get_legend_handles_labels(), ax2.get_legend_handles_labels())])`.
+- **`np.interp` interpolation for missing data changes the shape of your chart** — filling NaN gaps with linearly interpolated values makes the line look continuous and smooth, but those values are invented; if the gap represents genuinely missing observations (e.g. a sensor outage), interpolating hides the gap and may mislead viewers into thinking data was collected continuously.
+- **`rcParams` changes are global and persist for the entire session** — calling `plt.rcParams['font.size'] = 12` inside a setup function affects every subsequent figure, including those created in other cells or functions; reset to defaults with `plt.rcdefaults()` or scope your changes using `plt.rc_context({'font.size': 12})` as a context manager.
+
 ## Additional Resources
 
 ### Documentation Links
