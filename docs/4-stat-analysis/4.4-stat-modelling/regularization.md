@@ -1116,6 +1116,15 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 - Continue to [Model interpretation](./model-interpretation.md).
 
+## Gotchas
+
+- **Forgetting to scale features before Ridge or Lasso** — Both penalties shrink coefficients toward zero, but the penalty is applied to the raw coefficient values. A feature measured in thousands (e.g., income) gets a tiny coefficient and almost no shrinkage, while one measured in single digits gets shrunk aggressively. Always apply `StandardScaler` inside your pipeline before the regularised model.
+- **Treating `alpha=1.0` as a sensible default** — sklearn's default `alpha` is 1.0, which is arbitrary relative to your data's scale and noise level. The right alpha is data-dependent; always tune it with cross-validation (e.g., `RidgeCV`, `LassoCV`) rather than accepting the default.
+- **Using `cross_val_score` outside a Pipeline when preprocessing is involved** — If you scale the data before calling `cross_val_score`, the scaler has seen all folds including the test fold, leaking information. Wrap `StandardScaler` and `Ridge`/`Lasso` in a `make_pipeline` so preprocessing is re-fitted only on the training fold of each split.
+- **Assuming Lasso always performs feature selection** — Lasso sets coefficients to exactly zero only at sufficiently large alpha. At small alpha values, all coefficients remain non-zero and Lasso behaves more like Ridge. Check how many coefficients are truly zero at your chosen alpha before claiming features were "selected."
+- **Comparing Ridge and Lasso coefficients directly** — Ridge shrinks all coefficients smoothly and retains all features; Lasso can zero some out entirely. A coefficient of 0 from Lasso means the feature was excluded from the model, not that it has zero effect—it may still matter but be redundant with another predictor.
+- **Picking alpha from a path plot without accounting for standard error** — `LassoCV` selects the alpha that minimises mean CV error. The `alpha_1se` rule (largest alpha within one standard error of the minimum) often gives a simpler, similarly accurate model. Defaulting to the exact minimum risks selecting an overly complex solution.
+
 ## Additional Resources
 
 - [Scikit-learn Regularization Documentation](https://scikit-learn.org/stable/modules/linear_model.html)
