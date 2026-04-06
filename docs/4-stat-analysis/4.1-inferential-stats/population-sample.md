@@ -662,6 +662,15 @@ print(f"\nRequired sample size: {n}")
 6. Real-world applications require careful sampling design
 7. Common sampling errors can be avoided with proper planning
 
+## Gotchas
+
+- **Confusing the sampling frame with the population** — the sampling frame is the *list or mechanism you actually draw from* (e.g., email addresses on file), which often covers only a subset of the true population (e.g., all customers). Conclusions drawn from the sample technically apply only to the frame, not the full population.
+- **`np.random.choice(..., replace=False)` on a large array is slow for small samples** — for simple random sampling when n is much smaller than N, drawing without replacement from a huge array using `choice` is fine, but the lesson's `systematic_sample` pattern (`population[start::interval]`) will silently include periodicities if the frame has any cyclic structure aligned with your interval.
+- **Equating stratified sampling with representative sampling** — stratified sampling guarantees minimum representation per stratum, but if the strata themselves are defined incorrectly or key segments are omitted entirely, the combined sample can still be badly biased.
+- **Assuming a larger sample fixes a biased design** — collecting 100,000 responses from a convenience sample does not reduce selection bias; it only reduces sampling error. A small, well-drawn probability sample is more valuable than a massive but non-representative one.
+- **Using the Wald sample-size formula (`n = z²·p(1-p)/MOE²`) when p is near 0 or 1** — the normal approximation behind this formula breaks down for extreme proportions. For rare events (p < 0.1 or p > 0.9) the formula tends to underestimate the required n; use exact or Wilson-based planning equations instead.
+- **Forgetting to set a random seed before sharing code** — sampling code without a fixed seed produces different splits every run, making results unreproducible. Always set `np.random.seed` (or pass `rng=np.random.default_rng(seed)`) in any sampling demo you share or submit.
+
 ## Next steps
 
 - Continue to [Confidence intervals](./confidence-intervals.md).
