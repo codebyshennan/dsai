@@ -508,3 +508,12 @@ Ready to build your own applications? Try these projects:
 4. Implement a language translator
 
 Remember, the best way to learn is by doing! Start with a simple project and gradually add complexity as you become more comfortable with the concepts.
+
+## Gotchas
+
+- **Applying `preprocess_input` for ResNet50 to data that was already normalized to [0, 1]** — `ResNet50`'s `preprocess_input` expects pixel values in [0, 255] and subtracts ImageNet channel means. If you rescale to [0, 1] first (e.g., `rescale=1./255` in `ImageDataGenerator`) and then also call `preprocess_input`, the resulting values are in the range [-2, -1] rather than the expected [-124, 151], silently degrading accuracy.
+- **Fine-tuning BERT with a learning rate above 5e-5 destroys pretrained weights** — The example uses `learning_rate=2e-5`, which is standard for BERT fine-tuning. Using a default Adam rate of 1e-3 or 1e-4 causes catastrophic forgetting: the pretrained representations are overwritten within the first few batches, and the model performs no better than a randomly initialized one.
+- **LSTM with `activation='relu'` can produce exploding hidden states** — The stock predictor uses `LSTM(50, activation='relu')`. ReLU is not the standard LSTM activation (tanh is). With ReLU, large inputs can cause the hidden state to grow unboundedly across timesteps since there is no saturation. Use the default `activation='tanh'` unless you have a specific reason and gradient clipping in place.
+- **Walk-forward training leaks future data if the target shift is wrong** — `create_stock_features` sets `Target = df['Close'].shift(-1) / df['Close'] - 1`. Using this dataframe directly without careful index alignment can include tomorrow's price in today's feature row (look-ahead bias), producing unrealistically high backtest performance.
+- **`flow_from_directory` infers class labels from subdirectory names, not a CSV** — The image classification example assumes images live in subdirectories named by class. If your data is organized differently (e.g., a flat folder with a labels CSV), `flow_from_directory` will silently treat the entire folder as one class. Use `flow_from_dataframe` instead.
+- **`YOLO('yolov8n.pt')` downloads weights on first run and requires internet access** — In restricted environments (e.g., corporate networks, cloud VMs without egress), this call will hang or fail with a confusing timeout error. Download the checkpoint manually and pass the local path instead.
