@@ -513,4 +513,12 @@ Netflix needed to understand how users were interacting with their platform to o
 - **Ask specific questions**: Focus on clarity and actionability
 - **Iterate and improve**: Use feedback to refine your work
 
+## Gotchas
+
+- **Reducing to "5-7 critical KPIs" only works if you've agreed on which ones matter** — the Walmart case shows a clean dashboard with five KPIs, but choosing the wrong five is worse than showing more. Consult the decision-maker before cutting metrics; stakeholders often have a "non-negotiable" KPI that looks secondary to an analyst.
+- **A funnel chart implies the same cohort flows through each step, which is often false** — in the Spotify case, the funnel shows absolute user counts per step. If different users enter at different steps (e.g., re-activation flows), the funnel overstates drop-off. Label whether it is a cohort funnel or a cross-sectional snapshot.
+- **Comparing channels on a single metric like ROAS hides the volume-efficiency trade-off** — the Airbnb case addresses this with the "ROI Focus" improvement, but a single ROAS bar chart can make a small high-ROAS channel look better than a large moderate-ROAS channel even when the latter generates more absolute profit. Show both dimensions or be explicit about what you're optimising.
+- **Using "record X drove Y outcome" language on a board deck implies causation without a control** — the Tesla case frames quarterly results against prior periods, which is appropriate, but learners often copy this pattern into their own analyses and present correlation as causation. Always hedge with "consistent with" or "coinciding with" unless you have an experiment.
+- **Flow diagrams like the Netflix Sankey become misleading if path widths aren't proportional to the same unit** — if "Browse → Play" width encodes unique users but "Browse → Search" width encodes sessions, the chart looks comparable but isn't. Ensure a single consistent unit (users, sessions, or events) drives all path widths before publishing.
+
 Remember: The best data stories are those that make complex information simple and actionable. Use these case studies as inspiration, but adapt the lessons to your specific needs and audience.
