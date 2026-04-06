@@ -25,28 +25,36 @@ function escapeHtml(s) {
 }
 
 /**
- * Process inline markdown: `**bold**` → <strong>, `[text](url)` → <a>.
- * Non-link segments are HTML-escaped; link text and URLs are escaped individually.
+ * Process inline markdown: `` `code` `` → <code>, `**bold**` → <strong>,
+ * `[text](url)` → <a>. Code spans are highest priority and their content is
+ * HTML-escaped verbatim (no inner markdown). Non-special segments are
+ * HTML-escaped then bold-ified.
  */
 function formatInline(s) {
     if (s == null) return '';
     const str = String(s);
-    const linkRe = /\[([^\]]+)\]\(([^)]+)\)/g;
+    // Combined regex: code span (`…`), link ([text](url)), or bold (**…**)
+    const re = /`([^`]+)`|\[([^\]]+)\]\(([^)]+)\)|\*\*(.+?)\*\*/g;
     let result = '';
     let lastIndex = 0;
     let match;
-    while ((match = linkRe.exec(str)) !== null) {
-        // escape and bold-ify the plain text segment before this link
-        result += applyBold(escapeHtml(str.slice(lastIndex, match.index)));
-        result += `<a href="${escapeHtml(match[2])}" target="_blank" rel="noopener">${escapeHtml(match[1])}</a>`;
-        lastIndex = linkRe.lastIndex;
+    while ((match = re.exec(str)) !== null) {
+        // Escape the plain-text segment before this token
+        result += escapeHtml(str.slice(lastIndex, match.index));
+        if (match[1] !== undefined) {
+            // `` `code` ``
+            result += `<code>${escapeHtml(match[1])}</code>`;
+        } else if (match[2] !== undefined) {
+            // [text](url)
+            result += `<a href="${escapeHtml(match[3])}" target="_blank" rel="noopener">${escapeHtml(match[2])}</a>`;
+        } else {
+            // **bold**
+            result += `<strong>${escapeHtml(match[4])}</strong>`;
+        }
+        lastIndex = re.lastIndex;
     }
-    result += applyBold(escapeHtml(str.slice(lastIndex)));
+    result += escapeHtml(str.slice(lastIndex));
     return result;
-}
-
-function applyBold(s) {
-    return s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 }
 
 function chunkArray(arr, size) {
