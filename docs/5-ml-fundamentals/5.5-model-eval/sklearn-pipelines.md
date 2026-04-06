@@ -654,6 +654,15 @@ def validate_pipeline(pipeline, X, y, cv=5):
    - Optimize transformers
    - Use parallel processing
 
+## Gotchas
+
+- **Calling `fit_transform` on the full dataset before the pipeline** — If you run `scaler.fit_transform(X)` on all data and then pass it into a `Pipeline` for cross-validation, the scaler has already seen test folds and leaked their statistics; the pipeline only prevents leakage if it receives raw, untransformed data.
+- **Accessing step attributes before fitting** — Calling `pipeline.named_steps['scaler'].mean_` before `pipeline.fit(X_train, y_train)` raises `NotFittedError`; the pipeline steps are cloned and fitted lazily, so attributes like `mean_`, `coef_`, or `feature_importances_` are only available after fitting.
+- **Forgetting the double-underscore syntax for nested parameters** — In a grid search over a pipeline, hyperparameter names must be `stepname__param` (e.g., `classifier__max_depth`); a single underscore or a misspelled step name causes a silent `KeyError` or `ValueError` that can look like a data problem.
+- **`FeatureUnion` and `ColumnTransformer` do not preserve column names by default** — After transformation, the output is a plain numpy array; any subsequent step that expects a DataFrame with column names (e.g., a custom transformer checking `X.columns`) will break unless you explicitly handle name reconstruction or use `set_output(transform='pandas')` (sklearn ≥ 1.2).
+- **Pickling a pipeline that uses a lambda function** — `FunctionTransformer(lambda x: ...)` cannot be pickled with the default Python `pickle` or `joblib`; when deploying or saving the pipeline, replace inline lambdas with named module-level functions to avoid `AttributeError: Can't pickle local object`.
+- **Memory caching invalidates when estimator parameters change** — `Pipeline(memory=memory)` caches transformer outputs keyed by the step's parameters; if you change `PCA(n_components=2)` to `PCA(n_components=3)`, the cache is invalidated and all folds recompute; the cache only accelerates runs where parameters are truly unchanged across calls.
+
 ## Additional Resources
 
 - [Scikit-learn Pipeline Documentation](https://scikit-learn.org/stable/modules/pipeline.html)
