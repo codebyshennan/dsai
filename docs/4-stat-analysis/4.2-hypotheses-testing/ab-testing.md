@@ -579,8 +579,6 @@ def check_sample_ratio(control_size, treatment_size, expected_ratio=0.5):
 
 Remember: A/B testing is a powerful tool, but only when used correctly!
 
-## Recommended Visualizations
-
 To enhance understanding of A/B testing concepts, we recommend adding the following visualizations:
 
 1. **A/B Testing Process Flowchart**
