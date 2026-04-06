@@ -463,6 +463,15 @@ def create_regularized_model(input_shape, l2_lambda=0.01):
 
 Now that you understand advanced regularization techniques, let's move on to [Applications](5-applications.md) to see how these methods are used in real-world scenarios!
 
+## Gotchas
+
+- **`AdaptiveLasso` divides by `ols.coef_`, which will crash if any OLS coefficient is exactly zero** — `1 / (np.abs(ols.coef_) ** gamma)` produces `inf` or `NaN` for zero coefficients; in practice, add a small epsilon (`1e-8`) to the denominator before computing adaptive weights to avoid numerical failures.
+- **`GroupLasso.fit` uses a fixed step size of `0.01` with no line search** — gradient descent with a hard-coded step can diverge or converge very slowly depending on the scale of `X`; for data with large-magnitude features, normalise columns first or the 1 000-iteration limit will terminate before convergence.
+- **`StabilitySelection` refits the estimator in place on each bootstrap, destroying its previous state** — Lasso stores `coef_` after each fit, so checking `coef_ != 0` after `estimator.fit(X_boot, y_boot)` gives the current bootstrap's result, not a cumulative one; the implementation is correct, but learners who pass a stateful custom estimator may see unexpected behaviour.
+- **Combining L2 weight decay and Dropout in the neural network creates redundant regularisation at low noise** — both mechanisms reduce effective capacity; with clean, low-dimensional data they can interact to under-fit; start with one regulariser and add the second only if validation loss is still high.
+- **`np.linalg.cholesky` in `admm_lasso` will raise `LinAlgError` if `X'X + ρI` is not positive definite** — this should not happen mathematically (ρI guarantees positive definiteness), but floating-point rounding on poorly conditioned X can cause it; scaling features and increasing ρ resolves the issue.
+- **`RandomizedLasso` is deprecated and removed from scikit-learn** — the class was removed in sklearn 0.25; the custom implementation here recreates the concept manually, but learners who search for it in the sklearn docs will find it missing; use `StabilitySelection` with a Lasso estimator as the modern equivalent.
+
 ## Additional Resources
 
 - [Advanced Regularization Techniques](https://towardsdatascience.com/advanced-regularization-techniques-1c4e6b5c5343)
