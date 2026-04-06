@@ -542,6 +542,8 @@ def create_dashboard(data):
 </aside>
 </div>
 
+![README](assets/README_fig_3.png)
+
 ## Best practices
 
 ### 1. Performance Optimization
