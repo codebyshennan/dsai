@@ -969,6 +969,15 @@ except Exception as e:
 </aside>
 </div>
 
+## Gotchas
+
+- **`response.raise_for_status()` does not catch pagination silently stopping** — many APIs return HTTP 200 with an empty `data` list once you exceed the last page; if your `fetch_data` method stops when it gets an empty response it may silently return an incomplete dataset with no error raised.
+- **Schema mapping renames columns but does not validate that all target fields exist** — if the source API adds or removes a field, `df.rename(columns=mapping)` silently skips unknown keys; downstream column references will raise `KeyError` at load time, not at the rename step where the mismatch occurred.
+- **Batch loads with no watermark produce full re-loads on every run** — without recording a high-water mark (e.g., `max(updated_at)` from the last successful run), re-running the pipeline fetches and reloads the entire source table each time, duplicating records or blowing past API rate limits.
+- **Type conversion with `astype` raises on `NaN` in integer columns** — `df[col].astype('int64')` throws if the column contains nulls introduced during cleaning; use `pd.Int64Dtype()` (nullable integer) or fill nulls before casting to avoid a hard failure in the type-conversion step.
+- **`requests.Session` headers are shared across all requests in the session** — if the auth token expires mid-run and you refresh it on the session object, earlier in-flight requests may still carry the old token; implement token refresh at the request level or rebuild the session after expiry.
+- **Validation rules registered as lambdas capture references, not values** — if you build validation rules in a loop (e.g., `for col in cols: rules[col] = lambda x: x > threshold`), all lambdas share the same `threshold` reference and may silently validate against the last loop value; use default argument capture (`lambda x, t=threshold: x > t`) to bind correctly.
+
 Remember: Effective data integration requires careful planning and robust error handling!
 
 ## Next steps
