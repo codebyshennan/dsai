@@ -206,9 +206,66 @@ body {
 }
 
 .markdown-body .code-block__line-number {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     padding-right: 10px;
     white-space: nowrap;
+    position: relative;
+}
+
+.markdown-body .code-block__line-number-text {
+    /* number digit(s) — right-aligned via the flex parent */
+}
+
+/* Fold chevron button — sits in the left margin of the gutter */
+.markdown-body .code-fold-btn {
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 10px;
+    line-height: 1;
+    color: #8b949e;
+    opacity: 0;
+    transition: opacity 0.12s, background-color 0.12s, color 0.12s;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Show chevrons on block hover, and always show when collapsed */
+.markdown-body .code-block:hover .code-fold-btn,
+.markdown-body .code-fold-btn[aria-expanded="false"] {
+    opacity: 1;
+}
+
+.markdown-body .code-fold-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #24292f;
+}
+
+/* Each logical line is a block element inside the <pre> */
+.markdown-body .code-block__body .code-line {
+    display: block;
+}
+
+.markdown-body .code-block__body .code-line--hidden {
+    display: none;
+}
+
+/* Ellipsis appended to the opening line of a collapsed region */
+.markdown-body .code-block__body .code-line--fold-collapsed::after {
+    content: '  \2026'; /* … */
+    color: #8b949e;
+    font-style: italic;
 }
 
 /* Rouge wraps as .highlighter-rouge > .highlight > pre — flex child is the outer div */
