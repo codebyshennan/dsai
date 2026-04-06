@@ -884,6 +884,15 @@ Business Insights:
    - Watch for degradation
    - Update baselines as needed
 
+## Gotchas
+
+- **Reporting only accuracy on an imbalanced dataset** — A model that predicts "no fraud" 100% of the time achieves 99% accuracy on a dataset with 1% fraud; the accuracy number looks excellent while the model provides zero value; always report at least precision, recall, or F1 alongside accuracy when classes are unequal.
+- **Using MSE to compare models trained on different target scales** — MSE for house prices measured in dollars will dwarf MSE for a model predicting prices in thousands of dollars, even if the models are equally good; always report RMSE in the target's original units, or use R² to make scale-independent comparisons.
+- **MAPE silently breaks on zero-valued targets** — `mean_absolute_percentage_error` divides by the true value; if any `y_true` element is 0 the result is infinite or undefined, often silently returning `NaN`; check your target distribution for zeros before choosing MAPE.
+- **Choosing a metric after seeing results** — Deciding to switch from accuracy to F1 after noticing that accuracy looks bad is p-hacking for ML; choose your primary metric before training, based on the business problem, and stick to it as the final decision criterion.
+- **Passing hard predictions to `roc_auc_score`** — `roc_auc_score` requires probability scores, not binary predictions; passing `model.predict(X_test)` instead of `model.predict_proba(X_test)[:, 1]` will compute a degenerate AUC of 0.5 or raise a warning, silently giving a wrong result.
+- **Treating R² near 1.0 as proof of a good model** — On a dataset with a strong linear trend, even a bad model can achieve R²=0.95 because the metric measures variance explained relative to the mean, not prediction error in absolute terms; always inspect residual plots alongside R² to detect heteroscedasticity or systematic bias.
+
 ## Additional Resources
 
 - [Scikit-learn Metrics Guide](https://scikit-learn.org/stable/modules/model_evaluation.html)
