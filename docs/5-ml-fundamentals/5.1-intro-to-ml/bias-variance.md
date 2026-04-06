@@ -688,6 +688,15 @@ When you are ready to go deeper, apply the same ideas on a dataset you care abou
 
 Remember: Finding the right balance between bias and variance is an iterative process. Don't be afraid to experiment and learn from the results!
 
+## Gotchas
+
+- **Evaluating bias and variance using only training accuracy** — a perfect training score says nothing about variance; you need to compare training and validation scores side by side via learning curves or cross-validation before you can name the failure mode.
+- **Tuning hyperparameters on the test set** — every peek at test-set performance leaks information and inflates your estimate of how well the model generalises; reserve the test set for a single final evaluation and use cross-validation for all tuning decisions.
+- **Treating the cross-validation mean as a single fixed number** — `cross_val_score` returns one score per fold; a high mean with high standard deviation (±0.1 or more) often signals that the model is unstable or the dataset is too small, not just that the model is good.
+- **Adding polynomial features without re-checking variance** — going from `degree=1` to `degree=3` reduces bias but can dramatically increase variance; always compare cross-validation scores before and after the expansion, not just training accuracy.
+- **Conflating GridSearchCV's `best_score_` with test performance** — `best_score_` is the mean CV score across inner folds, which is optimistic relative to a held-out test set because you searched the grid to maximise it; always report the final model score on a separate test split.
+- **Interpreting a small training–validation gap as "good fit"** — a small gap is necessary but not sufficient; both scores must also be *high*. Two low scores close together indicate high bias (underfitting), not a well-calibrated model.
+
 ## Additional Resources
 
 1. **Books**
