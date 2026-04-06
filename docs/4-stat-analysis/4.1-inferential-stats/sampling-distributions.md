@@ -634,6 +634,15 @@ sampling_game()
 6. Real-world applications include quality control and polling
 7. Common misconceptions can lead to incorrect interpretations
 
+## Gotchas
+
+- **Confusing the sampling distribution with the sample distribution** — the *sample distribution* is the histogram of values in one dataset; the *sampling distribution* is the distribution of a statistic (e.g., x̄) across hypothetical repeated samples. The CLT applies to the second, not the first.
+- **Believing the CLT means "your data become normal with more observations"** — the CLT says the *sampling distribution of the mean* becomes approximately normal; the raw data can stay skewed or bimodal regardless of n. Using CLT to justify normality of individual values leads to wrong model choices downstream.
+- **Using `np.random.choice(population, size=n)` to build a sampling distribution when n is small** — for a population of size 10,000 and n=5, each resample is highly sensitive to outliers and the normal approximation is poor. The lesson's threshold of n=30 is a common rule of thumb; skewed populations may need n>50 before the CLT kicks in.
+- **Equating standard deviation with standard error** — `np.std(data)` gives the spread of individual observations; `scipy.stats.sem(data)` gives how much the *mean* varies across samples. Using the wrong one in a CI formula inflates or deflates the interval by a factor of √n.
+- **Overlaying a normal curve on a sampling distribution and concluding CLT "proved"** — the lesson's `stats.norm.pdf` overlay is fitted to the simulated means, so it will always look like a decent fit. A formal normality check (Shapiro-Wilk or Q-Q plot) is needed to verify CLT has kicked in adequately for a given n and population shape.
+- **Running the demonstration code without a fixed seed and expecting stable output** — the lesson's CLT simulation uses `np.random.choice` inside a loop without a per-run seed; re-running will produce slightly different empirical SEs. Always seed before benchmarking or sharing, and report that values are approximate.
+
 ## Next steps
 
 - Continue to [Understanding p-values](./p-values.md). After that submodule, you will start [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md) with [Experimental design](../4.2-hypotheses-testing/experimental-design.md).
