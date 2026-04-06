@@ -978,4 +978,13 @@ ORDER BY inventory_value DESC;
    - Increased sales
    - Better marketing ROI
 
+## Gotchas
+
+- **The LEFT JOIN in `customer_metrics` still drops customers who ordered outside the 12-month window** — The CTE uses `LEFT JOIN orders o ON … WHERE o.order_date >= CURRENT_DATE - INTERVAL '12 months'`. Because the date filter is in WHERE (not in the ON clause), customers whose only orders are older than 12 months are excluded entirely rather than showing zero activity. Move the date condition into the ON clause to preserve all customers.
+- **NTILE assigns quartile 1 to the top spenders, not the bottom** — Because `NTILE(4) OVER (ORDER BY total_spent DESC)` sorts descending, quartile 1 is the highest-spending group. When labelling segments, "quartile 1 = VIP" is correct here, but reversing the ORDER BY direction in other uses would flip the meaning silently.
+- **`EXTRACT(MONTH FROM age)` in the retention CTE only returns the month component, not total months elapsed** — If a customer joins in January 2023 and places an order in January 2024, `EXTRACT(MONTH FROM order_month - cohort_month)` returns 0 (same month number), not 12. Use `EXTRACT(YEAR FROM age) * 12 + EXTRACT(MONTH FROM age)` or `DATE_PART('month', AGE(order_month, cohort_month))` to get total months since join.
+- **LEFT JOIN + WHERE on order date silently removes zero-sales products from the 90-day product analysis** — The `product_metrics` CTE LEFT JOINs to orders but then filters `WHERE o.order_date >= CURRENT_DATE - INTERVAL '90 days'`. Products with no recent orders have NULL for `o.order_date`, which fails the filter and is excluded. To keep unsold products, move the date filter into the ON clause or add `OR o.order_date IS NULL`.
+- **NULLIF in discount-rate and profit-margin calculations silently returns NULL instead of zero** — `NULLIF(SUM(o.total_amount), 0)` prevents division by zero but returns NULL for customers with no spend, which then propagates through the ratio. Wrap the whole expression in `COALESCE(… , 0)` if a zero rate is more meaningful to downstream logic than NULL.
+- **Hardcoded CASE thresholds become stale as the dataset grows** — Segment boundaries like `avg_order_value > 500` for "Premium Buyer" or `discount_rate > 20` for "Discount Sensitive" are calibrated to the current data distribution. After ingesting new data, re-examine these cutoffs with percentile queries rather than assuming the original numbers still separate segments meaningfully.
+
 Remember: "Data-driven decisions lead to better business outcomes!"
