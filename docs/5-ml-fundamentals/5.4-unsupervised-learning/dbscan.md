@@ -34,3 +34,11 @@ noise_mask = labels == -1
 ```
 
 For the complete tutorial, see [Advanced Clustering Guide](advanced-clustering.md).
+
+## Gotchas
+
+- **Noise points labeled `-1` will break silhouette scoring** — `silhouette_score` raises an error if any label is `-1`; filter out noise points (`labels != -1`) before computing it, and report the noise fraction separately.
+- **`eps` in raw feature space is meaningless** — DBSCAN uses Euclidean distance, so an `eps` value that works on standardized data will be wildly wrong on unscaled data. Always scale first, then tune `eps`.
+- **All points classified as noise** — if `eps` is too small or `min_samples` is too large, DBSCAN assigns everything to noise (-1) with zero clusters. Use a k-distance plot (sort the k-th nearest-neighbor distance for each point) to pick a sensible `eps` before guessing.
+- **All points in one cluster** — the opposite failure: if `eps` is too large, DBSCAN merges everything into a single cluster. The k-distance elbow helps here too.
+- **DBSCAN struggles with clusters of very different densities** — it uses a single global `eps`, so dense and sparse regions get treated identically; consider HDBSCAN for datasets where cluster density varies significantly.
