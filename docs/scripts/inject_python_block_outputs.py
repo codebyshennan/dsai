@@ -254,6 +254,14 @@ def _run_python_block(code: str, ns: dict) -> tuple[str, list[Path], list[str]]:
     if not code.strip():
         return "", [], []
 
+    # Close any stale figures left by a previously-failed block (prevents cross-block leakage).
+    try:
+        import matplotlib.pyplot as _plt_cleanup
+        if _plt_cleanup.get_fignums():
+            _plt_cleanup.close("all")
+    except Exception:
+        pass
+
     buf = io.StringIO()
     fig_paths: list[Path] = []
     fig_titles: list[str] = []
@@ -428,7 +436,11 @@ def process_markdown_file(
                 rel = os.path.relpath(fig, cwd)
             # Resolve figure number from filename suffix (e.g. _fig_3.png → 3)
             fig_num_match = re.search(r"_fig_(\d+)\.png$", fig.name)
-            fig_num = int(fig_num_match.group(1)) if fig_num_match else ns.get("_fig_counter", 1)
+            fig_num = (
+                int(fig_num_match.group(1))
+                if fig_num_match
+                else ns.get("_fig_counter", 1)
+            )
             caption_text = pragma_caption or mpl_title or "Generated visualization"
             caption = f"Figure {fig_num}: {caption_text}"
             parts.append(
