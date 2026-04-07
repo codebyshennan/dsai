@@ -192,6 +192,8 @@ def _has_following_output_or_figure(content: str, end_pos: int) -> bool:
     sub = tail[i:]
     if sub.startswith("!["):
         return True
+    if sub.startswith("<figure"):
+        return True
     lang, _ = _first_fence_after(sub)
     if lang is None:
         return False
