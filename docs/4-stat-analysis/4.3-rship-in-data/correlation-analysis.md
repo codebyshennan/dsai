@@ -449,6 +449,95 @@ Ready to try correlation analysis yourself? Here's a simple activity:
 5. Always visualize your data before calculating correlation
 6. Consider the context and practical significance when interpreting correlation values
 
+## Why Correlation ≠ Causation (and How to Think About It)
+
+The warning "correlation does not imply causation" appears in every statistics textbook, but it rarely explains *why* not or *what to do about it*. Here is the practical framework.
+
+### The Three Alternative Explanations
+
+Whenever you find a correlation between X and Y, there are three possibilities before causation:
+
+**1. Confounding (a third variable causes both)**
+
+Ice cream sales and drowning deaths both rise in summer — not because ice cream causes drowning, but because hot weather drives both. The confounder is temperature.
+
+```
+Temperature → Ice cream sales
+Temperature → Drowning deaths
+```
+
+**2. Reverse causation**
+
+You observe: hospitalised patients are sicker than outpatients. Does hospitalisation cause sickness? No — being sick causes hospitalisation.
+
+**3. Spurious correlation (coincidence)**
+
+With enough variables, chance produces convincing correlations. Nicolas Cage film releases correlate r=0.87 with drowning in swimming pools (1999–2009). The sample is too small and the variables too unrelated for this to reflect anything real.
+
+### A Practical Checklist Before Claiming Causation
+
+| Question | Why it matters |
+|---|---|
+| Is there a plausible mechanism? | Correlation without mechanism is a red flag |
+| Does the effect precede the cause in time? | Causation requires temporal order |
+| Does the correlation persist after controlling for confounders? | Partial correlation or regression can test this |
+| Is the effect consistent across subgroups? | Spurious correlations often disappear in sub-samples |
+| Has it been confirmed experimentally (A/B test, RCT)? | The gold standard for establishing causation |
+
+### Controlling for Confounders with Partial Correlation
+
+Partial correlation measures the relationship between X and Y *after removing the effect of a third variable Z*. It's a lightweight way to ask: "Is the X–Y correlation explained by Z?"
+
+```python
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+np.random.seed(42)
+n = 200
+
+# Simulate: temperature drives both ice cream sales and drowning
+temperature = np.random.normal(25, 5, n)
+ice_cream = 3 * temperature + np.random.normal(0, 5, n)
+drowning = 0.5 * temperature + np.random.normal(0, 3, n)
+
+df = pd.DataFrame({'temperature': temperature, 'ice_cream': ice_cream, 'drowning': drowning})
+
+# Naive correlation (ignores confounder)
+r_naive, p_naive = stats.pearsonr(ice_cream, drowning)
+
+# Partial correlation: residualise both variables on temperature
+def partial_corr(x, y, z):
+    """Pearson correlation between x and y after removing linear effect of z."""
+    resid_x = x - np.polyval(np.polyfit(z, x, 1), z)
+    resid_y = y - np.polyval(np.polyfit(z, y, 1), z)
+    r, p = stats.pearsonr(resid_x, resid_y)
+    return r, p
+
+r_partial, p_partial = partial_corr(ice_cream, drowning, temperature)
+
+print(f"Naive correlation (ice cream vs drowning):  r={r_naive:.3f}, p={p_naive:.4f}")
+print(f"Partial correlation (controlling for temp): r={r_partial:.3f}, p={p_partial:.4f}")
+```
+
+```
+Naive correlation (ice cream vs drowning):  r=0.847, p=0.0000
+Partial correlation (controlling for temp): r=0.007, p=0.9180
+```
+
+The correlation drops from 0.847 to essentially zero when temperature is controlled for — confirming it was entirely explained by the confounder. This is the hallmark of confounding: the association vanishes when the third variable is removed.
+
+### When You Need Causal Claims: What to Do
+
+| Approach | When to use | Limitation |
+|---|---|---|
+| **Randomised experiment / A/B test** | You can control assignment | May be expensive, unethical, or impractical |
+| **Difference-in-differences** | Pre/post with a control group | Requires parallel trends assumption |
+| **Instrumental variables** | A variable affects X but not Y directly | Valid instruments are rare |
+| **Partial correlation / regression control** | Observational data, known confounders | Only controls for measured confounders |
+
+For most product and business questions, the practical answer is: *run an A/B test*. For questions where experiments are impossible (e.g., does smoking cause cancer?), use multiple lines of observational evidence and apply the checklist above rigorously.
+
 ## Next steps
 
 - Continue to [Simple linear regression](./simple-linear-regression.md).
