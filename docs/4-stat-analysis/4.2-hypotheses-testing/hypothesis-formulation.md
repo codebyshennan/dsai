@@ -518,7 +518,7 @@ Detecting a small effect (d=0.2) requires ~6x more data than a large effect (d=0
 
 - Continue to [Statistical tests](./statistical-tests.md), then [A/B testing](./ab-testing.md) and [Results analysis](./results-analysis.md).
 
-## 8. Additional Resources
+## 10. Additional Resources
 
 - [Statistical Hypothesis Testing Guide](https://www.statisticshowto.com/probability-and-statistics/hypothesis-testing/)
 - [Multiple Testing Calculator](https://www.statstest.com/bonferroni/)
