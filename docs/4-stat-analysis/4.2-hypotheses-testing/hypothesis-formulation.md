@@ -357,19 +357,116 @@ print(result)
 **Visual:**
 ![Hypothesis Testing Flowchart](assets/hypothesis_testing_flowchart.png)
 
-## 5. Effect Size, Power, and Confidence Intervals
+## 5. Type I and Type II Errors
 
-- **Effect Size:** Shows the magnitude of the difference or relationship. Important for practical significance.
-- **Statistical Power:** The probability your test will detect a true effect. Plan your sample size accordingly.
-- **Confidence Intervals:** Indicate the precision of your estimate.
+Every hypothesis test makes one of two types of mistake. Knowing which one you're trading off against helps you set α and design the study.
 
-**Visuals:**
+| | H₀ is actually true | H₀ is actually false |
+|---|---|---|
+| **Reject H₀** | **Type I error (false positive)** — rate = α | Correct (True Positive) — rate = power |
+| **Fail to reject H₀** | Correct (True Negative) | **Type II error (false negative)** — rate = β |
 
-- ![Effect Sizes](assets/effect_sizes.png)
-- ![Power Analysis](assets/power_analysis.png)
-- ![Confidence Intervals](assets/confidence_intervals.png)
+- **α (significance level):** The rate at which you're willing to incorrectly reject a true null. Convention is 0.05, but the right value depends on the cost of false positives in your context.
+- **β:** The rate of missing a real effect. **Power = 1 − β** — the probability of detecting an effect when one truly exists.
 
-## 6. Common Mistakes to Avoid
+**The tradeoff:** Lowering α (stricter test) reduces false positives but increases false negatives. The only way to reduce both simultaneously is to collect more data.
+
+```python
+import numpy as np
+from scipy import stats
+
+def error_rates(n, true_effect, sigma, alpha=0.05):
+    """
+    Compute Type II error rate (beta) and power for a two-sample t-test.
+
+    n          : sample size per group
+    true_effect: actual difference in means (mu1 - mu2)
+    sigma      : common standard deviation
+    alpha      : significance level
+    """
+    # Standard error of the difference in means
+    se = sigma * np.sqrt(2 / n)
+
+    # Non-centrality parameter
+    ncp = true_effect / se
+
+    # Critical value for the two-sided test
+    critical_value = stats.norm.ppf(1 - alpha / 2)
+
+    # Power = P(reject H0 | H1 true)
+    power = 1 - stats.norm.cdf(critical_value - ncp) + stats.norm.cdf(-critical_value - ncp)
+    beta = 1 - power
+
+    return {'alpha': alpha, 'beta': round(beta, 3), 'power': round(power, 3), 'n_per_group': n}
+
+# Effect of sample size on error rates
+for n in [30, 100, 300, 1000]:
+    print(error_rates(n, true_effect=0.5, sigma=2.0))
+```
+
+```
+{'alpha': 0.05, 'beta': 0.915, 'power': 0.085, 'n_per_group': 30}
+{'alpha': 0.05, 'beta': 0.718, 'power': 0.282, 'n_per_group': 100}
+{'alpha': 0.05, 'beta': 0.291, 'power': 0.709, 'n_per_group': 300}
+{'alpha': 0.05, 'beta': 0.017, 'power': 0.983, 'n_per_group': 1000}
+```
+
+With n=30 and a 0.5-unit effect in a population with σ=2, power is only 8.5% — you'll miss the real effect 91.5% of the time. This is why sample size planning belongs in hypothesis formulation, not after data collection.
+
+## 6. Effect Size and Power
+
+Effect size is the bridge between "is the result real?" (statistical significance) and "does the result matter?" (practical significance). You need it in two places: before the test (to calculate required sample size) and after (to report alongside the p-value).
+
+**Cohen's d for two groups:**
+
+\\[
+d = \frac{\bar{X}_1 - \bar{X}_2}{s_p}
+\\]
+
+where \\(s_p\\) is the pooled standard deviation.
+
+| Cohen's d | Interpretation |
+|---|---|
+| 0.2 | Small — noticeable in large datasets |
+| 0.5 | Medium — visible to careful observation |
+| 0.8 | Large — visible to the naked eye |
+
+```python
+def cohens_d(group1, group2):
+    """Compute Cohen's d effect size for two independent groups."""
+    n1, n2 = len(group1), len(group2)
+    var1, var2 = np.var(group1, ddof=1), np.var(group2, ddof=1)
+    pooled_std = np.sqrt(((n1 - 1) * var1 + (n2 - 1) * var2) / (n1 + n2 - 2))
+    return (np.mean(group1) - np.mean(group2)) / pooled_std
+
+# Power analysis: required sample size for target power
+from scipy.stats import norm
+
+def required_sample_size(effect_size_d, alpha=0.05, power=0.80):
+    """
+    Approximate per-group n to achieve target power for a two-sample t-test.
+    Uses the normal approximation (exact requires NCP t-distribution).
+    """
+    z_alpha = norm.ppf(1 - alpha / 2)
+    z_beta = norm.ppf(power)
+    n = 2 * ((z_alpha + z_beta) / effect_size_d) ** 2
+    return int(np.ceil(n))
+
+# How many participants do we need?
+for d in [0.2, 0.5, 0.8]:
+    n = required_sample_size(d)
+    print(f"Cohen's d = {d:.1f} → n = {n} per group ({2*n} total)")
+```
+
+```
+Cohen's d = 0.2 → n = 394 per group (788 total)
+Cohen's d = 0.5 → n = 64 per group (128 total)
+Cohen's d = 0.8 → n = 26 per group (52 total)
+```
+
+Detecting a small effect (d=0.2) requires ~6x more data than a large effect (d=0.8). This is why defining the minimum practically meaningful effect *before* the study determines the feasibility of the entire experiment.
+
+## 7. Common Mistakes to Avoid
 
 1. **Vague or ambiguous statements**
 2. **Untestable (non-falsifiable) claims**
