@@ -712,7 +712,6 @@ degree=10  CV MSE=1.193 ± 0.271
 Degree 2 wins — it matches the true data-generating process (which is quadratic). Degree 10 has both higher error *and* higher variance across folds, the signature of overfitting.
 
 **Key rule:** when two models have similar CV MSE, prefer the simpler one. If degree 2 (CV MSE 1.018 ± 0.102) and degree 3 (CV MSE 1.025 ± 0.114) are within one standard error, degree 2 wins on parsimony.
-{% endhighlight %}
 
 ![model-selection](assets/model-selection_fig_4.png)
 
