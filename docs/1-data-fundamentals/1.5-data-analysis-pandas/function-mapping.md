@@ -112,6 +112,26 @@ sales_data['Total'] = sales_data['Price'] * sales_data['Quantity']
 print("\nCleaned sales data:")
 print(sales_data)
 {% endhighlight %}
+```
+Original grades:
+      Name  Math  Science  History
+0    Alice    85       92       88
+1      Bob    76       88       82
+2  Charlie    92       95       85
+
+With letter grades:
+      Name  Math  Science  History Math_Grade Science_Grade History_Grade
+0    Alice    85       92       88          B             A             B
+1      Bob    76       88       82          C             B             B
+2  Charlie    92       95       85          A             A             B
+
+Cleaned sales data:
+         Date   Product    Price  Quantity    Total
+0  2023-01-01    Laptop  1200.00         5  6000.00
+1  2023-01-02     Mouse    25.99        10   259.90
+2  2023-01-03  Keyboard    89.99         8   719.92
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -370,6 +390,22 @@ print(grades)
 print("\nGrade analysis:")
 print(analysis)
 {% endhighlight %}
+```
+Original grades:
+   Student  Quiz1  Quiz2  Quiz3
+0    Alice     95     88     92
+1      Bob     80     85     88
+2  Charlie     85     90     85
+3    David     70     75     80
+
+Grade analysis:
+     Average  Highest  Lowest  Improved
+0  91.666667       95      88     False
+1  84.333333       88      80      True
+2  86.666667       90      85     False
+3  75.000000       80      70      True
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

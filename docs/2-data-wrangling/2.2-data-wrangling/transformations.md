@@ -242,8 +242,6 @@ def create_transformation_pipeline(numeric_features, categorical_features):
     return Pipeline(steps=[('preprocessor', preprocessor)])
 {% endhighlight %}
 
-![transformations](assets/transformations_fig_1.png)
-
 ![transformations](assets/transformations_fig_2.png)
 
 </div>
@@ -731,11 +729,7 @@ for i, col in enumerate(numeric_features):
     print(validation)
 {% endhighlight %}
 
-![transformations](assets/transformations_fig_3.png)
-
 ![transformations](assets/transformations_fig_4.png)
-
-![transformations](assets/transformations_fig_5.png)
 
 ```
 

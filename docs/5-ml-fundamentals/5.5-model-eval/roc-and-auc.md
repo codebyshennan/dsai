@@ -152,6 +152,16 @@ def plot_roc_curve(fpr, tpr, roc_auc, title="ROC Curve"):
 plot_roc_curve(fpr, tpr, roc_auc)
 {% endhighlight %}
 
+<figure>
+<img src="assets/roc-and-auc_fig_1.png" alt="roc-and-auc" />
+<figcaption>Figure 1: ROC Curve</figcaption>
+</figure>
+
+```
+AUC Score: 0.914
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-22" data-tint="1">
@@ -184,8 +194,6 @@ plot_roc_curve(fpr, tpr, roc_auc)
 </aside>
 </div>
 
-
-![roc-and-auc](assets/roc-and-auc_fig_1.png)
 
 ```
 AUC Score: 0.914
@@ -274,6 +282,12 @@ plt.grid(True, alpha=0.3)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/roc-and-auc_fig_2.png" alt="roc-and-auc" />
+<figcaption>Figure 2: ROC Curves for Multiple Models</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-12" data-tint="1">
@@ -306,8 +320,6 @@ plt.show()
 </aside>
 </div>
 
-
-![roc-and-auc](assets/roc-and-auc_fig_2.png)
 
 **Output:**
 ```
@@ -384,6 +396,12 @@ plt.grid(True, alpha=0.3)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/roc-and-auc_fig_3.png" alt="roc-and-auc" />
+<figcaption>Figure 3: Multi-class ROC Curves</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-11" data-tint="1">
@@ -416,8 +434,6 @@ plt.show()
 </aside>
 </div>
 
-
-![roc-and-auc](assets/roc-and-auc_fig_3.png)
 
 **Output:**
 ```
@@ -706,6 +722,22 @@ print(f"Actual default rate: {y_test.mean():.2%}")
 print(f"Predicted default rate (threshold=0.5): {(y_pred_proba >= 0.5).mean():.2%}")
 {% endhighlight %}
 
+<figure>
+<img src="assets/roc-and-auc_fig_4.png" alt="roc-and-auc" />
+<figcaption>Figure 4: ROC Curve - Credit Risk Model</figcaption>
+</figure>
+
+```
+Default rate: 25.65%
+
+Credit Risk Model Performance:
+AUC Score: 0.734
+Number of test samples: 400
+Actual default rate: 25.75%
+Predicted default rate (threshold=0.5): 13.00%
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-46" data-tint="1">
@@ -738,8 +770,6 @@ print(f"Predicted default rate (threshold=0.5): {(y_pred_proba >= 0.5).mean():.2
 </aside>
 </div>
 
-
-![roc-and-auc](assets/roc-and-auc_fig_4.png)
 
 ```
 Default rate: 25.65%
@@ -929,6 +959,10 @@ def bootstrap_auc(y_true, y_pred_proba, n_bootstrap=1000, confidence_level=0.95)
 auc_mean, auc_lower, auc_upper = bootstrap_auc(y_test, y_pred_proba)
 print(f"AUC: {auc_mean:.3f} (95% CI: {auc_lower:.3f} - {auc_upper:.3f})")
 {% endhighlight %}
+```
+AUC: 0.734 (95% CI: 0.677 - 0.787)
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

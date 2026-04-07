@@ -180,6 +180,12 @@ ax.yaxis.set_major_formatter(
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
 
+<figure>
+<img src="assets/real-world-case-study_fig_1.png" alt="real-world-case-study" />
+<figcaption>Figure 1: Weekly Conversion Rate — Q2 Improvement Visible After Redesign</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-8" data-tint="1">
@@ -270,6 +276,12 @@ ax.set_xlabel("Conversion Rate (%)")
 ax.grid(True, alpha=0.3, axis="x")
 {% endhighlight %}
 
+<figure>
+<img src="assets/real-world-case-study_fig_2.png" alt="real-world-case-study" />
+<figcaption>Figure 2: Conversion Rate by Channel</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-14" data-tint="1">
@@ -344,6 +356,13 @@ ax.set_ylabel("Revenue per Session ($)")
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
 
+<figure>
+<img src="assets/real-world-case-study_fig_3.png" alt="real-world-case-study" />
+<figcaption>Figure 3: Volume vs Efficiency by Channel
+(bubble size = total orders)</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-6" data-tint="1">
@@ -412,6 +431,16 @@ sns.heatmap(
 )
 ax.set_title("Conversion Rate by Channel and Device (%)")
 {% endhighlight %}
+
+<figure>
+<img src="assets/real-world-case-study_fig_4.png" alt="real-world-case-study" />
+<figcaption>Figure 4: Conversion Rate by Channel and Device (%)</figcaption>
+</figure>
+
+```
+Text(0.5, 1.0, 'Conversion Rate by Channel and Device (%)')
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -506,6 +535,12 @@ ax.yaxis.set_major_formatter(
 ax.legend()
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
+
+<figure>
+<img src="assets/real-world-case-study_fig_5.png" alt="real-world-case-study" />
+<figcaption>Figure 5: Conversion Rate: Mobile vs Desktop Before and After Redesign</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

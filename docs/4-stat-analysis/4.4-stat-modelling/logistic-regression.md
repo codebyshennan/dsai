@@ -125,8 +125,6 @@ plt.show()
 print(exam_data.head())
 ```
 
-![logistic-regression](assets/logistic-regression_fig_1.png)
-
 ```
    StudyHours  AptitudeScore  Passed
 0    5.993428      43.769439       0
@@ -218,8 +216,6 @@ def plot_logistic_curve():
 plot_logistic_curve()
 ```
 
-![logistic-regression](assets/logistic-regression_fig_2.png)
-
 When you run this code, you'll see a visualization of the logistic function (saved as `logistic_curve_annotated.png`):
 
 ![Logistic Curve Annotated](assets/logistic_curve_annotated.png)
@@ -301,8 +297,6 @@ def plot_coefficient_effects():
 plot_coefficient_effects()
 ```
 
-![logistic-regression](assets/logistic-regression_fig_3.png)
-
 When you run this code, you'll see how different coefficients affect the probability curve (saved as `coefficient_effects.png`):
 
 ![Coefficient Effects](assets/coefficient_effects.png)
@@ -374,8 +368,6 @@ def plot_odds_ratios():
 # Plot odds ratios
 plot_odds_ratios()
 ```
-
-![logistic-regression](assets/logistic-regression_fig_4.png)
 
 When you run this code, you'll see a visualization of odds ratios (saved as `odds_ratios.png`):
 
@@ -530,8 +522,6 @@ X_scaled = scaler.transform(X)
 plot_decision_boundary(X_scaled, y, model, scaler)
 ```
 
-![logistic-regression](assets/logistic-regression_fig_5.png)
-
 When you run this code, you'll see a visualization of the decision boundary (saved as `logistic_decision_boundary.png`):
 
 ![Logistic Decision Boundary](assets/logistic_decision_boundary.png)
@@ -602,8 +592,6 @@ def evaluate_model(model, X_test, y_test):
 # Evaluate the model
 evaluate_model(model, X_test_scaled, y_test)
 ```
-
-![logistic-regression](assets/logistic-regression_fig_6.png)
 
 ![logistic-regression](assets/logistic-regression_fig_7.png)
 
@@ -712,8 +700,6 @@ print(loan_coefficients)
 evaluate_model(loan_model, X_test_scaled, y_test)
 ```
 
-![logistic-regression](assets/logistic-regression_fig_8.png)
-
 ![logistic-regression](assets/logistic-regression_fig_9.png)
 
 ```
@@ -799,8 +785,6 @@ def plot_feature_importance(model, feature_names):
 # Plot feature importance
 plot_feature_importance(loan_model, X_loan.columns)
 ```
-
-![logistic-regression](assets/logistic-regression_fig_10.png)
 
 When you run this code, you'll see a visualization of feature importance (saved as `feature_importance.png`):
 
@@ -961,8 +945,6 @@ weighted_model = LogisticRegression(class_weight='balanced')
 class_weights = {0: 1, 1: 10}  # Give 10x importance to class 1
 weighted_model = LogisticRegression(class_weight=class_weights)
 ```
-
-![logistic-regression](assets/logistic-regression_fig_11.png)
 
 ![logistic-regression](assets/logistic-regression_fig_12.png)
 

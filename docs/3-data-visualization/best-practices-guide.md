@@ -168,10 +168,18 @@ plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 ```
 
 
-![best-practices-guide](assets/best-practices-guide_fig_1.png)
+<figure>
+<img src="assets/best-practices-guide_fig_1.png" alt="best-practices-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
 
 
-![best-practices-guide](assets/best-practices-guide_fig_2.png)
+<figure>
+<img src="assets/best-practices-guide_fig_2.png" alt="best-practices-guide" />
+<figcaption>Figure 2: Sales Analysis Dashboard</figcaption>
+</figure>
+
+
 
 ## Interactive Features
 
@@ -360,10 +368,22 @@ plt.figtext(0.99, 0.01, 'Source: Sales Database (Updated Daily)',
 ```
 
 
-![best-practices-guide](assets/best-practices-guide_fig_3.png)
+<figure>
+<img src="assets/best-practices-guide_fig_3.png" alt="best-practices-guide" />
+<figcaption>Figure 3: Generated visualization</figcaption>
+</figure>
 
 
-![best-practices-guide](assets/best-practices-guide_fig_4.png)
+<figure>
+<img src="assets/best-practices-guide_fig_4.png" alt="best-practices-guide" />
+<figcaption>Figure 4: Generated visualization</figcaption>
+</figure>
+
+```
+Text(0.99, 0.01, 'Source: Sales Database (Updated Daily)')
+```
+
+
 
 **Captured output (notebook):** Jupyter may display the `Text` object returned by `figtext`; the caption still renders on the figure.
 

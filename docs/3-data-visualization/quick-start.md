@@ -41,6 +41,18 @@ months = ['Jan', 'Feb', 'Mar', 'Apr', 'May']
 sales = [100, 120, 140, 130, 150]
 ```
 
+
+<figure>
+<img src="assets/quick-start_fig_1.png" alt="quick-start" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/quick-start_fig_2.png" alt="quick-start" />
+<figcaption>Figure 2: Generated visualization</figcaption>
+</figure>
+
 ### Step 2: Create a Simple Line Chart
 
 **Purpose:** Draw a first line chart with title, y-label, grid, and markers so the trend is readable at a glance.
@@ -58,8 +70,6 @@ plt.show()  # Display the chart
 ```
 
 
-![quick-start](assets/quick-start_fig_1.png)
-
 ### Step 3: Make it Look Better
 
 **Purpose:** See how color, line width, and title typography change the same data without changing the numbers.
@@ -76,8 +86,6 @@ plt.grid(True, linestyle='--', alpha=0.7)
 plt.show()
 ```
 
-
-![quick-start](assets/quick-start_fig_2.png)
 
 ## Three Most Common Chart Types
 
@@ -98,8 +106,6 @@ plt.show()
 ```
 
 
-![quick-start](assets/quick-start_fig_3.png)
-
 ### 2. Bar Chart
 
 **Best for:** Comparing categories
@@ -117,8 +123,6 @@ plt.show()
 ```
 
 
-![quick-start](assets/quick-start_fig_4.png)
-
 ### 3. Pie Chart
 
 **Best for:** Showing parts of a whole
@@ -135,8 +139,6 @@ plt.title('Sales Distribution')
 plt.show()
 ```
 
-
-![quick-start](assets/quick-start_fig_5.png)
 
 ## Quick Tips for Better Charts
 
@@ -213,7 +215,39 @@ plt.xticks(rotation=45)  # Rotate labels if needed
 ```
 
 
-![quick-start](assets/quick-start_fig_6.png)
+<figure>
+<img src="assets/quick-start_fig_1.png" alt="quick-start" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/quick-start_fig_2.png" alt="quick-start" />
+<figcaption>Figure 2: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/quick-start_fig_3.png" alt="quick-start" />
+<figcaption>Figure 3: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/quick-start_fig_4.png" alt="quick-start" />
+<figcaption>Figure 4: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/quick-start_fig_5.png" alt="quick-start" />
+<figcaption>Figure 5: Sales</figcaption>
+</figure>
+
+```
+(array([0. , 0.2, 0.4, 0.6, 0.8, 1. ]), [Text(0.0, 0, '0.0'), Text(0.2, 0, '0.2'), Text(0.4, 0, '0.4'), Text(0.6000000000000001, 0, '0.6'), Text(0.8, 0, '0.8'), Text(1.0, 0, '1.0')])
+```
+
 
 **Captured output (notebook):** The cell above may print the return value of `plt.xticks(rotation=45)`—a tuple of tick locations and label objects. That repr is normal; the figure shows the rotated labels.
 

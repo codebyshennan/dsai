@@ -65,6 +65,10 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.3f}")
 {% endhighlight %}
+```
+Accuracy: 0.810
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -128,6 +132,10 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.3f}")
 {% endhighlight %}
+```
+Accuracy: 1.000
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -277,6 +285,11 @@ print(f"Accuracy: {accuracy:.3f}")
 baseline_accuracy = max(y_test.mean(), 1 - y_test.mean())
 print(f"Baseline Accuracy: {baseline_accuracy:.3f}")
 {% endhighlight %}
+```
+Accuracy: 0.970
+Baseline Accuracy: 0.555
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

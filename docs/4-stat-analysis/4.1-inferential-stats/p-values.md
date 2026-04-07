@@ -139,6 +139,14 @@ print(f"Treatment group mean: {np.mean(treatment):.2f} days")
 print(f"P-value: {p_value:.4f}")
 print(f"Result: {'Significant' if p_value < 0.05 else 'Not significant'}")
 {% endhighlight %}
+```
+Clinical Trial Analysis
+Control group mean: 9.62 days
+Treatment group mean: 8.76 days
+P-value: 0.0722
+Result: Not significant
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -255,6 +263,19 @@ def compare_scenarios():
 
 compare_scenarios()
 {% endhighlight %}
+```
+
+Effect Size vs P-value Comparison
+
+Scenario 1: Small Effect, Large Sample
+P-value: 0.0264
+Effect size: 0.10
+
+Scenario 2: Large Effect, Small Sample
+P-value: 0.0477
+Effect size: 0.71
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -346,6 +367,15 @@ def show_sample_size_effect():
 
 show_sample_size_effect()
 {% endhighlight %}
+```
+
+Sample Size Effect Demo
+n=  20: p=0.1828 Not significant
+n= 100: p=0.0227 Significant
+n= 500: p=0.0022 Significant
+n=1000: p=0.0000 Significant
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -440,6 +470,15 @@ def ab_test_simulation(n_visitors=1000):
 
 ab_test_simulation()
 {% endhighlight %}
+```
+
+A/B Test Results
+Control conversion: 10.4%
+Treatment conversion: 11.7%
+P-value: 0.3921
+Decision: Keep current version
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -539,6 +578,13 @@ print("\nMultiple Testing Correction")
 print(f"Original significant results: {sum(np.array(p_values) < 0.05)}")
 print(f"Corrected significant results: {sum(corrected_p < 0.05)}")
 {% endhighlight %}
+```
+
+Multiple Testing Correction
+Original significant results: 2
+Corrected significant results: 0
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

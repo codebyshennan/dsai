@@ -104,6 +104,12 @@ plt.grid(True)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: My First Plot</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-2" data-tint="1">
@@ -136,8 +142,6 @@ plt.show()
 </aside>
 </div>
 
-
-![README](assets/README_fig_1.png)
 
 ### Before and After
 

@@ -139,6 +139,14 @@ def analyze_clinical_trial():
 
 analyze_clinical_trial()
 {% endhighlight %}
+```
+Clinical Trial Analysis
+Average BP Reduction: 9.7 mm Hg
+95% CI: (9.1, 10.2) mm Hg
+Interpretation: We're 95% confident that the true average
+BP reduction lies between 9.1 and 10.2 mm Hg
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -274,6 +282,27 @@ def demonstrate_sample_size_effect():
 
 demonstrate_sample_size_effect()
 {% endhighlight %}
+```
+
+Sample Size Effect on CI Width
+
+Sample size: 10
+CI width: 24.51
+Precision: **
+
+Sample size: 30
+CI width: 11.55
+Precision: ****
+
+Sample size: 100
+CI width: 6.36
+Precision: *******
+
+Sample size: 300
+CI width: 3.25
+Precision: ***************
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -382,6 +411,27 @@ def demonstrate_confidence_level_effect():
 
 demonstrate_confidence_level_effect()
 {% endhighlight %}
+```
+
+Confidence Level Effect on CI Width
+
+80.0% Confidence Level:
+CI width: 6.27
+Reliability: ********
+
+90.0% Confidence Level:
+CI width: 8.12
+Reliability: *********
+
+95.0% Confidence Level:
+CI width: 9.77
+Reliability: *********
+
+99.0% Confidence Level:
+CI width: 13.17
+Reliability: *********
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -485,6 +535,13 @@ print(f"\nTest Score Analysis")
 print(f"Mean score: {mean:.1f}")
 print(f"95% CI: ({ci[0]:.1f}, {ci[1]:.1f})")
 {% endhighlight %}
+```
+
+Test Score Analysis
+Mean score: 77.4
+95% CI: (74.7, 80.1)
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -585,6 +642,13 @@ print(f"\nSurvey Analysis")
 print(f"Response rate: {responses/total:.1%}")
 print(f"95% CI: ({ci[0]:.1%}, {ci[1]:.1%})")
 {% endhighlight %}
+```
+
+Survey Analysis
+Response rate: 90.0%
+95% CI: (85.1%, 93.4%)
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -677,6 +741,13 @@ print(f"\nTeaching Method Comparison")
 print(f"Mean difference: {np.mean(method1_scores) - np.mean(method2_scores):.1f}")
 print(f"95% CI: ({ci[0]:.1f}, {ci[1]:.1f})")
 {% endhighlight %}
+```
+
+Teaching Method Comparison
+Mean difference: 0.1
+95% CI: (-5.5, 5.6)
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

@@ -182,7 +182,17 @@ def plot_bias_variance_tradeoff():
 plot_bias_variance_tradeoff()
 {% endhighlight %}
 
-![model-selection](assets/model-selection_fig_1.png)
+<figure>
+<img src="assets/model-selection_fig_1.png" alt="model-selection" />
+<figcaption>Figure 1: Are Our Errors Random? (They Should Be!)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/model-selection_fig_2.png" alt="model-selection" />
+<figcaption>Figure 2: Bias-Variance Tradeoff</figcaption>
+</figure>
+
 
 
 </div>
@@ -331,7 +341,12 @@ def demonstrate_overfitting_underfitting():
 demonstrate_overfitting_underfitting()
 {% endhighlight %}
 
-![model-selection](assets/model-selection_fig_2.png)
+<figure>
+<img src="assets/model-selection_fig_3.png" alt="model-selection" />
+<figcaption>Figure 3: Underfitting (Too Simple)
+Train MSE: 16.92, Test MSE: 16.23</figcaption>
+</figure>
+
 
 
 </div>
@@ -485,8 +500,6 @@ y_sample = 3*X_sample.squeeze() + np.random.normal(0, 1, 100)
 # Execute the function
 X_train, X_test, y_train, y_test, model = train_test_split_example(X_sample, y_sample)
 {% endhighlight %}
-
-![model-selection](assets/model-selection_fig_3.png)
 
 ```
 Training MSE: 0.8864
@@ -713,8 +726,6 @@ Degree 2 wins — it matches the true data-generating process (which is quadrati
 
 **Key rule:** when two models have similar CV MSE, prefer the simpler one. If degree 2 (CV MSE 1.018 ± 0.102) and degree 3 (CV MSE 1.025 ± 0.114) are within one standard error, degree 2 wins on parsimony.
 
-![model-selection](assets/model-selection_fig_4.png)
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -904,8 +915,6 @@ y_nonlinear = np.sin(X_nonlinear.ravel()) + np.random.normal(0, 0.2, 100)
 # Execute the function
 model_comparison = compare_models_aic_bic(X_nonlinear, y_nonlinear)
 {% endhighlight %}
-
-![model-selection](assets/model-selection_fig_5.png)
 
 ```
 Best model according to AIC: Degree 5.0 polynomial
@@ -1131,8 +1140,6 @@ y_multi = 5*X_multi[:, 0] + 2*X_multi[:, 1] - 3*X_multi[:, 2] + np.random.normal
 # Execute the function
 selected, train_errors, test_errors = forward_selection(X_multi, y_multi)
 {% endhighlight %}
-
-![model-selection](assets/model-selection_fig_6.png)
 
 ```
 Step 1: Added Feature 1, Train MSE: 9.2499, Test MSE: 23.3469
@@ -1385,8 +1392,6 @@ def backward_elimination(X, y, min_features=1):
 # Execute the function with our multivariate data
 selected_backward, train_errors_backward, test_errors_backward = backward_elimination(X_multi, y_multi)
 {% endhighlight %}
-
-![model-selection](assets/model-selection_fig_7.png)
 
 ```
 Step 1: Removed Feature 8, Train MSE: 0.6808, Test MSE: 1.3277

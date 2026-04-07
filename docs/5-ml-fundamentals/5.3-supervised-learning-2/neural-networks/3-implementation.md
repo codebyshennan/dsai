@@ -767,8 +767,6 @@ def create_model(input_shape, num_classes):
 </div>
 
 
-![3-implementation](assets/3-implementation_fig_1.png)
-
 ### 2. Training Configuration
 
 #### Optimizer, metrics, and callback bundle

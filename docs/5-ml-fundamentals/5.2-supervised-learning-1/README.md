@@ -108,6 +108,12 @@ def select_classifier(data_characteristics):
         return "Try multiple and compare"
 ```
 
+
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 ### Performance Comparison
 
 | Algorithm      | Training speed | Prediction speed | Interpretability | Memory usage |
@@ -144,6 +150,12 @@ import sklearn             # Machine learning tools
 import matplotlib.pyplot as plt  # Visualization
 ```
 
+
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 ### 3. Concepts
 
 * Feature engineering
@@ -170,6 +182,18 @@ vectorizer = TfidfVectorizer()
 classifier = MultinomialNB()
 ```
 
+
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Are Our Errors Random? (They Should Be!)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/README_fig_2.png" alt="README" />
+<figcaption>Figure 2: Generated visualization</figcaption>
+</figure>
+
 ### 2. Medical Diagnosis
 
 #### Nonlinear SVM with RBF kernel (illustrative)
@@ -184,6 +208,18 @@ from sklearn.svm import SVC
 # Example: Disease Classification
 svm_classifier = SVC(kernel='rbf', C=1.0)
 ```
+
+
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Are Our Errors Random? (They Should Be!)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/README_fig_2.png" alt="README" />
+<figcaption>Figure 2: Generated visualization</figcaption>
+</figure>
 
 ### 3. Credit Risk Assessment
 
@@ -200,6 +236,18 @@ from sklearn.tree import DecisionTreeClassifier
 dt_classifier = DecisionTreeClassifier(max_depth=5)
 ```
 
+
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Are Our Errors Random? (They Should Be!)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/README_fig_2.png" alt="README" />
+<figcaption>Figure 2: Generated visualization</figcaption>
+</figure>
+
 ### 4. Recommendation Systems
 
 #### kNN as a lazy learner for similarity-style classification
@@ -214,6 +262,18 @@ from sklearn.neighbors import KNeighborsClassifier
 # Example: Product Recommendations
 knn_classifier = KNeighborsClassifier(n_neighbors=5)
 ```
+
+
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Are Our Errors Random? (They Should Be!)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/README_fig_2.png" alt="README" />
+<figcaption>Figure 2: Generated visualization</figcaption>
+</figure>
 
 ## Learning Path
 

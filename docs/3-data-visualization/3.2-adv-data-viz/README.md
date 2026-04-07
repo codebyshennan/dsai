@@ -164,6 +164,12 @@ def create_realtime_dashboard(data_stream):
     return fig
 {% endhighlight %}
 
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-2" data-tint="1">
@@ -246,6 +252,12 @@ def create_statistical_plot(data):
     return fig
 {% endhighlight %}
 
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-5" data-tint="1">
@@ -286,8 +298,6 @@ def create_statistical_plot(data):
   </div>
 </aside>
 </div>
-
-![README](assets/README_fig_1.png)
 
 ## Module content
 
@@ -378,6 +388,12 @@ def setup_visualization_env():
     pio.templates.default = "plotly_white"
 {% endhighlight %}
 
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-10" data-tint="1">
@@ -437,6 +453,12 @@ def create_advanced_visualization(data):
                color="red", line_kws={"linestyle": "--"})
 {% endhighlight %}
 
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-5" data-tint="1">
@@ -468,8 +490,6 @@ def create_advanced_visualization(data):
   </div>
 </aside>
 </div>
-
-![README](assets/README_fig_2.png)
 
 ### Applied practice
 
@@ -510,6 +530,12 @@ def create_dashboard(data):
     )
 {% endhighlight %}
 
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-8" data-tint="1">
@@ -541,8 +567,6 @@ def create_dashboard(data):
   </div>
 </aside>
 </div>
-
-![README](assets/README_fig_3.png)
 
 ## Best practices
 

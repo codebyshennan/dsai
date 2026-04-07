@@ -76,6 +76,12 @@ plt.grid(True, linestyle='--', alpha=0.7)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/beginners-guide_fig_2.png" alt="beginners-guide" />
+<figcaption>Figure 2: My Daily Steps This Week</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-2" data-tint="1">
@@ -108,8 +114,6 @@ plt.show()
 </aside>
 </div>
 
-
-![beginners-guide](assets/beginners-guide_fig_1.png)
 
 **When to use:**
 
@@ -144,6 +148,12 @@ plt.xticks(rotation=45)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/beginners-guide_fig_3.png" alt="beginners-guide" />
+<figcaption>Figure 3: Favorite Ice Cream Flavors</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-2" data-tint="1">
@@ -177,8 +187,6 @@ plt.show()
 </div>
 
 
-![beginners-guide](assets/beginners-guide_fig_2.png)
-
 **When to use:**
 
 - Comparing quantities
@@ -208,7 +216,11 @@ plt.show()
 ```
 
 
-![beginners-guide](assets/beginners-guide_fig_3.png)
+<figure>
+<img src="assets/beginners-guide_fig_1.png" alt="beginners-guide" />
+<figcaption>Figure 1: How I Spend My Day</figcaption>
+</figure>
+
 
 **When to use:**
 
@@ -258,6 +270,12 @@ plt.bar(months, expenses, color='skyblue', edgecolor='navy')
 plt.style.use('seaborn-v0_8-whitegrid')  # Uses a pre-made style
 ```
 
+
+<figure>
+<img src="assets/beginners-guide_fig_1.png" alt="beginners-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 ### 3. Add Explanations
 
 **Purpose:** Anchor the chart with a small data-source note in figure coordinates—common in reports.
@@ -271,7 +289,15 @@ plt.figtext(0.99, 0.01, 'Data source: My Budget App',
 ```
 
 
-![beginners-guide](assets/beginners-guide_fig_4.png)
+<figure>
+<img src="assets/beginners-guide_fig_2.png" alt="beginners-guide" />
+<figcaption>Figure 2: Generated visualization</figcaption>
+</figure>
+
+```
+Text(0.99, 0.01, 'Data source: My Budget App')
+```
+
 
 **Captured output (notebook):** The last line may print the `Text` artist returned by `figtext`—that is normal; the annotation still appears on the figure.
 

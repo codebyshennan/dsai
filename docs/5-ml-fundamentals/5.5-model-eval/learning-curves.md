@@ -102,6 +102,12 @@ plt.grid(True)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/learning-curves_fig_1.png" alt="learning-curves" />
+<figcaption>Figure 1: Learning Curves</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-10" data-tint="1">
@@ -134,8 +140,6 @@ plt.show()
 </aside>
 </div>
 
-
-![learning-curves](assets/learning-curves_fig_1.png)
 
 ### 2. Overfitting Learning Curve
 
@@ -178,6 +182,12 @@ plt.grid(True)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/learning-curves_fig_2.png" alt="learning-curves" />
+<figcaption>Figure 2: Overfitting Learning Curves</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-11" data-tint="1">
@@ -210,8 +220,6 @@ plt.show()
 </aside>
 </div>
 
-
-![learning-curves](assets/learning-curves_fig_2.png)
 
 ### 3. Underfitting Learning Curve
 
@@ -254,6 +262,12 @@ plt.grid(True)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/learning-curves_fig_3.png" alt="learning-curves" />
+<figcaption>Figure 3: Underfitting Learning Curves</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-11" data-tint="1">
@@ -286,8 +300,6 @@ plt.show()
 </aside>
 </div>
 
-
-![learning-curves](assets/learning-curves_fig_3.png)
 
 ## Interpreting Learning Curves
 

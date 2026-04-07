@@ -174,6 +174,21 @@ def clinical_trial_demo():
 clinical_trial_demo()
 {% endhighlight %}
 
+<figure>
+<img src="assets/README_fig_1.png" alt="README" />
+<figcaption>Figure 1: The Sampling Game</figcaption>
+</figure>
+
+```
+
+Clinical Trial Analysis
+Control Mean: 10.4 days
+Treatment Mean: 9.1 days
+P-value: 0.0000
+Improvement: Yes
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-9" data-tint="1">
@@ -196,8 +211,6 @@ clinical_trial_demo()
   </div>
 </aside>
 </div>
-
-![README](assets/README_fig_1.png)
 
 **Captured output (clinical trial demo; stochastic):** One representative run from `inject-python-outputs` is saved as the figure above; console text below matches that run.
 

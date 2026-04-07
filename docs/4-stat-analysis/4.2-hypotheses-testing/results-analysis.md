@@ -127,6 +127,32 @@ class SignificanceAnalyzer:
         plt.close()
 {% endhighlight %}
 
+<figure>
+<img src="assets/results-analysis_fig_1.png" alt="results-analysis" />
+<figcaption>Figure 1: Population Distribution
+(Exponential Distribution)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/results-analysis_fig_2.png" alt="results-analysis" />
+<figcaption>Figure 2: Sample Size: 10
+SE: 4.72</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/results-analysis_fig_3.png" alt="results-analysis" />
+<figcaption>Figure 3: Quality Control Measurements</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/results-analysis_fig_4.png" alt="results-analysis" />
+<figcaption>Figure 4: The Sampling Game</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="7-10" data-tint="1">
@@ -291,6 +317,32 @@ class EffectSizeAnalyzer:
         plt.title('Effect Size Scale')
         plt.legend(loc='upper right', fontsize=8)
 {% endhighlight %}
+
+<figure>
+<img src="assets/results-analysis_fig_1.png" alt="results-analysis" />
+<figcaption>Figure 1: Population Distribution
+(Exponential Distribution)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/results-analysis_fig_2.png" alt="results-analysis" />
+<figcaption>Figure 2: Sample Size: 10
+SE: 4.72</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/results-analysis_fig_3.png" alt="results-analysis" />
+<figcaption>Figure 3: Quality Control Measurements</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/results-analysis_fig_4.png" alt="results-analysis" />
+<figcaption>Figure 4: The Sampling Game</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

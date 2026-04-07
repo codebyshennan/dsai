@@ -136,6 +136,12 @@ plt.ylabel('Mean Squared Error')
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/overfitting-underfitting_fig_1.png" alt="overfitting-underfitting" />
+<figcaption>Figure 1: Model Performance Comparison</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-16" data-tint="1">
@@ -177,8 +183,6 @@ plt.show()
 </aside>
 </div>
 
-
-![overfitting-underfitting](assets/overfitting-underfitting_fig_1.png)
 
 ## Best Practices
 

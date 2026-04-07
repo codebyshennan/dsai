@@ -188,11 +188,7 @@ print("\nMissing Value Statistics:")
 print(missing_analysis)
 {% endhighlight %}
 
-![missing-values](assets/missing-values_fig_1.png)
-
 ![missing-values](assets/missing-values_fig_2.png)
-
-![missing-values](assets/missing-values_fig_3.png)
 
 ```
 

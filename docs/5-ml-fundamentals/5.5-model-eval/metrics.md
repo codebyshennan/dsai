@@ -130,6 +130,12 @@ def demonstrate_precision_recall_tradeoff():
 demonstrate_precision_recall_tradeoff()
 {% endhighlight %}
 
+<figure>
+<img src="assets/metrics_fig_1.png" alt="metrics" />
+<figcaption>Figure 1: Precision vs Recall Trade-off for Different Model Types</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-17" data-tint="1">
@@ -162,8 +168,6 @@ demonstrate_precision_recall_tradeoff()
 </aside>
 </div>
 
-
-![metrics](assets/metrics_fig_1.png)
 
 #### When to Use Which Metric: Decision Tree
 
@@ -262,6 +266,16 @@ def plot_confusion_matrix(y_true, y_pred):
 plot_confusion_matrix(y_test, y_pred)
 {% endhighlight %}
 
+<figure>
+<img src="assets/metrics_fig_2.png" alt="metrics" />
+<figcaption>Figure 2: Confusion Matrix</figcaption>
+</figure>
+
+```
+Accuracy: 0.825
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-26" data-tint="1">
@@ -285,8 +299,6 @@ plot_confusion_matrix(y_test, y_pred)
 </aside>
 </div>
 
-
-![metrics](assets/metrics_fig_2.png)
 
 ```
 Accuracy: 0.825
@@ -367,6 +379,18 @@ y_pred_proba = model.predict_proba(X_test)[:, 1]
 plot_precision_recall_tradeoff(y_test, y_pred_proba)
 {% endhighlight %}
 
+<figure>
+<img src="assets/metrics_fig_3.png" alt="metrics" />
+<figcaption>Figure 3: Precision-Recall Curve</figcaption>
+</figure>
+
+```
+Precision: 0.817
+Recall: 0.809
+F1 Score: 0.813
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-11" data-tint="1">
@@ -390,8 +414,6 @@ plot_precision_recall_tradeoff(y_test, y_pred_proba)
 </aside>
 </div>
 
-
-![metrics](assets/metrics_fig_3.png)
 
 ```
 Precision: 0.817
@@ -460,6 +482,12 @@ def plot_roc_curve(y_true, y_pred_proba):
 plot_roc_curve(y_test, y_pred_proba)
 {% endhighlight %}
 
+<figure>
+<img src="assets/metrics_fig_4.png" alt="metrics" />
+<figcaption>Figure 4: Receiver Operating Characteristic (ROC) Curve</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-3" data-tint="1">
@@ -483,8 +511,6 @@ plot_roc_curve(y_test, y_pred_proba)
 </aside>
 </div>
 
-
-![metrics](assets/metrics_fig_4.png)
 
 **Output:**
 ```
@@ -568,6 +594,16 @@ def plot_regression_predictions(y_true, y_pred):
 plot_regression_predictions(y_test, y_pred)
 {% endhighlight %}
 
+<figure>
+<img src="assets/metrics_fig_5.png" alt="metrics" />
+<figcaption>Figure 5: Regression Predictions vs True Values</figcaption>
+</figure>
+
+```
+Mean Squared Error: 0.010
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-23" data-tint="1">
@@ -591,8 +627,6 @@ plot_regression_predictions(y_test, y_pred)
 </aside>
 </div>
 
-
-![metrics](assets/metrics_fig_5.png)
 
 ```
 Mean Squared Error: 0.010
@@ -683,6 +717,16 @@ def plot_residuals(y_true, y_pred):
 plot_residuals(y_test, y_pred)
 {% endhighlight %}
 
+<figure>
+<img src="assets/metrics_fig_6.png" alt="metrics" />
+<figcaption>Figure 6: Residual Plot</figcaption>
+</figure>
+
+```
+R-squared Score: 1.000
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-3" data-tint="1">
@@ -706,8 +750,6 @@ plot_residuals(y_test, y_pred)
 </aside>
 </div>
 
-
-![metrics](assets/metrics_fig_6.png)
 
 ```
 R-squared Score: 1.000
@@ -790,6 +832,19 @@ print(f"F1 Score: {f1_score(y_test, y_pred):.3f}")
 plot_roc_curve(y_test, y_pred_proba)
 {% endhighlight %}
 
+<figure>
+<img src="assets/metrics_fig_7.png" alt="metrics" />
+<figcaption>Figure 7: Receiver Operating Characteristic (ROC) Curve</figcaption>
+</figure>
+
+```
+Accuracy: 0.970
+Precision: 0.946
+Recall: 0.989
+F1 Score: 0.967
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-19" data-tint="1">
@@ -822,8 +877,6 @@ plot_roc_curve(y_test, y_pred_proba)
 </aside>
 </div>
 
-
-![metrics](assets/metrics_fig_7.png)
 
 ```
 Accuracy: 0.970

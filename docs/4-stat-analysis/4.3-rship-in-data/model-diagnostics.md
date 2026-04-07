@@ -90,6 +90,32 @@ def check_if_relationship_is_straight(model, X, y):
     print("✗ BAD: Any curves, funnels, or patterns in the dots")
 {% endhighlight %}
 
+<figure>
+<img src="assets/model-diagnostics_fig_1.png" alt="model-diagnostics" />
+<figcaption>Figure 1: Population Distribution
+(Exponential Distribution)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/model-diagnostics_fig_2.png" alt="model-diagnostics" />
+<figcaption>Figure 2: Sample Size: 10
+SE: 4.72</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/model-diagnostics_fig_3.png" alt="model-diagnostics" />
+<figcaption>Figure 3: Quality Control Measurements</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/model-diagnostics_fig_4.png" alt="model-diagnostics" />
+<figcaption>Figure 4: The Sampling Game</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-6" data-tint="1">
@@ -582,8 +608,6 @@ results = give_model_complete_checkup(model, X, y)
   </div>
 </aside>
 </div>
-
-![model-diagnostics_fig_8](assets/model-diagnostics_fig_8.png)
 
 ```
 === MODEL CHECK-UP RESULTS ===

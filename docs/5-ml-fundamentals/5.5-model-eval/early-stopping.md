@@ -97,6 +97,10 @@ for epoch in range(1000):
         print(f"Early stopping at epoch {epoch}")
         break
 {% endhighlight %}
+```
+Early stopping at epoch 11
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -154,6 +158,10 @@ pipeline = Pipeline([
 pipeline.fit(X_train, y_train)
 print(f"Early Stopping Score: {pipeline.score(X_test, y_test):.3f}")
 {% endhighlight %}
+```
+Early Stopping Score: 0.815
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -236,6 +244,10 @@ for epoch in range(1000):
         print(f"Early stopping at epoch {epoch}")
         break
 {% endhighlight %}
+```
+Early stopping at epoch 28
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -374,6 +386,11 @@ for n_estimators in range(10, 100, 10):
 
 print(f"Best model score: {best_score:.3f}")
 {% endhighlight %}
+```
+Early stopping at 90 trees
+Best model score: 0.985
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

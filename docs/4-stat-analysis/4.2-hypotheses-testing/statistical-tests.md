@@ -112,6 +112,10 @@ print(result['explanation'])
 # Sample output:
 # T-statistic: -4.47, P-value: 0.002. Effect size: 3.00. Significant difference between group means at alpha=0.05.
 {% endhighlight %}
+```
+T-statistic: -5.27, P-value: 0.001. Effect size: 3.73. Significant difference between group means at alpha=0.05.
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -210,6 +214,10 @@ print(result['explanation'])
 # Sample output:
 # F-statistic: 44.00, P-value: 0.000. Effect size (eta-squared): 0.88. At least one group mean is significantly different at alpha=0.05.
 {% endhighlight %}
+```
+F-statistic: 44.67, P-value: 0.000. Effect size (eta-squared): 0.88. At least one group mean is significantly different at alpha=0.05.
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -314,6 +322,10 @@ print(result['explanation'])
 # Sample output:
 # Chi-square: 1.18, P-value: 0.946. Effect size (Cramer's V): 0.20. No significant association at alpha=0.05.
 {% endhighlight %}
+```
+Chi-square: 0.00, P-value: 1.000. Effect size (Cramer's V): 0.00. No significant association at alpha=0.05.
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -419,6 +431,11 @@ print(result['explanation'])
 # Pearson correlation: 0.89, P-value: 0.018. Significant correlation at alpha=0.05.
 # Spearman correlation: 0.94, P-value: 0.005. Significant correlation at alpha=0.05.
 {% endhighlight %}
+```
+Pearson correlation: 0.88, P-value: 0.021. Significant correlation at alpha=0.05.
+Spearman correlation: 0.85, P-value: 0.031. Significant correlation at alpha=0.05.
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

@@ -113,6 +113,19 @@ for i, importance in enumerate(feature_importance):
     print(f"{features[i]}: {importance:.2f}")
 {% endhighlight %}
 
+<figure>
+<img src="assets/1-introduction_fig_1.png" alt="1-introduction" />
+<figcaption>Figure 1: Decision Tree for Walking Decision</figcaption>
+</figure>
+
+```
+Decision: Go for a walk
+Is Raining: 0.49
+Temperature: 0.51
+Have Time: 0.00
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-25" data-tint="1">
@@ -145,8 +158,6 @@ for i, importance in enumerate(feature_importance):
 </aside>
 </div>
 
-
-![1-introduction](assets/1-introduction_fig_1.png)
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -251,6 +262,18 @@ plt.title('Decision Tree Structure')
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/1-introduction_fig_2.png" alt="1-introduction" />
+<figcaption>Figure 2: Decision Tree Boundary</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/1-introduction_fig_3.png" alt="1-introduction" />
+<figcaption>Figure 3: Decision Tree Structure</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-19" data-tint="1">
@@ -284,10 +307,6 @@ plt.show()
 </div>
 
 
-![1-introduction](assets/1-introduction_fig_2.png)
-
-
-![1-introduction](assets/1-introduction_fig_3.png)
 
 The tree learning process:
 
@@ -373,6 +392,11 @@ importances = student_model.feature_importances_
 most_important = features[np.argmax(importances)]
 print(f"Most important factor: {most_important}")
 {% endhighlight %}
+```
+Prediction: Pass
+Most important factor: Previous Score
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

@@ -404,8 +404,6 @@ fig = px.scatter_3d(
 fig.show()
 {% endhighlight %}
 
-![README](assets/README_fig_1.png)
-
 ![README](assets/README_fig_2.png)
 
 ```
@@ -501,8 +499,6 @@ def optimize_dataframe(df):
     
     return df
 {% endhighlight %}
-
-![README](assets/README_fig_1.png)
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

@@ -152,8 +152,6 @@ def assess_data_quality(df):
     return quality_report
 {% endhighlight %}
 
-![project](assets/project_fig_1.png)
-
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-9" data-tint="1">
@@ -237,8 +235,6 @@ class DataCleaner:
         
         return df
 {% endhighlight %}
-
-![project](assets/project_fig_1.png)
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

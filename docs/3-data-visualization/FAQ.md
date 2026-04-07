@@ -156,7 +156,11 @@ colors = sns.color_palette("RdBu", n_colors=11)
 ```
 
 
-![FAQ](assets/FAQ_fig_1.png)
+<figure>
+<img src="assets/FAQ_fig_1.png" alt="FAQ" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 
 ### Q: How do I handle overlapping data points?
 

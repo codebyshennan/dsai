@@ -218,6 +218,12 @@ def scaled_dot_product_attention(q, k, v, mask=None):
     return output, attention_weights
 {% endhighlight %}
 
+<figure>
+<img src="assets/4-advanced_fig_1.png" alt="4-advanced" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-9" data-tint="1">
@@ -288,6 +294,12 @@ class CurriculumDataGenerator:
 
         return eligible_data[indices], eligible_labels[indices]
 {% endhighlight %}
+
+<figure>
+<img src="assets/4-advanced_fig_1.png" alt="4-advanced" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

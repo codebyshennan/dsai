@@ -178,8 +178,6 @@ for feature, coef in zip(X.columns, model.coef_):
         print(f"Number of Rooms: ${coef:.2f} - For each additional room, the house price increases by ${coef:.2f}")
 {% endhighlight %}
 
-![model-interpretation](assets/model-interpretation_fig_1.png)
-
 ```
 
 Linear Regression Coefficient Interpretation:
@@ -308,8 +306,6 @@ for feature, std_coef in zip(std_feature_importance['Feature'], std_feature_impo
     print(f"{feature}: {std_coef:.2f} - A one standard deviation increase in {feature} {effect} the price by ${abs(std_coef):.2f}")
 {% endhighlight %}
 
-![model-interpretation](assets/model-interpretation_fig_2.png)
-
 ```
 
 Standardized Coefficient Interpretation:
@@ -407,8 +403,6 @@ print("\nRandom Forest Feature Importance:")
 for feature, importance in zip(rf_importance['Feature'], rf_importance['Importance']):
     print(f"{feature}: {importance:.4f} - Contributes {importance*100:.1f}% to the model's decisions")
 {% endhighlight %}
-
-![model-interpretation](assets/model-interpretation_fig_3.png)
 
 ```
 
@@ -564,8 +558,6 @@ for feature, coef in zip(cat_coef[cat_coef['Feature'].isin(cat_features)]['Featu
     effect = "increases" if coef > 0 else "decreases"
     print(f"{feature}: ${coef:.2f} - This category {effect} the loan amount by ${abs(coef):.2f} compared to the baseline")
 {% endhighlight %}
-
-![model-interpretation](assets/model-interpretation_fig_4.png)
 
 ```
 
@@ -1191,8 +1183,6 @@ for feature, odds_ratio in zip(log_coef['Feature'], log_coef['Odds_Ratio']):
         print(f"Family History: {odds_ratio:.3f} - Having family history of diabetes multiplies the odds by {odds_ratio:.2f}")
 {% endhighlight %}
 
-![model-interpretation](assets/model-interpretation_fig_5.png)
-
 ```
 
 Logistic Regression Interpretation:
@@ -1347,10 +1337,6 @@ def interpret_tree_prediction(tree_model, X, feature_names, sample_index=0):
 interpret_tree_prediction(tree_model, X, X.columns, sample_index=0)
 {% endhighlight %}
 
-![model-interpretation](assets/model-interpretation_fig_6.png)
-
-
-![model-interpretation](assets/model-interpretation_fig_7.png)
 
 ```
 Decision path for sample 0:
@@ -1414,10 +1400,6 @@ Leaf node 10: Predicted value = 52388.22
 </div>
 
 
-![model-interpretation](assets/model-interpretation_fig_1.png)
-
-
-![model-interpretation](assets/model-interpretation_fig_2.png)
 
 ```
 Decision path for sample 0:
@@ -1562,8 +1544,6 @@ interpretability_comparison = compare_model_interpretability()
 print("\nModel Interpretability Comparison:")
 print(interpretability_comparison)
 {% endhighlight %}
-
-![model-interpretation](assets/model-interpretation_fig_8.png)
 
 ```
 
@@ -1983,8 +1963,6 @@ Interpretation Challenge:
 # Demonstrate correlation vs causation
 explore_correlation_vs_causation()
 {% endhighlight %}
-
-![model-interpretation](assets/model-interpretation_fig_9.png)
 
 ```
 

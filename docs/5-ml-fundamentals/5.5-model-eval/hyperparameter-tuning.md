@@ -167,6 +167,14 @@ best_model = grid_search.best_estimator_
 test_score = best_model.score(X_test, y_test)
 print(f"Test set accuracy: {test_score:.4f}")
 {% endhighlight %}
+```
+Starting grid search...
+Fitting 5 folds for each of 108 candidates, totalling 540 fits
+Best parameters: {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 300}
+Best cross-validation score: 0.9075
+Test set accuracy: 0.9450
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -209,8 +217,6 @@ print(f"Test set accuracy: {test_score:.4f}")
 </aside>
 </div>
 
-
-![hyperparameter-tuning](assets/hyperparameter-tuning_fig_1.png)
 
 ```
 Starting grid search...
@@ -301,6 +307,14 @@ print(f"Best cross-validation score: {random_search.best_score_:.4f}")
 test_score = random_search.best_estimator_.score(X_test, y_test)
 print(f"Test set accuracy: {test_score:.4f}")
 {% endhighlight %}
+```
+Starting random search...
+Fitting 5 folds for each of 50 candidates, totalling 250 fits
+Best parameters: {'max_depth': 32, 'max_features': np.float64(0.42066805426927745), 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 426}
+Best cross-validation score: 0.9037
+Test set accuracy: 0.9500
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -554,6 +568,10 @@ print(
     f"Unbiased performance estimate: {np.mean(outer_cv_scores):.4f} ± {np.std(outer_cv_scores):.4f}"
 )
 {% endhighlight %}
+```
+Unbiased performance estimate: 0.8970 ± 0.0279
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

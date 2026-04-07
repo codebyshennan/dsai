@@ -168,6 +168,12 @@ ax.set_ylabel("Total Passengers")
 ax.grid(True, alpha=0.3)   # subtle grid — don't fight the data
 {% endhighlight %}
 
+<figure>
+<img src="assets/time-series-visualization_fig_1.png" alt="time-series-visualization" />
+<figcaption>Figure 1: Annual Airline Passengers (1949–1960)</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1" data-tint="1">
@@ -236,6 +242,12 @@ ax.legend()
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
 
+<figure>
+<img src="assets/time-series-visualization_fig_2.png" alt="time-series-visualization" />
+<figcaption>Figure 2: Smoothing with a Rolling Average</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-6" data-tint="1">
@@ -293,6 +305,12 @@ ax.set_ylabel("Passengers")
 ax.legend(loc="upper left", fontsize=7, ncol=2)
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
+
+<figure>
+<img src="assets/time-series-visualization_fig_3.png" alt="time-series-visualization" />
+<figcaption>Figure 3: Passengers by Month Across Years</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -366,6 +384,16 @@ sns.relplot(
 )
 {% endhighlight %}
 
+<figure>
+<img src="assets/time-series-visualization_fig_4.png" alt="time-series-visualization" />
+<figcaption>Figure 4: season = Autumn</figcaption>
+</figure>
+
+```
+<seaborn.axisgrid.FacetGrid object at 0x119593770>
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-8" data-tint="1">
@@ -436,6 +464,12 @@ ax.set_xlabel("Year")
 ax.set_ylabel("Total Passengers")
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
+
+<figure>
+<img src="assets/time-series-visualization_fig_5.png" alt="time-series-visualization" />
+<figcaption>Figure 5: Annotating a Key Event on a Time Chart</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

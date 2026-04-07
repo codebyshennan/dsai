@@ -179,11 +179,7 @@ class APIIntegrator:
             raise Exception(f"API request failed: {str(e)}")
 {% endhighlight %}
 
-![data-integration](assets/data-integration_fig_1.png)
-
 ![data-integration](assets/data-integration_fig_2.png)
-
-![data-integration](assets/data-integration_fig_3.png)
 
 ![data-integration](assets/data-integration_fig_4.png)
 
@@ -298,6 +294,30 @@ class FileIntegrator:
         else:
             raise ValueError(f"Unsupported file format: {file_path}")
 {% endhighlight %}
+
+<figure>
+<img src="assets/data-integration_fig_1.png" alt="data-integration" />
+<figcaption>Figure 1: Original Time Series</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_2.png" alt="data-integration" />
+<figcaption>Figure 2: Hourly Pattern</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_3.png" alt="data-integration" />
+<figcaption>Figure 3: Rolling Statistics</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_4.png" alt="data-integration" />
+<figcaption>Figure 4: Anomaly Detection</figcaption>
+</figure>
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-6" data-tint="1">
@@ -359,6 +379,30 @@ class DatabaseIntegrator:
         with self.engine.connect() as conn:
             conn.execute(text(query))
 {% endhighlight %}
+
+<figure>
+<img src="assets/data-integration_fig_1.png" alt="data-integration" />
+<figcaption>Figure 1: Original Time Series</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_2.png" alt="data-integration" />
+<figcaption>Figure 2: Hourly Pattern</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_3.png" alt="data-integration" />
+<figcaption>Figure 3: Rolling Statistics</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_4.png" alt="data-integration" />
+<figcaption>Figure 4: Anomaly Detection</figcaption>
+</figure>
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-7" data-tint="1">
@@ -466,6 +510,30 @@ class SchemaMapper:
         reverse_map = {v: k for k, v in self.mapping.items()}
         return df.rename(columns=reverse_map)
 {% endhighlight %}
+
+<figure>
+<img src="assets/data-integration_fig_1.png" alt="data-integration" />
+<figcaption>Figure 1: Original Time Series</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_2.png" alt="data-integration" />
+<figcaption>Figure 2: Hourly Pattern</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_3.png" alt="data-integration" />
+<figcaption>Figure 3: Rolling Statistics</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_4.png" alt="data-integration" />
+<figcaption>Figure 4: Anomaly Detection</figcaption>
+</figure>
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-9" data-tint="1">
@@ -516,6 +584,30 @@ class DataTypeConverter:
         
         return df
 {% endhighlight %}
+
+<figure>
+<img src="assets/data-integration_fig_1.png" alt="data-integration" />
+<figcaption>Figure 1: Original Time Series</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_2.png" alt="data-integration" />
+<figcaption>Figure 2: Hourly Pattern</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_3.png" alt="data-integration" />
+<figcaption>Figure 3: Rolling Statistics</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_4.png" alt="data-integration" />
+<figcaption>Figure 4: Anomaly Detection</figcaption>
+</figure>
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-8" data-tint="1">
@@ -574,6 +666,30 @@ class DataValidator:
         # Check if all validations passed
         return all(result.all() for result in validation_results)
 {% endhighlight %}
+
+<figure>
+<img src="assets/data-integration_fig_1.png" alt="data-integration" />
+<figcaption>Figure 1: Original Time Series</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_2.png" alt="data-integration" />
+<figcaption>Figure 2: Hourly Pattern</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_3.png" alt="data-integration" />
+<figcaption>Figure 3: Rolling Statistics</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_4.png" alt="data-integration" />
+<figcaption>Figure 4: Anomaly Detection</figcaption>
+</figure>
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-14" data-tint="1">
@@ -631,6 +747,30 @@ class DataIntegrationPipeline:
         
         return result
 {% endhighlight %}
+
+<figure>
+<img src="assets/data-integration_fig_1.png" alt="data-integration" />
+<figcaption>Figure 1: Original Time Series</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_2.png" alt="data-integration" />
+<figcaption>Figure 2: Hourly Pattern</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_3.png" alt="data-integration" />
+<figcaption>Figure 3: Rolling Statistics</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_4.png" alt="data-integration" />
+<figcaption>Figure 4: Anomaly Detection</figcaption>
+</figure>
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-14" data-tint="1">
@@ -675,6 +815,30 @@ def extract_and_load(source_integrator, target_integrator,
     
     return data
 {% endhighlight %}
+
+<figure>
+<img src="assets/data-integration_fig_1.png" alt="data-integration" />
+<figcaption>Figure 1: Original Time Series</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_2.png" alt="data-integration" />
+<figcaption>Figure 2: Hourly Pattern</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_3.png" alt="data-integration" />
+<figcaption>Figure 3: Rolling Statistics</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/data-integration_fig_4.png" alt="data-integration" />
+<figcaption>Figure 4: Anomaly Detection</figcaption>
+</figure>
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-7" data-tint="1">

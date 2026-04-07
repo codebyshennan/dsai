@@ -495,8 +495,6 @@ quality_assessment.check_validity(validation_rules)
 report = quality_assessment.generate_report()
 {% endhighlight %}
 
-![data-quality](assets/data-quality_fig_1.png)
-
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-4" data-tint="1">
@@ -909,7 +907,11 @@ def assess_ecommerce_data(file_path):
 report = assess_ecommerce_data('../_data/sales_data.csv')
 {% endhighlight %}
 
-![data-quality](assets/data-quality_fig_2.png)
+<figure>
+<img src="assets/data-quality_fig_1.png" alt="data-quality" />
+<figcaption>Figure 1: Missing Values Heatmap</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

@@ -54,6 +54,12 @@ def bootstrap_sample(X, y):
     return X[idxs], y[idxs]
 {% endhighlight %}
 
+<figure>
+<img src="assets/2-math-foundation_fig_1.png" alt="2-math-foundation" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-11" data-tint="1">
@@ -126,6 +132,12 @@ def get_random_features(n_features, n_select):
     )
 {% endhighlight %}
 
+<figure>
+<img src="assets/2-math-foundation_fig_1.png" alt="2-math-foundation" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-11" data-tint="1">
@@ -194,6 +206,12 @@ def gini_impurity(y):
     probabilities = counts / len(y)
     return 1 - np.sum(probabilities ** 2)
 {% endhighlight %}
+
+<figure>
+<img src="assets/2-math-foundation_fig_1.png" alt="2-math-foundation" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -272,6 +290,12 @@ def information_gain(parent, left, right):
     )
     return gain
 {% endhighlight %}
+
+<figure>
+<img src="assets/2-math-foundation_fig_1.png" alt="2-math-foundation" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

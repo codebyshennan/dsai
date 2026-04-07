@@ -119,6 +119,47 @@ print("\nHeight Distribution:")
 explorer.plot_distribution(heights, kind='continuous')
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-distributions_fig_1.png" alt="probability-distributions" />
+<figcaption>Figure 1: Distribution of Random Variable</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/probability-distributions_fig_2.png" alt="probability-distributions" />
+<figcaption>Figure 2: Distribution of Random Variable</figcaption>
+</figure>
+
+```
+
+Die Rolls:
+
+Summary Statistics:
+count    1000.000
+mean        3.443
+std         1.725
+min         1.000
+25%         2.000
+50%         3.000
+75%         5.000
+max         6.000
+Name: Value, dtype: float64
+
+Height Distribution:
+
+Summary Statistics:
+count    1000.000
+mean      170.989
+std         9.889
+min       140.786
+25%       164.359
+50%       170.842
+75%       177.396
+max       201.931
+Name: Value, dtype: float64
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-7" data-tint="1">
@@ -161,10 +202,6 @@ explorer.plot_distribution(heights, kind='continuous')
 </div>
 
 
-![probability-distributions](assets/probability-distributions_fig_1.png)
-
-
-![probability-distributions](assets/probability-distributions_fig_2.png)
 
 ```
 
@@ -284,6 +321,57 @@ uniform_data = np.random.uniform(low=-3, high=3, size=1000)
 analyzer.analyze_distribution(uniform_data, "Uniform")
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-distributions_fig_3.png" alt="probability-distributions" />
+<figcaption>Figure 3: Distribution Plot</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/probability-distributions_fig_4.png" alt="probability-distributions" />
+<figcaption>Figure 4: Distribution Plot</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/probability-distributions_fig_5.png" alt="probability-distributions" />
+<figcaption>Figure 5: Distribution Plot</figcaption>
+</figure>
+
+```
+
+Normal Distribution:
+
+Normal Analysis:
+Mean: 0.014
+Median: 0.011
+Std Dev: 0.970
+Variance: 0.941
+Skewness: 0.002
+Kurtosis: 0.052
+
+Right-Skewed Distribution:
+
+Right-Skewed Analysis:
+Mean: 1.702
+Median: 0.969
+Std Dev: 2.564
+Variance: 6.572
+Skewness: 8.941
+Kurtosis: 142.635
+
+Uniform Distribution:
+
+Uniform Analysis:
+Mean: -0.024
+Median: -0.098
+Std Dev: 1.736
+Variance: 3.014
+Skewness: 0.054
+Kurtosis: -1.214
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-12" data-tint="1">
@@ -326,13 +414,7 @@ analyzer.analyze_distribution(uniform_data, "Uniform")
 </div>
 
 
-![probability-distributions](assets/probability-distributions_fig_3.png)
 
-
-![probability-distributions](assets/probability-distributions_fig_4.png)
-
-
-![probability-distributions](assets/probability-distributions_fig_5.png)
 
 ```
 
@@ -437,6 +519,61 @@ distributions = {
 pd_explorer.plot_distributions(distributions)
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-distributions_fig_6.png" alt="probability-distributions" />
+<figcaption>Figure 6: Binomial Distribution</figcaption>
+</figure>
+
+```
+
+Summary Statistics:
+
+Binomial:
+count    1000.000
+mean        4.939
+std         1.579
+min         1.000
+25%         4.000
+50%         5.000
+75%         6.000
+max        10.000
+Name: Binomial, dtype: float64
+
+Poisson:
+count    1000.000
+mean        2.979
+std         1.693
+min         0.000
+25%         2.000
+50%         3.000
+75%         4.000
+max         9.000
+Name: Poisson, dtype: float64
+
+Normal:
+count    1000.000
+mean       -0.014
+std         0.980
+min        -3.275
+25%        -0.671
+50%        -0.060
+75%         0.618
+max         2.769
+Name: Normal, dtype: float64
+
+Exponential:
+count    1000.000
+mean        1.980
+std         1.917
+min         0.000
+25%         0.577
+50%         1.362
+75%         2.865
+max        14.280
+Name: Exponential, dtype: float64
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-21" data-tint="1">
@@ -469,8 +606,6 @@ pd_explorer.plot_distributions(distributions)
 </aside>
 </div>
 
-
-![probability-distributions](assets/probability-distributions_fig_6.png)
 
 ```
 
@@ -603,6 +738,48 @@ bimodal = np.concatenate([np.random.normal(-2, 0.5, 500), np.random.normal(2, 0.
 shape_analyzer.plot_shape_analysis(bimodal, "Bimodal Distribution")
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-distributions_fig_7.png" alt="probability-distributions" />
+<figcaption>Figure 7: Normal Distribution
+Classified as: Approximately Symmetric</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/probability-distributions_fig_8.png" alt="probability-distributions" />
+<figcaption>Figure 8: Right-Skewed Distribution
+Classified as: Right-Skewed, Heavy-Tailed</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/probability-distributions_fig_9.png" alt="probability-distributions" />
+<figcaption>Figure 9: Bimodal Distribution
+Classified as: Approximately Symmetric, Light-Tailed</figcaption>
+</figure>
+
+```
+
+Normal Distribution:
+
+Shape Statistics:
+Skewness: 0.054
+Kurtosis: -0.093
+
+Right-Skewed Distribution:
+
+Shape Statistics:
+Skewness: 4.106
+Kurtosis: 28.778
+
+Bimodal Distribution:
+
+Shape Statistics:
+Skewness: 0.005
+Kurtosis: -1.763
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-21" data-tint="1">
@@ -636,13 +813,7 @@ shape_analyzer.plot_shape_analysis(bimodal, "Bimodal Distribution")
 </div>
 
 
-![probability-distributions](assets/probability-distributions_fig_7.png)
 
-
-![probability-distributions](assets/probability-distributions_fig_8.png)
-
-
-![probability-distributions](assets/probability-distributions_fig_9.png)
 
 ```
 

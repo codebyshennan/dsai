@@ -71,6 +71,17 @@ model.fit(X_train_scaled, y_train)
 y_pred = model.predict(X_test_scaled)
 print(classification_report(y_test, y_pred))
 {% endhighlight %}
+```
+              precision    recall  f1-score   support
+
+           0       0.93      1.00      0.96       126
+           1       1.00      0.86      0.93        74
+
+    accuracy                           0.95       200
+   macro avg       0.96      0.93      0.94       200
+weighted avg       0.95      0.95      0.95       200
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

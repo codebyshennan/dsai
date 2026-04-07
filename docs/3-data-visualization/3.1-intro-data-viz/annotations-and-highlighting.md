@@ -66,6 +66,16 @@ ax.annotate(
 )
 ```
 
+
+<figure>
+<img src="assets/annotations-and-highlighting_fig_1.png" alt="annotations-and-highlighting" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+```
+Annotation(4, 25, 'Campaign launch peak')
+```
+
 ### 2. Reference lines
 
 Reference lines help viewers compare data against a target, average, or threshold.
@@ -102,6 +112,10 @@ ax.axhspan(
     alpha=0.5,
     label="Target range"
 )
+```
+
+```
+Rectangle(xy=(0, 19), width=1, height=2, angle=0)
 ```
 
 Shaded ranges work well for:

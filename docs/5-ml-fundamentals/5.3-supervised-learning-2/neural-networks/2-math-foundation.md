@@ -465,6 +465,12 @@ plt.tight_layout()
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/2-math-foundation_fig_1.png" alt="2-math-foundation" />
+<figcaption>Figure 1: Sigmoid</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-6" data-tint="1">
@@ -497,8 +503,6 @@ plt.show()
 </aside>
 </div>
 
-
-![2-math-foundation](assets/2-math-foundation_fig_1.png)
 
 ## Gotchas
 

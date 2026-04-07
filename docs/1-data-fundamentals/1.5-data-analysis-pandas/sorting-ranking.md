@@ -94,6 +94,40 @@ sales_data['Total'] = sales_data['Price'] * sales_data['Units']
 print("\nSales Data (sorted by total sales):")
 print(sales_data.sort_values('Total', ascending=False))
 {% endhighlight %}
+```
+Original scores:
+Alice      85
+Bob        92
+Charlie    78
+David      95
+Eve        88
+Name: Test Scores, dtype: int64
+
+Top performers:
+David      95
+Bob        92
+Eve        88
+Alice      85
+Charlie    78
+Name: Test Scores, dtype: int64
+
+Alphabetical order:
+Alice      85
+Bob        92
+Charlie    78
+David      95
+Eve        88
+Name: Test Scores, dtype: int64
+
+Sales Data (sorted by total sales):
+    Product  Price  Units       Date  Total
+4    Laptop   1100      8 2023-01-05   8800
+0    Laptop   1200      5 2023-01-01   6000
+2  Keyboard    100     30 2023-01-03   3000
+3   Monitor    300     10 2023-01-04   3000
+1     Mouse     25     50 2023-01-02   1250
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -426,6 +460,18 @@ for subject in ['Math', 'Science', 'History']:
 print("Student rankings:")
 print(students.sort_values('OverallRank'))
 {% endhighlight %}
+```
+Student rankings:
+      Name  Math  Science  ...  MathRank  ScienceRank  HistoryRank
+4      Eve    88       90  ...       3.0          3.0          1.0
+3    David    95       88  ...       1.0          4.0          4.5
+2  Charlie    78       96  ...       5.0          1.0          2.0
+0    Alice    85       92  ...       4.0          2.0          3.0
+1      Bob    92       85  ...       2.0          5.0          4.5
+
+[5 rows x 9 columns]
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

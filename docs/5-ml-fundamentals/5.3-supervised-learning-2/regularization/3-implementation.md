@@ -183,6 +183,27 @@ for name, result in results.items():
     print(f"RMSE: ${result['RMSE']:,.2f}")  # Lower is better
 {% endhighlight %}
 
+<figure>
+<img src="assets/3-implementation_fig_1.png" alt="3-implementation" />
+<figcaption>Figure 1: Comparison of Regularization Methods</figcaption>
+</figure>
+
+```
+
+Lasso:
+R Score: 0.849
+RMSE: $57,759.84
+
+Ridge:
+R Score: 0.849
+RMSE: $57,761.15
+
+ElasticNet:
+R Score: 0.845
+RMSE: $58,572.77
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="14-22" data-tint="1">
@@ -234,8 +255,6 @@ for name, result in results.items():
 </div>
 
 
-![3-implementation](assets/3-implementation_fig_1.png)
-
 ```
 
 Lasso:
@@ -282,6 +301,10 @@ grid_search.fit(X_train, y_train)
 
 print("Best alpha:", grid_search.best_params_['alpha'])
 {% endhighlight %}
+```
+Best alpha: 1
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -348,6 +371,16 @@ selected = select_features_lasso(
     y_train
 )
 {% endhighlight %}
+```
+Selected features: 6
+size: 97603.1853
+bedrooms: 68149.6454
+age: -13579.6658
+location_score: 57494.9345
+noise_feature1: -215.6718
+noise_feature2: 2136.7192
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -433,6 +466,15 @@ def compare_alphas(X, y, alphas=[0.001, 0.01, 0.1, 1, 10]):
 results_df = compare_alphas(X_scaled, y)
 print(results_df)
 {% endhighlight %}
+```
+    alpha    ridge_rmse    lasso_rmse   elastic_rmse
+0   0.001  52068.418223  52068.418348   52068.402573
+1   0.010  52068.416936  52068.418164   52072.058727
+2   0.100  52068.406433  52068.416387   52448.489489
+3   1.000  52068.538348  52068.398518   68525.490301
+4  10.000  52092.969096  52068.225701  124140.292139
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

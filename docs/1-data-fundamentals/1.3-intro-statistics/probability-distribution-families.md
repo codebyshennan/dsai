@@ -317,6 +317,24 @@ best_fit = fitter.find_best_fit(data)
 fitter.plot_fit_comparison(data, best_fit)
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-distribution-families_fig_1.png" alt="probability-distribution-families" />
+<figcaption>Figure 1: Data vs Fitted Distribution</figcaption>
+</figure>
+
+```
+
+Fit Statistics:
+Best fit distribution: lognorm
+P-value: 0.9511
+
+Parameters:
+Parameter 1: 0.5209
+Parameter 2: 0.0546
+Parameter 3: 0.9478
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-12" data-tint="1">
@@ -367,8 +385,6 @@ fitter.plot_fit_comparison(data, best_fit)
 </aside>
 </div>
 
-
-![probability-distribution-families](assets/probability-distribution-families_fig_1.png)
 
 ```
 
@@ -480,6 +496,32 @@ prob_5 = analyzer.calculate_probability(5)
 print(f"\nProbability of exactly 5 successes: {prob_5:.4f}")
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-distribution-families_fig_2.png" alt="probability-distribution-families" />
+<figcaption>Figure 2: Binomial Distribution</figcaption>
+</figure>
+
+```
+
+Distribution Statistics:
+Mean: 3.00
+Variance: 2.10
+
+Simulated Statistics:
+count    10000.00
+mean         2.97
+std          1.43
+min          0.00
+25%          2.00
+50%          3.00
+75%          4.00
+max          8.00
+Name: Successes, dtype: float64
+
+Probability of exactly 5 successes: 0.1029
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-21" data-tint="1">
@@ -530,8 +572,6 @@ print(f"\nProbability of exactly 5 successes: {prob_5:.4f}")
 </aside>
 </div>
 
-
-![probability-distribution-families](assets/probability-distribution-families_fig_2.png)
 
 ```
 
@@ -650,6 +690,32 @@ prob_5 = analyzer.calculate_probability(5)
 print(f"\nProbability of exactly 5 events: {prob_5:.4f}")
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-distribution-families_fig_3.png" alt="probability-distribution-families" />
+<figcaption>Figure 3: Poisson Distribution</figcaption>
+</figure>
+
+```
+
+Distribution Statistics:
+Mean: 3.00
+Variance: 3.00
+
+Simulated Statistics:
+count    10000.00
+mean         2.99
+std          1.72
+min          0.00
+25%          2.00
+50%          3.00
+75%          4.00
+max         11.00
+Name: Events, dtype: float64
+
+Probability of exactly 5 events: 0.1008
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-19" data-tint="1">
@@ -700,8 +766,6 @@ print(f"\nProbability of exactly 5 events: {prob_5:.4f}")
 </aside>
 </div>
 
-
-![probability-distribution-families](assets/probability-distribution-families_fig_3.png)
 
 ```
 
@@ -861,6 +925,69 @@ demonstrator.plot_clt_demonstration(
 )
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-distribution-families_fig_4.png" alt="probability-distribution-families" />
+<figcaption>Figure 4: Distribution of Sample Means (n=1)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/probability-distribution-families_fig_5.png" alt="probability-distribution-families" />
+<figcaption>Figure 5: Distribution of Sample Means (n=1)</figcaption>
+</figure>
+
+```
+
+CLT Demonstration (Uniform Distribution):
+
+Sample Statistics:
+
+Sample Size: 1
+Mean: 0.4996
+Std Dev: 0.2745
+Normality Test p-value: 0.0000
+
+Sample Size: 5
+Mean: 0.5071
+Std Dev: 0.1311
+Normality Test p-value: 0.0926
+
+Sample Size: 30
+Mean: 0.5025
+Std Dev: 0.0536
+Normality Test p-value: 0.4245
+
+Sample Size: 100
+Mean: 0.5010
+Std Dev: 0.0296
+Normality Test p-value: 0.9482
+
+CLT Demonstration (Exponential Distribution):
+
+Sample Statistics:
+
+Sample Size: 1
+Mean: 2.0838
+Std Dev: 2.1226
+Normality Test p-value: 0.0000
+
+Sample Size: 5
+Mean: 2.0069
+Std Dev: 0.9192
+Normality Test p-value: 0.0000
+
+Sample Size: 30
+Mean: 1.9851
+Std Dev: 0.3591
+Normality Test p-value: 0.0000
+
+Sample Size: 100
+Mean: 2.0066
+Std Dev: 0.2044
+Normality Test p-value: 0.0019
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-6" data-tint="1">
@@ -912,10 +1039,6 @@ demonstrator.plot_clt_demonstration(
 </div>
 
 
-![probability-distribution-families](assets/probability-distribution-families_fig_4.png)
-
-
-![probability-distribution-families](assets/probability-distribution-families_fig_5.png)
 
 ```
 

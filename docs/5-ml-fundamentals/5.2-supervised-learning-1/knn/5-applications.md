@@ -432,6 +432,11 @@ print("Potential fraud cases:")
 for case in fraud_cases:
     print(f"Transaction {case['transaction_id']}: Score {case['fraud_score']:.2f}")
 {% endhighlight %}
+```
+Potential fraud cases:
+Transaction 1: Score 1.01
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

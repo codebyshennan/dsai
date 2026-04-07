@@ -97,6 +97,24 @@ fig, (ax1, ax2) = plt.subplots(2, 1,
                               gridspec_kw={'hspace': 0.3})
 ```
 
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_1.png" alt="troubleshooting-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_2.png" alt="troubleshooting-guide" />
+<figcaption>Figure 2: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_3.png" alt="troubleshooting-guide" />
+<figcaption>Figure 3: Generated visualization</figcaption>
+</figure>
+
 ### 3. Data Handling
 
 #### Missing Data
@@ -129,6 +147,12 @@ def handle_missing(data):
     )
     return data
 {% endhighlight %}
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_1.png" alt="troubleshooting-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -190,6 +214,12 @@ def normalize(data):
     """Normalize data to [0, 1] range"""
     return (data - np.min(data)) / (np.max(data) - np.min(data))
 {% endhighlight %}
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_5.png" alt="troubleshooting-guide" />
+<figcaption>Figure 5: Generated visualization</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -254,6 +284,606 @@ def plot_with_cleanup(data):
         plt.close('all')
 {% endhighlight %}
 
+<figure>
+<img src="assets/troubleshooting-guide_fig_6.png" alt="troubleshooting-guide" />
+<figcaption>Figure 6: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_7.png" alt="troubleshooting-guide" />
+<figcaption>Figure 7: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_8.png" alt="troubleshooting-guide" />
+<figcaption>Figure 8: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_9.png" alt="troubleshooting-guide" />
+<figcaption>Figure 9: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_10.png" alt="troubleshooting-guide" />
+<figcaption>Figure 10: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_11.png" alt="troubleshooting-guide" />
+<figcaption>Figure 11: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_12.png" alt="troubleshooting-guide" />
+<figcaption>Figure 12: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_13.png" alt="troubleshooting-guide" />
+<figcaption>Figure 13: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_14.png" alt="troubleshooting-guide" />
+<figcaption>Figure 14: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_15.png" alt="troubleshooting-guide" />
+<figcaption>Figure 15: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_16.png" alt="troubleshooting-guide" />
+<figcaption>Figure 16: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_17.png" alt="troubleshooting-guide" />
+<figcaption>Figure 17: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_18.png" alt="troubleshooting-guide" />
+<figcaption>Figure 18: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_19.png" alt="troubleshooting-guide" />
+<figcaption>Figure 19: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_20.png" alt="troubleshooting-guide" />
+<figcaption>Figure 20: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_21.png" alt="troubleshooting-guide" />
+<figcaption>Figure 21: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_22.png" alt="troubleshooting-guide" />
+<figcaption>Figure 22: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_23.png" alt="troubleshooting-guide" />
+<figcaption>Figure 23: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_24.png" alt="troubleshooting-guide" />
+<figcaption>Figure 24: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_25.png" alt="troubleshooting-guide" />
+<figcaption>Figure 25: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_26.png" alt="troubleshooting-guide" />
+<figcaption>Figure 26: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_27.png" alt="troubleshooting-guide" />
+<figcaption>Figure 27: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_28.png" alt="troubleshooting-guide" />
+<figcaption>Figure 28: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_29.png" alt="troubleshooting-guide" />
+<figcaption>Figure 29: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_30.png" alt="troubleshooting-guide" />
+<figcaption>Figure 30: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_31.png" alt="troubleshooting-guide" />
+<figcaption>Figure 31: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_32.png" alt="troubleshooting-guide" />
+<figcaption>Figure 32: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_33.png" alt="troubleshooting-guide" />
+<figcaption>Figure 33: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_34.png" alt="troubleshooting-guide" />
+<figcaption>Figure 34: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_35.png" alt="troubleshooting-guide" />
+<figcaption>Figure 35: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_36.png" alt="troubleshooting-guide" />
+<figcaption>Figure 36: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_37.png" alt="troubleshooting-guide" />
+<figcaption>Figure 37: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_38.png" alt="troubleshooting-guide" />
+<figcaption>Figure 38: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_39.png" alt="troubleshooting-guide" />
+<figcaption>Figure 39: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_40.png" alt="troubleshooting-guide" />
+<figcaption>Figure 40: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_41.png" alt="troubleshooting-guide" />
+<figcaption>Figure 41: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_42.png" alt="troubleshooting-guide" />
+<figcaption>Figure 42: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_43.png" alt="troubleshooting-guide" />
+<figcaption>Figure 43: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_44.png" alt="troubleshooting-guide" />
+<figcaption>Figure 44: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_45.png" alt="troubleshooting-guide" />
+<figcaption>Figure 45: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_46.png" alt="troubleshooting-guide" />
+<figcaption>Figure 46: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_47.png" alt="troubleshooting-guide" />
+<figcaption>Figure 47: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_48.png" alt="troubleshooting-guide" />
+<figcaption>Figure 48: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_49.png" alt="troubleshooting-guide" />
+<figcaption>Figure 49: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_50.png" alt="troubleshooting-guide" />
+<figcaption>Figure 50: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_51.png" alt="troubleshooting-guide" />
+<figcaption>Figure 51: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_52.png" alt="troubleshooting-guide" />
+<figcaption>Figure 52: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_53.png" alt="troubleshooting-guide" />
+<figcaption>Figure 53: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_54.png" alt="troubleshooting-guide" />
+<figcaption>Figure 54: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_55.png" alt="troubleshooting-guide" />
+<figcaption>Figure 55: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_56.png" alt="troubleshooting-guide" />
+<figcaption>Figure 56: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_57.png" alt="troubleshooting-guide" />
+<figcaption>Figure 57: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_58.png" alt="troubleshooting-guide" />
+<figcaption>Figure 58: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_59.png" alt="troubleshooting-guide" />
+<figcaption>Figure 59: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_60.png" alt="troubleshooting-guide" />
+<figcaption>Figure 60: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_61.png" alt="troubleshooting-guide" />
+<figcaption>Figure 61: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_62.png" alt="troubleshooting-guide" />
+<figcaption>Figure 62: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_63.png" alt="troubleshooting-guide" />
+<figcaption>Figure 63: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_64.png" alt="troubleshooting-guide" />
+<figcaption>Figure 64: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_65.png" alt="troubleshooting-guide" />
+<figcaption>Figure 65: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_66.png" alt="troubleshooting-guide" />
+<figcaption>Figure 66: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_67.png" alt="troubleshooting-guide" />
+<figcaption>Figure 67: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_68.png" alt="troubleshooting-guide" />
+<figcaption>Figure 68: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_69.png" alt="troubleshooting-guide" />
+<figcaption>Figure 69: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_70.png" alt="troubleshooting-guide" />
+<figcaption>Figure 70: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_71.png" alt="troubleshooting-guide" />
+<figcaption>Figure 71: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_72.png" alt="troubleshooting-guide" />
+<figcaption>Figure 72: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_73.png" alt="troubleshooting-guide" />
+<figcaption>Figure 73: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_74.png" alt="troubleshooting-guide" />
+<figcaption>Figure 74: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_75.png" alt="troubleshooting-guide" />
+<figcaption>Figure 75: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_76.png" alt="troubleshooting-guide" />
+<figcaption>Figure 76: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_77.png" alt="troubleshooting-guide" />
+<figcaption>Figure 77: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_78.png" alt="troubleshooting-guide" />
+<figcaption>Figure 78: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_79.png" alt="troubleshooting-guide" />
+<figcaption>Figure 79: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_80.png" alt="troubleshooting-guide" />
+<figcaption>Figure 80: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_81.png" alt="troubleshooting-guide" />
+<figcaption>Figure 81: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_82.png" alt="troubleshooting-guide" />
+<figcaption>Figure 82: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_83.png" alt="troubleshooting-guide" />
+<figcaption>Figure 83: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_84.png" alt="troubleshooting-guide" />
+<figcaption>Figure 84: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_85.png" alt="troubleshooting-guide" />
+<figcaption>Figure 85: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_86.png" alt="troubleshooting-guide" />
+<figcaption>Figure 86: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_87.png" alt="troubleshooting-guide" />
+<figcaption>Figure 87: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_88.png" alt="troubleshooting-guide" />
+<figcaption>Figure 88: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_89.png" alt="troubleshooting-guide" />
+<figcaption>Figure 89: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_90.png" alt="troubleshooting-guide" />
+<figcaption>Figure 90: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_91.png" alt="troubleshooting-guide" />
+<figcaption>Figure 91: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_92.png" alt="troubleshooting-guide" />
+<figcaption>Figure 92: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_93.png" alt="troubleshooting-guide" />
+<figcaption>Figure 93: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_94.png" alt="troubleshooting-guide" />
+<figcaption>Figure 94: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_95.png" alt="troubleshooting-guide" />
+<figcaption>Figure 95: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_96.png" alt="troubleshooting-guide" />
+<figcaption>Figure 96: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_97.png" alt="troubleshooting-guide" />
+<figcaption>Figure 97: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_98.png" alt="troubleshooting-guide" />
+<figcaption>Figure 98: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_99.png" alt="troubleshooting-guide" />
+<figcaption>Figure 99: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_100.png" alt="troubleshooting-guide" />
+<figcaption>Figure 100: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_101.png" alt="troubleshooting-guide" />
+<figcaption>Figure 101: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_102.png" alt="troubleshooting-guide" />
+<figcaption>Figure 102: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_103.png" alt="troubleshooting-guide" />
+<figcaption>Figure 103: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_104.png" alt="troubleshooting-guide" />
+<figcaption>Figure 104: Generated visualization</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_105.png" alt="troubleshooting-guide" />
+<figcaption>Figure 105: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-5" data-tint="1">
@@ -310,6 +940,12 @@ def plot_large_dataset(x, y, max_points=10_000):
     plt.scatter(x, y, alpha=0.1, rasterized=True)
 {% endhighlight %}
 
+<figure>
+<img src="assets/troubleshooting-guide_fig_1.png" alt="troubleshooting-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-3" data-tint="1">
@@ -365,6 +1001,12 @@ def set_font_safely():
         plt.rcParams['font.family'] = 'sans-serif'
 ```
 
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_1.png" alt="troubleshooting-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 #### Color Issues
 
 Think of this as trying to read yellow text on a white background:
@@ -412,6 +1054,12 @@ def save_high_quality(fig, filename):
                 transparent=True)       # Transparent background - like a PNG
 ```
 
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_4.png" alt="troubleshooting-guide" />
+<figcaption>Figure 4: Generated visualization</figcaption>
+</figure>
+
 ## Debugging Tools
 
 ### 1. Plot Information
@@ -448,6 +1096,12 @@ def print_plot_info():
 
     return info
 {% endhighlight %}
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_1.png" alt="troubleshooting-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -507,6 +1161,12 @@ def plot_timer(func):
         return result
     return wrapper
 {% endhighlight %}
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_1.png" alt="troubleshooting-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -571,6 +1231,12 @@ def setup_professional_plot():
     # Return figure and axes
     return plt.gcf(), plt.gca()
 {% endhighlight %}
+
+<figure>
+<img src="assets/troubleshooting-guide_fig_1.png" alt="troubleshooting-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

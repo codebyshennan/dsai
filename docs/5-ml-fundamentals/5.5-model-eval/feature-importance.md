@@ -67,6 +67,12 @@ plt.tight_layout()
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/feature-importance_fig_1.png" alt="feature-importance" />
+<figcaption>Figure 1: Feature Importances</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-9" data-tint="1">
@@ -100,8 +106,6 @@ plt.show()
 </div>
 
 
-![feature-importance](assets/feature-importance_fig_1.png)
-
 ### 2. Permutation Importance
 
 #### Model-agnostic drop in score
@@ -124,8 +128,6 @@ plt.tight_layout()
 plt.show()
 ```
 
-
-![feature-importance](assets/feature-importance_fig_2.png)
 
 ### 3. SHAP Values
 

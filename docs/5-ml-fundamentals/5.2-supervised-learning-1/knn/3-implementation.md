@@ -261,6 +261,21 @@ def classify_iris_flowers():
 # Run the example
 model, scaler = classify_iris_flowers()
 {% endhighlight %}
+```
+Accuracy: 1.0
+
+Detailed Report:
+              precision    recall  f1-score   support
+
+      setosa       1.00      1.00      1.00        10
+  versicolor       1.00      1.00      1.00         9
+   virginica       1.00      1.00      1.00        11
+
+    accuracy                           1.00        30
+   macro avg       1.00      1.00      1.00        30
+weighted avg       1.00      1.00      1.00        30
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

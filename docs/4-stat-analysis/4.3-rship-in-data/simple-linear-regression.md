@@ -147,6 +147,18 @@ plt.legend()
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/simple-linear-regression_fig_1.png" alt="simple-linear-regression" />
+<figcaption>Figure 1: Hours Studied vs. Test Scores</figcaption>
+</figure>
+
+```
+Starting point (intercept): 0.83
+Rate of change (slope): 2.01
+Accuracy (R-squared): 0.98
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-8" data-tint="1">
@@ -196,8 +208,6 @@ plt.show()
   </div>
 </aside>
 </div>
-
-![simple-linear-regression_fig_1](assets/simple-linear-regression_fig_1.png)
 
 ```
 Starting point (intercept): 0.83
@@ -310,8 +320,6 @@ def plot_diagnostics(X, y, y_pred):
 # Create diagnostic plots for our model
 plot_diagnostics(X, y, y_pred)
 ```
-
-![simple-linear-regression_fig_2](assets/simple-linear-regression_fig_2.png)
 
 ### What to Look for in Diagnostic Plots:
 ### 1. Residuals vs Predicted/Fitted (Top Left)

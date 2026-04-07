@@ -46,8 +46,6 @@ plt.show()
 ```
 
 
-![one-variable-statistics](assets/one-variable-statistics_fig_1.png)
-
 ```
 Summary Statistics:
 count    10.000000
@@ -117,6 +115,22 @@ def analyze_distribution(data: pd.Series) -> None:
 analyze_distribution(house_prices)
 {% endhighlight %}
 
+<figure>
+<img src="assets/one-variable-statistics_fig_1.png" alt="one-variable-statistics" />
+<figcaption>Figure 1: Distribution with Mean and Median</figcaption>
+</figure>
+
+```
+
+Distribution Analysis:
+Mean: 338.75
+Median: 310.00
+Std: 73.21
+Skewness: 0.92
+Kurtosis: -0.35
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-5" data-tint="1">
@@ -149,8 +163,6 @@ analyze_distribution(house_prices)
 </aside>
 </div>
 
-
-![one-variable-statistics](assets/one-variable-statistics_fig_2.png)
 
 ```
 
@@ -227,6 +239,21 @@ ct.print_summary()
 ct.compare_measures()
 {% endhighlight %}
 
+<figure>
+<img src="assets/one-variable-statistics_fig_2.png" alt="one-variable-statistics" />
+<figcaption>Figure 2: Distribution with Central Tendency Measures</figcaption>
+</figure>
+
+```
+
+Central Tendency Measures:
+Mean: 63000.00
+Median: 54500.00
+Mode: 45000.00
+Trimmed_Mean: 54375.00
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-15" data-tint="1">
@@ -259,8 +286,6 @@ ct.compare_measures()
 </aside>
 </div>
 
-
-![one-variable-statistics](assets/one-variable-statistics_fig_3.png)
 
 ```
 
@@ -502,6 +527,32 @@ datasets = {
 compare_variability(datasets)
 {% endhighlight %}
 
+<figure>
+<img src="assets/one-variable-statistics_fig_3.png" alt="one-variable-statistics" />
+<figcaption>Figure 3: Stock Prices - Boxplot</figcaption>
+</figure>
+
+```
+
+Variability Comparison:
+
+STD:
+Stock Prices: 1.923
+Temperature: 0.103
+Website Traffic: 542.525
+
+IQR:
+Stock Prices: 2.250
+Temperature: 0.175
+Website Traffic: 700.000
+
+CV:
+Stock Prices: 0.019
+Temperature: 0.005
+Website Traffic: 0.385
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-14" data-tint="1">
@@ -534,8 +585,6 @@ compare_variability(datasets)
 </aside>
 </div>
 
-
-![one-variable-statistics](assets/one-variable-statistics_fig_4.png)
 
 ```
 
@@ -629,6 +678,33 @@ freq_analyzer.print_summary()
 freq_analyzer.plot_distributions()
 {% endhighlight %}
 
+<figure>
+<img src="assets/one-variable-statistics_fig_4.png" alt="one-variable-statistics" />
+<figcaption>Figure 4: Frequency Distribution</figcaption>
+</figure>
+
+```
+
+Frequency Distribution Summary:
+   bin_start  bin_end  ...  cumulative_freq  cumulative_relative
+0     49.569   55.873  ...                5                0.025
+1     55.873   62.177  ...               16                0.080
+2     62.177   68.480  ...               50                0.250
+3     68.480   74.784  ...               97                0.485
+4     74.784   81.088  ...              153                0.765
+5     81.088   87.392  ...              180                0.900
+6     87.392   93.696  ...              195                0.975
+7     93.696  100.000  ...              200                1.000
+
+[8 rows x 6 columns]
+
+Distribution Statistics:
+Number of bins: 8
+Most common bin frequency: 56
+Median frequency: 21.0
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-7" data-tint="1">
@@ -661,8 +737,6 @@ freq_analyzer.plot_distributions()
 </aside>
 </div>
 
-
-![one-variable-statistics](assets/one-variable-statistics_fig_5.png)
 
 ```
 
@@ -744,6 +818,30 @@ house_sizes = pd.Series(
 create_analysis_dashboard(house_sizes, "Real Estate Size Analysis")
 {% endhighlight %}
 
+<figure>
+<img src="assets/one-variable-statistics_fig_5.png" alt="one-variable-statistics" />
+<figcaption>Figure 5: Real Estate Size Analysis</figcaption>
+</figure>
+
+```
+
+Summary Statistics:
+count     200.00
+mean     1132.98
+std       313.56
+min       395.29
+25%       931.21
+50%      1090.36
+75%      1355.10
+max      2035.50
+Name: House Sizes, dtype: float64
+
+Normality Tests:
+Shapiro-Wilk p-value: 0.2564
+Kolmogorov-Smirnov p-value: 0.4943
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-27" data-tint="1">
@@ -776,8 +874,6 @@ create_analysis_dashboard(house_sizes, "Real Estate Size Analysis")
 </aside>
 </div>
 
-
-![one-variable-statistics](assets/one-variable-statistics_fig_6.png)
 
 ```
 

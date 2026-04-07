@@ -505,11 +505,7 @@ def optimize_time_series(df):
     return df
 {% endhighlight %}
 
-![time-series](assets/time-series_fig_1.png)
-
 ![time-series](assets/time-series_fig_2.png)
-
-![time-series](assets/time-series_fig_3.png)
 
 ![time-series](assets/time-series_fig_4.png)
 
@@ -554,11 +550,7 @@ def process_large_timeseries(file_path, chunksize=10000):
     return pd.concat(chunks)
 {% endhighlight %}
 
-![time-series](assets/time-series_fig_1.png)
-
 ![time-series](assets/time-series_fig_2.png)
-
-![time-series](assets/time-series_fig_3.png)
 
 ![time-series](assets/time-series_fig_4.png)
 

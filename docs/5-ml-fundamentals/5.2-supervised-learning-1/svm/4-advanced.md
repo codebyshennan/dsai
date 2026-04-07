@@ -1098,6 +1098,11 @@ def evaluate_feature_selection():
 # Uncomment to evaluate feature selection
 # evaluate_feature_selection()
 {% endhighlight %}
+```
+Original dataset shape: (569, 30)
+Number of features selected: 4 out of 30
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

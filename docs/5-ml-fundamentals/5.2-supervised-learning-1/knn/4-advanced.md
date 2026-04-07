@@ -70,6 +70,10 @@ new_movie = np.array([4, 4, 3])  # Mix of all genres
 prediction = knn.predict([new_movie])
 print(f"Predicted genre: {prediction[0]}")
 {% endhighlight %}
+```
+Predicted genre: Action
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -146,6 +150,12 @@ X, y = iris.data, iris.target
 visualize_data(X, y)
 {% endhighlight %}
 
+<figure>
+<img src="assets/4-advanced_fig_1.png" alt="4-advanced" />
+<figcaption>Figure 1: Data Visualization After PCA</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-17" data-tint="1">
@@ -169,8 +179,6 @@ visualize_data(X, y)
 </aside>
 </div>
 
-
-![4-advanced](assets/4-advanced_fig_1.png)
 
 ## 3. Finding the Best k Value
 
@@ -221,6 +229,16 @@ def find_best_k(X, y, max_k=20):
 best_k = find_best_k(X, y)
 {% endhighlight %}
 
+<figure>
+<img src="assets/4-advanced_fig_2.png" alt="4-advanced" />
+<figcaption>Figure 2: Finding the Best k Value</figcaption>
+</figure>
+
+```
+Best k value: 6
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-4" data-tint="1">
@@ -253,8 +271,6 @@ best_k = find_best_k(X, y)
 </aside>
 </div>
 
-
-![4-advanced](assets/4-advanced_fig_2.png)
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 

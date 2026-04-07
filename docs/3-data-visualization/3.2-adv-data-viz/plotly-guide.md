@@ -94,6 +94,12 @@ def load_and_prepare_data(dataset_name="gapminder"):
 df = load_and_prepare_data()
 ```
 
+
+<figure>
+<img src="assets/plotly-guide_fig_1.png" alt="plotly-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 ## Basic Interactive Plots
 
 > **Level:** Beginner — these are the core Plotly Express patterns you will use most often.
@@ -488,6 +494,12 @@ def apply_custom_theme(fig, theme='modern'):
     
     return fig
 ```
+
+
+<figure>
+<img src="assets/plotly-guide_fig_1.png" alt="plotly-guide" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
 
 ### 2. Interactive Features
 

@@ -57,6 +57,12 @@ def plot_chain_rule_example():
 plot_chain_rule_example()
 {% endhighlight %}
 
+<figure>
+<img src="assets/2-math-foundation_fig_1.png" alt="2-math-foundation" />
+<figcaption>Figure 1: Chain Rule Visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-3" data-tint="1">
@@ -89,8 +95,6 @@ plot_chain_rule_example()
 </aside>
 </div>
 
-
-![2-math-foundation](assets/2-math-foundation_fig_1.png)
 
 ## Forward Pass
 
@@ -147,6 +151,12 @@ def plot_forward_pass():
 plot_forward_pass()
 {% endhighlight %}
 
+<figure>
+<img src="assets/2-math-foundation_fig_2.png" alt="2-math-foundation" />
+<figcaption>Figure 2: Forward Pass Visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-13" data-tint="1">
@@ -179,8 +189,6 @@ plot_forward_pass()
 </aside>
 </div>
 
-
-![2-math-foundation](assets/2-math-foundation_fig_2.png)
 
 ## Backward Pass
 
@@ -290,6 +298,12 @@ def plot_activation_functions():
 plot_activation_functions()
 {% endhighlight %}
 
+<figure>
+<img src="assets/2-math-foundation_fig_3.png" alt="2-math-foundation" />
+<figcaption>Figure 3: Activation Functions</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-13" data-tint="1">
@@ -322,8 +336,6 @@ plot_activation_functions()
 </aside>
 </div>
 
-
-![2-math-foundation](assets/2-math-foundation_fig_3.png)
 
 ## Loss Functions
 

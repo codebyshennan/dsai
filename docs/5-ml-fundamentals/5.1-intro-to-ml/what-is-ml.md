@@ -130,8 +130,6 @@ import matplotlib.pyplot as plt  # For visualization
 ```
 
 
-![what-is-ml](assets/what-is-ml_fig_1.png)
-
 ### Simple Example: Predicting House Prices
 
 #### Fit a linear model on toy house data
@@ -159,6 +157,16 @@ new_size = [[1750]]
 predicted_price = model.predict(new_size)
 print(f"Predicted price for {new_size[0][0]} sq ft: ${predicted_price[0]:,.2f}")
 {% endhighlight %}
+
+<figure>
+<img src="assets/what-is-ml_fig_1.png" alt="what-is-ml" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+```
+Predicted price for 1750 sq ft: $350,000.00
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

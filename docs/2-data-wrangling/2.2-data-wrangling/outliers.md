@@ -73,11 +73,7 @@ def detect_outliers_zscore(data, threshold=3):
 # σ is the standard deviation
 {% endhighlight %}
 
-![outliers](assets/outliers_fig_1.png)
-
 ![outliers](assets/outliers_fig_2.png)
-
-![outliers](assets/outliers_fig_3.png)
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

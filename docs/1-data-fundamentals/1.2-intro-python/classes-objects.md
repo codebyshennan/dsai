@@ -1211,6 +1211,11 @@ try:
 except Exception as e:
    print(f"\nPipeline execution failed: {str(e)}")
 {% endhighlight %}
+```
+
+Pipeline execution failed: [Errno 2] No such file or directory: 'data.csv'
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

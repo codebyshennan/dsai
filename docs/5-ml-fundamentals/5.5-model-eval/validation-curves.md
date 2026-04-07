@@ -77,6 +77,12 @@ plt.grid(True)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/validation-curves_fig_1.png" alt="validation-curves" />
+<figcaption>Figure 1: Validation Curves (Model Complexity)</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-15" data-tint="1">
@@ -100,8 +106,6 @@ plt.show()
 </aside>
 </div>
 
-
-![validation-curves](assets/validation-curves_fig_1.png)
 
 ### 2. Regularization Strength
 
@@ -143,6 +147,12 @@ plt.grid(True)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/validation-curves_fig_2.png" alt="validation-curves" />
+<figcaption>Figure 2: Validation Curves (Regularization)</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-11" data-tint="1">
@@ -166,8 +176,6 @@ plt.show()
 </aside>
 </div>
 
-
-![validation-curves](assets/validation-curves_fig_2.png)
 
 ### 3. Learning Rate
 
@@ -209,6 +217,12 @@ plt.grid(True)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/validation-curves_fig_3.png" alt="validation-curves" />
+<figcaption>Figure 3: Validation Curves (Learning Rate)</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-11" data-tint="1">
@@ -232,8 +246,6 @@ plt.show()
 </aside>
 </div>
 
-
-![validation-curves](assets/validation-curves_fig_3.png)
 
 ## Interpreting Validation Curves
 
@@ -367,6 +379,12 @@ plt.grid(True)
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/validation-curves_fig_4.png" alt="validation-curves" />
+<figcaption>Figure 4: Validation Curves for Credit Risk Prediction</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-29" data-tint="1">
@@ -399,8 +417,6 @@ plt.show()
 </aside>
 </div>
 
-
-![validation-curves](assets/validation-curves_fig_4.png)
 
 ## Gotchas
 

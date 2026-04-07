@@ -177,6 +177,22 @@ def check_predictor_similarity(X):
 print("\nMulticollinearity Check (VIF values):")
 print(check_predictor_similarity(X))
 {% endhighlight %}
+```
+Contribution of each factor:
+study_hours: 1.82 points
+prev_gpa: 2.96 points
+sleep_hours: 1.53 points
+
+Starting point (intercept): 0.09
+Model accuracy (R-squared): 0.94
+
+Multicollinearity Check (VIF values):
+      Variable       VIF
+0  study_hours  1.053354
+1     prev_gpa  1.019570
+2  sleep_hours  1.034520
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -385,8 +401,6 @@ def check_model_validity(model, X, y):
 check_model_validity(model, X, y)
 ```
 
-![multiple-linear-regression_fig_4](assets/multiple-linear-regression_fig_4.png)
-
 ### What Good Diagnostic Plots Look Like:
 
 1. **Residuals vs Fitted (top left)**:
@@ -509,6 +523,12 @@ data = pd.DataFrame({
 #    - $120 price
 #    - 5 competitors
 ```
+
+
+<figure>
+<img src="assets/multiple-linear-regression_fig_1.png" alt="multiple-linear-regression" />
+<figcaption>Figure 1: Are Our Errors Random? (They Should Be!)</figcaption>
+</figure>
 
 ### What You Should Find:
 

@@ -122,10 +122,18 @@ plt.savefig('nonlinear_relationship.png')
 plt.show()
 {% endhighlight %}
 
-![polynomial-regression](assets/polynomial-regression_fig_1.png)
+<figure>
+<img src="assets/polynomial-regression_fig_1.png" alt="polynomial-regression" />
+<figcaption>Figure 1: Model Performance Comparison</figcaption>
+</figure>
 
 
-![polynomial-regression](assets/polynomial-regression_fig_2.png)
+<figure>
+<img src="assets/polynomial-regression_fig_2.png" alt="polynomial-regression" />
+<figcaption>Figure 2: Study Time vs Exam Score</figcaption>
+</figure>
+
+
 
 
 </div>
@@ -235,7 +243,11 @@ def compare_linear_polynomial():
 compare_linear_polynomial()
 {% endhighlight %}
 
-![polynomial-regression](assets/polynomial-regression_fig_3.png)
+<figure>
+<img src="assets/polynomial-regression_fig_3.png" alt="polynomial-regression" />
+<figcaption>Figure 3: Linear vs Polynomial Regression</figcaption>
+</figure>
+
 
 
 </div>
@@ -358,8 +370,6 @@ def visualize_polynomial_transformation():
 # Run the function
 visualize_polynomial_transformation()
 {% endhighlight %}
-
-![polynomial-regression](assets/polynomial-regression_fig_4.png)
 
 ```
 Polynomial Feature Transformation (degree=2):
@@ -499,7 +509,11 @@ def plot_different_degrees():
 plot_different_degrees()
 {% endhighlight %}
 
-![polynomial-regression](assets/polynomial-regression_fig_5.png)
+<figure>
+<img src="assets/polynomial-regression_fig_4.png" alt="polynomial-regression" />
+<figcaption>Figure 4: Degree 1 Polynomial (MSE: 46.18)</figcaption>
+</figure>
+
 
 
 </div>
@@ -607,6 +621,12 @@ def prepare_polynomial_data(X, y, degree=2):
 
     return X_train_scaled, X_test_scaled, y_train, y_test, poly, scaler
 {% endhighlight %}
+
+<figure>
+<img src="assets/polynomial-regression_fig_1.png" alt="polynomial-regression" />
+<figcaption>Figure 1: Are Our Errors Random? (They Should Be!)</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -721,8 +741,6 @@ degree = 3
 X_train, X_test, y_train, y_test, poly, scaler = prepare_polynomial_data(X_example, y_example, degree)
 model = train_polynomial_model(X_train, y_train)
 {% endhighlight %}
-
-![polynomial-regression](assets/polynomial-regression_fig_6.png)
 
 ```
 Original feature shape: (160, 1)
@@ -978,10 +996,6 @@ def find_optimal_degree(X, y, max_degree=10):
 optimal_degree, cv_errors = find_optimal_degree(X_example, y_example)
 {% endhighlight %}
 
-![polynomial-regression](assets/polynomial-regression_fig_7.png)
-
-
-![polynomial-regression](assets/polynomial-regression_fig_8.png)
 
 ```
 The optimal polynomial degree is: 3

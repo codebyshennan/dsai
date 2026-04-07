@@ -119,6 +119,13 @@ print(f"Population mean (μ): {population_mean:.2f} feet")
 print(f"Sample mean (x̄): {sample_mean:.2f} feet")
 print(f"Difference: {abs(population_mean - sample_mean):.2f} feet")
 {% endhighlight %}
+```
+Tree Height Analysis
+Population mean (μ): 99.97 feet
+Sample mean (x̄): 99.86 feet
+Difference: 0.11 feet
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -180,6 +187,15 @@ print(f"({ci_lower:.2f}, {ci_upper:.2f}) feet")
 print(f"Interpretation: We're {confidence_level*100}% confident the true average")
 print(f"tree height falls between {ci_lower:.2f} and {ci_upper:.2f} feet")
 {% endhighlight %}
+```
+
+Confidence Interval Analysis
+95.0% Confidence Interval:
+(96.90, 102.82) feet
+Interpretation: We're 95.0% confident the true average
+tree height falls between 96.90 and 102.82 feet
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -235,6 +251,14 @@ print(f"True population mean: {population_mean:.2f}")
 print(f"Average of {n_simulations} sample means: {mean_of_means:.2f}")
 print(f"Difference: {abs(population_mean - mean_of_means):.2f}")
 {% endhighlight %}
+```
+
+Unbiasedness Analysis
+True population mean: 99.97
+Average of 1000 sample means: 99.94
+Difference: 0.03
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -291,6 +315,13 @@ print(f"\nEfficiency Analysis")
 print(f"Regular mean: {regular_mean:.2f}")
 print(f"Trimmed mean: {trimmed_mean:.2f}")
 {% endhighlight %}
+```
+
+Efficiency Analysis
+Regular mean: 99.80
+Trimmed mean: 99.71
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -346,6 +377,16 @@ print(f"True population mean: {population_mean:.2f}")
 for size, result in zip(sample_sizes, results):
     print(f"Sample size {size:4d}: {result:.2f} (Diff: {abs(result - population_mean):.2f})")
 {% endhighlight %}
+```
+
+Consistency Analysis
+True population mean: 99.97
+Sample size   10: 105.13 (Diff: 5.17)
+Sample size  100: 101.35 (Diff: 1.38)
+Sample size 1000: 100.18 (Diff: 0.21)
+Sample size 5000: 99.81 (Diff: 0.16)
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -415,6 +456,12 @@ def quality_control_example():
     }
 {% endhighlight %}
 
+<figure>
+<img src="assets/parameters-statistics_fig_1.png" alt="parameters-statistics" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="4-11" data-tint="1">
@@ -480,6 +527,12 @@ def ab_testing_example():
         'confidence_interval': ci
     }
 {% endhighlight %}
+
+<figure>
+<img src="assets/parameters-statistics_fig_1.png" alt="parameters-statistics" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -634,6 +687,12 @@ def demonstrate_sampling_distribution():
     }
 {% endhighlight %}
 
+<figure>
+<img src="assets/parameters-statistics_fig_1.png" alt="parameters-statistics" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="2-3" data-tint="1">
@@ -718,6 +777,12 @@ def demonstrate_clt():
     plt.tight_layout()
     plt.show()
 {% endhighlight %}
+
+<figure>
+<img src="assets/parameters-statistics_fig_1.png" alt="parameters-statistics" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -916,3 +981,9 @@ def finite_population_correction():
     
     return fpc
 ```
+
+
+<figure>
+<img src="assets/parameters-statistics_fig_1.png" alt="parameters-statistics" />
+<figcaption>Figure 1: Generated visualization</figcaption>
+</figure>

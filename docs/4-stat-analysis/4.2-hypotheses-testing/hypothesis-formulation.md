@@ -107,6 +107,10 @@ print(result)
 # Sample output:
 # {'effect_size': 3.0, 't_statistic': 2.683, 'p_value': 0.012, 'significant': True}
 {% endhighlight %}
+```
+{'effect_size': np.float64(3.200000000000001), 't_statistic': np.float64(2.121320343559645), 'p_value': np.float64(0.03334399999999982), 'significant': np.True_}
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -176,6 +180,10 @@ print(result)
 # Sample output:
 # {'mean_score': 4.2, 'median_score': 4.0, 'std_dev': 0.748, 'satisfaction_rate': 0.8, 'sample_size': 10, 't_statistic': 0.845, 'p_value': 0.420}
 {% endhighlight %}
+```
+{'mean_score': np.float64(4.1), 'median_score': np.float64(4.0), 'std_dev': np.float64(0.7000000000000001), 'satisfaction_rate': np.float64(0.8), 'sample_size': 10, 't_statistic': np.float64(0.42857142857142705), 'p_value': np.float64(0.6783097418055807)}
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -252,6 +260,10 @@ print(result)
 # Sample output:
 # {'falsifiable_result': True, 'non_falsifiable': 'Statement too vague to test statistically'}
 {% endhighlight %}
+```
+{'falsifiable_result': np.False_, 'non_falsifiable': 'Statement too vague to test statistically'}
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -321,6 +333,10 @@ print(result)
 # Sample output:
 # {'simple_p_value': 0.682, 'composite_result': True}
 {% endhighlight %}
+```
+{'simple_p_value': np.float64(1.0), 'composite_result': np.True_}
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

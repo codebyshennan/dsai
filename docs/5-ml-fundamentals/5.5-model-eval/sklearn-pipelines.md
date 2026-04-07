@@ -69,6 +69,10 @@ pipeline = Pipeline([
 pipeline.fit(X_train, y_train)
 print(f"Pipeline score: {pipeline.score(X_test, y_test):.3f}")
 {% endhighlight %}
+```
+Pipeline score: 0.990
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -148,6 +152,10 @@ union_pipeline = create_feature_union_pipeline()
 union_pipeline.fit(X_train, y_train)
 print(f"Feature union score: {union_pipeline.score(X_test, y_test):.3f}")
 {% endhighlight %}
+```
+Feature union score: 0.980
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

@@ -257,6 +257,7 @@ def _run_python_block(code: str, ns: dict) -> tuple[str, list[Path], list[str]]:
     # Close any stale figures left by a previously-failed block (prevents cross-block leakage).
     try:
         import matplotlib.pyplot as _plt_cleanup
+
         if _plt_cleanup.get_fignums():
             _plt_cleanup.close("all")
     except Exception:

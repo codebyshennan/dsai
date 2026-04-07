@@ -79,6 +79,34 @@ print(dice_results)
 experiment.plot_results(dice_results, "Dice Roll Probabilities (1000 rolls)")
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-fundamentals_fig_1.png" alt="probability-fundamentals" />
+<figcaption>Figure 1: Coin Flip Probabilities (1000 flips)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/probability-fundamentals_fig_2.png" alt="probability-fundamentals" />
+<figcaption>Figure 2: Dice Roll Probabilities (1000 rolls)</figcaption>
+</figure>
+
+```
+
+Coin Flip Probabilities:
+heads_prob: 0.490
+tails_prob: 0.510
+
+Dice Roll Probabilities:
+1    0.178
+5    0.177
+3    0.174
+6    0.170
+2    0.168
+4    0.133
+Name: count, dtype: float64
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-6" data-tint="1">
@@ -110,8 +138,6 @@ experiment.plot_results(dice_results, "Dice Roll Probabilities (1000 rolls)")
   </div>
 </aside>
 </div>
-
-![probability-fundamentals](assets/probability-fundamentals_fig_1.png)
 
 ![probability-fundamentals](assets/probability-fundamentals_fig_2.png)
 
@@ -197,6 +223,22 @@ print(f"Probability when switching: {mc.monty_hall(switch=True):.3f}")
 print(f"Probability when staying:   {mc.monty_hall(switch=False):.3f}")
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-fundamentals_fig_3.png" alt="probability-fundamentals" />
+<figcaption>Figure 3: Birthday Problem Probability</figcaption>
+</figure>
+
+```
+
+Birthday Problem:
+Probability with 23 people: 0.511
+
+Monty Hall Problem:
+Probability when switching: 0.670
+Probability when staying:   0.334
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-14" data-tint="1">
@@ -228,8 +270,6 @@ print(f"Probability when staying:   {mc.monty_hall(switch=False):.3f}")
   </div>
 </aside>
 </div>
-
-![probability-fundamentals](assets/probability-fundamentals_fig_3.png)
 
 ```
 
@@ -291,6 +331,12 @@ p_disease_given_positive = calc.bayes_theorem(
 print("\nMedical Test Example:")
 print(f"Probability of disease given positive test: {p_disease_given_positive:.3f}")
 {% endhighlight %}
+```
+
+Medical Test Example:
+Probability of disease given positive test: 0.088
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -482,6 +528,17 @@ print(f"\nProbability of hitting ±10: {hit_prob:.3f}")
 ap.plot_random_walks(paths[:100], threshold=10)
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-fundamentals_fig_4.png" alt="probability-fundamentals" />
+<figcaption>Figure 4: Random Walk Simulations</figcaption>
+</figure>
+
+```
+
+Probability of hitting ±10: 0.631
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-11" data-tint="1">
@@ -513,8 +570,6 @@ ap.plot_random_walks(paths[:100], threshold=10)
   </div>
 </aside>
 </div>
-
-![probability-fundamentals](assets/probability-fundamentals_fig_4.png)
 
 ```
 
@@ -578,6 +633,12 @@ results = pc.fit_and_evaluate(X, y)
 pc.plot_results(results)
 {% endhighlight %}
 
+<figure>
+<img src="assets/probability-fundamentals_fig_5.png" alt="probability-fundamentals" />
+<figcaption>Figure 5: Confusion Matrix</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-16" data-tint="1">
@@ -609,8 +670,6 @@ pc.plot_results(results)
   </div>
 </aside>
 </div>
-
-![probability-fundamentals](assets/probability-fundamentals_fig_5.png)
 
 ## Practice exercises
 

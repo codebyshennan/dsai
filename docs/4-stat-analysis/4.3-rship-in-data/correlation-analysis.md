@@ -258,6 +258,12 @@ plt.title('Correlation Matrix')
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/correlation-analysis_fig_1.png" alt="correlation-analysis" />
+<figcaption>Figure 1: Correlation Matrix</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-3" data-tint="1">
@@ -289,8 +295,6 @@ plt.show()
   </div>
 </aside>
 </div>
-
-![correlation-analysis_fig_4](assets/correlation-analysis_fig_4.png)
 
 **How to read this**: Each cell shows the correlation between the row and column variable. Red indicates positive correlation, blue indicates negative correlation, and the intensity of the color shows the strength.
 
@@ -374,6 +378,12 @@ plt.text(0.05, 0.95, f'Correlation: {r:.2f}',
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/correlation-analysis_fig_2.png" alt="correlation-analysis" />
+<figcaption>Figure 2: Temperature vs. Ice Cream Sales</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-7" data-tint="1">
@@ -405,8 +415,6 @@ plt.show()
   </div>
 </aside>
 </div>
-
-![correlation-analysis_fig_5](assets/correlation-analysis_fig_5.png)
 
 **What this shows**: There's a strong positive correlation (0.72) between temperature and ice cream sales. As temperature goes up, ice cream sales tend to increase as well.
 

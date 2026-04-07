@@ -128,6 +128,16 @@ def plot_decision_boundary(model, X, y):
 plot_decision_boundary(linear_model, X, y)
 {% endhighlight %}
 
+<figure>
+<img src="assets/model-selection_fig_1.png" alt="model-selection" />
+<figcaption>Figure 1: Decision Boundary</figcaption>
+</figure>
+
+```
+Linear Model Accuracy: 0.825
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-24" data-tint="1">
@@ -151,8 +161,6 @@ plot_decision_boundary(linear_model, X, y)
 </aside>
 </div>
 
-
-![model-selection](assets/model-selection_fig_1.png)
 
 ```
 Linear Model Accuracy: 0.825
@@ -205,6 +213,16 @@ def plot_feature_importance(model, feature_names):
 plot_feature_importance(tree_model, [f'Feature {i+1}' for i in range(X.shape[1])])
 {% endhighlight %}
 
+<figure>
+<img src="assets/model-selection_fig_2.png" alt="model-selection" />
+<figcaption>Figure 2: Feature Importance</figcaption>
+</figure>
+
+```
+Tree Model Accuracy: 0.910
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-11" data-tint="1">
@@ -228,8 +246,6 @@ plot_feature_importance(tree_model, [f'Feature {i+1}' for i in range(X.shape[1])
 </aside>
 </div>
 
-
-![model-selection](assets/model-selection_fig_2.png)
 
 ```
 Tree Model Accuracy: 0.910
@@ -294,6 +310,16 @@ def plot_learning_curve(model, X, y):
 plot_learning_curve(nn_model, X, y)
 {% endhighlight %}
 
+<figure>
+<img src="assets/model-selection_fig_3.png" alt="model-selection" />
+<figcaption>Figure 3: Learning Curve</figcaption>
+</figure>
+
+```
+Neural Network Accuracy: 0.950
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-10" data-tint="1">
@@ -317,8 +343,6 @@ plot_learning_curve(nn_model, X, y)
 </aside>
 </div>
 
-
-![model-selection](assets/model-selection_fig_3.png)
 
 ```
 Neural Network Accuracy: 0.950
@@ -373,6 +397,12 @@ models = {
 results = compare_models(models, X_train, X_test, y_train, y_test)
 {% endhighlight %}
 
+<figure>
+<img src="assets/model-selection_fig_4.png" alt="model-selection" />
+<figcaption>Figure 4: Model Comparison</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-20" data-tint="1">
@@ -396,8 +426,6 @@ results = compare_models(models, X_train, X_test, y_train, y_test)
 </aside>
 </div>
 
-
-![model-selection](assets/model-selection_fig_4.png)
 
 **Output:**
 ```
@@ -484,6 +512,12 @@ pipelines = {
 results = compare_models(pipelines, X_train, X_test, y_train, y_test)
 {% endhighlight %}
 
+<figure>
+<img src="assets/model-selection_fig_5.png" alt="model-selection" />
+<figcaption>Figure 5: Model Comparison</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-22" data-tint="1">
@@ -507,8 +541,6 @@ results = compare_models(pipelines, X_train, X_test, y_train, y_test)
 </aside>
 </div>
 
-
-![model-selection](assets/model-selection_fig_5.png)
 
 **Output:**
 ```
@@ -564,6 +596,22 @@ def model_selection_process(X, y):
 model_selection_process(X, y)
 {% endhighlight %}
 
+<figure>
+<img src="assets/model-selection_fig_6.png" alt="model-selection" />
+<figcaption>Figure 6: Model Comparison</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/model-selection_fig_7.png" alt="model-selection" />
+<figcaption>Figure 7: Learning Curve</figcaption>
+</figure>
+
+```
+{'Linear': 0.995, 'Tree': 0.985, 'Neural Network': 0.56}
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-26" data-tint="1">
@@ -588,10 +636,6 @@ model_selection_process(X, y)
 </div>
 
 
-![model-selection](assets/model-selection_fig_6.png)
-
-
-![model-selection](assets/model-selection_fig_7.png)
 
 ```
 {'Linear': 0.995, 'Tree': 0.98, 'Neural Network': 0.455}

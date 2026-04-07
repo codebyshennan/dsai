@@ -358,15 +358,9 @@ print("\nSpending by Segment Analysis:")
 print(f"Effect Size (): {segment_spending['eta_squared']:.3f}")
 {% endhighlight %}
 
-![relationships](assets/relationships_fig_1.png)
-
 ![relationships](assets/relationships_fig_2.png)
 
-![relationships](assets/relationships_fig_3.png)
-
 ![relationships](assets/relationships_fig_4.png)
-
-![relationships](assets/relationships_fig_5.png)
 
 ```
 

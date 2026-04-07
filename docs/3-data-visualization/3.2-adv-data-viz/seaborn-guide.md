@@ -173,6 +173,12 @@ def plot_distribution_suite(data, variable):
 dist_fig = plot_distribution_suite(tips, "total_bill")
 {% endhighlight %}
 
+<figure>
+<img src="assets/seaborn-guide_fig_1.png" alt="seaborn-guide" />
+<figcaption>Figure 1: Distribution of total_bill</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-8" data-tint="1">
@@ -223,8 +229,6 @@ dist_fig = plot_distribution_suite(tips, "total_bill")
 </aside>
 </div>
 
-
-![seaborn-guide](assets/seaborn-guide_fig_1.png)
 
 ### 2. Categorical Distributions
 
@@ -289,7 +293,11 @@ cat_fig = plot_categorical_analysis(tips, "day", "total_bill")
 ```
 
 
-![seaborn-guide](assets/seaborn-guide_fig_2.png)
+<figure>
+<img src="assets/seaborn-guide_fig_1.png" alt="seaborn-guide" />
+<figcaption>Figure 1: total_bill by day (Box Plot)</figcaption>
+</figure>
+
 
 > **Try it**
 >
@@ -416,13 +424,19 @@ pair_g, facet_g = analyze_complex_relationships(
 ```
 
 
-![seaborn-guide](assets/seaborn-guide_fig_3.png)
+<figure>
+<img src="assets/seaborn-guide_fig_2.png" alt="seaborn-guide" />
+<figcaption>Figure 2: Generated visualization</figcaption>
+</figure>
 
 
-![seaborn-guide](assets/seaborn-guide_fig_4.png)
+<figure>
+<img src="assets/seaborn-guide_fig_3.png" alt="seaborn-guide" />
+<figcaption>Figure 3: day = Thur | time = Lunch</figcaption>
+</figure>
 
 
-![seaborn-guide](assets/seaborn-guide_fig_5.png)
+
 
 > **Try it**
 >
@@ -479,10 +493,18 @@ corr_fig = create_correlation_analysis(tips)
 ```
 
 
-![seaborn-guide](assets/seaborn-guide_fig_6.png)
+<figure>
+<img src="assets/seaborn-guide_fig_4.png" alt="seaborn-guide" />
+<figcaption>Figure 4: Correlation Heatmap</figcaption>
+</figure>
 
 
-![seaborn-guide](assets/seaborn-guide_fig_7.png)
+<figure>
+<img src="assets/seaborn-guide_fig_5.png" alt="seaborn-guide" />
+<figcaption>Figure 5: Generated visualization</figcaption>
+</figure>
+
+
 
 
 ### Additional Visualization Examples

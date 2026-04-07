@@ -124,6 +124,32 @@ class ABTest:
         return self
 {% endhighlight %}
 
+<figure>
+<img src="assets/ab-testing_fig_1.png" alt="ab-testing" />
+<figcaption>Figure 1: Population Distribution
+(Exponential Distribution)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/ab-testing_fig_2.png" alt="ab-testing" />
+<figcaption>Figure 2: Sample Size: 10
+SE: 4.72</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/ab-testing_fig_3.png" alt="ab-testing" />
+<figcaption>Figure 3: Quality Control Measurements</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/ab-testing_fig_4.png" alt="ab-testing" />
+<figcaption>Figure 4: The Sampling Game</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-10" data-tint="1">
@@ -477,6 +503,10 @@ ev = expected_value(0.02, 0.10, 10_000, 5, 20_000)
 print(f"Expected 30-day value: ${ev:,.0f}")  # Expected 30-day value: $10,000
 ```
 
+```
+Expected 30-day value: $-17,000
+```
+
 **Step 4: Document the decision.** Record what you shipped and why — future tests on the same surface need this context to avoid re-testing the same thing.
 
 **Decision checklist:**
@@ -521,6 +551,32 @@ def adjust_for_peeking(p_values, total_looks):
     }
 ```
 
+
+<figure>
+<img src="assets/ab-testing_fig_1.png" alt="ab-testing" />
+<figcaption>Figure 1: Population Distribution
+(Exponential Distribution)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/ab-testing_fig_2.png" alt="ab-testing" />
+<figcaption>Figure 2: Sample Size: 10
+SE: 4.72</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/ab-testing_fig_3.png" alt="ab-testing" />
+<figcaption>Figure 3: Quality Control Measurements</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/ab-testing_fig_4.png" alt="ab-testing" />
+<figcaption>Figure 4: The Sampling Game</figcaption>
+</figure>
+
 ### 2. Sample Ratio Mismatch
 
 Check if your randomization is working:
@@ -557,6 +613,32 @@ def check_sample_ratio(control_size, treatment_size, expected_ratio=0.5):
         'recommendation': 'valid split' if p_value > 0.05 else 'investigate split'
     }
 ```
+
+
+<figure>
+<img src="assets/ab-testing_fig_1.png" alt="ab-testing" />
+<figcaption>Figure 1: Population Distribution
+(Exponential Distribution)</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/ab-testing_fig_2.png" alt="ab-testing" />
+<figcaption>Figure 2: Sample Size: 10
+SE: 4.72</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/ab-testing_fig_3.png" alt="ab-testing" />
+<figcaption>Figure 3: Quality Control Measurements</figcaption>
+</figure>
+
+
+<figure>
+<img src="assets/ab-testing_fig_4.png" alt="ab-testing" />
+<figcaption>Figure 4: The Sampling Game</figcaption>
+</figure>
 
 ## Gotchas
 

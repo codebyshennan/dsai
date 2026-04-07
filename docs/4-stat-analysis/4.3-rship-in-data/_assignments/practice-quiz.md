@@ -338,6 +338,10 @@ stat, p = stats.shapiro(residuals)
 print(f"Shapiro-Wilk: W={stat:.3f}, p={p:.4f}")
 # p < 0.05 rejects normality
 ```
+
+```
+Shapiro-Wilk: W=0.960, p=0.0041
+```
 </details>
 
 ---

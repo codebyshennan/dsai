@@ -145,6 +145,14 @@ print(f"Population mean: {np.mean(population):.2f}")
 print(f"Sample mean: {np.mean(sample):.2f}")
 print(f"Difference: {abs(np.mean(population) - np.mean(sample)):.2f}")
 {% endhighlight %}
+```
+
+Quality Control Analysis
+Population mean: 100.05
+Sample mean: 100.57
+Difference: 0.51
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -218,6 +226,10 @@ plt.close()
 
 print(f"Random sample IDs: {sample[:5]}...")  # Show first 5 IDs
 {% endhighlight %}
+```
+Random sample IDs: [664 919 241 476 610]...
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -530,6 +542,12 @@ plt.grid(True)
 plt.savefig('assets/sampling_error_effect.png')
 plt.close()
 {% endhighlight %}
+```
+Sample size 10: Standard Error = 4.74
+Sample size 100: Standard Error = 1.50
+Sample size 1000: Standard Error = 0.47
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -608,6 +626,11 @@ def calculate_sample_size(confidence_level=0.95, margin_of_error=0.05, p=0.5):
 n = calculate_sample_size()
 print(f"\nRequired sample size: {n}")
 {% endhighlight %}
+```
+
+Required sample size: 384
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

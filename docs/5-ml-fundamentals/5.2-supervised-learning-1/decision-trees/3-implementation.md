@@ -135,6 +135,12 @@ plt.title('Disease Diagnosis Decision Tree')
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/3-implementation_fig_1.png" alt="3-implementation" />
+<figcaption>Figure 1: Disease Diagnosis Decision Tree</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-7" data-tint="1">
@@ -167,8 +173,6 @@ plt.show()
 </aside>
 </div>
 
-
-![3-implementation](assets/3-implementation_fig_1.png)
 
 In this step, we create a decision tree classifier with specific settings to control its complexity. We then train the model using our patient data and visualize the resulting tree to understand how it makes decisions. The visualization shows which features (temperature, cough, fatigue) the tree uses to classify patients.
 
@@ -263,6 +267,16 @@ plt.title('Iris Classification Tree')
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/3-implementation_fig_2.png" alt="3-implementation" />
+<figcaption>Figure 2: Iris Classification Tree</figcaption>
+</figure>
+
+```
+Accuracy: 100.0%
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-9" data-tint="1">
@@ -304,8 +318,6 @@ plt.show()
 </aside>
 </div>
 
-
-![3-implementation](assets/3-implementation_fig_2.png)
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -388,6 +400,18 @@ plt.ylabel('Importance')
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/3-implementation_fig_3.png" alt="3-implementation" />
+<figcaption>Figure 3: Feature Importance for House Price Prediction</figcaption>
+</figure>
+
+```
+Training R² Score: 1.000
+Testing R² Score: 0.782
+Predicted price: $220.00k
+```
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-21" data-tint="1">
@@ -429,8 +453,6 @@ plt.show()
 </aside>
 </div>
 
-
-![3-implementation](assets/3-implementation_fig_3.png)
 
 **Captured stdout** (from running the snippet above; may be auto-injected on build):
 
@@ -502,6 +524,12 @@ plt.ylabel('Feature 2')
 plt.show()
 {% endhighlight %}
 
+<figure>
+<img src="assets/3-implementation_fig_4.png" alt="3-implementation" />
+<figcaption>Figure 4: Decision Tree Decision Boundary</figcaption>
+</figure>
+
+
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-13" data-tint="1">
@@ -543,8 +571,6 @@ plt.show()
 </aside>
 </div>
 
-
-![3-implementation](assets/3-implementation_fig_4.png)
 
 This visualization shows:
 1. How the decision tree divides the feature space into regions
@@ -616,6 +642,11 @@ tree_with_scaling = DecisionTreeClassifier(max_depth=3)
 tree_with_scaling.fit(X_train_scaled, y_train)
 print(f"With scaling: {tree_with_scaling.score(X_test_scaled, y_test):.3f}")
 {% endhighlight %}
+```
+Without scaling: 0.000
+With scaling: 0.000
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

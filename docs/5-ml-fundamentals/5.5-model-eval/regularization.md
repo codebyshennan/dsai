@@ -70,6 +70,10 @@ pipeline = Pipeline([
 pipeline.fit(X_train, y_train)
 print(f"L1 Regularization Score: {pipeline.score(X_test, y_test):.3f}")
 {% endhighlight %}
+```
+L1 Regularization Score: 0.989
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -266,6 +270,12 @@ plt.title('Regularization Comparison')
 plt.ylabel('Accuracy')
 plt.show()
 {% endhighlight %}
+
+<figure>
+<img src="assets/regularization_fig_1.png" alt="regularization" />
+<figcaption>Figure 1: Regularization Comparison</figcaption>
+</figure>
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

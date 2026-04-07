@@ -99,6 +99,11 @@ print("Treatment group:", treatment_group)
 # Control group: ['P7' 'P4' 'P8' 'P5' 'P3']
 # Treatment group: ['P6' 'P1' 'P9' 'P10' 'P2']
 {% endhighlight %}
+```
+Control group: ['P9' 'P2' 'P6' 'P1' 'P8']
+Treatment group: ['P3' 'P10' 'P5' 'P4' 'P7']
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -219,6 +224,16 @@ for unit, treatment in assignment.items():
 # Plant_5: A
 # Plant_6: B
 {% endhighlight %}
+```
+Assignments:
+Plant_1: A
+Plant_2: B
+Plant_3: A
+Plant_4: A
+Plant_5: A
+Plant_6: B
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -329,6 +344,18 @@ for unit, treatment in assignment.items():
 # Shady_3: B
 # Shady_4: A
 {% endhighlight %}
+```
+Assignments:
+Sunny_1: B
+Sunny_2: B
+Sunny_3: A
+Sunny_4: A
+Shady_1: B
+Shady_2: B
+Shady_3: A
+Shady_4: A
+```
+
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
