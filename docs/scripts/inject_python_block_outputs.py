@@ -242,9 +242,7 @@ def _init_namespace(_cwd: Path) -> dict:
     return ns
 
 
-def _run_python_block(
-    code: str, ns: dict
-) -> tuple[str, list[Path], list[str]]:
+def _run_python_block(code: str, ns: dict) -> tuple[str, list[Path], list[str]]:
     """
     Execute code; if last statement is an expression (Jupyter-style), print its value.
     Returns (stdout text, list of saved figure paths, list of per-figure title strings).
@@ -384,6 +382,9 @@ def process_markdown_file(
         if _skip_block_pragma(code):
             return
 
+        # Capture pragma caption before code is mutated by execution helpers
+        pragma_caption = _parse_fig_caption_pragma(code)
+
         old_cwd = os.getcwd()
         try:
             os.chdir(cwd)
@@ -394,12 +395,12 @@ def process_markdown_file(
                         old_alarm = signal.signal(signal.SIGALRM, _sigalrm_handler)
                         signal.alarm(BLOCK_EXEC_TIMEOUT_SEC)
                         try:
-                            stdout, figs = _run_python_block(code, ns)
+                            stdout, figs, fig_titles = _run_python_block(code, ns)
                         finally:
                             signal.alarm(0)
                             signal.signal(signal.SIGALRM, old_alarm)
                     else:
-                        stdout, figs = _run_python_block(code, ns)
+                        stdout, figs, fig_titles = _run_python_block(code, ns)
             except BlockExecTimeout:
                 logmsg(
                     f"{path}:{text[:start].count(chr(10)) + 1} block skip (timeout {BLOCK_EXEC_TIMEOUT_SEC}s)"
@@ -421,11 +422,19 @@ def process_markdown_file(
             os.chdir(old_cwd)
 
         parts: list[str] = []
-        for fig in figs:
+        for fig, mpl_title in zip(figs, fig_titles):
             rel = fig.as_posix()
             if cwd != path.parent:
                 rel = os.path.relpath(fig, cwd)
-            parts.append(f"\n\n![{path.stem}]({rel})\n")
+            # Resolve figure number from filename suffix (e.g. _fig_3.png → 3)
+            fig_num_match = re.search(r"_fig_(\d+)\.png$", fig.name)
+            fig_num = int(fig_num_match.group(1)) if fig_num_match else ns.get("_fig_counter", 1)
+            caption_text = pragma_caption or mpl_title or "Generated visualization"
+            caption = f"Figure {fig_num}: {caption_text}"
+            parts.append(
+                f'\n\n<figure>\n<img src="{rel}" alt="{path.stem}" />\n'
+                f"<figcaption>{caption}</figcaption>\n</figure>\n"
+            )
         if stdout.strip():
             parts.append(f"\n```\n{stdout.rstrip()}\n```\n")
         if not parts:
