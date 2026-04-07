@@ -655,8 +655,63 @@ def cross_validation_example(X, y, k=5):
 
     return np.mean(scores), np.std(scores)
 
-# Execute the function
+# Self-contained example
+np.random.seed(42)
+X_sample = np.random.normal(0, 1, (100, 1))
+y_sample = 3 * X_sample.squeeze() + np.random.normal(0, 1, 100)
+
 cv_mean, cv_std = cross_validation_example(X_sample, y_sample)
+print(f"CV MSE: {cv_mean:.4f} ± {cv_std:.4f}")
+{% endhighlight %}
+
+```
+CV MSE: 1.0184 ± 0.1262
+```
+
+The `±` gives the standard deviation *across* folds — a model with CV MSE 1.02 ± 0.13 is meaningfully different from one with 1.02 ± 0.90. High fold-to-fold variance signals that the model's performance is sensitive to which data it trains on, which itself is a warning sign.
+
+**Comparing multiple models with `cross_val_score`**
+
+The simpler sklearn path for model comparison — no manual fold loop required:
+
+```python
+from sklearn.model_selection import cross_val_score
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+np.random.seed(42)
+X = np.random.normal(0, 1, (200, 1))
+y = 2 * X.squeeze() + 0.5 * X.squeeze()**2 + np.random.normal(0, 1, 200)
+
+results = []
+for degree in [1, 2, 3, 5, 10]:
+    pipeline = make_pipeline(PolynomialFeatures(degree), LinearRegression())
+    scores = cross_val_score(pipeline, X, y, cv=5, scoring='neg_mean_squared_error')
+    mse_scores = -scores  # cross_val_score returns negative MSE
+    results.append({
+        'degree': degree,
+        'cv_mse_mean': round(mse_scores.mean(), 3),
+        'cv_mse_std': round(mse_scores.std(), 3),
+    })
+
+for r in results:
+    flag = " ← best" if r['cv_mse_mean'] == min(x['cv_mse_mean'] for x in results) else ""
+    print(f"degree={r['degree']:2d}  CV MSE={r['cv_mse_mean']:.3f} ± {r['cv_mse_std']:.3f}{flag}")
+```
+
+```
+degree= 1  CV MSE=1.418 ± 0.134
+degree= 2  CV MSE=1.018 ± 0.102 ← best
+degree= 3  CV MSE=1.025 ± 0.114
+degree= 5  CV MSE=1.068 ± 0.148
+degree=10  CV MSE=1.193 ± 0.271
+```
+
+Degree 2 wins — it matches the true data-generating process (which is quadratic). Degree 10 has both higher error *and* higher variance across folds, the signature of overfitting.
+
+**Key rule:** when two models have similar CV MSE, prefer the simpler one. If degree 2 (CV MSE 1.018 ± 0.102) and degree 3 (CV MSE 1.025 ± 0.114) are within one standard error, degree 2 wins on parsimony.
 {% endhighlight %}
 
 ![model-selection](assets/model-selection_fig_4.png)
