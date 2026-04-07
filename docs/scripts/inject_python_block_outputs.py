@@ -37,6 +37,7 @@ class BlockExecTimeout(Exception):
 def _sigalrm_handler(_signum: int, _frame: object) -> None:
     raise BlockExecTimeout()
 
+
 # -----------------------------------------------------------------------------
 # Configuration
 # -----------------------------------------------------------------------------
@@ -152,7 +153,9 @@ def _iter_markdown_files(docs_root: Path, paths: list[Path] | None) -> list[Path
                 out.append(p)
             elif p.is_dir():
                 for f in p.rglob("*.md"):
-                    if _is_under_course_module(f, docs_root) and not _should_skip_file(f):
+                    if _is_under_course_module(f, docs_root) and not _should_skip_file(
+                        f
+                    ):
                         out.append(f)
         return sorted(set(out))
 
@@ -268,7 +271,9 @@ def _run_python_block(code: str, ns: dict) -> tuple[str, list[Path]]:
                 if val is not None:
                     print(val)
             elif last_is_expr and len(body) > 1:
-                exec(compile(ast.Module(body[:-1], type_ignores=[]), "<md>", "exec"), ns)
+                exec(
+                    compile(ast.Module(body[:-1], type_ignores=[]), "<md>", "exec"), ns
+                )
                 val = eval(compile(ast.Expression(last.value), "<md>", "eval"), ns)
                 if val is not None:
                     print(val)
@@ -304,6 +309,15 @@ def _run_python_block(code: str, ns: dict) -> tuple[str, list[Path]]:
     return buf.getvalue(), fig_paths
 
 
+def _parse_fig_caption_pragma(code: str) -> str | None:
+    """Return caption text from `# fig-caption: <text>` first-line pragma, or None."""
+    first = code.lstrip().split("\n", 1)[0].strip()
+    prefix = "# fig-caption:"
+    if first.startswith(prefix):
+        return first[len(prefix) :].strip()
+    return None
+
+
 def _skip_block_pragma(code: str) -> bool:
     first = code.lstrip().split("\n", 1)[0].strip()
     if first in ("# no-output", "# skip-output"):
@@ -321,7 +335,9 @@ def _strip_liquid_raw_if_wrapped(code: str) -> str:
     return code
 
 
-def process_markdown_file(path: Path, dry_run: bool, log: argparse.FileType | None) -> bool:
+def process_markdown_file(
+    path: Path, dry_run: bool, log: argparse.FileType | None
+) -> bool:
     """Return True if file was modified."""
     docs_root = path.parent
     while docs_root.name != "docs" and docs_root != docs_root.parent:
@@ -423,10 +439,19 @@ def process_markdown_file(path: Path, dry_run: bool, log: argparse.FileType | No
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Inject Python stdout/figures after ```python blocks.")
-    ap.add_argument("paths", nargs="*", type=Path, help="Markdown files or dirs (default: all course modules)")
+    ap = argparse.ArgumentParser(
+        description="Inject Python stdout/figures after ```python blocks."
+    )
+    ap.add_argument(
+        "paths",
+        nargs="*",
+        type=Path,
+        help="Markdown files or dirs (default: all course modules)",
+    )
     ap.add_argument("--dry-run", action="store_true", help="Do not write files")
-    ap.add_argument("--log", type=argparse.FileType("w"), help="Write skip/trace details to file")
+    ap.add_argument(
+        "--log", type=argparse.FileType("w"), help="Write skip/trace details to file"
+    )
     args = ap.parse_args()
 
     docs_root = Path(__file__).resolve().parent.parent
@@ -439,7 +464,10 @@ def main() -> int:
                 changed += 1
         except OSError as e:
             print(f"error: {f}: {e}", file=sys.stderr)
-    print(f"Done. {changed} file(s) {'would be ' if args.dry_run else ''}modified.", file=sys.stderr)
+    print(
+        f"Done. {changed} file(s) {'would be ' if args.dry_run else ''}modified.",
+        file=sys.stderr,
+    )
     return 0
 
 
