@@ -242,24 +242,28 @@ def _init_namespace(_cwd: Path) -> dict:
     return ns
 
 
-def _run_python_block(code: str, ns: dict) -> tuple[str, list[Path]]:
+def _run_python_block(
+    code: str, ns: dict
+) -> tuple[str, list[Path], list[str]]:
     """
     Execute code; if last statement is an expression (Jupyter-style), print its value.
-    Returns (stdout text, list of saved figure paths relative to cwd).
+    Returns (stdout text, list of saved figure paths, list of per-figure title strings).
+    Title strings are extracted from matplotlib suptitle or first-axes title (may be empty).
     """
     code = _normalize_markdown_python_indent(code)
     code = _strip_gfm_blockquote_lines(code)
     code = code.strip("\n")
     if not code.strip():
-        return "", []
+        return "", [], []
 
     buf = io.StringIO()
     fig_paths: list[Path] = []
+    fig_titles: list[str] = []
 
     tree = ast.parse(code)
     body = tree.body
     if not body:
-        return "", []
+        return "", [], []
 
     last = body[-1]
     last_is_expr = isinstance(last, ast.Expr)
@@ -304,9 +308,20 @@ def _run_python_block(code: str, ns: dict) -> tuple[str, list[Path]]:
             out = assets / fname
             fig.savefig(out, dpi=150, bbox_inches="tight")
             fig_paths.append(out)
+            # Extract title: suptitle first, then first-axes title
+            title = ""
+            try:
+                title = fig.get_suptitle() or ""
+                if not title:
+                    axes = fig.get_axes()
+                    if axes:
+                        title = axes[0].get_title() or ""
+            except Exception:
+                pass
+            fig_titles.append(title)
         plt.close("all")
 
-    return buf.getvalue(), fig_paths
+    return buf.getvalue(), fig_paths, fig_titles
 
 
 def _parse_fig_caption_pragma(code: str) -> str | None:
