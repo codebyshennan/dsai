@@ -296,11 +296,6 @@ ax.legend(loc="upper left", fontsize=7, ncol=2)
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
 
-<figure>
-<img src="assets/time-series-visualization_fig_3.png" alt="time-series-visualization" />
-<figcaption>Figure 3: Passengers by Month Across Years</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
