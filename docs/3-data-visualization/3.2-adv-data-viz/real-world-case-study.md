@@ -180,11 +180,6 @@ ax.yaxis.set_major_formatter(
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
 
-<figure>
-<img src="assets/real-world-case-study_fig_1.png" alt="real-world-case-study" />
-<figcaption>Figure 1: Weekly Conversion Rate — Q2 Improvement Visible After Redesign</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
