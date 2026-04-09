@@ -271,11 +271,6 @@ ax.set_xlabel("Conversion Rate (%)")
 ax.grid(True, alpha=0.3, axis="x")
 {% endhighlight %}
 
-<figure>
-<img src="assets/real-world-case-study_fig_2.png" alt="real-world-case-study" />
-<figcaption>Figure 2: Conversion Rate by Channel</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
