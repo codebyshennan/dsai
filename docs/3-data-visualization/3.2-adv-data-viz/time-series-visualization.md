@@ -168,11 +168,6 @@ ax.set_ylabel("Total Passengers")
 ax.grid(True, alpha=0.3)   # subtle grid — don't fight the data
 {% endhighlight %}
 
-<figure>
-<img src="assets/time-series-visualization_fig_1.png" alt="time-series-visualization" />
-<figcaption>Figure 1: Annual Airline Passengers (1949–1960)</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
