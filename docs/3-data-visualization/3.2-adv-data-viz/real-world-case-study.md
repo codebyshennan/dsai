@@ -511,11 +511,6 @@ ax.legend()
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
 
-<figure>
-<img src="assets/real-world-case-study_fig_5.png" alt="real-world-case-study" />
-<figcaption>Figure 5: Conversion Rate: Mobile vs Desktop Before and After Redesign</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
