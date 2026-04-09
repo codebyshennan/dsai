@@ -346,12 +346,6 @@ ax.set_ylabel("Revenue per Session ($)")
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
 
-<figure>
-<img src="assets/real-world-case-study_fig_3.png" alt="real-world-case-study" />
-<figcaption>Figure 3: Volume vs Efficiency by Channel
-(bubble size = total orders)</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
