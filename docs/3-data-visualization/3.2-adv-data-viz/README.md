@@ -165,7 +165,7 @@ def create_realtime_dashboard(data_stream):
 {% endhighlight %}
 
 <figure>
-<img src="assets/README_fig_1.png" alt="README" />
+<img src="assets/plotly_animated_scatter_frames.png" alt="Plotly animated scatter frames" />
 <figcaption>Figure 1: Generated visualization</figcaption>
 </figure>
 
@@ -253,7 +253,7 @@ def create_statistical_plot(data):
 {% endhighlight %}
 
 <figure>
-<img src="assets/README_fig_1.png" alt="README" />
+<img src="assets/seaborn_distribution_suite.png" alt="Seaborn distribution suite" />
 <figcaption>Figure 1: Generated visualization</figcaption>
 </figure>
 
@@ -389,7 +389,7 @@ def setup_visualization_env():
 {% endhighlight %}
 
 <figure>
-<img src="assets/README_fig_1.png" alt="README" />
+<img src="assets/seaborn_lineplot.png" alt="Seaborn line plot" />
 <figcaption>Figure 1: Generated visualization</figcaption>
 </figure>
 
@@ -454,7 +454,7 @@ def create_advanced_visualization(data):
 {% endhighlight %}
 
 <figure>
-<img src="assets/README_fig_1.png" alt="README" />
+<img src="assets/seaborn_scatter_analysis.png" alt="Seaborn scatter analysis" />
 <figcaption>Figure 1: Generated visualization</figcaption>
 </figure>
 
@@ -531,7 +531,7 @@ def create_dashboard(data):
 {% endhighlight %}
 
 <figure>
-<img src="assets/README_fig_1.png" alt="README" />
+<img src="assets/plotly_dashboard_layout.png" alt="Plotly dashboard layout" />
 <figcaption>Figure 1: Generated visualization</figcaption>
 </figure>
 
