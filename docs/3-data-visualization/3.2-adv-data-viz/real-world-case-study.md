@@ -416,15 +416,6 @@ sns.heatmap(
 ax.set_title("Conversion Rate by Channel and Device (%)")
 {% endhighlight %}
 
-<figure>
-<img src="assets/real-world-case-study_fig_4.png" alt="real-world-case-study" />
-<figcaption>Figure 4: Conversion Rate by Channel and Device (%)</figcaption>
-</figure>
-
-```
-Text(0.5, 1.0, 'Conversion Rate by Channel and Device (%)')
-```
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
