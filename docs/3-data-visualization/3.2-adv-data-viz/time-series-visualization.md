@@ -369,15 +369,6 @@ sns.relplot(
 )
 {% endhighlight %}
 
-<figure>
-<img src="assets/time-series-visualization_fig_4.png" alt="time-series-visualization" />
-<figcaption>Figure 4: season = Autumn</figcaption>
-</figure>
-
-```
-<seaborn.axisgrid.FacetGrid object at 0x119593770>
-```
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
