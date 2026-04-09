@@ -441,11 +441,6 @@ ax.set_ylabel("Total Passengers")
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
 
-<figure>
-<img src="assets/time-series-visualization_fig_5.png" alt="time-series-visualization" />
-<figcaption>Figure 5: Annotating a Key Event on a Time Chart</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
