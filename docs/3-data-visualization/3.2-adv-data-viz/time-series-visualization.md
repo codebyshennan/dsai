@@ -237,11 +237,6 @@ ax.legend()
 ax.grid(True, alpha=0.3)
 {% endhighlight %}
 
-<figure>
-<img src="assets/time-series-visualization_fig_2.png" alt="time-series-visualization" />
-<figcaption>Figure 2: Smoothing with a Rolling Average</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
