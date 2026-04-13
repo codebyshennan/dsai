@@ -106,6 +106,8 @@ Example Use:
 
 ## 2. Level of Detail (LOD) Expressions: The Secret Sauce
 
+> **Use this when:** you need to control the aggregation level independently of what the view is showing — for example, computing a customer-level average on a view grouped by region.
+
 ### What Are LOD Expressions?
 
 Think of them as a way to look at your data from different angles at the same time. Like having multiple magnifying glasses!
