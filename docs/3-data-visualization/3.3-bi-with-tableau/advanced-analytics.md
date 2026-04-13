@@ -102,6 +102,8 @@ Example Use:
    - Choose 3 periods
 ```
 
+![Moving average smoothing a noisy sales trend line](assets/tableau_table_calc.png)
+
 ## 2. Level of Detail (LOD) Expressions: The Secret Sauce
 
 ### What Are LOD Expressions?
