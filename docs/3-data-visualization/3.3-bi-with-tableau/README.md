@@ -46,16 +46,15 @@ This submodule is **UI-first**: you will connect data and build views in **Table
 
 **Submodule map**
 
-```
-Module Structure:
-┌─────────────────────────┐
-│ Data Connection       │ → Source Integration
-├─────────────────────────┤
-│ Visual Analytics     │ → Chart Creation
-├─────────────────────────┤
-│ Dashboard Design     │ → Story Building
-└─────────────────────────┘
-```
+| Lesson | What you'll learn |
+|--------|------------------|
+| [Tableau Basics](tableau-basics.md) | Connect data, build charts, filters, dashboards |
+| [Tableau Case Study](tableau-case-study.md) | End-to-end Superstore analysis with calculated fields and LOD |
+| [Advanced Analytics](advanced-analytics.md) | Table calculations, parameters, dashboard actions |
+| [AI Tools Integration](ai-tools-integration.md) | Use Claude/ChatGPT to write formulas and debug faster |
+| [Power BI Case Study](powerbi-case-study.md) | Build a report in Power BI with DAX and Power Query |
+| [Looker Studio Case Study](looker-studio-case-study.md) | Build a dashboard in Looker Studio from a Google Sheet |
+| [Assignment](/_assignments/bi-dashboard-project.md) | Build your own dashboard answering 3 business questions |
 
 ## Prerequisites
 
