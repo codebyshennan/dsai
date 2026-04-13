@@ -153,25 +153,12 @@ Drag a field onto the canvas or onto a shelf to build a chart. Tableau's Show Me
 
 **Chart Selection**
 
-**Comparison:**
-- Bar charts (categories)
-- Line charts (time)
-- Bullet charts (targets)
-
-**Distribution:**
-- Histograms (frequency)
-- Box plots (statistics)
-- Heat maps (density)
-
-**Composition:**
-- Pie charts (parts)
-- Tree maps (hierarchy)
-- Stacked bars (parts over time)
-
-**Relationship:**
-- Scatter plots (correlation)
-- Bubble charts (3 variables)
-- Connected scatter (paths)
+| Goal | Chart types |
+|------|------------|
+| Comparison | Bar charts (categories), line charts (time), bullet charts (targets) |
+| Distribution | Histograms (frequency), box plots (statistics), heat maps (density) |
+| Composition | Pie charts (parts), tree maps (hierarchy), stacked bars (over time) |
+| Relationship | Scatter plots (correlation), bubble charts (3 variables), connected scatter (paths) |
 
 > **Ask AI (Claude or ChatGPT)**
 >
