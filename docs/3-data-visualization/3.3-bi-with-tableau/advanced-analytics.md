@@ -335,12 +335,10 @@ Perfect For:
 
 2. **Financial Performance:**
 
-   ```yaml
-   Build These Metrics:
+   **Build These Metrics:**
    1. Year-over-year growth
    2. Profit margins
    3. Cost breakdown
-   ```
 
 3. **Inventory Analysis:**
 
