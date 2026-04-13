@@ -4,6 +4,17 @@
 
 > **Note:** This lesson is **UI-first** (Tableau Desktop or comparable). You should already know worksheets, filters, and simple calculations from [Tableau basics](tableau-basics.md).
 
+You've built your first Tableau charts. Now you're ready to answer harder questions: trends over time, comparisons against benchmarks, rankings that update dynamically. These advanced features are what separate casual Tableau users from analysts.
+
+## Quick Reference
+
+| Feature | Use When | Key Function |
+|---------|----------|--------------|
+| Table Calculation | Comparing rows to each other | RUNNING_SUM, WINDOW_AVG, RANK |
+| LOD Expression | Controlling aggregation level | FIXED, INCLUDE, EXCLUDE |
+| Parameter | Letting users choose a value | Parameter + calculated field |
+| Dashboard Action | Linking charts interactively | Filter, Highlight, URL |
+
 ## Helpful video
 
 Short Tableau Public install; pair with the written guides in this folder.
