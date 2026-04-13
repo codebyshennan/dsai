@@ -185,17 +185,15 @@ Perfect For:
 
 **Walkthrough:** Dual axis aligns two measures; synchronize or not depending on whether scales are comparable.
 
-```yaml
-Steps to Create:
+**Steps to Create:**
 1. Start with a bar chart
 2. Drag second measure to right axis
 3. Right-click → Dual Axis
 4. Change mark types for each measure
 
-Example:
+**Example:**
 - Bars for Sales
 - Line for Profit
-```
 
 ### Custom Charts (Be Creative!)
 
