@@ -16,8 +16,8 @@ Short Tableau Public install; pair with the written guides in this folder.
 
 ### 1. Opening Tableau and Connecting to Data
 
-1. Launch Tableau Desktop
-2. On the start page, under "Connect", select **Sample - Superstore**
+1. Download [sample_superstore.xls](assets/sample_superstore.xls) if you haven't already.
+2. Launch Tableau Desktop. On the start page, click **Microsoft Excel** under "To a File" and open `sample_superstore.xls`.
    - If it isn't listed under Saved Data Sources, click **Microsoft Excel** and browse to the file manually:
      - **macOS:** `~/Documents/My Tableau Repository/Datasources/en_US/`
      - **Windows:** `Documents\My Tableau Repository\Datasources\en_US-US\`
