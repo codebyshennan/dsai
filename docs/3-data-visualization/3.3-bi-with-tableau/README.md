@@ -91,20 +91,11 @@ Before diving in, make sure these terms are clear. You'll see them constantly.
 
 **Capabilities**
 
-**Data Handling:**
-- Live connections
-- Data extracts
-- Incremental updates
-
-**Security:**
-- Row-level security
-- User authentication
-- Data encryption
-
-**Scalability:**
-- Big data ready
-- Server deployment
-- Cloud integration
+| Capability | Details |
+|-----------|---------|
+| Data Handling | Live connections, data extracts, incremental updates |
+| Security | Row-level security, user authentication, data encryption |
+| Scalability | Big data ready, server deployment, cloud integration |
 
 ## Core Concepts
 
