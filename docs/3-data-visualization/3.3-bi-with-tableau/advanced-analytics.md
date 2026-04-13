@@ -342,12 +342,10 @@ Perfect For:
 
 3. **Inventory Analysis:**
 
-   ```yaml
-   Analyze These Aspects:
+   **Analyze These Aspects:**
    1. Stock turnover
    2. Popular products
    3. Seasonal patterns
-   ```
 
 > **Ask AI (Claude or ChatGPT)**
 >
