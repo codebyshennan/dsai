@@ -42,10 +42,6 @@ Module Structure:
 
 ### 1. Intuitive Design
 
-**Purpose:** Summarize drag-and-drop, built-in analytics, and iteration speed as reasons teams adopt Tableau.
-
-**Walkthrough:** Not Tableau XML—conceptual outline for reading order.
-
 ```yaml
 Key Features:
   Drag-and-Drop:
