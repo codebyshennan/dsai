@@ -98,7 +98,7 @@ Save the output as `sample_sales.csv` and connect via **Text File** in Tableau's
 
 ---
 
-### Prepare data with Python before connecting
+### Workflow 4: Prepare data with Python before connecting
 
 Tableau works best with clean, wide-format data. Ask Claude to write a pandas script to reshape or clean your source file.
 
