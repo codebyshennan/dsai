@@ -255,10 +255,6 @@ T_TEST(
 
 #### Layout Patterns
 
-**Purpose:** Show two common grid sketches—KPI band + main chart vs filter rail + detail—for planning wireframes.
-
-**Walkthrough:** ASCII only; translate to Tableau containers and floating/layout when building.
-
 ```
 1. Executive Dashboard
 ┌──────────┬──────────┬──────────┐
