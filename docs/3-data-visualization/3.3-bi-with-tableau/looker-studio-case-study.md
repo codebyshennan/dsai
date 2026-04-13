@@ -175,6 +175,11 @@ The dataset consists of four primary tables. The **Orders** table is the heart o
 
 ![Dashboard canvas with charts and filter controls](assets/looker_dashboard.png)
 
+> **Try it:** Add a Date Range control to your dashboard (Insert > Date range control). Click the control in View mode and change the date window. Which charts update — and which do not? This is a good way to spot which charts share the same data source.
+
+---
+
+> **Advanced from here:** The sections below require familiarity with SQL concepts such as `CASE` statements, window functions, and subqueries. If you are new to Looker Studio, stop here, practice building 3 basic reports first using the steps above, then return when you are comfortable with the interface.
 
 ## Advanced Features
 
