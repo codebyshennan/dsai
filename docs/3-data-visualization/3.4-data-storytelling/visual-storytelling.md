@@ -166,7 +166,7 @@ Think of color like traffic signals:
 - **Yellow**: Caution and consider (supporting data)
 - **Green**: Go ahead and explore (background info)
 
-![Color scheme examples for data storytelling](../../3-data-visualization/3.1-intro-data-viz/assets/color_schemes.png)
+![Color scheme examples for data storytelling](assets/color_schemes.png)
 
 The color schemes above demonstrate three key approaches:
 
