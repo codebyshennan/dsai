@@ -146,13 +146,15 @@ What chart type should I use in Tableau, and how do I set it up?
 
 ---
 
-## Gotchas
+## Debugging checklist
 
-- **Paste calculated field syntax only — not the surrounding explanation.** Claude often wraps the formula in a sentence. Copy only the formula text into Tableau's calculated field editor.
-- **Claude does not have access to your Tableau workbook.** You must describe your field names and data structure explicitly in the prompt; otherwise Claude will use generic placeholder names that won't match your Data pane.
-- **Verify aggregation behaviour before publishing.** Claude may write a formula that is correct in isolation but aggregates differently when added to a view with multiple dimensions. Always drag the new field into a test sheet and check the numbers against a known total.
-- **LOD expressions suggested by Claude may need a context filter.** If a `FIXED` expression ignores a filter you've added, follow the prompt-debugging workflow above — right-click the filter pill → **Add to Context**.
-- **Claude Code requires an internet connection.** If you are working offline during a session, use Claude's output from a previous session that you copied to a local notes file.
+Before assuming AI gave you a bad formula, work through these:
+
+- [ ] **Formula copied with surrounding explanation text** → paste only the formula line(s) into Tableau's calculated field editor; strip any plain-English sentences Claude added around it
+- [ ] **Field names don't match your Data pane** → your prompt used generic names (e.g. `[Revenue]`) but your field is called `[Sales]`; re-prompt with your exact field names, or do a find-and-replace in the formula before pasting
+- [ ] **Calculated field result looks wrong on the view** → Claude's formula may be correct in isolation but aggregate differently with multiple dimensions present; drag the field onto a fresh sheet with only one dimension and compare against a known total
+- [ ] **`FIXED` LOD ignores your filter** → `FIXED` expressions bypass dimension filters by design; right-click the filter pill in the Filters shelf → **Add to Context**, then re-test; alternatively re-prompt Claude asking for a version using `INCLUDE` instead
+- [ ] **Working offline and Claude is unavailable** → use a formula you saved from a previous session in a local notes file; the Tableau calculated field reference at `help.tableau.com` also covers all functions without needing a connection
 
 ## Additional resources
 
