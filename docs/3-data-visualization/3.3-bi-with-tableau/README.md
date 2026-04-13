@@ -345,81 +345,19 @@ Parameters:
 
 ## Learning path
 
-### Week 1: Foundation
+This submodule runs over **two sessions**.
 
-**Purpose:** Suggested pacing for instructor-led or self-study—adjust to your schedule.
+### Session 1: Tableau foundations
 
-**Walkthrough:** Outline only; not executable.
+- Read [Tableau basics](tableau-basics.md) — interface, connecting Sample Superstore, first charts, calculated fields, LOD
+- Read [Advanced analytics](advanced-analytics.md) — table calculations, LOD types, combo charts, parameters, actions
+- Explore the [AI tools integration](ai-tools-integration.md) guide to use Claude or ChatGPT as a pair partner while building
 
-```yaml
-Day 1-2:
-  - Tableau interface
-  - Data connection
-  - Basic charts
-  - Simple calculations
+### Session 2: Case studies and comparison
 
-Day 3-4:
-  - Filtering
-  - Sorting
-  - Grouping
-  - Basic dashboards
-
-Day 5:
-  - Practice exercises
-  - Review
-  - Q&A session
-```
-
-### Week 2: Advanced Features
-
-**Purpose:** Week-two focus on calculations, LOD, SQL, and dashboard actions.
-
-**Walkthrough:** Outline only.
-
-```yaml
-Day 1-2:
-  - Complex calculations
-  - LOD expressions
-  - Advanced charts
-  - Custom SQL
-
-Day 3-4:
-  - Dashboard actions
-  - Parameters
-  - Sets
-  - Analytics
-
-Day 5:
-  - Advanced exercises
-  - Performance tuning
-  - Best practices
-```
-
-### Week 3: Real-World Applications
-
-**Purpose:** Capstone-style week across domains (sales, finance, marketing, ops).
-
-**Walkthrough:** Outline only.
-
-```yaml
-Day 1-2:
-  - Sales analytics
-  - Financial reporting
-  - Marketing dashboards
-  - Operations KPIs
-
-Day 3-4:
-  - Server deployment
-  - Security setup
-  - Maintenance
-  - Optimization
-
-Day 5:
-  - Final project
-  - Presentation
-  - Feedback
-  - Next steps
-```
+- Work through the [Tableau case study](tableau-case-study.md) — end-to-end Superstore dashboard
+- Compare tools: [Looker Studio case study](looker-studio-case-study.md) and [Power BI case study](powerbi-case-study.md)
+- Complete the [module assignment](../_assignments/module-assignment.md)
 
 ## Using AI Tools with Tableau
 
