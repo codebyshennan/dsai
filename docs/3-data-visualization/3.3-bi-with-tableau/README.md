@@ -17,7 +17,7 @@ You have data. Your manager wants answers. Business Intelligence tools like Tabl
 New to BI tools? Do these five steps before reading anything else:
 
 1. **Download and install Tableau Public** (free) from [public.tableau.com](https://public.tableau.com/en-us/s/download). Takes about 5 minutes.
-2. **Connect to Sample Superstore** — it ships with Tableau. On the start screen, click "More…" under Saved Data Sources and pick Superstore.
+2. **Download the [Sample Superstore dataset](assets/sample_superstore.xls)** and save it to your Desktop. On the Tableau start screen, click **Microsoft Excel** under "To a File" and open it.
 3. **Drag `Sales` to the Rows shelf and `Category` to the Columns shelf.** You just made your first bar chart. Click "Show Me" on the top right to explore other chart types with the same fields.
 4. **Add a filter** — drag `Region` to the Filters shelf, select a couple of regions, and watch the chart update instantly.
 5. **Create a new Dashboard** (bottom tab menu → New Dashboard), drag your sheet onto the canvas, and share the URL. That's a real dashboard.
