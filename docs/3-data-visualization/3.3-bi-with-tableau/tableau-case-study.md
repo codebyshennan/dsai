@@ -213,6 +213,8 @@ Now we know WHICH categories perform best. Let's look at WHEN — do we see seas
 
 ### 1. Calculated Fields
 
+Use calculated fields when you need a metric that doesn't exist in the raw data — for example, profit margin as a percentage, or a flag for orders with unusually high discounts.
+
 1. Creating a Basic Calculation:
    - Right-click in the Data pane
    - Select "Create Calculated Field"
