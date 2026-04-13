@@ -1,8 +1,22 @@
 # Data Storytelling
 
+Every analyst has had this experience: you spend days running the perfect analysis, your numbers are correct, your logic is airtight — and then you present it, and nobody acts on it. The problem is almost never the data. It's the story around it. This submodule teaches you how to close that gap: how to turn analysis into narrative, numbers into decisions, and charts into change.
+
 **After this submodule:** you can use the lessons linked below and complete the exercises that match **Mastering Data Storytelling: A Beginner's Guide** in your course schedule.
 
 > **Note:** This submodule blends **principles** (how to structure a message) with **examples** you can build in any tool (Python charts or BI dashboards). It is not only code-first.
+
+## Key Terms
+
+Before diving in, here are the core concepts this submodule builds on:
+
+| Term | Plain-English Definition |
+|------|--------------------------|
+| **Data Story** | A structured presentation that uses data as evidence for a human narrative — with a beginning, middle, and end |
+| **Narrative Arc** | The shape of a story: Setup → Conflict → Resolution |
+| **Visual Hierarchy** | Deliberately sizing, coloring, and positioning elements so the audience's eye lands on the most important thing first |
+| **Call to Action** | The specific decision or behavior you want the audience to take after seeing your story |
+| **Context** | The comparison or benchmark that gives a number meaning — "Sales are $1M" means nothing; "Sales are $1M, up 40% from last year" tells a story |
 
 ## Helpful video
 
@@ -21,6 +35,21 @@ Think of data storytelling like being a tour guide for your data. Just as a good
 - **Stronger Impact**: Stories create emotional connections that drive action
 - **Better Decisions**: Well-told data stories lead to more informed choices
 
+**Illustrative impact comparison**
+
+```yaml
+Impact Metrics:
+┌─────────────────────────┐
+│ Traditional Reports   │ → 40% Understanding
+├─────────────────────────┤
+│ Data Visualization   │ → 65% Understanding
+├─────────────────────────┤
+│ Data Storytelling    │ → 85% Understanding
+└─────────────────────────┘
+```
+
+> **Note:** These numbers are pedagogical illustrations, not cited research — but the direction is real and widely observed by practitioners.
+
 ## The Building Blocks of Data Storytelling
 
 ### 1. Story Architecture: Your Data's Blueprint
@@ -31,7 +60,10 @@ Think of this like building a house:
 - **Walls** (Conflict): The challenges and insights
 - **Roof** (Resolution): The solutions and next steps
 
-> **Figure (add screenshot or diagram):** A three-act story arc diagram for data presentations — a rising curve labeled "Setup (Context)" on the left, a peak labeled "Conflict (Insight/Problem)", and a descending resolution labeled "Resolution (Recommendation/Action)" — with example slide topics annotated at each stage.
+![Story arc: setup, conflict, and resolution mapped to a data presentation](assets/story_arc.png)
+
+A three-act story arc maps directly to a data presentation: the Setup gives context, the Conflict presents the problem or insight, and the Resolution delivers the recommendation. When you know which act you're in, you can cut anything that doesn't serve it.
+
 #### Why This Matters
 
 Understanding story architecture helps you:
@@ -50,6 +82,9 @@ Think of this like a traffic light system:
 - **Green** (Background Elements): Additional information for reference
 
 ![Visual hierarchy principles in data storytelling](assets/visual_hierarchy.png)
+
+Visual hierarchy is what makes an audience's eye go to the right place first. The image above shows how size, color, and position signal importance — without it, every element competes equally for attention and nothing stands out.
+
 #### Why This Matters
 
 Good visual grammar helps you:
@@ -58,6 +93,13 @@ Good visual grammar helps you:
 - Emphasize important information
 - Create a clear visual hierarchy
 - Make complex data easier to understand
+
+---
+
+> **Try it yourself — Story Architecture:**
+> Pick any piece of work you've done (a homework assignment, a work report, a project). Write three sentences for it — one for Setup ("Here's the situation…"), one for Conflict ("Here's the problem/insight…"), and one for Resolution ("Here's what I recommend…"). If you can't write all three, your story is incomplete.
+
+---
 
 ## Storytelling Frameworks: Your Data's Structure
 
@@ -89,6 +131,17 @@ Think of this like a doctor's visit:
 2. **Analysis**: "Survey data shows poor customer support experience"
 3. **Solution**: "Implement 24/7 chat support and reduce churn by 15%"
 
+![Story structure frameworks: Hero's Journey vs Problem-Solution](assets/story_structure.png)
+
+The image above shows how both frameworks share the same underlying logic — context, tension, resolution — just expressed differently. The Hero's Journey works well for longer narratives; the Problem-Solution framework is faster and better suited to executive briefings.
+
+---
+
+> **Try it yourself — Frameworks:**
+> Take the same three-sentence story you wrote above. Now rewrite it using the Problem-Solution format: one sentence for Problem, one for Analysis, one for Solution. Which version feels more urgent? Which is clearer? The answer tells you something about your audience.
+
+---
+
 ## Visual Elements: Your Data's Presentation
 
 ### 1. Chart Selection: Choosing the Right Tool
@@ -100,6 +153,7 @@ Think of this like choosing the right tool for a job:
 - **Pie Chart**: Like a pizza - best for showing parts of a whole
 
 ![Chart selection guide: which chart type fits which question](../../3-data-visualization/3.1-intro-data-viz/assets/chart_selection_guide.png)
+
 #### Common Mistakes to Avoid
 
 1. **Overcomplicating**: Don't use complex charts when simple ones will do
@@ -114,11 +168,20 @@ Think of this like a traffic light:
 - **Yellow**: Caution and consider (supporting data)
 - **Green**: Go ahead and explore (background info)
 
+![Color scheme examples for data storytelling](assets/color_schemes.png)
+
 #### Best Practices
 
 1. Use consistent colors for similar data types
 2. Ensure sufficient contrast for readability
 3. Consider color-blind friendly palettes
+
+---
+
+> **Try it yourself — Chart and Color:**
+> Open a chart you've made recently. Ask yourself: (1) Does every color on this chart mean something, or are some colors random? (2) If I removed the color, would the chart still be readable? If color is doing real work, you're using it well. If removing it doesn't change anything, the color is decoration — not communication.
+
+---
 
 ## Narrative Techniques: Your Data's Voice
 
@@ -170,23 +233,22 @@ Think of this like a song:
 - **Don't:** Ramble through your data
 - **Do:** Follow a clear narrative arc
 
-## Additional Resources
+### 4. Leading with Method Instead of Insight
 
-### Books
+- **Don't:** "I ran a regression on the sales data and found a coefficient of 0.73..."
+- **Do:** "Sales are driven primarily by response time — every extra hour costs us 8% conversion"
 
-- "Storytelling with Data" by Cole Nussbaumer Knaflic
-- "Data Visualization: A Practical Introduction" by Kieran Healy
+### 5. Forgetting the Call to Action
 
-### Online Courses
+- **Don't:** End with "In conclusion, the data shows..."
+- **Do:** End with "Based on this, we recommend [specific action] by [specific date]"
 
-- Coursera: "Data Visualization and Communication with Tableau"
-- Udemy: "Data Storytelling and Visualization"
+---
 
-### Tools
+> **Try it yourself — Spot the Mistakes:**
+> Find a data report (could be news, a company press release, or one of your own). Using the five mistake categories above, identify at least two problems and write one sentence each explaining how you would fix them.
 
-- Tableau Public (Free)
-- Power BI (Free)
-- Python (matplotlib, seaborn)
+---
 
 ## Practice Exercise: Build Your First Data Story
 
@@ -229,6 +291,24 @@ Story Elements:
 3. Add clear labels
 4. Test for clarity
 
+## Additional Resources
+
+### Books
+
+- "Storytelling with Data" by Cole Nussbaumer Knaflic
+- "Data Visualization: A Practical Introduction" by Kieran Healy
+
+### Online Courses
+
+- Coursera: "Data Visualization and Communication with Tableau"
+- Udemy: "Data Storytelling and Visualization"
+
+### Tools
+
+- Tableau Public (Free)
+- Power BI (Free)
+- Python (matplotlib, seaborn)
+
 ## Prerequisites
 
 - [3.1 Intro to data visualization](../3.1-intro-data-viz/README.md) and at least one of: Matplotlib/Seaborn practice or a BI tool from [3.3](../3.3-bi-with-tableau/README.md).
@@ -240,20 +320,3 @@ Story Elements:
 3. Try the [module assignment](../_assignments/module-assignment.md) when your instructor assigns it.
 
 Remember: The best data stories make complex information simple and actionable. Start small, practice often, and iterate from feedback.
-
-**Illustrative impact comparison**
-
-**Purpose:** Contrast comprehension outcomes from reports vs charts vs storytelling—numbers are pedagogical, not a cited study.
-
-**Walkthrough:** Diagram only.
-
-```yaml
-Impact Metrics:
-┌─────────────────────────┐
-│ Traditional Reports   │ → 40% Understanding
-├─────────────────────────┤
-│ Data Visualization   │ → 65% Understanding
-├─────────────────────────┤
-│ Data Storytelling    │ → 85% Understanding
-└─────────────────────────┘
-```
