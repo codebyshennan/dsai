@@ -129,27 +129,29 @@ Data Pipeline:
 
 #### Connection Types
 
-```yaml
-Live Connection:
-  Pros:
-    - Real-time updates
-    - No storage needed
-    - Latest data always
-  Cons:
-    - Network dependent
-    - Can be slower
-    - Server load
+**Live Connection:**
 
-Extract:
-  Pros:
-    - Fast performance
-    - Offline access
-    - Reduced load
-  Cons:
-    - Point-in-time
-    - Storage needed
-    - Manual/scheduled refresh
-```
+Pros:
+- Real-time updates
+- No storage needed
+- Latest data always
+
+Cons:
+- Network dependent
+- Can be slower
+- Server load
+
+**Extract:**
+
+Pros:
+- Fast performance
+- Offline access
+- Reduced load
+
+Cons:
+- Point-in-time
+- Storage needed
+- Manual/scheduled refresh
 
 > **Ask AI (Claude or ChatGPT)**
 >
