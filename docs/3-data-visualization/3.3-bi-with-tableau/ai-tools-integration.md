@@ -60,9 +60,11 @@ STR(ROUND(SUM([Profit]) / SUM([Sales]) * 100, 1)) + "%"
 
 ---
 
-### Debug an LOD expression
+### Workflow 2: Debug an LOD expression
 
 LOD (Level of Detail) expressions are powerful but frequently produce unexpected totals. Paste the broken expression plus a description of what it should do.
+
+![Tableau LOD expression editor showing a FIXED expression and context filter](assets/tableau_lod.png)
 
 **Example prompt:**
 
