@@ -175,10 +175,6 @@ Design Principles:
 
 #### Basic Formulas
 
-**Purpose:** Show representative calculated-field expressions for YoY, moving average, and running total in Tableau’s formula language.
-
-**Walkthrough:** Same patterns as [advanced-analytics](advanced-analytics.md); `LOOKUP`/`WINDOW_AVG`/`RUNNING_SUM` depend on compute direction and partitioning.
-
 ```sql
 -- Year-over-Year Growth
 YOY_Growth = 
