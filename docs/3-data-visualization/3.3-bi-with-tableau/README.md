@@ -124,10 +124,6 @@ Extract:
 
 #### Basic Charts
 
-**Purpose:** Map analysis tasks (compare, distribution, composition, relationship) to common mark types in Tableau.
-
-**Walkthrough:** Use with [Choosing the right visualization](../choosing-the-right-visualization.md) for Python parallels.
-
 ```yaml
 Chart Selection:
   Comparison:
