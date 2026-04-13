@@ -150,6 +150,7 @@ Data Structure:
 
 ![Tableau first chart — Sales by Category bar chart](assets/tableau_bar_chart.png)
 
+Now we know WHICH categories perform best. Let's look at WHEN — do we see seasonal patterns?
 
 ### 2. Time Series Analysis
 
