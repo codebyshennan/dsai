@@ -326,26 +326,29 @@ Perfect For:
 
 **Note:** Exercise IDs 1–3 below are open-ended lab prompts—build them in Tableau (or your course sandbox); no starter workbook is bundled here.
 
-1. **Customer Analysis Dashboard:**
+1. **Customer Analysis Dashboard**
 
-   **Create These Charts:**
-   1. Customer lifetime value
-   2. Purchase frequency
-   3. Regional comparison
+   Build a view that helps a sales manager understand who their most valuable customers are and where to focus retention efforts.
 
-2. **Financial Performance:**
+   - **Customer lifetime value:** Create a bar chart ranked by total `Sales` per `Customer Name`. Add a reference line at the average so readers can instantly see who is above and below par.
+   - **Purchase frequency:** Build a second bar chart ranked by `COUNT([Order ID])` per customer. Compare it to the lifetime value chart — a customer who orders often but spends little is different from one who orders rarely but spends a lot.
+   - **Regional comparison:** Add a map or bar chart showing average order value by `Region`. Use colour to highlight regions where customer value is highest versus lowest, then wire it to a filter action so clicking a region updates both other charts.
 
-   **Build These Metrics:**
-   1. Year-over-year growth
-   2. Profit margins
-   3. Cost breakdown
+2. **Financial Performance Dashboard**
 
-3. **Inventory Analysis:**
+   Build a view that helps a finance team track whether the business is growing profitably, not just in revenue.
 
-   **Analyze These Aspects:**
-   1. Stock turnover
-   2. Popular products
-   3. Seasonal patterns
+   - **Year-over-year growth:** Put `Order Date` on the Columns shelf (broken down by Year), `Sales` on Rows, and add a Quick Table Calculation → Percent Difference. A positive bar means revenue grew; negative means it shrank versus the same period last year.
+   - **Profit margins:** Create a calculated field `[Profit] / [Sales]` and plot it as a line over time alongside the `Sales` bar — a combo chart (dual axis). Watch for periods where sales went up but margin went down; that signals discounting or cost problems.
+   - **Cost breakdown:** Use a stacked bar chart with `Sub-Category` on one axis and `Sales` vs `Profit` as the two stacked measures. Sub-categories sitting in negative profit territory are loss leaders worth investigating.
+
+3. **Inventory Analysis Dashboard**
+
+   Build a view that helps an operations team spot slow-moving stock and prepare for seasonal demand spikes.
+
+   - **Stock turnover:** Create a bar chart of `SUM([Quantity])` by `Sub-Category`, sorted descending. High-quantity sub-categories move fast; low-quantity ones may be accumulating unsold stock.
+   - **Popular products:** Build a treemap with `Product Name` sized by `Quantity` and coloured by `Profit`. Large green squares are your winners; large red or grey squares are high-volume but unprofitable items to review.
+   - **Seasonal patterns:** Put `MONTH([Order Date])` on Columns, `Quantity` on Rows, and `Category` on the Colour mark. You should see December peaks for some categories and Q3 dips for others — these patterns inform reorder timing and promotion schedules.
 
 > **Ask AI (Claude or ChatGPT)**
 >
