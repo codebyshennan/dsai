@@ -2,6 +2,16 @@
 
 **After this lesson:** you can use Claude Desktop or ChatGPT as an AI pair partner while building Tableau dashboards — writing calculated fields faster, debugging LOD expressions, generating practice data, and getting chart recommendations without leaving your workflow.
 
+Tableau's calculation language is powerful, but debugging a formula can eat 30 minutes. This guide shows you how to use Claude or ChatGPT as a pair partner — paste your question, get working syntax back, verify it in Tableau. No special setup needed.
+
+| Problem you have | Use this workflow | Time saved |
+|-----------------|-------------------|------------|
+| Can't write a calculated field | Workflow 1: Calculated Fields | 5–15 min |
+| LOD expression keeps erroring | Workflow 2: LOD Debugging | 10–20 min |
+| Need realistic test data | Workflow 3: Sample Data | 10 min |
+| CSV has messy data | Workflow 4: Python Prep | 20–30 min |
+| Unsure which chart to use | Workflow 5: Chart Recommendations | 5 min |
+
 ## Which AI tool should I use?
 
 You don't need a special integration. Any conversational AI assistant works:
