@@ -305,23 +305,22 @@ Perfect For:
 
 **Walkthrough:** Reference lines and annotations answer “compared to what?”; tooltips carry definitions.
 
-```yaml
-Make It Clear:
-1. Add Context:
+**Make It Clear:**
+
+1. **Add Context:**
    - Reference lines
    - Annotations
    - Clear titles
 
-2. Guide Users:
+2. **Guide Users:**
    - Instructions
    - Tool tips
    - Legend explanations
 
-3. Keep It Clean:
+3. **Keep It Clean:**
    - Remove clutter
    - Use consistent colors
    - Clear hierarchy
-```
 
 ## Practice Exercises to Try
 
@@ -329,12 +328,10 @@ Make It Clear:
 
 1. **Customer Analysis Dashboard:**
 
-   ```yaml
-   Create These Charts:
+   **Create These Charts:**
    1. Customer lifetime value
    2. Purchase frequency
    3. Regional comparison
-   ```
 
 2. **Financial Performance:**
 
