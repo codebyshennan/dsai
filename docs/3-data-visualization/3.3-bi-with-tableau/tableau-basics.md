@@ -245,6 +245,10 @@ Example: **Sales by Category** bar chart.
 
 #### 1. Data Source Optimization
 
+{% include mermaid-diagram.html src="3-data-visualization/3.3-bi-with-tableau/diagrams/connection-types.mmd" %}
+
+*Live connection queries your data source directly; an Extract takes a fast local snapshot. Most beginners should start with Extract.*
+
 **Data Preparation**
 
 - Clean and prepare data before connecting it to Tableau — messy data leads to messy charts.
