@@ -1,10 +1,14 @@
 # Learning Power BI Through a Real Example: SuperStore Analysis
 
+You have a spreadsheet of retail sales. Your manager wants to know which regions are underperforming and why — by tomorrow. Power BI can turn that spreadsheet into an interactive, automatically-updating dashboard in under an hour. That's what you'll build here.
+
 **After this lesson:** you can explain the core ideas in "Learning Power BI Through a Real Example: SuperStore Analysis" and reproduce the examples here in your own notebook or environment.
 
 > **Note:** This tutorial is **UI-first**.
 > - **Windows:** Use Power BI Desktop (free download from the Microsoft Store or powerbi.microsoft.com).
 > - **macOS:** Power BI Desktop is not available natively. Use [Power BI Service](https://app.powerbi.com) in your browser, or run Power BI Desktop in a Windows VM. Most steps in this guide translate directly to the Service; note differences where they appear.
+
+> **Desktop vs Service:** Power BI Desktop (Windows only) is the full tool. Power BI Service (web, any browser) is 90% the same but with limited Power Query editing. This guide works in both — build in Desktop if you have it, use Service on Mac.
 
 ## Helpful video
 
