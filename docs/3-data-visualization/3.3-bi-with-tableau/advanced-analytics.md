@@ -223,6 +223,8 @@ Try These Cool Ideas:
 
 ### Parameters (Let Users Choose!)
 
+> **Use this when:** you want viewers to control a threshold, choose a measure, or set a date range without you having to republish the workbook.
+
 **Purpose:** Let viewers change thresholds, N, or dates through a control without editing the workbook.
 
 **Walkthrough:** Parameter is a workbook object; calculated fields reference it with `[Parameter Name]`.
