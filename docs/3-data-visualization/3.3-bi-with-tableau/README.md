@@ -81,20 +81,11 @@ Before diving in, make sure these terms are clear. You'll see them constantly.
 
 **Key Features**
 
-**Drag-and-Drop:**
-- Visual field mapping
-- Instant chart creation
-- Dynamic filtering
-
-**Visual Analytics:**
-- Automatic insights
-- Statistical summaries
-- Trend analysis
-
-**Rapid Development:**
-- Quick prototyping
-- Instant feedback
-- Easy iteration
+| Feature | What it does |
+|---------|-------------|
+| Drag-and-Drop | Visual field mapping, instant chart creation, dynamic filtering |
+| Visual Analytics | Automatic insights, statistical summaries, trend analysis |
+| Rapid Development | Quick prototyping, instant feedback, easy iteration |
 
 ### 2. Enterprise Power
 
