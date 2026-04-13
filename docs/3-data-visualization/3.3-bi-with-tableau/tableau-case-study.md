@@ -148,7 +148,7 @@ Data Structure:
    - Edit the sheet title (double-click the title above the chart)
    - Add labels by dragging "Sales" to the Label mark
 
-![Tableau first chart — Sales by Category bar chart](assets/tableau_first_chart.png)
+![Tableau first chart — Sales by Category bar chart](assets/tableau_bar_chart.png)
 
 
 ### 2. Time Series Analysis
