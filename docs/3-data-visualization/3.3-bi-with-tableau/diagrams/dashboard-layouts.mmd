@@ -3,12 +3,12 @@ flowchart LR
         direction TB
         subgraph KPI["Top row: KPI scorecards"]
             direction LR
-            K1["KPI 1\nTotal Sales"]
-            K2["KPI 2\nProfit Margin"]
-            K3["KPI 3\nOrders Count"]
-            K4["KPI 4\nAvg Discount"]
+            K1["KPI 1<br/>Total Sales"]
+            K2["KPI 2<br/>Profit Margin"]
+            K3["KPI 3<br/>Orders Count"]
+            K4["KPI 4<br/>Avg Discount"]
         end
-        DC["Detail chart\nSales & Profit over time"]
+        DC["Detail chart<br/>Sales & Profit over time"]
         KPI --> DC
     end
 
@@ -16,12 +16,12 @@ flowchart LR
         direction TB
         subgraph ROW2["Side by side"]
             direction LR
-            MC["Main chart\n60% width\nMap / trend"]
+            MC["Main chart<br/>60% width<br/>Map / trend"]
             subgraph SUP["Supporting charts"]
                 direction TB
-                S1["Top product\ncategories"]
-                S2["Regional\nbreakdown"]
-                S3["Month-on-month\ngrowth"]
+                S1["Top product<br/>categories"]
+                S2["Regional<br/>breakdown"]
+                S3["Month-on-month<br/>growth"]
             end
         end
         MC --- SUP
@@ -31,13 +31,13 @@ flowchart LR
         direction TB
         subgraph ROW_A["Row A"]
             direction LR
-            G1["Sales\nby category"]
-            G2["Profit\nby region"]
+            G1["Sales<br/>by category"]
+            G2["Profit<br/>by region"]
         end
         subgraph ROW_B["Row B"]
             direction LR
-            G3["Orders\nover time"]
-            G4["Discount\nvs profit"]
+            G3["Orders<br/>over time"]
+            G4["Discount<br/>vs profit"]
         end
         ROW_A --> ROW_B
     end
