@@ -132,9 +132,6 @@ Data Structure:
    - Tracking Period: Full dataset
 ```
 
-![Tableau Data Source page with Orders table field list](assets/tableau_data_source.png)
-
-
 ## Step-by-Step Visualization Guide
 
 ### 1. Creating Your First Chart: Sales by Category
