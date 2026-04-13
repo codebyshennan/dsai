@@ -539,4 +539,10 @@ SWITCH(
 - **Publishing to Power BI Service requires a gateway for on-premise data sources** — workbooks that connect to local files or on-premise databases will show stale data in the Service after publishing unless an on-premise data gateway is configured and running. Reports connected only to cloud sources (SharePoint, Azure, etc.) do not need a gateway.
 - **Incremental refresh policy requires `RangeStart` and `RangeEnd` parameters spelled exactly** — the parameter names are case-sensitive and must match `RangeStart` and `RangeEnd` precisely. Any variation (e.g., `range_start`, `Start`) causes the incremental refresh to silently fall back to a full refresh on every scheduled run.
 
+## Next Steps
 
+1. Practice with the Superstore dataset using the charts in this guide
+2. Explore Power Query for more complex data transformations
+3. Try the Key Influencers and Decomposition Tree visuals on your own data
+4. Publish a report to Power BI Service and share it with a classmate
+5. Join the [Power BI Community](https://community.powerbi.com) for examples and Q&A
