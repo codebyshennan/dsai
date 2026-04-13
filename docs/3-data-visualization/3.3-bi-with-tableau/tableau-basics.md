@@ -80,6 +80,8 @@ In your Data pane, you'll see two groups: **Dimensions** (blue, categories) and 
 
 - Click **New Worksheet** and familiarize yourself with shelves, marks, and the Data pane.
 
+> **What is a shelf?** Shelves are the drop zones in Tableau's workspace. Drag a field to the **Rows shelf** to put it on the Y-axis. Drag to **Columns** for X-axis. Drag to **Color** in the Marks card to color-code your data.
+
 #### 2. Creating Your First Visualization
 
 Example: **Sales by Category** bar chart.
