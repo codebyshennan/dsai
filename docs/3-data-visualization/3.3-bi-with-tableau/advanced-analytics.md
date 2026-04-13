@@ -300,6 +300,8 @@ Speed Up Your Dashboard:
    - Limit date ranges
 ```
 
+![Tableau extract settings for optimising dashboard performance](assets/tableau_extract.png)
+
 ### Design for Understanding
 
 **Purpose:** Reinforce narrative, guidance, and visual hygiene on advanced vizzes—not only performance.
