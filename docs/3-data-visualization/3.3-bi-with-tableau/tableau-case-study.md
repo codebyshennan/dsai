@@ -314,7 +314,7 @@ Data Structure:
 
 ### 1. Table Calculations
 
-```tableau
+```sql
 // Running Total
 RUNNING_SUM(SUM([Sales]))
 
@@ -330,7 +330,7 @@ RANK(SUM([Sales]), 'desc')
 
 ### 2. Level of Detail (LOD) Expressions
 
-```tableau
+```sql
 // Fixed LOD
 {FIXED [Category] : SUM([Sales])}
 
