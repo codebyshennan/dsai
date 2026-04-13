@@ -18,10 +18,6 @@ This submodule is **UI-first**: you will connect data and build views in **Table
 
 **Submodule map**
 
-**Purpose:** Show how BI lessons move from connecting data, to building views, to dashboards and stories.
-
-**Walkthrough:** Reference diagram only.
-
 ```yaml
 Module Structure:
 ┌─────────────────────────┐
