@@ -378,42 +378,6 @@ RANK(SUM([Sales]), 'desc')
 ![Tableau map with density overlay and custom territory polygon](assets/tableau_advanced_map.png)
 
 
-## Tableau Server Features
-
-### 1. Content Management
-
-1. Publishing Content:
-   - Publish workbooks
-   - Set permissions
-   - Configure schedules
-   - Manage extracts
-
-2. Content Organization:
-   - Create projects
-   - Set up folders
-   - Configure permissions
-   - Manage subscriptions
-
-![Tableau Server content management UI with project folders](assets/tableau_content_mgmt.png)
-
-
-### 2. Collaboration Features
-
-1. Sharing Options:
-   - Create subscriptions
-   - Set up alerts
-   - Share dashboards
-   - Configure mobile access
-
-2. Version Control:
-   - Track changes
-   - Restore versions
-   - Compare versions
-   - Manage conflicts
-
-![Tableau Server subscription setup dialog](assets/tableau_collaboration.png)
-
-
 ## Performance Optimization
 
 ### 1. Extract Optimization
