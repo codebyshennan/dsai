@@ -82,7 +82,7 @@ Claude will explain why `FIXED` ignores dimension filters and show you how to ad
 
 ---
 
-### Generate a sample dataset
+### Workflow 3: Generate a sample dataset
 
 Use Claude to create CSV data when you want to practice a specific chart type without waiting for real data.
 
