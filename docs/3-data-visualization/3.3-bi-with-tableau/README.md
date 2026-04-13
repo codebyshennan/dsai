@@ -84,10 +84,6 @@ Capabilities:
 
 ### 1. Data Architecture
 
-**Purpose:** Show the abstract flow from raw source through Tableau’s data engine to worksheets.
-
-**Walkthrough:** ASCII diagram; live vs extract choice sits in the middle stage.
-
 ```
 Data Pipeline:
 ┌─────────────┐    ┌─────────────┐    ┌───────────────┐
