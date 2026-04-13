@@ -197,23 +197,22 @@ Drag a field onto the canvas or onto a shelf to build a chart. Tableau's Show Me
 
 #### Visual Best Practices
 
-```yaml
-Design Principles:
-  Color Usage:
-    - Sequential: Ordered data
-    - Diverging: Mid-point data
-    - Categorical: Distinct groups
-    
-  Layout:
-    - Grid alignment
-    - Visual hierarchy
-    - White space
-    
-  Typography:
-    - Clear hierarchy
-    - Consistent fonts
-    - Readable sizes
-```
+**Design Principles**
+
+**Color Usage:**
+- Sequential: Ordered data
+- Diverging: Mid-point data
+- Categorical: Distinct groups
+
+**Layout:**
+- Grid alignment
+- Visual hierarchy
+- White space
+
+**Typography:**
+- Clear hierarchy
+- Consistent fonts
+- Readable sizes
 
 ### 3. Calculations
 
