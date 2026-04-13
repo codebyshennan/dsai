@@ -14,6 +14,19 @@ You have a spreadsheet of retail sales. Your manager wants to know which regions
 
 Search YouTube for **"Power BI Desktop tutorial for beginners"** and watch any recent Microsoft or community walkthrough. The Microsoft Power BI channel publishes feature-specific videos that pair well with this guide.
 
+## Key Terms
+
+Before diving in, here are the core concepts you'll encounter throughout this guide:
+
+| Term | What it means | Example |
+|------|---------------|---------|
+| Measure | A calculated number | Total Sales = SUM of all sales |
+| Dimension | A category to group by | Region, Product Category |
+| Slicer | An interactive filter | Click "West" to see only West data |
+| Relationship | A link between two tables | Orders linked to Products via Product ID |
+| DAX | Power BI's formula language | `Total Sales = SUM(Orders[Sales])` |
+| Power Query | Data cleaning tool | Remove duplicates, fix date formats |
+
 ## Getting Started
 
 ### 1. Opening Power BI and Connecting to Data
