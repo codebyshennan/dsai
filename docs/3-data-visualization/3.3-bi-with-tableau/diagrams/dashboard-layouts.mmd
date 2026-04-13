@@ -1,0 +1,43 @@
+flowchart LR
+    subgraph P1["Pattern 1 — KPI Strip + Detail"]
+        direction TB
+        subgraph KPI["Top row: KPI scorecards"]
+            direction LR
+            K1["KPI 1\nTotal Sales"]
+            K2["KPI 2\nProfit Margin"]
+            K3["KPI 3\nOrders Count"]
+            K4["KPI 4\nAvg Discount"]
+        end
+        DC["Detail chart\nSales & Profit over time"]
+        KPI --> DC
+    end
+
+    subgraph P2["Pattern 2 — Hero + Supporting"]
+        direction TB
+        subgraph ROW2["Side by side"]
+            direction LR
+            MC["Main chart\n60% width\nMap / trend"]
+            subgraph SUP["Supporting charts"]
+                direction TB
+                S1["Top product\ncategories"]
+                S2["Regional\nbreakdown"]
+                S3["Month-on-month\ngrowth"]
+            end
+        end
+        MC --- SUP
+    end
+
+    subgraph P3["Pattern 3 — Grid"]
+        direction TB
+        subgraph ROW_A["Row A"]
+            direction LR
+            G1["Sales\nby category"]
+            G2["Profit\nby region"]
+        end
+        subgraph ROW_B["Row B"]
+            direction LR
+            G3["Orders\nover time"]
+            G4["Discount\nvs profit"]
+        end
+        ROW_A --> ROW_B
+    end

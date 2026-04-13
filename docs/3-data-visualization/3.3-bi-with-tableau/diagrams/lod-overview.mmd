@@ -1,0 +1,35 @@
+flowchart TD
+    Q["Need to control WHICH dimension to aggregate by?"]
+    Q --> FIXED
+    Q --> INCLUDE
+    Q --> EXCLUDE
+
+    subgraph FIXED["FIXED — Lock aggregation to specific dimension(s)"]
+        F1["Pins the calculation grain to the dimension(s) you name"]
+        F2["Ignores view filters\n(use Context Filter to override)"]
+        F3["`Example: {FIXED [Category] : SUM([Sales])}`"]
+        F4["Use case: Compare each row to a global total"]
+        F1 --> F2 --> F3 --> F4
+    end
+
+    subgraph INCLUDE["INCLUDE — Add a dimension NOT in the view"]
+        I1["Increases granularity beyond what the view shows"]
+        I2["More granular than current view"]
+        I3["`Example: {INCLUDE [Region] : AVG([Profit])}`"]
+        I4["Use case: Show regional detail even when view groups by country"]
+        I1 --> I2 --> I3 --> I4
+    end
+
+    subgraph EXCLUDE["EXCLUDE — Remove a dimension FROM the view"]
+        E1["Strips a dimension out of the aggregation"]
+        E2["Less granular than current view"]
+        E3["`Example: {EXCLUDE [Sub-Category] : SUM([Sales])}`"]
+        E4["Use case: Compare sub-category to its parent category total"]
+        E1 --> E2 --> E3 --> E4
+    end
+
+    FIXED --> NOTE
+    INCLUDE --> NOTE
+    EXCLUDE --> NOTE
+
+    NOTE["All LOD types respect Context Filters\n(right-click filter → Add to Context)"]

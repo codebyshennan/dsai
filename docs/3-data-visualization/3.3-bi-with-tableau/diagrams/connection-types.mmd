@@ -1,0 +1,23 @@
+flowchart LR
+    DS["Data Source\n(Database / CSV / Cloud)"]
+
+    DS -->|"Live Connection"| LIVE_DESC["Every interaction\nqueries the source directly"]
+    DS -->|"Extract (.hyper)"| EXT_DESC["Snapshot of data\nstored locally"]
+
+    LIVE_DESC --> LIVE_PROS["Pros\n+ Always up-to-date"]
+    LIVE_DESC --> LIVE_CONS["Cons\n- Slower\n- Requires network access"]
+    LIVE_PROS --> LIVE_BEST["Best for\nSmall datasets\nReal-time needs"]
+    LIVE_CONS --> LIVE_BEST
+
+    EXT_DESC --> EXT_PROS["Pros\n+ Fast\n+ Works offline\n+ Can be scheduled to refresh"]
+    EXT_DESC --> EXT_CONS["Cons\n- Data may be stale\n  between refreshes"]
+    EXT_PROS --> EXT_BEST["Best for\nLarge datasets\nOffline work\nSharing .twbx files"]
+    EXT_CONS --> EXT_BEST
+
+    LIVE_BEST --> WB["Tableau Workbook"]
+    EXT_BEST --> WB
+
+    DECIDE{"Which to use?"}
+    DECIDE -->|"Need real-time data?"| REAL_Q{"Yes / No"}
+    REAL_Q -->|"Yes"| LIVE_BEST
+    REAL_Q -->|"No"| EXT_BEST

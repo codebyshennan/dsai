@@ -1,0 +1,28 @@
+flowchart TD
+    subgraph WORKSPACE["Tableau Workspace"]
+        subgraph DATA_PANE["Data Pane (left)"]
+            DIM["Dimensions\n(blue pills)\nCategories — Region, Category, Date"]
+            MEA["Measures\n(green pills)\nNumbers — Sales, Profit, Quantity"]
+        end
+        subgraph SHELVES["Shelves (top)"]
+            COL["Columns shelf → X-axis"]
+            ROW["Rows shelf → Y-axis"]
+            FLT["Filters shelf\nLimit which data appears"]
+            PAG["Pages shelf\nAnimate / page through data"]
+        end
+        subgraph MARKS["Marks Card (left-center)"]
+            CLR["Color"]
+            SIZ["Size"]
+            LBL["Label"]
+            DET["Detail"]
+            TTP["Tooltip"]
+        end
+        subgraph CANVAS["Canvas / View (center)"]
+            CHART["Chart renders here\nbased on shelf & marks settings"]
+        end
+    end
+
+    DATA_PANE -->|"drag here"| SHELVES
+    DATA_PANE -->|"drag here"| MARKS
+    SHELVES --> CANVAS
+    MARKS --> CANVAS
