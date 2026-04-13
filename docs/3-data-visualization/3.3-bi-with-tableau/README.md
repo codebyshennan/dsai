@@ -100,13 +100,15 @@ Before diving in, make sure these terms are clear. You'll see them constantly.
 
 ### 1. Data Architecture
 
-```
-Data Pipeline:
-┌─────────────┐    ┌─────────────┐    ┌───────────────┐
-│ Data Source │ →  │   Extract   │ →  │ Visualization │
-└─────────────┘    └─────────────┘    └───────────────┘
-     Raw Data         Processing         Presentation
-```
+Every Tableau dashboard follows the same three-stage journey from raw numbers to insight:
+
+| Stage | What happens | Example |
+|-------|-------------|---------|
+| **Data Source** | Tableau connects to your raw data — a file, a database, or a cloud service | An Excel spreadsheet, a PostgreSQL table, a Google Sheet |
+| **Extract / Process** | Tableau reads and optimises the data for fast querying (live or as a snapshot) | Tableau builds a `.hyper` extract file from your 500 k-row CSV |
+| **Visualization** | You drag fields onto shelves to build charts, filters, and dashboards | A bar chart showing profit by region, embedded in a team dashboard |
+
+This pipeline runs every time you open a workbook or refresh an extract. Understanding it helps you choose the right connection type (see below) and diagnose slow dashboards.
 
 #### Connection Types
 
