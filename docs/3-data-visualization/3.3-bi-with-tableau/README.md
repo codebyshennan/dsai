@@ -46,7 +46,7 @@ This submodule is **UI-first**: you will connect data and build views in **Table
 
 **Submodule map**
 
-```yaml
+```
 Module Structure:
 ┌─────────────────────────┐
 │ Data Connection       │ → Source Integration
