@@ -2,7 +2,7 @@
 
 **After this lesson:** you can use Claude Desktop or ChatGPT as an AI pair partner while building Tableau dashboards — writing calculated fields faster, debugging LOD expressions, generating practice data, and getting chart recommendations without leaving your workflow.
 
-Tableau's calculation language is powerful, but debugging a formula can eat 30 minutes. This guide shows you how to use Claude or ChatGPT as a pair partner — paste your question, get working syntax back, verify it in Tableau. No special setup needed.
+Tableau's calculation language is powerful, but debugging a formula can eat 30 minutes. This guide shows you two ways to set up AI assistance, from zero-setup copy-paste to a full MCP integration where Claude can talk directly to your Tableau workbooks.
 
 | Problem you have | Use this workflow | Time saved |
 |-----------------|-------------------|------------|
@@ -12,32 +12,142 @@ Tableau's calculation language is powerful, but debugging a formula can eat 30 m
 | CSV has messy data | Workflow 4: Python Prep | 20–30 min |
 | Unsure which chart to use | Workflow 5: Chart Recommendations | 5 min |
 
-## Which AI tool should I use?
+---
 
-You don't need a special integration. Any conversational AI assistant works:
+## Setup Options
 
-| Tool | How to access |
+There are two ways to connect AI tools to Tableau. Start with Option A (no setup needed), and upgrade to Option B if you want Claude to query your live workbooks and data sources.
+
+| | Option A: Copy-paste | Option B: Claude Desktop + MCP |
+|---|---|---|
+| **Setup time** | Zero | ~10 minutes |
+| **Works with** | Claude Desktop, ChatGPT, any AI chat | Claude Desktop only |
+| **What AI can access** | Only what you paste | Your Tableau Server / Cloud workbooks, data sources, and views directly |
+| **Best for** | Quick formula help, one-off questions | Iterative dashboard work, querying live workbooks |
+
+---
+
+## Option A: Copy-Paste (No Setup)
+
+Open Claude or ChatGPT in a browser tab or window alongside Tableau Desktop. Paste your question, formula, or error message directly into the chat. No configuration required.
+
+| Tool | Where to open |
 |------|--------------|
-| **Claude Desktop** | [claude.ai](https://claude.ai) — desktop app or web |
-| **ChatGPT** | [chatgpt.com](https://chatgpt.com) — web or desktop app |
+| **Claude** | [claude.ai](https://claude.ai) — web or install the Claude Desktop app |
+| **ChatGPT** | [chatgpt.com](https://chatgpt.com) — web or the ChatGPT desktop app |
 
-Open either tool in a browser tab or window next to Tableau Desktop. You can paste errors, formula fragments, or plain-English questions directly into the chat.
+> **Tip:** Paste your exact field names from the Data pane — AI gives much better output when it knows whether your field is called `[Revenue]` or `[Sales]`.
 
-**Why pair AI with Tableau?**
+Skip straight to [Practical workflows](#practical-workflows) to start using this now.
 
-- Write and debug calculated fields and LOD expressions without memorising every function
-- Generate realistic sample datasets when you don't have real data to hand
-- Prepare and clean data in Python/pandas before connecting to Tableau
-- Get instant chart-type recommendations given your data shape and goal
-- Explain Tableau errors in plain language
+---
 
-## Practical workflows
+## Option B: Claude Desktop + Tableau MCP Integration
+
+The [Model Context Protocol (MCP)](https://modelcontextprotocol.io) lets Claude Desktop connect directly to external tools. Tableau's official MCP server lets Claude query your Tableau Server or Tableau Cloud workbooks, data sources, and views without you having to copy-paste anything.
+
+### What you can do with the integration
+
+- Ask Claude "What workbooks do I have?" and get a list back
+- Paste a view name and ask Claude to describe the data schema
+- Let Claude pull a data source's field list automatically when you ask for a formula — no manual copying
+
+### Prerequisites
+
+- **Claude Desktop** installed ([download here](https://claude.ai/download))
+- Access to **Tableau Server** or **Tableau Cloud** (the MCP server uses the Tableau REST API, which is not available in Tableau Public)
+- A **Personal Access Token (PAT)** from your Tableau site
+
+> **Tableau Public users:** Tableau Public does not expose the REST API, so Option B is not available. Use Option A (copy-paste) instead.
+
+### Step 1 — Create a Personal Access Token in Tableau
+
+1. Sign in to Tableau Server or Tableau Cloud.
+2. Click your profile icon (top right) → **My Account Settings**.
+3. Scroll to **Personal Access Tokens** → click **Create new token**.
+4. Give it a name (e.g. `claude-mcp`) and copy the **token secret** — you will not see it again.
+
+### Step 2 — Install the Tableau MCP server
+
+The Tableau MCP server is published as an npm package. Run the following once from your terminal to verify Node.js is installed and working:
+
+```bash
+node --version   # should be v18 or later
+npx --version
+```
+
+If you don't have Node.js, install it from [nodejs.org](https://nodejs.org) (LTS version).
+
+### Step 3 — Configure Claude Desktop
+
+Open the Claude Desktop configuration file. On macOS:
+
+```bash
+open ~/Library/Application\ Support/Claude/claude_desktop_config.json
+```
+
+If the file does not exist, create it. Add the Tableau server block inside `mcpServers` — replace the placeholder values with your actual credentials:
+
+```json
+{
+  "mcpServers": {
+    "tableau": {
+      "command": "npx",
+      "args": ["-y", "@salesforce/mcp-server-tableau"],
+      "env": {
+        "TABLEAU_SERVER_URL": "https://your-tableau-server.com",
+        "TABLEAU_SITE_ID": "your-site-id",
+        "TABLEAU_TOKEN_NAME": "claude-mcp",
+        "TABLEAU_TOKEN_VALUE": "your-token-secret-here"
+      }
+    }
+  }
+}
+```
+
+> **Finding your values:**
+> - `TABLEAU_SERVER_URL` — the base URL you use to sign in, e.g. `https://10ax.online.tableau.com`
+> - `TABLEAU_SITE_ID` — found in the URL after `/site/` when signed in; leave as `""` for the default site
+> - `TABLEAU_TOKEN_NAME` — the name you gave the PAT in Step 1
+> - `TABLEAU_TOKEN_VALUE` — the secret you copied in Step 1
+
+### Step 4 — Restart Claude Desktop and verify
+
+Quit and reopen Claude Desktop. You should see a hammer icon (🔨) in the chat input bar, indicating MCP tools are active.
+
+Test the connection by typing:
+
+```
+List my Tableau workbooks.
+```
+
+Claude should return a list of workbooks from your site. If you get an error, double-check your server URL and token values in the config file.
+
+> **Package name note:** Tableau's MCP tooling is actively developed. If `@salesforce/mcp-server-tableau` is not found, check the current package name at the [Tableau Developer documentation](https://developer.salesforce.com/docs/tableau) or the [Salesforce MCP GitHub](https://github.com/salesforce/mcp).
+
+---
+
+## ChatGPT Setup
+
+ChatGPT does not yet support MCP-based integrations with Tableau. Use the copy-paste workflow (Option A) alongside the following tips to get the most out of it.
+
+### Using ChatGPT effectively with Tableau
+
+**Upload your data schema:** Export a small CSV sample from your Tableau data source (right-click a data source → **View Data** → **Export**). Attach the CSV to ChatGPT so it can see your exact field names without you listing them manually.
+
+**Use the Data Analyst mode:** In ChatGPT, select **GPT-4o** and attach a CSV. ChatGPT can run Python internally to verify that a formula or aggregation gives the right output before you paste it into Tableau.
+
+**Paste error messages directly:** Tableau's error text is often cryptic. Copy the full error (including the formula that caused it) and paste it into ChatGPT — it will usually identify the problem and offer a corrected version.
+
+---
+
+## Practical Workflows
+
+The prompts below work with both Option A (copy-paste) and Option B (MCP). With Option B, you can skip the step where you manually describe your fields — Claude can read them from the connected workbook.
 
 ### Workflow 1: Write a calculated field
 
 Tableau's calculation language is expressive but the syntax is easy to get wrong. Describe what you need and paste the result into **Create Calculated Field**.
-
-<!-- TODO: screenshot — Tableau Create Calculated Field dialog showing a Profit Ratio formula -->
 
 **Example prompt:**
 
@@ -63,8 +173,6 @@ STR(ROUND(SUM([Profit]) / SUM([Sales]) * 100, 1)) + "%"
 ### Workflow 2: Debug an LOD expression
 
 LOD (Level of Detail) expressions are powerful but frequently produce unexpected totals. Paste the broken expression plus a description of what it should do.
-
-<!-- TODO: screenshot — Tableau LOD expression editor showing a FIXED expression and context filter -->
 
 **Example prompt:**
 
@@ -158,6 +266,9 @@ Before assuming AI gave you a bad formula, work through these:
 
 ## Additional resources
 
-- [Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code)
+- [Claude Desktop download](https://claude.ai/download)
+- [Model Context Protocol documentation](https://modelcontextprotocol.io)
+- [Tableau Developer documentation](https://developer.salesforce.com/docs/tableau)
+- [Tableau Personal Access Tokens](https://help.tableau.com/current/server/en-us/security_personal_access_tokens.htm)
 - [Tableau calculated fields reference](https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields_create.htm)
 - [Tableau LOD expressions](https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields_lod.htm)
