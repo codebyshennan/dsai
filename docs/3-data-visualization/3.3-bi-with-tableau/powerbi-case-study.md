@@ -226,6 +226,35 @@ Data Structure:
 ![Power BI dashboard canvas with multiple visuals](assets/powerbi_dashboard.png)
 
 
+## Your First Measure
+
+Before writing complex DAX, start with the simplest possible measure to see how Power BI works.
+
+**Step 1: Create the measure**
+
+1. In the Fields pane, right-click the `Orders` table and select **New Measure**
+2. In the formula bar, type: `Total Sales = SUM(Orders[Sales])`
+3. Press Enter or click the checkmark — the measure appears in the Orders table with a calculator icon
+
+**Step 2: Display it as a Card**
+
+1. Click a blank area on the canvas
+2. In the Visualizations pane, click the **Card** visual (the one with a single large number)
+3. From the Fields pane, drag your new `Total Sales` measure into the **Fields** well of the Card
+4. You should see a large number showing total sales across all orders
+
+**Step 3: Add a Region slicer and watch it react**
+
+1. Click a blank area on the canvas (away from the Card)
+2. In the Visualizations pane, click the **Slicer** visual
+3. Drag `Region` from the Fields pane into the slicer
+4. Click **"West"** in the slicer — watch the Card number change to show only West sales
+5. Click **"East"** — the number updates again instantly
+
+You just saw filter context in action — the measure recalculates based on what's selected. This is the core idea behind all DAX: every measure is always evaluated within the current filter context.
+
+> **Checkpoint:** Before moving to DAX, make sure you can: (1) create a bar chart of Sales by Category, (2) add a slicer for Region, (3) click the slicer and see the chart update. If you can do these three things, you're ready for DAX.
+
 ## Advanced Features
 
 ### 1. DAX Measures
