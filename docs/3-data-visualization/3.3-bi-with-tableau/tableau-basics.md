@@ -38,9 +38,15 @@ Tableau is a powerful data visualization tool that enables interactive analytics
 
 1. Launch Tableau Desktop.
 
+   > **macOS:** Open Tableau from **Applications > Tableau Desktop** (or Spotlight: `⌘ Space`, type *Tableau*).
+   > **Windows:** Open from **Start > Tableau Desktop** or the desktop shortcut.
+
 ![Tableau Desktop start page](assets/tableau_start_page.png)
 
 - In the Connect pane on the left, under **Saved Data Sources**, click **Sample - Superstore**.
+  - If it isn't listed, click **Microsoft Excel** and browse to the file manually:
+    - **macOS:** `~/Documents/My Tableau Repository/Datasources/en_US/`
+    - **Windows:** `Documents\My Tableau Repository\Datasources\en_US-US\`
 
 2. Preview the data source.
 
