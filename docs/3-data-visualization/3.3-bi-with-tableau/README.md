@@ -169,28 +169,27 @@ Drag a field onto the canvas or onto a shelf to build a chart. Tableau's Show Me
 
 #### Basic Charts
 
-```yaml
-Chart Selection:
-  Comparison:
-    - Bar charts (categories)
-    - Line charts (time)
-    - Bullet charts (targets)
-    
-  Distribution:
-    - Histograms (frequency)
-    - Box plots (statistics)
-    - Heat maps (density)
-    
-  Composition:
-    - Pie charts (parts)
-    - Tree maps (hierarchy)
-    - Stacked bars (parts over time)
-    
-  Relationship:
-    - Scatter plots (correlation)
-    - Bubble charts (3 variables)
-    - Connected scatter (paths)
-```
+**Chart Selection**
+
+**Comparison:**
+- Bar charts (categories)
+- Line charts (time)
+- Bullet charts (targets)
+
+**Distribution:**
+- Histograms (frequency)
+- Box plots (statistics)
+- Heat maps (density)
+
+**Composition:**
+- Pie charts (parts)
+- Tree maps (hierarchy)
+- Stacked bars (parts over time)
+
+**Relationship:**
+- Scatter plots (correlation)
+- Bubble charts (3 variables)
+- Connected scatter (paths)
 
 > **Ask AI (Claude or ChatGPT)**
 >
