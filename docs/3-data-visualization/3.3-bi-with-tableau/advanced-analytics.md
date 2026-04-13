@@ -272,6 +272,8 @@ Types of Actions:
    - Connect to docs
 ```
 
+![Dashboard actions panel linking charts interactively in Tableau](assets/tableau_dashboard_actions.png)
+
 ## 5. Best Practices for Advanced Analytics
 
 ### Performance Tips
