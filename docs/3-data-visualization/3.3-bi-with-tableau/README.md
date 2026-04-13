@@ -98,23 +98,22 @@ Before diving in, make sure these terms are clear. You'll see them constantly.
 
 ### 2. Enterprise Power
 
-```yaml
-Capabilities:
-  Data Handling:
-    - Live connections
-    - Data extracts
-    - Incremental updates
-    
-  Security:
-    - Row-level security
-    - User authentication
-    - Data encryption
-    
-  Scalability:
-    - Big data ready
-    - Server deployment
-    - Cloud integration
-```
+**Capabilities**
+
+**Data Handling:**
+- Live connections
+- Data extracts
+- Incremental updates
+
+**Security:**
+- Row-level security
+- User authentication
+- Data encryption
+
+**Scalability:**
+- Big data ready
+- Server deployment
+- Cloud integration
 
 ## Core Concepts
 
