@@ -2,7 +2,9 @@
 
 **After this lesson:** you can explain the core ideas in "Learning Power BI Through a Real Example: SuperStore Analysis" and reproduce the examples here in your own notebook or environment.
 
-> **Note:** This tutorial is **UI-first** (Power BI Desktop on Windows or Mac, per Microsoft support). Sample file paths assume default sample installs.
+> **Note:** This tutorial is **UI-first**.
+> - **Windows:** Use Power BI Desktop (free download from the Microsoft Store or powerbi.microsoft.com).
+> - **macOS:** Power BI Desktop is not available natively. Use [Power BI Service](https://app.powerbi.com) in your browser, or run Power BI Desktop in a Windows VM. Most steps in this guide translate directly to the Service; note differences where they appear.
 
 ## Helpful video
 
