@@ -131,6 +131,8 @@ Real-World Use:
 3. Identify VIP customers
 ```
 
+![FIXED LOD expression computing per-customer averages independently of the view](assets/tableau_lod.png)
+
 > **Ask AI (Claude or ChatGPT)**
 >
 > "My Tableau FIXED LOD expression `{FIXED [Customer Name] : AVG([Sales])}` is not changing when I apply a Region filter. Why is this happening, and how do I make the expression respect my filter?"
