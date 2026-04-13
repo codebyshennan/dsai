@@ -1,12 +1,16 @@
 # Learning Looker Studio Through a Real Example: SuperStore Analysis
 
+You have monthly sales data sitting in a Google Sheet. Your manager wants a live dashboard they can filter by region and date — by tomorrow. Here is how to build one in 30 minutes with zero code, using Google's free Looker Studio tool.
+
 **After this lesson:** you can explain the core ideas in “Learning Looker Studio Through a Real Example: SuperStore Analysis” and reproduce the examples here in your own notebook or environment.
 
 > **Note:** This tutorial is **UI-first** (Looker Studio in the browser). You need a Google account and permission to connect a Google Sheet or similar source.
 
 ## Helpful video
 
-Search YouTube for **"Looker Studio tutorial for beginners"** and watch any recent official Google or community walkthrough. The Google Looker Studio channel publishes short feature overviews that pair well with this guide.
+<!-- TODO: embed specific Google Looker Studio intro video here -->
+
+Watch the official [Google Looker Studio Getting Started guide](https://lookerstudio.google.com/navigation/reporting) before continuing.
 
 ## Getting Started
 
