@@ -112,29 +112,15 @@ This pipeline runs every time you open a workbook or refresh an extract. Underst
 
 #### Connection Types
 
-**Live Connection:**
+| | **Live Connection** | **Extract** |
+|---|---|---|
+| **Data freshness** | Always current — Tableau queries the source on every interaction | Snapshot taken at extract time; stale until you refresh |
+| **Performance** | Slower on large datasets; every filter triggers a new database query | Fast — Tableau reads from an optimised local `.hyper` file |
+| **Works offline** | No — requires a live network path to the data source | Yes — the extract file is stored locally |
+| **Storage needed** | None on the Tableau side | Yes — the `.hyper` file can be large for wide datasets |
+| **Best for** | Real-time operational dashboards, small-to-medium data | Large datasets, shared published workbooks, scheduled refreshes |
 
-**Pros:**
-- Real-time updates
-- No storage needed
-- Latest data always
-
-**Cons:**
-- Network dependent
-- Can be slower
-- Server load
-
-**Extract:**
-
-**Pros:**
-- Fast performance
-- Offline access
-- Reduced load
-
-**Cons:**
-- Point-in-time
-- Storage needed
-- Manual/scheduled refresh
+> **Rule of thumb:** start with a Live connection while you explore the data, then switch to an Extract before publishing so your colleagues get fast load times.
 
 > **Ask AI (Claude or ChatGPT)**
 >
