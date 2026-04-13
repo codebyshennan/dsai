@@ -585,6 +585,15 @@ SWITCH(
 - **Publishing to Power BI Service requires a gateway for on-premise data sources** — workbooks that connect to local files or on-premise databases will show stale data in the Service after publishing unless an on-premise data gateway is configured and running. Reports connected only to cloud sources (SharePoint, Azure, etc.) do not need a gateway.
 - **Incremental refresh policy requires `RangeStart` and `RangeEnd` parameters spelled exactly** — the parameter names are case-sensitive and must match `RangeStart` and `RangeEnd` precisely. Any variation (e.g., `range_start`, `Start`) causes the incremental refresh to silently fall back to a full refresh on every scheduled run.
 
+## Troubleshooting
+
+**Common issues beginners encounter:**
+
+- **Chart is blank** → check that the Values field well has a measure or numeric column dragged into it. An empty Values well produces an empty visual even if Axis is populated.
+- **Slicer not filtering other charts** → both the slicer and the chart must draw from the same table (or tables connected by a relationship). If they use separate, unrelated tables, filters will not propagate. Check the Model view to confirm a relationship exists.
+- **DAX formula error** → check for missing parentheses and make sure column references use the `TableName[ColumnName]` format. A common mistake: writing `[Sales]` when the correct reference is `Orders[Sales]`. Power BI will highlight the error in red in the formula bar.
+- **Mac users: Power BI Desktop won't install** → Power BI Desktop is Windows only. Use Power BI Service at [app.powerbi.com](https://app.powerbi.com) instead — it supports the same visuals, slicers, and basic DAX measures used throughout this guide.
+
 ## Next Steps
 
 1. Practice with the Superstore dataset using the charts in this guide
