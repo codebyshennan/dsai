@@ -1,5 +1,7 @@
 # Tableau Basics: Sample Superstore Guide
 
+In this guide, you'll build an interactive dashboard that lets a manager explore sales trends by region and category in seconds. No coding, no SQL — pure point-and-click analytics. By the end, you'll have a working Tableau dashboard you built yourself from a real retail dataset.
+
 **After this lesson:** you can explain the core ideas in "Tableau Basics: Sample Superstore Guide" and reproduce the examples here in your own notebook or environment.
 
 > **Note:** This submodule is **UI-first**. You will follow clicks and shelves in Tableau Desktop rather than writing Python for the main workflow.
