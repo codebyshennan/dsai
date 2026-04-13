@@ -201,23 +201,22 @@ Perfect For:
 
 **Walkthrough:** Each type maps to a Tableau recipe (often dual-axis or Gantt-style marks); look up the official tutorial for your version.
 
-```yaml
-Try These Cool Ideas:
-1. Dumbbell Charts:
+**Try These Cool Ideas:**
+
+1. **Dumbbell Charts:**
    - Compare two points in time
    - Show before/after
    - Highlight changes
 
-2. Bullet Charts:
+2. **Bullet Charts:**
    - Show targets vs actual
    - Add color bands
    - Highlight performance
 
-3. Waterfall Charts:
+3. **Waterfall Charts:**
    - Show how values build up
    - Track additions/subtractions
    - Visualize flow
-```
 
 ![Custom and combo chart types available in Tableau](assets/tableau_custom_viz.png)
 
