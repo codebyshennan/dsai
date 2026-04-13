@@ -70,7 +70,7 @@ Before you touch Tableau, get these six concepts in your head. Everything else i
 
 > **Before building:** Scan your Data pane. Postal codes and IDs should be Dimensions (blue), not Measures (green). If they're green, right-click → Convert to Dimension.
 
-2. Preview the data source.
+4. Preview the data source.
 
 ![Tableau Data Source tab with Superstore connection](assets/tableau_data_source.png)
 
