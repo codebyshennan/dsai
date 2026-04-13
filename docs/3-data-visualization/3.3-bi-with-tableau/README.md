@@ -94,10 +94,6 @@ Data Pipeline:
 
 #### Connection Types
 
-**Purpose:** Decide between querying the database on each interaction (live) versus a snapshot hyper extract for speed.
-
-**Walkthrough:** Trade-offs drive dashboard design; large classes often use extracts for published workbooks.
-
 ```yaml
 Live Connection:
   Pros:
