@@ -6,7 +6,7 @@ flowchart TD
 
     subgraph FIXED["FIXED — Lock aggregation to specific dimension(s)"]
         F1["Pins the calculation grain to the dimension(s) you name"]
-        F2["Ignores view filters\n(use Context Filter to override)"]
+        F2["Ignores view filters<br/>(use Context Filter to override)"]
         F3["`Example: {FIXED [Category] : SUM([Sales])}`"]
         F4["Use case: Compare each row to a global total"]
         F1 --> F2 --> F3 --> F4
@@ -32,4 +32,4 @@ flowchart TD
     INCLUDE --> NOTE
     EXCLUDE --> NOTE
 
-    NOTE["All LOD types respect Context Filters\n(right-click filter → Add to Context)"]
+    NOTE["All LOD types respect Context Filters<br/>(right-click filter → Add to Context)"]
