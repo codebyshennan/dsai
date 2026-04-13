@@ -101,60 +101,7 @@ We'll utilize the "Sample - Superstore" dataset adapted for Looker Studio. This 
 
 ### Data Structure Overview
 
-The dataset consists of four primary tables:
-
-```yaml
-Data Structure:
-1. Orders Table:
-   Primary Fields:
-   - Order ID (Primary Key)
-   - Order Date (Date/Time)
-   - Ship Date (Date/Time)
-   - Ship Mode (String)
-   - Customer ID (Foreign Key)
-   - Product ID (Foreign Key)
-   - Quantity (Integer)
-   - Sales (Decimal)
-   - Profit (Decimal)
-   
-   Additional Metadata:
-   - Row Count: ~9,000
-   - Date Range: 4 years
-   - NULL handling: No nulls
-   
-2. Products Table:
-   Primary Fields:
-   - Product ID (Primary Key)
-   - Category (String)
-   - Sub-Category (String)
-   - Product Name (String)
-   
-   Classification:
-   - Categories: 3
-   - Sub-Categories: 17
-   - Products: ~1,500
-
-3. Customers Table:
-   Primary Fields:
-   - Customer ID (Primary Key)
-   - Customer Name (String)
-   - Segment (String)
-   - Region (String)
-   
-   Segmentation:
-   - Customer Types: 3
-   - Regions: 4
-   - States: 48
-
-4. Returns Table (Optional):
-   Primary Fields:
-   - Order ID (Foreign Key)
-   - Return Status (Boolean)
-   
-   Statistics:
-   - Return Rate: ~10%
-   - Tracking Period: Full dataset
-```
+The dataset consists of four primary tables. The **Orders** table is the heart of the data — it records every transaction (~9,000 rows over 4 years) including the sale amount, profit, shipping mode, and the dates an order was placed and shipped. The **Products** table tells you what was sold, organising ~1,500 products into 3 categories (Furniture, Technology, Office Supplies) and 17 sub-categories. The **Customers** table tells you who bought it: each customer belongs to one of 3 segments (Consumer, Corporate, Home Office) and maps to one of 4 US regions. Finally, the **Returns** table is optional but useful — it flags the roughly 10% of orders that were returned, which you can blend in to calculate a clean "net sales" figure.
 
 ![Data source field configuration](assets/looker_data_source.png)
 
