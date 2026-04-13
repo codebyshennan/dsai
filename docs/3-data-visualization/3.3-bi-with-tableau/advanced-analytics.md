@@ -230,18 +230,16 @@ Perfect For:
 
 **Walkthrough:** Parameter is a workbook object; calculated fields reference it with `[Parameter Name]`.
 
-```yaml
-Create a Parameter:
+**Create a Parameter:**
 1. Right-click in Data pane
 2. Create Parameter
 3. Choose type (number, date, list)
 4. Add to your visualization
 
-Example Uses:
+**Example Uses:**
 - Top N selector
 - Date range picker
 - Threshold setter
-```
 
 ![Parameter control wired to a calculated field in a Tableau dashboard](assets/tableau_parameter.png)
 
