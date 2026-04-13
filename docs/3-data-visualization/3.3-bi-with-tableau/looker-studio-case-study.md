@@ -12,6 +12,20 @@ You have monthly sales data sitting in a Google Sheet. Your manager wants a live
 
 Watch the official [Google Looker Studio Getting Started guide](https://lookerstudio.google.com/navigation/reporting) before continuing.
 
+## Key Terms
+
+Before diving in, get familiar with these words — you will see them throughout the interface.
+
+| Term | Definition | Example |
+|------|-----------|---------|
+| **Dimension** | A categorical field used to group or label data | `Category` (Furniture, Technology, Office Supplies) |
+| **Metric** | A numeric field that gets aggregated (summed, averaged, counted) | `Sales` totalled per category |
+| **Filter** | A rule that limits which rows appear in a chart or page | Show only orders where `Region = West` |
+| **Slicer** | An interactive filter control that viewers can click to filter the whole page | A dropdown letting users pick a year |
+| **Data Source** | A connected dataset that powers one or more charts | A Google Sheet named "Superstore Orders" |
+| **Canvas** | The main drag-and-drop area where you place charts and text | The white page you see when you open a report |
+| **Connector** | The bridge that links Looker Studio to an external data system | The "Google Sheets" connector |
+
 ## Getting Started
 
 ### 1. Opening Looker Studio and Connecting to Data
