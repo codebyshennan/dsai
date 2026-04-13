@@ -79,7 +79,7 @@ In your Data pane, you'll see two groups: **Dimensions** (blue, categories) and 
 - Review the data structure. Dimensions (blue) and measures (green) appear in the pane.
 - Scan the first 1,000 rows to confirm fields look reasonable.
 
-3. Open a new worksheet.
+5. Open a new worksheet.
 
 ![Blank Tableau worksheet](assets/tableau_blank_worksheet.png)
 
