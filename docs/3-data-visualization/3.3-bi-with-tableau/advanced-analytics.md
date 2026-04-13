@@ -61,7 +61,7 @@ Example Use:
    - Running Total
 ```
 
-![Running Total table calculation in Tableau](assets/tableau_table_calc.png)
+<!-- TODO: screenshot — Running Total table calculation in Tableau -->
 
 #### Growth Rate (Like Calculating Interest)
 
@@ -102,7 +102,7 @@ Example Use:
    - Choose 3 periods
 ```
 
-![Moving average smoothing a noisy sales trend line](assets/tableau_table_calc.png)
+<!-- TODO: screenshot — Moving average smoothing a noisy sales trend line -->
 
 ## 2. Level of Detail (LOD) Expressions: The Secret Sauce
 
@@ -135,7 +135,7 @@ Real-World Use:
 3. Identify VIP customers
 ```
 
-![FIXED LOD expression computing per-customer averages independently of the view](assets/tableau_lod.png)
+<!-- TODO: screenshot — FIXED LOD expression computing per-customer averages independently of the view -->
 
 > **Ask AI (Claude or ChatGPT)**
 >
@@ -218,7 +218,7 @@ Perfect For:
    - Track additions/subtractions
    - Visualize flow
 
-![Custom and combo chart types available in Tableau](assets/tableau_custom_viz.png)
+<!-- TODO: screenshot — Custom and combo chart types available in Tableau -->
 
 ## 4. Making It Interactive: Bringing Your Dashboard to Life
 
@@ -241,7 +241,7 @@ Perfect For:
 - Date range picker
 - Threshold setter
 
-![Parameter control wired to a calculated field in a Tableau dashboard](assets/tableau_parameter.png)
+<!-- TODO: screenshot — Parameter control wired to a calculated field in a Tableau dashboard -->
 
 > **Ask AI (Claude or ChatGPT)**
 >
@@ -270,7 +270,7 @@ Perfect For:
    - Link to details
    - Connect to docs
 
-![Dashboard actions panel linking charts interactively in Tableau](assets/tableau_dashboard_actions.png)
+<!-- TODO: screenshot — Dashboard actions panel linking charts interactively in Tableau -->
 
 ## 5. Best Practices for Advanced Analytics
 
@@ -297,7 +297,7 @@ Perfect For:
    - Apply filters early
    - Limit date ranges
 
-![Tableau extract settings for optimising dashboard performance](assets/tableau_extract.png)
+<!-- TODO: screenshot — Tableau extract settings for optimising dashboard performance -->
 
 ### Design for Understanding
 

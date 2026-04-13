@@ -64,7 +64,7 @@ Before you touch Tableau, get these six concepts in your head. Everything else i
 
    The start screen shows a **Connect** panel on the left with file types listed under "To a File".
 
-![Tableau Desktop start page](assets/tableau_start_page.png)
+![Tableau Desktop start page — Connect panel](assets/tableau_start_page.png)
 
 3. In the Connect panel, click **Microsoft Excel**, then navigate to and open `sample_superstore.xls`.
 
@@ -72,7 +72,7 @@ Before you touch Tableau, get these six concepts in your head. Everything else i
 
 4. Preview the data source.
 
-![Tableau Data Source tab with Superstore connection](assets/tableau_data_source.png)
+<!-- TODO: screenshot — Tableau Data Source tab with Superstore connection -->
 
 In your Data pane, you'll see two groups: **Dimensions** (blue, categories) and **Measures** (green, numbers). Tableau uses this distinction to decide how to aggregate your data.
 
@@ -81,7 +81,7 @@ In your Data pane, you'll see two groups: **Dimensions** (blue, categories) and 
 
 5. Open a new worksheet.
 
-![Blank Tableau worksheet](assets/tableau_blank_worksheet.png)
+<!-- TODO: screenshot — Blank Tableau worksheet -->
 
 - Click **New Worksheet** and familiarize yourself with shelves, marks, and the Data pane.
 
@@ -93,21 +93,21 @@ Example: **Sales by Category** bar chart.
 
 1. Build the chart.
 
-![Tableau worksheet drag Category to Rows shelf](assets/tableau_drag_drop.png)
+<!-- TODO: screenshot — Tableau worksheet drag Category to Rows shelf -->
 
 - Drag **Category** to **Rows**.
 - Drag **Sales** to **Columns**. Tableau should show a horizontal bar chart.
 
 2. Customize and refine.
 
-![Formatted Sales by Category bar chart](assets/tableau_bar_chart.png)
+<!-- TODO: screenshot — Formatted Sales by Category bar chart -->
 
 - Use **Show Me** if needed.
 - Sort bars by sales (descending), add color by category, and add data labels.
 
 3. Format the view.
 
-![Tableau Format pane open as sidebar](assets/tableau_format_pane.png)
+<!-- TODO: screenshot — Tableau Format pane open as sidebar -->
 
 - Adjust axis labels, colors, title, and number formats.
 
@@ -119,19 +119,19 @@ Example: **Sales by Category** bar chart.
 
 1. Add filters.
 
-![Tableau Filters shelf with Region field](assets/tableau_filter_shelf.png)
+<!-- TODO: screenshot — Tableau Filters shelf with Region field -->
 
 - Drag **Region** to **Filters**, choose regions, and apply.
 
 2. Create parameters (optional).
 
-![Tableau Create Parameter dialog](assets/tableau_parameter.png)
+<!-- TODO: screenshot — Tableau Create Parameter dialog -->
 
 - Right-click in the Data pane, choose **Create Parameter**, configure it, and add the control to the view.
 
 3. Use dashboard actions.
 
-![Tableau Dashboard Actions dialog](assets/tableau_dashboard_actions.png)
+<!-- TODO: screenshot — Tableau Dashboard Actions dialog -->
 
 - On a dashboard, add multiple sheets and configure filter or highlight actions.
 
@@ -139,19 +139,19 @@ Example: **Sales by Category** bar chart.
 
 1. Layout.
 
-![Tableau dashboard editing mode with sheet tiles](assets/tableau_dashboard_workspace.png)
+<!-- TODO: screenshot — Tableau dashboard editing mode with sheet tiles -->
 
 - Create a **New Dashboard**, add worksheets, and arrange tiles.
 
 2. Interactivity.
 
-![Completed Tableau dashboard with interactive filtering](assets/tableau_dashboard_interactivity.png)
+<!-- TODO: screenshot — Completed Tableau dashboard with interactive filtering -->
 
 - Add filters, actions, parameter controls, and navigation as needed.
 
 3. Final polish.
 
-![Polished Tableau dashboard with title and color legend](assets/tableau_final_dashboard.png)
+<!-- TODO: screenshot — Polished Tableau dashboard with title and color legend -->
 
 - Add legends, align colors, adjust spacing, and tune tooltips.
 
@@ -161,19 +161,19 @@ Example: **Sales by Category** bar chart.
 
 1. Sales trend.
 
-![Tableau line chart with Order Date and Sales trend](assets/tableau_line_chart.png)
+<!-- TODO: screenshot — Tableau line chart with Order Date and Sales trend -->
 
 - **Order Date** (Month) on **Columns**, **Sales** on **Rows**. Add a trend line and format dates.
 
 2. Geographic map.
 
-![Tableau filled map of US states colored by Sales](assets/tableau_map.png)
+<!-- TODO: screenshot — Tableau filled map of US states colored by Sales -->
 
 - **State** on the map, **Sales** on **Color**, labels and tooltips as needed.
 
 3. Category breakdown.
 
-![Tableau horizontal bar chart of Sales by Category](assets/tableau_bar_chart.png)
+<!-- TODO: screenshot — Tableau horizontal bar chart of Sales by Category -->
 
 - **Category** on **Rows**, **Sales** on **Columns**, sort and add percentage labels if useful.
 
@@ -181,19 +181,19 @@ Example: **Sales by Category** bar chart.
 
 1. Profit by sub-category.
 
-![Tableau heat map of Profit by Sub-Category](assets/tableau_heatmap.png)
+<!-- TODO: screenshot — Tableau heat map of Profit by Sub-Category -->
 
 - **Sub-Category** on **Columns**, **Category** on **Rows**, **Profit** on **Color**.
 
 2. Discount impact.
 
-![Tableau scatter plot of Discount vs Profit Ratio](assets/tableau_scatter.png)
+<!-- TODO: screenshot — Tableau scatter plot of Discount vs Profit Ratio -->
 
 - **Discount** on one axis, **Profit Ratio** on the other; add a trend line or bins.
 
 3. Regional performance.
 
-![Tableau map of US regions colored by Profit](assets/tableau_map.png)
+<!-- TODO: screenshot — Tableau map of US regions colored by Profit -->
 
 - **Region** on the map, **Profit** on **Color**, reference lines and tooltips as needed.
 
@@ -203,14 +203,14 @@ Example: **Sales by Category** bar chart.
 
 1. Profit ratio.
 
-![Tableau Create Calculated Field dialog for Profit Ratio](assets/tableau_calculated_field.png)
+<!-- TODO: screenshot — Tableau Create Calculated Field dialog for Profit Ratio -->
 
 - Formula: `SUM([Profit])/SUM([Sales])`
 - Right-click in the Data pane, **Create Calculated Field**, enter the formula, and name the field.
 
 2. Year-over-year growth.
 
-![Tableau Edit Table Calculation dialog for YoY growth](assets/tableau_table_calc.png)
+<!-- TODO: screenshot — Tableau Edit Table Calculation dialog for YoY growth -->
 
 - Example: `(SUM([Sales]) - LOOKUP(SUM([Sales]), -1))/ABS(LOOKUP(SUM([Sales]), -1))`
 - Set up as a table calculation and format as a percentage.
@@ -227,7 +227,7 @@ Example: **Sales by Category** bar chart.
 
 1. Fixed LOD — pins the aggregation grain to a specific dimension, regardless of view context.
 
-![Tableau LOD calculated field dialog](assets/tableau_lod.png)
+<!-- TODO: screenshot — Tableau LOD calculated field dialog -->
 
 - Example: `{FIXED [Category] : SUM([Sales])}`
 - Create a calculated field, enter the LOD expression, apply to the view.

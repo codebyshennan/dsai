@@ -130,11 +130,11 @@ This pipeline runs every time you open a workbook or refresh an extract. Underst
 
 The Tableau workspace is where all the action happens. The left panel shows your fields (dimensions in blue, measures in green), the shelves at the top control the chart structure, and the Marks card controls color, size, and labels.
 
-![Tableau workspace showing the Rows/Columns shelves, Marks card, and field list panel](assets/tableau_workspace.png)
+<!-- TODO: screenshot — Tableau workspace showing the Rows/Columns shelves, Marks card, and field list panel -->
 
 Drag a field onto the canvas or onto a shelf to build a chart. Tableau's Show Me panel suggests chart types based on what you've dragged in.
 
-![Dragging a measure onto the Rows shelf to build a bar chart in Tableau](assets/tableau_drag_drop.png)
+<!-- TODO: screenshot — Dragging a measure onto the Rows shelf to build a bar chart in Tableau -->
 
 #### Basic Charts
 

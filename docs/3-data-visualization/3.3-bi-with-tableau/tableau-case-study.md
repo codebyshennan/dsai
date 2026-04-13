@@ -23,7 +23,7 @@ Short Tableau Public install; pair with the written guides in this folder.
      - **Windows:** `Documents\My Tableau Repository\Datasources\en_US-US\`
 3. Click **Connect** to load the dataset
 
-![Tableau Desktop start page](assets/tableau_start_page.png)
+![Tableau Desktop start page — Connect panel](assets/tableau_start_page.png)
 
 
 ### 2. Understanding the Tableau Workspace
@@ -46,7 +46,7 @@ The Tableau interface consists of several key areas:
    - **Canvas**: Main area where charts appear
    - **Show Me**: Panel for chart suggestions
 
-![Tableau worksheet interface with annotated areas](assets/tableau_workspace.png)
+<!-- TODO: screenshot — Tableau worksheet interface with annotated areas -->
 
 > **Ask AI (Claude or ChatGPT)**
 >
@@ -62,7 +62,7 @@ In this comprehensive case study, we'll analyze retail data to drive business de
 - A product profitability analysis
 - Interactive filters and drill-downs
 
-![Completed SuperStore analysis dashboard](assets/tableau_final_dashboard.png)
+<!-- TODO: screenshot — Completed SuperStore analysis dashboard -->
 
 
 ## Dataset Introduction
@@ -74,7 +74,7 @@ We'll utilize the "Sample - Superstore" dataset included with Tableau. This data
 - It's readily available in Tableau
 - It covers multiple analysis dimensions
 
-![Tableau Data Source tab with table join preview](assets/tableau_data_source.png)
+<!-- TODO: screenshot — Tableau Data Source tab with table join preview -->
 
 
 ### Data Structure Overview
@@ -149,7 +149,7 @@ Statistics:
    - Edit the sheet title (double-click the title above the chart)
    - Add labels by dragging "Sales" to the Label mark
 
-![Tableau first chart — Sales by Category bar chart](assets/tableau_bar_chart.png)
+<!-- TODO: screenshot — Tableau first chart — Sales by Category bar chart -->
 
 Now we know WHICH categories perform best. Let's look at WHEN — do we see seasonal patterns?
 
@@ -169,7 +169,7 @@ Now we know WHICH categories perform best. Let's look at WHEN — do we see seas
    - Configure dual axis synchronization
    - Add reference lines for averages
 
-![Tableau dual-axis line chart with Sales and Profit](assets/tableau_line_chart.png)
+<!-- TODO: screenshot — Tableau dual-axis line chart with Sales and Profit -->
 
 > **Ask AI (Claude or ChatGPT)**
 >
@@ -191,7 +191,7 @@ Now we know WHICH categories perform best. Let's look at WHEN — do we see seas
    - Configure tooltips
    - Add reference lines
 
-![Tableau filled map of US states colored by Sales](assets/tableau_map.png)
+<!-- TODO: screenshot — Tableau filled map of US states colored by Sales -->
 
 
 ### 4. Building a Dashboard
@@ -211,7 +211,7 @@ Now we know WHICH categories perform best. Let's look at WHEN — do we see seas
    - Configure actions
    - Set up parameters
 
-![Tableau dashboard canvas in edit mode](assets/tableau_dashboard_workspace.png)
+<!-- TODO: screenshot — Tableau dashboard canvas in edit mode -->
 
 
 ## Advanced Features
@@ -227,7 +227,7 @@ Use calculated fields when you need a metric that doesn't exist in the raw data 
    - Enter formula: `SUM([Profit])/SUM([Sales])`
    - Click OK
 
-![Tableau Create Calculated Field dialog for Profit Ratio](assets/tableau_calculated_field.png)
+<!-- TODO: screenshot — Tableau Create Calculated Field dialog for Profit Ratio -->
 
 > **Ask AI (Claude or ChatGPT)**
 >
@@ -245,7 +245,7 @@ Use calculated fields when you need a metric that doesn't exist in the raw data 
    - Add parameter control to dashboard
    - Use in calculations or filters
 
-![Tableau Create Parameter dialog](assets/tableau_parameter.png)
+<!-- TODO: screenshot — Tableau Create Parameter dialog -->
 
 
 ## Tips and Best Practices
@@ -286,7 +286,7 @@ Use calculated fields when you need a metric that doesn't exist in the raw data 
    - Export as PDF/image
    - Share on Tableau Server
 
-![Tableau Save As and Publish to Tableau Public dialogs](assets/tableau_collaboration.png)
+<!-- TODO: screenshot — Tableau Save As and Publish to Tableau Public dialogs -->
 
 
 ## Tableau Prep Builder
@@ -306,7 +306,7 @@ Use calculated fields when you need a metric that doesn't exist in the raw data 
    - Handle null values
    - Pivot/unpivot data
 
-![Tableau Prep Builder Flow canvas with input, clean, and output steps](assets/tableau_prep.png)
+<!-- TODO: screenshot — Tableau Prep Builder Flow canvas with input, clean, and output steps -->
 
 
 ### 2. Flow Management
@@ -323,7 +323,7 @@ Use calculated fields when you need a metric that doesn't exist in the raw data 
    - Handle errors
    - Create reusable flows
 
-![Tableau Prep Builder scheduled flow configuration](assets/tableau_flow.png)
+<!-- TODO: screenshot — Tableau Prep Builder scheduled flow configuration -->
 
 
 ## Advanced Calculations
@@ -380,7 +380,7 @@ Use LOD expressions when a filter or aggregation is collapsing detail you need t
    - Bullet graphs
    - Radar charts
 
-![Tableau advanced chart gallery — waterfall, bullet, box plot, Gantt](assets/tableau_custom_viz.png)
+<!-- TODO: screenshot — Tableau advanced chart gallery — waterfall, bullet, box plot, Gantt -->
 
 
 ### 2. Advanced Mapping
@@ -397,7 +397,7 @@ Use LOD expressions when a filter or aggregation is collapsing detail you need t
    - Perform spatial joins
    - Create density maps
 
-![Tableau map with density overlay and custom territory polygon](assets/tableau_advanced_map.png)
+<!-- TODO: screenshot — Tableau map with density overlay and custom territory polygon -->
 
 
 ## Performance Optimization
@@ -416,7 +416,7 @@ Use LOD expressions when a filter or aggregation is collapsing detail you need t
    - Use appropriate data types
    - Monitor performance
 
-![Tableau Extract refresh configuration dialog](assets/tableau_extract.png)
+<!-- TODO: screenshot — Tableau Extract refresh configuration dialog -->
 
 
 ### 2. Dashboard Optimization
@@ -433,7 +433,7 @@ Use LOD expressions when a filter or aggregation is collapsing detail you need t
    - Monitor resource usage
    - Analyze bottlenecks
 
-![Tableau Performance Recorder results with flame chart](assets/tableau_performance.png)
+<!-- TODO: screenshot — Tableau Performance Recorder results with flame chart -->
 
 > **Ask AI (Claude or ChatGPT)**
 >

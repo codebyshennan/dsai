@@ -37,7 +37,7 @@ Open either tool in a browser tab or window next to Tableau Desktop. You can pas
 
 Tableau's calculation language is expressive but the syntax is easy to get wrong. Describe what you need and paste the result into **Create Calculated Field**.
 
-![Tableau Create Calculated Field dialog showing a Profit Ratio formula](assets/tableau_calculated_field.png)
+<!-- TODO: screenshot — Tableau Create Calculated Field dialog showing a Profit Ratio formula -->
 
 **Example prompt:**
 
@@ -64,7 +64,7 @@ STR(ROUND(SUM([Profit]) / SUM([Sales]) * 100, 1)) + "%"
 
 LOD (Level of Detail) expressions are powerful but frequently produce unexpected totals. Paste the broken expression plus a description of what it should do.
 
-![Tableau LOD expression editor showing a FIXED expression and context filter](assets/tableau_lod.png)
+<!-- TODO: screenshot — Tableau LOD expression editor showing a FIXED expression and context filter -->
 
 **Example prompt:**
 
