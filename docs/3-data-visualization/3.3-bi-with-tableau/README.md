@@ -329,27 +329,25 @@ T_TEST(
 
 #### Interactive Elements
 
-```yaml
-Filter Types:
-  - Single value
-  - Multiple values
-  - Range
-  - Relative date
-  - Top N
+**Filter Types:**
+- Single value
+- Multiple values
+- Range
+- Relative date
+- Top N
 
-Action Types:
-  - Filter
-  - Highlight
-  - URL
-  - Set value
-  - Parameter
+**Action Types:**
+- Filter
+- Highlight
+- URL
+- Set value
+- Parameter
 
-Parameters:
-  - Numeric
-  - String
-  - Date
-  - Boolean
-```
+**Parameters:**
+- Numeric
+- String
+- Date
+- Boolean
 
 ## What Your First Session Looks Like
 
