@@ -242,6 +242,8 @@ Example Uses:
 - Threshold setter
 ```
 
+![Parameter control wired to a calculated field in a Tableau dashboard](assets/tableau_parameter.png)
+
 > **Ask AI (Claude or ChatGPT)**
 >
 > "I want to add a parameter to my Tableau dashboard that lets the user switch the main measure between Sales, Profit, and Quantity. Write the calculated field that uses the parameter, and explain how to wire it up so the chart title also updates to show the selected measure."
