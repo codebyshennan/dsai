@@ -17,9 +17,9 @@ Search YouTube for **"Power BI Desktop tutorial for beginners"** and watch any r
 1. Launch Power BI Desktop
 2. On the start page, click "Get Data"
 3. Select "Excel" from the data sources
-4. Navigate to your Power BI samples folder:
-   - Path: `Documents/Power BI Desktop/Samples/`
-   - Select "Sample - Superstore.xlsx"
+4. Navigate to the Superstore sample file and select it:
+   - **Windows:** `Documents\Power BI Desktop\Samples\Sample - Superstore.xlsx`
+   - **macOS (Service):** Upload the file via **Get Data > Excel Workbook** from wherever you saved it
 5. Click "Load" to import the dataset
 
 ![Power BI Desktop start page](assets/powerbi_start_page.png)
