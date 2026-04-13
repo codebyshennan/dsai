@@ -217,6 +217,8 @@ Try These Cool Ideas:
    - Visualize flow
 ```
 
+![Custom and combo chart types available in Tableau](assets/tableau_custom_viz.png)
+
 ## 4. Making It Interactive: Bringing Your Dashboard to Life
 
 ### Parameters (Let Users Choose!)
