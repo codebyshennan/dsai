@@ -544,6 +544,8 @@ SWITCH(
 ![Power BI Service sharing and collaboration dialog](assets/powerbi_collaboration.png)
 
 
+> **Advanced (skip on first read):** Performance optimization — DirectQuery, incremental refresh, query folding — matters when your dataset grows large. For the Superstore sample, you won't need any of this. Return here when reports start feeling slow or you're working with millions of rows.
+
 ## Performance Optimization
 
 ### 1. Query Optimization
