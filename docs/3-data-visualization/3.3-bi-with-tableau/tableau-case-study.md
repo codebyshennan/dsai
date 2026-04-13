@@ -314,7 +314,11 @@ Use calculated fields when you need a metric that doesn't exist in the raw data 
 
 ## Advanced Calculations
 
+> **Advanced (skip on first read):** The sections below cover Table Calculations, LOD Expressions, Advanced Visualizations, and Performance Optimization. These are powerful features but not required to build your first working dashboard. Come back to them once you're comfortable with the basics.
+
 ### 1. Table Calculations
+
+Use table calculations when you need values that depend on what's already in the view — for example, a running total of sales over time, or each category's share of the overall total.
 
 ```sql
 // Running Total
