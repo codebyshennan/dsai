@@ -250,6 +250,8 @@ Example Uses:
 
 ### Actions (Make Things Happen!)
 
+> **Use this when:** you want clicking one chart to filter, highlight, or navigate another — turning a static dashboard into an interactive experience.
+
 **Purpose:** Link sheets—filter, highlight, or navigate—so dashboards feel like one connected app.
 
 **Walkthrough:** Define source sheet, action type, and target; test with multi-select and clearing.
