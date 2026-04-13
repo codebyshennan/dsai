@@ -112,6 +112,10 @@ Example Use:
 
 Think of them as a way to look at your data from different angles at the same time. Like having multiple magnifying glasses!
 
+{% include mermaid-diagram.html src="3-data-visualization/3.3-bi-with-tableau/diagrams/lod-overview.mmd" %}
+
+*Choose your LOD type based on whether you need to add, remove, or fix the aggregation dimension.*
+
 ### Types of LOD (With Examples)
 
 #### FIXED: Look at Specific Things
