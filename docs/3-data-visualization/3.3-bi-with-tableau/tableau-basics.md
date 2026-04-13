@@ -199,19 +199,18 @@ Example: **Sales by Category** bar chart.
 
 #### 2. Level of Detail Expressions
 
-1. Fixed LOD.
+1. Fixed LOD — pins the aggregation grain to a specific dimension, regardless of view context.
 
-![Tableau FIXED LOD calculated field dialog](assets/tableau_lod.png)
+![Tableau LOD calculated field dialog](assets/tableau_lod.png)
 
 - Example: `{FIXED [Category] : SUM([Sales])}`
 - Create a calculated field, enter the LOD expression, apply to the view.
+- Note: `FIXED` ignores dimension filters unless you promote them to context filters (right-click the filter pill → **Add to Context**).
 
-2. Include LOD.
-
-![Tableau worksheet with INCLUDE LOD field on Color mark](assets/tableau_lod.png)
+2. Include LOD — adds a dimension to the aggregation grain beyond what the current view groups by.
 
 - Example: `{INCLUDE [Region] : AVG([Profit])}`
-- Add to the view and format as needed.
+- Use when you need finer granularity than the view's current level. Create the calculated field the same way, then drag it to Color or another mark.
 
 > **Ask AI (Claude or ChatGPT)**
 >
