@@ -196,10 +196,6 @@ RUNNING_SUM(SUM([Sales]))
 
 #### Advanced Analytics
 
-**Purpose:** Illustrate built-in forecasting, clustering, and statistical test functions—availability varies by Tableau version.
-
-**Walkthrough:** Treat as signatures to look up in current docs; clustering and t-test need appropriate data prep.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
