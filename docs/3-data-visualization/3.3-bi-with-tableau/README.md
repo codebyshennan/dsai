@@ -62,10 +62,6 @@ Key Features:
 
 ### 2. Enterprise Power
 
-**Purpose:** Capture why BI tools matter beyond a single workbook: extracts, governance, and deployment.
-
-**Walkthrough:** Pair each bullet with your org’s Tableau Server/Cloud docs when deploying.
-
 ```yaml
 Capabilities:
   Data Handling:
