@@ -269,16 +269,6 @@ Data Structure:
 ![Power BI publish to workspace dialog](assets/powerbi_publish.png)
 
 
-## Next Steps
-
-1. Explore more advanced visualizations
-2. Learn about Power Query transformations
-3. Practice with different datasets
-4. Join the Power BI community
-5. Explore Power BI Service features
-
-Remember: Practice makes perfect! Try recreating these visualizations and experiment with different options to build your Power BI skills.
-
 ## Power Query Transformations
 
 ### 1. Data Cleaning and Preparation
