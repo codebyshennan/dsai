@@ -259,25 +259,23 @@ T_TEST(
 
 #### Layout Patterns
 
-```
-1. Executive Dashboard
-┌──────────┬──────────┬──────────┐
-│  KPI 1   │   KPI 2  │   KPI 3  │
-├──────────┴──────────┴──────────┤
-│      Main Visualization        │
-├──────────┬──────────┬──────────┤
-│ Detail 1 │ Detail 2 │ Detail 3 │
-└──────────┴──────────┴──────────┘
+Two layouts cover most dashboards you will build:
 
-2. Analysis Dashboard
-┌─────────┬─────────────────┐
-│ Filters │    Overview     │
-├─────────┤                 │
-│ Metrics │                 │
-├─────────┼─────────────────┤
-│ Details │   Drill-Down    │
-└─────────┴─────────────────┘
-```
+**1. Executive Dashboard** — for stakeholders who need quick answers at a glance
+
+- **Top row:** 3–4 KPI tiles showing single numbers with a trend indicator (e.g. Total Sales: $1.2 M ▲ 8%)
+- **Middle:** one large primary chart — a bar, map, or trend line that answers the main question
+- **Bottom row:** supporting detail tables or secondary breakdowns that explain the primary chart
+
+Use this when your audience opens the dashboard for 30 seconds and needs to leave with one takeaway.
+
+**2. Analysis Dashboard** — for analysts who need to explore and drill down
+
+- **Left sidebar:** dimension filters and quick-filter dropdowns (Region, Date range, Category)
+- **Top-right:** overview chart showing the big picture
+- **Bottom-right:** drill-down chart that responds to selections in the overview — clicking a region filters the detail below
+
+Use this when your audience wants to ask follow-up questions: "OK, the West region is down — but which sub-category?"
 
 > **Ask AI (Claude or ChatGPT)**
 >
