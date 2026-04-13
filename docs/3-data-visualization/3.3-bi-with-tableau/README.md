@@ -298,25 +298,12 @@ T_TEST(
 
 #### Interactive Elements
 
-**Filter Types:**
-- Single value
-- Multiple values
-- Range
-- Relative date
-- Top N
-
-**Action Types:**
-- Filter
-- Highlight
-- URL
-- Set value
-- Parameter
-
-**Parameters:**
-- Numeric
-- String
-- Date
-- Boolean
+| Element | What it does | Example |
+|---------|-------------|---------|
+| Filter | Limits which rows show | Show only 2023 orders |
+| Slicer / Quick Filter | Interactive dropdown or list | User picks a region |
+| Action | Links charts together | Clicking a bar filters a map |
+| Parameter | User-controlled input value | Top N selector, date range |
 
 ## What Your First Session Looks Like
 
