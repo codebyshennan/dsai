@@ -55,19 +55,20 @@ Before you touch Tableau, get these six concepts in your head. Everything else i
 
 #### 1. Connecting to Sample Superstore
 
-1. Launch Tableau Desktop.
+1. **Download the Sample Superstore dataset** — [sample_superstore.xls](assets/sample_superstore.xls). Save it somewhere easy to find (e.g. your Desktop).
+
+2. Launch Tableau Desktop.
 
    > **macOS:** Open Tableau from **Applications > Tableau Desktop** (or Spotlight: `⌘ Space`, type *Tableau*).
    > **Windows:** Open from **Start > Tableau Desktop** or the desktop shortcut.
 
+   The start screen shows a **Connect** panel on the left with file types listed under "To a File".
+
 ![Tableau Desktop start page](assets/tableau_start_page.png)
 
-> **Before building:** Scan your Data pane. Postal codes and IDs should be Dimensions (blue), not Measures (green). If they're green, right-click → Convert to Dimension.
+3. In the Connect panel, click **Microsoft Excel**, then navigate to and open `sample_superstore.xls`.
 
-- In the Connect pane on the left, under **Saved Data Sources**, click **Sample - Superstore**.
-  - If it isn't listed, click **Microsoft Excel** and browse to the file manually:
-    - **macOS:** `~/Documents/My Tableau Repository/Datasources/en_US/`
-    - **Windows:** `Documents\My Tableau Repository\Datasources\en_US-US\`
+> **Before building:** Scan your Data pane. Postal codes and IDs should be Dimensions (blue), not Measures (green). If they're green, right-click → Convert to Dimension.
 
 2. Preview the data source.
 
