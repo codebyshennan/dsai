@@ -349,6 +349,8 @@ You just saw filter context in action — the measure recalculates based on what
 ![Power BI Model View with hierarchy and relationships](assets/powerbi_data_model.png)
 
 
+> **Advanced (skip on first read):** Custom visuals from AppSource and the Decomposition Tree require familiarity with the standard chart types first. Return here once you're comfortable building and filtering basic reports.
+
 ## Advanced Visualizations
 
 ### 1. Custom Visuals
