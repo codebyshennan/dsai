@@ -336,6 +336,8 @@ RANK(SUM([Sales]), 'desc')
 
 ### 2. Level of Detail (LOD) Expressions
 
+Use LOD expressions when a filter or aggregation is collapsing detail you need to keep — for example, computing each customer's first order date regardless of how the view is filtered by region or product.
+
 ```sql
 // Fixed LOD
 {FIXED [Category] : SUM([Sales])}
