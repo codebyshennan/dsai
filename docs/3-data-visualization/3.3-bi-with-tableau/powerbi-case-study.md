@@ -14,8 +14,8 @@ Search YouTube for **"Power BI Desktop tutorial for beginners"** and watch any r
 
 ### 1. Opening Power BI and Connecting to Data
 
-1. Launch Power BI Desktop
-2. On the start page, click "Get Data"
+1. Launch Power BI Desktop (**macOS:** open [Power BI Service](https://app.powerbi.com) in your browser instead)
+2. On the start page, click **Get Data** (Service: click **+ New** → **Report**, then **Add data to start building a report**)
 3. Select "Excel" from the data sources
 4. Navigate to the Superstore sample file and select it:
    - **Windows:** `Documents\Power BI Desktop\Samples\Sample - Superstore.xlsx`
