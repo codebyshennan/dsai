@@ -280,23 +280,22 @@ Perfect For:
 
 **Walkthrough:** Extracts trade freshness for speed; simplify calcs; push filters and date bounds early.
 
-```yaml
-Speed Up Your Dashboard:
-1. Use Extracts Instead of Live:
+**Speed Up Your Dashboard:**
+
+1. **Use Extracts Instead of Live:**
    - Faster performance
    - Work offline
    - Schedule updates
 
-2. Optimize Calculations:
+2. **Optimize Calculations:**
    - Use built-in functions
    - Minimize complexity
    - Pre-aggregate when possible
 
-3. Filter Efficiently:
+3. **Filter Efficiently:**
    - Use context filters
    - Apply filters early
    - Limit date ranges
-```
 
 ![Tableau extract settings for optimising dashboard performance](assets/tableau_extract.png)
 
