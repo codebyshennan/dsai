@@ -2,6 +2,8 @@
 
 **After this lesson:** you can explain the core ideas in "Learning Tableau Through a Real Example: SuperStore Analysis" and reproduce the examples here in your own notebook or environment.
 
+You're a retail analyst. Sales are growing but profit is flat — why? In this case study, you'll build a Tableau dashboard that reveals exactly which products and regions are dragging down margins. The same techniques work on any business dataset.
+
 > **Note:** This tutorial is **UI-first** (Tableau Desktop). Install Tableau or use your course lab; paths to sample data may differ slightly by version and OS.
 
 ## Helpful video
