@@ -79,23 +79,22 @@ Before diving in, make sure these terms are clear. You'll see them constantly.
 
 ### 1. Intuitive Design
 
-```yaml
-Key Features:
-  Drag-and-Drop:
-    - Visual field mapping
-    - Instant chart creation
-    - Dynamic filtering
-    
-  Visual Analytics:
-    - Automatic insights
-    - Statistical summaries
-    - Trend analysis
-    
-  Rapid Development:
-    - Quick prototyping
-    - Instant feedback
-    - Easy iteration
-```
+**Key Features**
+
+**Drag-and-Drop:**
+- Visual field mapping
+- Instant chart creation
+- Dynamic filtering
+
+**Visual Analytics:**
+- Automatic insights
+- Statistical summaries
+- Trend analysis
+
+**Rapid Development:**
+- Quick prototyping
+- Instant feedback
+- Easy iteration
 
 ### 2. Enterprise Power
 
