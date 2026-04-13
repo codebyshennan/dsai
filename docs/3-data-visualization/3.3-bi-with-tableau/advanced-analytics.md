@@ -61,6 +61,8 @@ Example Use:
    - Running Total
 ```
 
+![Running Total table calculation in Tableau](assets/tableau_table_calc.png)
+
 #### Growth Rate (Like Calculating Interest)
 
 **Purpose:** Compute period-over-period percent change using `LOOKUP` to read the previous mark’s value.
