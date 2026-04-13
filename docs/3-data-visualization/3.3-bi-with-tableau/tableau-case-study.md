@@ -195,6 +195,10 @@ Now we know WHICH categories perform best. Let's look at WHEN — do we see seas
 
 ### 4. Building a Dashboard
 
+{% include mermaid-diagram.html src="3-data-visualization/3.3-bi-with-tableau/diagrams/dashboard-layouts.mmd" %}
+
+*Three common dashboard layouts. Choose based on which question is most important to your audience.*
+
 1. Click the "New Dashboard" icon
 2. Layout Design:
    - Drag your worksheets onto the dashboard canvas
