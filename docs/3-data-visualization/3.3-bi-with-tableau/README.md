@@ -281,10 +281,6 @@ T_TEST(
 
 #### Interactive Elements
 
-**Purpose:** Checklist of filter widgets, dashboard actions, and parameter types you can combine for interactivity.
-
-**Walkthrough:** Pair with [advanced-analytics](advanced-analytics.md) actions section for behavior details.
-
 ```yaml
 Filter Types:
   - Single value
