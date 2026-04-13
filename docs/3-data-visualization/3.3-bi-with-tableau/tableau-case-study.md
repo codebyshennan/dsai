@@ -15,10 +15,11 @@ Short Tableau Public install; pair with the written guides in this folder.
 ### 1. Opening Tableau and Connecting to Data
 
 1. Launch Tableau Desktop
-2. On the start page, under "Connect", select "Sample - Superstore"
-   - If not visible, click "Microsoft Excel" and navigate to your Tableau Repository
-   - Path: `Documents/My Tableau Repository/Datasources/`
-3. Click "Connect" to load the dataset
+2. On the start page, under "Connect", select **Sample - Superstore**
+   - If it isn't listed under Saved Data Sources, click **Microsoft Excel** and browse to the file manually:
+     - **macOS:** `~/Documents/My Tableau Repository/Datasources/en_US/`
+     - **Windows:** `Documents\My Tableau Repository\Datasources\en_US-US\`
+3. Click **Connect** to load the dataset
 
 ![Tableau Desktop start page](assets/tableau_start_page.png)
 
