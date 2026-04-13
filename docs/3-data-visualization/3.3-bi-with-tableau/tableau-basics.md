@@ -47,6 +47,10 @@ Before you touch Tableau, get these six concepts in your head. Everything else i
 | Aggregation | How Tableau combines many rows | SUM of all sales in a region |
 | Dashboard | Multiple charts on one screen | A sales overview with 4 charts |
 
+{% include mermaid-diagram.html src="3-data-visualization/3.3-bi-with-tableau/diagrams/tableau-workspace.mmd" %}
+
+*The Tableau workspace: drag fields from the Data Pane to shelves and the Marks Card to build your chart.*
+
 ### Getting Started: Step-by-Step Guide
 
 #### 1. Connecting to Sample Superstore
