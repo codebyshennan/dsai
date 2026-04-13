@@ -126,6 +126,24 @@ I want to show how profit margin has changed month-over-month for three product 
 What chart type should I use in Tableau, and how do I set it up?
 ```
 
+**Sample AI response:**
+
+> **Recommended chart type:** Multi-line chart (one line per category)
+>
+> **Shelf configuration:**
+> - **Columns:** `Order Date` (set to continuous Month/Year)
+> - **Rows:** Your profit margin calculated field, e.g. `SUM([Profit]) / SUM([Sales])`
+> - **Color:** `Category` (drag to the Color mark — Tableau will draw one line per category)
+> - **Marks:** Line
+>
+> **To set it up:**
+> 1. Create the calculated field `SUM([Profit]) / SUM([Sales])` and format it as Percentage.
+> 2. Drag `Order Date` to Columns, right-click → **Month** (continuous, not discrete).
+> 3. Drag your calculated field to Rows.
+> 4. Drag `Category` to the Color mark card.
+>
+> **Verify the result:** You should see three coloured lines trending over time. Check that the Y-axis range is sensible (e.g. -10% to 30%) and that the lines diverge or converge in ways that match what you'd expect from the raw numbers. If all three lines overlap exactly, double-check that `Category` landed on Color (not Rows or Columns).
+
 ---
 
 ## Gotchas
