@@ -544,6 +544,15 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
 ![AI-powered insights panel with anomaly detection](assets/looker_ai.png)
 
 
+## Troubleshooting
+
+Common problems and their fixes:
+
+- **Chart is blank** — check that both a Dimension and a Metric are assigned in the Data tab of the Properties panel. A chart with only a Dimension (and no Metric) has nothing to draw.
+- **Date filter not working** — the date range control and the chart must be connected to the same data source. If they differ, the control has no effect on that chart.
+- **"No data" error after blending** — check that the join keys (e.g. `Order ID`) exist in both sources and use exactly the same spelling and data type. A trailing space or mixed case will break the match.
+- **Numbers look wrong** — open the chart's Data tab and click the Metric field. Check the aggregation type: `SUM` totals all rows, `AVG` averages them, and `COUNT` counts rows. Switching from `SUM` to `AVG` on a Revenue field will give a very different (and usually incorrect) result.
+
 ## Next Steps
 
 1. Explore Looker Studio templates
