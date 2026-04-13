@@ -255,21 +255,20 @@ Perfect For:
 
 **Walkthrough:** Define source sheet, action type, and target; test with multi-select and clearing.
 
-```yaml
-Types of Actions:
-1. Filter Actions:
+**Types of Actions:**
+
+1. **Filter Actions:**
    - Click map → filter table
    - Select bar → highlight related
-   
-2. Highlight Actions:
+
+2. **Highlight Actions:**
    - Hover → highlight connected
    - Click → emphasize related
-   
-3. URL Actions:
+
+3. **URL Actions:**
    - Click → open webpage
    - Link to details
    - Connect to docs
-```
 
 ![Dashboard actions panel linking charts interactively in Tableau](assets/tableau_dashboard_actions.png)
 
