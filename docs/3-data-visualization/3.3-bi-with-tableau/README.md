@@ -8,6 +8,34 @@ Short Tableau Public install; pair with the written guides in this folder.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lTNWfhmurUg" title="Tableau Public Tutorial Download and Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+---
+
+You have data. Your manager wants answers. Business Intelligence tools like Tableau, Power BI, and Looker Studio let you go from raw numbers to interactive dashboards that anyone can explore — without writing a single line of SQL. By the end of this submodule, you'll have built real dashboards in at least one of these tools.
+
+## First 30 Minutes
+
+New to BI tools? Do these five steps before reading anything else:
+
+1. **Download and install Tableau Public** (free) from [public.tableau.com](https://public.tableau.com/en-us/s/download). Takes about 5 minutes.
+2. **Connect to Sample Superstore** — it ships with Tableau. On the start screen, click "More…" under Saved Data Sources and pick Superstore.
+3. **Drag `Sales` to the Rows shelf and `Category` to the Columns shelf.** You just made your first bar chart. Click "Show Me" on the top right to explore other chart types with the same fields.
+4. **Add a filter** — drag `Region` to the Filters shelf, select a couple of regions, and watch the chart update instantly.
+5. **Create a new Dashboard** (bottom tab menu → New Dashboard), drag your sheet onto the canvas, and share the URL. That's a real dashboard.
+
+You've now touched every major concept: data source, worksheet, chart, filter, dashboard. The rest of the submodule goes deeper on each.
+
+## Tool Comparison
+
+All three tools below can take you from raw data to a shareable dashboard. Pick the one your workplace uses, or use Tableau for this course.
+
+| Tool | Free tier? | Platform | Best for | Learning curve |
+|---|---|---|---|---|
+| **Tableau Public** | Yes (public dashboards only) | Windows, Mac | Visual exploration, storytelling, advanced analytics | Moderate |
+| **Power BI Desktop** | Yes (free desktop app) | Windows only (Mac via browser) | Microsoft/Excel shops, enterprise reporting | Moderate |
+| **Looker Studio** | Yes (fully free) | Web browser (any OS) | Google Analytics / Google Sheets users, quick sharing | Low |
+
+> For this course, lessons and case studies focus on **Tableau**, with companion lessons for Looker Studio and Power BI.
+
 ## Overview
 
 This submodule is **UI-first**: you will connect data and build views in **Tableau** (and related lessons may reference **Looker Studio** or **Power BI**) with drag-and-drop analytics instead of Python scripts.
@@ -33,6 +61,19 @@ Module Structure:
 
 - [3.1 Intro to data visualization](../3.1-intro-data-viz/README.md) and basic comfort with spreadsheets or SQL-style fields (dimensions vs measures).
 - Tableau Desktop or a comparable lab environment (your instructor may specify Tableau Public or server access).
+
+## Key Vocabulary
+
+Before diving in, make sure these terms are clear. You'll see them constantly.
+
+| Term | What it means | Example |
+|---|---|---|
+| **Dimension** | A categorical field — something you group or filter by | `Region`, `Product Category`, `Customer Name` |
+| **Measure** | A numeric field you aggregate (sum, average, count) | `Sales`, `Profit`, `Quantity` |
+| **Dashboard** | A canvas holding multiple charts that update together | A page showing sales KPIs + map + trend line |
+| **Filter** | A control that limits which rows appear in a view | Show only orders from 2023, or only the West region |
+| **Data Source** | The connection between Tableau and your data file or database | An Excel file, a PostgreSQL table, a Google Sheet |
+| **Extract / Live Connection** | How Tableau reads your data: a static snapshot (Extract) vs always-current (Live) | Extract = fast offline; Live = always up to date |
 
 ## Why Tableau?
 
@@ -76,7 +117,7 @@ Capabilities:
     - Cloud integration
 ```
 
-## Core concepts
+## Core Concepts
 
 ### 1. Data Architecture
 
@@ -117,6 +158,14 @@ Extract:
 > "I'm connecting Tableau to a [describe your data source, e.g. 'MySQL database with 5 million rows updated hourly']. Should I use a live connection or an extract? What are the trade-offs for my specific situation?"
 
 ### 2. Visual Grammar
+
+The Tableau workspace is where all the action happens. The left panel shows your fields (dimensions in blue, measures in green), the shelves at the top control the chart structure, and the Marks card controls color, size, and labels.
+
+![Tableau workspace showing the Rows/Columns shelves, Marks card, and field list panel](assets/tableau_workspace.png)
+
+Drag a field onto the canvas or onto a shelf to build a chart. Tableau's Show Me panel suggests chart types based on what you've dragged in.
+
+![Dragging a measure onto the Rows shelf to build a bar chart in Tableau](assets/tableau_drag_drop.png)
 
 #### Basic Charts
 
@@ -188,9 +237,12 @@ RUNNING_SUM(SUM([Sales]))
 
 > **Ask AI (Claude or ChatGPT)**
 >
-> "Write a Tableau calculated field that [describe what you need, e.g. ‘calculates the 3-month moving average of profit, expressed as a percentage of the category total’]. My data has these fields: [list your field names]."
+> "Write a Tableau calculated field that [describe what you need, e.g. 'calculates the 3-month moving average of profit, expressed as a percentage of the category total']. My data has these fields: [list your field names]."
 
-#### Advanced Analytics
+<details>
+<summary><strong>Advanced: Statistical Features</strong> (skip on first read)</summary>
+
+These features require Tableau's Analytics model and are typically covered after you're comfortable with basic charts and dashboards.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -247,6 +299,8 @@ T_TEST(
 </aside>
 </div>
 
+</details>
+
 ### 4. Dashboard Design
 
 #### Layout Patterns
@@ -299,7 +353,11 @@ Parameters:
   - Boolean
 ```
 
-## Learning path
+## What Your First Session Looks Like
+
+Here's a realistic picture of your first 35 minutes with Tableau and Sample Superstore. You open the app, connect to the data source, and immediately see a table of fields on the left. You drag `Order Date` to Columns and `Sales` to Rows — Tableau aggregates the data and draws a line chart by year without you asking. You right-click the date and break it down by month; the chart fills in across the timeline. You drag `Category` to the Color mark and suddenly three lines appear — one per product category — color-coded automatically. You notice the Technology line dips in February every year and wonder why. You add a Region filter to narrow it down. Ten minutes later you drag everything onto a new Dashboard sheet, resize the panels, and share the URL. It is rough, but it answers a real question. That moment — going from raw rows to a visual insight — is what the rest of this submodule helps you do faster and better.
+
+## Learning Path
 
 This submodule runs over **two sessions**.
 
