@@ -384,6 +384,8 @@ You just saw filter context in action — the measure recalculates based on what
 ![Power BI Decomposition Tree and Key Influencers](assets/powerbi_advanced_charts.png)
 
 
+> **Advanced (skip on first read):** The DAX patterns below — time intelligence, YTD, prior-year comparisons, and moving averages — require a proper Date table and a solid grasp of filter context. Come back here after you've built your first complete dashboard.
+
 ## Advanced DAX Patterns
 
 ### 1. Time Intelligence Functions
