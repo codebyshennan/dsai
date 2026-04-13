@@ -102,58 +102,59 @@ We'll utilize the "Sample - Superstore" dataset included with Power BI. This dat
 
 The dataset consists of four primary tables:
 
-```yaml
-Data Structure:
-1. Orders Table:
-   Primary Fields:
-   - Order ID (Primary Key)
-   - Order Date (Date/Time)
-   - Ship Date (Date/Time)
-   - Ship Mode (String)
-   - Customer ID (Foreign Key)
-   - Product ID (Foreign Key)
-   - Quantity (Integer)
-   - Sales (Decimal)
-   - Profit (Decimal)
-   
-   Additional Metadata:
-   - Row Count: ~9,000
-   - Date Range: 4 years
-   - NULL handling: No nulls
-   
-2. Products Table:
-   Primary Fields:
-   - Product ID (Primary Key)
-   - Category (String)
-   - Sub-Category (String)
-   - Product Name (String)
-   
-   Classification:
-   - Categories: 3
-   - Sub-Categories: 17
-   - Products: ~1,500
+**1. Orders Table**
 
-3. Customers Table:
-   Primary Fields:
-   - Customer ID (Primary Key)
-   - Customer Name (String)
-   - Segment (String)
-   - Region (String)
-   
-   Segmentation:
-   - Customer Types: 3
-   - Regions: 4
-   - States: 48
+**Primary Fields:**
+- Order ID (Primary Key)
+- Order Date (Date/Time)
+- Ship Date (Date/Time)
+- Ship Mode (String)
+- Customer ID (Foreign Key)
+- Product ID (Foreign Key)
+- Quantity (Integer)
+- Sales (Decimal)
+- Profit (Decimal)
 
-4. Returns Table (Optional):
-   Primary Fields:
-   - Order ID (Foreign Key)
-   - Return Status (Boolean)
-   
-   Statistics:
-   - Return Rate: ~10%
-   - Tracking Period: Full dataset
-```
+**Additional Metadata:**
+- Row Count: ~9,000
+- Date Range: 4 years
+- NULL handling: No nulls
+
+**2. Products Table**
+
+**Primary Fields:**
+- Product ID (Primary Key)
+- Category (String)
+- Sub-Category (String)
+- Product Name (String)
+
+**Classification:**
+- Categories: 3
+- Sub-Categories: 17
+- Products: ~1,500
+
+**3. Customers Table**
+
+**Primary Fields:**
+- Customer ID (Primary Key)
+- Customer Name (String)
+- Segment (String)
+- Region (String)
+
+**Segmentation:**
+- Customer Types: 3
+- Regions: 4
+- States: 48
+
+**4. Returns Table (Optional)**
+
+**Primary Fields:**
+- Order ID (Foreign Key)
+- Return Status (Boolean)
+
+**Statistics:**
+- Return Rate: ~10%
+- Tracking Period: Full dataset
 
 ![Power BI Model View with table relationships](assets/powerbi_data_model.png)
 
