@@ -131,24 +131,24 @@ Data Pipeline:
 
 **Live Connection:**
 
-Pros:
+**Pros:**
 - Real-time updates
 - No storage needed
 - Latest data always
 
-Cons:
+**Cons:**
 - Network dependent
 - Can be slower
 - Server load
 
 **Extract:**
 
-Pros:
+**Pros:**
 - Fast performance
 - Offline access
 - Reduced load
 
-Cons:
+**Cons:**
 - Point-in-time
 - Storage needed
 - Manual/scheduled refresh
