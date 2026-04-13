@@ -33,9 +33,11 @@ Open either tool in a browser tab or window next to Tableau Desktop. You can pas
 
 ## Practical workflows
 
-### Write a calculated field
+### Workflow 1: Write a calculated field
 
 Tableau's calculation language is expressive but the syntax is easy to get wrong. Describe what you need and paste the result into **Create Calculated Field**.
+
+![Tableau Create Calculated Field dialog showing a Profit Ratio formula](assets/tableau_calculated_field.png)
 
 **Example prompt:**
 
