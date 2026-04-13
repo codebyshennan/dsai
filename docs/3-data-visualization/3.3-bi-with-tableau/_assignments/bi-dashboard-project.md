@@ -53,8 +53,8 @@ Submit all four of the following:
 
 Don't know where to begin? Start here.
 
-- **Tableau Public** — On the start screen, click "More…" under Saved Data Sources and pick "Sample - Superstore". You already have the data; no download needed.
-- **Power BI Desktop** — Download the Superstore `.xlsx` from [this Tableau sample page](https://public.tableau.com/app/learn/sample-data) or use the version that ships with Tableau Public. In Power BI, use "Get Data → Excel" to connect.
+- **Tableau Public** — Download [sample_superstore.xls](../assets/sample_superstore.xls), then on the start screen click **Microsoft Excel** under "To a File" and open it.
+- **Power BI Desktop** — Use the same [sample_superstore.xls](../assets/sample_superstore.xls) file. In Power BI, use "Get Data → Excel" to connect.
 - **Looker Studio** — Upload the Superstore CSV to Google Sheets first, then connect Looker Studio to it via "Google Sheets" as a data source. It takes about 2 minutes.
 - **Stuck on chart type?** Go back to the [visualization principles lesson](../../3.1-intro-data-viz/visualization-principles.md): bar charts for category comparison, line charts for trends over time, maps or bar charts for regional comparison.
 - **Stuck on a calculated field?** Ask an AI assistant — paste in your question and list your field names. For example: "Write a Tableau calculated field that flags any row where Profit is negative. My fields are `Profit` and `Sales`."
