@@ -241,72 +241,72 @@ Example: **Sales by Category** bar chart.
 
 #### 1. Data Source Optimization
 
-```yaml
-Optimization Steps:
-1. Data Preparation:
-   - Clean and prepare data before analysis
-   - Use appropriate data types
-   - Remove unnecessary fields
-   - Create data extracts for better performance
+**Data Preparation**
 
-2. Query Optimization:
-   - Use appropriate filters
-   - Implement efficient calculations
-   - Optimize data extracts
-   - Monitor query performance
+- Clean and prepare data before connecting it to Tableau — messy data leads to messy charts.
+- Set correct data types at the source (e.g., dates as Date, IDs as Dimensions).
+- Remove fields you don't need; a leaner data source loads faster.
+- Create a Tableau Extract (.hyper) instead of a live connection when working with large datasets — extracts are much faster for exploration.
 
-3. Resource Management:
-   - Monitor memory usage
-   - Optimize view complexity
-   - Configure refresh intervals
-   - Manage dashboard size
-```
+**Query Optimization**
+
+- Apply filters early (before building views) so Tableau queries less data.
+- Keep calculated fields simple; nested calculations slow down rendering.
+- Use context filters when a filter needs to apply before LOD expressions run.
+- Check query performance with the built-in Performance Recorder (Help menu) if views feel slow.
+
+**Resource Management**
+
+- Watch memory usage when working with millions of rows — extracts help here too.
+- Simpler views load faster; avoid stacking more than 3–4 chart layers in one sheet.
+- For live connections, set an appropriate data refresh interval rather than refreshing on every interaction.
+- Keep dashboard pixel dimensions reasonable (1200–1400px wide is a good default for desktop).
 
 #### 2. Dashboard Design Optimization
 
-```yaml
-Design Best Practices:
-1. Layout Optimization:
-   - Use efficient dashboard layouts
-   - Implement appropriate sizing
-   - Optimize view placement
-   - Balance information density
+**Layout**
 
-2. Performance Considerations:
-   - Limit number of views
-   - Use appropriate chart types
-   - Implement efficient filters
-   - Monitor dashboard performance
+- Use tiled layouts for precise alignment; floating layouts for overlays and small annotations.
+- Set a fixed dashboard size that matches your audience's screen (e.g., 1200 × 800 for laptop).
+- Group related charts together — put the summary KPIs at the top, detail charts below.
+- Leave breathing room between sheets; cramped dashboards are hard to read.
 
-3. User Experience:
-   - Create intuitive navigation
-   - Implement clear labeling
-   - Use consistent formatting
-   - Provide helpful tooltips
-```
+**Performance**
+
+- Limit dashboards to 4–6 views. Every additional sheet adds load time.
+- Choose simpler chart types when a complex one isn't necessary (a bar chart beats a custom polygon map for speed).
+- Use a single global filter rather than per-sheet filters where possible.
+- Test load time with realistic data volumes, not just the first 1,000 rows.
+
+**User Experience**
+
+- Label every chart clearly — assume the viewer won't ask you what it means.
+- Use consistent colors across the dashboard (one color = one category, always).
+- Add tooltips with context, not just raw numbers (e.g., "Sales: $12,400 (+8% vs last year)").
+- Add a title and a one-line description so users know what the dashboard shows at a glance.
 
 #### 3. Visualization Best Practices
 
-```yaml
-Visualization Guidelines:
-1. Chart Selection:
-   - Choose appropriate chart types
-   - Consider data relationships
-   - Optimize for readability
-   - Use consistent styling
+**Choosing the right chart type**
 
-2. Color Usage:
-   - Implement meaningful color schemes
-   - Use color for emphasis
-   - Consider color blindness
-   - Maintain consistency
+- Bar charts for comparing categories; line charts for trends over time; scatter plots for relationships.
+- Avoid pie charts with more than 4–5 slices — a bar chart is clearer.
+- Maps work well for geographic data but are slow with thousands of marks; consider a bar chart by region first.
+- Match the chart to what you want the viewer to understand, not to what looks impressive.
 
-3. Interactivity:
-   - Add appropriate filters
-   - Implement dashboard actions
-   - Create parameter controls
-   - Enable drill-down capabilities
-```
+**Color**
+
+- Use color to encode meaning, not decoration (e.g., red = loss, blue = profit).
+- Stick to a diverging palette for negative/positive values and a sequential palette for magnitudes.
+- Always check your color choices work for people with color blindness — Tableau's built-in colorblind-safe palettes are a safe default.
+- Keep the number of distinct colors in a single chart to 6 or fewer.
+
+**Interactivity**
+
+- Add a filter for the dimension viewers are most likely to want to slice by (e.g., Region, Category).
+- Use dashboard actions (Filter, Highlight, URL) to let users drill in without overwhelming them upfront.
+- Parameter controls are powerful but add complexity — only add them if users genuinely need to change a threshold or metric.
+- Enable drill-down (e.g., Category → Sub-Category) by using hierarchies in the Data pane.
 
 ## Gotchas
 
