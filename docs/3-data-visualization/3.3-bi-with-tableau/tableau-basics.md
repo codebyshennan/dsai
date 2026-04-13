@@ -58,6 +58,8 @@ Before you touch Tableau, get these six concepts in your head. Everything else i
 
 ![Tableau Desktop start page](assets/tableau_start_page.png)
 
+> **Before building:** Scan your Data pane. Postal codes and IDs should be Dimensions (blue), not Measures (green). If they're green, right-click → Convert to Dimension.
+
 - In the Connect pane on the left, under **Saved Data Sources**, click **Sample - Superstore**.
   - If it isn't listed, click **Microsoft Excel** and browse to the file manually:
     - **macOS:** `~/Documents/My Tableau Repository/Datasources/en_US/`
