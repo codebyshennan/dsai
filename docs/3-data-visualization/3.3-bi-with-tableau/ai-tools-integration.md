@@ -115,7 +115,7 @@ Run the script, save the output, then connect Tableau to the cleaned file.
 
 ---
 
-### Choose the right chart type
+### Workflow 5: Choose the right chart type
 
 Describe your data and analytical question; Claude recommends a Tableau chart type and the shelf configuration.
 
