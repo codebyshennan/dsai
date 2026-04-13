@@ -171,6 +171,8 @@ Perfect For:
 3. Overall trends
 ```
 
+> **Troubleshooting LODs:** If your FIXED LOD doesn't change when you apply a filter, right-click the filter pill on the Filters shelf and select **Add to Context**.
+
 ## 3. Advanced Charts: Making Your Data Beautiful
 
 ### Combo Charts (Two Charts in One!)
