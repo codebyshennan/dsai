@@ -27,6 +27,8 @@ Now that you're comfortable with basic charts and dashboards, let's explore some
 
 ## 1. Table Calculations: Making Your Numbers Smarter
 
+> **Use this when:** you need to compare a value to other rows in your result set — like running totals, rankings, or moving averages.
+
 ### What Are Table Calculations?
 
 Think of them as Excel formulas that work across your entire visualization. They help you:
