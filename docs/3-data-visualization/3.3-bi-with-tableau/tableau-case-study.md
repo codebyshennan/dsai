@@ -417,12 +417,11 @@ RANK(SUM([Sales]), 'desc')
 
 ## Next Steps
 
-1. Explore Tableau Public
-2. Join the Tableau Community
-3. Get Tableau Certified
-4. Learn Tableau Server administration
-5. Explore Tableau extensions
-6. Practice with real-world datasets
+1. Explore [Tableau Public](https://public.tableau.com) and study dashboards others have built
+2. Join the [Tableau Community](https://community.tableau.com) forums
+3. Practice with your own dataset — connect it to Tableau and replicate the charts from this guide
+4. Explore Tableau extensions for additional chart types
+5. Work toward the [Tableau Desktop Specialist](https://www.tableau.com/learn/certification/desktop-specialist) certification
 
 ## Gotchas
 
