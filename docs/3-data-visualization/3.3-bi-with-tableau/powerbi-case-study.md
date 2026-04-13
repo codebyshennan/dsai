@@ -6,9 +6,7 @@
 
 ## Helpful video
 
-Short Tableau Public install; pair with the written guides in this folder.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lTNWfhmurUg" title="Tableau Public Tutorial Download and Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Search YouTube for **"Power BI Desktop tutorial for beginners"** and watch any recent Microsoft or community walkthrough. The Microsoft Power BI channel publishes feature-specific videos that pair well with this guide.
 
 ## Getting Started
 
