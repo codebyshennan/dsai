@@ -24,15 +24,15 @@ Tableau is a powerful data visualization tool that enables interactive analytics
 ### Prerequisites
 
 1. **Required Components:**
-   - Tableau Desktop 2021.1 or newer
+   - Tableau Desktop Public Edition 2026.1 or newer
    - Basic understanding of data analysis
    - Familiarity with business metrics
 
 2. **System Requirements:**
-   - Windows 10/11 or macOS 12+
+   - Windows 10/11 or macOS 13 (Ventura) or newer
    - 8GB RAM minimum (16GB recommended)
    - 2GB free disk space
-   - Modern multi-core processor
+   - Modern multi-core processor (Apple Silicon supported)
 
 ### Beginner's Mental Model
 
