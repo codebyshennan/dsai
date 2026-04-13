@@ -308,6 +308,18 @@ Example: **Sales by Category** bar chart.
 - Parameter controls are powerful but add complexity — only add them if users genuinely need to change a threshold or metric.
 - Enable drill-down (e.g., Category → Sub-Category) by using hierarchies in the Data pane.
 
+## Common Mistakes (and How to Avoid Them)
+
+These are the errors almost every beginner makes. Read them now so you don't have to debug them later.
+
+- **Date fields collapse to year only.** When you drag `Order Date` to Columns, Tableau defaults to `YEAR(Order Date)`, giving you just a few data points on your line chart. Right-click the date pill on the shelf and choose the date part you actually want — for monthly trends, pick **Month / Year (continuous)**.
+
+- **Postal Code and Order ID end up as green Measures.** Tableau sees numbers and assumes they should be summed. `Postal Code` is a label, not a value. Before building any view, drag numeric identifier fields from the Measures section to the Dimensions section, or right-click → **Convert to Dimension**.
+
+- **Filters on a dashboard don't apply to all sheets.** When you add a filter control, it only filters the sheet it was created on by default. Right-click the filter pill and choose **Apply to Worksheets → All Using This Data Source** to make it work across your whole dashboard.
+
+- **Calculated field gives wrong profit margin.** Writing `[Profit] / [Sales]` computes a row-level ratio and then averages those ratios — which is almost never what you want. Always aggregate both sides independently: `SUM([Profit]) / SUM([Sales])`. The difference can be significant when order sizes vary widely.
+
 ## Gotchas
 
 - **Dragging a date field to Columns defaults to YEAR, not the full date** — Tableau automatically aggregates `Order Date` to the year level. To see monthly or daily trends, right-click the pill on the Columns shelf and select the exact date part you need (e.g., Month/Year continuous). Many learners spend time wondering why their line chart shows only a few points.
