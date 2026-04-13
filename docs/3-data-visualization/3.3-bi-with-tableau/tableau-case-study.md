@@ -260,6 +260,15 @@ Use calculated fields when you need a metric that doesn't exist in the raw data 
    - Include tooltips
    - Test on different screen sizes
 
+## Before You Publish
+
+**Before you publish, check:**
+
+- [ ] Chart is blank → verify you have both a Dimension on Rows/Columns and a Measure on the view
+- [ ] Dual-axis chart looks misaligned → right-click the secondary axis → Synchronize Axis
+- [ ] Calculated field shows error → check every bracket is matched and aggregations (SUM, AVG) are consistent
+- [ ] Dashboard filter isn't working → make sure "Apply to Worksheets" is set correctly
+
 ## Saving and Sharing
 
 1. Save your workbook:
