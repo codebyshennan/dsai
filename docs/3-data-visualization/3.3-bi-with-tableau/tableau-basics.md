@@ -69,6 +69,8 @@ Before you touch Tableau, get these six concepts in your head. Everything else i
 
 ![Tableau Data Source tab with Superstore connection](assets/tableau_data_source.png)
 
+In your Data pane, you'll see two groups: **Dimensions** (blue, categories) and **Measures** (green, numbers). Tableau uses this distinction to decide how to aggregate your data.
+
 - Review the data structure. Dimensions (blue) and measures (green) appear in the pane.
 - Scan the first 1,000 rows to confirm fields look reasonable.
 
