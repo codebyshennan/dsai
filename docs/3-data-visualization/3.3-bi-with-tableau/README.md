@@ -153,10 +153,6 @@ Chart Selection:
 
 #### Visual Best Practices
 
-**Purpose:** Encode color role (sequential, diverging, categorical) and reinforce hierarchy with layout and type.
-
-**Walkthrough:** Aligns with Module 3 principles lessons—apply before publishing dashboards.
-
 ```yaml
 Design Principles:
   Color Usage:
