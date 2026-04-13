@@ -34,6 +34,19 @@ Tableau is a powerful data visualization tool that enables interactive analytics
    - 2GB free disk space
    - Modern multi-core processor
 
+### Beginner's Mental Model
+
+Before you touch Tableau, get these six concepts in your head. Everything else is just applying them.
+
+| Concept | What it is | Real example |
+|---------|------------|--------------|
+| Dimension | A category to group by (blue pills) | Region, Product Category, Order Date |
+| Measure | A number to calculate (green pills) | Sales, Profit, Quantity |
+| Shelf | A drop zone where you drag fields | Rows shelf = Y-axis, Columns shelf = X-axis |
+| Marks Card | Controls the visual appearance | Color, Size, Label, Tooltip |
+| Aggregation | How Tableau combines many rows | SUM of all sales in a region |
+| Dashboard | Multiple charts on one screen | A sales overview with 4 charts |
+
 ### Getting Started: Step-by-Step Guide
 
 #### 1. Connecting to Sample Superstore
