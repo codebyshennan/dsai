@@ -84,7 +84,7 @@ In this comprehensive case study, we'll analyze retail data to drive business de
 - A product profitability analysis
 - Interactive filters and controls
 
-![Completed SuperStore dashboard](assets/looker_dashboard.png)
+<!-- TODO: replace with a distinct screenshot of the completed project overview dashboard -->
 
 
 ## Dataset Introduction
