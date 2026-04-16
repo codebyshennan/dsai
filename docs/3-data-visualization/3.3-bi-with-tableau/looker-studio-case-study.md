@@ -486,7 +486,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Data-driven triggers
    - Custom notifications
 
-![Advanced sharing and embedding options](assets/looker_sharing.png)
+<!-- TODO: screenshot of the advanced sharing panel showing embedded link, email subscription, and PDF export options -->
 
 
 ## Performance Optimization
