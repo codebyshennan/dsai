@@ -103,7 +103,7 @@ We'll utilize the "Sample - Superstore" dataset adapted for Looker Studio. This 
 
 The dataset consists of four primary tables. The **Orders** table is the heart of the data — it records every transaction (~9,000 rows over 4 years) including the sale amount, profit, shipping mode, and the dates an order was placed and shipped. The **Products** table tells you what was sold, organising ~1,500 products into 3 categories (Furniture, Technology, Office Supplies) and 17 sub-categories. The **Customers** table tells you who bought it: each customer belongs to one of 3 segments (Consumer, Corporate, Home Office) and maps to one of 4 US regions. Finally, the **Returns** table is optional but useful — it flags the roughly 10% of orders that were returned, which you can blend in to calculate a clean "net sales" figure.
 
-![Data source field configuration](assets/looker_data_source.png)
+<!-- TODO: replace with a distinct screenshot showing the data source field configuration panel -->
 
 
 ## Step-by-Step Visualization Guide
