@@ -347,7 +347,7 @@ You just saw filter context in action — the measure recalculates based on what
    - Drag fields between tables to create relationships
    - Configure relationship properties (cardinality, cross-filter direction)
 
-![Power BI Model View with hierarchy and relationships](assets/powerbi_data_model.png)
+<!-- TODO: replace with a distinct screenshot showing hierarchy and cross-filter direction config -->
 
 
 > **Advanced (skip on first read):** Custom visuals from AppSource and the Decomposition Tree require familiarity with the standard chart types first. Return here once you're comfortable building and filtering basic reports.
