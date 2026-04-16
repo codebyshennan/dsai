@@ -96,7 +96,7 @@ We'll utilize the "Sample - Superstore" dataset adapted for Looker Studio. This 
 - It's easy to import into Google Sheets
 - It covers multiple analysis dimensions
 
-![Superstore data source connector](assets/looker_data_source.png)
+<!-- TODO: screenshot of the Google Sheets connector dialog after selecting the Superstore sheet as the data source -->
 
 
 ### Data Structure Overview
