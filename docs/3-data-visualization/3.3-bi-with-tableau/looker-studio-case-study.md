@@ -173,7 +173,7 @@ The dataset consists of four primary tables. The **Orders** table is the heart o
    - Configure cross-filtering
    - Add navigation between pages
 
-![Dashboard canvas with charts and filter controls](assets/looker_dashboard.png)
+<!-- TODO: screenshot of the completed multi-chart dashboard canvas including a date range control and filter dropdown -->
 
 > **Try it:** Add a Date Range control to your dashboard (Insert > Date range control). Click the control in View mode and change the date window. Which charts update — and which do not? This is a good way to spot which charts share the same data source.
 
