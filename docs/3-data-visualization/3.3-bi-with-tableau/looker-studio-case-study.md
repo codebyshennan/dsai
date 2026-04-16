@@ -141,7 +141,7 @@ The dataset consists of four primary tables. The **Orders** table is the heart o
    - Configure date range
    - Add trend lines
 
-![Time series chart with multiple metrics](assets/looker_timeseries.png)
+<!-- TODO: screenshot of the time series chart showing both Sales and Profit trend lines over Order Date -->
 
 
 ### 3. Geographic Analysis
