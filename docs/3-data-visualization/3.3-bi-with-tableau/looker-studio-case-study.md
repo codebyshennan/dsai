@@ -121,7 +121,7 @@ The dataset consists of four primary tables. The **Orders** table is the heart o
    - Add a title
    - Configure tooltips
 
-![First bar chart by category](assets/looker_first_chart.png)
+<!-- TODO: screenshot of the completed bar chart showing Sales by Category with data labels and custom colors -->
 
 > **Try it:** Add a Scorecard chart (find it in the chart picker) and set its Metric to `Sales`. Change the scorecard's background color using the Style tab in the Properties panel. What other formatting options appear? How does the Properties panel change when you click on a different chart type?
 
