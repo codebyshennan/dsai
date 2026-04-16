@@ -10,6 +10,8 @@ You have a spreadsheet of retail sales. Your manager wants to know which regions
 
 > **Desktop vs Service:** Power BI Desktop (Windows only) is the full tool. Power BI Service (web, any browser) is 90% the same but with limited Power Query editing. This guide works in both — build in Desktop if you have it, use Service on Mac.
 
+> **No work or school email?** Power BI Service requires a Microsoft work or school account — personal Gmail or Hotmail accounts won't work. If you don't have one, create a free **Microsoft 365 Developer account**: go to the [Microsoft 365 Developer Program](https://developer.microsoft.com/en-us/microsoft-365/dev-program), click **Join Now**, sign in with any Microsoft account, choose **Personal Projects**, and set up a configurable sandbox. This gives you a permanent `@<yourdomain>.onmicrosoft.com` email with an E5 licence that includes Power BI Pro — use those credentials to sign in to Power BI Service.
+
 ## Helpful video
 
 Search YouTube for **"Power BI Desktop tutorial for beginners"** and watch any recent Microsoft or community walkthrough. The Microsoft Power BI channel publishes feature-specific videos that pair well with this guide.
