@@ -83,7 +83,7 @@ In this comprehensive case study, we'll analyze retail data to drive business de
 - A product profitability analysis
 - Interactive filters and drill-downs
 
-![Completed Power BI SuperStore dashboard](assets/powerbi_dashboard.png)
+<!-- TODO: replace with a distinct screenshot of the completed project overview dashboard -->
 
 
 ## Dataset Introduction
