@@ -522,7 +522,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Mobile-specific views
    - Offline capabilities
 
-![Mobile preview with responsive layout optimization](assets/looker_optimization.png)
+<!-- TODO: screenshot of the mobile preview mode showing the responsive layout with touch-friendly controls -->
 
 
 ## AI and Automation
