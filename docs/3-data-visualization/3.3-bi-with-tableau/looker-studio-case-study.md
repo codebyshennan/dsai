@@ -411,7 +411,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Real-time updates
    - Incremental refresh
 
-![Data source management panel with refresh options](assets/looker_source_mgmt.png)
+<!-- TODO: screenshot of the data source management panel listing connected sources with their refresh schedule settings -->
 
 
 ## Advanced Visualizations
