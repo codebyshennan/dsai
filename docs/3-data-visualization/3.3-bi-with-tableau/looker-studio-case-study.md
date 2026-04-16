@@ -391,7 +391,7 @@ LEFT JOIN Customers c ON o.CustomerID = c.CustomerID
 LEFT JOIN Returns r ON o.OrderID = r.OrderID
 ```
 
-![Data blending dialog with join configuration](assets/looker_blending.png)
+<!-- TODO: screenshot of the data blending configuration dialog showing the join key (Order ID) between two data sources -->
 
 
 ### 2. Data Source Management
