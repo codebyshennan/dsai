@@ -468,7 +468,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Group access
    - Audit logs
 
-![Share dialog with collaborator roles](assets/looker_collaboration.png)
+<!-- TODO: screenshot of the Share dialog showing collaborator email fields and role options (Viewer / Editor) -->
 
 
 ### 2. Advanced Sharing Options
