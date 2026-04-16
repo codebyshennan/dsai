@@ -302,7 +302,7 @@ SUM(Sales) /
 </aside>
 </div>
 
-![Calculated field editor with Profit Ratio formula](assets/looker_calculations.png)
+<!-- TODO: screenshot of the calculated field editor open with the Profit Ratio formula (Profit / Sales) entered -->
 
 
 ### 2. Parameters and Controls
