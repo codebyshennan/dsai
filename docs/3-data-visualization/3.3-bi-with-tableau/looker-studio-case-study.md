@@ -38,7 +38,7 @@ Before diving in, get familiar with these words — you will see them throughout
    - Select the sheet as your data source
 4. Click "Add" to connect the data
 
-![Looker Studio start page](assets/looker_start_page.png)
+<!-- TODO: screenshot of Looker Studio home page showing the "Create" button, template gallery, and recent reports list -->
 
 
 ### 2. Understanding the Looker Studio Workspace
