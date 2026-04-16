@@ -45,7 +45,7 @@ Before diving in, get familiar with these words — you will see them throughout
 
 {% include mermaid-diagram.html src="3-data-visualization/3.3-bi-with-tableau/diagrams/looker-studio-case-study-1.mmd" %}
 
-![Looker Studio workspace](assets/looker_workspace.png)
+<!-- TODO: screenshot of the Looker Studio report canvas labelling the Canvas, Toolbar, Properties Panel, and Data Panel areas -->
 
 The Looker Studio interface consists of several key areas:
 
