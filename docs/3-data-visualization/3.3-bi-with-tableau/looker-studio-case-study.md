@@ -72,7 +72,7 @@ The Looker Studio interface consists of several key areas:
    - Data source settings
    - Filter controls
 
-![Looker Studio interface toolbar and properties panel](assets/looker_workspace.png)
+<!-- TODO: replace with a distinct screenshot showing the toolbar and Properties panel in detail -->
 
 
 ## Project Overview
