@@ -505,7 +505,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Cache hit rates
    - Refresh performance
 
-![Report performance panel with query times and cache hits](assets/looker_performance.png)
+<!-- TODO: screenshot of the report performance panel listing query execution times and cache hit rates per chart -->
 
 
 ### 2. Dashboard Optimization
