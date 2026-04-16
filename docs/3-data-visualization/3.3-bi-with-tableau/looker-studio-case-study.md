@@ -160,7 +160,7 @@ The dataset consists of four primary tables. The **Orders** table is the heart o
    - Configure tooltips
    - Set zoom level
 
-![Geo map of US sales by state](assets/looker_map.png)
+<!-- TODO: screenshot of the Geo map showing US states coloured by Sales and sized by Profit -->
 
 
 ### 4. Building a Dashboard
