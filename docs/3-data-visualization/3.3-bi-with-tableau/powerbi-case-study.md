@@ -71,7 +71,7 @@ The Power BI interface consists of several key areas:
    - **Filters**: Filtering options
    - **Format**: Visual formatting controls
 
-![Power BI Report View with panels](assets/powerbi_workspace.png)
+<!-- TODO: replace with a distinct screenshot showing Report View with all panels visible -->
 
 
 ## Project Overview
