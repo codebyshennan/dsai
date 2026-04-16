@@ -449,7 +449,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Responsive layouts
    - Mobile optimization
 
-![Cross-filter drill-down interactivity](assets/looker_interactivity.png)
+<!-- TODO: screenshot demonstrating cross-filter in action — clicking a bar in one chart highlighting related data in another chart on the same page -->
 
 
 ## Collaboration and Sharing
