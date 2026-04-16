@@ -432,7 +432,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Tree maps
    - Sankey diagrams
 
-![Advanced chart types gallery](assets/looker_advanced_charts.png)
+<!-- TODO: screenshot of the chart picker showing advanced types: waterfall, bullet graph, heat map, tree map, and Sankey diagram -->
 
 
 ### 2. Interactive Features
