@@ -362,7 +362,7 @@ END
 </aside>
 </div>
 
-![Filter controls: date range, dropdown, and slider](assets/looker_controls.png)
+<!-- TODO: screenshot of the canvas in View mode showing an active date range control, a dropdown slicer, and a slider control -->
 
 
 ## Data Blending and Integration
