@@ -541,7 +541,7 @@ LEFT JOIN Returns r ON o.OrderID = r.OrderID
    - Data-driven actions
    - Scheduled tasks
 
-![AI-powered insights panel with anomaly detection](assets/looker_ai.png)
+<!-- TODO: screenshot of the AI-powered insights panel showing automated anomaly detection and trend recommendations -->
 
 
 ## Troubleshooting
