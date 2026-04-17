@@ -230,7 +230,7 @@ A music streaming service needs to understand why users are dropping off during 
 
 ### Key Learnings
 
-1. **Make It Visual**: Use flow diagrams. Spotify's team found visual journey maps were 3x more effective at communicating insights than written descriptions.
+1. **Make It Visual**: Use flow diagrams. Visual journey maps are consistently found to be more effective at communicating insights than written descriptions.
 2. **Show the Data**: Include drop-off rates, time-on-step, and completion percentages — the numbers tell the story.
 3. **Drive Action**: Don't just show where problems are — propose specific fixes. A problem without a recommendation is just a complaint.
 
