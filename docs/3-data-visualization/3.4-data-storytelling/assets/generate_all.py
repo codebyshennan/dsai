@@ -833,7 +833,7 @@ def gen_visualization_decision_tree():
 # 8. story_creation_process.png — 10-step pipeline
 # ===================================================================
 def gen_story_creation_process():
-    fig, ax = plt.subplots(figsize=(13, 4.5))
+    fig, ax = plt.subplots(figsize=(15, 4.5))
     ax.set_facecolor(BG)
 
     steps = [
@@ -851,7 +851,7 @@ def gen_story_creation_process():
 
     n = len(steps)
     for i, (label, color) in enumerate(steps):
-        x = i * 1.25 + 0.5
+        x = i * 1.4 + 0.5
         rect = FancyBboxPatch(
             (x - 0.5, 0.3),
             1.0,
