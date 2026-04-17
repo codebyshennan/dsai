@@ -350,7 +350,7 @@ A travel platform needs to report on the performance of their latest marketing c
 
 ### The Challenge
 
-Tesla's finance team needed to present quarterly results to the board of directors, explaining complex financial data in a clear and compelling way.
+A company's finance team needs to present quarterly results to the board of directors, explaining complex financial data in a clear and compelling way.
 
 ### The Bad Version
 
