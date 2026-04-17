@@ -158,6 +158,8 @@ Choosing the right chart and color scheme is half the battle. The companion less
 
 ---
 
+![Bad vs good chart titles: describe the insight, not the data](assets/bad_vs_good_titles.png)
+
 ## Common Mistakes to Avoid
 
 | Mistake | Instead |
