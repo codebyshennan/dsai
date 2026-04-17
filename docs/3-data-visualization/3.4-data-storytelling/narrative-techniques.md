@@ -19,21 +19,9 @@ Here's a situation most analysts face: you have the right answer, the right char
 
 ## Helpful video
 
-Framing insights for others—related context for storytelling.
+Hans Rosling's legendary TED talk is the gold standard for narrative technique with data — watch how he uses story arc, pacing, and visual emphasis to make global health data unforgettable.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-## Table of Contents
-
-1. [Introduction: The Power of Narrative in Data](#introduction-the-power-of-narrative-in-data)
-2. [Story Structure Frameworks](#story-structure-frameworks)
-3. [Core Narrative Elements](#core-narrative-elements)
-4. [Data Visualization Best Practices](#data-visualization-best-practices)
-5. [Story Creation Process](#story-creation-process)
-6. [Quality Assurance](#quality-assurance)
-7. [Real-World Examples](#real-world-examples)
-8. [Tips for Success](#tips-for-success)
-9. [Additional Resources](#additional-resources)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hVimVzgtD6w" title="Hans Rosling: The best stats you've ever seen" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction: The Power of Narrative in Data
 
