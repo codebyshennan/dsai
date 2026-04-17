@@ -9,7 +9,7 @@ Produces polished PNGs in the same directory as this script.
 
 from pathlib import Path
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch
+from matplotlib.patches import FancyBboxPatch, Polygon
 from matplotlib.gridspec import GridSpec
 import numpy as np
 import seaborn as sns
