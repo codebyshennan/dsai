@@ -35,7 +35,7 @@ Think of data visualization like a universal language:
 - **Numbers** = Mathematical language (precise but abstract)
 - **Visuals** = Universal language (instant understanding)
 
-The human brain processes images roughly 60,000 times faster than text. A well-designed chart can communicate in seconds what a paragraph of prose communicates in a minute — but only if the chart is designed intentionally.
+The human brain processes visual patterns dramatically faster than text — we recognize shapes and colors almost instantly, while reading requires sequential decoding. A well-designed chart can communicate in seconds what a paragraph of prose communicates in a minute — but only if the chart is designed intentionally.
 
 ---
 
