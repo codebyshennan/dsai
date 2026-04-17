@@ -245,7 +245,7 @@ A music streaming service needs to understand why users are dropping off during 
 
 ### The Challenge
 
-Airbnb needed to report on the performance of their latest marketing campaign across different channels to optimize their $1.2B marketing budget.
+A travel platform needs to report on the performance of their latest marketing campaign across different channels to optimize their marketing budget.
 
 ### The Bad Version
 
