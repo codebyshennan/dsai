@@ -455,7 +455,7 @@ A company's finance team needs to present quarterly results to the board of dire
 
 ### The Challenge
 
-Netflix needed to understand how users were interacting with their platform to optimize content recommendations and improve user engagement.
+A streaming platform needs to understand how users are interacting with their product to optimize content recommendations and improve user engagement.
 
 ### The Bad Version
 
