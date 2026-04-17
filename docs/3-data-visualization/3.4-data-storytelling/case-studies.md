@@ -19,9 +19,9 @@ Reading about storytelling principles is one thing. Seeing them applied — and 
 
 ## Helpful video
 
-Framing insights for others—related context for storytelling.
+Cole Nussbaumer Knaflic walks through her framework for turning data into stories that drive action — the principles behind every case study in this lesson.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8EMW7io4rSI" title="Cole Nussbaumer Knaflic: Storytelling with Data | Talks at Google" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction: Why Case Studies Matter
 
