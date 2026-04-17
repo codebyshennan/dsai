@@ -151,6 +151,8 @@ The visual hierarchy principle applies to your opening just as it does to your c
 
 The right hook depends on your audience. Executives respond to stakes (money, time, risk). Product teams respond to surprises (unexpected user behavior). Technical teams often respond to questions that reveal complexity they hadn't considered.
 
+![Three types of hooks: question, surprise, and stakes](assets/hook_types.png)
+
 ### 2. The Setup: Building Context
 
 Think of this like setting up a mystery novel — provide enough context without giving away the ending.
