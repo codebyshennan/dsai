@@ -101,39 +101,29 @@ Good visual grammar helps you:
 
 ---
 
-## Storytelling Frameworks: Your Data's Structure
+## Storytelling Frameworks
 
-### 1. The Hero's Journey: Your Data's Adventure
+Two frameworks cover most data presentations. The companion lesson on [Narrative Techniques](narrative-techniques.md) covers these in depth with worked examples and the SCR (Situation-Complication-Resolution) variant; here is the core idea.
 
-Think of this like a movie plot:
+### The Hero's Journey (Classic Arc)
 
-- **Act 1**: Setup and context
-- **Act 2**: Rising action and challenges
-- **Act 3**: Climax and resolution
+| Act | What it does | Example |
+|-----|-------------|---------|
+| **Setup** | Establish context | "Our sales team is struggling to meet targets" |
+| **Conflict** | Present the tension | "We discovered a 30% drop in customer retention" |
+| **Resolution** | Deliver the recommendation | "A new customer success program increased retention by 45%" |
 
-#### Real-World Example: Sales Analysis
+### Problem-Solution Framework
 
-1. **Setup**: "Our sales team is struggling to meet targets"
-2. **Challenge**: "We discovered a 30% drop in customer retention"
-3. **Resolution**: "Implementing a new customer success program increased retention by 45%"
-
-### 2. Problem-Solution Framework: Your Data's Solution
-
-Think of this like a doctor's visit:
-
-- **Diagnosis**: What's the problem?
-- **Analysis**: Why is it happening?
-- **Treatment**: How do we fix it?
-
-#### Real-World Example: Customer Churn
-
-1. **Problem**: "We're losing 20% of customers monthly"
-2. **Analysis**: "Survey data shows poor customer support experience"
-3. **Solution**: "Implement 24/7 chat support and reduce churn by 15%"
+| Step | What it does | Example |
+|------|-------------|---------|
+| **Problem** | Name the issue | "We're losing 20% of customers monthly" |
+| **Analysis** | Explain the cause | "Survey data shows poor support experience" |
+| **Solution** | Propose a fix | "Implement 24/7 chat support — projected to reduce churn by 15%" |
 
 ![Story structure frameworks: Hero's Journey vs Problem-Solution](assets/story_structure.png)
 
-The image above shows how both frameworks share the same underlying logic — context, tension, resolution — just expressed differently. The Hero's Journey works well for longer narratives; the Problem-Solution framework is faster and better suited to executive briefings.
+Both frameworks share the same underlying logic — context, tension, resolution — just expressed differently. The Hero's Journey works well for longer narratives; the Problem-Solution framework is faster and better suited to executive briefings.
 
 ---
 
@@ -142,39 +132,29 @@ The image above shows how both frameworks share the same underlying logic — co
 
 ---
 
-## Visual Elements: Your Data's Presentation
+## Visual Elements
 
-### 1. Chart Selection: Choosing the Right Tool
+Choosing the right chart and color scheme is half the battle. The companion lesson on [Visual Storytelling](visual-storytelling.md) covers chart types, color palettes, layout patterns, and common design mistakes in full detail. Here are the essentials.
 
-Think of this like choosing the right tool for a job:
+### Chart Selection
 
-- **Bar Chart**: Like a ruler - great for comparing lengths
-- **Line Chart**: Like a path - perfect for showing journeys
-- **Pie Chart**: Like a pizza - best for showing parts of a whole
+| Goal | Chart type |
+|------|-----------|
+| Compare categories | Bar chart (horizontal if labels are long) |
+| Show trends over time | Line chart |
+| Show distribution | Histogram or box plot |
+| Show parts of a whole | Pie chart (5 or fewer slices) or stacked bar |
+| Show correlation | Scatter plot |
 
-![Chart selection guide: which chart type fits which question](../../3-data-visualization/3.1-intro-data-viz/assets/chart_selection_guide.png)
+![Chart selection guide: which chart type fits which question](../3.1-intro-data-viz/assets/chart_selection_guide.png)
 
-#### Common Mistakes to Avoid
+### Color Strategy
 
-1. **Overcomplicating**: Don't use complex charts when simple ones will do
-2. **Wrong Chart Type**: Don't use a pie chart for time series data
-3. **Missing Context**: Don't forget to label axes and provide units
-
-### 2. Color Strategy: Your Data's Mood
-
-Think of this like a traffic light:
-
-- **Red**: Stop and pay attention (key metrics)
-- **Yellow**: Caution and consider (supporting data)
-- **Green**: Go ahead and explore (background info)
+- Use **consistent** colors for similar data types across all charts
+- Use **semantic** color: red = negative, green = positive, gray = context
+- Always test for **color-blind accessibility** (avoid red-green only distinctions)
 
 ![Color scheme examples for data storytelling](assets/color_schemes.png)
-
-#### Best Practices
-
-1. Use consistent colors for similar data types
-2. Ensure sufficient contrast for readability
-3. Consider color-blind friendly palettes
 
 ---
 
@@ -183,65 +163,15 @@ Think of this like a traffic light:
 
 ---
 
-## Narrative Techniques: Your Data's Voice
-
-### 1. Story Structures: Your Data's Flow
-
-Think of this like a river:
-
-- **Linear**: Like a straight river - clear and direct
-- **Branching**: Like a delta - multiple paths to explore
-
-#### Why This Matters
-
-Choosing the right structure helps you:
-
-- Guide your audience through complex data
-- Maintain engagement
-- Make your message memorable
-
-### 2. Engagement Patterns: Your Data's Rhythm
-
-Think of this like a song:
-
-- **Hook**: The catchy opening
-- **Verse**: The story development
-- **Chorus**: The main message
-- **Bridge**: The connection to action
-
-#### Real-World Example: Marketing Campaign
-
-1. **Hook**: "What if you could double your conversion rate?"
-2. **Verse**: "Our analysis shows..."
-3. **Chorus**: "The key insight is..."
-4. **Bridge**: "Here's how to implement..."
-
 ## Common Mistakes to Avoid
 
-### 1. Data Overload
-
-- **Don't:** Show every data point you have
-- **Do:** Focus on the most important insights
-
-### 2. Missing Context
-
-- **Don't:** Jump straight to conclusions
-- **Do:** Build understanding gradually
-
-### 3. Weak Structure
-
-- **Don't:** Ramble through your data
-- **Do:** Follow a clear narrative arc
-
-### 4. Leading with Method Instead of Insight
-
-- **Don't:** "I ran a regression on the sales data and found a coefficient of 0.73..."
-- **Do:** "Sales are driven primarily by response time — every extra hour costs us 8% conversion"
-
-### 5. Forgetting the Call to Action
-
-- **Don't:** End with "In conclusion, the data shows..."
-- **Do:** End with "Based on this, we recommend [specific action] by [specific date]"
+| Mistake | Instead |
+|---------|---------|
+| **Data overload** — showing every data point | Focus on the 3-5 most important insights |
+| **Missing context** — jumping straight to conclusions | Build understanding gradually with benchmarks and comparisons |
+| **Weak structure** — rambling through data | Follow a clear narrative arc (Setup → Conflict → Resolution) |
+| **Leading with method** — "I ran a regression and found a coefficient of 0.73…" | Lead with insight: "Every extra hour of response time costs us 8% conversion" |
+| **No call to action** — ending with "the data shows…" | End with "We recommend [specific action] by [specific date]" |
 
 ---
 
