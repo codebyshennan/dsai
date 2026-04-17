@@ -346,7 +346,7 @@ Airbnb needed to report on the performance of their latest marketing campaign ac
 
 ---
 
-## Case Study 4: Financial Performance Report — Tesla's Quarterly Results
+## Case Study 4: Financial Performance Report (illustrative)
 
 ### The Challenge
 
