@@ -142,7 +142,7 @@ A large retail chain needs to communicate monthly sales performance to store man
 
 ### The Challenge
 
-Spotify needed to understand why users were dropping off during the onboarding process. Their initial analysis showed a 40% drop-off rate between signup and first playlist creation.
+A music streaming service needs to understand why users are dropping off during the onboarding process. The initial analysis shows a 40% drop-off rate between signup and first playlist creation.
 
 ### The Bad Version
 
