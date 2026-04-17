@@ -138,7 +138,7 @@ Walmart needed to communicate monthly sales performance to store managers across
 
 ---
 
-## Case Study 2: Customer Journey Analysis — Spotify's User Onboarding
+## Case Study 2: Customer Journey Analysis (illustrative)
 
 ### The Challenge
 
