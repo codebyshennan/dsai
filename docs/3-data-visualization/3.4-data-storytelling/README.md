@@ -37,16 +37,11 @@ Think of data storytelling like being a tour guide for your data. Just as a good
 
 **Illustrative impact comparison**
 
-```yaml
-Impact Metrics:
-┌─────────────────────────┐
-│ Traditional Reports   │ → 40% Understanding
-├─────────────────────────┤
-│ Data Visualization   │ → 65% Understanding
-├─────────────────────────┤
-│ Data Storytelling    │ → 85% Understanding
-└─────────────────────────┘
-```
+| Approach | Understanding |
+|----------|:---:|
+| Traditional Reports | ~40% |
+| Data Visualization | ~65% |
+| **Data Storytelling** | **~85%** |
 
 > **Note:** These numbers are pedagogical illustrations, not cited research — but the direction is real and widely observed by practitioners.
 
