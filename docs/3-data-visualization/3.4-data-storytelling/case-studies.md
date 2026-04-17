@@ -241,7 +241,7 @@ Spotify needed to understand why users were dropping off during the onboarding p
 
 ---
 
-## Case Study 3: Marketing Campaign Analysis — Airbnb's Growth Strategy
+## Case Study 3: Marketing Campaign Analysis (illustrative)
 
 ### The Challenge
 
