@@ -332,6 +332,8 @@ Before finalizing any data story, run through the checklist above. These are the
 
 ### 1. Know Your Audience
 
+![Adapting your story for different audiences](assets/audience_adaptation.png)
+
 Before you write a single word, answer these three questions:
 
 - **What do they already know?** (This determines how much Setup you need)
