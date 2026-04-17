@@ -318,6 +318,8 @@ The layout examples above show three common structures:
 - Line charts for trend data, bar charts for comparisons
 - Year-over-year deltas clearly labelled ("+12% vs prior year")
 
+![Annotation techniques: direct labels, callouts, and reference lines](assets/annotation_techniques.png)
+
 ## Common Mistakes to Avoid
 
 ### 1. The Clutter Trap
