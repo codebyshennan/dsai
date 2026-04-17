@@ -20,9 +20,9 @@ Before diving in, here are the core concepts this submodule builds on:
 
 ## Helpful video
 
-Framing insights for others—related context for storytelling.
+Ben Wellington shows how finding the story inside a dataset — and telling it clearly — can change real-world policy.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6xsvGYIxJok" title="Ben Wellington: Making data mean more through storytelling | TEDxBroadway" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction: What is Data Storytelling?
 
