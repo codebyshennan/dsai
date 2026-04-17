@@ -54,7 +54,7 @@ Think of charts like different types of sentences:
 - **Line Chart** = Story over time (showing trends)
 - **Pie Chart** = Parts of a whole (showing proportions)
 
-![Chart selection guide: which chart type fits which question](../../3-data-visualization/3.1-intro-data-viz/assets/chart_selection_guide.png)
+![Chart selection guide: which chart type fits which question](../3.1-intro-data-viz/assets/chart_selection_guide.png)
 
 The chart selection guide above helps you choose the right visualization based on your goal:
 
