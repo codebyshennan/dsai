@@ -2204,9 +2204,7 @@ def gen_audience_adaptation():
     inset.set_facecolor("white")
     inset.plot(weeks, control, color=GRAY, linewidth=1.5, label="Control")
     inset.plot(weeks, treatment, color=BLUE, linewidth=2, label="Treatment")
-    inset.fill_between(
-        weeks, treatment - 0.2, treatment + 0.2, alpha=0.1, color=BLUE
-    )
+    inset.fill_between(weeks, treatment - 0.2, treatment + 0.2, alpha=0.1, color=BLUE)
     inset.set_xlabel("Week", fontsize=7)
     inset.set_ylabel("Conv. %", fontsize=7)
     inset.legend(fontsize=7, loc="upper left")
@@ -2295,7 +2293,9 @@ def gen_pyramid_principle():
         )
         from matplotlib.patches import Polygon
 
-        poly = Polygon(verts, facecolor=color, alpha=0.75, edgecolor="white", linewidth=2)
+        poly = Polygon(
+            verts, facecolor=color, alpha=0.75, edgecolor="white", linewidth=2
+        )
         ax.add_patch(poly)
         ax.text(
             5,
@@ -2611,6 +2611,14 @@ def main():
 
     # Case study detail placeholders
     gen_placeholders()
+
+    # New concept graphics
+    gen_hook_types()
+    gen_audience_adaptation()
+    gen_pyramid_principle()
+    gen_bad_vs_good_titles()
+    gen_color_emphasis_demo()
+    gen_annotation_techniques()
 
     print(f"\nDone — {len(list(OUT.glob('*.png')))} PNGs in {OUT}")
 
