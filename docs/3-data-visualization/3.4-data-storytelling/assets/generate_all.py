@@ -2003,6 +2003,586 @@ def gen_placeholders():
 
 
 # ===================================================================
+# New concept graphics
+# ===================================================================
+
+
+def gen_hook_types():
+    """Three-panel diagram showing 3 hook types for data stories."""
+    fig, axes = plt.subplots(1, 3, figsize=(14, 5))
+    fig.subplots_adjust(wspace=0.3)
+
+    hooks = [
+        (
+            "Question Hook",
+            '"What if we could\npredict churn?"',
+            "Best for: technical teams\nwho love exploring problems",
+            BLUE,
+        ),
+        (
+            "Surprise Hook",
+            '"Our biggest competitor\nis our own website"',
+            "Best for: product teams\nwho respond to surprises",
+            ORANGE,
+        ),
+        (
+            "Stakes Hook",
+            '"Every minute costs\nus 100 customers"',
+            "Best for: executives\nwho respond to stakes",
+            RED,
+        ),
+    ]
+
+    for ax, (htype, quote, note, color) in zip(axes, hooks):
+        ax.set_facecolor(BG)
+        # Card background
+        rect = FancyBboxPatch(
+            (0.05, 0.08),
+            0.9,
+            0.82,
+            boxstyle="round,pad=0.04",
+            facecolor=color,
+            alpha=0.10,
+            edgecolor=color,
+            linewidth=2,
+            transform=ax.transAxes,
+        )
+        ax.add_patch(rect)
+        # Hook type name
+        ax.text(
+            0.5,
+            0.82,
+            htype,
+            ha="center",
+            va="center",
+            fontsize=FONT_LABEL + 1,
+            fontweight="bold",
+            color=color,
+            transform=ax.transAxes,
+        )
+        # Example quote
+        ax.text(
+            0.5,
+            0.52,
+            quote,
+            ha="center",
+            va="center",
+            fontsize=FONT_LABEL,
+            color=TEXT_DARK,
+            fontstyle="italic",
+            transform=ax.transAxes,
+            linespacing=1.4,
+        )
+        # When to use
+        ax.text(
+            0.5,
+            0.2,
+            note,
+            ha="center",
+            va="center",
+            fontsize=FONT_SMALL,
+            color=TEXT_MID,
+            transform=ax.transAxes,
+            linespacing=1.4,
+        )
+        ax.set_xticks([])
+        ax.set_yticks([])
+        for s in ax.spines.values():
+            s.set_visible(False)
+
+    fig.suptitle(
+        "Three Hook Types to Open a Data Story",
+        fontsize=FONT_TITLE,
+        fontweight="bold",
+        color=TEXT_DARK,
+        y=1.01,
+    )
+    _save(fig, "hook_types.png")
+
+
+def gen_audience_adaptation():
+    """Side-by-side: same insight presented for Business vs Technical audiences."""
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5.5))
+    fig.subplots_adjust(wspace=0.35)
+
+    # --- Executive View ---
+    ax1.set_facecolor("#f0faf5")
+    ax1.text(
+        0.5,
+        0.88,
+        "Executive View",
+        ha="center",
+        va="center",
+        fontsize=13,
+        fontweight="bold",
+        color=GREEN,
+        transform=ax1.transAxes,
+    )
+    ax1.text(
+        0.5,
+        0.68,
+        "+12%",
+        ha="center",
+        va="center",
+        fontsize=40,
+        fontweight="bold",
+        color=GREEN,
+        transform=ax1.transAxes,
+    )
+    ax1.text(
+        0.5,
+        0.53,
+        "Conversion Rate Improvement",
+        ha="center",
+        va="center",
+        fontsize=FONT_LABEL,
+        color=TEXT_DARK,
+        transform=ax1.transAxes,
+    )
+    ax1.text(
+        0.5,
+        0.42,
+        "↑ vs. prior quarter",
+        ha="center",
+        va="center",
+        fontsize=FONT_SMALL,
+        color=GREEN,
+        transform=ax1.transAxes,
+    )
+    # Recommendation
+    rect = FancyBboxPatch(
+        (0.08, 0.08),
+        0.84,
+        0.22,
+        boxstyle="round,pad=0.03",
+        facecolor=GREEN,
+        alpha=0.10,
+        edgecolor=GREEN,
+        linewidth=1.2,
+        transform=ax1.transAxes,
+    )
+    ax1.add_patch(rect)
+    ax1.text(
+        0.5,
+        0.19,
+        "Recommendation: scale the new\nonboarding flow to all markets",
+        ha="center",
+        va="center",
+        fontsize=FONT_SMALL,
+        color=TEXT_DARK,
+        transform=ax1.transAxes,
+        linespacing=1.4,
+    )
+    ax1.set_xticks([])
+    ax1.set_yticks([])
+    for s in ax1.spines.values():
+        s.set_visible(False)
+
+    # --- Technical View ---
+    ax2.set_facecolor("#f0f4fa")
+    ax2.text(
+        0.5,
+        0.88,
+        "Technical View",
+        ha="center",
+        va="center",
+        fontsize=13,
+        fontweight="bold",
+        color=BLUE,
+        transform=ax2.transAxes,
+    )
+
+    # Mini chart area
+    np.random.seed(7)
+    weeks = np.arange(1, 13)
+    control = 3.2 + np.random.normal(0, 0.15, 12)
+    treatment = 3.2 + np.cumsum(np.random.normal(0.03, 0.1, 12))
+    treatment = np.clip(treatment, 3.0, 4.0)
+
+    # Use inset axes for the mini chart
+    inset = ax2.inset_axes([0.1, 0.32, 0.8, 0.45])
+    inset.set_facecolor("white")
+    inset.plot(weeks, control, color=GRAY, linewidth=1.5, label="Control")
+    inset.plot(weeks, treatment, color=BLUE, linewidth=2, label="Treatment")
+    inset.fill_between(
+        weeks, treatment - 0.2, treatment + 0.2, alpha=0.1, color=BLUE
+    )
+    inset.set_xlabel("Week", fontsize=7)
+    inset.set_ylabel("Conv. %", fontsize=7)
+    inset.legend(fontsize=7, loc="upper left")
+    inset.tick_params(labelsize=6)
+    for s in ["top", "right"]:
+        inset.spines[s].set_visible(False)
+
+    # Stats
+    ax2.text(
+        0.5,
+        0.18,
+        "p = 0.003  |  95% CI: [8.4%, 15.6%]  |  n = 24,500",
+        ha="center",
+        va="center",
+        fontsize=FONT_SMALL,
+        color=TEXT_MID,
+        transform=ax2.transAxes,
+    )
+    ax2.text(
+        0.5,
+        0.08,
+        "Method: two-sample z-test, Bonferroni-corrected",
+        ha="center",
+        va="center",
+        fontsize=FONT_TINY,
+        color=TEXT_LIGHT,
+        transform=ax2.transAxes,
+    )
+    ax2.set_xticks([])
+    ax2.set_yticks([])
+    for s in ax2.spines.values():
+        s.set_visible(False)
+
+    fig.suptitle(
+        "Audience Adaptation — Same Insight, Different Depth",
+        fontsize=FONT_TITLE,
+        fontweight="bold",
+        color=TEXT_DARK,
+        y=1.01,
+    )
+    _save(fig, "audience_adaptation.png")
+
+
+def gen_pyramid_principle():
+    """Inverted pyramid diagram for the Pyramid Principle."""
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.set_facecolor(BG)
+
+    # Three trapezoids stacked, narrowest at top (inverted pyramid)
+    tiers = [
+        (
+            "Lead with the conclusion",
+            RED,
+            "white",
+            0.45,
+        ),
+        (
+            "3-5 supporting points with evidence",
+            BLUE,
+            "white",
+            0.70,
+        ),
+        (
+            "Appendix: methodology, raw data",
+            GRAY,
+            TEXT_DARK,
+            0.95,
+        ),
+    ]
+
+    y_positions = [2.6, 1.5, 0.4]
+    tier_height = 0.85
+
+    for i, ((label, color, text_color, width_frac), y) in enumerate(
+        zip(tiers, y_positions)
+    ):
+        half_w = width_frac * 5
+        # Draw trapezoid
+        verts = np.array(
+            [
+                [5 - half_w, y - tier_height / 2],
+                [5 + half_w, y - tier_height / 2],
+                [5 + half_w * 0.85, y + tier_height / 2],
+                [5 - half_w * 0.85, y + tier_height / 2],
+            ]
+        )
+        from matplotlib.patches import Polygon
+
+        poly = Polygon(verts, facecolor=color, alpha=0.75, edgecolor="white", linewidth=2)
+        ax.add_patch(poly)
+        ax.text(
+            5,
+            y,
+            label,
+            ha="center",
+            va="center",
+            fontsize=FONT_LABEL,
+            fontweight="bold",
+            color=text_color,
+        )
+
+    # Arrow on side
+    ax.annotate(
+        "",
+        xy=(9.2, 0.0),
+        xytext=(9.2, 3.2),
+        arrowprops=dict(arrowstyle="->", color=DARK_GRAY, lw=1.5),
+    )
+    ax.text(
+        9.5,
+        1.6,
+        "Increasing\ndetail",
+        ha="left",
+        va="center",
+        fontsize=FONT_SMALL,
+        color=TEXT_MID,
+        linespacing=1.4,
+    )
+
+    ax.set_xlim(0, 11)
+    ax.set_ylim(-0.3, 3.6)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for s in ax.spines.values():
+        s.set_visible(False)
+
+    ax.set_title(
+        "The Pyramid Principle — Conclusion First",
+        fontsize=FONT_TITLE,
+        fontweight="bold",
+        color=TEXT_DARK,
+        pad=16,
+    )
+    _save(fig, "pyramid_principle.png")
+
+
+def gen_bad_vs_good_titles():
+    """Side-by-side bar charts with identical data but different titles."""
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 5))
+    fig.subplots_adjust(wspace=0.3)
+
+    months = ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    sales = [82, 78, 67, 74, 80, 85]
+
+    for ax in [ax1, ax2]:
+        ax.set_facecolor(BG)
+        ax.bar(months, sales, color=BLUE, width=0.55, edgecolor="white", linewidth=1)
+        ax.set_ylabel("Sales ($K)", fontsize=FONT_SMALL)
+        ax.set_ylim(0, 100)
+        for s in ["top", "right"]:
+            ax.spines[s].set_visible(False)
+
+    # Bad title
+    ax1.set_title(
+        "Sales by Month",
+        fontsize=12,
+        color=TEXT_MID,
+        pad=12,
+    )
+    ax1.text(
+        0.5,
+        -0.15,
+        "Descriptive title — states the obvious",
+        ha="center",
+        transform=ax1.transAxes,
+        fontsize=FONT_TINY,
+        color=RED,
+    )
+    _bad_watermark(ax1)
+
+    # Good title
+    ax2.set_title(
+        "Sales Fell 18% in Q3 Before\nRecovering in October",
+        fontsize=12,
+        fontweight="bold",
+        color=TEXT_DARK,
+        pad=12,
+    )
+    ax2.text(
+        0.5,
+        -0.15,
+        "Insight-driven title — tells the story",
+        ha="center",
+        transform=ax2.transAxes,
+        fontsize=FONT_TINY,
+        color=GREEN,
+    )
+    _good_watermark(ax2)
+
+    fig.suptitle(
+        "Descriptive vs. Insight-Driven Titles",
+        fontsize=FONT_TITLE,
+        fontweight="bold",
+        color=TEXT_DARK,
+        y=1.02,
+    )
+    _save(fig, "bad_vs_good_titles.png")
+
+
+def gen_color_emphasis_demo():
+    """Side-by-side line charts: rainbow vs gray+accent."""
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    fig.subplots_adjust(wspace=0.3)
+
+    np.random.seed(42)
+    years = np.arange(2000, 2024)
+    base = np.linspace(60, 78, len(years))
+    lines_data = []
+    labels = ["Africa", "Asia", "Europe", "Americas", "Oceania"]
+    for i in range(5):
+        offset = (i - 2) * 4
+        noise = np.cumsum(np.random.normal(0, 0.3, len(years)))
+        lines_data.append(base + offset + noise)
+
+    rainbow_colors = [RED, BLUE, GREEN, ORANGE, PURPLE]
+
+    # Left: all rainbow
+    ax1.set_facecolor(BG)
+    for i, (data, color) in enumerate(zip(lines_data, rainbow_colors)):
+        ax1.plot(years, data, color=color, linewidth=2, label=labels[i])
+    ax1.legend(fontsize=7, loc="upper left")
+    ax1.set_title(
+        "Every line competes for attention",
+        fontsize=11,
+        fontweight="bold",
+        color=TEXT_DARK,
+        pad=10,
+    )
+    for s in ["top", "right"]:
+        ax1.spines[s].set_visible(False)
+    ax1.set_ylabel("Life Expectancy", fontsize=FONT_SMALL)
+    _bad_watermark(ax1)
+
+    # Right: gray + accent
+    ax2.set_facecolor(BG)
+    highlight_idx = 1  # Asia
+    for i, data in enumerate(lines_data):
+        if i == highlight_idx:
+            continue
+        ax2.plot(years, data, color=LIGHT_GRAY, linewidth=1.5, alpha=0.7)
+    # Draw highlighted line last
+    ax2.plot(
+        years,
+        lines_data[highlight_idx],
+        color=RED,
+        linewidth=3,
+        label=labels[highlight_idx],
+    )
+    # Direct label at end
+    ax2.text(
+        years[-1] + 0.5,
+        lines_data[highlight_idx][-1],
+        labels[highlight_idx],
+        fontsize=FONT_LABEL,
+        fontweight="bold",
+        color=RED,
+        va="center",
+    )
+    ax2.set_title(
+        "Gray + accent directs the eye",
+        fontsize=11,
+        fontweight="bold",
+        color=TEXT_DARK,
+        pad=10,
+    )
+    for s in ["top", "right"]:
+        ax2.spines[s].set_visible(False)
+    ax2.set_ylabel("Life Expectancy", fontsize=FONT_SMALL)
+    ax2.set_xlim(years[0], years[-1] + 4)
+    _good_watermark(ax2)
+
+    fig.suptitle(
+        "Color Emphasis — Less Is More",
+        fontsize=FONT_TITLE,
+        fontweight="bold",
+        color=TEXT_DARK,
+        y=1.02,
+    )
+    _save(fig, "color_emphasis_demo.png")
+
+
+def gen_annotation_techniques():
+    """Side-by-side scatter: plain vs annotated."""
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5.5))
+    fig.subplots_adjust(wspace=0.3)
+
+    np.random.seed(123)
+    x = np.random.normal(50, 15, 40)
+    y = 0.6 * x + np.random.normal(0, 8, 40) + 10
+
+    # Left: plain
+    ax1.set_facecolor(BG)
+    ax1.scatter(x, y, color=BLUE, alpha=0.5, edgecolor="white", s=60)
+    ax1.set_xlabel("Marketing Spend ($K)", fontsize=FONT_SMALL)
+    ax1.set_ylabel("Revenue ($K)", fontsize=FONT_SMALL)
+    ax1.set_title(
+        "What am I looking at?",
+        fontsize=11,
+        color=TEXT_MID,
+        pad=10,
+    )
+    for s in ["top", "right"]:
+        ax1.spines[s].set_visible(False)
+    _bad_watermark(ax1)
+
+    # Right: annotated
+    ax2.set_facecolor(BG)
+    ax2.scatter(x, y, color=BLUE, alpha=0.5, edgecolor="white", s=60)
+
+    # Trend line
+    z = np.polyfit(x, y, 1)
+    p = np.poly1d(z)
+    x_line = np.linspace(x.min() - 5, x.max() + 5, 100)
+    ax2.plot(x_line, p(x_line), "--", color=DARK_GRAY, linewidth=1.5, alpha=0.7)
+
+    # Annotate notable points
+    annotations = [
+        (np.argmax(y), "Top performer:\nhigh ROI campaign", RED),
+        (np.argmin(y), "Underperformer:\nneeds review", ORANGE),
+        (
+            np.argmax(x),
+            "Highest spend:\ndiminishing returns?",
+            TEAL,
+        ),
+    ]
+    for idx, label, color in annotations:
+        ax2.annotate(
+            label,
+            xy=(x[idx], y[idx]),
+            xytext=(15, 15),
+            textcoords="offset points",
+            fontsize=FONT_TINY,
+            color=color,
+            fontweight="bold",
+            arrowprops=dict(arrowstyle="->", color=color, lw=1.2),
+            bbox=dict(
+                boxstyle="round,pad=0.2",
+                facecolor="white",
+                edgecolor=color,
+                alpha=0.9,
+            ),
+        )
+        ax2.scatter(
+            [x[idx]],
+            [y[idx]],
+            color=color,
+            s=100,
+            zorder=5,
+            edgecolor="white",
+            linewidth=1.5,
+        )
+
+    ax2.set_xlabel("Marketing Spend ($K)", fontsize=FONT_SMALL)
+    ax2.set_ylabel("Revenue ($K)", fontsize=FONT_SMALL)
+    ax2.set_title(
+        "Higher spend drives revenue, but with\ndiminishing returns above $60K",
+        fontsize=11,
+        fontweight="bold",
+        color=TEXT_DARK,
+        pad=10,
+    )
+    for s in ["top", "right"]:
+        ax2.spines[s].set_visible(False)
+    _good_watermark(ax2)
+
+    fig.suptitle(
+        "Annotation Techniques — From Data to Story",
+        fontsize=FONT_TITLE,
+        fontweight="bold",
+        color=TEXT_DARK,
+        y=1.02,
+    )
+    _save(fig, "annotation_techniques.png")
+
+
+# ===================================================================
 # Main
 # ===================================================================
 def main():
