@@ -126,7 +126,7 @@ A large retail chain needs to communicate monthly sales performance to store man
 
 ### Key Learnings
 
-1. **Focus on What Matters**: Show only the most important metrics. Walmart found that store managers made better decisions when presented with fewer, more relevant KPIs.
+1. **Focus on What Matters**: Show only the most important metrics. Store managers make better decisions when presented with fewer, more relevant KPIs.
 2. **Use Color Purposefully**: Red for negative, green for positive, neutral for context. Semantic color removes the mental step of decoding "what does this color mean?"
 3. **Create Clear Hierarchy**: Most important metrics at the top, prominent and large. Supporting information below, visually recessed.
 
