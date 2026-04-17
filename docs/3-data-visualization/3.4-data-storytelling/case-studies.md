@@ -34,7 +34,7 @@ Think of case studies like watching game film in sports — they show you what w
 
 ---
 
-## Case Study 1: Sales Performance Dashboard — Walmart's Store Analytics
+## Case Study 1: Sales Performance Dashboard (illustrative)
 
 ### The Challenge
 
