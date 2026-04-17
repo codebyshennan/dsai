@@ -902,7 +902,7 @@ def gen_story_creation_process():
     ]
     # Removed phase labels to keep it clean - the colors already group them
 
-    ax.set_xlim(-0.3, n * 1.25 + 0.3)
+    ax.set_xlim(-0.3, n * 1.4 + 0.3)
     ax.set_ylim(-0.1, 2.0)
     ax.set_xticks([])
     ax.set_yticks([])
