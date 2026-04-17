@@ -30,7 +30,7 @@ Think of data storytelling like being a tour guide for your data. Just as a good
 
 ### Why This Matters
 
-- **Better Understanding**: Studies show that people remember stories 22 times more than facts alone
+- **Better Understanding**: Studies suggest people remember stories up to 22 times more than facts alone (exact figures vary by study, but the direction is consistent)
 - **Clearer Communication**: Complex data becomes accessible to everyone
 - **Stronger Impact**: Stories create emotional connections that drive action
 - **Better Decisions**: Well-told data stories lead to more informed choices
