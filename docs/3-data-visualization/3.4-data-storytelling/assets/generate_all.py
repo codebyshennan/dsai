@@ -474,7 +474,7 @@ def gen_story_structure():
             )
 
     ax2.set_xlim(0, 5)
-    ax2.set_ylim(-0.2, 2.8)
+    ax2.set_ylim(-0.6, 2.8)
     ax2.set_xticks([])
     ax2.set_yticks([])
     for s in ax2.spines.values():
