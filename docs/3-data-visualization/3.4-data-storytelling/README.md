@@ -177,6 +177,8 @@ Choosing the right chart and color scheme is half the battle. The companion less
 
 ---
 
+![The Pyramid Principle: lead with the conclusion](assets/pyramid_principle.png)
+
 ## Practice Exercise: Build Your First Data Story
 
 ### Step 1: Gather Your Elements
