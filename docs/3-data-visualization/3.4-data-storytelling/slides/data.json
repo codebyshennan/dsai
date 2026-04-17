@@ -69,7 +69,7 @@
                     "**Primary elements** (the insight): bold, bright, large — your key metric or finding",
                     "**Secondary elements** (supporting data): medium weight and size — context that explains the insight",
                     "**Background elements** (reference): light, neutral — axes, benchmarks, grid",
-                    "Use size, colour, and position to signal importance — not decoration",
+                    "Use size, color, and position to signal importance — not decoration",
                     "The eye naturally moves top-left to bottom-right (Z-pattern) and down the left edge (F-pattern)",
                     "Place the most important number or chart where the eye lands first"
                 ]
@@ -125,9 +125,9 @@
                     "**Sequential palette**: for ordered data (light → dark = low → high values)",
                     "**Categorical palette**: for distinct groups that need clear differentiation",
                     "**Diverging palette**: for data that spans positive and negative (e.g. profit/loss)",
-                    "Use one highlight colour to draw attention to the key data point — grey out everything else",
-                    "Semantic colour: red = bad/alert, green = good/safe, blue = neutral — be consistent throughout",
-                    "Always test for colour-blind accessibility — avoid red/green only distinctions"
+                    "Use one highlight color to draw attention to the key data point — grey out everything else",
+                    "Semantic color: red = bad/alert, green = good/safe, blue = neutral — be consistent throughout",
+                    "Always test for color-blind accessibility — avoid red/green only distinctions"
                 ]
             }
         },
@@ -283,10 +283,10 @@
                 "type": "box",
                 "items": [
                     "**Challenge**: communicate monthly performance to 4,700+ store managers — original dashboard had 50+ KPIs",
-                    "**Bad version problems**: too many metrics, inconsistent colours, no hierarchy, no context, scattered layout",
-                    "**Good version fix**: reduced to 5–7 critical KPIs; green/red/neutral colour semantics; clear hierarchy by size and position; year-over-year comparisons; related metrics grouped together",
+                    "**Bad version problems**: too many metrics, inconsistent colors, no hierarchy, no context, scattered layout",
+                    "**Good version fix**: reduced to 5–7 critical KPIs; green/red/neutral color semantics; clear hierarchy by size and position; year-over-year comparisons; related metrics grouped together",
                     "**Key lesson**: store managers made better decisions with fewer, more relevant metrics",
-                    "**Key lesson**: semantic colour (green = positive, red = negative) enabled instant scanning",
+                    "**Key lesson**: semantic color (green = positive, red = negative) enabled instant scanning",
                     "**Key lesson**: most important metrics (daily sales, customer count) placed top-left where the eye lands first"
                 ]
             }
@@ -304,9 +304,9 @@
                 "items": [
                     "**Challenge**: 40% drop-off between signup and first playlist creation — original analysis was text-heavy paragraphs",
                     "**Bad version problems**: no flow diagram, missing drop-off metrics, no visual progression, no recommendations",
-                    "**Good version fix**: funnel diagram showing each step with conversion rates; colour-coded stages (green/yellow/red); callout annotation at the worst step; specific recommendations per stage",
+                    "**Good version fix**: funnel diagram showing each step with conversion rates; color-coded stages (green/yellow/red); callout annotation at the worst step; specific recommendations per stage",
                     "**Key lesson**: visual journey maps were 3× more effective at communicating insights than prose",
-                    "**Key lesson**: colour-coding by severity (green > 80%, yellow 50–80%, red < 50%) made bottlenecks instantly visible",
+                    "**Key lesson**: color-coding by severity (green > 80%, yellow 50–80%, red < 50%) made bottlenecks instantly visible",
                     "**Key lesson**: tying each insight directly to a recommendation made the analysis actionable"
                 ]
             }
@@ -340,7 +340,7 @@
                     "Is the key message visible on slide 1 without reading anything else?",
                     "Does every chart have an insight-driven title (not just a description)?",
                     "Is there one message per visualisation — no chart doing double duty?",
-                    "Are colours used consistently and with semantic meaning throughout?",
+                    "Are colors used consistently and with semantic meaning throughout?",
                     "Have all unnecessary chart elements (gridlines, borders, legends) been removed?",
                     "Does the presentation end with a specific, measurable call to action?",
                     "Has a colleague reviewed it and can state the main message back to you in one sentence?"
