@@ -208,19 +208,22 @@ def gen_visual_hierarchy():
             linewidth=1.5,
         )
         # Position label proportionally inside each bar
+        # Shrink font for narrow bars so text fits
+        label_fs = FONT_LABEL if width > 50 else FONT_SMALL
         ax.text(
             width * 0.05,
             y,
             label,
             va="center",
             ha="left",
-            fontsize=FONT_LABEL,
+            fontsize=label_fs,
             fontweight="bold",
             color="white" if i < 2 else TEXT_DARK,
         )
-        # Description text starts after the bar ends
+        # Description text starts well past the bar end
+        desc_x = max(width + 3, 38)
         ax.text(
-            width + 3,
+            desc_x,
             y,
             desc,
             va="center",
