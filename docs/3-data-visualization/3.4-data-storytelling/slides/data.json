@@ -22,7 +22,7 @@
                     "**Narrative** = the recipe — provides structure, flow, and meaning",
                     "**Story** = the finished dish — engaging, memorable, and drives action",
                     "Studies show people remember stories 22× more than facts alone",
-                    "Traditional reports: ~40% comprehension | Visualisation: ~65% | Data storytelling: ~85%",
+                    "Traditional reports: ~40% comprehension | Visualization: ~65% | Data storytelling: ~85%",
                     "Goal: transform numbers into insights that any audience can understand and act on"
                 ]
             }
@@ -48,7 +48,7 @@
         },
         {
             "type": "content",
-            "title": "One Message Per Visualisation",
+            "title": "One Message Per Visualization",
             "content": {
                 "type": "box",
                 "items": [
@@ -339,7 +339,7 @@
                 "items": [
                     "Is the key message visible on slide 1 without reading anything else?",
                     "Does every chart have an insight-driven title (not just a description)?",
-                    "Is there one message per visualisation — no chart doing double duty?",
+                    "Is there one message per visualization — no chart doing double duty?",
                     "Are colors used consistently and with semantic meaning throughout?",
                     "Have all unnecessary chart elements (gridlines, borders, legends) been removed?",
                     "Does the presentation end with a specific, measurable call to action?",
