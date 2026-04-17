@@ -172,7 +172,7 @@ def gen_story_arc():
 # 2. visual_hierarchy.png — Three-tier emphasis diagram
 # ===================================================================
 def gen_visual_hierarchy():
-    fig, ax = plt.subplots(figsize=(10, 5.5))
+    fig, ax = plt.subplots(figsize=(10, 6))
     ax.set_facecolor(BG)
 
     tiers = [
@@ -207,8 +207,9 @@ def gen_visual_hierarchy():
             edgecolor="white",
             linewidth=1.5,
         )
+        # Position label proportionally inside each bar
         ax.text(
-            3,
+            width * 0.05,
             y,
             label,
             va="center",
@@ -217,8 +218,9 @@ def gen_visual_hierarchy():
             fontweight="bold",
             color="white" if i < 2 else TEXT_DARK,
         )
+        # Description text starts after the bar ends
         ax.text(
-            width + 2,
+            width + 3,
             y,
             desc,
             va="center",
@@ -253,8 +255,8 @@ def gen_visual_hierarchy():
         color=TEXT_DARK,
     )
 
-    ax.set_xlim(-15, 130)
-    ax.set_ylim(-0.2, 3.0)
+    ax.set_xlim(-15, 135)
+    ax.set_ylim(-0.5, 3.2)
     ax.set_xticks([])
     ax.set_yticks([])
     for spine in ax.spines.values():
