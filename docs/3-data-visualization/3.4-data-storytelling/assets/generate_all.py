@@ -364,7 +364,7 @@ def gen_color_schemes():
 # 4. story_structure.png — Classic Arc vs SCR side-by-side
 # ===================================================================
 def gen_story_structure():
-    fig = plt.figure(figsize=(12, 5.5))
+    fig = plt.figure(figsize=(12, 6.5))
     gs = GridSpec(1, 2, figure=fig, width_ratios=[1.2, 1], wspace=0.35)
 
     # --- Classic Arc (left) ---
