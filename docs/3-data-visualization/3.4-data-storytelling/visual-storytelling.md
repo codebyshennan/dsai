@@ -174,6 +174,8 @@ The color schemes above demonstrate three key approaches:
 2. **Categorical**: For distinguishing different categories (e.g., blue, orange, green for different products)
 3. **Diverging**: For highlighting extremes from a center point (e.g., red-white-blue for below/at/above target)
 
+![Color emphasis demo: highlight the key data point](assets/color_emphasis_demo.png)
+
 #### Color Best Practices
 
 1. **Use Color Purposefully**
