@@ -1010,7 +1010,7 @@ def gen_color_palette_guide():
 # 10. quality_checklist.png — Visual QA checklist
 # ===================================================================
 def gen_quality_checklist():
-    fig, ax = plt.subplots(figsize=(9, 6))
+    fig, ax = plt.subplots(figsize=(11, 8))
     ax.set_facecolor(BG)
 
     items = [
@@ -1050,7 +1050,7 @@ def gen_quality_checklist():
             "✓",
             ha="center",
             va="center",
-            fontsize=12,
+            fontsize=14,
             color=color,
             fontweight="bold",
         )
@@ -1060,13 +1060,13 @@ def gen_quality_checklist():
             y + 0.05,
             label,
             va="center",
-            fontsize=FONT_LABEL,
+            fontsize=12,
             fontweight="bold",
             color=TEXT_DARK,
         )
-        ax.text(1.0, y - 0.25, desc, va="center", fontsize=FONT_TINY, color=TEXT_MID)
+        ax.text(1.0, y - 0.25, desc, va="center", fontsize=10, color=TEXT_MID)
 
-    ax.set_xlim(0, 9)
+    ax.set_xlim(0, 11)
     ax.set_ylim(-0.5, 10.5)
     ax.set_xticks([])
     ax.set_yticks([])
