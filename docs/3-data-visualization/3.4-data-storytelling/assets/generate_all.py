@@ -484,7 +484,7 @@ def gen_story_structure():
     )
     ax2.text(
         2.5,
-        -0.15,
+        -0.45,
         "Best for: executive briefings (5 min)",
         ha="center",
         fontsize=FONT_TINY,
