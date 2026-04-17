@@ -19,9 +19,9 @@ You've probably seen it before: two people present the same data — same number
 
 ## Helpful video
 
-Framing insights for others—related context for storytelling.
+David McCandless shows how visual design transforms raw data into insights — with real examples of charts that changed the conversation.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RBSUwFGa6Fk" title="What is Data Science?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5Zg-C8AAIGg" title="David McCandless: The beauty of data visualization" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction: The Power of Visual Communication
 
