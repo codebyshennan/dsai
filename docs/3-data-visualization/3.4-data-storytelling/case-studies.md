@@ -38,7 +38,7 @@ Think of case studies like watching game film in sports — they show you what w
 
 ### The Challenge
 
-Walmart needed to communicate monthly sales performance to store managers across their 4,700+ US stores. The original dashboard was cluttered and confusing, making it difficult for managers to identify key performance issues and opportunities.
+A large retail chain needs to communicate monthly sales performance to store managers across thousands of locations. The original dashboard is cluttered and confusing, making it difficult for managers to identify key performance issues and opportunities.
 
 ### The Bad Version
 
