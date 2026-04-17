@@ -451,7 +451,7 @@ Tesla's finance team needed to present quarterly results to the board of directo
 
 ---
 
-## Case Study 5: Product Usage Analytics — Netflix's Content Strategy
+## Case Study 5: Product Usage Analytics (illustrative)
 
 ### The Challenge
 
