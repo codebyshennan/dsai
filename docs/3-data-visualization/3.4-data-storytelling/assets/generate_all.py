@@ -9,7 +9,7 @@ Produces polished PNGs in the same directory as this script.
 
 from pathlib import Path
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch, Polygon
+from matplotlib.patches import FancyBboxPatch, Polygon  # noqa: F401
 from matplotlib.gridspec import GridSpec
 import numpy as np
 import seaborn as sns
@@ -2291,7 +2291,6 @@ def gen_pyramid_principle():
                 [5 - half_w * 0.85, y + tier_height / 2],
             ]
         )
-        from matplotlib.patches import Polygon
 
         poly = Polygon(
             verts, facecolor=color, alpha=0.75, edgecolor="white", linewidth=2
