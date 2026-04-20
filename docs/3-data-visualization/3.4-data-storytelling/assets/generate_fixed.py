@@ -216,7 +216,7 @@ def good_dashboard():
     ax2.set_xlim(0, 48)
     ax2.spines["top"].set_visible(False)
     ax2.spines["right"].set_visible(False)
-    ax2.grid(axis="x", alpha=0.3)
+    ax2.grid(axis="x", alpha=0.15, color="#e0e0e0")
 
     # Bottom: detail table stub
     ax3 = fig.add_axes([0.04, 0.04, 0.93, 0.18])
