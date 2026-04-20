@@ -534,7 +534,7 @@ def good_dashboard_hierarchy():
         ax.set_title(title, fontsize=10, color=WALMART)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
-        ax.grid(axis="y", alpha=0.3)
+        ax.grid(axis="y", alpha=0.15, color="#e0e0e0")
 
     fig.text(
         0.02,
