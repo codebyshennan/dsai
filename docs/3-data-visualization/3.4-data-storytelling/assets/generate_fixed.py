@@ -1822,7 +1822,7 @@ def good_financial():
         ax2.text(i, v + 0.2, f"${v}B", ha="center", fontsize=10, fontweight="bold")
     ax2.set_title("Q3 Revenue YoY", fontsize=10, fontweight="bold", color=TESLA)
     ax2.set_ylabel("Revenue ($B)", fontsize=9)
-    ax2.grid(axis="y", alpha=0.3)
+    ax2.grid(axis="y", alpha=0.15, color="#e0e0e0")
     ax2.spines["top"].set_visible(False)
     ax2.spines["right"].set_visible(False)
 
