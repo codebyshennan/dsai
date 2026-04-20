@@ -143,6 +143,8 @@ def bad_dashboard():
 
 def good_dashboard():
     fig = plt.figure(figsize=(14, 8), facecolor="white")
+    fig.patch.set_linewidth(1.5)
+    fig.patch.set_edgecolor("#e0e0e0")
     fig.text(
         0.5,
         0.97,
