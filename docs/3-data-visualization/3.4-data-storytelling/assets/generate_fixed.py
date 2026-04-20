@@ -1962,7 +1962,7 @@ def good_financial_comparison():
         color=TESLA,
     )
     ax.legend(fontsize=10)
-    ax.grid(axis="y", alpha=0.3)
+    ax.grid(axis="y", alpha=0.15, color="#e0e0e0")
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     plt.tight_layout()
