@@ -24,14 +24,14 @@ TESLA = "#E31937"
 NETFLIX = "#E50914"
 
 
-def kpi_card(fig, x, y, w, h, label, value, delta, positive, spark):
+def kpi_card(fig, x, y, w, h, label, value, delta, positive, spark, color=WALMART, bg="#eef3fb"):
     rect = FancyBboxPatch(
         (x, y),
         w,
         h,
         boxstyle="round,pad=0.005",
-        facecolor="#eef3fb",
-        edgecolor=WALMART,
+        facecolor=bg,
+        edgecolor=color,
         linewidth=1.5,
         transform=fig.transFigure,
         clip_on=False,
