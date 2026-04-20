@@ -1744,7 +1744,20 @@ def good_financial():
     ]
     cw, gap, sx, cy, ch = 0.22, 0.04, 0.04, 0.71, 0.20
     for i, ((lbl, val, dlt, pos), sp) in enumerate(zip(kpis, sparks)):
-        kpi_card(fig, sx + i * (cw + gap), cy, cw, ch, lbl, val, dlt, pos, sp)
+        kpi_card(
+            fig,
+            sx + i * (cw + gap),
+            cy,
+            cw,
+            ch,
+            lbl,
+            val,
+            dlt,
+            pos,
+            sp,
+            color=TESLA,
+            bg="#fff0ee",
+        )
 
     # 8-quarter revenue trend
     ax1 = fig.add_axes([0.04, 0.27, 0.62, 0.38])
