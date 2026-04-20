@@ -24,7 +24,9 @@ TESLA = "#E31937"
 NETFLIX = "#E50914"
 
 
-def kpi_card(fig, x, y, w, h, label, value, delta, positive, spark, color=WALMART, bg="#eef3fb"):
+def kpi_card(
+    fig, x, y, w, h, label, value, delta, positive, spark, color=WALMART, bg="#eef3fb"
+):
     rect = FancyBboxPatch(
         (x, y),
         w,
@@ -57,7 +59,7 @@ def kpi_card(fig, x, y, w, h, label, value, delta, positive, spark, color=WALMAR
         va="center",
         fontsize=13,
         fontweight="bold",
-        color=WALMART,
+        color=color,
         transform=fig.transFigure,
     )
     fig.text(
@@ -71,8 +73,8 @@ def kpi_card(fig, x, y, w, h, label, value, delta, positive, spark, color=WALMAR
         transform=fig.transFigure,
     )
     ax = fig.add_axes([x + 0.008, y + 0.008, w - 0.016, 0.038])
-    ax.plot(spark, color=WALMART, linewidth=1.5)
-    ax.fill_between(range(len(spark)), spark, alpha=0.2, color=WALMART)
+    ax.plot(spark, color=color, linewidth=1.5)
+    ax.fill_between(range(len(spark)), spark, alpha=0.2, color=color)
     ax.axis("off")
 
 
