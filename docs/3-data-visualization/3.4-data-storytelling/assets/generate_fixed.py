@@ -1835,7 +1835,20 @@ def good_financial_metrics():
         ("Free Cash Flow", "$1.4B", "-57% YoY", False),
     ]
     for i, ((lbl, val, dlt, pos), sp) in enumerate(zip(kpis, sparks)):
-        kpi_card(fig, 0.04 + i * 0.33, 0.10, 0.28, 0.76, lbl, val, dlt, pos, sp)
+        kpi_card(
+            fig,
+            0.04 + i * 0.33,
+            0.10,
+            0.28,
+            0.76,
+            lbl,
+            val,
+            dlt,
+            pos,
+            sp,
+            color=TESLA,
+            bg="#fff0ee",
+        )
     plt.savefig("good_financial_metrics.png", bbox_inches="tight", dpi=150)
     plt.close()
 
