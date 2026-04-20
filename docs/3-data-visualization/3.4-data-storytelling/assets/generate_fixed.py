@@ -1350,7 +1350,7 @@ def good_campaign():
         "Spend vs Efficiency — bubble = channel", fontsize=10, fontweight="bold"
     )
     ax3.legend(fontsize=9)
-    ax3.grid(alpha=0.3)
+    ax3.grid(alpha=0.15, color="#e0e0e0")
     ax3.spines["top"].set_visible(False)
     ax3.spines["right"].set_visible(False)
 
