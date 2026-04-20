@@ -445,7 +445,7 @@ def good_dashboard_colors():
         plt.Line2D([0], [0], color="#333", linestyle="--", marker="o", label="Target"),
     ]
     ax.legend(handles=handles, fontsize=9, loc="upper right")
-    ax.grid(axis="y", alpha=0.3)
+    ax.grid(axis="y", alpha=0.15, color="#e0e0e0")
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     plt.tight_layout()
