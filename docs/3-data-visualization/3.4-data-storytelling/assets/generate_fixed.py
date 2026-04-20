@@ -913,6 +913,19 @@ def good_journey_flow():
                 xytext=(x + box_w + 0.05, 2.5),
                 arrowprops=dict(arrowstyle="->", color="#666", lw=2.0),
             )
+            drop_labels = ["", "-15%", "-15%", "-15%", "-40%"]
+            if drop_labels[i + 1]:
+                dcol = R if drop_labels[i + 1] == "-40%" else Y
+                ax.text(
+                    (x + box_w + xs[i + 1]) / 2,
+                    2.1,
+                    drop_labels[i + 1],
+                    ha="center",
+                    va="center",
+                    fontsize=9,
+                    color=dcol,
+                    fontweight="bold",
+                )
     plt.tight_layout()
     plt.savefig("good_journey_flow.png", bbox_inches="tight", dpi=150)
     plt.close()
