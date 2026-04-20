@@ -846,10 +846,10 @@ def good_journey_flow():
 
     steps = [
         ("Sign Up", "✉", "100%", G),
-        ("Profile", "👤", "85%", G),
+        ("Profile", "◉", "85%", G),
         ("Preferences", "♪", "70%", G),
-        ("Search", "🔍", "55%", Y),
-        ("Create Playlist", "📋", "33%", R),
+        ("Search", "⊙", "55%", Y),
+        ("Create Playlist", "≡", "33%", R),
     ]
     box_w, box_h = 2.0, 1.6
     xs = [0.5, 3.0, 5.5, 8.0, 10.5]
