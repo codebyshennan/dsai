@@ -1485,7 +1485,7 @@ def good_campaign_comparisons():
     ax.legend(handles=handles, fontsize=9, loc="lower right")
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.grid(axis="x", alpha=0.3)
+    ax.grid(axis="x", alpha=0.15, color="#e0e0e0")
     plt.tight_layout()
     plt.savefig("good_campaign_comparisons.png", bbox_inches="tight", dpi=150)
     plt.close()
