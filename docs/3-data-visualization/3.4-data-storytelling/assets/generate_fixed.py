@@ -1915,7 +1915,7 @@ def good_financial_trends():
     ax.set_xticks(range(10))
     ax.set_xticklabels(list(qs) + ["Q1'23", "Q2'23"], fontsize=9)
     ax.set_ylabel("Revenue ($B)", fontsize=10)
-    ax.grid(axis="y", alpha=0.3)
+    ax.grid(axis="y", alpha=0.15, color="#e0e0e0")
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     plt.tight_layout()
