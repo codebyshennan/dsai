@@ -1809,7 +1809,7 @@ def good_financial():
     ax1.set_ylabel("Revenue ($B)", fontsize=9)
     ax1.set_xticks(range(len(qs)))
     ax1.set_xticklabels(qs, fontsize=8)
-    ax1.grid(axis="y", alpha=0.3)
+    ax1.grid(axis="y", alpha=0.15, color="#e0e0e0")
     ax1.spines["top"].set_visible(False)
     ax1.spines["right"].set_visible(False)
 
