@@ -201,10 +201,10 @@ const OVERRIDES = {
   "4-stat-analysis/4.1-inferential-stats": [
     "README.md",
     "population-sample.md",
-    "parameters-statistics.md",
     "sampling-distributions.md",
     "confidence-intervals.md",
     "p-values.md",
+    "parameters-statistics.md",
   ],
   "4-stat-analysis/4.2-hypotheses-testing": [
     "README.md",
