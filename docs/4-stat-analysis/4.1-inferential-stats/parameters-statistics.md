@@ -184,16 +184,16 @@ ci_upper = sample_mean + margin_of_error
 print(f"\nConfidence Interval Analysis")
 print(f"{confidence_level*100}% Confidence Interval:")
 print(f"({ci_lower:.2f}, {ci_upper:.2f}) feet")
-print(f"Interpretation: We're {confidence_level*100}% confident the true average")
-print(f"tree height falls between {ci_lower:.2f} and {ci_upper:.2f} feet")
+print(f"Interpretation: across repeated samples, {confidence_level*100}% of intervals")
+print(f"built this way would capture the true mean; this one is ({ci_lower:.2f}, {ci_upper:.2f}) feet")
 {% endhighlight %}
 ```
 
 Confidence Interval Analysis
 95.0% Confidence Interval:
 (96.90, 102.82) feet
-Interpretation: We're 95.0% confident the true average
-tree height falls between 96.90 and 102.82 feet
+Interpretation: across repeated samples, 95.0% of intervals
+built this way would capture the true mean; this one is (96.90, 102.82) feet
 ```
 
 
