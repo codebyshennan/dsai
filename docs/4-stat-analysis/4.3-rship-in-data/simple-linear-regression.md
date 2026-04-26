@@ -14,7 +14,7 @@ Simple linear regression estimates an **intercept** and a **slope** that minimiz
 ## Prerequisites
 
 - [Correlation analysis](./correlation-analysis.md).
-- Optional: [tutorial notebook](./tutorial.ipynb).
+- Optional: [tutorial notebook](./relationships-in-data.ipynb).
 
 > **Note:** Assumptions (linearity, independence, homoscedasticity, normal errors) appear again in [model diagnostics](./model-diagnostics.md).
 
