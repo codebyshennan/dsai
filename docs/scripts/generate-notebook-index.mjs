@@ -41,11 +41,16 @@ function pickPrimaryNotebook(dir) {
   return files[0];
 }
 
+// Only index submodule directories (folders named like "1.2-intro-python").
+const SUBMODULE_RE = /^\d+\.\d+-/;
+
 function walk(dir) {
-  const primary = pickPrimaryNotebook(dir);
-  if (primary) {
-    const rel = path.relative(DOCS_ROOT, dir).split(path.sep).join("/");
-    entries[rel] = primary;
+  if (SUBMODULE_RE.test(path.basename(dir))) {
+    const primary = pickPrimaryNotebook(dir);
+    if (primary) {
+      const rel = path.relative(DOCS_ROOT, dir).split(path.sep).join("/");
+      entries[rel] = primary;
+    }
   }
 
   let dirEntries;
