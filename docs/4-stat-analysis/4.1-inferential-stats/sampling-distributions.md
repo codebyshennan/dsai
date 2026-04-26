@@ -471,26 +471,6 @@ def polling_demo():
     print(f"Sample Size: {sample_size:,}")
 {% endhighlight %}
 
-<figure>
-<img src="assets/sampling-distributions_fig_1.png" alt="sampling-distributions" />
-<figcaption>Figure 1: Population Distribution
-(Exponential Distribution)</figcaption>
-</figure>
-
-
-<figure>
-<img src="assets/sampling-distributions_fig_2.png" alt="sampling-distributions" />
-<figcaption>Figure 2: Sample Size: 10
-SE: 4.72</figcaption>
-</figure>
-
-
-<figure>
-<img src="assets/sampling-distributions_fig_3.png" alt="sampling-distributions" />
-<figcaption>Figure 3: Quality Control Measurements</figcaption>
-</figure>
-
-
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="5-7" data-tint="1">
