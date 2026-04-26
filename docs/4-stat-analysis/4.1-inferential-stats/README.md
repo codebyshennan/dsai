@@ -31,8 +31,8 @@ By the end of this module, you will:
 Follow this sequence (it matches the site lesson navigation):
 
 1. [Population vs sample](./population-sample.md) — Definitions and sampling methods  
-2. [Confidence intervals](./confidence-intervals.md) — Ranges that express uncertainty around an estimate  
-3. [Sampling distributions](./sampling-distributions.md) — Why statistics vary from sample to sample (CLT, standard error)  
+2. [Sampling distributions](./sampling-distributions.md) — Why statistics vary from sample to sample (CLT, standard error)  
+3. [Confidence intervals](./confidence-intervals.md) — Ranges that express uncertainty around an estimate  
 4. [Understanding p-values](./p-values.md) — What “surprising under the null” means in practice  
 5. [Parameters and statistics](./parameters-statistics.md) — Notation, estimators, and tying ideas together  
 
