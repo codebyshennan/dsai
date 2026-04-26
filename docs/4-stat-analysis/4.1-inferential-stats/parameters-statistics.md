@@ -47,6 +47,16 @@ In statistical inference, we distinguish between parameters and statistics. Para
 - Typically denoted by Latin letters (e.g., x̄, s, s², r, p)
 - Examples: sample mean, sample standard deviation, sample proportion
 
+### Estimator vs estimate vs statistic
+
+These three words sound interchangeable but mean different things, and the distinction matters once you start reasoning about hypothesis tests and regression:
+
+- **Estimator** — the *rule or formula* you apply to data. Example: "take the arithmetic mean of the sample." An estimator is a function; it has properties like bias and variance regardless of which dataset you feed it.
+- **Estimate** — the *single number* the estimator produces on one specific dataset. Example: \\(\bar x = 99.86\\) feet for the sample of 100 trees below. Run the estimator on a different sample and you get a different estimate.
+- **Statistic** — any quantity computed from sample data. Every estimate is a statistic, but "statistic" is also the broader umbrella that covers things you would never use as estimators (e.g., the sample minimum, or a test statistic like \\(t\\)).
+
+When the lesson says "the sample mean is unbiased," the subject is the estimator (the rule), not any one estimate. A specific value like \\(\bar x = 99.86\\) is neither biased nor unbiased—it's just a number.
+
 ![Parameter-Statistic Relationship](assets/parameter_statistic_diagram.png)
 *Figure 1: Visual representation of the relationship between population parameters and sample statistics. Parameters (Greek letters) describe the entire population, while statistics (Latin letters) are calculated from samples to estimate these parameters.*
 
