@@ -832,9 +832,6 @@ Mean difference: 0.1
 - Forest plots
 - Confidence bands
 
-![CI Best Practices](assets/ci_best_practices.png)
-*Figure 5: Visual guide to best practices for using confidence intervals. The diagram shows how to properly report and interpret confidence intervals.*
-
 ## Practice Questions
 
 1. A 95% CI for mean customer satisfaction is (7.2, 7.8). What does this mean in practical terms?
