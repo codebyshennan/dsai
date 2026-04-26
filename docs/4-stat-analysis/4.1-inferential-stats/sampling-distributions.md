@@ -142,16 +142,7 @@ for dist in distributions:
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-4" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Imports</span>
-    </div>
-    <div class="code-callout__body">
-      <p>Import NumPy, Matplotlib, and SciPy stats for population generation and curve fitting.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="10-24" data-tint="2">
+  <div class="code-callout" data-lines="10-23" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
       <span class="code-callout__title">Build population</span>
@@ -160,31 +151,22 @@ for dist in distributions:
       <p>Switch on <code>distribution</code> to build an exponential, uniform, or bimodal skewed population of 10,000 values.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="26-29" data-tint="3">
+  <div class="code-callout" data-lines="26-29" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Sampling distribution</span>
+      <span class="code-callout__title">Collect sample means</span>
     </div>
     <div class="code-callout__body">
-      <p>Collect 1,000 sample means; this list is the empirical sampling distribution shown in subplot 3.</p>
+      <p>Repeatedly sample n=30 from the population and store each mean. This list is the empirical sampling distribution.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="31-51" data-tint="4">
+  <div class="code-callout" data-lines="46-50" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Three-panel figure</span>
+      <span class="code-callout__title">Overlay the normal curve</span>
     </div>
     <div class="code-callout__body">
-      <p>Panel 1: raw population. Panel 2: one sample. Panel 3: histogram of many means with an overlaid normal curve to illustrate CLT convergence.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="55-59" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Save all variants</span>
-    </div>
-    <div class="code-callout__body">
-      <p>Loop over three population shapes and save each three-panel figure as a PNG for the lesson assets.</p>
+      <p>Fit a normal curve to the simulated means and overlay it on the histogram — the visual signature of CLT.</p>
     </div>
   </div>
 </aside>
