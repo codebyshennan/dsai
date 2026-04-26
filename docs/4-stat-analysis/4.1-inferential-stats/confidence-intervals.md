@@ -154,49 +154,31 @@ the true average BP reduction; this one is (9.1, 10.2) mm Hg
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-7" data-tint="1">
+  <div class="code-callout" data-lines="11" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Imports and setup</span>
-    </div>
-    <div class="code-callout__body">
-      <p>Import NumPy, SciPy stats, and Matplotlib, then fix the random seed for reproducible results.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="9-11" data-tint="2">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Simulate data</span>
+      <span class="code-callout__title">Simulate trial data</span>
     </div>
     <div class="code-callout__body">
       <p>Generate 100 blood-pressure-reduction values from a normal distribution centred at 10 mmHg.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-22" data-tint="3">
+  <div class="code-callout" data-lines="20-22" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Compute the CI</span>
+      <span class="code-callout__title">t critical value and margin</span>
     </div>
     <div class="code-callout__body">
-      <p>Calculate the t-critical value for 95% confidence, then build lower and upper bounds using the margin of error formula.</p>
+      <p>Look up the t critical at n−1 degrees of freedom, multiply by s/√n to get the margin of error.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="24-38" data-tint="4">
+  <div class="code-callout" data-lines="24-25" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Visualize results</span>
+      <span class="code-callout__title">Build the interval</span>
     </div>
     <div class="code-callout__body">
-      <p>Plot the histogram of treatment effects with vertical lines and a shaded band marking the confidence interval.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="40-46" data-tint="1">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Print summary</span>
-    </div>
-    <div class="code-callout__body">
-      <p>Print the mean effect and interval bounds with a plain-language interpretation of 95% confidence.</p>
+      <p>Lower and upper bounds are the sample mean ± margin of error.</p>
     </div>
   </div>
 </aside>
