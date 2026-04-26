@@ -144,6 +144,11 @@
   - "looker-studio-case-study.md"
   - "powerbi-case-study.md"
   - "advanced-analytics.md"
+  - "ai-tools-integration.md"
+
+"3-data-visualization/3.3-bi-with-tableau/_assignments":
+  - "README.md"
+  - "bi-dashboard-project.md"
 
 "3-data-visualization/3.3-bi-with-tableau/assets":
   - "README.md"
@@ -164,10 +169,13 @@
 "4-stat-analysis/4.1-inferential-stats":
   - "README.md"
   - "population-sample.md"
-  - "parameters-statistics.md"
   - "sampling-distributions.md"
   - "confidence-intervals.md"
   - "p-values.md"
+  - "parameters-statistics.md"
+
+"4-stat-analysis/4.1-inferential-stats/_assignments":
+  - "practice-quiz.md"
 
 "4-stat-analysis/4.2-hypotheses-testing":
   - "README.md"
@@ -177,6 +185,9 @@
   - "ab-testing.md"
   - "results-analysis.md"
 
+"4-stat-analysis/4.2-hypotheses-testing/_assignments":
+  - "practice-quiz.md"
+
 "4-stat-analysis/4.3-rship-in-data":
   - "README.md"
   - "understanding-relationships.md"
@@ -185,6 +196,9 @@
   - "multiple-linear-regression.md"
   - "model-diagnostics.md"
 
+"4-stat-analysis/4.3-rship-in-data/_assignments":
+  - "practice-quiz.md"
+
 "4-stat-analysis/4.4-stat-modelling":
   - "README.md"
   - "logistic-regression.md"
@@ -192,6 +206,9 @@
   - "model-selection.md"
   - "regularization.md"
   - "model-interpretation.md"
+
+"4-stat-analysis/4.4-stat-modelling/_assignments":
+  - "practice-quiz.md"
 
 "5-ml-fundamentals":
   - "README.md"
