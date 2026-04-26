@@ -37,14 +37,14 @@ In statistical inference, we distinguish between parameters and statistics. Para
 ### Parameters
 
 - Fixed, unknown values that describe a population
-- Typically denoted by Greek letters (e.g., μ, σ, σ², ρ, π)
+- Typically denoted by Greek letters (e.g., \\(\mu\\), \\(\sigma\\), \\(\sigma^2\\), \\(\rho\\), \\(\pi\\))
 - Examples: population mean, population standard deviation, population proportion
 
 ### Statistics
 
 - Calculated values from sample data
 - Used to estimate population parameters
-- Typically denoted by Latin letters (e.g., x̄, s, s², r, p)
+- Typically denoted by Latin letters (e.g., \\(\bar x\\), \\(s\\), \\(s^2\\), \\(r\\), \\(\hat p\\))
 - Examples: sample mean, sample standard deviation, sample proportion
 
 ### Estimator vs estimate vs statistic
