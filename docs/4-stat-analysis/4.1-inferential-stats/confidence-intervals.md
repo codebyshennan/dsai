@@ -202,8 +202,8 @@ the true average BP reduction; this one is (9.1, 10.2) mm Hg
 Clinical Trial Analysis
 Average BP Reduction: 9.7 mm Hg
 95% CI: (9.1, 10.2) mm Hg
-Interpretation: We're 95% confident that the true average
-BP reduction lies between 9.1 and 10.2 mm Hg
+Interpretation: 95% of intervals built this way capture
+the true average BP reduction; this one is (9.1, 10.2) mm Hg
 ```
 
 *Note: The visualization shows the distribution of treatment effects with the mean (red dashed line) and 95% confidence interval (blue shaded area). This helps us understand both the central tendency and the uncertainty in our estimate.*
