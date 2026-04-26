@@ -28,11 +28,8 @@ The rest of the module reuses these words constantly. Memorize the definitions, 
 - **Population**: The complete set of all items or individuals we want to study
 - **Sample**: A subset of the population that we actually measure
 - **Sampling**: The process of selecting a sample from a population
-- **Parameter**: A numerical characteristic of a population
+- **Parameter**: A numerical characteristic of a population (formal symbols come up in the [parameters and statistics](./parameters-statistics.md) lesson)
 - **Statistic**: A numerical characteristic of a sample
-
-![Key Terms Visualization](assets/parameter_statistic_diagram.png)
-*Figure 1: Visual representation of key terms in sampling. The diagram shows how parameters describe populations and statistics describe samples.*
 
 ## Introduction: The Detective Analogy
 
