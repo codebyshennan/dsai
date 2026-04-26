@@ -185,6 +185,7 @@ sample_std = np.std(sample, ddof=1)  # ddof=1 for sample standard deviation
 sample_size = len(sample)
 
 # Calculate margin of error
+# (1 + confidence_level) / 2 = 0.975: two-sided, upper tail at α/2.
 margin_of_error = stats.t.ppf((1 + confidence_level) / 2, sample_size - 1) * \
                  (sample_std / np.sqrt(sample_size))
 
