@@ -461,11 +461,6 @@ def quality_control_example():
     }
 {% endhighlight %}
 
-<figure>
-<img src="assets/parameters-statistics_fig_1.png" alt="parameters-statistics" />
-<figcaption>Figure 1: Generated visualization</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -532,11 +527,6 @@ def ab_testing_example():
         'confidence_interval': ci
     }
 {% endhighlight %}
-
-<figure>
-<img src="assets/parameters-statistics_fig_1.png" alt="parameters-statistics" />
-<figcaption>Figure 1: Generated visualization</figcaption>
-</figure>
 
 
 </div>
@@ -692,11 +682,6 @@ def demonstrate_sampling_distribution():
     }
 {% endhighlight %}
 
-<figure>
-<img src="assets/parameters-statistics_fig_1.png" alt="parameters-statistics" />
-<figcaption>Figure 1: Generated visualization</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -782,11 +767,6 @@ def demonstrate_clt():
     plt.tight_layout()
     plt.show()
 {% endhighlight %}
-
-<figure>
-<img src="assets/parameters-statistics_fig_1.png" alt="parameters-statistics" />
-<figcaption>Figure 1: Generated visualization</figcaption>
-</figure>
 
 
 </div>
