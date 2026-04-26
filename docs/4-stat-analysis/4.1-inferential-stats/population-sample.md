@@ -147,31 +147,31 @@ Difference: 0.51
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-8" data-tint="1">
+  <div class="code-callout" data-lines="5" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Population and sample</span>
+      <span class="code-callout__title">The population</span>
     </div>
     <div class="code-callout__body">
-      <p>Generate a production population of 10,000 items with mean 100, then draw a without-replacement sample of 100 items.</p>
+      <p>10,000 production items with target mean 100 — stand-in for "everything we made this batch."</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="10-29" data-tint="2">
+  <div class="code-callout" data-lines="8" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Side-by-side histograms</span>
+      <span class="code-callout__title">The sample</span>
     </div>
     <div class="code-callout__body">
-      <p>Plot population and sample distributions in two subplots, each with a dashed red line marking the respective mean.</p>
+      <p>Draw 100 items without replacement — what we'd actually inspect on the line.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="32-36" data-tint="3">
+  <div class="code-callout" data-lines="34-36" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Mean comparison</span>
+      <span class="code-callout__title">μ vs x̄</span>
     </div>
     <div class="code-callout__body">
-      <p>Print population mean, sample mean, and the absolute difference to illustrate how close a well-drawn sample can be to the truth.</p>
+      <p>Compare population mean to sample mean. The difference quantifies how much one draw of 100 wobbles from the truth.</p>
     </div>
   </div>
 </aside>
