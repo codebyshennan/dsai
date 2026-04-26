@@ -204,9 +204,9 @@ The standard error (SE) tells us how much sample statistics typically deviate fr
 
 ### Formula for Different Statistics
 
-1. For means: $$SE(X̄) = \frac{σ}{\sqrt{n}}$$
-2. For proportions: $$SE(p) = \sqrt{\frac{p(1-p)}{n}}$$
-3. For differences: $$SE(X̄_1 - X̄_2) = \sqrt{\frac{σ_1^2}{n_1} + \frac{σ_2^2}{n_2}}$$
+1. For means: \\(SE(\bar X) = \dfrac{\sigma}{\sqrt{n}}\\)
+2. For proportions: \\(SE(\hat p) = \sqrt{\dfrac{p(1-p)}{n}}\\)
+3. For differences: \\(SE(\bar X_1 - \bar X_2) = \sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}\\)
 
 Let's see how sample size affects SE:
 
