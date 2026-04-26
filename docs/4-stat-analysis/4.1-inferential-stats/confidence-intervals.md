@@ -745,31 +745,31 @@ Mean difference: 0.1
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-16" data-tint="1">
+  <div class="code-callout" data-lines="6-7" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Welch-style CI</span>
+      <span class="code-callout__title">Unpooled standard error</span>
     </div>
     <div class="code-callout__body">
-      <p>Compute the unpooled standard error and Welch–Satterthwaite degrees of freedom, then build the CI on the mean difference.</p>
+      <p>√(s₁²/n₁ + s₂²/n₂) — each group contributes its own variance, no equal-variance assumption.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="18-22" data-tint="2">
+  <div class="code-callout" data-lines="10" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Two-group example</span>
+      <span class="code-callout__title">Welch–Satterthwaite df</span>
     </div>
     <div class="code-callout__body">
-      <p>Generate scores for two teaching methods and call the CI function to quantify the uncertainty in their difference.</p>
+      <p>Approximate degrees of freedom when the two groups have unequal variances.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="24-34" data-tint="3">
+  <div class="code-callout" data-lines="14-16" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Boxplot comparison</span>
+      <span class="code-callout__title">Margin and CI</span>
     </div>
     <div class="code-callout__body">
-      <p>Side-by-side box plots contrast the two groups; the printed CI tells whether the difference is distinguishable from zero.</p>
+      <p>Margin = t·SE; CI is centred on the observed difference. If it crosses zero, the data don't distinguish the groups.</p>
     </div>
   </div>
 </aside>
