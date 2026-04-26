@@ -74,7 +74,7 @@ Understanding relationships in data is a core skill for analysis and modelling. 
 ## Getting Started
 
 1. Begin with the [Understanding Relationships](./understanding-relationships.md) guide
-2. Follow along with the [tutorial notebook](./tutorial.ipynb)
+2. Follow along with the [tutorial notebook](./relationships-in-data.ipynb)
 3. Practice with the provided examples
 4. Try applying these concepts to your own data
 
