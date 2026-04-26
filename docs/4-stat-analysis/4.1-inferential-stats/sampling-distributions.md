@@ -19,8 +19,8 @@ StatQuest introduction to confidence intervals.
 
 ## Prerequisites
 
-- [Confidence intervals](./confidence-intervals.md) for interval intuition.
-- [Population vs sample](./population-sample.md) if you need a refresher on repeated sampling.
+- [Population vs sample](./population-sample.md) for the population/sample/parameter/statistic vocabulary.
+- Comfort with means, standard deviation, and basic probability.
 
 > **Note:** Simulation plots in this lesson are optional; the written CLT summary is the core outcome.
 
