@@ -57,6 +57,20 @@ The Central Limit Theorem states that for sufficiently large samples:
 2. This holds true regardless of the population's distribution
 3. The larger the sample size, the more normal it becomes
 
+#### How large is "sufficiently large"?
+
+The folklore answer is "n ≥ 30," which is fine as a default but hides important nuance: how fast the sampling distribution becomes approximately normal depends on the *shape* of the underlying population. A useful rule of thumb:
+
+| Population shape | Approximate \\(n\\) needed |
+|---|---|
+| Already normal | any \\(n\\) (the sampling distribution of \\(\bar x\\) is exactly normal) |
+| Roughly symmetric, light tails (e.g., uniform) | \\(n \approx 15\text{–}20\\) |
+| Mild skew or moderate outliers | \\(n \approx 30\text{–}40\\) (the textbook rule) |
+| Strong skew (e.g., exponential, income, waiting times) | \\(n \approx 50\text{–}100\\) or more |
+| Binomial with \\(p\\) near 0 or 1 | typically \\(np \geq 10\\) and \\(n(1-p) \geq 10\\) |
+
+So when you read "n=30 is enough," ask: *enough for what kind of population?* The simulations later in this lesson will let you see the convergence speed for several shapes.
+
 Let's see it in action!
 
 **CLT simulation: population → one sample → distribution of \\(\bar x\\)**
