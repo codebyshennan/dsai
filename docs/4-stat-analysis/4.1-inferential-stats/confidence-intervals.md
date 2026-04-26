@@ -739,6 +739,7 @@ def diff_means_ci(group1, group2, confidence=0.95):
     df = (var1/n1 + var2/n2)**2 / ((var1/n1)**2/(n1-1) + (var2/n2)**2/(n2-1))
 
     # Calculate CI
+    # (1 + confidence) / 2 = 0.975: two-sided t critical value at α/2.
     t_val = stats.t.ppf((1 + confidence) / 2, df)
     margin = t_val * se
 
