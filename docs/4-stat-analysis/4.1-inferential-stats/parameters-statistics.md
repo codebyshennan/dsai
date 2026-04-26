@@ -19,7 +19,7 @@ StatQuest introduction to confidence intervals.
 
 ## Prerequisites
 
-- [Population vs sample](./population-sample.md) and [Understanding p-values](./p-values.md).
+- All earlier lessons in this submodule: [population vs sample](./population-sample.md), [sampling distributions](./sampling-distributions.md), [confidence intervals](./confidence-intervals.md), and [understanding p-values](./p-values.md).
 - Optional: [Module 1.3 statistics](../../1-data-fundamentals/1.3-intro-statistics/README.md) for notation refresh.
 
 > **Note:** This lesson consolidates vocabulary from earlier files in submodule 4.1; skim the headings if you are already comfortable with Greek vs Latin symbols.
