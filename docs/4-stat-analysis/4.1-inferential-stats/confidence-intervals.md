@@ -62,9 +62,6 @@ The choice between the two reduces to a single question: **do you know the popul
 
 The t and z critical values converge as \\(n\\) grows; for \\(n \geq 100\\) the difference is small. For \\(n \approx 10\\) it is meaningful—using \\(z\\) when you should use \\(t\\) produces an interval that is too narrow and a coverage rate below the advertised confidence level.
 
-![Confidence Interval Formula](assets/standard_error_visualization.png)
-*Figure 2: The diagram shows how the margin of error is calculated using the t-value, standard error, and sample size.*
-
 ## Components of a Confidence Interval
 
 ### 1. Point Estimate (Center)
@@ -85,9 +82,6 @@ The t and z critical values converge as \\(n\\) grows; for \\(n \geq 100\\) the 
 - Usually 95% or 99%
 - Higher confidence = wider interval
 - Trade-off between confidence and precision
-
-![Confidence Interval Components](assets/confidence_interval_diagram.png)
-*Figure 3: Visual breakdown of confidence interval components. The diagram shows how the point estimate, margin of error, and confidence level work together to create the interval.*
 
 ## Real-world Example: Clinical Trial
 
