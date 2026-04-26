@@ -531,11 +531,8 @@ def polling_demo():
 
 ### 3. Sample Size Effects
 
-- "Larger samples always give the right answer"
-- "Larger samples give more precise estimates"
-
-![Sampling Misconceptions](assets/sampling_misconceptions.png)
-*Figure 3: Visual explanation of common sampling misconceptions. The diagram contrasts correct and incorrect interpretations of sampling concepts.*
+- **Misconception:** "Larger samples always give the right answer." Larger samples reduce *random* error but cannot fix a biased design.
+- **Reality:** Larger samples give more *precise* estimates of whatever the design measures—accurate or not.
 
 ## Interactive Learning: Try It Yourself
 
