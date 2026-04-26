@@ -184,7 +184,7 @@ def generate_ab_testing_visualization():
     diff = treatment_mean - control_mean
     diff_std = np.sqrt(
         control_mean * (1 - control_mean) / sample_size
-        + treatment_mean * (1 - treatment_rate) / sample_size
+        + treatment_mean * (1 - treatment_mean) / sample_size
     )
     ci = stats.norm.interval(0.95, loc=diff, scale=diff_std)
 
