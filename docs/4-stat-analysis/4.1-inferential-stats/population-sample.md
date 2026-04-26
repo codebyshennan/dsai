@@ -6,12 +6,6 @@
 
 This lesson fixes vocabulary: **population** (what you want to learn about), **sample** (what you actually measure), and **how you pick** the sample. Every later idea—intervals, tests, models—assumes you can say clearly what was and was not included in the data.
 
-## Helpful video
-
-StatQuest introduction to confidence intervals.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TqOeMYtOc1w" title="Confidence Intervals, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 ## Why this matters
 
 If “population” and “sample” are vague, every number you compute is easy to misread. This lesson matters because:
