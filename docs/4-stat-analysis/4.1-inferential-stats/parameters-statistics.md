@@ -966,9 +966,3 @@ def finite_population_correction():
     
     return fpc
 ```
-
-
-<figure>
-<img src="assets/parameters-statistics_fig_1.png" alt="parameters-statistics" />
-<figcaption>Figure 1: Generated visualization</figcaption>
-</figure>
