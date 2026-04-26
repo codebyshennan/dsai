@@ -22,7 +22,7 @@ Core ideas behind hypothesis tests and the null hypothesis.
 - [Formulating hypotheses](./hypothesis-formulation.md) and [Statistical tests](./statistical-tests.md) (how tests connect to metrics and designs).
 - [Experimental design](./experimental-design.md) for control and randomization.
 
-> **Note:** Pair this lesson with the [tutorial notebook](./tutorial.ipynb) if your cohort uses it.
+> **Note:** Pair this lesson with the [tutorial notebook](./hypothesis-testing.ipynb) if your cohort uses it.
 
 ## Introduction: Why A/B Testing?
 
