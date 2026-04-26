@@ -663,31 +663,31 @@ Response rate: 90.0%
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-11" data-tint="1">
+  <div class="code-callout" data-lines="3-4" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Wilson score formula</span>
+      <span class="code-callout__title">z critical value</span>
     </div>
     <div class="code-callout__body">
-      <p>Use the Wilson score interval instead of the simple Wald form for better behaviour near 0 or 1; the denominator shrinks the center toward 0.5.</p>
+      <p>Two-sided z value at α/2: for 95% confidence, this is ≈ 1.96.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="13-16" data-tint="2">
+  <div class="code-callout" data-lines="7-9" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Survey data</span>
+      <span class="code-callout__title">Center and margin</span>
     </div>
     <div class="code-callout__body">
-      <p>Compute the Wilson CI for 180 positive responses out of 200 total surveys.</p>
+      <p>The denominator <code>1 + z²/n</code> shrinks the center toward 0.5; the margin formula keeps endpoints inside [0, 1] even when p̂ is near a boundary.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="18-28" data-tint="3">
+  <div class="code-callout" data-lines="14-16" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Bar chart with error bars</span>
+      <span class="code-callout__title">Survey numbers</span>
     </div>
     <div class="code-callout__body">
-      <p>Plot the response rate as a bar with symmetric error bars and horizontal lines marking the CI bounds.</p>
+      <p>180 positive responses out of 200 — close to the upper boundary, where Wald would over-extend past 1 and Wilson stays well-behaved.</p>
     </div>
   </div>
 </aside>
