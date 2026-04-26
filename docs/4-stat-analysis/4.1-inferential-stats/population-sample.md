@@ -224,22 +224,22 @@ Random sample IDs: [664 919 241 476 610]...
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-7" data-tint="1">
+  <div class="code-callout" data-lines="3" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">SRS function</span>
+      <span class="code-callout__title">The draw</span>
     </div>
     <div class="code-callout__body">
-      <p>Use <code>np.random.choice(..., replace=False)</code> to draw IDs without replacement, ensuring each unit appears at most once in the sample.</p>
+      <p><code>replace=False</code> means each ID can appear at most once in the sample — the defining feature of SRS without replacement.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="9-19" data-tint="2">
+  <div class="code-callout" data-lines="7-8" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Strip plot</span>
+      <span class="code-callout__title">Population vs sample</span>
     </div>
     <div class="code-callout__body">
-      <p>Scatter all 1,000 IDs at y=0 and the 100 selected IDs slightly above at y=0.1 in red to show how SRS spreads draws evenly across the frame.</p>
+      <p>Frame of 1,000 IDs; SRS picks 100 at random. The strip plot below shows how those 100 are spread evenly across the frame.</p>
     </div>
   </div>
 </aside>
