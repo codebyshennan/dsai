@@ -4,7 +4,7 @@
 
 ## Overview
 
-If you drew another sample tomorrow, your mean would change slightly. A **sampling distribution** describes how a statistic (like \\(\bar x\\)) would vary under repeated sampling. That distribution is what makes [confidence intervals](./confidence-intervals.md) and, later, p-values and tests behave the way they do—including the famous **Central Limit Theorem** for means.
+If you drew another sample tomorrow, your mean would change slightly. A **sampling distribution** describes how a statistic (like \\(\bar x\\)) would vary under repeated sampling. That distribution is what makes [confidence intervals](./confidence-intervals.md), p-values, and tests behave the way they do—including the famous **Central Limit Theorem** for means. Read this lesson before confidence intervals so the margin-of-error formula has a foundation.
 
 ## Helpful video
 
