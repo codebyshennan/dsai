@@ -371,31 +371,22 @@ n=1000: p=0.0000 Significant
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-2" data-tint="1">
+  <div class="code-callout" data-lines="2" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Fixed small effect</span>
+      <span class="code-callout__title">Effect size held fixed</span>
     </div>
     <div class="code-callout__body">
-      <p>Hold the effect size constant at 0.2 standard deviations across all four sample-size trials.</p>
+      <p>The real difference between groups stays at 0.2 SD across all four trials — only n changes.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="4-17" data-tint="2">
+  <div class="code-callout" data-lines="8-10" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Grid of histograms</span>
+      <span class="code-callout__title">Same shift, different n</span>
     </div>
     <div class="code-callout__body">
-      <p>For each n, draw fresh control and treatment samples, run a t-test, and plot overlapping histograms with the live p-value in each title.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="21-27" data-tint="3">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Console table</span>
-    </div>
-    <div class="code-callout__body">
-      <p>Print n and p-value for each size, showing how the same small effect becomes "significant" only when n is large enough.</p>
+      <p>Draw control and treatment with the fixed shift, then test. Watch the printed p-value: it drops as n grows from 20 → 1000 even though the underlying effect is unchanged.</p>
     </div>
   </div>
 </aside>
