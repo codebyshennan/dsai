@@ -15,11 +15,11 @@ Reporting only \\(\bar x\\) hides how noisy the estimate might be. Intervals sho
 
 ## Prerequisites
 
-- [Population vs sample](./population-sample.md).
+- [Population vs sample](./population-sample.md) and [sampling distributions](./sampling-distributions.md) (especially the Central Limit Theorem and standard error).
 - Comfort with the sample mean and a measure of spread (standard deviation or standard error in words).
 - [P-values](./p-values.md) and formal hypothesis tests appear later in this submodule and in [module 4.2](../4.2-hypotheses-testing/README.md); you do not need them to follow the interval formulas here.
 
-> **Tip:** Read the clinical-trial style example even if you skip plotting code on first pass. The next lesson, [sampling distributions](./sampling-distributions.md), deepens why intervals shrink as **n** grows.
+> **Tip:** Read the clinical-trial style example even if you skip plotting code on first pass. Re-read [sampling distributions](./sampling-distributions.md) if the \\(\sigma/\sqrt{n}\\) factor in the margin of error feels unmotivated.
 
 ## Introduction: Why Do We Need Confidence Intervals?
 
