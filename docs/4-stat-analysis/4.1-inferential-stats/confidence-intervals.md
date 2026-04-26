@@ -629,6 +629,7 @@ The **Wilson score** interval fixes both by inverting the score test: it shrinks
 {% highlight python %}
 def proportion_ci(successes, n, confidence=0.95):
     """Calculate CI for a proportion using Wilson score interval"""
+    # (1 + confidence) / 2 = 0.975: two-sided z critical value at α/2.
     z = stats.norm.ppf((1 + confidence) / 2)
     p_hat = successes / n
 
