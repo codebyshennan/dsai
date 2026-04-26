@@ -134,8 +134,8 @@ def analyze_clinical_trial():
     print("Clinical Trial Analysis")
     print(f"Average BP Reduction: {mean_effect:.1f} mm Hg")
     print(f"95% CI: ({ci_lower:.1f}, {ci_upper:.1f}) mm Hg")
-    print(f"Interpretation: We're 95% confident that the true average")
-    print(f"BP reduction lies between {ci_lower:.1f} and {ci_upper:.1f} mm Hg")
+    print(f"Interpretation: 95% of intervals built this way capture")
+    print(f"the true average BP reduction; this one is ({ci_lower:.1f}, {ci_upper:.1f}) mm Hg")
 
 analyze_clinical_trial()
 {% endhighlight %}
@@ -143,8 +143,8 @@ analyze_clinical_trial()
 Clinical Trial Analysis
 Average BP Reduction: 9.7 mm Hg
 95% CI: (9.1, 10.2) mm Hg
-Interpretation: We're 95% confident that the true average
-BP reduction lies between 9.1 and 10.2 mm Hg
+Interpretation: 95% of intervals built this way capture
+the true average BP reduction; this one is (9.1, 10.2) mm Hg
 ```
 
 
