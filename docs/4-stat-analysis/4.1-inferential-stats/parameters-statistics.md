@@ -642,7 +642,7 @@ A sampling distribution is the distribution of a statistic (like the mean) acros
 
 **Empirical sampling distribution with seaborn KDE**
 
-**Purpose:** Histogram/KDE of many x̄ values with a vertical line at μ—needs `matplotlib`/`seaborn` imported in the notebook environment running this snippet.
+**Purpose:** Histogram/KDE of many \\(\bar x\\) values with a vertical line at \\(\mu\\). The two snippets below use `sns.histplot`, so add `import seaborn as sns` (alongside `import matplotlib.pyplot as plt`) before running them in your notebook.
 
 **Walkthrough:** Double loop unnecessary—inner draws `sample_size` with replacement; returns dict comparing population mean to mean/SD of simulated x̄’s.
 
