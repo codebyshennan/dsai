@@ -44,14 +44,23 @@ A confidence interval is a range of values that likely contains the true populat
 
 For a mean with normal distribution:
 
-$$CI = \bar{x} \pm (t_{\alpha/2} \times \frac{s}{\sqrt{n}})$$
+$$CI = \bar{x} \pm \left(t_{\alpha/2} \times \frac{s}{\sqrt{n}}\right)$$
 
 where:
 
-- x̄ is the sample mean
-- t_α/2 is the t-value for desired confidence level
-- s is the sample standard deviation
-- n is the sample size
+- \\(\bar x\\) is the sample mean
+- \\(t_{\alpha/2}\\) is the t-value for the desired confidence level (with \\(n-1\\) degrees of freedom)
+- \\(s\\) is the sample standard deviation
+- \\(n\\) is the sample size
+
+#### Why t and not z?
+
+The choice between the two reduces to a single question: **do you know the population standard deviation \\(\sigma\\)?**
+
+- **Almost never.** Use the t-distribution and the formula above with sample SD \\(s\\) and \\(n-1\\) degrees of freedom. Every example in this lesson is the t-case.
+- **You actually know \\(\sigma\\)** (rare, mostly textbook problems and a few process-control settings). Use the z-distribution and replace \\(t_{\alpha/2}\\) with \\(z_{\alpha/2}\\).
+
+The t and z critical values converge as \\(n\\) grows; for \\(n \geq 100\\) the difference is small. For \\(n \approx 10\\) it is meaningful—using \\(z\\) when you should use \\(t\\) produces an interval that is too narrow and a coverage rate below the advertised confidence level.
 
 ![Confidence Interval Formula](assets/standard_error_visualization.png)
 *Figure 2: The diagram shows how the margin of error is calculated using the t-value, standard error, and sample size.*
