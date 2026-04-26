@@ -1,7 +1,13 @@
 /**
  * Generates _data/notebook_index.yml — map of submodule dir keys to their
- * primary notebook file (tutorial.ipynb). Run from docs/:
+ * primary notebook file. Run from docs/:
  *   node scripts/generate-notebook-index.mjs
+ *
+ * Discovery: each submodule directory should contain exactly one .ipynb at
+ * its root. Convention is to name it after the lesson topic (e.g.
+ * inferential-stats.ipynb). If a directory contains multiple .ipynb files,
+ * the one matching the folder slug (after stripping the "X.Y-" prefix) wins;
+ * otherwise the alphabetically first is used and a warning is logged.
  */
 import fs from "fs";
 import path from "path";
@@ -10,19 +16,36 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DOCS_ROOT = path.join(__dirname, "..");
 
-// Notebook filenames to look for, in priority order.
-const NOTEBOOK_CANDIDATES = ["tutorial.ipynb"];
-
 const entries = {}; // dir_key -> notebook_filename
 
+function pickPrimaryNotebook(dir) {
+  let files;
+  try {
+    files = fs
+      .readdirSync(dir, { withFileTypes: true })
+      .filter((e) => e.isFile() && e.name.endsWith(".ipynb"))
+      .map((e) => e.name)
+      .sort();
+  } catch {
+    return null;
+  }
+  if (files.length === 0) return null;
+  if (files.length === 1) return files[0];
+  const folder = path.basename(dir);
+  const slug = folder.replace(/^\d+\.\d+-/, "");
+  const match = files.find((f) => f === `${slug}.ipynb`);
+  if (match) return match;
+  console.warn(
+    `[notebook-index] ${dir} has ${files.length} notebooks; using ${files[0]}`,
+  );
+  return files[0];
+}
+
 function walk(dir) {
-  // Check for a primary notebook in this directory (not recursive into subdirs).
-  for (const candidate of NOTEBOOK_CANDIDATES) {
-    if (fs.existsSync(path.join(dir, candidate))) {
-      const rel = path.relative(DOCS_ROOT, dir).split(path.sep).join("/");
-      entries[rel] = candidate;
-      break;
-    }
+  const primary = pickPrimaryNotebook(dir);
+  if (primary) {
+    const rel = path.relative(DOCS_ROOT, dir).split(path.sep).join("/");
+    entries[rel] = primary;
   }
 
   let dirEntries;
