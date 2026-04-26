@@ -37,12 +37,12 @@ A sampling distribution is the distribution of a statistic (like mean or proport
 
 ### Mathematical Definition
 
-For a sample mean X̄:
+For a sample mean \\(\bar X\\):
 
-- Mean: $$E(X̄) = μ$$ (population mean)
-- Standard Error: $$SE(X̄) = \frac{σ}{\sqrt{n}}$$
-  - where σ is population standard deviation
-  - and n is sample size
+- Mean: \\(E(\bar X) = \mu\\) (population mean)
+- Standard Error: \\(SE(\bar X) = \dfrac{\sigma}{\sqrt{n}}\\)
+  - where \\(\sigma\\) is the population standard deviation
+  - and \\(n\\) is the sample size
 
 ![Sampling Distribution Formula](assets/standard_error_visualization.png)
 *Figure 2: Visual explanation of the sampling distribution formula. The diagram shows how the standard error decreases as sample size increases.*
