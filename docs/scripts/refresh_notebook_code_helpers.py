@@ -34,7 +34,9 @@ def replace_markdown_by_index(nb: dict, updates: dict[int, list[str]]) -> None:
         cell["source"] = lines_to_source(lines)
 
 
-def replace_markdown_by_heading(nb: dict, heading_first_line: str, lines: list[str]) -> None:
+def replace_markdown_by_heading(
+    nb: dict, heading_first_line: str, lines: list[str]
+) -> None:
     """Replace the first markdown cell whose first line matches `heading_first_line`."""
     for cell in nb["cells"]:
         if cell.get("cell_type") != "markdown":
@@ -51,7 +53,8 @@ def replace_markdown_by_heading(nb: dict, heading_first_line: str, lines: list[s
 
 def insert_cell(nb: dict, index: int, lines: list[str]) -> None:
     nb["cells"].insert(
-        index, {"cell_type": "markdown", "metadata": {}, "source": lines_to_source(lines)}
+        index,
+        {"cell_type": "markdown", "metadata": {}, "source": lines_to_source(lines)},
     )
 
 
@@ -84,7 +87,7 @@ PANDAS: dict[int, list[str]] = {
         "",
         "**What this code does:**",
         "- Builds `data` as a dict: each key becomes a column name, each value is a list of cell values; row `i` is built from the `i`-th entry of every list.",
-        "- Calls `pd.DataFrame(data)` and prints `\"DataFrame:\"`; the last expression `df` makes Jupyter render the HTML table.",
+        '- Calls `pd.DataFrame(data)` and prints `"DataFrame:"`; the last expression `df` makes Jupyter render the HTML table.',
     ],
     16: [
         "**Select columns by dtype**",
@@ -109,7 +112,7 @@ PANDAS: dict[int, list[str]] = {
         "**Column order and subset of columns**",
         "",
         "**What this code does:**",
-        "- Rebuilds a DataFrame from the same `data` dict but passes `columns=[\"Name\", \"Salary\", \"Age\", \"City\"]` to pick columns and set their left-to-right order (here `Salary` comes before `Age`).",
+        '- Rebuilds a DataFrame from the same `data` dict but passes `columns=["Name", "Salary", "Age", "City"]` to pick columns and set their left-to-right order (here `Salary` comes before `Age`).',
         "- Displays `df2` as the last value in the cell.",
     ],
     24: [
@@ -155,14 +158,14 @@ PANDAS: dict[int, list[str]] = {
         "**Column `reindex`**",
         "",
         "**What this code does:**",
-        "- Defines `states = [\"Texas\", \"Utah\", \"California\"]` and calls `frame.reindex(columns=states)` so columns are exactly those three names in that order; any column not present in `frame` (e.g. `Utah`) becomes all NaN.",
+        '- Defines `states = ["Texas", "Utah", "California"]` and calls `frame.reindex(columns=states)` so columns are exactly those three names in that order; any column not present in `frame` (e.g. `Utah`) becomes all NaN.',
         "- Displays `frame3`.",
     ],
     40: [
         "**`reindex` with `axis=`**",
         "",
         "**What this code does:**",
-        "- Calls `frame.reindex([\"a\",\"b\",\"c\",\"d\"], axis=\"index\")` to reindex rows explicitly (same idea as `frame.reindex([...])` but axis is spelled out).",
+        '- Calls `frame.reindex(["a","b","c","d"], axis="index")` to reindex rows explicitly (same idea as `frame.reindex([...])` but axis is spelled out).',
         "- Displays `frame4`.",
     ],
     42: [
@@ -196,14 +199,14 @@ PANDAS: dict[int, list[str]] = {
         "**Drop one row label**",
         "",
         "**What this code does:**",
-        "- Calls `obj.drop(\"c\")`, which returns a new Series without label `c` (values `0`–`4` remain for the other labels).",
+        '- Calls `obj.drop("c")`, which returns a new Series without label `c` (values `0`–`4` remain for the other labels).',
         "- Displays `new_obj`.",
     ],
     54: [
         "**Drop multiple labels**",
         "",
         "**What this code does:**",
-        "- Calls `obj.drop([\"d\", \"c\"])` to remove two index labels in one call; returns a Series with only `a`, `b`, `e`.",
+        '- Calls `obj.drop(["d", "c"])` to remove two index labels in one call; returns a Series with only `a`, `b`, `e`.',
         "- Displays `new_obj2`.",
     ],
     56: [
@@ -298,7 +301,9 @@ def refresh_pandas(path: Path) -> None:
     replace_markdown_by_index(nb, PANDAS)
     for heading, lines in PANDAS_EXERCISES.items():
         replace_markdown_by_heading(nb, heading, lines)
-    path.write_text(json.dumps(nb, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(nb, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
 
 
 LINALG: dict[int, list[str]] = {
@@ -319,7 +324,7 @@ LINALG: dict[int, list[str]] = {
         "",
         "**What this code does:**",
         "- Builds `arr1d` from a mixed list (promotes to float) and `arr2d` from nested lists (strings).",
-        "- Converts with `arr1d.astype(\"i1\")` to 1-byte integers and prints the array and `dtype`.",
+        '- Converts with `arr1d.astype("i1")` to 1-byte integers and prints the array and `dtype`.',
     ],
     14: [
         "**Factory helpers: zeros, ones, identity, ranges**",
@@ -510,13 +515,18 @@ def refresh_linalg(path: Path) -> None:
         for k in sorted(LINALG):
             replace_markdown_by_heading(nb, LINALG[k][0], LINALG[k])
         replace_markdown_by_heading(nb, LINALG_ARITHMETIC[0], LINALG_ARITHMETIC)
-    path.write_text(json.dumps(nb, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(nb, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
 
 
 def main() -> None:
     root = Path(__file__).resolve().parents[1]
     refresh_pandas(root / "1-data-fundamentals/1.5-data-analysis-pandas/pandas.ipynb")
-    refresh_linalg(root / "1-data-fundamentals/1.4-data-foundation-linear-algebra/linear-algebra.ipynb")
+    refresh_linalg(
+        root
+        / "1-data-fundamentals/1.4-data-foundation-linear-algebra/linear-algebra.ipynb"
+    )
     print("Refreshed pandas and linear-algebra tutorial helpers.")
 
 
