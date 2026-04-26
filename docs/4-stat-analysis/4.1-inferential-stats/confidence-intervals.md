@@ -229,9 +229,6 @@ A specific interval either contains the parameter or doesn't.
 
 The point estimate is our best guess.
 
-![CI Misconceptions](assets/confidence_interval_diagram.png)
-*Figure 4: Visual explanation of common confidence interval misconceptions. The diagram contrasts what CIs are and what they are not.*
-
 ## Factors Affecting CI Width
 
 ### 1. Sample Size Effect
