@@ -92,7 +92,17 @@ else:
     "Fail to reject H₀ (Result is not statistically significant)"
 ```
 
-### Real-world Example: Testing a New Medicine
+> Note the wording: when \\(p \geq \alpha\\) we say "**fail to reject** H₀," not "**accept** H₀." A non-significant result means the data are consistent with the null, not that the null has been proven true.
+
+### What p-values do NOT tell you
+
+The definition above is narrow on purpose. Three of the most common misreadings flip the conditional, swap the question, or confuse statistical significance with practical importance:
+
+- **NOT the probability that H₀ is true.** The p-value is computed *assuming* H₀ is true; it cannot turn around and tell you the probability that H₀ itself is true. A Bayesian posterior probability answers that different question.
+- **NOT the probability the result is due to chance.** A p-value of 0.03 does not mean "there is a 3% chance the effect is random"—it means "if the null were true, results this extreme would happen about 3% of the time."
+- **NOT the probability of being wrong if you reject H₀.** That is a Type I error rate (\\(\alpha\\)) you set in advance for the procedure, not an attribute of one specific p-value.
+
+A separate trap, covered next, is treating a small p-value as evidence of a *large* effect; sample size alone can drive p-values down.
 
 **Two-sample t-test + overlapping histograms**
 
