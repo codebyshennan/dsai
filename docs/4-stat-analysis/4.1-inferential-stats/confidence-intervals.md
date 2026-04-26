@@ -852,7 +852,7 @@ Mean difference: 0.1
 
 ## Next steps
 
-- Continue to [Sampling distributions](./sampling-distributions.md), then [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md).
+- Continue to [Understanding p-values](./p-values.md), then [Parameters and statistics](./parameters-statistics.md), and finally [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md).
 
 ## Additional Resources
 
