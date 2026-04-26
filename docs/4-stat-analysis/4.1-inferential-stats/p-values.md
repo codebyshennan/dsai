@@ -280,40 +280,31 @@ Effect size: 0.71
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="2-9" data-tint="1">
+  <div class="code-callout" data-lines="4-5" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Two contrasting scenarios</span>
+      <span class="code-callout__title">Tiny shift, big n</span>
     </div>
     <div class="code-callout__body">
-      <p>Scenario 1 uses n=1000 with a tiny 1-unit shift; scenario 2 uses n=20 with a large 10-unit shift to contrast statistical vs practical significance.</p>
+      <p>Means differ by only 1 unit but n=1000. The huge sample drives the p-value down despite a trivial real-world effect.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-17" data-tint="2">
+  <div class="code-callout" data-lines="8-9" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">P-values and effect sizes</span>
+      <span class="code-callout__title">Big shift, tiny n</span>
     </div>
     <div class="code-callout__body">
-      <p>Run t-tests on both pairs and compute Cohen-style effect sizes (mean difference ÷ control SD) to compare alongside p-values.</p>
+      <p>Means differ by 10 units but n=20. The large effect is real but the small sample produces a borderline p-value.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="19-33" data-tint="3">
+  <div class="code-callout" data-lines="14-15" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Side-by-side histograms</span>
+      <span class="code-callout__title">Effect size = mean difference ÷ SD</span>
     </div>
     <div class="code-callout__body">
-      <p>Two subplots show heavily overlapping distributions (small effect) vs clearly separated groups (large effect) with live p-values in titles.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="37-46" data-tint="4">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Printed comparison</span>
-    </div>
-    <div class="code-callout__body">
-      <p>Print p-values and effect sizes for both scenarios to highlight how a small p-value does not guarantee a large or meaningful effect.</p>
+      <p>The ratio (Cohen's d-style) measures practical magnitude independently of sample size. Compare the two p-values against the two effect sizes.</p>
     </div>
   </div>
 </aside>
