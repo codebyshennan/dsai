@@ -659,7 +659,7 @@ sampling_game()
 
 ## Next steps
 
-- Continue to [Understanding p-values](./p-values.md). After that submodule, you will start [Hypothesis testing (module 4.2)](../4.2-hypotheses-testing/README.md) with [Experimental design](../4.2-hypotheses-testing/experimental-design.md).
+- Continue to [Confidence intervals](./confidence-intervals.md), where the σ/√n formula you just met becomes the margin of error.
 
 ## Additional Resources
 
