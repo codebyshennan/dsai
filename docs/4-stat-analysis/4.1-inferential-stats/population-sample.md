@@ -696,7 +696,7 @@ Required sample size: 384
 
 ## Next steps
 
-- Continue to [Confidence intervals](./confidence-intervals.md).
+- Continue to [Sampling distributions](./sampling-distributions.md).
 
 ## Additional Resources
 
