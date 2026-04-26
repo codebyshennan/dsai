@@ -613,6 +613,15 @@ Mean score: 77.4
 
 **Walkthrough:** `z = norm.ppf` for two-sided critical value; denominator `1 + z²/n` pulls the center toward ½; bar plot uses half-width as symmetric error.
 
+#### Why Wilson and not the simpler Wald interval?
+
+The textbook "Wald" interval for a proportion is \\(\hat p \pm z_{\alpha/2}\sqrt{\hat p(1-\hat p)/n}\\). It's easy to remember—but it behaves badly in two common situations:
+
+- **\\(\hat p\\) near 0 or 1**, where the Wald interval can extend below 0 or above 1, which is impossible for a probability.
+- **Small \\(n\\)**, where Wald's actual coverage rate often falls well below the advertised confidence level.
+
+The **Wilson score** interval fixes both by inverting the score test: it shrinks the center toward 0.5 and shapes the margin so the bounds always stay in \\([0, 1]\\). It is the modern default for proportions; reach for Wald only when \\(n\hat p\\) and \\(n(1-\hat p)\\) are both comfortably above 10.
+
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
