@@ -6,12 +6,6 @@
 
 **Parameters** describe populations (usually unknown); **statistics** are computed from samples and estimate those parameters. This lesson pulls together notation, point and interval estimates, and properties of estimators—after you have already seen intervals, sampling behavior, and p-values in context.
 
-## Helpful video
-
-StatQuest introduction to confidence intervals.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TqOeMYtOc1w" title="Confidence Intervals, Clearly Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 ## Why this matters
 
 - You will separate **population parameters** (unknown, fixed) from **sample statistics** (computed from data) in every inference task.
