@@ -119,6 +119,7 @@ def analyze_clinical_trial():
     # Calculate 95% CI
     confidence = 0.95
     df = len(treatment_effect) - 1
+    # (1 + confidence) / 2 = 0.975: two-sided, so we want the upper tail at α/2.
     t_value = stats.t.ppf((1 + confidence) / 2, df)
     margin_error = t_value * (std_effect / np.sqrt(len(treatment_effect)))
 
