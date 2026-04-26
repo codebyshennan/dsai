@@ -160,40 +160,31 @@ Result: Not significant
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-6" data-tint="1">
+  <div class="code-callout" data-lines="9-12" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Setup</span>
+      <span class="code-callout__title">Two simulated arms</span>
     </div>
     <div class="code-callout__body">
-      <p>Import libraries and fix the random seed so results are reproducible across runs.</p>
+      <p>30 control patients with mean recovery 10 days; 30 treatment patients with mean 9 days. Real difference: 1 day.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="8-15" data-tint="2">
+  <div class="code-callout" data-lines="14" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Two-arm simulation</span>
+      <span class="code-callout__title">The test itself</span>
     </div>
     <div class="code-callout__body">
-      <p>Simulate recovery times for 30 control patients (mean 10 days) and 30 treatment patients (mean 9 days), then run an independent t-test.</p>
+      <p><code>ttest_ind</code> compares the two means and returns the two-sided p-value used in the decision.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="17-29" data-tint="3">
+  <div class="code-callout" data-lines="33" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Overlapping histograms</span>
+      <span class="code-callout__title">Decision rule</span>
     </div>
     <div class="code-callout__body">
-      <p>Plot both groups as semi-transparent histograms with dashed vertical lines marking each group's mean.</p>
-    </div>
-  </div>
-  <div class="code-callout" data-lines="31-35" data-tint="4">
-    <div class="code-callout__meta">
-      <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Decision output</span>
-    </div>
-    <div class="code-callout__body">
-      <p>Print the group means and p-value, then report whether the result crosses the α = 0.05 threshold.</p>
+      <p>Compare p to α = 0.05. With this small sample the real 1-day difference may not cross the threshold — power matters.</p>
     </div>
   </div>
 </aside>
