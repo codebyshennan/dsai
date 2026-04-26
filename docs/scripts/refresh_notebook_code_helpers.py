@@ -515,8 +515,8 @@ def refresh_linalg(path: Path) -> None:
 
 def main() -> None:
     root = Path(__file__).resolve().parents[1]
-    refresh_pandas(root / "1-data-fundamentals/1.5-data-analysis-pandas/tutorial.ipynb")
-    refresh_linalg(root / "1-data-fundamentals/1.4-data-foundation-linear-algebra/tutorial.ipynb")
+    refresh_pandas(root / "1-data-fundamentals/1.5-data-analysis-pandas/pandas.ipynb")
+    refresh_linalg(root / "1-data-fundamentals/1.4-data-foundation-linear-algebra/linear-algebra.ipynb")
     print("Refreshed pandas and linear-algebra tutorial helpers.")
 
 
