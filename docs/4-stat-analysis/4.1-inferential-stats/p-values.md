@@ -1,3 +1,12 @@
+---
+reading_minutes: 35
+objectives:
+  - State the precise definition of a p-value (and three things it is NOT).
+  - Read a reported p-value alongside an effect size and a confidence interval.
+  - Distinguish Type I error, Type II error, and statistical power.
+  - Apply Bonferroni / FDR corrections when running multiple tests.
+---
+
 # Understanding P-values: Your Statistical Detective Tool
 
 **After this lesson:** you can explain the core ideas in “Understanding P-values: Your Statistical Detective Tool” and reproduce the examples here in your own notebook or environment.
