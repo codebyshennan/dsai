@@ -53,17 +53,17 @@ The Central Limit Theorem states that for sufficiently large samples:
 
 #### How large is "sufficiently large"?
 
-The folklore answer is "n ≥ 30," which is fine as a default but hides important nuance: how fast the sampling distribution becomes approximately normal depends on the *shape* of the underlying population. A useful rule of thumb:
+The folklore answer is "n ≥ 30," which is fine as a default but hides important nuance: how fast the sampling distribution becomes approximately normal depends on the *shape* of the underlying population. The mini-pictures below show the rough shape implied by each row.
 
-| Population shape | Approximate \\(n\\) needed |
-|---|---|
-| Already normal | any \\(n\\) (the sampling distribution of \\(\bar x\\) is exactly normal) |
-| Roughly symmetric, light tails (e.g., uniform) | \\(n \approx 15\text{–}20\\) |
-| Mild skew or moderate outliers | \\(n \approx 30\text{–}40\\) (the textbook rule) |
-| Strong skew (e.g., exponential, income, waiting times) | \\(n \approx 50\text{–}100\\) or more |
-| Binomial with \\(p\\) near 0 or 1 | typically \\(np \geq 10\\) and \\(n(1-p) \geq 10\\) |
+| Shape | Population shape | Approximate \\(n\\) needed |
+|---|---|---|
+| ![Normal](assets/shape_normal.png) | Already normal (bell curve) | any \\(n\\) — the sampling distribution of \\(\bar x\\) is exactly normal |
+| ![Uniform](assets/shape_uniform.png) | Roughly symmetric with light tails (e.g., uniform / "flat top") | \\(n \approx 15\text{–}20\\) |
+| ![Mild skew](assets/shape_mild_skew.png) | Mild skew or moderate outliers (gentle lean to one side) | \\(n \approx 30\text{–}40\\) — the textbook rule |
+| ![Strong skew](assets/shape_strong_skew.png) | Strong skew (long tail — e.g., exponential, income, waiting times) | \\(n \approx 50\text{–}100\\) or more |
+| ![Binomial extreme](assets/shape_binomial_extreme.png) | Binomial with \\(p\\) near 0 or 1 (most weight on one side) | check \\(np \geq 10\\) **and** \\(n(1-p) \geq 10\\) |
 
-So when you read "n=30 is enough," ask: *enough for what kind of population?* The simulations later in this lesson will let you see the convergence speed for several shapes.
+**How to read this:** the bumpier or more lop-sided the population, the more data you need before the *average* of a sample starts to look like a clean bell. So when you read "n = 30 is enough," ask: *enough for what kind of population?* If your data have a long tail or many extreme values (think incomes, waiting times, customer spend), aim for the higher end of the table.
 
 Let's see it in action!
 
