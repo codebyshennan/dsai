@@ -1,3 +1,12 @@
+---
+reading_minutes: 25
+objectives:
+  - Distinguish a population parameter (Greek) from a sample statistic (Latin) in any reported result.
+  - Tell the difference between an estimator (a rule), an estimate (a number), and a statistic (an umbrella).
+  - Judge an estimator by unbiasedness, efficiency, and consistency — and explain when bias is acceptable.
+  - Use bootstrap resampling to attach a standard error and CI to any sample statistic.
+---
+
 # Parameters and Statistics: The Bridge to Understanding Populations
 
 **After this lesson:** you can explain the core ideas in “Parameters and Statistics: The Bridge to Understanding Populations” and reproduce the examples here in your own notebook or environment.
