@@ -577,9 +577,64 @@ Coverage error happens when your **sampling frame**—the list or mechanism you 
 
 ## Sample Size Determination
 
-### The Sample Size Formula
+### The intuition (before any formula)
 
-For estimating a proportion with specified margin of error:
+Before looking at maths, ask three questions in plain English:
+
+1. **How precise do I need the answer to be?** "Within 5 percentage points" is a much easier target than "within 1 percentage point."
+2. **How sure do I need to be that the truth is inside that range?** 95% confident is the default; 99% costs a lot more data.
+3. **How varied is what I'm measuring?** A yes/no question is bounded; people's spending in dollars can be anywhere from $0 to $5,000.
+
+The sample size formula is just a tidy way of turning those three answers into a number of people to survey. **More precision, more confidence, or more variation → more data.** Less of any of those → less data.
+
+### The sample size formula (for a proportion)
+
+If you're estimating a proportion (e.g., "what fraction of customers will buy?") here is the standard recipe:
+
+\\[
+n = \dfrac{z^2 \cdot p(1-p)}{\text{MOE}^2}
+\\]
+
+| Symbol | Plain meaning | Example |
+|---|---|---|
+| \\(n\\) | The sample size you want to find | "How many people do I need to survey?" |
+| \\(z\\) | A confidence-level multiplier | 1.96 for 95% confidence; 2.58 for 99% |
+| \\(p\\) | A guess of the true proportion | If unsure, use 0.5 — it's the worst case (largest \\(n\\)), so it's the safe default |
+| \\(p(1-p)\\) | How spread out a yes/no answer is | Biggest at \\(p = 0.5\\) (= 0.25); smallest near 0 or 1 |
+| MOE | Margin of error you can live with | 0.05 means "answer within ±5 percentage points" |
+
+### A worked example
+
+> *I want to estimate the proportion of users who will click a new button, within ±5 percentage points, and I want to be 95% confident.*
+
+Plug in \\(z = 1.96\\), \\(p = 0.5\\) (no prior info, use the safe default), MOE = 0.05:
+
+\\[
+n = \dfrac{1.96^2 \times 0.5 \times 0.5}{0.05^2} = \dfrac{0.9604}{0.0025} \approx 384
+\\]
+
+So **about 384 users** is the answer. That's why so many polls and A/B tests target around 400 respondents — it's the magic number for "±5% at 95% confidence."
+
+### What happens if you tighten the requirements?
+
+Each tightening multiplies the cost:
+
+| Change | New \\(n\\) | What happened |
+|---|---|---|
+| MOE = 5% (baseline) | 384 | Default plan |
+| MOE = 2.5% (half the error) | 1,537 | **4× more data** to halve the margin |
+| MOE = 1% | 9,604 | **25× more data** for fivefold tighter precision |
+| Confidence 99% (z = 2.58), MOE = 5% | 666 | Higher confidence → more data |
+
+**The key insight:** because the formula has MOE *squared* in the denominator, halving the MOE quadruples the cost. This is the same square-root rule we keep meeting — it's expensive to be very precise.
+
+### When can you use a smaller sample?
+
+- If you have a **good prior estimate** of \\(p\\) (e.g., previous data shows \\(p \approx 0.1\\)), use that instead of 0.5: \\(p(1-p) = 0.09\\) instead of 0.25, so the required sample shrinks by ~64%.
+- If you can tolerate **wider margins** (e.g., 10% instead of 5%), the cost drops fourfold.
+- If you're estimating a **mean** rather than a proportion, the formula is similar but uses your best guess of the population standard deviation in place of \\(\sqrt{p(1-p)}\\).
+
+The code below shows the same formula and plots how \\(n\\) explodes as MOE shrinks.
 
 **Normal-approx sample size for a proportion**
 
