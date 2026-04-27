@@ -642,6 +642,9 @@ sampling_game()
 </aside>
 </div>
 
+![Sampling game](assets/sampling_game.png)
+*Figure 6: One run of the sampling game. Grey histogram = population, blue histogram = the single sample, red dashed = the true mean, blue dotted = our sample mean, blue band = the approximate 95% CI for the mean. Run the code repeatedly and count how often the band covers the red line — it should be close to 95 out of 100 times.*
+
 *Note: The visualization shows how a single sample relates to the population distribution. The confidence interval helps us understand the uncertainty in our sample mean estimate.*
 
 ## Practice Questions
