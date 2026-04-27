@@ -40,7 +40,7 @@ In statistical inference, we distinguish between parameters and statistics. Para
 ### Parameters
 
 - Fixed, unknown values that describe a population
-- Typically denoted by Greek letters (e.g., \\(\mu\\), \\(\sigma\\), \\(\sigma^2\\), \\(\rho\\), \\(\pi\\))
+- Typically denoted by Greek letters (e.g., \\(\mu\\), \\(\sigma\\), \\(\sigma^2\\), \\(\rho\\)) — and by \\(p\\) for the population proportion (most modern texts use Latin \\(p\\) for the population proportion and \\(\hat p\\) for the sample proportion)
 - Examples: population mean, population standard deviation, population proportion
 
 ### Statistics
@@ -108,10 +108,6 @@ A point estimate is like taking your best shot at the true value:
 
 **Simulated forest: μ vs one \\(\bar x\\)**
 
-**Purpose:** Ground notation—population mean vs sample mean—on a synthetic finite “forest” and a single draw of 100 trees.
-
-**Walkthrough:** `population` is stand-in census; `choice` with replacement mimics IID sampling from a large population; prints report |μ̂ − μ| for one realization.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -171,10 +167,6 @@ Difference: 0.11 feet
 Instead of a single guess, we provide a range where we believe the true value lies:
 
 **t-interval continuing the same sample**
-
-**Purpose:** Turn the previous lesson’s `sample` and `sample_mean` into a textbook t-based CI using sample SD and \\(n-1\\) degrees of freedom.
-
-**Walkthrough:** `stats.t.ppf` at \\((1+0.95)/2\\) gives two-sided critical t; margin is \\(t_{df} \cdot s/\sqrt{n}\\); relies on `sample` still in memory from the prior cell.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -242,10 +234,6 @@ An unbiased estimator's expected value equals the population parameter:
 
 **Monte Carlo average of \\(\bar x\\)**
 
-**Purpose:** Show empirically that the mean of many sample means tracks \\(\mu\\)—the computational face of unbiasedness for the sample mean.
-
-**Walkthrough:** Loop draws fresh n=100 samples with replacement; `mean_of_means` should hug `population_mean` from the earlier simulation block.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -306,10 +294,6 @@ An efficient estimator has less variability in its estimates:
 
 **Mean vs 10% trimmed mean on the same draw**
 
-**Purpose:** Illustrate two competing location estimators on identical data—under normality the plain mean is BLUE; trimming trades bias/variance when tails are heavy.
-
-**Walkthrough:** `stats.trim_mean(data, 0.1)` drops the lowest/highest 10% before averaging; compare numeric closeness for teaching, not a formal efficiency calculation.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -368,10 +352,6 @@ Trimmed mean: 99.71
 A consistent estimator converges to the true value as sample size increases:
 
 **One \\(\bar x\\) per n on a ladder of sizes**
-
-**Purpose:** Print how |x̄ − μ| shrinks as `size` grows—visual consistency narrative without a formal limit proof.
-
-**Walkthrough:** Same `population` array as before; independent draws per row—differences step down on average as n increases.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -433,10 +413,6 @@ Sample size 5000: 99.81 (Diff: 0.16)
 ### 1. Quality Control in Manufacturing
 
 **One-shot manufacturing sample → t CI**
-
-**Purpose:** Package sample mean, sample SD, and `stats.t.interval` into a dict return—pattern matches how you’d log QC telemetry in code.
-
-**Walkthrough:** Gaussian sample around target 100; `stats.sem` implicit inside `t.interval` via `scale` argument; function body stays side-effect free.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -500,10 +476,6 @@ def quality_control_example():
 ### 2. A/B Testing in Tech
 
 **Bernoulli arms and normal-approx CI on \\(\hat p_T - \hat p_C\\)**
-
-**Purpose:** Estimate lift between two conversion rates and attach an asymptotic CI—common quick-and-dirty reporting path (check assumptions in production).
-
-**Walkthrough:** Independent Bernoulli vectors; `diff_std` uses separate-factor SE formula; `stats.norm.interval` treats the difference as normal—OK for large n.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
