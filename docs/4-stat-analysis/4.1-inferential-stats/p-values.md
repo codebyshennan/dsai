@@ -524,6 +524,56 @@ Decision: Keep current version
 ![A/B Test Results](assets/ab_test_results.png)
 *Figure 7: A/B test results showing conversion rates for control and treatment groups with error bars.*
 
+## Type I error, Type II error, and statistical power
+
+Every test can be wrong in two different ways. Naming them is the easiest way to think clearly about *why* p-values alone aren't enough.
+
+### The 2×2 of decisions
+
+|   | Reality: H₀ true (no effect) | Reality: H₀ false (real effect) |
+|---|---|---|
+| **You reject H₀** | **Type I error** (false alarm) — probability \\(\alpha\\) | Correct rejection — probability \\(1 - \beta\\) = **power** |
+| **You fail to reject H₀** | Correct non-rejection — probability \\(1 - \alpha\\) | **Type II error** (missed effect) — probability \\(\beta\\) |
+
+Three things to remember:
+
+- **Type I error rate \\(\alpha\\)** is what you choose up front (usually 0.05). It's the long-run rate at which the test cries wolf when nothing is happening.
+- **Type II error rate \\(\beta\\)** is harder to control because it depends on the true effect size, the sample size, and the noise. Smaller real effects are easier to miss.
+- **Power = \\(1 - \beta\\)** is the probability of *catching* a real effect of a given size. The conventional target is **80% power**.
+
+### The trade-off
+
+You can always lower \\(\alpha\\) (be stricter), but that **raises \\(\beta\\)** — you'll miss more real effects. The only way to lower *both* simultaneously is to increase the sample size, which is why power calculations and sample-size planning matter.
+
+### What drives power?
+
+Power goes up when:
+
+| Lever | Effect on power |
+|---|---|
+| **Effect size grows** (the real difference is bigger) | ↑ — easier to detect |
+| **Sample size grows** | ↑ — less noise around the estimate |
+| **\\(\alpha\\) is more lenient** (e.g., 0.10 instead of 0.01) | ↑ — easier to "cross the line," but you accept more false alarms |
+| **Variability shrinks** (cleaner measurement) | ↑ — same effect against less noise |
+
+### Why this matters for reading results
+
+- A **non-significant** p-value (p > α) does **not** mean "no effect." It might mean the test was underpowered. Always ask: *"What size of effect would this study have been able to detect?"*
+- A **significant** result (p < α) doesn't mean the effect is large or important. It just means it's not zero given the noise.
+- When designing a study, you usually fix three of {effect size, n, α, power} and solve for the fourth. The most common case: "I want 80% power to detect a 5% lift at α = 0.05 — how many users do I need?"
+
+### Interactive: Power vs sample size and effect size
+
+Move the sliders to set the true effect size (in standardized units) and the per-group sample size. The widget shows the null and alternative distributions, shades the rejection region (Type I, in red) and the missed-detection region (Type II, in orange), and reports the resulting power.
+
+<iframe src="assets/interactive/power_simulation.html" width="100%" height="520" frameborder="0" loading="lazy" title="Interactive power simulation"></iframe>
+
+**Try this:**
+
+- Set effect size = 0.2 (a small effect). Slide \\(n\\) up. How big does \\(n\\) need to be before power crosses 80%?
+- Set effect size = 0.5 (medium). Notice power crosses 80% much sooner — bigger effects are cheaper to detect.
+- Set α = 0.01 (stricter). Power drops at every \\(n\\) — the price of being more careful about false alarms.
+
 ## Best Practices for Using P-values
 
 ### 1. Set α Before Looking at Data
