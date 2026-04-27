@@ -715,11 +715,80 @@ Required sample size: 384
 
 ## Practice Questions
 
-1. Why might a simple random sample not be the best choice for studying a city's crime patterns?
-2. How would you design a sampling strategy for estimating the average income of a country's population?
-3. What sampling method would you use to study the effectiveness of a new teaching method across different schools?
-4. How does sample size affect the reliability of your estimates?
-5. What are the advantages and disadvantages of each sampling method?
+Try each question on your own first, then expand the answer to check.
+
+**1.** Why might a simple random sample not be the best choice for studying a city's crime patterns?
+
+<details>
+<summary>Show answer</summary>
+
+Crime patterns are very uneven across a city — some neighborhoods have 50× the crime rate of others. A simple random sample of, say, 1,000 incidents could easily miss low-frequency but important categories (e.g., a few high-impact violent crimes scattered across boroughs).
+
+A better strategy is **stratified sampling** by neighborhood and crime type so that every stratum is represented even when its rate is low. This keeps the sample size manageable while making sure the picture is complete.
+
+Another concern: SRS gives each *case* an equal chance, but *people* may be the unit of interest. If you sample cases you'll over-represent neighborhoods with many cases.
+
+</details>
+
+**2.** How would you design a sampling strategy for estimating the average income of a country's population?
+
+<details>
+<summary>Show answer</summary>
+
+Income is highly variable and very right-skewed (a few people earn enormous amounts). A reasonable plan:
+
+1. **Stratify by region** (urban / rural / specific provinces). Income varies sharply by location, so stratifying makes the overall estimate much more precise.
+2. **Stratify by employment status / income bracket** if you have rough prior data. Sampling proportionally to the variance in each stratum (Neyman allocation) further reduces the SE.
+3. **Choose \\(n\\) per stratum** large enough that the CLT applies inside each stratum — for highly skewed income data this means \\(n \geq 50\text{–}100\\) per stratum.
+4. **Use cluster sampling within strata** if you must visit households in person (cost matters). Pick random villages/blocks, then survey every household in the chosen cluster.
+5. **Report the median** alongside the mean — for skewed distributions like income, the median is often more informative.
+
+</details>
+
+**3.** What sampling method would you use to study the effectiveness of a new teaching method across different schools?
+
+<details>
+<summary>Show answer</summary>
+
+**Cluster sampling**, with the school (or classroom) as the cluster.
+
+- It's usually impractical to randomly assign individual *students* to teaching methods across many schools — schools and classrooms have to coordinate. So you assign *whole classrooms or schools* to control vs. treatment.
+- Then sample a random subset of schools to study, and inside each chosen school survey every student.
+
+If you want to *guarantee* representation across school types (urban / rural / public / private / size), combine cluster with **stratified sampling**: stratify by school type, then cluster-sample within each stratum.
+
+Note that cluster sampling reduces cost but *increases* the standard error compared to SRS of the same size — students in the same school are more alike than two random students, so each cluster contributes less independent information.
+
+</details>
+
+**4.** How does sample size affect the reliability of your estimates?
+
+<details>
+<summary>Show answer</summary>
+
+Larger samples → smaller **standard error** → narrower **confidence intervals** → more reliable estimates. Specifically:
+
+- \\(SE = \sigma / \sqrt{n}\\), so SE shrinks like \\(1/\sqrt{n}\\). Doubling \\(n\\) multiplies SE by ~0.71 (29% reduction). Quadrupling \\(n\\) halves the SE.
+- Larger \\(n\\) also makes the Central Limit Theorem approximation work better, so CIs and p-values are more trustworthy for non-normal data.
+
+**But:** more data only fixes *random* error. If the sampling method is biased (e.g., only mall shoppers, only email subscribers), a bigger sample just gives you a more precise wrong answer. This is why "n = 2.4 million" couldn't save the *Literary Digest* in 1936.
+
+</details>
+
+**5.** What are the advantages and disadvantages of each sampling method?
+
+<details>
+<summary>Show answer</summary>
+
+| Method | Pros | Cons | Use when |
+|---|---|---|---|
+| **Simple random sampling (SRS)** | Easy to understand; unbiased if frame is good | Can miss small subgroups; needs full frame list | Population is small/medium and you have a clean list |
+| **Stratified sampling** | Guarantees representation per group; smaller SE for the overall estimate | Need clear strata definitions; need to know strata sizes | Subgroups differ a lot (region, age, income brackets) |
+| **Systematic sampling** | Easy to do in person (e.g., "every 10th customer"); no need for random number generator | Vulnerable to *periodicity bias* — if the list has a hidden cycle, you'll lock onto one phase | List has no obvious order related to the outcome |
+| **Cluster sampling** | Much cheaper when units are far apart geographically | Higher SE per unit (cluster members are similar) | Travel/cost is a major constraint (door-to-door surveys, school studies) |
+| **Convenience sampling** *(non-probability — included for contrast)* | Cheap and fast | Strong selection bias; not generalizable | Pilot tests, scoping work — not for production estimates |
+
+</details>
 
 ## Key Takeaways
 
