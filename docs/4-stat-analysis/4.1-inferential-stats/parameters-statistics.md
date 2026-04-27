@@ -70,7 +70,7 @@ When the lesson says "the sample mean is unbiased," the subject is the estimator
 - Single value estimates of population parameters
 - Examples:
   - Sample mean (\\(\bar x\\)) as an estimate of population mean (\\(\mu\\))
-  - Sample proportion (\\(\hat p\\)) as an estimate of population proportion (\\(\pi\\))
+  - Sample proportion (\\(\hat p\\)) as an estimate of population proportion (\\(p\\))
 
 ### Interval Estimates
 
