@@ -1,3 +1,12 @@
+---
+reading_minutes: 30
+objectives:
+  - Build a 95% t-interval for a mean from a sample by hand and in code.
+  - Choose between t and z critical values based on whether σ is known.
+  - Predict how CI width responds to changes in sample size and confidence level.
+  - Read a CI in plain language without overstating what "95% confidence" guarantees.
+---
+
 # Confidence Intervals: Quantifying Uncertainty in Statistics
 
 **After this lesson:** you can explain the core ideas in “Confidence Intervals: Quantifying Uncertainty in Statistics” and reproduce the examples here in your own notebook or environment.
