@@ -40,10 +40,10 @@ A sampling distribution is the distribution of a statistic (like mean or proport
 
 ### Mathematical Definition
 
-For a sample mean \\(\bar X\\):
+For a sample mean \\(\bar x\\):
 
-- Mean: \\(E(\bar X) = \mu\\) (population mean)
-- Standard Error: \\(SE(\bar X) = \dfrac{\sigma}{\sqrt{n}}\\)
+- Mean: \\(E(\bar x) = \mu\\) (population mean)
+- Standard Error: \\(SE(\bar x) = \dfrac{\sigma}{\sqrt{n}}\\)
   - where \\(\sigma\\) is the population standard deviation
   - and \\(n\\) is the sample size
 
@@ -77,10 +77,6 @@ The folklore answer is "n ≥ 30," which is fine as a default but hides importan
 Let's see it in action!
 
 **CLT simulation: population → one sample → distribution of \\(\bar x\\)**
-
-**Purpose:** Visualize three panels—population shape, a single sample, and the histogram of many sample means—with an overlaid normal curve so the sampling distribution looks approximately Gaussian even when the population is not.
-
-**Walkthrough:** `np.random.choice` with replacement builds bootstrap-style means; subplot 133 compares empirical spread to `stats.norm.pdf` matched to the simulated mean and SD of `sample_means`; PNGs write under `assets/clt_*.png`.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -220,16 +216,16 @@ The standard error (SE) tells us how much sample statistics typically deviate fr
 
 ### Formula for Different Statistics
 
-1. For means: \\(SE(\bar X) = \dfrac{\sigma}{\sqrt{n}}\\)
+1. For means: \\(SE(\bar x) = \dfrac{\sigma}{\sqrt{n}}\\)
 2. For proportions: \\(SE(\hat p) = \sqrt{\dfrac{p(1-p)}{n}}\\)
-3. For differences: \\(SE(\bar X_1 - \bar X_2) = \sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}\\)
+3. For differences: \\(SE(\bar x_1 - \bar x_2) = \sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}\\)
 
 #### Symbol legend
 
 | Symbol | Read aloud | What it means |
 |---|---|---|
 | \\(SE\\) | "standard error" | How much the statistic typically wobbles from sample to sample |
-| \\(\bar X\\) | "x-bar" | The **sample mean** (one number computed from your data) |
+| \\(\bar x\\) | "x-bar" | The **sample mean** (one number computed from your data) |
 | \\(\sigma\\) | "sigma" | The **population standard deviation** — the spread of individual values across the whole population |
 | \\(\sigma^2\\) | "sigma squared" | The **population variance** (just \\(\sigma\\) squared) |
 | \\(n\\) | "n" | The **sample size** — how many observations you collected |
@@ -237,7 +233,7 @@ The standard error (SE) tells us how much sample statistics typically deviate fr
 | \\(\hat p\\) | "p-hat" | The **sample proportion** — the fraction of "yes" outcomes in your sample (e.g., 184 / 200 = 0.92) |
 | \\(p\\) | "p" | The **true population proportion** that \\(\hat p\\) is estimating |
 | \\(p(1-p)\\) | "p times one minus p" | A measure of how "spread out" a yes/no variable is; biggest at \\(p = 0.5\\), smallest near 0 or 1 |
-| \\(\bar X_1 - \bar X_2\\) | "x-bar one minus x-bar two" | The **difference between two group means** (e.g., treatment minus control) |
+| \\(\bar x_1 - \bar x_2\\) | "x-bar one minus x-bar two" | The **difference between two group means** (e.g., treatment minus control) |
 | \\(n_1, n_2\\) | "n one, n two" | The sample sizes of group 1 and group 2 |
 | \\(\sigma_1, \sigma_2\\) | "sigma one, sigma two" | The population standard deviations of group 1 and group 2 |
 
@@ -246,10 +242,6 @@ In plain words, all three formulas have the same shape: **noise in the data ÷ a
 Let's see how sample size affects SE:
 
 **Empirical vs theoretical standard error across n**
-
-**Purpose:** Tie the \\(1/\sqrt{n}\\) formula to a Monte Carlo: for each `n`, estimate the spread of \\(\bar x\\) and compare to \\(\sigma/\sqrt{n}\\) from the fixed synthetic population.
-
-**Walkthrough:** Nested list comprehensions draw repeated means; subplot titles print empirical SE (`np.std(sample_means)`); bottom loop prints a table aligning theoretical and empirical columns.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -382,10 +374,6 @@ Slide \\(n\\) from 5 to 500. Left: the sampling distribution of \\(\bar x\\) get
 
 **Single hour’s sample vs spec band**
 
-**Purpose:** Practice reading `stats.sem` as the SE of the hourly mean and mapping it to a tolerance window around a nominal target—process-control intuition before formal control charts.
-
-**Walkthrough:** One draw of `n=30` measurements; `fill_between` shades the spec window; status compares |sample mean − target| to `tolerance` (coarse rule).
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -477,10 +465,6 @@ quality_control_demo()
 ### 2. Political Polling
 
 **Monte Carlo distribution of \\(\hat p\\) and one poll’s MOE**
-
-**Purpose:** Show how repeated polls of the same size vary around the true support, then compute \\(\hat p\\) and a normal-approx margin \\(\pm 1.96 \times SE\\) for a single survey.
-
-**Walkthrough:** `poll_results` lists means of Bernoulli draws; second block uses \\(\sqrt{\hat p(1-\hat p)/n}\\) for SE; figure saved as `polling_results.png`.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -595,10 +579,6 @@ def polling_demo():
 ### Mini-Exercise: The Sampling Game
 
 **One draw + approximate 95% band (z = 1.96)**
-
-**Purpose:** Let learners see sampling variability in one shot: overlay population, single sample, and a rough CI using sample-derived SE (pedagogical; for inference you’d use t).
-
-**Walkthrough:** `se = np.std(sample)/sqrt(n)` uses sample SD; shaded band is \\(\bar x \pm 1.96\cdot SE\\); the “contains true mean?” printout is a single-check narrative exercise.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
