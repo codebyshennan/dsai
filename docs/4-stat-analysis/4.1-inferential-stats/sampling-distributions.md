@@ -344,6 +344,9 @@ for r in se_results:
 </aside>
 </div>
 
+![Standard error effect](assets/standard_error_effect.png)
+*Figure 3: As sample size grows from 10 to 1,000, the sampling distribution of the mean (each panel) gets narrower — the standard error shrinks roughly by 1/√n.*
+
 *Note: The visualization shows how the sampling distribution becomes narrower (smaller standard error) as sample size increases. This demonstrates the relationship between sample size and estimation precision.*
 
 ## Real-world Applications
