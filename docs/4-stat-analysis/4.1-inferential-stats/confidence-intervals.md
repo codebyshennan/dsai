@@ -816,11 +816,90 @@ Mean difference: 0.1
 
 ## Practice Questions
 
-1. A 95% CI for mean customer satisfaction is (7.2, 7.8). What does this mean in practical terms?
-2. Why might we prefer a 99% CI over a 95% CI in medical research?
-3. How would you explain confidence intervals to a non-technical stakeholder?
-4. If we increase sample size from 100 to 400, what happens to CI width? Why?
-5. When would you use different types of confidence intervals?
+Try each question on your own first, then expand the answer to check.
+
+**1.** A 95% CI for mean customer satisfaction is (7.2, 7.8). What does this mean in practical terms?
+
+<details>
+<summary>Show answer</summary>
+
+The procedure used to build this interval would, across many repeated surveys, produce intervals that contain the true average satisfaction about 95% of the time. This particular interval ranges from **7.2 to 7.8** out of (presumably) 10.
+
+In plain terms: based on this survey, our best guess for the true average satisfaction is around **7.5**, and we're confident it's not as low as 7.2 or as high as 7.8.
+
+What it does **not** mean:
+
+- ❌ "There's a 95% chance the true value is between 7.2 and 7.8." The truth is fixed; the *interval* is what's random.
+- ❌ "95% of customers rate satisfaction between 7.2 and 7.8." That's a description of individuals, not the mean.
+
+Practical takeaway: satisfaction is comfortably above neutral (5) but well short of "delighted" (9–10). If your business goal is 8.0+, you have work to do.
+
+</details>
+
+**2.** Why might we prefer a 99% CI over a 95% CI in medical research?
+
+<details>
+<summary>Show answer</summary>
+
+When the cost of being wrong is high — patient harm, regulatory action, public health risk — we want a tighter guarantee that we're not over-claiming. Moving from 95% to 99% confidence:
+
+- **Pros:** Fewer false claims of effectiveness; more rigorous safety bar.
+- **Cons:** Wider intervals (z goes from 1.96 to 2.58, so the margin grows ~32%). Real effects may go undetected unless the sample is big enough.
+
+In safety-critical contexts the trade-off is usually worth it: you'd rather miss a real but small effect than wrongly approve a drug that doesn't help. For everyday A/B testing or marketing analyses, 95% is the standard because the cost of a wrong decision is much lower.
+
+</details>
+
+**3.** How would you explain confidence intervals to a non-technical stakeholder?
+
+<details>
+<summary>Show answer</summary>
+
+> "If I survey 400 customers I get one number — say their average satisfaction is 7.5. But if I redo the survey with a fresh 400 customers I'd get a slightly different number, maybe 7.4 or 7.6.
+>
+> A confidence interval is just an honest range that says 'the true average is probably in here.' The interval (7.2, 7.8) means: my best guess is 7.5, and given how much surveys wobble, I'd expect the truth to land somewhere between 7.2 and 7.8.
+>
+> Two things to know:
+>
+> 1. A wider interval means more uncertainty (we'd want more data).
+> 2. We say '95% confident' because the *method* of building these intervals captures the truth about 95 out of 100 times in the long run — not because *this specific* interval has a 95% chance."
+
+Avoid the phrase "there's a 95% probability the true mean is in this range" — it's the most common technical error people make.
+
+</details>
+
+**4.** If we increase sample size from 100 to 400, what happens to CI width? Why?
+
+<parameter name="file_path">**Answer**
+
+The CI width is roughly proportional to \\(1/\sqrt{n}\\). Going from \\(n = 100\\) to \\(n = 400\\) means:
+
+\\[
+\dfrac{1/\sqrt{400}}{1/\sqrt{100}} = \dfrac{1/20}{1/10} = \dfrac{1}{2}
+\\]
+
+So the CI shrinks to **half its width**. That matches the rule: to halve a CI you need to **quadruple** the sample size.
+
+Why? The margin of error has \\(\sqrt{n}\\) in the denominator. Doubling \\(n\\) only divides the margin by \\(\sqrt{2} \approx 1.41\\) (≈ 29% reduction), so to actually halve it you need 4× more data.
+
+</details>
+
+**5.** When would you use different types of confidence intervals?
+
+<details>
+<summary>Show answer</summary>
+
+| Setting | Type of CI | Why |
+|---|---|---|
+| Estimating an **average** (continuous outcome) from one group | **t-interval for a mean** | Standard recipe; use t (not z) since you almost never know \\(\sigma\\) |
+| Estimating a **proportion** (yes/no outcome), especially near 0 or 1 | **Wilson score interval** | Stays inside [0, 1]; better small-sample coverage than Wald |
+| Comparing **two group means** with possibly different spreads | **Welch t-interval for the difference** | Doesn't assume equal variances |
+| Comparing **two proportions** (A/B test) | **Normal-approx CI on the difference** when \\(np \geq 10\\) for both groups; otherwise exact methods | Standard for conversion-rate lift analysis |
+| **Skewed data, small sample**, or unusual estimators (medians, ratios) | **Bootstrap CI** | Works without distributional assumptions; just resample |
+
+Practical rule: start with the simplest interval that fits your data type, and only reach for fancier methods (bootstrap, Bayesian credible intervals, exact tests) when assumptions are violated or sample sizes are small.
+
+</details>
 
 ## Key Takeaways
 
