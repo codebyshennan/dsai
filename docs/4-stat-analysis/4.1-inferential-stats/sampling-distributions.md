@@ -685,7 +685,7 @@ Try each question on your own first, then expand the answer to check.
 For \\(n = 100\\) the t critical value is essentially 1.98, close enough to the rule-of-thumb \\(z = 1.96\\), so:
 
 \\[
-\text{95% CI} \approx \bar x \pm 1.96 \cdot SE = 85 \pm 1.96 \times 5 = 85 \pm 9.8
+\text{95\% CI} \approx \bar x \pm 1.96 \cdot SE = 85 \pm 1.96 \times 5 = 85 \pm 9.8
 \\]
 
 That gives **roughly $75.20 to $94.80**. Plain reading: based on this sample, the procedure used produces an interval that captures the true average customer spend about 95% of the time, and this particular interval is $75.20–$94.80.
