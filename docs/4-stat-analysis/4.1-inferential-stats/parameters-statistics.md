@@ -557,11 +557,141 @@ def ab_testing_example():
 
 ## Practice Questions
 
-1. A company measures the battery life of 100 phones and finds a mean of 12 hours. Is this a parameter or a statistic? Why?
-2. How would increasing sample size affect the width of a confidence interval? Explain using the margin of error formula.
-3. Design a sampling strategy for estimating the average time users spend on a social media app. What statistics would you use?
-4. If you had to choose between an unbiased estimator with high variance and a slightly biased estimator with low variance, which would you pick? Why?
-5. How could you use bootstrapping to assess the reliability of your sample statistics?
+Try each question on your own first, then expand the answer to check.
+
+**1.** A company measures the battery life of 100 phones and finds a mean of 12 hours. Is this a parameter or a statistic? Why?
+
+<details>
+<summary>Show answer</summary>
+
+It's a **statistic** (\\(\bar x = 12\\) hours).
+
+- A **parameter** would be the *true* mean battery life of *all* phones the company has produced (or will produce) — call it \\(\mu\\). That's a single fixed number, almost always unknown, because they don't measure every phone.
+- A **statistic** is computed from the sample — here, the average of those 100 phones. It's our best guess of \\(\mu\\), but it will be slightly different if a different 100 phones are tested.
+
+Notation cue: Greek letter (\\(\mu\\)) → parameter. Latin letter (\\(\bar x\\)) → statistic.
+
+</details>
+
+**2.** How would increasing sample size affect the width of a confidence interval? Explain using the margin of error formula.
+
+<details>
+<summary>Show answer</summary>
+
+The margin of error is:
+
+\\[
+\text{MOE} = t^* \cdot \dfrac{s}{\sqrt{n}}
+\\]
+
+So MOE shrinks like \\(1/\sqrt{n}\\). The CI width = 2 × MOE, so doubling \\(n\\) reduces the width by \\(1/\sqrt{2} \approx 0.71\\) (≈ 29% narrower). To **halve** the width, you need to **quadruple** \\(n\\).
+
+Quick mental math:
+
+| \\(n\\) | Relative CI width |
+|---|---|
+| 100 | 1.00 (baseline) |
+| 200 | 0.71 |
+| 400 | 0.50 |
+| 1,600 | 0.25 |
+
+This square-root relationship is why "just collect more data" hits diminishing returns fast.
+
+</details>
+
+**3.** Design a sampling strategy for estimating the average time users spend on a social media app. What statistics would you use?
+
+<details>
+<summary>Show answer</summary>
+
+**Strategy:**
+
+1. **Define the population.** All active users in the past 30 days (or whatever the product team cares about). Decide whether to include test accounts, internal users, and bots.
+2. **Pick the unit of analysis.** Per-user *daily session minutes*, averaged over a window — much more stable than a single day per user.
+3. **Stratify** by user segment (free vs. paid, region, device type, tenure). Time-on-app varies heavily by segment, so stratifying gives a tighter overall estimate.
+4. **Use sufficient \\(n\\) per stratum.** Time-on-app is right-skewed (most use it briefly; a few use it for hours), so aim for \\(n \geq 50\text{–}100\\) per stratum so the CLT works.
+
+**Statistics to report:**
+
+| Statistic | Why |
+|---|---|
+| Sample mean \\(\bar x\\) | Standard estimate of average time |
+| **Median** | Skewed data — the median is a better "typical user" summary |
+| Standard error of the mean | For confidence intervals |
+| 95% CI for the mean | So stakeholders see uncertainty |
+| Quantiles (e.g., p50, p90, p95) | Show the spread, not just the average |
+
+Always report **both** the mean and the median for skewed data — the gap between them tells you about heavy tails.
+
+</details>
+
+**4.** If you had to choose between an unbiased estimator with high variance and a slightly biased estimator with low variance, which would you pick? Why?
+
+<details>
+<summary>Show answer</summary>
+
+In most practical settings, **the slightly biased estimator with low variance** wins. The right metric to compare them is **mean squared error (MSE)**:
+
+\\[
+\text{MSE} = \text{Bias}^2 + \text{Variance}
+\\]
+
+Suppose:
+
+- **Unbiased estimator A:** Bias = 0, Variance = 100 → MSE = 100
+- **Biased estimator B:** Bias = 1, Variance = 4 → MSE = 1 + 4 = 5
+
+Estimator B's typical estimate lands much closer to the true value, even though it's slightly off-target on average. This is the **bias–variance trade-off** that comes up everywhere — regression regularization (ridge, lasso), shrinkage estimators, and smoothing all *intentionally* add bias to reduce variance.
+
+**When unbiasedness wins instead:**
+
+- When stakes are high and you specifically need "no systematic distortion" (regulated reports, scientific publication of effects).
+- When the bias is hard to quantify or could compound across analyses.
+
+**Default rule:** prefer lower MSE; document any bias clearly.
+
+</details>
+
+**5.** How could you use bootstrapping to assess the reliability of your sample statistics?
+
+<details>
+<summary>Show answer</summary>
+
+**Bootstrapping** is "fake repeated sampling": you resample *from your existing data with replacement* many times to mimic what would happen if you ran the study again.
+
+Recipe:
+
+1. Have a sample of size \\(n\\). Compute your statistic of interest (mean, median, ratio, whatever).
+2. Draw a **bootstrap sample** of size \\(n\\) from your data, **with replacement**. Compute the statistic on this resample.
+3. Repeat step 2 about 1,000–10,000 times. You now have a distribution of bootstrap statistics.
+4. Use the distribution to:
+   - **Estimate standard error** = standard deviation of the bootstrap statistics.
+   - **Build a 95% CI** = the 2.5th and 97.5th percentiles of the bootstrap statistics (the "percentile" method).
+
+```python
+import numpy as np
+rng = np.random.default_rng(42)
+data = rng.normal(50, 10, size=200)  # your original sample
+
+n_boot = 10_000
+boot_means = [np.mean(rng.choice(data, size=len(data), replace=True))
+              for _ in range(n_boot)]
+
+print(f"Bootstrap mean:  {np.mean(boot_means):.2f}")
+print(f"Bootstrap SE:    {np.std(boot_means):.2f}")
+ci = np.percentile(boot_means, [2.5, 97.5])
+print(f"95% bootstrap CI: ({ci[0]:.2f}, {ci[1]:.2f})")
+```
+
+**Why it's powerful:**
+
+- Works for *any* statistic — medians, ratios, regression coefficients, model AUC. Not just means.
+- Doesn't require the data to be normal, doesn't require a closed-form SE formula.
+- Makes the abstract concept of "if I redid the study" concrete and visualizable.
+
+**Limits:** assumes your sample is representative; doesn't fix bias. Works best with \\(n \geq 50\text{–}100\\).
+
+</details>
 
 ## Key Takeaways
 
