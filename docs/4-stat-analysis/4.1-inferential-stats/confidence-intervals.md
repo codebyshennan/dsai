@@ -870,7 +870,8 @@ Avoid the phrase "there's a 95% probability the true mean is in this range" — 
 
 **4.** If we increase sample size from 100 to 400, what happens to CI width? Why?
 
-<parameter name="file_path">**Answer**
+<details>
+<summary>Show answer</summary>
 
 The CI width is roughly proportional to \\(1/\sqrt{n}\\). Going from \\(n = 100\\) to \\(n = 400\\) means:
 
