@@ -663,6 +663,14 @@ sampling_game()
 ![Sampling game](assets/sampling_game.png)
 *Figure 6: One run of the sampling game. Grey histogram = population, blue histogram = the single sample, red dashed = the true mean, blue dotted = our sample mean, blue band = the approximate 95% CI for the mean. Run the code repeatedly and count how often the band covers the red line — it should be close to 95 out of 100 times.*
 
+#### Interactive: 30 samples, 30 intervals
+
+The widget below shows 30 independent samples drawn from the same population, each with its 95% CI. Blue intervals **cover** the true mean (red dashed line); red intervals **miss**. The header reports the coverage rate — across many runs it converges to 95%.
+
+<iframe src="assets/interactive/sampling_game_simulation.html" width="100%" height="540" frameborder="0" loading="lazy" title="Interactive sampling game"></iframe>
+
+This is the *operational* meaning of "95% confidence" — not "this specific interval has a 95% probability of being right," but "this *procedure* gets it right 95% of the time."
+
 *Note: The visualization shows how a single sample relates to the population distribution. The confidence interval helps us understand the uncertainty in our sample mean estimate.*
 
 ## Practice Questions
