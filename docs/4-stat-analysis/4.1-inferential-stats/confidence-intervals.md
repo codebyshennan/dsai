@@ -345,6 +345,14 @@ Precision: ***************
 ![Sample Size Effect](assets/sample_size_effect_ci.png)
 *Figure 6: Effect of sample size on confidence interval width.*
 
+#### Interactive: how the CI shrinks with n
+
+Move the slider to change \\(n\\). Left: the histogram of one sample with its 95% CI bounds (blue dotted). Right: the *width* of that CI plotted against \\(n\\) — the curve is the theoretical \\(2 t^* \sigma / \sqrt{n}\\) and the orange dot is the current sample's actual width.
+
+<iframe src="assets/interactive/ci_sample_size_simulation.html" width="100%" height="480" frameborder="0" loading="lazy" title="Interactive CI sample size effect"></iframe>
+
+**Try this:** start at \\(n = 30\\), then jump to \\(n = 500\\). The CI width drops by roughly \\(\sqrt{500/30} \approx 4\\)× — exactly the square-root law in action.
+
 ### 2. Confidence Level Effect
 
 **Same data, wider z/t multiplier at higher confidence**
