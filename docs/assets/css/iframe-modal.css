@@ -1,0 +1,137 @@
+/* ─── Iframe expand-to-modal ──────────────────────────────────────── */
+
+/* Wrapper added at runtime around expandable iframes */
+.iframe-expand {
+  position: relative;
+  display: block;
+  margin: 1.25rem 0;
+}
+
+.iframe-expand > iframe {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--surface-border, #d0d7de);
+  border-radius: 6px;
+  background: #fff;
+}
+
+/* Expand button (top-right of iframe) */
+.iframe-expand__button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  font: 600 12px/1.2 system-ui, -apple-system, sans-serif;
+  color: #fff;
+  background: rgba(20, 30, 50, 0.78);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.iframe-expand:hover .iframe-expand__button,
+.iframe-expand:focus-within .iframe-expand__button,
+.iframe-expand__button:focus-visible {
+  opacity: 1;
+}
+
+.iframe-expand__button:hover {
+  background: rgba(20, 30, 50, 0.95);
+  transform: translateY(-1px);
+}
+
+.iframe-expand__button svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* On touch devices, always show the button (no hover state) */
+@media (hover: none) {
+  .iframe-expand__button {
+    opacity: 1;
+  }
+}
+
+/* ─── Modal overlay ───────────────────────────────────────────────── */
+
+.iframe-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  padding: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.iframe-modal.is-open {
+  display: flex;
+}
+
+.iframe-modal__frame {
+  width: min(100%, 1400px);
+  height: min(100%, 90vh);
+  border: none;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+}
+
+/* Close button (top-right corner of viewport) */
+.iframe-modal__close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font: 700 22px/1 system-ui, -apple-system, sans-serif;
+  color: #fff;
+  background: rgba(20, 30, 50, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10000;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.iframe-modal__close:hover,
+.iframe-modal__close:focus-visible {
+  background: rgba(20, 30, 50, 0.95);
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* Subtle help text near the close button */
+.iframe-modal__hint {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font: 500 12px/1.4 system-ui, -apple-system, sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 10000;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .iframe-modal {
+    padding: 12px;
+  }
+  .iframe-modal__frame {
+    height: 92vh;
+  }
+  .iframe-modal__hint {
+    display: none;
+  }
+}
