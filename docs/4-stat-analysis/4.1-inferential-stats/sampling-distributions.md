@@ -1,3 +1,12 @@
+---
+reading_minutes: 30
+objectives:
+  - Explain what a sampling distribution is and how it differs from a sample distribution.
+  - State the Central Limit Theorem and judge when it applies given a population shape.
+  - Compute the standard error for a mean, a proportion, and a difference of means.
+  - Use the σ/√n relationship to predict how precision scales with sample size.
+---
+
 # Sampling Distributions: The Heart of Statistical Inference
 
 **After this lesson:** you can explain the core ideas in “Sampling Distributions: The Heart of Statistical Inference” and reproduce the examples here in your own notebook or environment.
