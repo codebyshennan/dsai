@@ -442,6 +442,9 @@ quality_control_demo()
 </aside>
 </div>
 
+![Quality control](assets/quality_control.png)
+*Figure 4: One hour's sample of 30 measurements (blue bars). Red dashed line = sample mean; green dotted = target (100); orange dotted = tolerance band (±2). The process is "in control" if the sample mean falls inside the orange band.*
+
 *Note: The visualization shows the distribution of quality control measurements with the target value and tolerance limits. This helps us understand if the production process is in control.*
 
 ### 2. Political Polling
