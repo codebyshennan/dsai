@@ -115,10 +115,6 @@ A separate trap, covered next, is treating a small p-value as evidence of a *lar
 
 **Two-sample t-test + overlapping histograms**
 
-**Purpose:** Connect the definition of a p-value to a concrete pipeline—simulate two arms, run `ttest_ind`, and plot overlapping recovery-time distributions with vertical mean markers.
-
-**Walkthrough:** `np.random.normal` fixes seed 42; `ttest_ind` yields the two-sided p-value used in the printout; figure writes to `assets/recovery_times_distribution.png` beside this lesson.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -217,10 +213,6 @@ This common misinterpretation can lead to poor decisions.
 A tiny p-value doesn't mean a huge effect!
 
 **Small δ + huge n vs large δ + tiny n**
-
-**Purpose:** Show that p-values respond to sample size and noise—not effect magnitude alone—by pairing standardized mean differences with `ttest_ind` side by side.
-
-**Walkthrough:** Scenario 1 shifts means by 1% with n=1000; scenario 2 shifts by 10% with n=20; Cohen-style ratios use control SD; subplot titles embed live p-values from each run.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -330,10 +322,6 @@ Larger samples can make tiny effects statistically significant.
 
 **Fixed lift, varying n (grid of histograms)**
 
-**Purpose:** Drive home that holding the mean shift constant while growing `n` drives p-values down—why “significant” must be read next to effect size.
-
-**Walkthrough:** Loop over `sizes`; each panel draws fresh normals (note: no fixed seed inside loop, so panels vary run-to-run); second loop prints a table of p-values vs n.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -425,10 +413,6 @@ More consistent data makes effects easier to spot.
 ### Website Conversion Rate Example
 
 **Bernoulli arms → chi-square on a 2×2 table**
-
-**Purpose:** Model click/conversion A/B data as independent Bernoulli draws, test association with `chi2_contingency`, and visualize mean ± SE bars for reporting.
-
-**Walkthrough:** Rows of `table` are success/fail counts per arm; `np.mean` on 0/1 vectors gives rates; decision string is a toy business rule at α = 0.05.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -593,10 +577,6 @@ Don't just say "p < 0.05".
 When performing multiple tests:
 
 **Bonferroni on a batch of null t-tests**
-
-**Purpose:** Show how aggressive family-wise correction shrinks the count of “significant” results when you reuse α = 0.05 on many noisy comparisons.
-
-**Walkthrough:** List comprehension runs 20 independent two-sample t-tests on pure noise; `multipletests(..., method='bonferroni')[1]` returns adjusted p-values; scatter plot compares raw vs adjusted.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">

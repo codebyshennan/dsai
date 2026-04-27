@@ -100,10 +100,6 @@ A sample is a carefully selected **subset** of the population that we actually m
 
 **Finite population vs one SRS**
 
-**Purpose:** Show side-by-side histograms for “everything produced” versus `replace=False` draw of 100 units and compare \\(\mu\\) vs \\(\bar x\\)—the core idea behind inspection without full enumeration.
-
-**Walkthrough:** `np.random.choice(..., replace=False)` mimics sampling without replacement from a finite batch; twin subplots emphasize mean alignment, not equality on every draw.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -197,10 +193,6 @@ The statistical equivalent of drawing names from a hat - every member has an equ
 
 **SRS on IDs with scatter “strip” plot**
 
-**Purpose:** Visualize that simple random sampling scatters draws evenly across the frame ID space—useful for spotting accidental clustering if your real process is not SRS.
-
-**Walkthrough:** `np.arange(1000)` stands in for labeled units; `choice(..., replace=False)` enforces no duplicates; first five IDs printed for sanity checks.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -262,10 +254,6 @@ Random sample IDs: [664 919 241 476 610]...
 Like organizing a party where you ensure representation from different departments.
 
 **Independent SRS within each stratum**
-
-**Purpose:** Guarantee minimum representation per group by slicing the frame into contiguous blocks (here, age bands) and sampling fixed counts from each.
-
-**Walkthrough:** Loop advances `start_idx`; each stratum uses `choice` without replacement; y-offset separates strata on the scatter for clarity.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -350,10 +338,6 @@ Like picking every 10th person who walks into a store.
 
 **Random start, fixed skip interval**
 
-**Purpose:** Implement the textbook systematic route—pick a random offset in `[0, k-1)`, then take every `k`th element—while plotting selected indices.
-
-**Walkthrough:** `population[start::interval]` performs the stride; works cleanly when frame order is unrelated to outcome (otherwise risk of periodic bias).
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -412,10 +396,6 @@ sample = systematic_sample(population, 10)
 Like studying a few neighborhoods to understand a city.
 
 **Take all units from randomly chosen blocks**
-
-**Purpose:** Contrast with SRS—here entire contiguous blocks enter the sample, mimicking “survey all households in sampled blocks.”
-
-**Walkthrough:** `clusters` draws which block indices to keep; inner slice `population[start:end]` takes everyone in that block; colors distinguish clusters on the strip plot.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -510,10 +490,6 @@ Selection bias means the people or units in your data **do not represent** the p
 Even with a perfect design, **random samples differ** from each other and from the population. That unavoidable wiggle is sampling error—not a mistake, but variation you account for with intervals, standard errors, and larger *n* when feasible.
 
 **SE curve vs sample size**
-
-**Purpose:** Plot \\(\sigma/\sqrt{n}\\) for a few `n` values to reinforce the square-root law driving precision gains.
-
-**Walkthrough:** `calculate_sampling_error` is the mean’s standard error when \\(\sigma\\) is known; loop prints the numeric sequence feeding the line plot.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -646,10 +622,6 @@ Each tightening multiplies the cost:
 The code below shows the same formula and plots how \\(n\\) explodes as MOE shrinks.
 
 **Normal-approx sample size for a proportion**
-
-**Purpose:** Connect desired MOE and confidence level to a closed-form `n`, and plot how tightening MOE explodes required size when \\(p(1-p)\\) is fixed at 0.25.
-
-**Walkthrough:** `norm.ppf` supplies \\(z_{\alpha/2}\\); formula is the standard Wald-style planning equation; curve plots `n` vs a grid of margins.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">

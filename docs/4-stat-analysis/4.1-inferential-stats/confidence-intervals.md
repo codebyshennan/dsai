@@ -96,10 +96,6 @@ The t and z critical values converge as \\(n\\) grows; for \\(n \geq 100\\) the 
 
 **t-based CI for one-sample mean effect**
 
-**Purpose:** Walk through the textbook recipe—sample mean, sample SD with `ddof=1`, `t.ppf` critical value, margin \\(t \cdot s/\sqrt{n}\\)—and plot the interval on the effect histogram.
-
-**Walkthrough:** `confidence = 0.95` implies two-sided \\(\alpha/2\\); vertical lines mark \\(\bar x\\) and endpoints; prose printout restates the frequentist CI wording used in reports.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -241,10 +237,6 @@ For the rest of this submodule, every interval is frequentist (the standard in t
 
 **Grid of CIs: width shrinks with n**
 
-**Purpose:** Show the same 95% t-interval machinery (`stats.t.interval` with `loc` and `scale=sem`) across increasing `n`, plus a toy “precision stars” printout scaling inversely with width.
-
-**Walkthrough:** Fresh `np.random.normal` per panel (no fixed seed—widths vary run-to-run); `ci[1]-ci[0]` titles each subplot; second loop repeats draws for console output.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -381,10 +373,6 @@ Move the slider to change \\(n\\). Left: the histogram of one sample with its 95
 
 **Same data, wider z/t multiplier at higher confidence**
 
-**Purpose:** Freeze one sample of size 30 and overlay intervals for 80/90/95/99% levels to visualize the precision–confidence trade-off.
-
-**Walkthrough:** `stats.t.interval(level, df, loc, scale)` sweeps `level`; each subplot title shows CI width; reliability stars are illustrative only.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -512,10 +500,6 @@ Reliability: *********
 
 **Wrapper around `stats.t.interval` for arbitrary data**
 
-**Purpose:** Encapsulate mean + SEM → CI in a two-line helper, then plot scores with bounds for a classroom-style “class average” narrative.
-
-**Walkthrough:** `stats.sem` feeds the scale argument; histogram + vertical lines duplicate earlier lesson visuals with new variable names.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -614,10 +598,6 @@ Mean score: 77.4
 ### 2. CI for a Proportion
 
 **Wilson score interval (not Wald)**
-
-**Purpose:** Avoid boundary issues near 0 or 1 by using the Wilson center/margin formulas—better small-sample behavior than \\(\hat p \pm z SE\\) for some settings.
-
-**Walkthrough:** `z = norm.ppf` for two-sided critical value; denominator `1 + z²/n` pulls the center toward ½; bar plot uses half-width as symmetric error.
 
 #### Why Wilson and not the simpler Wald interval?
 
@@ -722,10 +702,6 @@ Response rate: 90.0%
 ### 3. CI for Difference Between Means
 
 **Welch-style SE and df, two-sample t critical value**
-
-**Purpose:** Build a CI on \\(\bar X_1 - \bar X_2\\) with unpooled variances—matches the unequal-variance two-sample t spirit—then visualize arms with a boxplot.
-
-**Walkthrough:** `se = sqrt(s1²/n1 + s2²/n2)`; Welch–Satterthwaite `df` formula feeds `t.ppf`; margin is `t_val * se`.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
