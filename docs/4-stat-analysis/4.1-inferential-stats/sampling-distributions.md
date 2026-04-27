@@ -172,7 +172,26 @@ for dist in distributions:
 </aside>
 </div>
 
-*Note: The visualization shows how the sampling distribution of the mean becomes approximately normal regardless of the population distribution. This is the essence of the Central Limit Theorem.*
+### What the simulation produces
+
+Three side-by-side panels per population type:
+
+1. **Population** — the raw shape we sampled from (could be very non-normal).
+2. **One sample** — what 30 randomly drawn values look like (still messy).
+3. **Sampling distribution** — histogram of *means* from 1,000 such samples, with a normal curve overlaid.
+
+Look at panel 3 in each image: even for the lopsided exponential and bimodal "skewed" populations, the histogram of means is a clean bell.
+
+![CLT — exponential population](assets/clt_exponential.png)
+*Figure 2a: An exponential (long-tail) population. Individual draws are skewed, but the sampling distribution of the mean (right) is approximately normal.*
+
+![CLT — uniform population](assets/clt_uniform.png)
+*Figure 2b: A uniform (flat) population. Same story — the mean's distribution looks like a bell even though the population doesn't.*
+
+![CLT — bimodal/skewed population](assets/clt_skewed.png)
+*Figure 2c: A bumpy, two-bump population. CLT still kicks in for the mean.*
+
+**Big idea:** CLT is a statement about *averages*, not about individual data points. The raw data can stay weird; the mean smooths out.
 
 ## Standard Error: Measuring the Spread
 
