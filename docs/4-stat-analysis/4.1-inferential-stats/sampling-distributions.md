@@ -541,6 +541,9 @@ def polling_demo():
 
 
 
+![Polling results](assets/polling_results.png)
+*Figure 5: Histogram of 100 simulated polls of 1,000 voters each. The true support is 52% (red dashed). Most polls land within a couple of percentage points — that wobble is the sampling distribution of \\(\hat p\\).*
+
 *Note: The visualization shows the distribution of poll results from multiple samples. This helps us understand the variability in polling estimates and the role of sampling error.*
 
 ## Common Misconceptions: Let's Clear Them Up
