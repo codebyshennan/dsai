@@ -658,10 +658,182 @@ def sampling_game_simulation() -> None:
     _save(fig, "sampling_game_simulation")
 
 
+def power_simulation() -> None:
+    """Visualize Type I, Type II, and power for a one-sided z-test on a mean.
+
+    Shows the null distribution (centered at 0) and the alternative distribution
+    (shifted by effect_size · √n). The rejection region is shaded red (Type I);
+    the area of the alternative *below* the critical value is shaded orange
+    (Type II / β); the area of the alternative *above* is power = 1 − β.
+    """
+    effect_sizes = [0.0, 0.1, 0.2, 0.3, 0.5, 0.8]  # Cohen's d values
+    sample_sizes = [10, 30, 50, 100, 200, 500]
+    alphas = [0.01, 0.05, 0.10]
+
+    # Curve range: needs to cover both null and shifted alt
+    z_grid = np.linspace(-4, 8, 600)
+
+    frames = []
+    initial_traces = None
+
+    for d in effect_sizes:
+        for n in sample_sizes:
+            for alpha in alphas:
+                shift = d * np.sqrt(n)  # non-centrality of the alt distribution
+                z_crit = stats.norm.ppf(1 - alpha)
+
+                null_pdf = stats.norm.pdf(z_grid, loc=0, scale=1)
+                alt_pdf = stats.norm.pdf(z_grid, loc=shift, scale=1)
+
+                # Power = P(Z > z_crit | alt) = 1 - Φ(z_crit - shift)
+                power = 1 - stats.norm.cdf(z_crit - shift)
+
+                # Shaded regions
+                # Type I (red): null pdf to the right of z_crit
+                mask_alpha = z_grid >= z_crit
+                # Type II (orange): alt pdf to the left of z_crit
+                mask_beta = z_grid <= z_crit
+                # Power (green): alt pdf to the right of z_crit
+                mask_power = z_grid >= z_crit
+
+                traces = [
+                    go.Scatter(
+                        x=z_grid,
+                        y=null_pdf,
+                        mode="lines",
+                        line=dict(color="#4f7cac", width=2),
+                        name="H₀: no effect",
+                        showlegend=True,
+                    ),
+                    go.Scatter(
+                        x=z_grid,
+                        y=alt_pdf,
+                        mode="lines",
+                        line=dict(color="#e07a5f", width=2),
+                        name="H₁: real effect",
+                        showlegend=True,
+                    ),
+                    go.Scatter(
+                        x=z_grid[mask_alpha],
+                        y=null_pdf[mask_alpha],
+                        fill="tozeroy",
+                        mode="none",
+                        fillcolor="rgba(192, 98, 91, 0.5)",
+                        name=f"Type I (α = {alpha})",
+                        showlegend=True,
+                    ),
+                    go.Scatter(
+                        x=z_grid[mask_beta],
+                        y=alt_pdf[mask_beta],
+                        fill="tozeroy",
+                        mode="none",
+                        fillcolor="rgba(224, 168, 88, 0.45)",
+                        name=f"Type II (β = {1 - power:.2f})",
+                        showlegend=True,
+                    ),
+                    go.Scatter(
+                        x=z_grid[mask_power],
+                        y=alt_pdf[mask_power],
+                        fill="tozeroy",
+                        mode="none",
+                        fillcolor="rgba(122, 168, 116, 0.5)",
+                        name=f"Power (1−β = {power:.2f})",
+                        showlegend=True,
+                    ),
+                    go.Scatter(
+                        x=[z_crit, z_crit],
+                        y=[0, max(null_pdf.max(), alt_pdf.max()) * 1.05],
+                        mode="lines",
+                        line=dict(color="#222", dash="dash", width=1),
+                        name="Critical value",
+                        showlegend=False,
+                    ),
+                ]
+
+                frame_name = f"d={d}|n={n}|a={alpha}"
+                title = (
+                    f"<b>Effect size d = {d}</b> · <b>n = {n}</b> · α = {alpha} → "
+                    f"<b>power = {power:.2f}</b>"
+                )
+                frames.append(
+                    go.Frame(
+                        data=traces,
+                        name=frame_name,
+                        layout=go.Layout(title_text=title),
+                    )
+                )
+                if initial_traces is None:
+                    initial_traces = (traces, title)
+
+    fig = go.Figure(data=initial_traces[0], frames=tuple(frames))
+    fig.update_layout(title=initial_traces[1])
+
+    # Three sliders: effect size, n, alpha. Each slider step jumps to a frame
+    # whose name encodes (d, n, a). To avoid combinatorial slider steps, we
+    # use one combined slider that steps through (d, n) at fixed α, plus a
+    # dropdown for α that rebuilds the slider's frame names.
+    def steps_for_alpha(alpha):
+        return [
+            dict(
+                method="animate",
+                label=f"d={d}, n={n}",
+                args=[
+                    [f"d={d}|n={n}|a={alpha}"],
+                    dict(mode="immediate", frame=dict(redraw=True, duration=0)),
+                ],
+            )
+            for d in effect_sizes
+            for n in sample_sizes
+        ]
+
+    fig.update_layout(
+        sliders=[
+            dict(
+                active=len(sample_sizes) * 2,  # default d=0.2, n=30
+                currentvalue=dict(prefix="", font=dict(size=13)),
+                pad=dict(t=40),
+                steps=steps_for_alpha(0.05),
+            )
+        ],
+        updatemenus=[
+            dict(
+                type="dropdown",
+                direction="down",
+                showactive=True,
+                x=0.0,
+                xanchor="left",
+                y=1.18,
+                yanchor="top",
+                buttons=[
+                    dict(
+                        method="relayout",
+                        label=f"α = {a}",
+                        args=[
+                            {
+                                "sliders[0].steps": steps_for_alpha(a),
+                                "sliders[0].active": len(sample_sizes) * 2,
+                            }
+                        ],
+                    )
+                    for a in alphas
+                ],
+                pad=dict(r=8, t=4),
+            )
+        ],
+        height=460,
+        legend=dict(orientation="h", yanchor="bottom", y=1.05, x=0.25),
+        xaxis_title="Test statistic z",
+        yaxis_title="Density",
+    )
+
+    _save(fig, "power_simulation")
+
+
 if __name__ == "__main__":
     clt_simulation()
     se_vs_n_simulation()
     ci_sample_size_simulation()
     p_value_sample_size_simulation()
     sampling_game_simulation()
+    power_simulation()
     print("Wrote interactive HTML files to", OUT)
