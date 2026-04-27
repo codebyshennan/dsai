@@ -649,11 +649,86 @@ sampling_game()
 
 ## Practice Questions
 
-1. A sample of 100 customers shows mean spending of $85 with SE=$5. What's the 95% CI?
-2. How would doubling sample size affect the standard error? Show the math!
-3. Why might the CLT not work well with very small samples?
-4. Design a sampling strategy for estimating average daily website traffic.
-5. How would you explain sampling distributions to a non-technical stakeholder?
+Try each question on your own first, then expand the answer to check.
+
+**1.** A sample of 100 customers shows mean spending of $85 with SE = $5. What's the 95% CI?
+
+<details>
+<summary>Show answer</summary>
+
+For \\(n = 100\\) the t critical value is essentially 1.98, close enough to the rule-of-thumb \\(z = 1.96\\), so:
+
+\\[
+\text{95% CI} \approx \bar x \pm 1.96 \cdot SE = 85 \pm 1.96 \times 5 = 85 \pm 9.8
+\\]
+
+That gives **roughly $75.20 to $94.80**. Plain reading: based on this sample, the procedure used produces an interval that captures the true average customer spend about 95% of the time, and this particular interval is $75.20–$94.80.
+
+</details>
+
+**2.** How would doubling sample size affect the standard error? Show the math.
+
+<details>
+<summary>Show answer</summary>
+
+\\(SE = \dfrac{\sigma}{\sqrt{n}}\\). If \\(n\\) becomes \\(2n\\):
+
+\\[
+SE_{\text{new}} = \dfrac{\sigma}{\sqrt{2n}} = \dfrac{1}{\sqrt{2}} \cdot \dfrac{\sigma}{\sqrt{n}} \approx 0.707 \cdot SE_{\text{old}}
+\\]
+
+So doubling \\(n\\) shrinks the SE by a factor of \\(1/\sqrt{2} \approx 0.71\\) — a **~29% reduction**, *not* 50%. To halve the SE you need to **quadruple** the sample size.
+
+</details>
+
+**3.** Why might the CLT not work well with very small samples?
+
+<details>
+<summary>Show answer</summary>
+
+The CLT promises that the sampling distribution of the mean is approximately normal **as \\(n\\) grows**. With small \\(n\\):
+
+- A handful of extreme values can dominate the average, so individual sample means swing wildly.
+- If the population is heavily skewed (income, waiting times) or has long tails, \\(n = 5\\) or \\(n = 10\\) is far too small for the bell-curve approximation to hold.
+- Inferences (CIs, p-values) that rely on the normal approximation will be off — typically too narrow / too confident.
+
+Rule of thumb: aim for \\(n \geq 30\\) for mildly skewed populations, \\(n \geq 50\text{–}100\\) for strongly skewed ones (see the table earlier in the lesson).
+
+</details>
+
+**4.** Design a sampling strategy for estimating average daily website traffic.
+
+<details>
+<summary>Show answer</summary>
+
+A reasonable plan:
+
+1. **Define the population clearly** — e.g., "daily unique visitors to the site for a calendar year." Decide whether bots are included.
+2. **Pick the sampling unit** — usually the *day*, not individual visits, so each draw is one day's traffic count.
+3. **Use stratified sampling by day-of-week** — traffic on Mondays and weekends behaves very differently. Strata: Mon, Tue, Wed, Thu, Fri, Sat, Sun. Sample several days from each.
+4. **Cover seasonality** — sample across the whole year (or at least several months) to avoid period-specific bias (e.g., holiday spikes).
+5. **Set sample size from desired precision** — choose how tight you want the CI for the average and back-solve via \\(n = (z\sigma/\text{MOE})^2\\) using a pilot estimate of the day-to-day standard deviation.
+6. **Report \\(\bar x\\) with a confidence interval**, not just a point estimate, so consumers see the uncertainty.
+
+If you have analytics for *every* day, you don't need to sample at all — just compute the mean directly. Sampling matters when measurement is costly (e.g., manual log review, paid tools with quotas).
+
+</details>
+
+**5.** How would you explain sampling distributions to a non-technical stakeholder?
+
+<details>
+<summary>Show answer</summary>
+
+> "Imagine we ran our survey 100 different times, each with a fresh group of customers. We'd get 100 slightly different averages — that's not a mistake, that's just life. The *sampling distribution* is the picture of those 100 averages.
+>
+> Two things to know:
+>
+> 1. The averages cluster around the true value, not on top of it. So our single survey number is *near* the truth, not exactly the truth.
+> 2. The bigger our survey, the tighter that cluster — meaning our number is closer to the truth.
+>
+> That's why we report a *range* (a confidence interval) instead of a single number: it's an honest way of saying 'here's our best guess, and here's how much that guess could move if we redid the survey'."
+
+</details>
 
 ## Key Takeaways
 
