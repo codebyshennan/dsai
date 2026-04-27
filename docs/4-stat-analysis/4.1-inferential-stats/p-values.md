@@ -395,6 +395,14 @@ n=1000: p=0.0000 Significant
 ![Sample Size Effect](assets/sample_size_effect.png)
 *Figure 6: Effect of sample size on p-values. As sample size increases, the same effect size becomes more detectable (smaller p-value).*
 
+#### Interactive: same effect, different n
+
+The two groups in the left panel always differ by the same effect size (0.2 SD — small but real). Slide \\(n\\) from 10 to 2,000. Right panel: the resulting p-value plotted on a log scale, with the gold dot marking the current sample size. The red dashed line is the conventional \\(\alpha = 0.05\\) threshold.
+
+<iframe src="assets/interactive/p_value_sample_size_simulation.html" width="100%" height="500" frameborder="0" loading="lazy" title="Interactive p-value vs sample size"></iframe>
+
+**Takeaway:** at \\(n = 10\\) the p-value is huge — the effect is real but invisible. At \\(n = 2{,}000\\) the same effect produces \\(p < 0.001\\). The effect didn't get bigger; we just bought more statistical power.
+
 ### 2. Effect Size
 
 Bigger differences are easier to detect.
