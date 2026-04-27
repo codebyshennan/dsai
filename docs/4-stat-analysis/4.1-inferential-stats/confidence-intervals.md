@@ -220,6 +220,21 @@ A specific interval either contains the parameter or doesn't.
 
 The point estimate is our best guess.
 
+### A note for the curious: Bayesian credible intervals
+
+If you have ever felt uneasy about the rule "you can't say 'there's a 95% chance the true value is in (a, b)' for a frequentist CI," you're not crazy — that's exactly the statement people *want* to make, and there is a different framework where it is correct.
+
+In **Bayesian** statistics, you start with a **prior** belief about the parameter and update it with the data to get a **posterior** distribution. A **95% credible interval** is then the range that contains 95% of the posterior probability. For a credible interval, the statement "there's a 95% probability the true value is in this range" **is** valid — because in Bayesian thinking, the parameter is treated as random (reflecting our uncertainty), not fixed.
+
+| | Frequentist 95% CI | Bayesian 95% credible interval |
+|---|---|---|
+| What's random | The interval (parameter is fixed) | The parameter (interval is fixed) |
+| Needs a prior? | No | Yes |
+| Plain reading | "95% of intervals built this way contain the true value" | "Given my data and prior, there's a 95% probability the true value is in here" |
+| When they agree | Often, when priors are weak and \\(n\\) is large | — |
+
+For the rest of this submodule, every interval is frequentist (the standard in textbooks, software defaults, and regulatory work). But knowing the Bayesian alternative exists prevents a lot of low-grade confusion when learners read "the parameter is in this range with 95% probability" in a real paper — *that paper might be using a credible interval, and it's correct for them to say so.*
+
 ## Factors Affecting CI Width
 
 ### 1. Sample Size Effect
