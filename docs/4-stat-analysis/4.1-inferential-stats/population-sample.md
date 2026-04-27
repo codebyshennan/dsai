@@ -1,3 +1,12 @@
+---
+reading_minutes: 25
+objectives:
+  - Distinguish a population from a sample and name the parameter you're trying to estimate.
+  - Pick a sampling method (SRS, stratified, systematic, cluster) for a given problem and justify it.
+  - Identify the three classic sampling errors (selection, sampling, coverage) in a real study.
+  - Compute the required sample size for a proportion at a given margin of error and confidence level.
+---
+
 # Population vs Sample: The Foundation of Statistical Inference
 
 **After this lesson:** you can explain the core ideas in “Population vs Sample: The Foundation of Statistical Inference” and reproduce the examples here in your own notebook or environment.
