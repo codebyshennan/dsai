@@ -193,6 +193,18 @@ Look at panel 3 in each image: even for the lopsided exponential and bimodal "sk
 
 **Big idea:** CLT is a statement about *averages*, not about individual data points. The raw data can stay weird; the mean smooths out.
 
+### Interactive simulation: try it yourself
+
+Use the **dropdown** to switch the population shape (normal, uniform, exponential, bimodal) and the **slider** to change the sample size \\(n\\). Watch the right-hand panel: even when the population (left) is wildly non-normal, the histogram of sample means becomes increasingly bell-shaped as \\(n\\) grows.
+
+<iframe src="assets/interactive/clt_simulation.html" width="100%" height="500" frameborder="0" loading="lazy" title="Interactive CLT simulation"></iframe>
+
+**Things to try:**
+
+- Set the population to **right-skew (exponential)** with \\(n = 5\\). Notice the sampling distribution is still skewed.
+- Bump \\(n\\) to 30, then 100. The right panel becomes a textbook bell.
+- Switch to **bimodal**. Even though the population has two humps, the *means* land in a single bell. That's CLT.
+
 ## Standard Error: Measuring the Spread
 
 The standard error (SE) tells us how much sample statistics typically deviate from the population parameter. It's like a "margin of wobble" for our estimates!
