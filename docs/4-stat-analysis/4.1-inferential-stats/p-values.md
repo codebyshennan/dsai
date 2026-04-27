@@ -615,11 +615,93 @@ Corrected significant results: 0
 
 ## Practice Questions
 
-1. A study finds p = 0.03. What does this mean in plain English?
-2. Why might a study with n = 10,000 find "significant" results for tiny effects?
-3. Your A/B test shows p = 0.04 but only a 0.1% increase in conversions. What should you do?
-4. How would you explain p-values to a non-technical stakeholder?
-5. When would you use a stricter significance level (e.g., 0.01 instead of 0.05)?
+Try each question on your own first, then expand the answer to check.
+
+**1.** A study finds p = 0.03. What does this mean in plain English?
+
+<details>
+<summary>Show answer</summary>
+
+p = 0.03 means: **if the null hypothesis were true (i.e., no real effect), there's a 3% chance of seeing a result as extreme as ours, or more extreme, just by random sampling.**
+
+That's small enough that most analysts would say "the data are surprising under the null, so we lean toward rejecting it."
+
+What it does **not** mean:
+
+- ❌ "There's a 3% chance the null hypothesis is true." (You can't flip the conditional like that — see the misconceptions section.)
+- ❌ "There's a 97% chance our finding is real." (Same flip, same error.)
+- ❌ "The effect is large." (p says nothing about size — it could be a tiny effect detected with a huge sample.)
+
+Practical reading: it's evidence against the null, but you should still report the **effect size and confidence interval** to know whether the effect is meaningful.
+
+</details>
+
+**2.** Why might a study with n = 10,000 find "significant" results for tiny effects?
+
+<details>
+<summary>Show answer</summary>
+
+The standard error shrinks like \\(1/\sqrt{n}\\), so test statistics like \\(t = \dfrac{\bar x - \mu_0}{s/\sqrt{n}}\\) get larger as \\(n\\) grows even if the actual difference \\(\bar x - \mu_0\\) is tiny. With \\(n = 10{,}000\\), almost any non-zero true effect is statistically detectable.
+
+Concrete example: a true effect of 0.01 standard deviations is detectable at p < 0.05 once \\(n\\) is around 40,000. That tells you the effect is real, not zero — but a 0.01 SD difference is almost always meaningless in business or clinical terms.
+
+Lesson: **always report effect size alongside p-values.** With huge samples, a p < 0.001 may be a triviality; with tiny samples, p = 0.20 may hide a real effect.
+
+</details>
+
+**3.** Your A/B test shows p = 0.04 but only a 0.1% increase in conversions. What should you do?
+
+<details>
+<summary>Show answer</summary>
+
+**Don't ship blindly.** A statistically-significant 0.1% lift is probably not worth the cost of switching, and it might not even be real once you account for engineering, support, and ongoing maintenance trade-offs. Steps:
+
+1. **Check the confidence interval, not just p.** A 95% CI of, say, [0.01%, 0.19%] tells you the lift could be near zero. If the CI includes a practically-meaningless region, the result is weak even if statistically significant.
+2. **Compare against your minimum detectable effect (MDE).** Was 0.1% above what you considered worth pursuing when you designed the test? If not, this was an underpowered or over-powered test in the wrong direction.
+3. **Look for novelty and seasonality effects.** A one-week test catching a Monday holiday or a launch announcement can show small lifts that disappear later.
+4. **Consider business cost.** Engineering, QA, possible regression risk, and any user disruption all weigh against a 0.1% lift.
+5. **Re-run with proper sizing** if you genuinely care about a 0.1% lift — you'll likely need many more users to confirm it stably.
+
+The healthy default is "p < α is necessary but not sufficient — also need a meaningful effect size."
+
+</details>
+
+**4.** How would you explain p-values to a non-technical stakeholder?
+
+<details>
+<summary>Show answer</summary>
+
+> "Imagine the boring outcome — the new design has *no* real effect on conversions. Even if that's true, sometimes by pure luck the test will show a difference. The p-value is just: 'how often would we see a difference this big purely by luck if nothing was actually going on?'
+>
+> A small p-value (say 0.03) means 'this would be quite surprising under "no effect" — only happens 3% of the time by luck — so we lean toward "something real is happening."'
+>
+> A big p-value means 'this could easily be noise — we don't have enough evidence to claim something changed.'
+>
+> Two warnings:
+>
+> 1. A small p-value tells us 'real, not zero' but not '*how big*' the effect is. We need a separate number for that.
+> 2. A big p-value doesn't *prove* nothing's happening — sometimes our test is just too small to spot a real effect."
+
+</details>
+
+**5.** When would you use a stricter significance level (e.g., 0.01 instead of 0.05)?
+
+<details>
+<summary>Show answer</summary>
+
+Use a stricter \\(\alpha\\) when the cost of a false positive is high. Common cases:
+
+| Setting | Why stricter |
+|---|---|
+| **Medical / drug trials** | A wrongly-approved drug can harm patients. Regulatory bodies often demand 0.01 or stricter. |
+| **Genome-wide association studies** | You're testing millions of genetic variants. Without a tiny α (e.g., 5×10⁻⁸), you'd get thousands of false positives. |
+| **Multiple A/B tests in parallel** | If you run 20 tests at α = 0.05, ~1 will be a false positive by chance. Use Bonferroni (α/20 = 0.0025) or FDR control. |
+| **High-stakes business decisions** | E.g., shutting down a product line. Cost of acting on a false positive is huge. |
+| **Physics, particle discovery** | The "5-sigma" rule (~3×10⁻⁷) is the standard for claiming new fundamental discoveries. |
+
+You **shouldn't** make α stricter just because you want to be "extra sure" — wider α tightens Type I but loosens Type II (you'll miss real effects). Match the threshold to the actual cost of each error type.
+
+</details>
 
 ## Key Takeaways
 
