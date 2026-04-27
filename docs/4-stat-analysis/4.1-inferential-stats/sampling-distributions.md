@@ -203,6 +203,25 @@ The standard error (SE) tells us how much sample statistics typically deviate fr
 2. For proportions: \\(SE(\hat p) = \sqrt{\dfrac{p(1-p)}{n}}\\)
 3. For differences: \\(SE(\bar X_1 - \bar X_2) = \sqrt{\dfrac{\sigma_1^2}{n_1} + \dfrac{\sigma_2^2}{n_2}}\\)
 
+#### Symbol legend
+
+| Symbol | Read aloud | What it means |
+|---|---|---|
+| \\(SE\\) | "standard error" | How much the statistic typically wobbles from sample to sample |
+| \\(\bar X\\) | "x-bar" | The **sample mean** (one number computed from your data) |
+| \\(\sigma\\) | "sigma" | The **population standard deviation** — the spread of individual values across the whole population |
+| \\(\sigma^2\\) | "sigma squared" | The **population variance** (just \\(\sigma\\) squared) |
+| \\(n\\) | "n" | The **sample size** — how many observations you collected |
+| \\(\sqrt{n}\\) | "square root of n" | Why bigger samples shrink the SE more slowly than you'd hope (you need 4× more data to halve the SE) |
+| \\(\hat p\\) | "p-hat" | The **sample proportion** — the fraction of "yes" outcomes in your sample (e.g., 184 / 200 = 0.92) |
+| \\(p\\) | "p" | The **true population proportion** that \\(\hat p\\) is estimating |
+| \\(p(1-p)\\) | "p times one minus p" | A measure of how "spread out" a yes/no variable is; biggest at \\(p = 0.5\\), smallest near 0 or 1 |
+| \\(\bar X_1 - \bar X_2\\) | "x-bar one minus x-bar two" | The **difference between two group means** (e.g., treatment minus control) |
+| \\(n_1, n_2\\) | "n one, n two" | The sample sizes of group 1 and group 2 |
+| \\(\sigma_1, \sigma_2\\) | "sigma one, sigma two" | The population standard deviations of group 1 and group 2 |
+
+In plain words, all three formulas have the same shape: **noise in the data ÷ a function of how many points you have**. More data → smaller SE → tighter estimates.
+
 Let's see how sample size affects SE:
 
 **Empirical vs theoretical standard error across n**
