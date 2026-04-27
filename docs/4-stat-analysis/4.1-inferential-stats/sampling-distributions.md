@@ -359,6 +359,12 @@ for r in se_results:
 ![Standard error effect](assets/standard_error_effect.png)
 *Figure 3: As sample size grows from 10 to 1,000, the sampling distribution of the mean (each panel) gets narrower — the standard error shrinks roughly by 1/√n.*
 
+#### Interactive: SE vs sample size
+
+Slide \\(n\\) from 5 to 500. Left: the sampling distribution of \\(\bar x\\) gets narrower. Right: the empirical SE (orange dot) lands close to the theoretical \\(\sigma/\sqrt{n}\\) curve (blue line) — and the gap shows the cost of being too aggressive with small samples.
+
+<iframe src="assets/interactive/se_vs_n_simulation.html" width="100%" height="480" frameborder="0" loading="lazy" title="Interactive SE vs n simulation"></iframe>
+
 *Note: The visualization shows how the sampling distribution becomes narrower (smaller standard error) as sample size increases. This demonstrates the relationship between sample size and estimation precision.*
 
 ## Real-world Applications
