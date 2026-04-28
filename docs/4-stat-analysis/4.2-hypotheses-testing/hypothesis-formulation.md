@@ -1,3 +1,12 @@
+---
+reading_minutes: 30
+objectives:
+  - Write paired null and alternative hypotheses that are specific, measurable, and falsifiable.
+  - Pick one-sided vs two-sided alternatives based on the decision, not on what the data later show.
+  - Read Type I error, Type II error, and power off a 2×2 decision table and a sample-size curve.
+  - Use Cohen's d to translate "minimum effect worth detecting" into a required sample size.
+---
+
 # Hypothesis Formulation: Asking the Right Scientific Questions
 
 **After this lesson:** you can explain the core ideas in “Hypothesis Formulation: Asking the Right Scientific Questions” and reproduce the examples here in your own notebook or environment.
