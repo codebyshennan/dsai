@@ -299,38 +299,39 @@ print(perform_chi_square(contingency)['explanation']){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
-  <div class="code-callout" data-lines="1-9" data-tint="1">
+  <div class="code-callout" data-lines="5-17" data-tint="1">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Data setup</span>
+      <span class="code-callout__title">Dispatch by shape</span>
     </div>
     <div class="code-callout__body">
-      <p>Define observed dice-roll counts and uniform expected counts for a goodness-of-fit scenario.</p>
+      <p>2D input → independence test via <code>chi2_contingency</code>; 1D input → goodness-of-fit via <code>chisquare</code> (uses <code>f_exp</code> when provided, uniform otherwise).</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="11-22" data-tint="2">
+  <div class="code-callout" data-lines="18-25" data-tint="2">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Test dispatch</span>
+      <span class="code-callout__title">Cramer's V (only for 2D)</span>
     </div>
     <div class="code-callout__body">
-      <p>Branch on whether <code>expected</code> is provided: use <code>chisquare</code> for goodness of fit or <code>chi2_contingency</code> for independence testing.</p>
+      <p>Cramer's V is a contingency-table effect size; for 1D goodness-of-fit it is not defined, so the report shows <code>n/a</code>.</p>
     </div>
   </div>
-  <div class="code-callout" data-lines="23-35" data-tint="3">
+  <div class="code-callout" data-lines="27-33" data-tint="3">
     <div class="code-callout__meta">
       <span class="code-callout__lines"></span>
-      <span class="code-callout__title">Cramer's V and result</span>
+      <span class="code-callout__title">Two example calls</span>
     </div>
     <div class="code-callout__body">
-      <p>Compute Cramer's V as a normalized effect size and bundle everything into a result dict with a plain-text explanation.</p>
+      <p>Dice rolls vs uniform → goodness-of-fit; a 2×2 treatment×outcome table → independence test.</p>
     </div>
   </div>
 </aside>
 </div>
 
 ```
-Chi-square: 0.00, P-value: 1.000. Effect size (Cramer's V): 0.00. No significant association at alpha=0.05.
+[Goodness of fit] Chi-square: 1.60, P-value: 0.901. Cramer's V: n/a. Not significant at alpha=0.05.
+[Test of independence] Chi-square: 6.95, P-value: 0.008. Cramer's V: 0.29. Significant at alpha=0.05.
 ```
 
 ### 4. Correlation Tests: Measuring Relationships
