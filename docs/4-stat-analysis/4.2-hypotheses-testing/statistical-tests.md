@@ -453,34 +453,6 @@ Spearman correlation: 0.85, P-value: 0.031. Significant correlation at alpha=0.0
 5. **Insufficient Sample Size:** Underpowered studies may miss real effects.
 6. **Misinterpreting P-values:** A small p-value does not prove a hypothesis; it just suggests the data are unlikely under the null.
 
-## Best Practices
-
-### Planning
-
-- Define a clear research question and hypotheses.
-- Choose the appropriate test before collecting data.
-- Calculate required sample size (power analysis).
-- Pre-register your analysis plan if possible.
-
-### Execution
-
-- Collect data carefully and consistently.
-- Check data quality and handle missing values appropriately.
-- Document all procedures and decisions.
-
-### Analysis
-
-- Use the correct statistical test for your data and question.
-- Check and report test assumptions.
-- Report effect sizes and confidence intervals, not just p-values.
-
-### Reporting
-
-- Clearly state your hypotheses and which tests you used.
-- Include test statistics, p-values, effect sizes, and confidence intervals.
-- Use visualizations to support your findings.
-- Discuss limitations and practical significance.
-
 ## Gotchas
 
 - **Using `ttest_ind` for paired data** — if the same subjects are measured twice (before/after, left/right eye), using the independent t-test ignores the within-subject correlation and inflates the p-value. Use `scipy.stats.ttest_rel` for paired designs; the lesson's `ttest_ind` example is only correct when observations in the two groups are genuinely independent.
