@@ -439,38 +439,6 @@ where:
 
 ---
 
-## Best Practices
-
-### Planning Phase
-
-1. Define clear objectives
-2. Calculate required sample size
-3. Identify potential confounders
-4. Plan data collection methods
-
-### Implementation Phase
-
-1. Follow randomization protocols
-2. Maintain consistent conditions
-3. Document everything
-4. Monitor for issues
-
-### Analysis Phase
-
-1. Check assumptions
-2. Use appropriate tests
-3. Consider effect sizes
-4. Account for multiple testing
-
-### Reporting Phase
-
-1. Be transparent about methods
-2. Report all relevant statistics
-3. Acknowledge limitations
-4. Share raw data when possible
-
----
-
 ## Gotchas
 
 - **Setting a random seed only in demos, not in real assignment code** — the lesson uses `np.random.seed(42)` to make splits reproducible in course materials, but production randomization should use a *cryptographically secure* or independently auditable mechanism, not a fixed seed, to prevent anyone from predicting which group a user will land in.
