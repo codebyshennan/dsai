@@ -1,3 +1,12 @@
+---
+reading_minutes: 40
+objectives:
+  - Calculate per-arm sample size from baseline rate, MDE, alpha, and power before the test starts.
+  - Run a sample-ratio check to detect broken randomization before interpreting results.
+  - Decide whether to ship using statistical significance, the CI on the lift, and a minimum practical effect threshold.
+  - Avoid peeking, novelty effects, and t-tests on proportional outcomes.
+---
+
 # A/B Testing: Making Data-Driven Decisions
 
 **After this lesson:** you can explain the core ideas in “A/B Testing: Making Data-Driven Decisions” and reproduce the examples here in your own notebook or environment.
