@@ -82,10 +82,6 @@ Hypothesis testing is not only for academic papers. The same structure applies w
 
 **Two-proportion style table → chi-square**
 
-**Purpose:** Sketch how conversion data become a 2×2 contingency table and a single chi-square test—mirroring click/conversion experiments (the toy draws random counts each run).
-
-**Walkthrough:** `np.random.binomial` yields total successes per arm; `chi2_contingency` returns \\(\chi^2\\) and p-value for independence of arm vs outcome.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -146,10 +142,6 @@ ab_test_demo()
 
 **Two-sample t-test on continuous endpoints**
 
-**Purpose:** Contrast the e-commerce example: Gaussian outcomes (e.g., days to recovery) use `ttest_ind` rather than chi-square—same hypothesis-testing workflow, different likelihood.
-
-**Walkthrough:** Independent draws for control vs treatment; `ttest_ind` tests equal means; prints means and a yes/no “improvement” flag at \\(\alpha = 0.05\\).
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -174,21 +166,6 @@ def clinical_trial_demo():
 clinical_trial_demo()
 {% endhighlight %}
 
-<figure>
-<img src="assets/README_fig_1.png" alt="README" />
-<figcaption>Figure 1: The Sampling Game</figcaption>
-</figure>
-
-```
-
-Clinical Trial Analysis
-Control Mean: 10.4 days
-Treatment Mean: 9.1 days
-P-value: 0.0000
-Improvement: Yes
-```
-
-
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="1-9" data-tint="1">
@@ -212,7 +189,7 @@ Improvement: Yes
 </aside>
 </div>
 
-**Captured output (clinical trial demo; stochastic):** One representative run from `inject-python-outputs` is saved as the figure above; console text below matches that run.
+**Captured output (clinical trial demo; stochastic — one representative run):**
 
 ```
 
