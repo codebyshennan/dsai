@@ -1,3 +1,12 @@
+---
+reading_minutes: 35
+objectives:
+  - Map outcome type and number of groups to a t-test, ANOVA, chi-square, or correlation.
+  - Check the assumption set (normality, equal variance, independence, expected counts) before reporting a p-value.
+  - Pair every test statistic with an effect size — Cohen's d, eta-squared, Cramer's V, or r.
+  - Recognize when to switch to non-parametric or paired alternatives.
+---
+
 # Statistical Tests: Your Data Analysis Toolkit
 
 **After this lesson:** you can explain the core ideas in “Statistical Tests: Your Data Analysis Toolkit” and reproduce the examples here in your own notebook or environment.
