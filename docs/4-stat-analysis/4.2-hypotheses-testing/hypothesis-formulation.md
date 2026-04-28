@@ -459,7 +459,7 @@ Cohen's d = 0.8 → n = 26 per group (52 total)
 
 Detecting a small effect (d=0.2) requires ~6x more data than a large effect (d=0.8). This is why defining the minimum practically meaningful effect *before* the study determines the feasibility of the entire experiment.
 
-## 7. Common Mistakes to Avoid
+## Common Mistakes to Avoid
 
 1. **Vague or ambiguous statements**
 2. **Untestable (non-falsifiable) claims**
