@@ -249,42 +249,6 @@ Improvement: Yes
 
 Work through the [Topics covered](#topics-covered-lesson-order) list in order: design and hypotheses before test selection, then A/B specifics, then interpretation and reporting.
 
-## Recommended Visualizations
-
-To enhance understanding, we recommend adding the following visualizations:
-
-1. **Scientific Method Flowchart**
-   - A step-by-step diagram showing the hypothesis testing process
-   - Should include: Question → Hypothesis → Experiment → Analysis → Conclusion
-
-   ![Scientific Method Flowchart](assets/scientific_method.png)
-
-2. **Statistical Test Decision Tree**
-   - Interactive flowchart to help choose the right statistical test
-   - Should include: Data type → Number of groups → Distribution → Test selection
-
-   ![Statistical Test Decision Tree](assets/statistical_test_tree.png)
-
-3. **A/B Testing Timeline**
-   - Visual timeline showing the stages of an A/B test
-   - Should include: Planning → Setup → Running → Analysis → Implementation
-
-   ![A/B Testing Timeline](assets/ab_testing_timeline.png)
-
-4. **Effect Size Visualization**
-   - Side-by-side comparison of different effect sizes
-   - Should show: Small vs Medium vs Large effects with real-world examples
-
-   ![Effect Sizes](assets/effect_sizes.png)
-
-5. **Confidence Interval Diagram**
-   - Visual explanation of confidence intervals
-   - Should demonstrate: Point estimate, margin of error, and interpretation
-
-   ![Confidence Intervals](assets/confidence_intervals.png)
-
----
-
 ## Key Diagrams
 
 Here are all the key diagrams and assets referenced in this module:
