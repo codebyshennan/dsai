@@ -457,7 +457,7 @@ Detecting a small effect (d=0.2) requires ~6x more data than a large effect (d=0
 6. **Ignoring test assumptions**
 7. **Formulating hypotheses after seeing the data**
 
-## 9. Best Practices
+## 8. Best Practices
 
 ### Formulation
 
