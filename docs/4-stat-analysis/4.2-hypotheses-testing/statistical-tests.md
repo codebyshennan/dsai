@@ -263,45 +263,39 @@ F-statistic: 44.67, P-value: 0.000. Effect size (eta-squared): 0.88. At least on
 <div class="code-explainer__code">
 
 {% highlight python %}
-# Self-contained example: Chi-square test (goodness of fit)
+# Self-contained example: Chi-square test
 import numpy as np
 from scipy import stats
 
-# Example observed frequencies (e.g., dice rolls)
-observed = np.array([18, 22, 20, 15, 17, 18])
-# Expected frequencies (fair dice)
-expected = np.array([18.33, 18.33, 18.33, 18.33, 18.33, 18.33])
-
 def perform_chi_square(observed, expected=None, alpha=0.05):
-    """Perform chi-square test and explain the results."""
-    if expected is None:
-        # Goodness of fit test
-        chi2, p_value = stats.chisquare(observed)
-        test_type = 'Goodness of fit'
-    else:
-        # Test of independence (contingency table)
+    """Dispatch to goodness-of-fit (1D) or independence (2D contingency)."""
+    observed = np.asarray(observed)
+    if observed.ndim == 2:
         chi2, p_value, _, _ = stats.chi2_contingency(observed)
         test_type = 'Test of independence'
-    n = np.sum(observed)
-    min_dim = min(np.array(observed).shape) - 1
-    cramer_v = np.sqrt(chi2 / (n * min_dim)) if min_dim > 0 else np.nan
+        n = observed.sum()
+        min_dim = min(observed.shape) - 1
+        cramer_v = float(np.sqrt(chi2 / (n * min_dim))) if min_dim > 0 else float('nan')
+    else:
+        chi2, p_value = stats.chisquare(observed, f_exp=expected)
+        test_type = 'Goodness of fit'
+        cramer_v = float('nan')  # Cramer's V is for contingency tables, not 1D fits
+    cv = f"{cramer_v:.2f}" if cramer_v == cramer_v else 'n/a'
     explanation = (
-        f"Chi-square: {chi2:.2f}, P-value: {p_value:.3f}. "
-        f"Effect size (Cramer's V): {cramer_v:.2f}. "
-        f"{'Significant association' if p_value < alpha else 'No significant association'} "
-        f"at alpha={alpha}."
+        f"[{test_type}] Chi-square: {chi2:.2f}, P-value: {p_value:.3f}. "
+        f"Cramer's V: {cv}. "
+        f"{'Significant' if p_value < alpha else 'Not significant'} at alpha={alpha}."
     )
-    return {
-        'chi2_statistic': chi2,
-        'p_value': p_value,
-        'effect_size': cramer_v,
-        'significant': p_value < alpha,
-        'test_type': test_type,
-        'explanation': explanation
-    }
+    return {'chi2_statistic': chi2, 'p_value': p_value, 'effect_size': cramer_v,
+            'significant': p_value < alpha, 'test_type': test_type, 'explanation': explanation}
 
-result = perform_chi_square(observed, expected)
-print(result['explanation']){% endhighlight %}
+# Goodness of fit: are dice rolls uniform?
+dice_rolls = np.array([18, 22, 20, 15, 17, 18])
+print(perform_chi_square(dice_rolls)['explanation'])
+
+# Independence: does treatment (rows) affect outcome (cols)?
+contingency = np.array([[30, 10], [20, 25]])
+print(perform_chi_square(contingency)['explanation']){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
