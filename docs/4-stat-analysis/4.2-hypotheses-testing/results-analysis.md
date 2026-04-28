@@ -1,3 +1,12 @@
+---
+reading_minutes: 30
+objectives:
+  - Read every result through both statistical and practical-significance lenses (the four-quadrant frame).
+  - Communicate effect sizes and intervals in the language each audience needs.
+  - Convert a positive result into an expected-value calculation that accounts for implementation cost.
+  - Reject "fail-to-reject H₀" as evidence of no effect when the test was underpowered.
+---
+
 # Results Analysis: From Numbers to Insights
 
 **After this lesson:** you can explain the core ideas in “Results Analysis: From Numbers to Insights” and reproduce the examples here in your own notebook or environment.
