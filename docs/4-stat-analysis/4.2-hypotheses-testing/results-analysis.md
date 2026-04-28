@@ -463,35 +463,6 @@ Translate statistics into stakes. Different audiences need different framings:
 
 A good one-paragraph summary covers: what changed, how much (with interval), confidence level, and the recommended action. Avoid raw p-values in executive summaries — "we're 95% confident the new checkout reduces cart abandonment by 1.4–2.4 percentage points" is more useful than "p = 0.003".
 
-## Common Mistakes to Avoid
-
-1. **Focusing Only on P-values**
-   - Consider effect sizes
-   - Think about practical significance
-   - Look at confidence intervals
-
-2. **Ignoring Assumptions**
-   - Check normality
-   - Verify equal variances
-   - Test independence
-   - Report violations
-
-3. **Multiple Testing Without Correction**
-   - Plan all comparisons in advance
-   - Use appropriate correction methods
-   - Report adjusted p-values
-
-4. **Overlooking Practical Significance**
-   - Consider effect sizes
-   - Think about real-world impact
-   - Balance statistical and practical importance
-
-5. **Poor Visualization**
-   - Use appropriate chart types
-   - Include error bars
-   - Show confidence intervals
-   - Make it easy to understand
-
 ## Gotchas
 
 - **Conflating statistical significance with business importance** — the `SignificanceAnalyzer` buckets evidence as "Very Strong / Strong / Moderate" based solely on the p-value; a "Very Strong" result with a Cohen's d of 0.01 may be economically worthless. Always pair the significance label with an effect-size interpretation before making a recommendation.
