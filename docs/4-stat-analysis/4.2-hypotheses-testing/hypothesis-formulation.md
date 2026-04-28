@@ -85,10 +85,6 @@ A good hypothesis is precise and unambiguous.
 
 **One-sided test for a minimum improvement**
 
-**Purpose:** Encode a *directional* hypothesis (“at least 2 days better”) as a one-sample-style contrast against `min_improvement` using a pooled SE, so the p-value reads off the right tail only.
-
-**Walkthrough:** Effect is `mean(control) - mean(treatment)`; `pooled_std` and `se` build a two-sample t standard error; `stats.t.cdf` with `1 -` gives a one-tailed p-value vs `min_improvement`.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -112,14 +108,7 @@ from scipy import stats
 control = np.array([12, 11, 13, 12, 14])
 treatment = np.array([9, 10, 8, 9, 10])
 result = test_specific_hypothesis(control, treatment, min_improvement=2)
-print(result)
-# Sample output:
-# {'effect_size': 3.0, 't_statistic': 2.683, 'p_value': 0.012, 'significant': True}
-{% endhighlight %}
-```
-{'effect_size': np.float64(3.200000000000001), 't_statistic': np.float64(2.121320343559645), 'p_value': np.float64(0.03334399999999982), 'significant': np.True_}
-```
-
+print(result){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -154,10 +143,6 @@ Your hypothesis should involve quantifiable variables.
 
 **Descriptive metrics + one-sample t-test vs a target**
 
-**Purpose:** Tie a verbal hypothesis (“satisfaction above 4”) to concrete summaries (mean, median, proportion ≥ 4) and a `ttest_1samp` against the benchmark.
-
-**Walkthrough:** `metrics` dict holds everything you might report in a dashboard; `ttest_1samp(ratings, target_score)` tests the mean against the reference value (two-sided by default).
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -185,14 +170,7 @@ import numpy as np
 from scipy import stats
 ratings = np.array([5, 4, 4, 3, 5, 4, 3, 4, 5, 4])
 result = measure_customer_satisfaction(ratings, target_score=4.0)
-print(result)
-# Sample output:
-# {'mean_score': 4.2, 'median_score': 4.0, 'std_dev': 0.748, 'satisfaction_rate': 0.8, 'sample_size': 10, 't_statistic': 0.845, 'p_value': 0.420}
-{% endhighlight %}
-```
-{'mean_score': np.float64(4.1), 'median_score': np.float64(4.0), 'std_dev': np.float64(0.7000000000000001), 'satisfaction_rate': np.float64(0.8), 'sample_size': 10, 't_statistic': np.float64(0.42857142857142705), 'p_value': np.float64(0.6783097418055807)}
-```
-
+print(result){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -236,10 +214,6 @@ A hypothesis must be testable and possible to prove wrong.
 
 **Falsifiable vs vague statements**
 
-**Purpose:** Contrast a rule that returns a Boolean from data (`test_mean_effect`) with a placeholder that cannot yield a test statistic—emphasizing why “falsifiable” matters operationally.
-
-**Walkthrough:** `test_mean_effect` uses `ttest_1samp` and an arbitrary threshold; `vague_statement` deliberately avoids quantitative rejection rules.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -265,14 +239,7 @@ def demonstrate_falsifiability():
 import numpy as np
 from scipy import stats
 result = demonstrate_falsifiability()
-print(result)
-# Sample output:
-# {'falsifiable_result': True, 'non_falsifiable': 'Statement too vague to test statistically'}
-{% endhighlight %}
-```
-{'falsifiable_result': np.False_, 'non_falsifiable': 'Statement too vague to test statistically'}
-```
-
+print(result){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -319,10 +286,6 @@ print(result)
 
 **Simple null vs composite range check**
 
-**Purpose:** Show one workflow that tests \\(H_0: \mu = 100\\) with `ttest_1samp`, and a separate *interval* check that implements “is the sample mean inside [95, 105]?” as a descriptive composite screen.
-
-**Walkthrough:** `simple_test.pvalue` comes from SciPy’s two-sided t-test vs 100; `composite_result` is a plain Python range check on \\(\bar x\\), not a formal LRT.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -338,14 +301,7 @@ import numpy as np
 from scipy import stats
 data = np.array([98, 102, 100, 97, 103])
 result = demonstrate_hypothesis_types(data)
-print(result)
-# Sample output:
-# {'simple_p_value': 0.682, 'composite_result': True}
-{% endhighlight %}
-```
-{'simple_p_value': np.float64(1.0), 'composite_result': np.True_}
-```
-
+print(result){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -491,7 +447,7 @@ Cohen's d = 0.8 → n = 26 per group (52 total)
 
 Detecting a small effect (d=0.2) requires ~6x more data than a large effect (d=0.8). This is why defining the minimum practically meaningful effect *before* the study determines the feasibility of the entire experiment.
 
-## 8. Common Mistakes to Avoid
+## 7. Common Mistakes to Avoid
 
 1. **Vague or ambiguous statements**
 2. **Untestable (non-falsifiable) claims**
