@@ -200,36 +200,6 @@ P-value: 0.0000
 Improvement: Yes
 ```
 
-## Best Practices
-
-### 1. Planning Phase
-
-- Define clear objectives
-- Calculate required sample size
-- Control for confounders
-- Document methodology
-
-### 2. Execution Phase
-
-- Randomize properly
-- Monitor data quality
-- Track all variables
-- Maintain consistency
-
-### 3. Analysis Phase
-
-- Check assumptions
-- Use appropriate tests
-- Calculate effect sizes
-- Consider practical significance
-
-### 4. Reporting Phase
-
-- Be transparent
-- Include visualizations
-- Acknowledge limitations
-- Make actionable recommendations
-
 ## Common Pitfalls to Avoid
 
 1. P-hacking (multiple testing without correction)
@@ -273,12 +243,12 @@ Here are all the key diagrams and assets referenced in this module:
 The t-test statistic for comparing two means is:
 
 \\[
-t = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
+t = \frac{\bar x_1 - \bar x_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
 \\]
 
 where:
 
-- \\( \bar{X}_1, \bar{X}_2 \\): sample means
+- \\( \bar x_1, \bar x_2 \\): sample means
 - \\( s_1^2, s_2^2 \\): sample variances
 - \\( n_1, n_2 \\): sample sizes
 
