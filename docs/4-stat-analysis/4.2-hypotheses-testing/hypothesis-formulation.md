@@ -401,7 +401,7 @@ Effect size is the bridge between "is the result real?" (statistical significanc
 **Cohen's d for two groups:**
 
 \\[
-d = \frac{\bar{X}_1 - \bar{X}_2}{s_p}
+d = \frac{\bar x_1 - \bar x_2}{s_p}
 \\]
 
 where \\(s_p\\) is the pooled standard deviation.
@@ -456,35 +456,6 @@ Detecting a small effect (d=0.2) requires ~6x more data than a large effect (d=0
 5. **Confirmation bias**
 6. **Ignoring test assumptions**
 7. **Formulating hypotheses after seeing the data**
-
-## 8. Best Practices
-
-### Formulation
-
-- Start with a clear research question
-- Write both null and alternative hypotheses
-- Ensure measurability and falsifiability
-- Consider practical significance
-
-### Testing
-
-- Choose appropriate statistical tests
-- Calculate required sample size
-- Plan for multiple testing and corrections
-- Document assumptions
-
-### Interpretation
-
-- Consider both statistical and practical significance
-- Report effect sizes and confidence intervals
-- Be cautious about causation
-
-### Documentation
-
-- Pre-register hypotheses
-- Document any changes
-- Report all tests conducted
-- Share data and code
 
 ## Gotchas
 
