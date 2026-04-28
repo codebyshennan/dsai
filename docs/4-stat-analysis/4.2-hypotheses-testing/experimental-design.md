@@ -1,3 +1,12 @@
+---
+reading_minutes: 30
+objectives:
+  - Apply control, randomization, and replication to isolate the treatment effect from nuisance variation.
+  - Choose between completely randomized and randomized block designs based on whether nuisance factors are known.
+  - Translate effect size and power into a per-group sample size before data collection begins.
+  - Spot design failures (confounding, clustered outcomes, post-hoc design changes) before they invalidate the analysis.
+---
+
 # Experimental Design: Building a Strong Foundation
 
 **After this lesson:** you can explain the core ideas in “Experimental Design: Building a Strong Foundation” and reproduce the examples here in your own notebook or environment.
