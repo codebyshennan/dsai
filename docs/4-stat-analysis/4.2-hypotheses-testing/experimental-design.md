@@ -61,13 +61,6 @@ This guide will help you understand the basics of experimental design, with simp
 > **Real-world example:**
 > In a clinical trial, the control group gets a sugar pill (placebo), while the treatment group gets the real medicine. If the treatment group gets better and the control group doesn't, you have evidence the medicine works.
 
-**Key Takeaway:**
-> Always compare your treatment to something! Without a control, you can't tell if your treatment really works.
-
-**Common Question:**
-> *Why do I need a control group?*  
-> Without a control, you can't be sure your results are due to your treatment and not something else.
-
 ### 2. Randomization
 
 **In simple terms:** Randomization means assigning people or things to groups by chance, like flipping a coin. This helps make sure the groups are similar and that your results aren't biased by something you didn't notice.
@@ -141,13 +134,6 @@ Treatment group: ['P3' 'P10' 'P5' 'P4' 'P7']
 
 - How would you ensure an equal number of participants in each group? (Hint: Use `np.random.permutation` and split the list in half.)
 
-**Key Takeaway:**
-> Randomization helps make your groups fair and your results believable.
-
-**Common Question:**
-> *What if my groups aren't exactly equal in size?*  
-> That's okay for most experiments, but if you need equal groups, use a method that splits them evenly.
-
 ### 3. Replication
 
 **In simple terms:** Replication means repeating your experiment or having enough samples so you can trust your results. If you only test something once, you might get a fluke result. More trials = more confidence.
@@ -156,16 +142,6 @@ Treatment group: ['P3' 'P10' 'P5' 'P4' 'P7']
 - **Sample size calculations**: Figure out how many samples you need to be sure of your results.
 
 ![Power Analysis](assets/power_analysis.png)
-
-> **Reflect:**
-> Why is it risky to draw conclusions from a single experiment? (Because you might just be seeing a coincidence!)
-
-**Key Takeaway:**
-> The more you repeat your experiment, the more confident you can be in your results.
-
-**Common Question:**
-> *How many times should I repeat my experiment?*  
-> It depends, but more is usually better. Use a sample size calculator if you can.
 
 ---
 
@@ -252,13 +228,6 @@ Plant_6: B
 **Try it yourself:**
 
 - How would you modify the code if you had three fertilizers instead of two?
-
-**Key Takeaway:**
-> Random assignment helps make sure your results are fair and not due to chance.
-
-**Common Question:**
-> *What if my plants aren't all the same?*  
-> If your units are different in some way, consider using a block design (see below).
 
 ### 2. Randomized Block Design (RBD)
 
@@ -350,13 +319,6 @@ Shady_4: A
 
 - How would you handle blocks of different sizes?
 
-**Key Takeaway:**
-> Block designs help you control for known differences between groups.
-
-**Common Question:**
-> *What if I don't know what to block for?*  
-> Block for things you think might affect your results. If you're not sure, start simple and learn as you go.
-
 ![Experimental Design Flowchart](assets/experimental_design_flowchart.png)
 
 ---
@@ -369,13 +331,6 @@ Choosing the right statistical test for your design is crucial. The test you use
 
 > **Tip:**
 > Always check the assumptions of your chosen test (e.g., normality, equal variances).
-
-**Key Takeaway:**
-> The right test helps you make sense of your data. Don't just pick one at random—match it to your question and data type.
-
-**Common Question:**
-> *How do I know which test to use?*  
-> Use a decision tree or guide (like the one above) to help you choose.
 
 ---
 
@@ -406,19 +361,7 @@ where:
 
 ![Sample Size Determination](assets/sample_size_determination.png)
 
-> **Best Practice:**
-> Use a power analysis tool (like G*Power or Python's `statsmodels`) to calculate sample size before you start collecting data.
-
-**Reflect:**
-
-- What happens if you run an experiment with too few samples? (You might not be able to detect real effects.)
-
-**Key Takeaway:**
-> Plan your sample size before you start. It saves time and makes your results stronger.
-
-**Common Question:**
-> *What is a "power analysis"?*  
-> It's a way to figure out how many samples you need to detect an effect of a certain size.
+> **Best Practice:** Use a power analysis tool (like G*Power or Python's `statsmodels`) to calculate sample size before you start collecting data — running underpowered tests means you may not detect real effects.
 
 ---
 
@@ -429,13 +372,6 @@ where:
 3. **Inadequate controls** – makes it hard to attribute effects to your treatment.
 4. **Confounding variables** – can mask or mimic treatment effects.
 5. **Measurement bias** – inaccurate or inconsistent measurements can ruin your study.
-
-**Key Takeaway:**
-> Avoid these mistakes to make your experiments more reliable and trustworthy.
-
-**Common Question:**
-> *What is a confounding variable?*  
-> It's something other than your treatment that could affect your results.
 
 ---
 
