@@ -394,6 +394,18 @@ for n in [30, 100, 300, 1000]:
 
 With n=30 and a 0.5-unit effect in a population with σ=2, power is only 8.5% — you'll miss the real effect 91.5% of the time. This is why sample size planning belongs in hypothesis formulation, not after data collection.
 
+### Interactive: see Type I, Type II, and power
+
+The widget below shows the null and alternative distributions side by side. The **red shading** is the rejection region (Type I, area = α); the **orange shading** is the missed-detection region (Type II, area = β); the **green shading** is power (1 − β). Move the slider to change effect size and sample size, and switch the dropdown to see how a stricter α shifts the critical value.
+
+<iframe src="../4.1-inferential-stats/assets/interactive/power_simulation.html" width="100%" height="520" frameborder="0" loading="lazy" title="Interactive Type I, Type II, and power simulation"></iframe>
+
+**Try this:**
+
+- Set d = 0.2 (small effect). How big does n need to get before power crosses 0.80?
+- Hold d = 0.5, increase n: power rises smoothly. This is the curve sample-size planning rides.
+- Switch α from 0.05 to 0.01 (dropdown). The critical value moves right, the red region shrinks, and the orange region grows — fewer false positives, more missed detections.
+
 ## 6. Effect Size and Power
 
 Effect size is the bridge between "is the result real?" (statistical significance) and "does the result matter?" (practical significance). You need it in two places: before the test (to calculate required sample size) and after (to report alongside the p-value).
