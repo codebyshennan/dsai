@@ -180,12 +180,12 @@ Not just whether there's a difference, but how big it is:
 **Cohen's d formula:**
 
 \\[
-d = \frac{\bar{X}_1 - \bar{X}_2}{s_p}
+d = \frac{\bar x_1 - \bar x_2}{s_p}
 \\]
 
 where:
 
-- \\( \bar{X}_1, \bar{X}_2 \\): means of the two groups
+- \\( \bar x_1, \bar x_2 \\): means of the two groups
 - \\( s_p \\): pooled standard deviation
 
 **`EffectSizeAnalyzer`: label Cohen-style magnitude**
@@ -491,32 +491,6 @@ A good one-paragraph summary covers: what changed, how much (with interval), con
    - Include error bars
    - Show confidence intervals
    - Make it easy to understand
-
-## Best Practices
-
-1. **Analysis Phase**
-   - Check assumptions
-   - Use appropriate tests
-   - Calculate effect sizes
-   - Consider practical significance
-
-2. **Interpretation Phase**
-   - Consider both statistical and practical significance
-   - Report effect sizes
-   - Discuss limitations
-   - Make recommendations
-
-3. **Visualization Phase**
-   - Choose appropriate charts
-   - Include error bars
-   - Show confidence intervals
-   - Make it easy to understand
-
-4. **Reporting Phase**
-   - Be transparent
-   - Include visualizations
-   - Acknowledge limitations
-   - Make actionable recommendations
 
 ## Gotchas
 
