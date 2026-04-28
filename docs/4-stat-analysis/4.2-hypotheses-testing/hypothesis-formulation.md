@@ -27,7 +27,7 @@ A hypothesis ties a **decision** to a **testable claim**: what would the world l
 
 > **Warning:** Do not choose your hypotheses after peeking at the data.
 
-## 1. Introduction
+## Introduction
 
 A hypothesis is your scientific roadmap—it guides your investigation and helps you reach meaningful conclusions. Whether you're testing a new drug, optimizing a website, or studying customer behavior, well-formulated hypotheses are essential for discovery and sound decision-making.
 
@@ -49,7 +49,7 @@ A hypothesis is your scientific roadmap—it guides your investigation and helps
 
 *Choose your hypotheses before you look at the data. Peeking (p-hacking) inflates Type I error.*
 
-## 2. The Anatomy of a Hypothesis
+## The Anatomy of a Hypothesis
 
 ### Null Hypothesis (H₀)
 
@@ -73,7 +73,7 @@ H_1: \mu_1 \neq \mu_2
 
 ![Null vs Alternative Distribution](assets/null_vs_alternative.png)
 
-## 3. The Three Pillars of Good Hypotheses
+## The Three Pillars of Good Hypotheses
 
 ### 1. Specific and Clear
 
@@ -277,7 +277,7 @@ print(result){% endhighlight %}
 {'falsifiable_result': np.False_, 'non_falsifiable': 'Statement too vague to test statistically'}
 ```
 
-## 4. Types of Hypotheses
+## Types of Hypotheses
 
 ### Simple vs. Composite
 
@@ -338,7 +338,7 @@ print(result){% endhighlight %}
 **Visual:**
 ![Hypothesis Testing Flowchart](assets/hypothesis_testing_flowchart.png)
 
-## 5. Type I and Type II Errors
+## Type I and Type II Errors
 
 Every hypothesis test makes one of two types of mistake. Knowing which one you're trading off against helps you set α and design the study.
 
@@ -406,7 +406,7 @@ The widget below shows the null and alternative distributions side by side. The 
 - Hold d = 0.5, increase n: power rises smoothly. This is the curve sample-size planning rides.
 - Switch α from 0.05 to 0.01 (dropdown). The critical value moves right, the red region shrinks, and the orange region grows — fewer false positives, more missed detections.
 
-## 6. Effect Size and Power
+## Effect Size and Power
 
 Effect size is the bridge between "is the result real?" (statistical significance) and "does the result matter?" (practical significance). You need it in two places: before the test (to calculate required sample size) and after (to report alongside the p-value).
 
