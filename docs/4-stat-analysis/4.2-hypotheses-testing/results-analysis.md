@@ -53,10 +53,6 @@ Like a metal detector beeping - it tells you something's there, but you need to 
 
 **`SignificanceAnalyzer`: interpret and visualize a p-value**
 
-**Purpose:** Show how to wrap a p-value into plain-language “strength of evidence” bands and sketch the t null density with the observed statistic and two-sided rejection regions—useful for teaching, not a substitute for reporting raw numbers.
-
-**Walkthrough:** `interpret_p_value` buckets evidence by thresholds; `visualize_significance` uses `stats.t.pdf` / `ppf` and `fill_between` for rejection tails; figure saves to the repo path beside this lesson (run from a context where that path is writable).
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -136,32 +132,6 @@ class SignificanceAnalyzer:
         plt.close()
 {% endhighlight %}
 
-<figure>
-<img src="assets/results-analysis_fig_1.png" alt="results-analysis" />
-<figcaption>Figure 1: Population Distribution
-(Exponential Distribution)</figcaption>
-</figure>
-
-
-<figure>
-<img src="assets/results-analysis_fig_2.png" alt="results-analysis" />
-<figcaption>Figure 2: Sample Size: 10
-SE: 4.72</figcaption>
-</figure>
-
-
-<figure>
-<img src="assets/results-analysis_fig_3.png" alt="results-analysis" />
-<figcaption>Figure 3: Quality Control Measurements</figcaption>
-</figure>
-
-
-<figure>
-<img src="assets/results-analysis_fig_4.png" alt="results-analysis" />
-<figcaption>Figure 4: The Sampling Game</figcaption>
-</figure>
-
-
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
   <div class="code-callout" data-lines="7-10" data-tint="1">
@@ -219,10 +189,6 @@ where:
 - \\( s_p \\): pooled standard deviation
 
 **`EffectSizeAnalyzer`: label Cohen-style magnitude**
-
-**Purpose:** Map a numeric effect size to “small / medium / large” language and separate *statistical* rarity from *practical* impact—mirroring how you should report results to stakeholders.
-
-**Walkthrough:** `_get_magnitude` compares |effect| to literature thresholds by `type`; `_get_practical_significance` turns magnitude into narrative; plotting hooks are stubbed—extend `_plot_*` if you wire this class end-to-end.
 
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
@@ -326,32 +292,6 @@ class EffectSizeAnalyzer:
         plt.title('Effect Size Scale')
         plt.legend(loc='upper right', fontsize=8)
 {% endhighlight %}
-
-<figure>
-<img src="assets/results-analysis_fig_1.png" alt="results-analysis" />
-<figcaption>Figure 1: Population Distribution
-(Exponential Distribution)</figcaption>
-</figure>
-
-
-<figure>
-<img src="assets/results-analysis_fig_2.png" alt="results-analysis" />
-<figcaption>Figure 2: Sample Size: 10
-SE: 4.72</figcaption>
-</figure>
-
-
-<figure>
-<img src="assets/results-analysis_fig_3.png" alt="results-analysis" />
-<figcaption>Figure 3: Quality Control Measurements</figcaption>
-</figure>
-
-
-<figure>
-<img src="assets/results-analysis_fig_4.png" alt="results-analysis" />
-<figcaption>Figure 4: The Sampling Game</figcaption>
-</figure>
-
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

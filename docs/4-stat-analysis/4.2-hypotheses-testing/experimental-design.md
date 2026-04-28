@@ -84,10 +84,6 @@ Suppose you have 10 participants and want to assign them to two groups at random
 
 **Random split into two arms**
 
-**Purpose:** Practice a basic randomization primitive—permute IDs, then slice into control and treatment halves so every unit appears exactly once.
-
-**Walkthrough:** `np.random.permutation` shuffles labels; equal `group_size` uses floor division; seed `42` makes the split reproducible in course materials.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -103,16 +99,7 @@ group_size = len(participants) // 2
 control_group = shuffled[:group_size]
 treatment_group = shuffled[group_size:]
 print("Control group:", control_group)
-print("Treatment group:", treatment_group)
-# Sample output:
-# Control group: ['P7' 'P4' 'P8' 'P5' 'P3']
-# Treatment group: ['P6' 'P1' 'P9' 'P10' 'P2']
-{% endhighlight %}
-```
-Control group: ['P9' 'P2' 'P6' 'P1' 'P8']
-Treatment group: ['P3' 'P10' 'P5' 'P4' 'P7']
-```
-
+print("Treatment group:", treatment_group){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -195,10 +182,6 @@ Suppose you're testing two fertilizers (A and B) on 20 identical plants. You wan
 
 **Completely randomized assignment map**
 
-**Purpose:** Build a unit→treatment lookup for a CRD by drawing independent random labels—appropriate when units are exchangeable within the experiment.
-
-**Walkthrough:** `np.random.choice(treatments, size=len(units))` assigns each plant independently; `dict(zip(...))` is easy to log and merge with outcome data later.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -223,26 +206,7 @@ treatments = ['A', 'B']
 assignment = completely_randomized_design(treatments, units)
 print("Assignments:")
 for unit, treatment in assignment.items():
-    print(f"{unit}: {treatment}")
-# Sample output:
-# Assignments:
-# Plant_1: B
-# Plant_2: A
-# Plant_3: B
-# Plant_4: B
-# Plant_5: A
-# Plant_6: B
-{% endhighlight %}
-```
-Assignments:
-Plant_1: A
-Plant_2: B
-Plant_3: A
-Plant_4: A
-Plant_5: A
-Plant_6: B
-```
-
+    print(f"{unit}: {treatment}"){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -305,10 +269,6 @@ Suppose you're testing two fertilizers on plants, but your garden has sunny and 
 
 **Randomized block: permute treatments within each block**
 
-**Purpose:** Implement blocking by first listing units per block (e.g., sun vs shade), then randomizing treatment order *within* each block to balance known nuisance factors.
-
-**Walkthrough:** The loop walks `blocks`; `block_treatments` repeats the treatment list to cover all units; `permutation` randomizes within-block order before zipping to unit IDs.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -341,30 +301,7 @@ treatments = ['A', 'B']
 assignment = randomized_block_design(treatments, blocks)
 print("Assignments:")
 for unit, treatment in assignment.items():
-    print(f"{unit}: {treatment}")
-# Sample output:
-# Assignments:
-# Sunny_1: B
-# Sunny_2: A
-# Sunny_3: B
-# Sunny_4: A
-# Shady_1: B
-# Shady_2: A
-# Shady_3: B
-# Shady_4: A
-{% endhighlight %}
-```
-Assignments:
-Sunny_1: B
-Sunny_2: B
-Sunny_3: A
-Sunny_4: A
-Shady_1: B
-Shady_2: B
-Shady_3: A
-Shady_4: A
-```
-
+    print(f"{unit}: {treatment}"){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">

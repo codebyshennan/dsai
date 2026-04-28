@@ -82,10 +82,6 @@ Choosing the correct test depends on your research question, the type of data yo
 
 **Independent two-sample t-test with effect size**
 
-**Purpose:** Run a classic independent-groups t-test on small numeric arrays, compute a simple standardized mean difference (using the control SD), and return a single human-readable verdict at \\(\alpha = 0.05\\).
-
-**Walkthrough:** `stats.ttest_ind` produces `t_stat` and `p_value`; the effect size line mirrors Cohen-style scaling; the returned dict keeps statistics and a printable `explanation` string.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -117,14 +113,7 @@ def perform_ttest(control_data, treatment_data, alpha=0.05):
     }
 
 result = perform_ttest(control_data, treatment_data)
-print(result['explanation'])
-# Sample output:
-# T-statistic: -4.47, P-value: 0.002. Effect size: 3.00. Significant difference between group means at alpha=0.05.
-{% endhighlight %}
-```
-T-statistic: -5.27, P-value: 0.001. Effect size: 3.73. Significant difference between group means at alpha=0.05.
-```
-
+print(result['explanation']){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -179,10 +168,6 @@ T-statistic: -5.27, P-value: 0.001. Effect size: 3.73. Significant difference be
 
 **One-way ANOVA with eta-squared**
 
-**Purpose:** Compare means of three or more groups with `f_oneway`, summarize how much variance sits between groups (\\(\eta^2\\)), and state whether any mean differs at the chosen \\(\alpha\\).
-
-**Walkthrough:** `stats.f_oneway(*groups)` for F and p; \\(\eta^2\\) uses between-group and total sum of squares; the function mirrors the t-test helper pattern (stats + explanation string).
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -219,14 +204,7 @@ def perform_anova(*groups, alpha=0.05):
     }
 
 result = perform_anova(group1, group2, group3)
-print(result['explanation'])
-# Sample output:
-# F-statistic: 44.00, P-value: 0.000. Effect size (eta-squared): 0.88. At least one group mean is significantly different at alpha=0.05.
-{% endhighlight %}
-```
-F-statistic: 44.67, P-value: 0.000. Effect size (eta-squared): 0.88. At least one group mean is significantly different at alpha=0.05.
-```
-
+print(result['explanation']){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -281,10 +259,6 @@ F-statistic: 44.67, P-value: 0.000. Effect size (eta-squared): 0.88. At least on
 
 **Chi-square: goodness-of-fit vs independence**
 
-**Purpose:** See how one function can dispatch to `chisquare` (goodness of fit) or `chi2_contingency` (tables), and attach a simple effect-size label (Cramer’s V is computed here for illustration).
-
-**Walkthrough:** When `expected` is passed, the contingency path runs; `chisquare` is used when testing counts against a uniform or custom expected pattern; the returned dict includes `test_type` for reporting.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -327,14 +301,7 @@ def perform_chi_square(observed, expected=None, alpha=0.05):
     }
 
 result = perform_chi_square(observed, expected)
-print(result['explanation'])
-# Sample output:
-# Chi-square: 1.18, P-value: 0.946. Effect size (Cramer's V): 0.20. No significant association at alpha=0.05.
-{% endhighlight %}
-```
-Chi-square: 0.00, P-value: 1.000. Effect size (Cramer's V): 0.00. No significant association at alpha=0.05.
-```
-
+print(result['explanation']){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
@@ -393,10 +360,6 @@ Chi-square: 0.00, P-value: 1.000. Effect size (Cramer's V): 0.00. No significant
 
 **Pearson and Spearman correlation with significance**
 
-**Purpose:** Compare a parametric linear association (`pearsonr`) with a rank-based monotonic measure (`spearmanr`) on the same pairs, and interpret each against \\(\alpha\\).
-
-**Walkthrough:** The `method` flag switches APIs; both return correlation and two-sided p-value; two calls illustrate that strength and significance can differ slightly by metric.
-
 <div class="code-explainer" data-code-explainer>
 <div class="code-explainer__code">
 
@@ -435,16 +398,7 @@ def perform_correlation(x, y, method='pearson', alpha=0.05):
 result = perform_correlation(x, y, method='pearson')
 print(result['explanation'])
 result = perform_correlation(x, y, method='spearman')
-print(result['explanation'])
-# Sample output:
-# Pearson correlation: 0.89, P-value: 0.018. Significant correlation at alpha=0.05.
-# Spearman correlation: 0.94, P-value: 0.005. Significant correlation at alpha=0.05.
-{% endhighlight %}
-```
-Pearson correlation: 0.88, P-value: 0.021. Significant correlation at alpha=0.05.
-Spearman correlation: 0.85, P-value: 0.031. Significant correlation at alpha=0.05.
-```
-
+print(result['explanation']){% endhighlight %}
 
 </div>
 <aside class="code-explainer__callouts" aria-label="Code walkthrough">
